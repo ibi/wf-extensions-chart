@@ -124,7 +124,7 @@
 		preRenderCallback: preRenderCallback,
 		renderCallback: renderCallback,
 		resources:  {
-			script: ['lib/d3.v2.min.js', 'lib/sankey.js'],
+			script: ['http://d3js.org/d3.v3.min.js', 'lib/sankey.js'],
 			css: ['lib/sankey.css']
 		},
 		modules: {
