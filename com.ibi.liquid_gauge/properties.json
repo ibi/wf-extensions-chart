@@ -42,12 +42,12 @@
 	},
 	
 	"propertyAnnotations": {
-        "minValue": 'number',
-        "maxValue": 'number',
-        "circleThickness": 'number',
-        "circleFillGap": 'number',
-        "circleColor": 'color',
-        "waveHeight": 'number',
+        "minValue": "number",
+        "maxValue": "number",
+        "circleThickness": "number",
+        "circleFillGap": "number",
+        "circleColor": "color",
+        "waveHeight": "number",
         "waveCount": "number",
         "waveRiseTime": "number",
         "waveAnimateTime": "number",
