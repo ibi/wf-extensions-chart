@@ -1,0 +1,46 @@
+/*global tdgchart: false, d3: false */
+
+(function() {
+
+	function preRenderCallback(preRenderConfig) {
+		var chart = preRenderConfig.moonbeamInstance;
+		chart.legend.visible = false;
+	}
+
+	function renderCallback(renderConfig) {
+
+		var margin = {left: 10, right: 10, top: 10, bottom: 10};
+		var width = renderConfig.width - margin.left - margin.right;
+		var height = renderConfig.height - margin.top - margin.bottom;
+		
+		var container = d3.select(renderConfig.container)
+			.attr('class', 'com_ibi_chart')
+		.append('g')
+			.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
+			.attr('id', 'gaugeContainer');
+
+		var gaugeProps = renderConfig.properties;
+		gaugeProps.width = width;
+		gaugeProps.height = height;
+		
+		var props = tdgchart.util.cloneObject(liquidFillGaugeDefaultSettings());
+		tdgchart.util.mergeObjects(gaugeProps, props);
+		
+		var chart = renderConfig.moonbeamInstance;
+		var value = chart.data[0][0].value;
+		loadLiquidFillGauge("gaugeContainer", value, props);
+	}
+
+	var config = {
+		id: 'com.ibi.liquid_gauge',
+		name: 'Liquid Gauge Chart',
+		preRenderCallback: preRenderCallback,
+		renderCallback: renderCallback,
+		resources:  {
+			script: ['lib/d3.v3.min.js', 'lib/liquid_gauge.js']
+		}
+	};
+
+	tdgchart.extensionManager.register(config);
+  
+}());

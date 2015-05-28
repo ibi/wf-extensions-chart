@@ -1,0 +1,43 @@
+{
+	"info": {
+		"version": 1.0,
+		"author": "Remi Gagne",
+		"url": "https://github.com/ibi/wf-extensions-chart",
+		"license": "BSD 3-clause",
+		"description": "Sankey flowchart.  Based on the D3 Sankey plugin: https://github.com/d3/d3-plugins/tree/master/sankey"
+	},
+	
+	"data_buckets": [
+		{
+			"id": "source",
+			"type": "dimension",
+			"count": 1
+		},
+		{
+			"id": "target",
+			"type": "dimension",
+			"count": 1
+		},
+		{
+			"id": "value",
+			"type": "measure",
+			"count": 1
+		}
+	],
+	
+	"properties": {},
+	
+	"propertyAnnotations": {},
+	
+	"translations": {
+		"en": {
+			"icon_tooltip": "Sankey Flowchart",
+			"source_name": "Source Nodes",
+			"source_tooltip": "Drop a dimension here",
+			"target_name": "Target Nodes",
+			"target_tooltip": "Drop a dimension here",
+			"value_name": "Link Value",
+			"value_tooltip": "Drop a measure here"
+		}
+	}
+}
