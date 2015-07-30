@@ -136,6 +136,7 @@
 		id: 'com.ibi.simple_bar',     // string that uniquely identifies this extension
 		name: 'My Simple Bar Chart',  // colloquial name for your chart - might be used in some extension list UI
 		description: 'A sentence or two that describe the extension',  // description useful for a UI tooltip or similar
+		containerType: 'svg',  // either 'html' or 'svg' (default)
 		initCallback: initCallback,
 		preRenderCallback: preRenderCallback,  // reference to a function that is called right *before* your extension is rendered.  Will be passed one 'preRenderConfig' object, defined below.  Use this to configure a Monbeam instance as needed
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
