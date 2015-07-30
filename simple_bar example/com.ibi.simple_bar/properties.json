@@ -1,0 +1,8 @@
+{
+	"properties": {
+		"chartHeadroom": 50
+	},
+	"propertyAnnotations": {
+		"chartHeadroom": "number"
+	}
+}

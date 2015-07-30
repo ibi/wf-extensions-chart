@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>WebFOCUS Extension example</title>
+<script type="text/javascript" src="tdgchart-min.js"></script>
+<script type="text/javascript">
+
+	var extension_id = 'com.ibi.simple_bar';  // Change this to match your extension id
+
+	// Magic boilerplate to get extensions to load locally - ignore
+	tdgchart.extensionManager.__extensionList[extension_id] = {
+		_requiresLoad: true,
+		_requiresPropertyLoad: true,
+		_requiresCSSLoad: true,
+		_requiresScriptLoad: true,
+		_requiresRegistration: true,
+		_requiresInitialization: true,
+		loadPath: extension_id,
+		url: extension_id + '/' + extension_id + '.js'
+	};
+  
+</script>
+</head>
+<body>
+<div id="chart1"></div>
+<div id="chart2"></div>
+    
+	<script type="text/javascript">
+
+	// This code is a place holder for the code already in WF.
+	var props = {
+		chartType: "com.ibi.simple_bar",  // new extension chart type
+		width: 600,
+		height: 400,
+		htmlToolTip: {enabled: true, snap: true, sticky: false},
+		dataSelection: {enabled: true, eventCallback: function(selectionList) {
+			console.log(JSON.stringify(selectionList));
+		}},
+		groupLabels: ['Group One', 'Group Two', 'Group Three', 'Group Four', 'Group Five', 'Group Six'],
+		series: [
+			{series: 0, label: 'Series 1', color: 'steelblue', tooltip: 'auto'},
+			{series: 1, label: 'Series 2', color: 'lightblue', tooltip: 'User Defined Tooltip'}
+		],
+		border: {width: 1, color: 'black'},
+		subtitle: {visible: true, text: 'Try mouse down -> mouse move -> mouse up for data selection'},
+		catchErrors: false,
+	};
+	
+	var chart = new tdgchart(props);
+	// Mock data.  Each outer array dimension represent one series of data.
+	chart.data = [
+		[9,5,5,6,7,9],  // Series 1
+		[3,6,4,6,3,6]   // Series 2
+	];
+	chart.dataArrayMap = ['size'];
+	chart.draw('chart1');
+
+	var chart2 = new tdgchart(props);  
+	chart2.data = [
+		[
+			[9,3],[5,4],[5,3],[6,6],[7,8],[9,3] // Just one series here, two values (size, color) per riser
+		]
+	];
+	chart2.subtitle.text = "Data selection results printed to debug console";
+	chart2.dataArrayMap = ['size', 'color'];
+	chart2.draw('chart2');
+  
+  </script>
+</body>
+</html>
