@@ -1,0 +1,23 @@
+{
+	inverseData: false,
+	chordSort: 'none',
+	groupPadding: 0.05,
+	groupCurves: {
+		radius: {
+			inner: 'auto',
+			outer: 'auto'
+		}
+	},
+	axis: {
+		preciseCount: false,
+		label: {
+			fontFamily: 'sans-serif',
+			fontSize: 10,
+			format: '.2s',
+			count: 20
+		},
+		ticks: {
+			count: 90
+		}
+	}
+}
