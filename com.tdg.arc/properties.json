@@ -1,0 +1,33 @@
+{
+  type: 'regular',
+      arc: {
+        start: Math.PI / 2,
+          extent: 0.75,
+          padding: 0.2,
+          sortBy: 'value',
+          sort: {
+            by: 'value',
+            ascending: true
+          },
+          border: {
+            width: 1,
+            color: 'black'
+          }
+      },
+      axis: {
+        labels: {
+          format: null
+        }
+      },
+      labels: {
+        text: {
+          color: 'black',
+          font: 'Verdana',
+          weight: 'bold',
+          size: 14
+        },
+        marker: {
+          type: 'circle'
+        }
+      }
+}

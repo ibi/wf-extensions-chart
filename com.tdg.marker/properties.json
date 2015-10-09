@@ -1,0 +1,13 @@
+{
+	markerSize: 'auto',
+	selectedColor: '#ff7272',
+	disselectedColor: '#e0e0e0',
+	markerType: 'circle',
+	label: {
+		enabled: true,
+		format: '%',
+		ratio: 0.3,
+		fontFamily: 'sans-serif',
+		color: '#ff7272'
+	}
+}
