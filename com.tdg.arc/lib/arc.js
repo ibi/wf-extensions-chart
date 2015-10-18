@@ -779,7 +779,8 @@ var tdg_arc = (function () { // change name
 					return d.label;
 				});
 
-			var verticalOffset = Math.max(labels.node().getBoundingClientRect().height, 2 * markerRadius) + innerProps.labels.padding.vertical;
+			var labelBox = labels.node() ? labels.node().getBoundingClientRect().height : 0;
+			var verticalOffset = Math.max(labelBox, 2 * markerRadius) + innerProps.labels.padding.vertical;
 
 			var ypos = getLabelYPosFun(verticalOffset, data.length); // gives us y position depending on index
 

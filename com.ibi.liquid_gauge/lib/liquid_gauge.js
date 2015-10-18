@@ -5,7 +5,10 @@
  * Copyright (c) 2015, Curtis Bratton
  * All rights reserved.
  */
-function liquidFillGaugeDefaultSettings(){
+ 
+(function() {
+	
+d3.liquidGauge = function() {
     return {
         minValue: 0, // The gauge minimum value.
         maxValue: 100, // The gauge maximum value.
@@ -28,17 +31,16 @@ function liquidFillGaugeDefaultSettings(){
         textColor: "#045681", // The color of the value text when the wave does not overlap it.
         waveTextColor: "#A4DBf8", // The color of the value text when the wave overlaps it.
         width: null,  // The width of the gauge's canvas.  If null, canvas width is pulled from the DOM width style.
-        height: null  // The height of the gauge's canvas.  If null, canvas height is pulled from the DOM height style.
+        height: null,  // The height of the gauge's canvas.  If null, canvas height is pulled from the DOM height style.
+        draw: drawLiquidGauge
     };
-}
+};
 
-function loadLiquidFillGauge(elementId, value, config) {
-    if(config == null) {
-        config = liquidFillGaugeDefaultSettings();
-    }
+function drawLiquidGauge(elementId, value) {
 
-    var width = config.width || parseInt(gauge.style("width"), 10);
-    var height = config.height || parseInt(gauge.style("height"), 10);
+    var config = this;
+    var width = config.width || parseInt(gauge.style("width"));
+    var height = config.height || parseInt(gauge.style("height"));
 
     var gauge = d3.select("#" + elementId);
     var radius = Math.min(width, height) / 2;
@@ -205,3 +207,5 @@ function loadLiquidFillGauge(elementId, value, config) {
             });
     }
 }
+
+})();

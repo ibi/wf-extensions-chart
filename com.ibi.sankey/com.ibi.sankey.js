@@ -10,6 +10,7 @@
 	function renderCallback(renderConfig) {
 
 		var chart = renderConfig.moonbeamInstance;
+		var props = renderConfig.properties;
 		var formatNumber = d3.format(",.0f");
 		var format = function(d) { return formatNumber(d) + " TWh"; };
 		var color = d3.scale.category20();

@@ -9,6 +9,9 @@
 
 	function renderCallback(renderConfig) {
 
+		var chart = renderConfig.moonbeamInstance;
+		var gaugeProps = renderConfig.properties;
+		
 		var margin = {left: 10, right: 10, top: 10, bottom: 10};
 		var width = renderConfig.width - margin.left - margin.right;
 		var height = renderConfig.height - margin.top - margin.bottom;
@@ -19,16 +22,13 @@
 			.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 			.attr('id', 'gaugeContainer');
 
-		var gaugeProps = renderConfig.properties;
-		gaugeProps.width = width;
-		gaugeProps.height = height;
+		var gauge = d3.liquidGauge();
+		tdgchart.util.mergeObjects(gaugeProps, gauge);
+		gauge.width = width;
+		gauge.height = height;
 		
-		var props = tdgchart.util.cloneObject(liquidFillGaugeDefaultSettings());
-		tdgchart.util.mergeObjects(gaugeProps, props);
-		
-		var chart = renderConfig.moonbeamInstance;
 		var value = chart.data[0][0].value;
-		loadLiquidFillGauge("gaugeContainer", value, props);
+		gauge.draw("gaugeContainer", value);
 	}
 
 	var config = {

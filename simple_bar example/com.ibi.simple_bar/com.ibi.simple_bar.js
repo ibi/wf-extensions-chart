@@ -1,3 +1,6 @@
+/* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
+/* $Revision: 1.6 $ */
+
 (function() {
 
 	// All extension callback functions are passed a standard 'renderConfig' argument:
@@ -38,6 +41,13 @@
 		chart.footnote.text = "footnote";
 		chart.footnote.align = 'right';
 	}
+	
+	function noDataPreRenderCallback(preRenderConfig) {
+		var chart = preRenderConfig.moonbeamInstance;
+		chart.legend.visible = false;
+		chart.dataArrayMap = undefined;
+		chart.dataSelection.enabled = false;
+	}
 
 	// Required: Invoked during each chart engine draw cycle
 	// This is where your extension should be rendered
@@ -47,6 +57,7 @@
 
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
+		var key = (chart.dataArrayMap && chart.dataArrayMap.indexOf('size') >= 0) ? 'size' : 'value';
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_ibi_chart');
@@ -60,7 +71,7 @@
 				if (d.hasOwnProperty('color')) {
 					hasColorData = true;
 				}
-				return chart.mergeObjects(d, {y0: y0, y1: y0 += d.size, seriesID: s});
+				return chart.mergeObjects(d, {y0: y0, y1: y0 += d[key], seriesID: s});
 			});
 		});
 		
@@ -97,9 +108,9 @@
 				//  - anything else: use this directly as the tooltip content
 				if (tooltip === 'auto') {
 					if (d.hasOwnProperty('color')) {
-						return 'Bar Size: ' + d.size + '<br />Bar Color: ' + d.color;
+						return 'Bar Size: ' + d[key] + '<br />Bar Color: ' + d.color;
 					}
-					return 'Bar Size: ' + d.size;
+					return 'Bar Size: ' + d[key];
 				}
 				return tooltip;
 			})
@@ -130,16 +141,27 @@
 		renderConfig.modules.tooltip.updateToolTips();  // Tell the chart engine your chart is ready for tooltips to be added
 		renderConfig.modules.dataSelection.activateSelection();  // Tell the chart engine your chart is ready for data selection to be enabled
 	}
+	
+	function noDataRenderCallback(renderConfig) {
+		var grey = renderConfig.baseColor;
+		renderConfig.data = [
+			[{value: 3}, {value: 4}, {value: 5}, {value: 6}],
+			[{value: 3}, {value: 4}, {value: 5}, {value: 6}]
+		];
+		renderConfig.moonbeamInstance.getSeries(0).color = grey;
+		renderConfig.moonbeamInstance.getSeries(1).color = pv.color(grey).lighter(0.18).color;
+		renderCallback(renderConfig);
+	}
 
 	// Your extension's configuration
 	var config = {
 		id: 'com.ibi.simple_bar',     // string that uniquely identifies this extension
-		name: 'My Simple Bar Chart',  // colloquial name for your chart - might be used in some extension list UI
-		description: 'A sentence or two that describe the extension',  // description useful for a UI tooltip or similar
 		containerType: 'svg',  // either 'html' or 'svg' (default)
 		initCallback: initCallback,
 		preRenderCallback: preRenderCallback,  // reference to a function that is called right *before* your extension is rendered.  Will be passed one 'preRenderConfig' object, defined below.  Use this to configure a Monbeam instance as needed
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
+		noDataPreRenderCallback: noDataPreRenderCallback, 
+		noDataRenderCallback: noDataRenderCallback,
 		resources:  {  // Additional external resources (CSS & JS) required by this extension
 			script: ['lib/d3.min.js'],
 			css: ['css/extension.css']

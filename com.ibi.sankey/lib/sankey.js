@@ -102,7 +102,7 @@ d3.sankey = function() {
       );
     });
   }
-  
+
   // Iteratively assign the breadth (x-position) for each node.
   // Nodes are assigned the maximum breadth of incoming neighbors plus one;
   // nodes with no incoming links are assigned breadth zero, while
