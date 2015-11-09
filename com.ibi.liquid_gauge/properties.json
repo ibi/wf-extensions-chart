@@ -65,8 +65,10 @@
 			{
 				"id": "value",
 				"type": "measure",
-				"min_count": 1,
-				"max_count": 1
+				"count": {
+					"min": 1,
+					"max": 1
+				}
 			}
 		]
 	},

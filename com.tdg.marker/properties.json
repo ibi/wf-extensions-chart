@@ -1,13 +1,62 @@
 {
-	markerSize: 'auto',
-	selectedColor: '#ff7272',
-	disselectedColor: '#e0e0e0',
-	markerType: 'circle',
-	label: {
-		enabled: true,
-		format: '%',
-		ratio: 0.3,
-		fontFamily: 'sans-serif',
-		color: '#ff7272'
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 1.0,
+		"author": "Three D Graphics",
+		"copyright": "Three D Graphics Inc.",
+		"url": "https://threedgraphics.com",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	
+	properties: {
+		markerSize: "auto",
+		selectedColor: "#ff7272",
+		disselectedColor: "#e0e0e0",
+		markerType: "circle",
+		label: {
+			enabled: true,
+			format: "%",
+			ratio: 0.3,
+			fontFamily: "sans-serif",
+			color: "#ff7272"
+		}
+	},
+	propertyAnnotations: {
+		markerSize: "str",
+		selectedColor: "str",
+		disselectedColor: "str",
+		markerType: "str",
+		label: {
+			enabled: "bool",
+			format: "str",
+			ratio: "number",
+			fontFamily: "str",
+			color: "str"
+		}
+	},
+	
+	"dataBuckets": {
+		"buckets": [
+			{
+				"id": "value",
+				"type": "dimension",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			}
+		]
+	},
+	
+	"translations": {
+		"en": {
+			"name": "Chart",
+			"description": "Marker Chart",
+			"icon_tooltip": "Marker Chart", 
+			"value_name": "Value Bucket", 
+			"value_tooltip": "Drop a measusre here"
+		}
 	}
 }

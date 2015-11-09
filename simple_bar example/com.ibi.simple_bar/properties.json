@@ -14,13 +14,11 @@
 	},
 	
 	"properties": {
-		"chartHeadroom": 50,
-		"testString": "HELLO!"
+		"chartHeadroom": 50
 	},
 	
 	"propertyAnnotations": {
-		"chartHeadroom": "number",
-		"testString": "str"
+		"chartHeadroom": "number"
 	},
 	
 	"dataBuckets":  {
@@ -34,14 +32,18 @@
 			{
 				"id": "value",
 				"type": "measure",
-				"min_count": 1,
-				"max_count": 5
+				"count": {
+					"min": 1,
+					"max": 5
+				}
 			},
 			{
-				"id": "color",
-				"type": "measure",
-				"min_count": 0,
-				"max_count": 1
+				"id": "labels",
+				"type": "dimension",
+				"count": {
+					"min": 1,
+					"max": 5
+				}
 			}
 		]
 	},
@@ -53,8 +55,8 @@
 			"icon_tooltip": "This extension does ...", 
 			"value_name": "Value Bucket", 
 			"value_tooltip": "Drop a measusre here", 
-			"color_name": "Color Bucket", 
-			"color_tooltip": "Drop a dimension here"
+			"labels_name": "Label Bucket", 
+			"labels_tooltip": "Drop a dimension here"
 		},
 		
 		"fr": {
@@ -63,8 +65,8 @@
 			"icon_tooltip": "This extension does ...", 
 			"value_name": "Value Bucket", 
 			"value_tooltip": "Drop a measusre here", 
-			"color_name": "Color Bucket", 
-			"color_tooltip": "Drop a dimension here"
+			"labels_name": "Label Bucket", 
+			"labels_tooltip": "Drop a dimension here"
 		}
 	}
 }
