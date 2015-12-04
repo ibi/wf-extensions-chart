@@ -1,5 +1,3 @@
-/* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
-/* $Revision: 1.6 $ */
 
 (function() {
 
@@ -57,28 +55,29 @@
 
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
-		var key = (chart.dataArrayMap && chart.dataArrayMap.indexOf('size') >= 0) ? 'size' : 'value';
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_ibi_chart');
+
+		var data = renderConfig.data;
+		if (renderConfig.dataBuckets.depth === 1) {
+			data = [data];
+		}
 			
-		var groupCount = renderConfig.data[0].length;
-		var groupLabels = chart.groupLabels.slice(0, groupCount);
-		var hasColorData = false;
-		var data = d3.transpose(renderConfig.data).map(function(el) {
+		var seriesCount = data[0].length;
+		var seriesLabels = data[0].map(function(el){return el.labels;});
+		data = d3.transpose(data).map(function(el, idx) {
+			el = el[0];
+			var v = Array.isArray(el.value) ? el.value : [el.value];
 			var y0 = 0;
-			return el.map(function(d, s) {
-				if (d.hasOwnProperty('color')) {
-					hasColorData = true;
-				}
-				return chart.mergeObjects(d, {y0: y0, y1: y0 += d[key], seriesID: s});
+			return v.map(function(d, s) {
+				return chart.mergeObjects(d, {y0: y0, y1: y0 += d, seriesID: s, value: d, labels: seriesLabels[idx]});
 			});
 		});
 		
 		var w = renderConfig.width;
 		var h = renderConfig.height;
-		var colorScale = renderConfig.modules.colorScale.getColorScale();
-		var x = d3.scale.ordinal().domain(pv.range(groupCount)).rangeRoundBands([0, w], 0.2);
+		var x = d3.scale.ordinal().domain(pv.range(seriesCount)).rangeRoundBands([0, w], 0.2);
 		var ymax = d3.max([].concat.apply([], data), function(d){return d.y1;});
 		var y = d3.scale.linear().domain([0, ymax]).range([25, h]);
 
@@ -108,9 +107,9 @@
 				//  - anything else: use this directly as the tooltip content
 				if (tooltip === 'auto') {
 					if (d.hasOwnProperty('color')) {
-						return 'Bar Size: ' + d[key] + '<br />Bar Color: ' + d.color;
+						return 'Bar Size: ' + d.value + '<br />Bar Color: ' + d.color;
 					}
-					return 'Bar Size: ' + d[key];
+					return 'Bar Size: ' + d.value;
 				}
 				return tooltip;
 			})
@@ -121,22 +120,15 @@
 				return chart.buildClassName('riser', s, g, 'bar');
 			})
 			.attr('fill', function(d) {
-				if (hasColorData) {
-					// Have color data, so let's color by the chart engine's color scale
-					return colorScale(d.color);
-				} else {
-					// No color data, so let's color by series
-					
-					// getSeriesAndGroupProperty(seriesID, groupID, property) is a handy function
-					// to easily look up any series dependent property.  'property' can be in
-					// dot notation (eg: 'marker.border.width').
-					return chart.getSeriesAndGroupProperty(d.seriesID, null, 'color');
-				}
+				// getSeriesAndGroupProperty(seriesID, groupID, property) is a handy function
+				// to easily look up any series dependent property.  'property' can be in
+				// dot notation (eg: 'marker.border.width').
+				return chart.getSeriesAndGroupProperty(d.seriesID, null, 'color');
 			});
 			
 		svg.append('text')
 			.attr('transform', function(d) {return 'translate(' + (x.rangeBand() / 2) + ',' + (h - 5) + ')';})
-			.text(function(d, i){return groupLabels[i];})
+			.text(function(d, i){return seriesLabels[i];})
 			
 		renderConfig.modules.tooltip.updateToolTips();  // Tell the chart engine your chart is ready for tooltips to be added
 		renderConfig.modules.dataSelection.activateSelection();  // Tell the chart engine your chart is ready for data selection to be enabled
@@ -144,10 +136,7 @@
 	
 	function noDataRenderCallback(renderConfig) {
 		var grey = renderConfig.baseColor;
-		renderConfig.data = [
-			[{value: 3}, {value: 4}, {value: 5}, {value: 6}],
-			[{value: 3}, {value: 4}, {value: 5}, {value: 6}]
-		];
+		renderConfig.data = [{value: [3, 3]}, {value: [4, 4]}, {value: [5, 5]}, {value: [6, 6]}, {value: [7, 7]}];
 		renderConfig.moonbeamInstance.getSeries(0).color = grey;
 		renderConfig.moonbeamInstance.getSeries(1).color = pv.color(grey).lighter(0.18).color;
 		renderCallback(renderConfig);
@@ -174,13 +163,12 @@
 			},
 			tooltip: {
 				supported: true  // Set this true if your extension wants to enable HTML tooltips
-			},
-			colorScale: {
-				supported: true,
-				minMax: function(arg){}  // Optional: return a {min, max} object to use for the color scale min & max.
 			}
-			
 			// Not used in this extension; here for documentation purposes.
+//			colorScale: {
+//				supported: true,
+//				minMax: function(arg){}  // Optional: return a {min, max} object to use for the color scale min & max.
+//			}
 //			sizeScale: {
 //				supported: false,
 //				minMax: function(arg){}  // Optional: return a {min, max} object to use for the size scale min & max.

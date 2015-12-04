@@ -1,4 +1,5 @@
 /* globals _*/
+
 (function() {
 	// All extension callback functions are passed a standard 'renderConfig' argument:
 	//
@@ -52,7 +53,7 @@
 
 	// Your extension's configuration
 	var config = {
-		id: 'com.tdg.marker',  // string that uniquely identifies this extension
+		id: 'com.ibi.marker',  // string that uniquely identifies this extension
 		name: 'Chord Diagram',  // colloquial name for your chart - might be used in some extension list UI
 		description: 'd3 chord diagram',  // description useful for a UI tooltip or similar
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below

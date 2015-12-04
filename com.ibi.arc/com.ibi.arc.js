@@ -1,4 +1,5 @@
 /* globals _*/
+
 (function() {
 	// Required: Is invoked in the middle of each Moonbeam draw cycle
 	// This is where your extension should be rendered
@@ -18,7 +19,7 @@
 
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
-		props.data = renderConfig.data;
+		props.data = [renderConfig.data];
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'tdg_marker_chart');
@@ -32,7 +33,7 @@
 
 	// Your extension's configuration
 	var config = {
-		id: 'com.tdg.arc',  // string that uniquely identifies this extension
+		id: 'com.ibi.arc',  // string that uniquely identifies this extension
 		name: 'Chord Diagram',  // colloquial name for your chart - might be used in some extension list UI
 		description: 'd3 chord diagram',  // description useful for a UI tooltip or similar
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below

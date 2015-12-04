@@ -1,4 +1,5 @@
 /* globals _*/
+
 (function() {
 	// All extension callback functions are passed a standard 'renderConfig' argument:
 	//
@@ -26,7 +27,7 @@
 
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
-		props.data = renderConfig.data;
+		props.data = [renderConfig.data];
 		props.toolTipEnabled = chart.htmlToolTip && chart.htmlToolTip.enabled;
 
 		var container = d3.select(renderConfig.container)
@@ -41,7 +42,7 @@
 
 	// Your extension's configuration
 	var config = {
-		id: 'com.tdg.chord',  // string that uniquely identifies this extension
+		id: 'com.ibi.chord',  // string that uniquely identifies this extension
 		name: 'Chord Diagram',  // colloquial name for your chart - might be used in some extension list UI
 		description: 'd3 chord diagram',  // description useful for a UI tooltip or similar
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
