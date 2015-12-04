@@ -33,7 +33,7 @@
 			return data.nodes.length - 1;
 		}
 		
-		data.links = chart.data[0].map(function(el) {
+		data.links = chart.data.map(function(el) {
 			return {
 				source: pushNode(el.source),
 				target: pushNode(el.target),
