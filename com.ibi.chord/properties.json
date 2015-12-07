@@ -1,0 +1,104 @@
+// Copyright 1996-2015 Information Builders, Inc. All rights reserved.
+// $Revision: 1.1 $
+
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 1.0,
+		"author": "Three D Graphics",
+		"copyright": "Three D Graphics Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.tdg.chord",
+		"license": "BSD 3-clause",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	
+	"properties": {
+		"inverseData": false,
+		"chordSort": "none",
+		"groupPadding": 0.05,
+		"groupCurves": {
+			"radius": {
+				"inner": "auto",
+				"outer": "auto"
+			}
+		},
+		"axis": {
+			"preciseCount": false,
+			"label": {
+				"fontFamily": "sans-serif",
+				"fontSize": 10,
+				"format": ".2s",
+				"count": 20
+			},
+			"ticks": {
+				"count": 90
+			}
+		}
+	},
+	"propertyAnnotations": {
+		"inverseData": "bool",
+		"chordSort": "str",
+		"groupPadding": "number",
+		"groupCurves": {
+			"radius": {
+				"inner": "str",
+				"outer": "str"
+			}
+		},
+		"axis": {
+			"preciseCount": "bool",
+			"label": {
+				"fontFamily": "str",
+				"fontSize": "number",
+				"format": "str",
+				"count": "number"
+			},
+			"ticks": {
+				"count": "number"
+			}
+		}
+	},
+	"dataBuckets":  {
+		"buckets": [
+			{
+				"id": "source",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "target",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "value",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			}
+		]
+	},	
+	"translations": {
+		"en": {
+			"name": "Chord Diagram",
+			"description": "Chord Diagram",
+			"icon_tooltip": "Chord Diagram", 
+			"source_name": "Source Nodes", 
+			"source_tooltip": "Drop a measusre here",
+			"target_name": "Target Nodes", 
+			"target_tooltip": "Drop a measusre here",
+			"value_name": "Node Link Values",
+			"value_tooltip": "Drop a measusre here"
+		}
+	}
+}
