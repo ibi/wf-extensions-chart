@@ -1,5 +1,3 @@
-/* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
-/* $Revision: 1.7 $ */
 
 (function() {
 
@@ -60,10 +58,15 @@
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_ibi_chart');
+
+		var data = renderConfig.data;
+		if (renderConfig.dataBuckets.depth === 1) {
+			data = [data];
+		}
 			
-		var seriesCount = chart.data[0].length;
-		var seriesLabels = chart.data[0].map(function(el){return el.labels;});
-		var data = d3.transpose(renderConfig.data).map(function(el, idx) {
+		var seriesCount = data[0].length;
+		var seriesLabels = data[0].map(function(el){return el.labels;});
+		data = d3.transpose(data).map(function(el, idx) {
 			el = el[0];
 			var v = Array.isArray(el.value) ? el.value : [el.value];
 			var y0 = 0;
@@ -133,9 +136,7 @@
 	
 	function noDataRenderCallback(renderConfig) {
 		var grey = renderConfig.baseColor;
-		renderConfig.data = [
-			[{value: [3, 3]}, {value: [4, 4]}, {value: [5, 5]}, {value: [6, 6]}, {value: [7, 7]}]
-		];
+		renderConfig.data = [{value: [3, 3]}, {value: [4, 4]}, {value: [5, 5]}, {value: [6, 6]}, {value: [7, 7]}];
 		renderConfig.moonbeamInstance.getSeries(0).color = grey;
 		renderConfig.moonbeamInstance.getSeries(1).color = pv.color(grey).lighter(0.18).color;
 		renderCallback(renderConfig);

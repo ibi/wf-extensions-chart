@@ -1,5 +1,4 @@
-// Copyright 1996-2015 Information Builders, Inc. All rights reserved.
-// $Revision: 1.1 $
+/*global tdgchart: false, d3: false */
 
 (function() {
 

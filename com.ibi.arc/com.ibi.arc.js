@@ -1,5 +1,4 @@
-// Copyright 1996-2015 Information Builders, Inc. All rights reserved.
-// $Revision: 1.1 $
+/* globals _*/
 
 (function() {
 	// Required: Is invoked in the middle of each Moonbeam draw cycle
@@ -20,7 +19,7 @@
 
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
-		props.data = renderConfig.data;
+		props.data = [renderConfig.data];
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'tdg_marker_chart');

@@ -1,5 +1,4 @@
-// Copyright 1996-2015 Information Builders, Inc. All rights reserved.
-// $Revision: 1.1 $
+/*global tdgchart: false, d3: false */
 
  (function() {
 
@@ -34,7 +33,7 @@
 			return data.nodes.length - 1;
 		}
 		
-		data.links = chart.data[0].map(function(el) {
+		data.links = chart.data.map(function(el) {
 			return {
 				source: pushNode(el.source),
 				target: pushNode(el.target),

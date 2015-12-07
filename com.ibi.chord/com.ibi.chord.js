@@ -1,5 +1,4 @@
-// Copyright 1996-2015 Information Builders, Inc. All rights reserved.
-// $Revision: 1.1 $
+/* globals _*/
 
 (function() {
 	// All extension callback functions are passed a standard 'renderConfig' argument:
@@ -28,7 +27,7 @@
 
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
-		props.data = renderConfig.data;
+		props.data = [renderConfig.data];
 		props.toolTipEnabled = chart.htmlToolTip && chart.htmlToolTip.enabled;
 
 		var container = d3.select(renderConfig.container)
