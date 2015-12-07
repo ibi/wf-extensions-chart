@@ -124,8 +124,14 @@ var tdg_marker = (function () {
       verticalPadding: 5,
       horizontalPadding: 5
     };
-
+	
+	function fixValue (val) {
+		return val / 100;
+	}
+	
     function getMarkerData (value, width) {
+	  value = fixValue(value);
+	
       width = width - 2 * innerProps.horizontalPadding;
       var height = props.height - 2 * innerProps.verticalPadding;
 
@@ -175,7 +181,7 @@ var tdg_marker = (function () {
       var height = props.height - innerProps.verticalPadding * 2;
 
       var label = labelGroup.selectAll('text.label')
-          .data([props.data[0][0].value]);
+          .data([fixValue(props.data[0][0].value)]);
 
       label.enter()
           .append('text')
@@ -190,13 +196,13 @@ var tdg_marker = (function () {
           });
 
       var lblNode = label.node();
-      var lblNodeDim = lblNode.getBoundingClientRect();
+      var lblNodeDim = lblNode.getBBox();
       var scale = 1;
 
-      if (width < height) {
+      if ( width < height ) {
         scale = width / lblNodeDim.width;
       } else {
-        scale = height / lblNodeDim.height;
+        scale = height / lblNodeDim.width;
       }
 
       label
