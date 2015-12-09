@@ -52,7 +52,7 @@
 			"description": "This chart is just a simple bar chart, nothing to see here.",
 			"icon_tooltip": "This extension does ...", 
 			"value_name": "Value Bucket", 
-			"value_tooltip": "Drop a measusre here", 
+			"value_tooltip": "Drop a measure here", 
 			"labels_name": "Label Bucket", 
 			"labels_tooltip": "Drop a dimension here"
 		},
