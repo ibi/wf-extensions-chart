@@ -181,7 +181,7 @@ var tdg_marker = (function () {
       var height = props.height - innerProps.verticalPadding * 2;
 
       var label = labelGroup.selectAll('text.label')
-          .data([fixValue(props.data[0][0].value)]);
+          .data([fixValue(props.data[0].value)]);
 
       label.enter()
           .append('text')
@@ -248,7 +248,7 @@ var tdg_marker = (function () {
 
       //var labelWidth = ( props.label.enabled ) ? props.width * 0.3 : 0;
 
-      if ( !props.data[0] || !props.data[0][0] || props.data[0][0].value == null || isNaN(props.data[0][0].value) ) {
+      if ( !props.data[0] || props.data[0].value == null || isNaN(props.data[0].value) ) {
         throw new Error('Wrong data set format');
       }
 
@@ -256,7 +256,7 @@ var tdg_marker = (function () {
       var labelGroup = addGroupGroup(mainGroup, 'group-label');
 
       // -------------- MARKERS RENDERING LOGIC STARTS
-      var markerData = getMarkerData(props.data[0][0].value, props.width - labelWidth);
+      var markerData = getMarkerData(props.data[0].value, props.width - labelWidth);
 
       var markers = markersGroup.selectAll('path.marker')
         .data(markerData);
