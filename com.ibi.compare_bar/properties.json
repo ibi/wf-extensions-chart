@@ -5,7 +5,7 @@
 	"info": {
 		"version": 1.0,
 		"implements_api_version": 1.0,
-		"author": "Information Builders",
+		"author": "Dan Weingart",
 		"copyright": "Information Builders Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/simple_bar%20example",
 		"icons": {
@@ -54,7 +54,7 @@
 			"description": "This chart compares 2 series.",
 			"icon_tooltip": "This extension compares 2 series", 
 			"value_name": "Value Bucket", 
-			"value_tooltip": "Drop a measusre here", 
+			"value_tooltip": "Drop a measure here", 
 			"labels_name": "Label Bucket", 
 			"labels_tooltip": "Drop a dimension here"
 		},
