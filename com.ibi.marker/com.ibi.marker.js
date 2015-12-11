@@ -1,5 +1,4 @@
 /* globals _*/
-
 (function() {
 	// All extension callback functions are passed a standard 'renderConfig' argument:
 	//
@@ -50,6 +49,49 @@
 
 		//renderConfig.modules.tooltip.updateToolTips();
 	}
+	
+	function noDataRenderCallback (renderConfig) {
+		var chart = renderConfig.moonbeamInstance;
+		var props = renderConfig.properties;
+
+		chart.legend.visible = false;
+
+		props.width = renderConfig.width;
+		props.height = renderConfig.height;
+		props.data = [{count: 45, label: 'Democrats'}, {count: 55, label: 'Republicans'}];
+
+		var container = d3.select(renderConfig.container)
+			.attr('class', 'tdg_marker_chart');
+
+		var marker_chart = tdg_marker(props);
+	
+		marker_chart(container);
+		
+		container.append("rect")
+			.attr({
+				width: props.width,
+				height: props.height
+			})
+			.style({
+				fill: 'white',
+				opacity: 0.9
+			});
+		
+		container.append('text')
+			.text('Add more measures or dimensions')
+			.attr({
+				'text-anchor': 'middle',
+				y: props.height / 2,
+				x: props.width / 2
+			})
+			.style({
+				'font-weight' : 'bold',
+				'font-size' : '14',
+				dy: '0.35em',
+				fill: 'grey'
+			});
+		
+	}
 
 	// Your extension's configuration
 	var config = {
@@ -57,9 +99,10 @@
 		name: 'Chord Diagram',  // colloquial name for your chart - might be used in some extension list UI
 		description: 'd3 chord diagram',  // description useful for a UI tooltip or similar
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
+		noDataRenderCallback: noDataRenderCallback,
 		resources:  {  // Additional external resources (CSS & JS) required by this extension
 			script: ['lib/d3.min.js', 'lib/marker.js'],
-			css: []
+			css: ['css/style.css']
 		},
 		modules: {
 			/*dataSelection: {

@@ -1,62 +1,74 @@
 {
-	"info": {
-		"version": 1.0,
-		"implements_api_version": 1.0,
-		"author": "Three D Graphics",
-		"copyright": "Three D Graphics Inc.",
-		"url": "https://threedgraphics.com",
-		"icons": {
-			"medium": "icons/medium.png"
-		}
-	},
-	
-	properties: {
-		markerSize: "auto",
-		selectedColor: "#ff7272",
-		disselectedColor: "#e0e0e0",
-		markerType: "circle",
-		label: {
-			enabled: true,
-			format: "%",
-			ratio: 0.3,
-			fontFamily: "sans-serif",
-			color: "#ff7272"
-		}
-	},
-	propertyAnnotations: {
-		markerSize: "str",
-		selectedColor: "str",
-		disselectedColor: "str",
-		markerType: "str",
-		label: {
-			enabled: "bool",
-			format: "str",
-			ratio: "number",
-			fontFamily: "str",
-			color: "str"
-		}
-	},
-	
-	"dataBuckets": {
-		"buckets": [
-			{
-				"id": "value",
-				"type": "measure",
-				"count": {
-					"min": 1,
-					"max": 1
-				}
+    "info": {
+        "version": 1.0,
+        "implements_api_version": 1.0,
+        "author": "Three D Graphics",
+        "copyright": "Three D Graphics Inc.",
+        "url": "https://threedgraphics.com",
+        "icons": {
+            "medium": "icons/medium.png"
+        }
+    },
+
+    properties: {
+        "extraMarkersColor": '#898989',
+        "marker": {
+            "type": 'circle',
+            "cellRatio": 0.8,
+            "defaultCount": 100
+        },
+        "label": {
+            "enabled": true,
+            "format": 'd',
+            "font": {
+                "color": 'auto'
+            }
+        }
+    },
+
+    propertyAnnotations: {
+        "extraMarkersColor": 'color',
+        "marker": {
+            "type": 'str',
+            "cellRatio": 'number',
+            "defaultCount": 'number'
+        },
+        "label": {
+            "enabled": 'bool',
+            "format": 'str',
+            "font": {
+                "color": 'str'
+            }
+        }
+    },
+
+    "dataBuckets": {
+        "buckets": [{
+            "id": "count",
+            "type": "measure",
+			"count": {
+				"min": 1,
+				"max": 1
 			}
-		]
-	},
-	
-	"translations": {
-		"en": {
-			"name": "Chart",
-			"description": "Marker Chart",
-			"icon_tooltip": "Marker Chart", 
-			"value_name": "Value Bucket", 
-			"value_tooltip": "Drop a measusre here"
-		}
-	}
+        }, {
+            "id": "label",
+            "type": "dimension",
+			"count": {
+				"min": 0,
+				"max": 1
+			}
+        }]
+    },
+
+    "translations": {
+        "en": {
+            "name": "Marker Chart",
+            "description": "Simple Marker Chart",
+            "icon_tooltip": "Simple Marker Chart",
+            "count_name": "Number of Markers Bucket",
+            "count_tooltip": "Drop a measusre here",
+            "label_name": "Label Bucket",
+            "label_tooltip": "Drop a dimension here"
+        }
+    }
 }
