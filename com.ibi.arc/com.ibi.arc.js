@@ -11,12 +11,11 @@
 	}
 
 	function renderCallback(renderConfig) {
-
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
 
 		chart.legend.visible = false;
-
+		debugger;
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
 		props.data = [renderConfig.data];
@@ -31,6 +30,53 @@
 		renderConfig.modules.tooltip.updateToolTips();
 	}
 
+	function noDataRenderCallback (renderConfig) {
+		var chart = renderConfig.moonbeamInstance;
+		var props = renderConfig.properties;
+
+		chart.legend.visible = false;
+
+		props.width = renderConfig.width;
+		props.height = renderConfig.height;
+		props.data = [renderConfig.data];
+		debugger;
+		var container = d3.select(renderConfig.container)
+			.attr('class', 'tdg_marker_chart');
+
+		var arc_chart = tdg_arc(props);
+		
+		arc_chart(container);
+
+		renderConfig.modules.tooltip.updateToolTips();
+		appendCoverScreen(container, props.width, props.height);
+	}
+
+	function appendCoverScreen (container, width, height) {
+		container.append("rect")
+			.attr({
+				width: width,
+				height: height
+			})
+			.style({
+				fill: 'white',
+				opacity: 0.9
+			});
+		
+		container.append('text')
+			.text('Add more measures or dimensions')
+			.attr({
+				'text-anchor': 'middle',
+				y: height / 2,
+				x: width / 2
+			})
+			.style({
+				'font-weight' : 'bold',
+				'font-size' : '14',
+				dy: '0.35em',
+				fill: 'grey'
+			});
+	}
+
 	// Your extension's configuration
 	var config = {
 		id: 'com.ibi.arc',  // string that uniquely identifies this extension
@@ -38,6 +84,7 @@
 		description: 'd3 chord diagram',  // description useful for a UI tooltip or similar
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
 		preRenderCallback: preRenderCallback,
+		noDataRenderCallback: noDataRenderCallback,
 		resources:  {  // Additional external resources (CSS & JS) required by this extension
 			script: ['lib/d3.min.js', 'lib/arc.js'],
 			css: []
