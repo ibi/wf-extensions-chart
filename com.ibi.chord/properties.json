@@ -61,7 +61,7 @@
 		"buckets": [
 			{
 				"id": "source",
-				"type": "measure",
+				"type": "dimension",
 				"count": {
 					"min": 1,
 					"max": 1
@@ -69,7 +69,7 @@
 			},
 			{
 				"id": "target",
-				"type": "measure",
+				"type": "dimension",
 				"count": {
 					"min": 1,
 					"max": 1
@@ -91,9 +91,9 @@
 			"description": "Chord Diagram",
 			"icon_tooltip": "Chord Diagram", 
 			"source_name": "Source Nodes", 
-			"source_tooltip": "Drop a measusre here",
+			"source_tooltip": "Drop a dimension here",
 			"target_name": "Target Nodes", 
-			"target_tooltip": "Drop a measusre here",
+			"target_tooltip": "Drop a dimension here",
 			"value_name": "Node Link Values",
 			"value_tooltip": "Drop a measusre here"
 		}
