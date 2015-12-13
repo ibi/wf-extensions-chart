@@ -1,0 +1,10 @@
+.tdg_marker_chart text.label {
+	font-family: sans-serif;
+	font-size: 15px;
+	font-weight: bold;
+}
+
+.tdg_marker_chart path.marker {
+	stroke: black;
+	stroke-width: 1;
+}
