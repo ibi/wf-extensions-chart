@@ -1,0 +1,31 @@
+/* This sets the color for "TK" nodes to a light blue green. */
+.com_tdg_hierarchy {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+}
+
+.com_tdg_hierarchy g.type-TK > rect {
+  fill: #00ffd0;
+}
+
+.com_tdg_hierarchy text {
+  font-weight: 300;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serf;
+  font-size: 14px;
+  fill: black;
+}
+
+.com_tdg_hierarchy .node {
+	cursor: default;
+}
+
+.com_tdg_hierarchy .node rect {
+  stroke: #999;
+  fill: #fff;
+  stroke-width: 1.5px;
+}
+
+.com_tdg_hierarchy .edgePath path {
+  stroke: #333;
+  stroke-width: 1.5px;
+}
