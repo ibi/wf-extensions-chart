@@ -63,6 +63,14 @@
 				}
 			},
 			{
+				"id": "detail",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 5
+				}
+			},
+			{
 				"id": "aggregate",
 				"type": "measure",
 				"count": {
@@ -78,11 +86,13 @@
 			"name": "Hexagon Bin Scatter Chart",
 			"description": "Scatter chart with hexagon bins in the background, that color code aggregated value calculated from all the circles in the bin.",
 			"icon_tooltip": "This extension utilies hexagons that change colors depending on aggregated value calculated from all the circles in the bin. If value is not specified hexagon is color coded by the number of circles in it.", 
-			"x_name": "X Axis Bucket", 
+			"x_name": "X Axis Bucket",
 			"x_tooltip": "Drop a measusre here",
-			"y_name": "Y Axis Bucket", 
-			"y_tooltip": "Drop a measusre here", 
-			"aggregate_name": "Aggregate Value Bucket", 
+			"y_name": "Y Axis Bucket",
+			"y_tooltip": "Drop a measusre here",
+			"detail_name": "Detail Bucket",
+			"detail_tooltip": "Drop a dimension here",
+			"aggregate_name": "Aggregate Value Bucket",
 			"aggregate_tooltip": "Drop a measure here"
 		}
 	}

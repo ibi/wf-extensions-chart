@@ -27,7 +27,8 @@
 
             var circles = circles_group.selectAll('circle')
                 .data(props.data);
-
+			debugger;
+			
             circles.enter().append('circle')
                 .attr({
                     cx: function(d) {
@@ -37,7 +38,19 @@
                         return props.y(d.y);
                     },
                     r: props.radius
-                });
+                }).filter(function(d){
+					return d.detail != null;
+				}).attr('tdgtitle', function(d){
+					var str = '', keys = Object.keys(d.detail);
+					keys.forEach(function(key, idx){
+						if (idx) {
+							str += '<br/>';
+						}
+						str += '<b>' + key + ': </b>';
+						str += d.detail[key];
+					});
+					return str;
+				});
         };
     }
 })();

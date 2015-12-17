@@ -31,7 +31,7 @@
                 top: 5,
                 bottom: 30,
                 left: 45,
-                right: 5
+                right: 15
             }
         };
 
@@ -121,7 +121,7 @@
         };
 
         function defineCanvasClip(d3_container) {
-            var padding = -1;
+            var padding = 0;
             d3_container.append("defs")
                 .append("clipPath")
                 .attr("id", "canvas-clip")
@@ -150,8 +150,13 @@
                 domain[0] -= 1;
                 domain[1] += 1;
             }
+			
+			var offset = Math.abs(domain[1] - domain[0]) * 0.05;
+			
+			domain[0] -=  offset;
+			domain[1] +=  offset;
 
-            return d3.scale.linear().domain(domain).range(range);
+            return d3.scale.linear().domain(domain).range(range).nice();
         }
 
         function canvasWidth() {

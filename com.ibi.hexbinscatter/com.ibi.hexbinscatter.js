@@ -33,11 +33,27 @@
 
         var container = d3.select(renderConfig.container)
             .attr('class', 'com_ibi_hexbinscatter');
-
-        props.data = chart.data[0];
+		
+		if ( renderConfig.dataBuckets.buckets.detail ) {
+			var temp;
+			props.data = JSON.parse(JSON.stringify(chart.data[0]));
+			props.data.forEach(function(d){
+			  temp = {}
+			  if ( !Array.isArray(renderConfig.dataBuckets.buckets.detail.title) ) {
+				renderConfig.dataBuckets.buckets.detail.title = [renderConfig.dataBuckets.buckets.detail.title];
+			  }
+			  renderConfig.dataBuckets.buckets.detail.title.forEach(function(title, idx){
+			   temp[title] = d.detail[idx]; 
+			  });
+			  d.detail = temp;
+			});
+		} else {
+			props.data = JSON.parse(JSON.stringify(chart.data[0]));
+		}
 
         var scatter = tdgscatter.init(props);
         container.call(scatter);
+		renderConfig.modules.tooltip.updateToolTips();
     }
 
     function noDataRenderCallback(renderConfig) {
@@ -98,7 +114,7 @@
                 svgNode: function(arg) {} // if you're using an HTML container or altering the SVG container, return a reference to your root SVG node here.
             },
             tooltip: {
-                supported: false // Set this true if your extension wants to enable HTML tooltips
+                supported: true // Set this true if your extension wants to enable HTML tooltips
             }
             // Not used in this extension; here for documentation purposes.
             //			colorScale: {
