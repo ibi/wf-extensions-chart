@@ -6,8 +6,14 @@
     function axesInit(config) {
 
         var props = {
-            x: null,
-            y: null
+            x: {
+                title: null,
+                scale: null
+            },
+            y: {
+                title: null,
+                scale: null
+            }
         };
 
         var innerProps = {};
@@ -33,13 +39,13 @@
             }
 
             var axis = d3.svg.axis()
-                .scale(props.x)
+                .scale(props.x.scale)
                 .orient('bottom');
 
-            var yrange = props.y.range();
+            var yrange = props.y.scale.range();
             var xoffset = Math.abs(yrange[1] - yrange[0]);
 
-            axesG.append("g")
+            var axisGroup = axesG.append("g")
                 .attr("class", "x-axis")
                 .attr("transform", function() {
                     return "translate(" + [0, xoffset] + ")";
@@ -53,7 +59,7 @@
             }
 
             var axis = d3.svg.axis()
-                .scale(props.y)
+                .scale(props.y.scale)
                 .orient('left');
 
             axesG.append("g")

@@ -30,6 +30,14 @@
         
         props.height = renderConfig.height;
         props.width = renderConfig.width;
+        props.axes = {
+            x: {
+                title: renderConfig.dataBuckets.buckets.x.title
+            },
+            y: {
+                title: renderConfig.dataBuckets.buckets.y.title
+            }
+        };
 
         var container = d3.select(renderConfig.container)
             .attr('class', 'com_ibi_hexbinscatter');
@@ -38,15 +46,15 @@
 			var temp;
 			props.data = JSON.parse(JSON.stringify(chart.data[0]));
 			props.data.forEach(function(d){
-			  temp = {}
-			  if ( !Array.isArray(renderConfig.dataBuckets.buckets.detail.title) ) {
-				renderConfig.dataBuckets.buckets.detail.title = [renderConfig.dataBuckets.buckets.detail.title];
-			  }
-			  renderConfig.dataBuckets.buckets.detail.title.forEach(function(title, idx){
-			   temp[title] = d.detail[idx]; 
-			  });
-			  d.detail = temp;
-			});
+              temp = {};
+              if (!Array.isArray(renderConfig.dataBuckets.buckets.detail.title)) {
+                  renderConfig.dataBuckets.buckets.detail.title = [renderConfig.dataBuckets.buckets.detail.title];
+              }
+              renderConfig.dataBuckets.buckets.detail.title.forEach(function(title, idx) {
+                  temp[title] = d.detail[idx];
+              });
+              d.detail = temp;
+              });
 		} else {
 			props.data = JSON.parse(JSON.stringify(chart.data[0]));
 		}

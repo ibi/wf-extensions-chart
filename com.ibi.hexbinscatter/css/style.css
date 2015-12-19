@@ -20,3 +20,11 @@
 	stroke: #c47642;
 	stroke-width: 1;
 }
+
+.x-axis-title text {
+	font-weight: bold;
+}
+
+.y-axis-title text {
+	font-weight: bold;
+}

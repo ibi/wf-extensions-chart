@@ -15,6 +15,14 @@
             circles: {
                 radius: 3
             },
+            axes: {
+                x: {
+                    title: null
+                },
+                y: {
+                    title: null
+                }
+            },
             hexbin: {
                 mesh: false,
                 radius: 20,
@@ -31,7 +39,7 @@
                 top: 5,
                 bottom: 30,
                 left: 45,
-                right: 15
+                right: 40
             }
         };
 
@@ -43,19 +51,60 @@
             }
         }
 
-        function fixMarginProps (canvasContent) {
+        function fixMarginProps(canvasContent, maingGroup) {
             var axisPad = 5;
 
-            var xAxisHeight = d3.max(canvasContent.selectAll('g .x-axis text')[0], function (text) {
+            var xAxisHeight = d3.max(canvasContent.selectAll('g .x-axis text')[0], function(text) {
                 return text.getBBox().height;
             });
 
-            var yAxisWidth = d3.max(canvasContent.selectAll('g .y-axis text')[0], function (text) {
+            var yAxisWidth = d3.max(canvasContent.selectAll('g .y-axis text')[0], function(text) {
                 return text.getBBox().width;
             });
 
-            innerProps.margins.left = yAxisWidth + 2 * axisPad + 6;
-            innerProps.margins.bottom = xAxisHeight + 2 * axisPad + 6;
+            var xAxisTitle = maingGroup.select('x-axis-title');
+            var xAxisTitleHeight = 0;
+            if (!xAxisTitle.empty()) {
+                xAxisTitleHeight = xAxisTitle.node().getBBox().height;
+            }
+
+            var yAxisTitle = maingGroup.select('.y-axis-title');
+            var yAxisTitleHeight = 0;
+            if (!yAxisTitle.empty()) {
+                yAxisTitleHeight = yAxisTitle.node().getBBox().height;
+            }
+
+            innerProps.margins.left = yAxisWidth + 2 * axisPad + 6 + yAxisTitleHeight;
+            innerProps.margins.bottom = xAxisHeight + 2 * axisPad + 6 + xAxisTitleHeight;
+        }
+
+        function renderAxesTitles (mainGroup) {
+            var axesTitles = mainGroup.append('g').classed('axes-titles', true);
+            
+            axesTitles.append('g').classed('x-axis-title', true)
+                .attr({
+                    'transform' : 'translate(' + [ props.width / 2, props.height ] + ')'
+                })
+                .append('text')
+                .style({
+                    'text-anchor' : 'middle',
+                    fill : 'black'
+                })
+                .text(props.axes.x.title);
+
+            axesTitles.append('g').classed('y-axis-title', true)
+                .attr({
+                    'transform' : 'translate(' + [ 0, props.height / 2 ] + ') rotate(-90)',
+                })
+                .append('text')
+                .attr({
+                    dy: '1em'
+                })
+                .style({
+                    'text-anchor' : 'middle',
+                    fill : 'black'
+                })
+                .text(props.axes.y.title);
         }
 
         return function(d3_container) {
@@ -77,16 +126,19 @@
             var xscale = getScale(data, 'x');
             var yscale = getScale(data, 'y');
 
-            var axes = tdgscatter.axes.init({
-                x: xscale,
-                y: yscale
-            });
+            var axesProps = JSON.parse(JSON.stringify(props.axes));
+            axesProps.x.scale = xscale;
+            axesProps.y.scale = yscale;
+
+            var axes = tdgscatter.axes.init(axesProps);
 
             var canvasContent = mainGroupEnter.append('g')
                 .classed('canvas', true)
-                .call(axes) // this will render axes            
+                .call(axes); // this will render axes            
 
-            fixMarginProps(canvasContent);
+            renderAxesTitles(mainGroupEnter);
+
+            fixMarginProps(canvasContent, mainGroupEnter);
 
             canvasContent.attr({
                 'transform': 'translate(' + [innerProps.margins.left, innerProps.margins.top] + ')'
@@ -150,11 +202,11 @@
                 domain[0] -= 1;
                 domain[1] += 1;
             }
-			
-			var offset = Math.abs(domain[1] - domain[0]) * 0.05;
-			
-			domain[0] -=  offset;
-			domain[1] +=  offset;
+
+            var offset = Math.abs(domain[1] - domain[0]) * 0.05;
+
+            domain[0] -= offset;
+            domain[1] += offset;
 
             return d3.scale.linear().domain(domain).range(range).nice();
         }
