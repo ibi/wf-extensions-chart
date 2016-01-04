@@ -32,6 +32,65 @@ var tdg_sunburst = (function () {
     }
   }
 
+  function getDataHelper (data) {
+    var allNodes = [], allEdges = [], nodeValueMap = {},
+      nodes;
+
+    var uniqueEdgesMap = {};
+
+    data.forEach(function (d) {
+      if ( !Array.isArray(d.levels) ) {
+        nodes = [d.levels];
+      } else {
+        nodes = d.levels.slice();
+      }
+
+      nodes.reduce(function (prev, cur) { // populate unique edges
+        if ( typeof prev === 'string' && typeof cur === 'string' && !uniqueEdgesMap[prev+cur]) {
+          uniqueEdgesMap[prev+cur] = true;
+          allEdges.push([prev, cur]);
+        }
+        return cur;
+      });
+
+      nodes.forEach(function (node) {
+        if ( typeof node === 'string' && allNodes.indexOf(node) < 0 ) {
+          allNodes.push(node);
+        }
+      });
+
+      if (d.value != null) {
+        nodes.forEach(function (node) {
+          if (nodeValueMap[node] == null) {
+            nodeValueMap[node] = 0;
+          }
+          nodeValueMap[node] += d.value;
+        });
+      }
+
+    });
+
+    var domain = [Infinity, -Infinity];
+
+    for (var key in nodeValueMap) {
+      if (nodeValueMap.hasOwnProperty(key)) {
+        if ( nodeValueMap[key] < domain[0] ) {
+          domain[0] = nodeValueMap[key];
+        }
+        if ( nodeValueMap[key] > domain[1] ) {
+          domain[1] = nodeValueMap[key];
+        }
+      }
+    }
+
+    return {
+      nodes : allNodes,
+      edges : allEdges,
+      nodeValueMap: nodeValueMap,
+      domain: domain
+    };
+  }
+
   // converts moonbeam hierarchical dataset into the one that d3.layout.partition requires
   function getFixedDataSet (data, fakeRootName) {
     var roots , root;
@@ -39,13 +98,25 @@ var tdg_sunburst = (function () {
       return;
     }
 
-    data = data.map(function (d) {
-      return {
-        parent: d.level1 ? d.level1 : d.parent,
-        node: d.level2 ? d.level2 : d.node,
-        value: d.value
-      };
-    });
+    var dataHelper = getDataHelper(data);
+
+    if (dataHelper.edges.length) {
+      data = dataHelper.edges.map(function (edge) {
+        return {
+          node: edge[0],
+          parent: edge[1],
+          value: dataHelper.nodeValueMap[edge[0]]
+        };
+      });
+    } else if (dataHelper.nodes.length) {
+      data = dataHelper.nodes.map(function (node) {
+        return {
+          node: node,
+          parent: null,
+          value: dataHelper.nodeValueMap[node]
+        };
+      });
+    }
 
     var nodes = [];
 
@@ -99,50 +170,6 @@ var tdg_sunburst = (function () {
         });
       } else { // leaf
         dObj.size = parent.value || 0;
-      }
-    })(root, result);
-
-    return result;
-  }
-
-  function getFixedDataSetOld (data, fakeRootName) {
-    var roots , root;
-    if ( !Array.isArray(data) ) {
-      return;
-    }
-
-    roots = data.filter(function(d){ return d.parent == null; });
-
-    if ( roots.length > 1 ) {
-      root = {
-        node: fakeRootName,
-        parent: null,
-        value: null,
-        _fake: true
-      };
-      data.push(root);
-      roots.forEach(function (d) {
-        d.parent = root.node;
-      });
-    } else {
-      root = roots[0];
-    }
-
-    var result = {},
-      children;
-
-    (function iterate (parent, dObj) {
-      dObj.name = parent.node;
-      children = data.filter(function(d){ return d.parent === parent.node; });
-      if ( children.length ) {
-        dObj.children = [];
-        children.forEach(function (child) {
-          var childDObj = {};
-          iterate(child, childDObj);
-          dObj.children.push(childDObj);
-        });
-      } else { // leaf
-        dObj.size = parent.value || 0; 
       }
     })(root, result);
 
