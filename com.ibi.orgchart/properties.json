@@ -12,11 +12,14 @@
 	},
 	
 	"properties": {
-		"chartHeadroom": 50
+		colorRange: ['#ff0000', '#008000']
 	},
 	
 	"propertyAnnotations": {
-		"chartHeadroom": "number"
+		colorRange: {
+			"typeAnnotation": "array",
+			"arrayTypes": "color"
+		}
 	},
 	
 	"dataBuckets":  {
@@ -27,26 +30,18 @@
 
 		"buckets": [
 	      {
-	        "id": "level1",
+	        "id": "levels",
 	        "type": "dimension",
 	        "count": {
 	          "min": 1,
-	          "max": 1
-	        }
-	      },
-	      {
-	        "id": "level2",
-	        "type": "dimension",
-	        "count": {
-	          "min": 1,
-	          "max": 1
+	          "max": 100
 	        }
 	      },
 	      {
 	        "id": "value",
 	        "type": "measure",
 	        "count": {
-	          "min": 1,
+	          "min": 0,
 	          "max": 1
 	        }
 	      }
@@ -58,10 +53,8 @@
 			"name": "Organization Chart",
 			"description": "Very Simple Organization Chart.",
 			"icon_tooltip": "This extension is good for visualization of hierarchical data sets.",
-			"level1_name": "First Level Bucket",
-			"level1_tooltip": "Drop a dimension here",
-			"level2_name": "Second Level Bucket",
-			"level2_tooltip": "Drop a dimension here",
+			"levels_name": "Levels Bucket",
+			"levels_tooltip": "Drop a dimension here",
 			"value_name": "Value Bucket",
 			"value_tooltip": "Drop a measure here"
 		}

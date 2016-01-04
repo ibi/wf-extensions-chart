@@ -13,13 +13,15 @@
 	// Arguments:
 	//  - renderConfig: the standard callback argument object, including additional properties width, height, etc
 	function renderCallback(renderConfig) {
-
+		debugger;
 		var chart = renderConfig.moonbeamInstance;
-		var props = renderConfig.properties;
+		var props = JSON.parse(JSON.stringify(renderConfig.properties));
 
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
 		props.data = renderConfig.data;
+		props.levelTitles = (renderConfig.dataBuckets.buckets.levels) ? renderConfig.dataBuckets.buckets.levels.title : null;
+		props.valueTitle = (renderConfig.dataBuckets.buckets.value) ? renderConfig.dataBuckets.buckets.value.title : null;
 
 		var hierarchy = tdghierarchy.init(props);
 		

@@ -64,13 +64,23 @@ window.tdghierarchy.init = (function () {
       // Run the renderer. This is what draws the final g.
       render(main_group, graph);
 
-      main_group.selectAll('g.node')
+      var node_groups = main_group.selectAll('g.node')
         .filter(function (d) {
-          return data.nodeValueMap[d];
+          return data.nodeValueMap[d] != null;
         })
         .attr({
           'tdgtitle': function (d) {
             return '<b>VALUE: </b>' + data.nodeValueMap[d];
+          }
+        });
+      debugger;
+
+      var colorScale = d3.scale.linear().domain(data.domain).range(props.colorRange);
+
+      node_groups.selectAll('rect')
+        .style({
+          stroke: function (d) {
+            return colorScale(data.nodeValueMap[d]);
           }
         });
 
@@ -78,27 +88,62 @@ window.tdghierarchy.init = (function () {
 
     function getData () {
       var data = props.data,
-        nodes = [], edges = [], nodeValueMap = {};
+        allNodes = [], allEdges = [], nodeValueMap = {},
+        nodes;
+
+      var uniqueEdgesMap = {};
 
       data.forEach(function (d) {
-        if ( typeof d.level1 === 'string' && nodes.indexOf(d.level1) < 0 ) {
-          nodes.push(d.level1);
+        if ( !Array.isArray(d.levels) ) {
+          nodes = [d.levels];
+        } else {
+          nodes = d.levels.slice();
         }
 
-        if ( typeof d.level2 === 'string' && nodes.indexOf(d.level2) < 0 ) {
-          nodes.push(d.level2);
-          nodeValueMap[d.level2] = d.value;
+        nodes.reduce(function (prev, cur) { // populate unique edges
+          if ( typeof prev === 'string' && typeof cur === 'string' && !uniqueEdgesMap[prev+cur]) {
+            uniqueEdgesMap[prev+cur] = true;
+            allEdges.push([prev, cur]);
+          }
+          return cur;
+        });
+
+        nodes.forEach(function (node) {
+          if ( typeof node === 'string' && allNodes.indexOf(node) < 0 ) {
+            allNodes.push(node);
+          }
+        });
+
+        if (d.value != null) {
+          nodes.forEach(function (node) {
+            if (nodeValueMap[node] == null) {
+              nodeValueMap[node] = 0;
+            }
+            nodeValueMap[node] += d.value;
+          });
+          //nodeValueMap[nodes[nodes.length - 1]] = d.value;
         }
 
-        if ( typeof d.level1 === 'string' && typeof d.level2 === 'string' ) {
-          edges.push([d.level1, d.level2]);
-        }
       });
 
+      var domain = [Infinity, -Infinity];
+
+      for (var key in nodeValueMap) {
+        if (nodeValueMap.hasOwnProperty(key)) {
+          if ( nodeValueMap[key] < domain[0] ) {
+            domain[0] = nodeValueMap[key];
+          }
+          if ( nodeValueMap[key] > domain[1] ) {
+            domain[1] = nodeValueMap[key];
+          }
+        }
+      }
+
       return {
-        nodes : nodes,
-        edges : edges,
-        nodeValueMap: nodeValueMap
+        nodes : allNodes,
+        edges : allEdges,
+        nodeValueMap: nodeValueMap,
+        domain: domain
       };
     }
 
@@ -131,6 +176,7 @@ window.tdghierarchy.init = (function () {
 		var props = {
 			width: 300,
 			height: 400,
+      colorRange: ['#ff0000', '#008000'],
 			data: null
 		};
 
