@@ -87,9 +87,13 @@ var com_tdg_chord = (function () {
 				// range of fill we get from series colors only
 				.range(props.groupColors.slice(0, groupsCount));
 		}
-
+		
 		function buildGroupCurveToolTip (idToIndx) {
-			var groupNames = _.keys(idToIndx);
+			//var groupNames = _.keys(idToIndx);
+			var groupNames = [];
+			_.each(idToIndx, function(idx, name){
+				groupNames[parseInt(idx, 10)] = name;
+			});
 			return function (d) {
 				var str = '<div style="padding:5px">';
 				str += '<b>name: </b>';
@@ -284,7 +288,12 @@ var com_tdg_chord = (function () {
 		}
 
 		function buildChordToolTip (idToIndx) {
-			var ids = _.keys(idToIndx);
+			//var ids = _.keys(idToIndx);
+			var ids = [];
+			_.each(idToIndx, function(idx, name){
+				ids[parseInt(idx, 10)] = name;
+			});
+			
 			var map = {
 				index: 'source',
 				subindex: 'target',
