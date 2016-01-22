@@ -93,6 +93,12 @@ var tdg_arc = (function () { // change name
 		          format: null
 		        }
 		    },
+			valueLabel: {
+				fontFamily: "sans-serif",
+				fontSize: "16px",
+				color: "#000000",
+				fontWeight: "bold",
+			},
 			labels: {
 				text: {
 					color: 'black',
@@ -936,12 +942,17 @@ var tdg_arc = (function () { // change name
 			var group_value = group_arc.append('g').classed('group-value', true);
 
 			var arcs = group_arc.selectAll('path.arc');
-
+			
+			var lblProps = props.valueLabel || {};
+			
 			arcs
 				.on('mouseover.value', function (d) {
 					group_value.append('text')
 						.style({
-							fill: 'black',
+							'font-family': lblProps.fontFamily || 'sans-serif',
+							'font-size': lblProps.fontSize || '16px',
+							'font-weight': lblProps.fontWeight || 'normal',
+							fill: lblProps.color || "#000",
 							'text-anchor': 'middle',
 							dy: '.35em'
 						})
