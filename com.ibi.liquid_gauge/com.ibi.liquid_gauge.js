@@ -37,7 +37,7 @@
 		preRenderCallback: preRenderCallback,
 		renderCallback: renderCallback,
 		resources:  {
-			script: ['lib/d3.v3.min.js', 'lib/liquid_gauge.js']
+			script: ['lib/d3.min.js', 'lib/liquid_gauge.js']
 		}
 	};
 
