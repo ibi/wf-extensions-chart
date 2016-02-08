@@ -40,8 +40,8 @@
                     r: props.radius
                 }).filter(function(d){
 					return d.detail != null;
-				}).attr('tdgtitle', function(d){
-					var str = '', keys = Object.keys(d.detail);
+				}).attr('tdgtitle', function(d) {
+					var str = '<div style="padding: 5px;">', keys = Object.keys(d.detail);
 					keys.forEach(function(key, idx){
 						if (idx) {
 							str += '<br/>';
@@ -49,6 +49,7 @@
 						str += '<b>' + key + ': </b>';
 						str += d.detail[key];
 					});
+                    str += '</div>';
 					return str;
 				});
         };

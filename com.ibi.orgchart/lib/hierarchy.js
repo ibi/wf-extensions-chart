@@ -70,7 +70,7 @@ window.tdghierarchy.init = (function () {
         })
         .attr({
           'tdgtitle': function (d) {
-            return '<b>VALUE: </b>' + data.nodeValueMap[d];
+            return '<div style="padding: 5px"><b>VALUE: </b>' + data.nodeValueMap[d] + '</div>';
           }
         });
       debugger;

@@ -43,14 +43,13 @@
             .attr('class', 'com_ibi_hexbinscatter');
 		
 		if ( renderConfig.dataBuckets.buckets.detail ) {
-			var temp;
+			var temp,
+                titles = Array.isArray(renderConfig.dataBuckets.buckets.detail.title) ? renderConfig.dataBuckets.buckets.detail.title : [renderConfig.dataBuckets.buckets.detail.title];
 			props.data = JSON.parse(JSON.stringify(chart.data[0]));
 			props.data.forEach(function(d){
               temp = {};
-              if (!Array.isArray(renderConfig.dataBuckets.buckets.detail.title)) {
-                  renderConfig.dataBuckets.buckets.detail.title = [renderConfig.dataBuckets.buckets.detail.title];
-              }
-              renderConfig.dataBuckets.buckets.detail.title.forEach(function(title, idx) {
+              d.detail = Array.isArray(d.detail) ? d.detail : [d.detail];
+              titles.forEach(function(title, idx) {
                   temp[title] = d.detail[idx];
               });
               d.detail = temp;
