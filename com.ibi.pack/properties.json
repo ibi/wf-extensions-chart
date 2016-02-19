@@ -20,12 +20,17 @@
 			"padding": 3
 		},
 		"legend": {
+			"enabeld": false,
 			"title": {
 				"font": "14px sans-serif"
 			},
 			"labels": {
 				"font": "12px sans-serif"
 			}
+		},
+		"hover": {
+			"stroke": "grey",
+			"stroke-width": 3
 		},
 	    "toolTip": {
 	      "enabled": true
@@ -44,12 +49,17 @@
 			"padding": "number"
 		},
 		"legend": {
+			"enabeld": "bool",
 			"title": {
 				"font": "str"
 			},
 			"labels": {
 				"font": "str"
 			}
+		},
+		"hover": {
+			"stroke": "color",
+			"stroke-width": "number"
 		},
 		"toolTip": {
 	      "enabled": "bool"

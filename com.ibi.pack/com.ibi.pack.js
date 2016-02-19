@@ -66,6 +66,15 @@
 		props.buckets = {"labels":["CAR","MODEL","BODYTYPE"],"color":["COUNTRY"],"sort_dim":["COUNTRY"],"size":["SALES"]};
 		props.measureLabel = renderConfig.moonbeamInstance.measureLabel;
 
+		props.legend = {
+			"enabeld": true,
+			"title": {
+				"font": "14px sans-serif"
+			},
+			"labels": {
+				"font": "12px sans-serif"
+			}
+		};
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_ibi_pack');

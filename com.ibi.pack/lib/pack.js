@@ -116,12 +116,17 @@ var tdg_pack = (function() {
                 padding: 1
             },
             legend: {
+                enabled: true,
                 title: {
                     font: '14px sans-serif'
                 },
                 labels: {
                     font: '12px sans-serif'
                 }
+            },
+            hover: {
+                stroke: 'grey',
+                'stroke-width': 3
             },
             toolTip: {
               enabled: true
@@ -307,14 +312,23 @@ var tdg_pack = (function() {
                 })
                 .each(buildAndPositionLabel);
 
+            var hover = props.hover;
+
             node.on('mouseenter', function () {
-                var circle = d3.select(this).select('circle'),
-                    r = +circle.attr('r');
-                circle.attr('r', r + 5);
+                var circle = d3.select(this).select('circle');
+
+                circle.attr({
+                    stroke: hover.stroke,
+                    'stroke-width': hover['stroke-width']
+                });
+
             }).on('mouseleave', function () {
-                var circle = d3.select(this).select('circle'),
-                    r = +circle.attr('r');
-                circle.attr('r', r - 5);
+                var circle = d3.select(this).select('circle');
+
+                circle.attr({
+                    stroke: null,
+                    'stroke-width': null
+                });
             });
         }
 
@@ -420,7 +434,7 @@ var tdg_pack = (function() {
 
             var dataHelper = getDataHelper(props.data, true);
 
-            if ( dataHelper.isDynamicColor && props.buckets.color ) {
+            if ( props.legend.enabled && dataHelper.isDynamicColor && props.buckets.color ) {
                 var legends_group = group_main.append('g');
                 renderLegend(legends_group, props.width, props.height, getColorMap(props.data, props.circles.colors, true), props.buckets.color[0], 0.3, {
                     titleFont: props.legend.title.font,
