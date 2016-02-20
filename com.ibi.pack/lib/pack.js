@@ -258,27 +258,30 @@ var tdg_pack = (function() {
 
             var colorMap = (dataHelper.isDynamicColor) ? getColorMap(props.data, props.circles.colors) : null;
 
+            var data = ( dataHelper.isDynamicSize ) ? props.data.filter(function(d){ return d.size != null; }) : props.data;
+
+            var scale;
+            if ( dataHelper.isDynamicSize ) {
+                var extent = d3.extent(data, function(d){ return d.size; });
+                scale = ( extent[0] * extent[1] < 0  ) ? d3.scale.linear().domain(extent).range([0.01, Math.abs(extent[1] - extent[0])]) : d3.scale.linear().domain(extent).range(extent);
+            }
+
             var pack = d3.layout.pack()
                 .sort(sort)
                 .value(function(d) {
-                    return dataHelper.isDynamicSize ? d.size : 1;
+                    return scale ? scale(d.size) : 1; // scale is not null if dataHelper.isDynamicSize is true
                 })
                 .size([props.width, props.height])
                 .padding(props.circles.padding);
 
-            var circles_group = circles_group.selectAll('g.circles')
-                .data([{}])
-                .enter()
-                .append('g').classed('circles', true);
-
-            var data = pack.nodes({
+            var pack_data = pack.nodes({
                 children: props.data
             }).slice(1).filter(function (d) {
                 return d.r > 0;
             });
 
             var node = circles_group.selectAll('g.node')
-                .data(data)
+                .data(pack_data)
                 .enter().append('g').classed('node', true)
                 .attr({
                     tdgtitle: buildToolTipStr( props.buckets ),
@@ -289,10 +292,7 @@ var tdg_pack = (function() {
                 .style('opacity', 0);
 
             node.transition()
-                .delay(function(d, i) {
-                    return i * 30;
-                })
-                .duration(500)
+                .duration(700)
                 .style('opacity', 1);
 
             node.append('circle')
@@ -429,7 +429,7 @@ var tdg_pack = (function() {
 
         function render (group_main) {
 
-            var circles_group = group_main.append('g');
+            var circles_group = group_main.append('g').classed('circles', true);
             renderCircles(circles_group);
 
             var dataHelper = getDataHelper(props.data, true);
