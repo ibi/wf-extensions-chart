@@ -1,2 +1,3 @@
-###### Arc Extension
-Template extension for WebFocus 8200
+###### USMAP Extension
+usmap extension for WebFocus 8200
+
