@@ -1,0 +1,158 @@
+
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 1.0,
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.usmap",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	
+	"properties": {
+	    "toolTip": {
+	      "enabled": true
+	    },
+	    "legends": {
+	    	"enabled": true,
+	    	"linkWidth": {
+	    		"enabled": true,
+	    		"color": "#e0e0e0"
+	    	},
+	    	"linkColor": {
+	    		"enabled": true,
+	    		"color": "#e0e0e0"
+	    	},
+	    	"nodeSize": {
+	    		"enabled": true,
+	    		"color": "#e0e0e0"
+	    	}
+	    },
+	    "links": {
+	    	"defaultWidth": 1,
+	    	"defaultColor": "#000",
+	    	"widthRange": [1, 10],
+	    	"colorRange": ["#bdbdbd", "#000"]
+	    },
+	    "nodes": {
+	    	"dataSeparator": ";",
+	    	"defaultSize": 4,
+	    	"defaultColor": "lightblue",
+	    	"sizeRange": [4, 15]
+	    },
+	    "colorStates": true
+	},
+	
+	"propertyAnnotations": {
+		"toolTip": {
+	      "enabled": "bool"
+	    },
+	    "legends": {
+	    	"enabled": "bool",
+	    	"linkWidth": {
+	    		"enabled": "bool",
+	    		"color": "color"
+	    	},
+	    	"linkColor": {
+	    		"enabled": "bool",
+	    		"color": "color"
+	    	},
+	    	"nodeSize": {
+	    		"enabled": "bool",
+	    		"color": "color"
+	    	}
+	    },
+	    "links": {
+	    	"defaultWidth": "number",
+	    	"defaultColor": "color",
+	    	"widthRange": {
+	    		"typeAnnotation": "array",
+				"arrayTypes": "number"
+	    	},
+	    	"colorRange": {
+	    		"typeAnnotation": "array",
+				"arrayTypes": "color"
+	    	}
+	    },
+	    "nodes": {
+	    	"dataSeparator": "str",
+	    	"defaultSize": "number",
+	    	"defaultColor": "color",
+	    	"sizeRange": {
+	    		"typeAnnotation": "array",
+				"arrayTypes": "number"
+	    	}
+	    },
+	    "colorStates": "bool"
+	},
+	
+	"dataBuckets":  {
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+	      {
+	        "id": "src",
+	        "type": "dimension",
+	        "count": {
+	          "min": 1,
+	          "max": 100
+	        }
+	      },
+	      {
+	        "id": "dst",
+	        "type": "dimension",
+	        "count": {
+	          "min": 0,
+	          "max": 1
+	        }
+	      },
+	      {
+	        "id": "width",
+	        "type": "measure",
+	        "count": {
+	          "min": 0,
+	          "max": 1
+	        }
+	      },
+	      {
+	        "id": "color",
+	        "type": "measure",
+	        "count": {
+	          "min": 0,
+	          "max": 1
+	        }
+	      },
+	      {
+	        "id": "size",
+	        "type": "measure",
+	        "count": {
+	          "min": 0,
+	          "max": 1
+	        }
+	      }
+	    ]
+	},
+
+	"translations": {
+		"en": {
+			"name": "US Map Chart",
+			"description": "You can use Source and Source Size buckets to make a bubble map chart or you can use Source, Destination, Link Width and Link Color buckets to make a network map chart.",
+			"icon_tooltip": "US Map Chart.",
+			"src_name": "Source (DIM)",
+			"src_tooltip": "Drop a dimension here",
+			"dst_name": "Destination (DIM)",
+			"dst_tooltip": "Drop a dimension here",
+			"width_name": "Link Width (MES)",
+			"width_tooltip": "Drop a measure here",
+			"color_name": "Link Color (MES)",
+			"color_tooltip": "Drop a measure here",
+			"size_name": "Source Size (MES)",
+			"size_tooltip": "Drop a measure here",
+		}
+	}
+}
