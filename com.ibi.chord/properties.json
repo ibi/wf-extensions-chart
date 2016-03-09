@@ -25,7 +25,7 @@
 			"preciseCount": false,
 			"label": {
 				"fontFamily": "sans-serif",
-				"fontSize": 10,
+				"fontSize": "10px",
 				"format": ".2s",
 				"count": 20
 			},
@@ -48,7 +48,7 @@
 			"preciseCount": "bool",
 			"label": {
 				"fontFamily": "str",
-				"fontSize": "number",
+				"fontSize": "str",
 				"format": "str",
 				"count": "number"
 			},
