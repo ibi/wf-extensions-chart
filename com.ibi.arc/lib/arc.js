@@ -97,7 +97,7 @@ var tdg_arc = (function() { // change name
                     color: 'black',
                     font: 'Verdana',
                     weight: 'bold',
-                    size: 14
+                    size: '14px'
                 },
                 marker: {
                     type: 'circle'
@@ -153,7 +153,7 @@ var tdg_arc = (function() { // change name
                     },
                     labels: {
                         fontFamily: 'sans-serif',
-                        fontSize: 10,
+                        fontSize: '10px',
                         color: 'black'
                     }
                 }
