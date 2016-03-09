@@ -71,7 +71,7 @@
 			})
 			.style({
 				'font-weight' : 'bold',
-				'font-size' : '14',
+				'font-size' : '14px',
 				dy: '0.35em',
 				fill: 'grey'
 			});

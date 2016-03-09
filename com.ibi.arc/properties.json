@@ -42,7 +42,7 @@
 				"color": "black",
 				"font": "Verdana",
 				"weight": "bold",
-				"size": 14
+				"size": "14px"
 			},
 			"marker": {
 				"type": "circle"
@@ -82,7 +82,7 @@
 				"color": "str",
 				"font": "str",
 				"weight": "str",
-				"size": "number"
+				"size": "str"
 			},
 			"marker": {
 				"type": "str"
