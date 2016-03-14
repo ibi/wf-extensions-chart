@@ -1,0 +1,110 @@
+
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 1.0,
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.population",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	
+	"properties": {
+		"colorBySeries": ["#ffafbf", "#cce9f8"],
+        "typeLabels": {
+            "font": "bold 14px sans-serif"
+        },
+        "axes": {
+            "x": {
+                "labels": {
+                    "font": "12px sans-serif"
+                }
+            },
+            "y": {
+                "labels": {
+                    "font": "12px sans-serif",
+                    "format": "auto"
+                }
+            }
+        },
+	    "toolTip": {
+	      "enabled": true
+	    }
+	},
+	
+	"propertyAnnotations": {
+		"colorBySeries": {
+    		"typeAnnotation": "array",
+			"arrayTypes": "color"
+    	},
+        "typeLabels": {
+            "font": "str"
+        },
+        "axes": {
+            "x": {
+                "labels": {
+                    "font": "str"
+                }
+            },
+            "y": {
+                "labels": {
+                    "font": "str",
+                    "format": "str"
+                }
+            }
+        },
+		"toolTip": {
+	      "enabled": "bool"
+	    }
+	},
+	
+	"dataBuckets":  {
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+	      {
+	        "id": "x",
+	        "type": "dimension",
+	        "count": {
+	          "min": 1,
+	          "max": 1
+	        }
+	      },
+	      {
+	        "id": "y",
+	        "type": "measure",
+	        "count": {
+	          "min": 1,
+	          "max": 1
+	        }
+	      },
+	      {
+	        "id": "type",
+	        "type": "dimension",
+	        "count": {
+	          "min": 0,
+	          "max": 1
+	        }
+	      }
+	    ]
+	},
+
+	"translations": {
+		"en": {
+			"name": "Population Pyramid",
+			"description": "This extension helps to visualize the distribution of various age groups in a population.",
+			"icon_tooltip": "Population Pyramid.",
+			"x_name": "Category (DIM)",
+			"x_tooltip": "Drop a dimension here",
+			"y_name": "Value (MES)",
+			"y_tooltip": "Drop a measure here",
+			"type_name": "Type (DIM)",
+			"type_tooltip": "Drop a dimension here"
+		}
+	}
+}

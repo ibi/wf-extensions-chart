@@ -1,0 +1,27 @@
+g.x-axis path {
+	stroke: black;
+}
+
+g.x-axis line {
+	stroke: black;
+}
+
+g.x-axis text {
+	fill: black;
+}
+
+g.y-axis path {
+	stroke: black;
+}
+
+g.y-axis line {
+	stroke: black;
+}
+
+g.y-axis text {
+	fill: black;
+}
+
+g.type-labels {
+	fill: black;
+}
