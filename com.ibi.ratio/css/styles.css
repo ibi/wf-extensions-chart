@@ -1,0 +1,32 @@
+g.x-axis path {
+	stroke-width: 0;
+}
+
+g.x-axis line {
+	stroke-width: 0;
+}
+
+g.x-axis line.grid {
+	stroke-width: 1;
+	stroke: black;
+}
+
+g.x-axis text {
+	fill: black;
+}
+
+g.y-axis path {
+	stroke: black;
+}
+
+g.y-axis line {
+	stroke: black;
+}
+
+g.y-axis text {
+	fill: black;
+}
+
+g.type-labels {
+	fill: black;
+}

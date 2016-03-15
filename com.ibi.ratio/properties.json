@@ -1,0 +1,101 @@
+
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 1.0,
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.ratio",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	
+	"properties": {
+		"risers": {
+            "color": "lightblue",
+            "label": {
+                "font": "12px sans-serif",
+                "format": "auto"
+            }
+        },
+        "axes": {
+            "category": {
+                "labels": {
+                    "font": "12px sans-serif"
+                }
+            },
+            "ratio": {
+                "labels": {
+                    "font": "14px sans-serif"
+                }
+            }
+        },
+	    "toolTip": {
+	      "enabled": true
+	    }
+	},
+	
+	"propertyAnnotations": {
+		"risers": {
+            "color": "color",
+            "label": {
+                "font": "str",
+                "format": "str"
+            }
+        },
+        "axes": {
+            "category": {
+                "labels": {
+                    "font": "str"
+                }
+            },
+            "ratio": {
+                "labels": {
+                    "font": "str"
+                }
+            }
+        },
+		"toolTip": {
+	      "enabled": "bool"
+	    }
+	},
+	
+	"dataBuckets":  {
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+	      {
+	        "id": "x",
+	        "type": "dimension",
+	        "count": {
+	          "min": 1,
+	          "max": 1
+	        }
+	      },
+	      {
+	        "id": "y",
+	        "type": "measure",
+	        "count": {
+	          "min": 1,
+	          "max": 1
+	        }
+	      }
+	    ]
+	},
+
+	"translations": {
+		"en": {
+			"name": "Ratio Chart",
+			"description": "This extension helps to compare ratios of different categories.",
+			"icon_tooltip": "Ratio Chart.",
+			"x_name": "Category Bucket (DIM)",
+			"x_tooltip": "Drop a dimension here",
+			"y_name": "Value Bucket (MES)",
+			"y_tooltip": "Drop a measure here"
+		}
+	}
+}
