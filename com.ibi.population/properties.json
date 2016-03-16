@@ -14,18 +14,32 @@
 	"properties": {
 		"colorBySeries": ["#ffafbf", "#cce9f8"],
         "typeLabels": {
-            "font": "bold 14px sans-serif"
+            "font": "bold 14px sans-serif",
+            "color": "black"
         },
         "axes": {
             "x": {
                 "labels": {
-                    "font": "12px sans-serif"
+                    "font": "12px sans-serif",
+                    "color": "black"
+                },
+                "base": {
+                	"color": "black"
+                },
+                "grid": {
+                	"stroke-dasharray" : "2 5",
+                	"width": 1,
+                	"color": "black"
                 }
             },
             "y": {
                 "labels": {
                     "font": "12px sans-serif",
-                    "format": "auto"
+                    "format": "auto",
+                    "color": "black"
+                },
+                "base": {
+                	"color": "black"
                 }
             }
         },
@@ -40,18 +54,32 @@
 			"arrayTypes": "color"
     	},
         "typeLabels": {
-            "font": "str"
+            "font": "str",
+            "color": "color"
         },
         "axes": {
             "x": {
                 "labels": {
-                    "font": "str"
+                    "font": "str",
+                    "color": "color"
+                },
+                "base": {
+                	"color": "color"
+                },
+                "grid": {
+                	"stroke-dasharray" : "str",
+                	"width": "number",
+                	"color": "color"
                 }
             },
             "y": {
                 "labels": {
                     "font": "str",
-                    "format": "str"
+                    "format": "str",
+                    "color": "color"
+                },
+                "base": {
+                	"color": "color"
                 }
             }
         },

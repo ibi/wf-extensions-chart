@@ -193,7 +193,12 @@ var tdg_population = (function() {
 
         var domain = layout.pos.domain();
 
-        var offset = ( layout.pos(domain[1]) - layout.pos(domain[2]) - layout.bandWidth ) / 2;
+        var offset;
+        if ( domain.length > 2 ) {
+            offset = ( layout.pos(domain[1]) - layout.pos(domain[2]) - layout.bandWidth ) / 2;
+        } else {
+            offset = ( layout.pos(domain[0]) - layout.pos(domain[1]) - layout.bandWidth ) / 2;
+        }
 
         domain.forEach(function ( lbl, idx ) {
             if ( idx !== 0 ) {
@@ -374,7 +379,8 @@ var tdg_population = (function() {
             })
             .style({
                 'text-anchor': 'middle',
-                font: props.typeLabels.font
+                font: props.typeLabels.font,
+                fill: props.typeLabels.color
             })
             .text(function (d) {
                 return d.text;
@@ -386,7 +392,7 @@ var tdg_population = (function() {
         var ordAxis = d3.svg.axis().scale(layout.x.pos).orient('left')
             .innerTickSize(0);
 
-        x_axis.enter().append('g').classed('x-axis', true)
+        var x_axis_enter = x_axis.enter().append('g').classed('x-axis', true)
             .attr({
                 transform: function (l) {
                     return 'translate(' + [l.x, l.y] + ')';
@@ -394,6 +400,13 @@ var tdg_population = (function() {
             })
             .style('font', props.axes.x.labels.font)
             .call(ordAxis);
+
+        x_axis_enter.select('path.domain').style('stroke', props.axes.x.base.color);
+        x_axis_enter.selectAll('g.tick > line').style('stroke', props.axes.x.base.color);
+        x_axis_enter.selectAll('g.tick > text').style({
+            font : props.axes.x.labels.font,
+            fill : props.axes.x.labels.color
+        });
 
         var x_grid = x_axis.selectAll('line.grid')
             .data(layout.x.gridLinesPos);
@@ -410,7 +423,9 @@ var tdg_population = (function() {
                 },
             })
             .style({
-                'stroke-dasharray': '2 5'
+                'stroke-dasharray' : props.axes.x.grid['stroke-dasharray'],
+                width : props.axes.x.grid.width,
+                stroke : props.axes.x.grid.color
             });
 
         var y_axes = group_main.append('g').classed('y-axes', true)
@@ -420,7 +435,7 @@ var tdg_population = (function() {
         var y_axis = y_axes.selectAll('g.y-axis')
             .data(layout.y.axes);
         
-        y_axis.enter().append('g').classed('y-axis', true)
+        var y_axis_enter = y_axis.enter().append('g').classed('y-axis', true)
             .attr({
                 transform: function (l) {
                     return 'translate(' + [l.x, l.y] + ')';
@@ -437,6 +452,13 @@ var tdg_population = (function() {
                     .orient('bottom');
                 d3.select(this).call( axis );
             });
+
+        y_axis_enter.select('path.domain').style('stroke', props.axes.y.base.color);
+        y_axis_enter.selectAll('g.tick > line').style('stroke', props.axes.y.base.color);
+        y_axis_enter.selectAll('g.tick > text').style({
+            font : props.axes.y.labels.font,
+            fill : props.axes.y.labels.color
+        });
 
         var canvas = group_main.append('g').classed('canvas', true)
             .attr('transform', 'translate(' + [ layout.canvas.x, layout.canvas.y ] + ')');
@@ -512,13 +534,25 @@ var tdg_population = (function() {
                 x: {
                     labels: {
                         font: '12px sans-serif',
-                        color: '#000'
+                        color: 'black'
+                    },
+                    base: {
+                        color: "black"
+                    },
+                    grid: {
+                        "stroke-dasharray" : "2 5",
+                        width: 1,
+                        color: "black"
                     }
                 },
                 y: {
                     labels: {
                         font: '12px sans-serif',
-                        format: 'auto'
+                        format: 'auto',
+                        color: 'black'
+                    },
+                    base: {
+                        color: "black"
                     }
                 }
             },
