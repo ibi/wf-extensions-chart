@@ -486,7 +486,7 @@ var tdg_ratio = (function() {
 
         var ordAxis = d3.svg.axis().scale(layout.x.pos).orient('left');
 
-        x_axis.enter().append('g').classed('x-axis', true)
+        var x_axis_enter = x_axis.enter().append('g').classed('x-axis', true)
             .attr({
                 transform: function (l) {
                     return 'translate(' + [l.x, l.y] + ')';
@@ -496,6 +496,11 @@ var tdg_ratio = (function() {
                 font : props.axes.category.labels.font
             })
             .call(ordAxis);
+
+        x_axis_enter.selectAll('g.tick > text').style({
+            font: props.axes.category.labels.font,
+            fill: props.axes.category.labels.color
+        });
 
         var x_grid = x_axis.selectAll('line.grid')
             .data(layout.x.gridLinesPos);
@@ -512,7 +517,9 @@ var tdg_ratio = (function() {
                 },
             })
             .style({
-                'stroke-dasharray': '2 5'
+                'stroke-dasharray': props.axes.category.grid['stroke-dasharray'],
+                'stroke-width': props.axes.category.grid.width,
+                stroke: props.axes.category.grid.color
             });
 
         ['top', 'bottom'].forEach(function (type) {
@@ -523,7 +530,7 @@ var tdg_ratio = (function() {
 
             var lbl = axis.append('text')
                 .style({
-                    fill: 'black',
+                    fill: props.axes.ratio.labels.color,
                     'text-anchor': 'middle',
                     font: props.axes.ratio.labels.font
                 })
@@ -548,7 +555,7 @@ var tdg_ratio = (function() {
                         return d.y2;
                     }
                 })
-                .style('stroke', 'black');
+                .style('stroke', props.axes.ratio.base.color);
 
         });
 
@@ -640,18 +647,29 @@ var tdg_ratio = (function() {
                 color: 'salmon',
                 label: {
                     font: '12px sans-serif',
-                    format: 'auto'
+                    format: 'auto',
+                    color: 'black'
                 }
             },
             axes: {
                 category: {
                     labels: {
-                        font: '12px sans-serif'
+                        font: '12px sans-serif',
+                        color: 'black'
+                    },
+                    grid: {
+                        "stroke-dasharray" : "2 5",
+                        width: 1,
+                        color: "black"
                     }
                 },
                 ratio: {
                     labels: {
-                        font: '14px sans-serif'
+                        font: '14px sans-serif',
+                        color: 'black'
+                    },
+                    base: {
+                        color: 'black'
                     }
                 }
             }

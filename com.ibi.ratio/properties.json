@@ -22,12 +22,22 @@
         "axes": {
             "category": {
                 "labels": {
-                    "font": "12px sans-serif"
+                    "font": "12px sans-serif",
+                    "color": "black"
+                },
+                "grid": {
+                	"stroke-dasharray" : "2 5",
+                	"width": 1,
+                	"color": "black"
                 }
             },
             "ratio": {
                 "labels": {
-                    "font": "14px sans-serif"
+                    "font": "14px sans-serif",
+                    "color": "black"
+                },
+                "base": {
+                	"color": "black"
                 }
             }
         },
@@ -47,12 +57,22 @@
         "axes": {
             "category": {
                 "labels": {
-                    "font": "str"
+                    "font" : "str",
+                    "color" : "color"
+                },
+                "grid": {
+                	"stroke-dasharray" : "str",
+                	"width": "number",
+                	"color": "color"
                 }
             },
             "ratio": {
                 "labels": {
-                    "font": "str"
+                    "font": "str",
+                    "color": "color"
+                },
+                "base": {
+                	"color": "color"
                 }
             }
         },
