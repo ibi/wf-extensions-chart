@@ -63,7 +63,7 @@ You can customize legends, links and nodes. You can also enable/disable tooltip 
 * **Link Color** - you can set link color range by changing `properties.links.colorRange` in properties.json file.
 * **Source Size** - you can set node size range by changing `properties.nodes.sizeRange` in properties.json file.
 
-### Dimensions
+### Dimensions:
 * **Source** - represents an object on a map or the beginning of the link. There are two formatting options for the source values. **First option**, you provide a name of the city or an official airport name abbreviation, given that you can find it in the **./data/airports.js** file. This way extension engine can lookup the coordinates of your city/airport in the **./data/airports.js** file and render a dot on the map. **Second option**, you provide a string with three values: Label, Longitude and Latitude. These three values in the sting must be separated by a character that you can set in properties.json file. To change this character open the file and change `properties.nodes.dataSeparator` value. By default it is set to ';'. For example, your data string can look like this `"Los Angeles;-118.4079971;33.94250107"`.
 
 * **Destination** - represents the end of the link. Uses same formatting rules as Source bucket.
