@@ -1,4 +1,4 @@
-#### extension for WebFocus 8200
+#### Extension for WebFocus 8200
 
 # Ratio Chart
 
@@ -51,7 +51,7 @@ To configure or customize your extension edit "properties" object in properties.
 	      "enabled": true
 	    }
 	}
-You can customize category axis ( ordinal axis on the left ), ratio axes ( top and bottom sides of the chart ) and risers. You can also enable/disable the tooltip.
+You can customize category axis ( ordinal axis on the left ), ratio axes ( top and bottom sides of the chart ) and risers. You can also enable/disable the tooltip. `risers.label.format` uses the same format string as Moonbeam.
 ## Data Buckets
 
 ### Measures:
