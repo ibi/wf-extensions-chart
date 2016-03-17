@@ -471,9 +471,12 @@ var tdg_usmap = (function() { // <---------------------------------------- CHANG
         return function(d) {
             var str = '<div style="padding:5px">';
             var idx = 0;
+            var used = [];
             for (var p in d.tooltip) {
                 if (buckets.hasOwnProperty(p)) {
                     if (d.tooltip[p] == null || !buckets[p]) continue;
+                    if ( used.indexOf(buckets[p][0]) >= 0 ) continue;
+                    used.push(buckets[p][0]);
 
                     if (idx) {
                         str += '<br/>';
