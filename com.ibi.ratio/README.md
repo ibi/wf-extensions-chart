@@ -10,8 +10,8 @@ Very simple chart, that can be used to compare numerical ratios of different cat
 ## Screenshots
 ***
 
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.ratio/screenshots/1.png)
-![screenshot_2](https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.ratio/screenshots/2.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.ratio/screenshots/1.png?raw=true)
+![screenshot_2](https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.ratio/screenshots/2.png?raw=true)
 
 ## Configurations
 ***
