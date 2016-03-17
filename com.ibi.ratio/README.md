@@ -1,20 +1,20 @@
-#### extension for WebFocus 8200
+#### Extension for WebFocus 8200
 
 # Ratio Chart
 
 For installation instructions please visit this [link] (https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension "Installing a WebFocus Extension").
 
 ## Description
-***
+
 Very simple chart, that can be used to compare numerical ratios of different categories.
 ## Screenshots
-***
 
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.ratio/screenshots/1.png)
-![screenshot_2](https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.ratio/screenshots/2.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.ratio/screenshots/1.png)
+
+![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.ratio/screenshots/2.png)
 
 ## Configurations
-***
+
 To configure or customize your extension edit "properties" object in properties.json file.
 	
 	"properties": {
@@ -51,9 +51,9 @@ To configure or customize your extension edit "properties" object in properties.
 	      "enabled": true
 	    }
 	}
-You can customize category axis ( ordinal axis on the left ), ratio axes ( top and bottom sides of the chart ) and risers. You can also enable/disable the tooltip.
+You can customize category axis ( ordinal axis on the left ), ratio axes ( top and bottom sides of the chart ) and risers. You can also enable/disable the tooltip. `risers.label.format` uses the same format string as Moonbeam.
 ## Data Buckets
-***
+
 ### Measures:
 * **Value** - quantitative representations for your categories (sales, costs, stock).
 
