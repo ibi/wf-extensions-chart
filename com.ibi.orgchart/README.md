@@ -12,7 +12,7 @@ This extension helps to visualize a hierarchical structure of a data set.
 
 ![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.orgchart/screenshots/1.png)
 
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.orgchart/screenshots/1.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.orgchart/screenshots/2.png)
 
 ## Configurations
 
