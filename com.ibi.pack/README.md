@@ -11,7 +11,7 @@ This extension helps to visualize quantitative dimension of all data point in th
 
 ## Screenshots
 
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.usmap/screenshots/1.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.pack/screenshots/1.png)
 
 ## Configurations
 
