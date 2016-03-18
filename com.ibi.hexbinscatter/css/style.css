@@ -23,8 +23,10 @@
 
 .x-axis-title text {
 	font-weight: bold;
+	font: 14px sans-serif;
 }
 
 .y-axis-title text {
 	font-weight: bold;
+	font: 14px sans-serif;
 }

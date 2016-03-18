@@ -3,20 +3,11 @@
 
 (function() {
 
-    // All extension callback functions are passed a standard 'renderConfig' argument:
-    //
-    // Properties that are always available:
-    //   moonbeamInstance: the chart instance currently being rendered
-    //   data: the data set being rendered
-    //   properties: the block of your extension's properties, as they've been set by the user
-    //   modules: the 'modules' object from your extension's config, along with additional API methods
-    //   
-    // Properties available during render callback:
-    //   width: width of the container your extension renders into, in px
-    //   height: height of the container your extension renders into, in px
-    //   containerIDPrefix:  the ID of the DOM container your extension renders into.  Prepend this to *all* IDs your extension generates, to ensure multiple copies of your extension work on one page.
-    //   container: DOM node for your extension to render into;
-    //   rootContainer: DOM node containing the specific chart engine instance being rendered.
+
+    function initCallback(successCallback, initConfig) {
+        initConfig.moonbeamInstance.legend.visible = false;
+        successCallback(true);
+    }
 
     // Required: Invoked during each chart engine draw cycle
     // This is where your extension should be rendered
@@ -108,6 +99,7 @@
     var config = {
         id: 'com.ibi.hexbinscatter', // string that uniquely identifies this extension
         containerType: 'svg', // either 'html' or 'svg' (default)
+        initCallback: initCallback,
         renderCallback: renderCallback, // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
         noDataRenderCallback: noDataRenderCallback,
         resources: { // Additional external resources (CSS & JS) required by this extension
