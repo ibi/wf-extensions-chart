@@ -73,14 +73,16 @@ var tdg_marker = (function () {
 			width: 300,
 			height: 400,
 			data: null,
+      formatNumber: null, // moonbeam function
       extraMarkersColor: '#898989',
+      mode: "proportion", // "proportion" or "count"
       marker: {
         type: 'circle', // 'square', 'star'
         cellRatio: 0.8,
-        defaultCount: 100,
+        countRange : [100, 625],
         stroke: {
           color: 'black',
-          width: .5
+          width: 0.5
         }
       },
       label: {
@@ -101,7 +103,7 @@ var tdg_marker = (function () {
       labels: {
         animation: {
           delay: function (d, i) {
-            return 50 * i
+            return 50 * i;
           },
           duration: 500
         }
@@ -109,7 +111,7 @@ var tdg_marker = (function () {
       markers: {
         animation: {
           delay: function (d, i, g) {
-            return 25 * (i + g);
+            return 10 * (i + g);
           },
           duration: 500
         }
@@ -122,7 +124,9 @@ var tdg_marker = (function () {
       }
 
       return props.data.filter(function (d) {
-        return d != null;
+        return d != null && d.count > 0;
+      }).sort(function (a, b) {
+        return a.count - b.count;
       });
     }
 
@@ -136,7 +140,8 @@ var tdg_marker = (function () {
       });
     }
 
-    function buildLabelsData () {
+    function buildLabelsData (markerInfo) {
+
       var counts = getCountByGroup(),
         labels = getLabelsByGroup(),
         format = d3.format(props.label.format),
@@ -158,11 +163,23 @@ var tdg_marker = (function () {
         });
       }
 
-      return counts.map(function (count, i) {
+      var data = getData();
+
+      var extent = d3.extent(data, function (d) { return d.count; });
+
+      var config = {
+        max: extent[1],
+        min: extent[0]
+      };
+
+      return data.filter(function (d, idx) {
+        return markerInfo.groupSequence.indexOf(idx) >= 0;
+      }).map(function (d, i) {
+        var g = markerInfo.groupSequence[i];
         return {
-          text: text(labels[i], format(count)),
+          text: text(labels[g], props.formatNumber(d.count, props.label.format, config) ),
           color: colors[i] || props.extraMarkersColor
-        }
+        };
       });
     }
 
@@ -213,21 +230,97 @@ var tdg_marker = (function () {
       return getMaxLabelWidth(labels) + 2 * innerProps.horizontalPadding;
     }
 
+    function getMarkerInfo () {
+      var data = getData(),
+        countRange = props.marker.countRange;
+
+      var counts = data.map(function (d, idx) {
+        return d.count;
+      });
+
+      var groupSequence = counts.map(function (d, idx) {
+        return idx;
+      });
+
+      var actualTotalCount = d3.sum(counts);
+
+      switch (true) {
+        case ( countRange[0] > actualTotalCount && props.mode === 'count' ) : // actual count of markers is less than min count of markers
+          counts.push(countRange[0] - actualTotalCount);
+          actualTotalCount = d3.sum(counts);
+          break;
+        case ( props.mode === 'proportion' ) : // actual count of markers is greater than max count of markers
+          var ratios = counts.map(function (count) {
+            return count / actualTotalCount * 100;
+          });
+
+          var minRatio = d3.min(ratios);
+
+          if ( minRatio < 1 ) {
+            var coef = 1 / minRatio;
+
+            ratios = ratios.map(function (ratio) {
+              return ratio * coef;
+            });
+          }
+
+          counts = ratios.map(function (count) {
+            return Math.ceil(count);
+          });
+
+          actualTotalCount = d3.sum(counts);
+
+          var trim = 0;
+
+          if ( actualTotalCount > countRange[1] ) {
+            trim = Math.ceil(( actualTotalCount - countRange[1] ) / counts.length);
+          }
+
+          groupSequence = [];
+
+          counts = counts.map(function ( count ) {
+            return count - trim;
+          }).filter(function (count, idx) {
+            if ( count < 0 ) {
+              return false;
+            } else {
+              groupSequence.push(idx);
+              return true;
+            }
+          });
+
+          actualTotalCount = d3.sum(counts);
+
+          break;
+      }
+
+      return {
+        countByGroup: counts,
+        groupSequence: groupSequence,
+        totalCount: actualTotalCount
+      };
+
+    }
+
     function getTotalMarkerCount () {
       var data  = getData(),
         counts = 0,
-        totals = ( typeof props.marker.defaultCount === 'number' ) ? props.marker.defaultCount : 0;
+        totals = ( typeof props.marker.countRange[0] === 'number' ) ? props.marker.countRange[0] : 0;
       data.forEach(function (d) {
         counts += d.count;
         totals = Math.max(totals, d.total);
       });
-
-      return Math.max(counts, !isNaN(totals) ? totals : props.marker.defaultCount );
+      
+      return Math.max(counts, !isNaN(totals) ? totals : props.marker.countRange[0] );
     }
 
-    function getLayoutInfo (width, height) {
+    function getLayoutInfo (markerInfo, width, height) {
       var widthToHeight = width / height;
-      var total = getTotalMarkerCount();
+
+      //var total = getTotalMarkerCount();
+
+      var total = markerInfo.totalCount;
+
       var x = Math.sqrt(total * widthToHeight);
       var y = total / x;
 
@@ -300,13 +393,17 @@ var tdg_marker = (function () {
       });
     }
 
-    function buildMarkersData (layout) {
+    function buildMarkersData (markerInfo, layout) {
       var i, j, result = [],
         cellHalfLength = layout.sideLength / 2,
         radius = cellHalfLength * props.marker.cellRatio;
 
+      //var markerInfo = getMarkerInfo();
+
       var colors = getColors();
-      var counts = getCountByGroup();
+      //var counts = getCountByGroup();
+
+      var counts = markerInfo.countByGroup;
 
       var rowNum, colNum,
         lastIndx = 0;
@@ -448,12 +545,14 @@ var tdg_marker = (function () {
       var group_main = selection.append('g')
         .classed('group-main', true);
 
+      var markerInfo = getMarkerInfo();
+
       // -------------- LABEL RENDERING LOGIC STARTS
       var labels, group_labels;
       if (props.label.enabled) {
         group_labels = selection.append('g')
           .classed('group-labels', true);
-        var labelsData = buildLabelsData();
+        var labelsData = buildLabelsData(markerInfo);
         labels = renderLabels(group_labels, labelsData);
       }
       // -------------- LABEL RENDERING LOGIC ENDS
@@ -467,8 +566,8 @@ var tdg_marker = (function () {
       var width = props.width - markerLeftOffset - 2 * innerProps.horizontalPadding;
       var height = props.height - 2 * innerProps.verticalPadding;
 
-      var layout = getLayoutInfo(width, height);
-      var markersData = buildMarkersData(layout);
+      var layout = getLayoutInfo(markerInfo, width, height);
+      var markersData = buildMarkersData(markerInfo, layout);
 
       var markers = renderMarkers(group_markers, markersData);
       // -------------- MARKERS RENDERING LOGIC ENDS

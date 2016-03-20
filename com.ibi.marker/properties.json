@@ -10,28 +10,34 @@
         }
     },
 
-    properties: {
+    "properties": {
         "extraMarkersColor": '#898989',
+        "mode": "proportion",
         "marker": {
             "type": 'circle',
             "cellRatio": 0.8,
-            "defaultCount": 100
+            "countRange" : [100, 625]
         },
         "label": {
             "enabled": true,
-            "format": 'd',
+            "format": 'auto',
             "font": {
                 "color": 'auto'
             }
         }
     },
 
-    propertyAnnotations: {
+    "propertyAnnotations": {
         "extraMarkersColor": 'color',
+        "mode": "str",
         "marker": {
             "type": 'str',
             "cellRatio": 'number',
-            "defaultCount": 'number'
+            "defaultCount": 'number',
+            "countRange": {
+                "typeAnnotation": "array",
+                "arrayTypes": "number"
+            }
         },
         "label": {
             "enabled": 'bool',

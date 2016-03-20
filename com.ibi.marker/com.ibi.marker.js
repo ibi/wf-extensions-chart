@@ -39,6 +39,7 @@
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
 		props.data = renderConfig.data;
+		props.formatNumber = renderConfig.moonbeamInstance.formatNumber;
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'tdg_marker_chart');
@@ -59,6 +60,7 @@
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
 		props.data = [{count: 45, label: 'Democrats'}, {count: 55, label: 'Republicans'}];
+		props.formatNumber = renderConfig.moonbeamInstance.formatNumber;
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'tdg_marker_chart');
@@ -86,7 +88,7 @@
 			})
 			.style({
 				'font-weight' : 'bold',
-				'font-size' : '14',
+				'font-size' : '14px',
 				dy: '0.35em',
 				fill: 'grey'
 			});
