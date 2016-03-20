@@ -32,6 +32,39 @@ var tdg_sunburst = (function () {
     }
   }
 
+  function getHierarchyObj (data) {
+    var res = [], roots = [];
+    data.forEach(function (d) {
+      var root,
+        levels = Array.isArray(d.levels) ? d.levels : [d.levels],
+        idx = roots.indexOf(levels[0]);
+      if ( idx >= 0 ) {
+        root = res[idx];
+      } else {
+        root = {};
+        res.push(root);
+        roots.push(levels[0]);
+      }
+
+      (function iterate (obj, val, path, idx, len) {
+        obj.name = path[idx];
+        if ( idx < len ) {
+          if ( !Array.isArray(obj.children) ) {
+            obj.children = [];
+          }
+          var child = {};
+          iterate(child, val, path, idx + 1, len);
+          obj.children.push(child);
+        } else {
+          obj.size = val;
+        }
+      })(root, d.value, d.levels, 0, levels.length - 1);
+
+    });
+
+    return res;
+  }
+
   function getDataHelper (data) {
     var allNodes = [], allEdges = [], nodeValueMap = {},
       nodes;
@@ -98,7 +131,9 @@ var tdg_sunburst = (function () {
       return;
     }
 
-    var dataHelper = getDataHelper(data);
+    var hierarchy = getHierarchyObj(data);
+
+    /*var dataHelper = getDataHelper(data);
 
     if (dataHelper.edges.length) {
       data = dataHelper.edges.map(function (edge) {
@@ -138,9 +173,18 @@ var tdg_sunburst = (function () {
       }
     });
 
-    roots = data.filter(function(d){ return d.parent == null; });
+    roots = data.filter(function(d){ return d.parent == null; });*/
 
-    if ( roots.length > 1 ) {
+    if ( hierarchy.length > 1 ) {
+      return {
+        name: fakeRootName,
+        children: hierarchy
+      };
+    } else {
+      return hierarchy[0];
+    }
+
+    /*if ( roots.length > 1 ) {
       root = {
         node: fakeRootName,
         parent: null,
@@ -173,7 +217,7 @@ var tdg_sunburst = (function () {
       }
     })(root, result);
 
-    return result;
+    return result;*/
   }
 
 	return function (user_props) {
@@ -379,8 +423,8 @@ var tdg_sunburst = (function () {
       }).attr('pointer-events', 'all');
       
       paths.transition().delay(function (d, i) {
-        return 50 * (paths[0].length - i );
-      }).duration(800).style('opacity', 1);
+        return 10 * (paths[0].length - i );
+      }).duration(600).style('opacity', 1);
 
       if ( props.toolTip.enabled ) {
         paths
@@ -391,7 +435,7 @@ var tdg_sunburst = (function () {
       }
 
       function click (d) {
-        paths.transition()
+        paths.transition('zooming_in')
           .duration(750)
           .attrTween("d", arcTween(d));
       }
@@ -399,7 +443,7 @@ var tdg_sunburst = (function () {
       function fade (opacity) {
         return function (select_d) {
           var filteredPaths = paths.filter(function (path_d) {
-            return select_d.name !== path_d.name;
+            return select_d !== path_d;
           });
 
           filteredPaths.transition().style('opacity', opacity);
