@@ -915,7 +915,7 @@ var tdg_arc = (function() { // change name
                     });
 
                     f.transition().style('opacity', opacity);
-                }
+                };
             }
 
             var fade = (props.type === 'stacked') ? fadeStacked : fadeRegular;
