@@ -1,14 +1,26 @@
 /*global tdgchart: false, d3: false */
 
  (function() {
+	 
+	 var tdg = tdgchart.util;
 
 	function preRenderCallback(preRenderConfig) {
-		var chart = preRenderConfig.moonbeamInstance;
+		var chart = preRenderConfig.moonbeamInstance; 
+		if (chart.noDataMode) {
+			chart.title.visible = true;
+			chart.title.text = "Drop Measures or Sorts into the Query Pane";
+			chart.title.font = "20pt Sans-Serif";
+			chart.title.color = "#A8A8A8";
+		}
 		chart.legend.visible = false;
 	}
 
 	function renderCallback(renderConfig) {
 
+		if (tdg.isEmpty(renderConfig.data)) {
+			return;
+		}
+		
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
 		var formatNumber = d3.format(",.0f");
@@ -24,6 +36,10 @@
 			links: []
 		};
 		
+		if (renderConfig.greyState) {
+			color = function() {return renderConfig.baseColor;};
+		}
+		
 		function pushNode(name) {
 			var idx = data.nodes.indexOf(name);
 			if (idx >= 0) {
@@ -33,7 +49,7 @@
 			return data.nodes.length - 1;
 		}
 		
-		data.links = chart.data.map(function(el) {
+		data.links = renderConfig.data.map(function(el) {
 			return {
 				source: pushNode(el.source),
 				target: pushNode(el.target),
@@ -45,6 +61,48 @@
 			return {name: el};
 		});
 		
+		for (var i = data.links.length - 1; i >= 0; i--) {
+			if (data.links[i].source === data.links[i].target) {
+				data.links.splice(i, 1);
+			}
+		}
+		
+		var sourceNodes = [];
+		data.links.forEach(function(el){sourceNodes[el.source] = true;});
+		
+		for (var i = 0; i < data.links.length; i++) {
+			var link = data.links[i];
+			if (link.deleted) {
+				continue;
+			}
+			var sourceList = [];
+			sourceList[link.source] = sourceList[link.target] = true;
+			checkCycles(link.target, sourceList);
+		}
+		
+		function checkCycles(target, sourceList) {
+			if (!sourceNodes[target]) {
+				return;
+			}
+			for (var i = 0; i < data.links.length; i++) {
+				var link = data.links[i];
+				if (!link.deleted && link.source === target) {
+					if (sourceList[link.target]) {
+						link.deleted = true;
+						continue;
+					}
+					sourceList[link.target] = true;
+					checkCycles(link.target, sourceList);
+				}
+			}
+		}
+		
+		for (var i = data.links.length - 1; i >= 0; i--) {
+			if (data.links[i].deleted) {
+				data.links.splice(i, 1);
+			}
+		}
+
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_ibi_chart')
 		.append('g')
@@ -86,16 +144,18 @@
 			.style("fill", function(d) { return d.color = color(d.name.replace(/ .*/, "")); })
 			.style("stroke", function(d) { return d3.rgb(d.color).darker(2); });
 
-		node.append("text")
-			.attr("x", -6)
-			.attr("y", function(d) { return d.dy / 2; })
-			.attr("dy", ".35em")
-			.attr("text-anchor", "end")
-			.attr("transform", null)
-			.text(function(d) { return d.name; })
-		.filter(function(d) { return d.x < width / 2; })
-			.attr("x", 6 + sankey.nodeWidth())
-			.attr("text-anchor", "start");
+		if (!renderConfig.greyState) {
+			node.append("text")
+				.attr("x", -6)
+				.attr("y", function(d) { return d.dy / 2; })
+				.attr("dy", ".35em")
+				.attr("text-anchor", "end")
+				.attr("transform", null)
+				.text(function(d) { return d.name; })
+			.filter(function(d) { return d.x < width / 2; })
+				.attr("x", 6 + sankey.nodeWidth())
+				.attr("text-anchor", "start");
+		}
 			
 		function dragmove(d) {
 			d3.select(this).attr("transform", "translate(" + d.x + "," + (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) + ")");
@@ -103,27 +163,34 @@
 			link.attr("d", path);
 		}
 
-		function removeCycles() {
-			nodes.forEach(function(node) {
-				var visitedNodes = [node.name];
-				node.targetLinks.forEach(function(targetNode) {
-					var targetName = targetNode.target.name;
-					if (visitedNodes.indexOf(targetName) >= 0) {
-					} else {
-						visitedNodes.push(targetNode.target.name);
-					}
-				});
-			});
-		}
-
 		renderConfig.modules.tooltip.updateToolTips();
 	}
 
+	function noDataRenderCallback(renderConfig) {
+		renderConfig.data = [
+			{source: 'A', target: 'E', value: 10},
+			{source: 'A', target: 'C', value: 10},
+			{source: 'B', target: 'C', value: 10},
+			{source: 'B', target: 'D', value: 10},
+			{source: 'C', target: 'G', value: 10},
+			{source: 'C', target: 'E', value: 10}
+		];
+
+		var chart = renderConfig.moonbeamInstance;
+		chart.title.visible = true;
+		chart.title.text = "Drop Measures or Sorts into the Query Pane";
+		chart.title.font = "20pt Sans-Serif";
+		chart.title.color = "#A8A8A8";
+		renderConfig.greyState = true;
+		renderCallback(renderConfig);
+	}
+	
 	var config = {
 		id: 'com.ibi.sankey',
 		name: 'Sankey Chart',
 		preRenderCallback: preRenderCallback,
 		renderCallback: renderCallback,
+		noDataRenderCallback: noDataRenderCallback,
 		resources:  {
 			script: ['http://d3js.org/d3.v3.min.js', 'lib/sankey.js'],
 			css: ['lib/sankey.css']
