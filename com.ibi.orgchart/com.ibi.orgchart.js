@@ -13,7 +13,6 @@
 	// Arguments:
 	//  - renderConfig: the standard callback argument object, including additional properties width, height, etc
 	function renderCallback(renderConfig) {
-		debugger;
 		var chart = renderConfig.moonbeamInstance;
 		var props = JSON.parse(JSON.stringify(renderConfig.properties));
 

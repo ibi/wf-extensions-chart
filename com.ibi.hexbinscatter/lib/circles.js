@@ -27,7 +27,6 @@
 
             var circles = circles_group.selectAll('circle')
                 .data(props.data);
-			debugger;
 			
             circles.enter().append('circle')
                 .attr({

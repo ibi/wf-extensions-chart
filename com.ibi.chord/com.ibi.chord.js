@@ -23,12 +23,12 @@
 	function renderCallback(renderConfig) {
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
-		debugger;
+		
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
 		props.data = [renderConfig.data];
 		props.toolTipEnabled = chart.htmlToolTip && chart.htmlToolTip.enabled;
-		debugger;
+		
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_tdg_chord');
 
@@ -42,12 +42,12 @@
 	function noDataRenderCallback (renderConfig) {
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
-		debugger;
+		
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
 		props.data = [[{"source":"Group_1","target":"Group_1","value":11975,"_s":0,"_g":0},{"source":"Group_1","target":"Group_2","value":5871,"_s":0,"_g":1},{"source":"Group_1","target":"Group_3","value":8916,"_s":0,"_g":2},{"source":"Group_1","target":"Group_4","value":2868,"_s":0,"_g":3},{"source":"Group_1","target":"Group_5","value":7651,"_s":0,"_g":4},{"source":"Group_1","target":"Group_6","value":1235,"_s":0,"_g":5},{"source":"Group_2","target":"Group_1","value":1951,"_s":0,"_g":6},{"source":"Group_2","target":"Group_2","value":10048,"_s":0,"_g":7},{"source":"Group_2","target":"Group_3","value":2060,"_s":0,"_g":8},{"source":"Group_2","target":"Group_4","value":6176,"_s":0,"_g":9},{"source":"Group_2","target":"Group_5","value":7651,"_s":0,"_g":10},{"source":"Group_3","target":"Group_1","value":8010,"_s":0,"_g":11},{"source":"Group_3","target":"Group_2","value":16145,"_s":0,"_g":12},{"source":"Group_3","target":"Group_3","value":8090,"_s":0,"_g":13},{"source":"Group_3","target":"Group_4","value":8045,"_s":0,"_g":14},{"source":"Group_3","target":"Group_5","value":7651,"_s":0,"_g":15},{"source":"Group_4","target":"Group_1","value":1013,"_s":0,"_g":16},{"source":"Group_4","target":"Group_2","value":990,"_s":0,"_g":17},{"source":"Group_4","target":"Group_3","value":940,"_s":0,"_g":18},{"source":"Group_4","target":"Group_4","value":6907,"_s":0,"_g":19},{"source":"Group_4","target":"Group_5","value":7651,"_s":0,"_g":20},{"source":"Group_5","target":"Group_1","value":1013,"_s":0,"_g":21},{"source":"Group_5","target":"Group_2","value":990,"_s":0,"_g":22},{"source":"Group_5","target":"Group_3","value":940,"_s":0,"_g":23},{"source":"Group_5","target":"Group_4","value":6907,"_s":0,"_g":24},{"source":"Group_5","target":"Group_5","value":7651,"_s":0,"_g":25}]];
 		props.toolTipEnabled = chart.htmlToolTip && chart.htmlToolTip.enabled;
-		debugger;
+		
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_tdg_chord');
 

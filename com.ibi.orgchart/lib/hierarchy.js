@@ -73,7 +73,6 @@ window.tdghierarchy.init = (function () {
             return '<div style="padding: 5px"><b>VALUE: </b>' + data.nodeValueMap[d] + '</div>';
           }
         });
-      debugger;
 
       var colorScale = d3.scale.linear().domain(data.domain).range(props.colorRange);
 
