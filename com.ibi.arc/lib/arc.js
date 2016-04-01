@@ -37,7 +37,7 @@ var tdg_arc = (function() { // change name
         star: getStarMarker,
         square: getSquire,
         circle: getCircle
-    }
+    };
 
     function getStarMarker(r) {
         var t36 = 0.7265,
@@ -887,42 +887,52 @@ var tdg_arc = (function() { // change name
 
         function fadeRegular(opacity, selection) {
             return function(d, i) {
-                var f = selection.filter(function(d, idx) {
+                var fadeout = selection.filter(function(d, idx) {
                     return (d.idx) ? d.idx !== i : idx !== i;
                 });
 
-                f.transition().style('opacity', opacity);
-            }
+                if ( d3.event.type === 'touchstart' ) {
+                  selection.filter(function() {
+                      return fadeout[0].indexOf(this) < 0;
+                  })
+                  .transition()
+                  .style('opacity', 1);
+                }
+
+                fadeout.transition().style('opacity', opacity);
+            };
         }
 
         function fadeStacked(opacity, selection) {
             return function(d, i, g) {
-                var f = selection.filter(function(d, idx, group) {
+                var fadeout = selection.filter(function(d, idx, group) {
                     return idx !== i || g !== group;
                 });
 
-                f.transition().style('opacity', opacity);
+                if ( d3.event.type === 'touchstart' ) {
+                  selection.filter(function() {
+                      return fadeout[0].indexOf(this) < 0;
+                  })
+                  .transition()
+                  .style('opacity', 1);
+                }
+
+                fadeout.transition().style('opacity', opacity);
             };
         }
 
-        function enableHiglight(group_arc, group_label) {
+        function enableHiglight(group_arc, bg, group_label) {
             var arcs = group_arc.selectAll('path.arc');
-
-            function fade(opacity, selection) {
-                return function(d, i) {
-                    var f = selection.filter(function(d, idx) {
-                        return (d.idx) ? d.idx !== i : idx !== i;
-                    });
-
-                    f.transition().style('opacity', opacity);
-                };
-            }
 
             var fade = (props.type === 'stacked') ? fadeStacked : fadeRegular;
 
             arcs
                 .on('mouseover.arcs', fade(0.2, arcs))
                 .on('mouseout.arcs', fade(1, arcs));
+
+            arcs
+              .on('touchstart.arcs', fade(0.2, arcs));
+
 
             if (!group_label) {
                 return;
@@ -931,40 +941,83 @@ var tdg_arc = (function() { // change name
             arcs
                 .on('mouseover.labels', fade(0.2, group_label))
                 .on('mouseout.labels', fade(1, group_label));
+
+            arcs
+                .on('touchstart.labels', fade(0.2, group_label));
+
+            bg
+              .on('touchstart', function (d) {
+                arcs.filter(function () {
+                  return d3.select(this).style('opacity') !== 1;
+                })
+                .transition()
+                .style('opacity', 1);
+
+                group_label.filter(function () {
+                  return d3.select(this).style('opacity') !== 1;
+                })
+                .transition()
+                .style('opacity', 1);
+              });
+
         }
 
-        function enableShowValueOnHiglight(group_arc) {
+        function enableShowValueOnHiglight(group_arc, bg) {
             var group_value = group_arc.append('g').classed('group-value', true);
 
             var arcs = group_arc.selectAll('path.arc');
 
             var lblProps = props.valueLabel || {};
 
+            function mouseover(d) {
+
+              group_value.select('text').remove();
+
+              group_value.append('text')
+                  .style({
+                      'font-family': lblProps.fontFamily || 'sans-serif',
+                      'font-size': lblProps.fontSize || '16px',
+                      'font-weight': lblProps.fontWeight || 'normal',
+                      fill: lblProps.color || "#000",
+                      'text-anchor': 'middle',
+                      dy: '.35em'
+                  })
+                  .text(d.value);
+            }
+
+            function mouseout(d) {
+                group_value.select('text').remove();
+            }
+
             arcs
-                .on('mouseover.value', function(d) {
-                    group_value.append('text')
-                        .style({
-                            'font-family': lblProps.fontFamily || 'sans-serif',
-                            'font-size': lblProps.fontSize || '16px',
-                            'font-weight': lblProps.fontWeight || 'normal',
-                            fill: lblProps.color || "#000",
-                            'text-anchor': 'middle',
-                            dy: '.35em'
-                        })
-                        .text(d.value);
-                })
-                .on('mouseout.value', function() {
-                    group_value.select('text').remove();
-                });
+                .on('mouseover.value', mouseover)
+                .on('mouseout.value', mouseout);
+
+            arcs
+              .on('touchstart.value', mouseover);
+
+            bg.on('touchstart.value', mouseout);
+        }
+
+        function addBackground(group_main, width, height) {
+          return group_main.append('rect').classed('background', true)
+            .attr({
+              width: width,
+              height: height,
+              fill: 'none',
+              'pointer-events': 'all'
+            });
+            //.style('fill', 'white');
         }
 
         function chart(selection) {
             var group_main = selection.append('g').classed('group-main', true);
 
+            var bg = addBackground(group_main, props.width, props.height);
+
             var group_chart = group_main.append('g')
                 .classed('group-chart', true)
                 .attr('transform', 'translate(' + [props.width / 2, props.height / 2] + ')');
-
 
             var group_arc;
 
@@ -986,10 +1039,10 @@ var tdg_arc = (function() { // change name
 
             if (hasOnlyPositiveValues() && ['stacked', 'percent'].indexOf(props.type) < 0) {
                 var group_label = renderLabels(group_chart);
-                enableHiglight(group_arc, group_label);
-                enableShowValueOnHiglight(group_arc);
+                enableHiglight(group_arc, bg, group_label);
+                enableShowValueOnHiglight(group_arc, bg);
             } else {
-                enableHiglight(group_arc);
+                enableHiglight(group_arc, bg);
                 enableToolTips(group_arc);
             }
 
