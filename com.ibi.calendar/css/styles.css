@@ -1,0 +1,9 @@
+g.com_tdg_calendar g.cells rect {
+	stroke-width: 1;
+	stroke: #898989;
+}
+
+g.com_tdg_calendar g.month-borders path {
+	stroke-width: 2;
+	stroke: #000;
+}

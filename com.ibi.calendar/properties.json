@@ -1,0 +1,103 @@
+
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 1.0,
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.calendar",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	
+	"properties": {
+		"titles": {
+			"year": {
+				"font": "14px sans-serif",
+				"color": "black",
+				"font-weight": "bold"
+			},
+			"weekdays": {
+				"font": "12px sans-serif",
+				"color": "black",
+				"font-weight": "none"
+			},
+			"months": {
+				"font": "12px sans-serif",
+				"color": "black",
+				"font-weight": "none"
+			}
+		},
+	    "toolTip": {
+	      "enabled": true,
+	      "value": {
+	      	"format": "auto"
+	      }
+	    }
+	},
+	
+	"propertyAnnotations": {
+		"titles": {
+			"year": {
+				"font": "str",
+				"color": "color",
+				"font-weight": "str"
+			},
+			"weekdays": {
+				"font": "str",
+				"color": "color",
+				"font-weight": "str"
+			},
+			"months": {
+				"font": "str",
+				"color": "color",
+				"font-weight": "str"
+			}
+		},
+		"toolTip": {
+	      "enabled": "bool",
+	      "value": {
+	      	"format": "str"
+	      }
+	    }
+	},
+	
+	"dataBuckets":  {
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+	      {
+	        "id": "date",
+	        "type": "dimension",
+	        "count": {
+	          "min": 1,
+	          "max": 1
+	        }
+	      },
+	      {
+	        "id": "value",
+	        "type": "measure",
+	        "count": {
+	          "min": 1,
+	          "max": 1
+	        }
+	      }
+	    ]
+	},
+
+	"translations": {
+		"en": {
+			"name": "Calendar Heat Map Chart",
+			"description": "Heat Map chart that has weekdays on one axis and months on the other.",
+			"icon_tooltip": "This extension is good for building a heat map out of datasets that have dates and associated values.",
+			"date_name": "Date Bucket(DIM)",
+			"date_tooltip": "Drop a dimension here",
+			"value_name": "Value Bucket(MES)",
+			"value_tooltip": "Drop a measure here"
+		}
+	}
+}

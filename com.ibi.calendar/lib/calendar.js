@@ -1,0 +1,547 @@
+/* jshint eqnull:true*/
+/* globals d3*/
+
+var tdg_calendar = (function() { // <---------------------------------------- CHANGE ME
+
+    function copyIfExisty(src, trgt) {
+        each(src, function(attr, key) {
+            if (isObject(attr) && isObject(trgt[key])) {
+                copyIfExisty(attr, trgt[key]);
+            } else if (trgt[key] != null && !isObject(src[key])) {
+                src[key] = trgt[key];
+            }
+        });
+    }
+
+    function isObject(o) {
+        return o && o.constructor === Object;
+    }
+
+    function each(obj, cb) {
+        if (Array.isArray(obj)) {
+            for (var i = 0; i < obj.length; i++) {
+                cb(obj[i], i, obj);
+            }
+            obj.forEach(cb);
+        } else if (isObject(obj)) {
+            for (var key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    cb(obj[key], key, obj);
+                }
+            }
+        }
+    }
+
+    function ensureValidDate (date) {
+        return !isNaN(date.getTime());
+    }
+
+    function isDateInMilliseconds (str) {
+        return !isNaN(str);
+    }
+
+    function parseMillisecondsString (str) {
+        var d = new Date(parseInt(str, 10));
+        return ensureValidDate(d) ? d : null;
+    }
+
+    function fixWFDateFormat (str) {
+        return str.slice(0,2) + ' ' + str.slice(2,4) + ' ' + str.slice(4);
+    }
+
+    function parseFormatedDateString (str) {
+        var d = new Date(fixWFDateFormat(str));
+        return ensureValidDate(d) ? d : null;
+    }
+
+    function parseDate (date_str) {
+        return parseFormatedDateString(date_str);
+        /*if (isDateInMilliseconds(date_str)) {
+            return parseMillisecondsString(date_str);
+        } else {
+            return parseFormatedDateString(date_str);
+        }*/
+    }
+
+    function getFixedDataObject (data) {
+        return data.map(function (d) {
+            return {
+                value : d.value,
+                date : parseDate(d.date)
+            };
+        }).filter(function (d) {
+            return d.value != null && d.date != null;
+        });
+    }
+
+    // --------------------------------- PUT HERE ALL THE GLOBAL VARIABLES AND FUNCTIONS THAT DON'T NEED TO ACCESS PROPS AND INNERPROPS THROUGH SCOPE (Z1)
+    //layouts = {
+    //         charts: [
+    //              {
+    //                  transform: 'str',
+    //                  labels: {
+    //                      year: {
+    //                          text: 'year',
+    //                          style: {
+    //                          
+    //                          },
+    //                          attrs: {
+    //                          
+    //                          }
+    //                      },
+    //                      weekDays: [
+    //                          {
+    //                              text: 'weekday',
+    //                              style: {
+    //                              },
+    //                              attrs: {
+    //                              }
+    //                          }
+    //                      ],
+    //                      months: [
+    //                          {
+    //                          }
+    //                      ]
+    //                  }
+    //                  cells: [
+    //                      {
+    //                          x: num,
+    //                          y: num,
+    //                          
+    //                      }
+    //                  ],
+    //                  monthLines: [
+    //                      {
+    //                          
+    //                      }
+    //                  ]
+    //                  cellsSide: num
+    //              }
+    //         ]
+    //      }
+    
+    var month_names = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+    var week_days_names = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+    function getTitlesDims ( measureLabel, titlesProps ) {
+        return {
+            year: measureLabel('2000', titlesProps.year.font),
+            weekday: measureLabel('Wed', titlesProps.weekdays.font),
+            month: measureLabel('May', titlesProps.months.font)
+        };
+    }
+
+    function getCellSideLength (width, height) {
+        var horiz = width / 54, // max round number of weeks in a year
+            vert = height / 7; // number of days in a week
+
+        return (horiz < vert) ? horiz : vert;
+    }
+
+    function monthPath(t0, cellSize) {
+      var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
+        d0 = t0.getDay(), w0 = d3.time.weekOfYear(t0),
+        d1 = t1.getDay(), w1 = d3.time.weekOfYear(t1);
+      return "M" + (w0 + 1) * cellSize + "," + d0 * cellSize
+        + "H" + w0 * cellSize + "V" + 7 * cellSize
+        + "H" + w1 * cellSize + "V" + (d1 + 1) * cellSize
+        + "H" + (w1 + 1) * cellSize + "V" + 0
+        + "H" + (w0 + 1) * cellSize + "Z";
+    }
+
+    function getDateIdentifier (d) {
+        return d.getMonth() + ' ' + d.getDate() + ' ' + d.getYear();
+    }
+
+    function buildCellTitle (date, toolTip) {
+        var str = '<div style="padding:5px;">';
+
+        str += '<b>date: </b>';
+        str += month_names[date.getMonth()] + ' ' + date.getDate() + ', ' + ( 1900 + date.getYear() );
+        str += '<br/>';
+        str += '<b>' + toolTip.key + ': </b>' + toolTip.value;
+        str += '</div>';
+
+        return str;
+    }
+
+    function buildSingleChartLayout ( width, height, titleDims, year, dateToDatumMap ) {
+        var layout = {
+            labels: {
+                year: null,
+                weekDays: null,
+                months: null
+            },
+            cells: [],
+            monthLines: [],
+            cellsOffset: null
+        };
+
+        var pad = 8;
+
+        var left = titleDims.year.height + titleDims.weekday.width + 3 * pad;
+        var top = titleDims.month.height + pad;
+        var canvasWidth = width - left - 5; // 5 is right offset
+        var canvasHeight = height - top;
+
+        var cellSize = getCellSideLength(canvasWidth, canvasHeight);
+
+        var days = d3.time.days( year, d3.time.year.offset(year, 1) ); // get all days of the year
+
+        layout.cells = days.map(function (d) {
+            var dId = getDateIdentifier(d);
+            return {
+                x: d3.time.weekOfYear(d) * cellSize,
+                y: d.getDay() * cellSize,
+                width: cellSize,
+                height: cellSize,
+                fill: (dateToDatumMap[dId] && dateToDatumMap[dId].color ) ? dateToDatumMap[dId].color : 'none',
+                tdgtitle: (dateToDatumMap[dId] && dateToDatumMap[dId].toolTip) ? buildCellTitle(d, dateToDatumMap[dId].toolTip) : null
+            };
+        });
+
+        var halfCellSize = cellSize / 2;
+
+        layout.labels.weekDays = week_days_names.map(function (text, idx) {
+            return {
+                text: text,
+                x: left - pad,
+                y: ( cellSize * idx ) + halfCellSize
+            };
+        });
+
+        var extent = d3.extent(layout.labels.weekDays, function(d){
+            return d.y;
+        });
+
+        layout.labels.year = {
+            text: year.getYear() + 1900,
+            x: pad,
+            y: top + extent[0] + ( extent[1] - extent[0] ) / 2
+        };
+
+        layout.labels.weekDays = week_days_names.map(function (text, idx) {
+            return {
+                text: text,
+                x: left - pad,
+                y: ( cellSize * idx ) + halfCellSize
+            };
+        });
+
+        var sundays = days.filter(function(d){ return d.getDay() === 0; });
+
+        var sundaysByMonth = d3.nest()
+            .key(function (d) {
+                return +d.getMonth();
+            })
+            .entries(sundays);
+
+        layout.labels.months = month_names.map(function (text, idx) {
+            var extent = d3.extent(sundaysByMonth[idx].values);
+            var x = d3.time.weekOfYear(extent[0]) * cellSize + ( d3.time.weekOfYear(extent[1]) * cellSize + cellSize - d3.time.weekOfYear(extent[0]) * cellSize ) / 2;
+
+            return {
+                text: text,
+                x: left + x,
+                y: 0
+            };
+        });
+
+        var months = d3.time.months(days[0], days[days.length - 1]);
+
+        layout.monthLines = months.map(function (date) {
+            return monthPath(date, cellSize);
+        });
+
+        layout.cellsOffset = [left, top];
+
+        return layout;
+    }
+
+    function buildLayout (props) {
+        var chartOffset = 10;
+
+        var layout = {
+            charts: []
+        };
+
+        var data = getFixedDataObject(props.data);
+
+        var date_extent = d3.extent(data, function(d){ return d.date; });
+
+        var years = d3.time.years(d3.time.year(date_extent[0]), date_extent[1]);
+
+        var height = ( years.length > 1 ) ? props.height / years.length - chartOffset : props.height;
+
+        var titleDims = getTitlesDims(props.measureLabel, props.titles);
+
+        var minMaxVal = d3.extent(data, function(d){ return d.value; });
+
+        var formatConfig = {
+            min: minMaxVal[0],
+            max: minMaxVal[1]
+        };
+
+        var dateToDatumMap = data.reduce(function (map, cur) {
+            var dId = getDateIdentifier(cur.date);
+            map[dId] = {
+                color: props.colorScale(cur.value).toString()
+            };
+
+            if ( props.toolTip.enabled ) {
+                map[dId].toolTip = {
+                    key: props.buckets.value[0],
+                    value: props.formatNumber(cur.value, props.toolTip.value.format, formatConfig)
+                };
+            }
+
+            return map;
+        }, {});
+
+        years.forEach(function (year, idx) {
+            var chart = buildSingleChartLayout( props.width, height, titleDims, year, dateToDatumMap );
+            chart.topOffset = (height + chartOffset) * idx;
+            layout.charts.push(chart);
+        });
+
+        return layout;
+    }
+
+    function renderLabels (chart_group, lblProps) {
+        var week_lbls_group = chart_group.append('g')
+            .classed('week-labels', true)
+            .attr('transform', function (d) {
+                return 'translate(0,' + d.cellsOffset[1] + ')';
+            });
+
+        var week_labels = week_lbls_group.selectAll('text')
+            .data(function (d) {
+               return d.labels.weekDays;
+            });
+
+        week_labels.enter().append('text')
+            .attr({
+                x: function (d) {
+                    return d.x;
+                },
+                y: function (d) {
+                    return d.y;
+                },
+                dy: '.35em'
+            })
+            .style({
+                font: lblProps.weekdays.font,
+                fill: lblProps.weekdays.color,
+                'font-weight': lblProps.weekdays['font-weight'],
+                'text-anchor': 'end'
+            })
+            .text(function (d) {
+                return d.text;
+            });
+
+        var year_title = chart_group.selectAll('text.year')
+            .data(function (d) {
+                return [d.labels.year];
+            });
+
+        year_title.enter()
+            .append('text').classed('year', true)
+            .attr({
+                dy: '1em',
+                transform: function (d) {
+                    return 'translate(' + [d.x, d.y] + ') rotate(-90)';
+                }
+            })
+            .style({
+                font: lblProps.year.font,
+                fill: lblProps.year.color,
+                'font-weight': lblProps.year['font-weight'],
+                'text-anchor': 'middle'
+            })
+            .text(function (d) {
+                return d.text;
+            });
+
+        var months_lbls_group = chart_group.append('g')
+            .classed('months-labels', true);
+
+        var months_labels = months_lbls_group.selectAll('text')
+            .data(function (d) {
+               return d.labels.months;
+            });
+
+        months_labels.enter().append('text')
+            .attr({
+                x: function (d) {
+                    return d.x;
+                },
+                y: function (d) {
+                    return d.y;
+                },
+                dy: '1em'
+            })
+            .style({
+                font: lblProps.months.font,
+                fill: lblProps.months.color,
+                'font-weight': lblProps.months['font-weight'],
+                'text-anchor': 'middle'
+            })
+            .text(function (d) {
+                return d.text;
+            });
+    }
+
+    function isColoredSquare (d) {
+        return d.fill != 'none';
+    }
+
+    function fade (opacity) {
+        return function (d) {
+            d3.select(this).style('opacity', opacity);
+        };
+    }
+
+    function renderCells (chart_group) {
+
+        var cell_group = chart_group.append('g')
+            .classed('cells', true)
+            .attr('transform', function (d) {
+                return 'translate(' + d.cellsOffset + ')';
+            });
+
+        var cells = cell_group.selectAll('rect')
+            .data(function (d) {
+               return d.cells;
+            });
+
+        var enter_cells = cells.enter().append('rect')
+            .each(function (cell) {
+                d3.select(this).attr(cell);
+            });
+
+        enter_cells.filter(isColoredSquare)
+            .on('mouseover', fade(0.6))
+            .on('mouseout', fade(1));
+
+    }
+
+    function renderMonthBorders ( chart_group ) {
+        var month_borders_group = chart_group.append('g')
+            .classed('month-borders', true)
+            .attr('transform', function (d) {
+                return 'translate(' + d.cellsOffset + ')';
+            });
+
+        var borders = month_borders_group.selectAll('path')
+            .data(function (d) {
+                return d.monthLines;
+            });
+
+        borders.enter().append('path')
+            .attr('d', function (d) {
+                return d;
+            });
+    }
+
+    function render ( main_group, chartLayouts, props ) {
+        
+        var charts = main_group.selectAll('g.chart')
+            .data(chartLayouts);
+
+        charts.enter().append('g')
+            .classed('chart', true)
+            .attr('transform', function (d) {
+                return 'translate(0,' + d.topOffset + ')';
+            })
+            .call(renderCells)
+            .call(renderMonthBorders)
+            .call(renderLabels, props.titles);
+    }
+
+    // --------------------------------- END OF Z1
+    return function(user_props) {
+        var props = {
+            width: 300,
+            height: 400,
+            data: [],
+            measureLabel: null,
+            colorScale: null,
+            formatNumber: null,
+            buckets: null,
+            toolTip: {
+                enabled: true,
+                value: {
+                    format: 'auto'
+                }
+            },
+            titles: {
+                year: {
+                    font: "14px sans-serif",
+                    color: "black",
+                    "font-weight": "bold"
+                },
+                weekdays: {
+                    font: "12px sans-serif",
+                    color: "black",
+                    "font-weight": "none"
+                },
+                months: {
+                    font: "12px sans-serif",
+                    color: "black",
+                    "font-weight": "none"
+                }
+            }
+        };
+
+        var innerProps = {
+
+        };
+
+        // ---------------------------------- INTERNAL FUNCTIONS THAT NEED ACCESS TO PROPS AND INNERPROPS THROUGH SCOPE GO HERE (Z2)
+        
+
+        // ---------------------------------- END OF Z2
+        copyIfExisty(props, user_props || {});
+
+        function createAccessor(attr) {
+            function accessor(value) {
+                if (!arguments.length) {
+                    return props[attr];
+                }
+                props[attr] = value;
+                return chart;
+            }
+            return accessor;
+        }
+
+        function chart(selection) {
+            var layout = buildLayout(props);
+
+            var group_main = selection.append('g').classed('group-main', true);
+
+            render(group_main, layout.charts, props);
+
+            // 0. build layout object.
+            // 1. find out how many years data set spans by scanning the dataset so canvas can be broken horizontally
+            // 2. every canvas need to have space allocated for the year and week days titles on the left and for the months on the top
+            // 3. first we render titles and cells
+            // 4. second we color cells according to dataset
+
+            //render( group_main );
+
+        }
+
+        for (var attr in props) {
+            if ((!chart[attr]) && (props.hasOwnProperty(attr))) {
+                chart[attr] = createAccessor(attr);
+            }
+        }
+
+        /* start-test-block */
+
+        /* end-test-block */
+
+        return chart;
+    };
+})();
