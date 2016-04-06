@@ -72,7 +72,7 @@
             "description": "Simple Marker Chart",
             "icon_tooltip": "Simple Marker Chart",
             "count_name": "Number of Markers Bucket",
-            "count_tooltip": "Drop a measusre here",
+            "count_tooltip": "Drop a measure here",
             "label_name": "Label Bucket",
             "label_tooltip": "Drop a dimension here"
         }

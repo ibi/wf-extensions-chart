@@ -95,7 +95,7 @@
 			"target_name": "Target Nodes", 
 			"target_tooltip": "Drop a dimension here",
 			"value_name": "Node Link Values",
-			"value_tooltip": "Drop a measusre here"
+			"value_tooltip": "Drop a measure here"
 		}
 	}
 }

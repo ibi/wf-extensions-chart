@@ -118,9 +118,9 @@
 			"description": "Arc Chart",
 			"icon_tooltip": "Arc Chart", 
 			"value_name": "Value Bucket", 
-			"value_tooltip": "Drop a measusre here",
+			"value_tooltip": "Drop a measure here",
 			"label_name": "Label Bucket", 
-			"label_tooltip": "Drop a measusre here"
+			"label_tooltip": "Drop a measure here"
 		}
 	}
 }
