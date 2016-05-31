@@ -1,0 +1,164 @@
+
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 1.0,
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.sunburst",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	
+	"properties": {
+		"axes": {
+			"invert": true,
+			"numerical" : {
+				"labels": {
+					"format": "auto",
+					"font": "12px serif"
+				}
+			},
+			"ordinal": {
+				"labels": {
+					"format": "auto",
+					"font": "12px serif"
+				},
+				"title": {
+					"font": "16px serif",
+					"color": "black"
+				}
+			}
+		},
+		"canvas": {
+			"ranges": {
+				"color": "pink",
+				"tooltip": {
+					"enabled": true
+				}
+			},
+			"markers": {
+				"size": 10,
+				"stroke": "black",
+				"strokeWidth": 1,
+				"colors": ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"],
+				"tooltip": {
+					"enabled": true
+				}
+			}
+		},
+		"legend": {
+			"labels": {
+				"font": "12px serif",
+				"color": "black"
+			}
+		}
+	},
+		
+	"propertyAnnotations": {
+		"axes": {
+			"invert": "bool",
+			"numerical" : {
+				"labels": {
+					"format": "str",
+					"font": "str"
+				}
+			},
+			"ordinal": {
+				"labels": {
+					"format": "str",
+					"font": "str"
+				},
+				"title": {
+					"font": "str",
+					"color": "color"
+				}
+			}
+		},
+		"canvas": {
+			"ranges": {
+				"color": "color",
+				"tooltip": {
+					"enabled": "bool"
+				}
+			},
+			"markers": {
+				"size": "number",
+				"stroke": "color",
+				"strokeWidth": "number",
+				"colors": {
+					"typeAnnotation": "array",
+					"arrayTypes": "color"
+				},
+				"tooltip": {
+					"enabled": "bool"
+				}
+			}
+		},
+		"legend": {
+			"labels": {
+				"font": "str",
+				"color": "color"
+			}
+		}
+	},
+	
+	"dataBuckets":  {
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+	      {
+	        "id": "group",
+	        "type": "dimension",
+	        "count": {
+	          "min": 1,
+	          "max": 1
+	        }
+	      },
+	      {
+	        "id": "min",
+	        "type": "measure",
+	        "count": {
+	          "min": 0,
+	          "max": 1
+	        }
+	      },
+	      {
+	        "id": "max",
+	        "type": "measure",
+	        "count": {
+	          "min": 0,
+	          "max": 1
+	        }
+	      },
+	      {
+	        "id": "markers",
+	        "type": "measure",
+	        "count": {
+	          "min": 0,
+	          "max": 20
+	        }
+	      }
+	    ]
+	},
+
+	"translations": {
+		"en": {
+			"name": "Range Chart",
+			"description": "Simple two dimensional chart that can be used to plot min/max ranges and many series of markers.",
+			"icon_tooltip": "Simple two dimensional chart that can be used to plot min/max ranges and many series of markers.",
+			"group_name": "Group Bucket(DIM)",
+			"group_tooltip": "Drop a dimension here",
+			"min_name": "Range Minimum Bucket(MES)",
+			"min_tooltip": "Drop a measure here",
+			"max_name": "Range Maximum Bucket(MES)",
+			"max_tooltip": "Drop a measure here",
+			"markers_name": "Markers Bucket(MES)",
+			"markers_tooltip": "Drop a measure here"
+		}
+	}
+}
