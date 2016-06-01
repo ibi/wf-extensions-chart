@@ -32,46 +32,48 @@
 
 
 		/*renderConfig.properties = {
-			axes: {
-				invert: true,
-				numerical : {
-					labels: {
-						format: 'auto',
-						font: '12px serif'
+			"axes": {
+				"invert": true,
+				"numerical" : {
+					"labels": {
+						"format": "auto",
+						"font": "12px serif"
 					}
 				},
-				ordinal: {
-					labels: {
-						format: 'auto',
-						font: '12px serif'
+				"ordinal": {
+					"labels": {
+						"format": "auto",
+						"font": "12px serif"
 					},
-					title: {
-						font: '16px serif',
-						color: 'black'
+					"title": {
+						"font": "16px serif",
+						"color": "black"
 					}
 				}
 			},
-			canvas: {
-				ranges: {
-					color: 'pink',
-					tooltip: {
-						enabled: true
+			"canvas": {
+				"ranges": {
+					"color": "pink",
+					"widthRatio": 0.8,
+					"tooltip": {
+						"enabled": true
 					}
 				},
-				markers: {
-					size: 10,
-					stroke: 'black',
-					strokeWidth: 1,
-					colors: ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"],
-					tooltip: {
-						enabled: true
+				"markers": {
+					"size": 10,
+					"stroke": "none",
+					"strokeWidth": 1,
+					"colors": ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"],
+					"symbols": ["circle", "diamond", "square", "cross" , "triangle-down", "triangle-up"],
+					"tooltip": {
+						"enabled": true
 					}
 				}
 			},
-			legend: {
-				labels: {
-					font: '12px serif',
-					color: 'black'
+			"legend": {
+				"labels": {
+					"font": "12px serif",
+					"color": "black"
 				}
 			}
 		};*/
