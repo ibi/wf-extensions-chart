@@ -312,6 +312,8 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
         var buckets = props.buckets,
             isInvert = props.axes.invert;
 
+        var numScaleExtent = numScale.domain();
+
         var halfBand = ordScale.rangeBand() / 2,
             symbols = getSymbolsByMarkerSeries(props.buckets.markers || [], props.canvas.markers.symbols),
             color = getMarkersColorScale(props.canvas.markers.colors),
@@ -332,6 +334,21 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
 
                     if ( props.canvas.markers.tooltip.enabled ) {
                         res.tdgtitle = tdgtitle(d, [{name: 'markers', idx: sidx}]);
+                    }
+
+                    if ( props.canvas.markers.tooltip.enabled ) {
+                        res.tdgtitle = tdgtitle(d, [{name: 'markers', idx: sidx}]);
+                    }
+
+                    if ( props.canvas.markers.labels.enabled ) {
+                        res.label = props.formatNumber(
+                            value,
+                            props.canvas.markers.labels.format,
+                            {
+                                min: numScaleExtent[0],
+                                max: numScaleExtent[1]
+                            }
+                        );
                     }
 
                     return res;
@@ -695,16 +712,20 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
             group_markers = group.append('g').classed('markers' , true);
         }
 
-        var markers = group_markers.selectAll('path.marker')
+        var markers = group_markers.selectAll('g.marker')
             .data(layout.markers);
 
         var symbol = d3.svg.symbol(),
             size = Math.pow(props.canvas.markers.size, 2);
 
-        markers.enter().append('path').classed('marker', true)
+        var markers_enter = markers.enter().append('g').classed('marker', true)
+            .attr('transform', function (mp) {
+                return 'translate(' + [mp.x, mp.y] + ')';
+            });
+
+        markers_enter.append('path')
             .each(function (mp) {
                 d3.select(this).attr({
-                    transform: 'translate(' + [mp.x, mp.y] + ')',
                     d: symbol.type(mp.symbol).size(size),
                     fill: mp.color,
                     tdgtitle: mp.tdgtitle
@@ -714,6 +735,20 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
                 stroke: props.canvas.markers.stroke,
                 'stroke-width': props.canvas.markers.strokeWidth
             });
+
+        if ( props.canvas.markers.labels.enabled ) {
+            markers_enter.append('text').text(function (d) {
+                return d.label;
+            })
+            .attr({
+                dy: '.35em',
+                x: props.canvas.markers.size
+            })
+            .style({
+                font: props.canvas.markers.labels.font,
+                fill: props.canvas.markers.labels.color
+            });
+        }
         
     }
 
@@ -831,7 +866,7 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
         function fade ( opacity, selection ) {
             return function () {
                 selection.each(function () {
-                    if ( d3.event.target !== this ) {
+                    if ( d3.event.currentTarget !== this ) {
                         d3.select(this).transition()
                             .style('opacity', opacity);
                     }
@@ -845,7 +880,7 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
         range.on('mouseover', fade(0.3, range))
             .on('mouseout', fade(1, range));
         // markers hover
-        var marker = group_main.selectAll('g.markers > path.marker');
+        var marker = group_main.selectAll('g.markers > g.marker');
         
         marker.on('mouseover', fade(0.3, marker))
             .on('mouseout', fade(1, marker));
@@ -895,6 +930,12 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
                     symbols: ["circle", "diamond", "square", "cross" , "triangle-down", "triangle-up"],
                     tooltip: {
                         enabled: true
+                    },
+                    labels : {
+                        enabled: true,
+                        font: '12px serif',
+                        format: "auto",
+                        color: "black"
                     }
                 }
             },

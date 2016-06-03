@@ -45,8 +45,14 @@
 				"strokeWidth": 1,
 				"colors": ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"],
 				"symbols": ["circle", "diamond", "square", "cross" , "triangle-down", "triangle-up"],
-				"tooltip": {
+				"tooltip" : {
 					"enabled": true
+				},
+				"labels" : {
+					"enabled": true,
+					"font": "12px serif",
+					"format": "auto",
+					"color": "black"
 				}
 			}
 		},
@@ -100,6 +106,12 @@
 				},
 				"tooltip": {
 					"enabled": "bool"
+				},
+				"labels" : {
+					"enabled": "bool",
+					"font": "bool",
+					"format": "str",
+					"color": "color"
 				}
 			}
 		},

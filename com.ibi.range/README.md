@@ -1,6 +1,6 @@
 #### Extension for WebFocus 8200
 
-# Range Chart
+# Range (Floating Column) Chart
 
 For installation instructions please visit this [link] (https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension "Installing a WebFocus Extension").
 
