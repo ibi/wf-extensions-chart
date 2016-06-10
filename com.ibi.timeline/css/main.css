@@ -1,0 +1,28 @@
+.com_tdg_timeline text.axis-label {
+	fill: black;
+  	font: 10px sans-serif;
+}
+
+.com_tdg_timeline text.row-label {
+	fill: black;
+  	font: 10px sans-serif;
+}
+
+.com_tdg_timeline g.time-axis > g.tick > line {
+  stroke: black;
+}
+
+.com_tdg_timeline g.time-axis > path.domain {
+  stroke: black;
+  fill: none;
+}
+
+.com_tdg_timeline g.row-borders line.row-border {
+  stroke: black;
+  stroke-dasharray: 2 2;
+}
+
+.com_tdg_timeline g.context rect.extent {
+  opacity: 0.3;
+  fill: black;
+}
