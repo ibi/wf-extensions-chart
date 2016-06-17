@@ -46,21 +46,26 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
     }
 
     function fixWFDateFormat (str) {
-        return str.slice(0,2) + ' ' + str.slice(2,4) + ' ' + str.slice(4);
+        return str.slice(0,2) + '/' + str.slice(2,4) + '/' + str.slice(4);
+    }
+
+    function isOldWFDateFormat(str) {
+      return /\d{8}/.test(str);
     }
 
     function parseFormatedDateString (str) {
-        var d = new Date(fixWFDateFormat(str));
+        var d;
+        if ( isOldWFDateFormat(str) ) {
+          d = new Date(fixWFDateFormat(str));
+        } else {
+          d = new Date(str);
+        }
+
         return ensureValidDate(d) ? d : null;
     }
 
     function parseDate (date_str) {
         return parseFormatedDateString(date_str);
-        /*if (isDateInMilliseconds(date_str)) {
-            return parseMillisecondsString(date_str);
-        } else {
-            return parseFormatedDateString(date_str);
-        }*/
     }
 
     function getFixedDataObject (data) {
@@ -83,10 +88,10 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
     //                      year: {
     //                          text: 'year',
     //                          style: {
-    //                          
+    //
     //                          },
     //                          attrs: {
-    //                          
+    //
     //                          }
     //                      },
     //                      weekDays: [
@@ -107,19 +112,19 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
     //                      {
     //                          x: num,
     //                          y: num,
-    //                          
+    //
     //                      }
     //                  ],
     //                  monthLines: [
     //                      {
-    //                          
+    //
     //                      }
     //                  ]
     //                  cellsSide: num
     //              }
     //         ]
     //      }
-    
+
     var month_names = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
     var week_days_names = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
@@ -445,7 +450,7 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
     }
 
     function render ( main_group, chartLayouts, props ) {
-        
+
         var charts = main_group.selectAll('g.chart')
             .data(chartLayouts);
 
@@ -499,7 +504,7 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
         };
 
         // ---------------------------------- INTERNAL FUNCTIONS THAT NEED ACCESS TO PROPS AND INNERPROPS THROUGH SCOPE GO HERE (Z2)
-        
+
 
         // ---------------------------------- END OF Z2
         copyIfExisty(props, user_props || {});
