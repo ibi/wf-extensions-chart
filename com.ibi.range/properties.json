@@ -170,13 +170,13 @@
 			"name": "Range Chart",
 			"description": "Simple two dimensional chart that can be used to plot min/max ranges and many series of markers.",
 			"icon_tooltip": "Simple two dimensional chart that can be used to plot min/max ranges and many series of markers.",
-			"group_name": "Group Bucket(DIM)",
+			"group_name": "Group (DIM)",
 			"group_tooltip": "Drop a dimension here",
-			"min_name": "Range Minimum Bucket(MES)",
+			"min_name": "Range Minimum (MES)",
 			"min_tooltip": "Drop a measure here",
-			"max_name": "Range Maximum Bucket(MES)",
+			"max_name": "Range Maximum (MES)",
 			"max_tooltip": "Drop a measure here",
-			"markers_name": "Markers Bucket(MES)",
+			"markers_name": "Markers (MES)",
 			"markers_tooltip": "Drop a measure here"
 		}
 	}

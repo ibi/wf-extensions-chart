@@ -112,9 +112,9 @@
 			"name": "Ratio Chart",
 			"description": "This extension helps to compare ratios of different categories.",
 			"icon_tooltip": "Ratio Chart.",
-			"x_name": "Category Bucket (DIM)",
+			"x_name": "Category (DIM)",
 			"x_tooltip": "Drop a dimension here",
-			"y_name": "Value Bucket (MES)",
+			"y_name": "Value (MES)",
 			"y_tooltip": "Drop a measure here"
 		}
 	}

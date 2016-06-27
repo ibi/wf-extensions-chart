@@ -71,9 +71,9 @@
             "name": "Marker Chart",
             "description": "Simple Marker Chart",
             "icon_tooltip": "Simple Marker Chart",
-            "count_name": "Number of Markers Bucket",
+            "count_name": "Number of Markers (MES)",
             "count_tooltip": "Drop a measure here",
-            "label_name": "Label Bucket",
+            "label_name": "Label (DIM)",
             "label_tooltip": "Drop a dimension here"
         }
     }

@@ -35,7 +35,7 @@
             }
         },
         "context": {
-            "heightToTotalHeightRatio": 0.3,
+            "heightToTotalHeightRatio": 0.5,
             "rows": {
                 "labels": {
                     "font": "10px sans-serif",
@@ -153,13 +153,13 @@
 			"name": "Timeline Chart",
 			"description": "Timeline Chart helps to display a list of events in chronological order.",
 			"icon_tooltip": "Timeline Chart helps to display a list of events in chronological order.",
-			"task_name": "Task Bucket",
+			"task_name": "Task (DIM)",
 			"task_tooltip": "Drop a dimension here",
-			"subtask_name": "Subtask Bucket",
+			"subtask_name": "Subtask (DIM)",
 			"subtask_tooltip": "Drop a dimension here",
-			"start_name": "Start Bucket",
+			"start_name": "Start (DIM)",
 			"start_tooltip": "Drop a dimension here",
-			"end_name": "End Bucket",
+			"end_name": "End (DIM)",
 			"end_tooltip": "Drop a dimension here"
 		}
 	}

@@ -47,13 +47,13 @@ You can customize circles, circles hover animation and legend. You can also enab
 ## Data Buckets
 
 ### Measures:
-* **Size** - sets value of circle quantitative dimension ( radius ).
-* **Sort** - enables you to sort by measures (ex. if you sort and size by country, all the larger circles will be closer to the middle).
+* **Size (MES)** - sets value of circle quantitative dimension ( radius ).
+* **Sort (MES)** - enables you to sort by measures (ex. if you sort and size by country, all the larger circles will be closer to the middle).
 
 ### Dimensions:
-* **Labels** - represent different categories.
+* **Labels (DIM)** - represent different categories.
 
-* **Color** - enables you to create some sort of a color grouping.
+* **Color (DIM)** - enables you to create a color grouping.
 
-* **Sort** - enables you to sort by dimensions (ex. if you sort and color by country, all the circles with the same color will be closer together).
+* **Sort (DIM)** - enables you to sort by dimensions (ex. if you sort and color by country, all the circles with the same color will be closer together).
 

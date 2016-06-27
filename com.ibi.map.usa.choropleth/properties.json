@@ -122,9 +122,9 @@
 			"name": "Choropleth USA map Chart",
 			"description": "Choropleth chart is a geographic heat map charts.",
 			"icon_tooltip": "Choropleth chart is a geographic heat map charts.",
-			"state_name": "State Bucket",
+			"state_name": "State (DIM)",
 			"state_tooltip": "Drop a dimension here",
-			"value_name": "Value Bucket",
+			"value_name": "Value (MES)",
 			"value_tooltip": "Drop a measure here"
 		}
 	}

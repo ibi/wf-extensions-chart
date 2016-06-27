@@ -48,11 +48,11 @@ To configure or customize your extension edit "properties" object in properties.
 
 ### Measures:
 
-* **Node Link Values** - assigns a numerical value to a link.
+* **Node Link Values (MES)** - assigns a numerical value to a link.
 
 ### Dimensions:
 
-* **Source Nodes** - defines source of the link.
+* **Source Nodes (DIM)** - defines source of the link.
 
-* **Target Nodes** - defines target of the link.
+* **Target Nodes (DIM)** - defines target of the link.
 

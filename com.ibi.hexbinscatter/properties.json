@@ -15,7 +15,7 @@
 	
 	"properties": {
 		"circles": {
-			"radius": 4
+			"radius": 0.01
 		},
 		"hexbin": {
 			"mesh": false,
@@ -86,13 +86,13 @@
 			"name": "Hexagon Bin Scatter Chart",
 			"description": "Scatter chart with hexagon bins in the background, that color code aggregated value calculated from all the circles in the bin.",
 			"icon_tooltip": "This extension utilizes hexagons that change colors depending on aggregated value calculated from all the circles in the bin. If value is not specified hexagon is color coded by the number of circles in it.", 
-			"x_name": "X Axis Bucket",
+			"x_name": "X Axis (MES)",
 			"x_tooltip": "Drop a measure here",
-			"y_name": "Y Axis Bucket",
+			"y_name": "Y Axis (MES)",
 			"y_tooltip": "Drop a measure here",
-			"detail_name": "Detail Bucket",
+			"detail_name": "Detail (DIM)",
 			"detail_tooltip": "Drop a dimension here",
-			"aggregate_name": "Aggregate Value Bucket",
+			"aggregate_name": "Aggregate Value (MES)",
 			"aggregate_tooltip": "Drop a measure here"
 		}
 	}

@@ -67,9 +67,9 @@ You can customize legend, axes, markers and ranges. You can also enable/disable 
 ## Data Buckets
 
 ### Measures:
-* **Range Minimum** - set of the minimum values of all the ranges.
-* **Range Maximum** - set of the maximum values of all the ranges.
-* **Markers** - set of marker values, that is used to position markers on numerical axis.
+* **Range Minimum (MES)** - set of the minimum values of all the ranges.
+* **Range Maximum (MES)** - set of the maximum values of all the ranges.
+* **Markers (MES)** - set of marker values, that is used to position markers on numerical axis.
 
 ### Dimensions
-* **Group** - is used to position elements on ordinal axis.
+* **Group (DIM)** - is used to position elements on ordinal axis.

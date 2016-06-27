@@ -31,13 +31,13 @@ To configure or customize your extension edit "properties" object in properties.
 
 ### Measures:
 
-* **X Axis Bucket** - used to set a horizontal position of data point on a chart.
+* **X Axis (MES)** - used to set a horizontal position of data point on a chart.
 
-* **Y Axis Bucket** - used to set a vertical position of data point on a chart.
+* **Y Axis (MES)** - used to set a vertical position of data point on a chart.
 
-* **Aggregate Value Bucket** - by default we count a number of circles in a bin to build bin's color scale, but if you drag a measure to this bucket, then values of all data points in a bucket will be summed up and used to build bin's color scale.
+* **Aggregate Value (MES)** - by default we count a number of circles in a bin to build bin's color scale, but if you drag a measure to this bucket, then values of all data points in a bucket will be summed up and used to build bin's color scale.
 
 ### Dimensions:
 
-* **Detail Bucket** - break data set by category ( if has no dimension, WebFocus just sums up all the values ).
+* **Detail (DIM)** - break data set by category ( if has no dimension, WebFocus just sums up all the values ).
 

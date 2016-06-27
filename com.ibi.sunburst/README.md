@@ -37,7 +37,7 @@ You can customize nodes and node borders. `node.colorBy` ( determines node color
 ## Data Buckets
 
 ### Measures:
-* **Value Bucket** - numerical representation for a data point that corresponds to the area of the wedge.
+* **Value (MES)** - numerical representation for a data point that corresponds to the area of the wedge.
 
 ### Dimensions
-* **Level Bucket** - creates sunburst levels.
+* **Level (DIM)** - creates sunburst levels.

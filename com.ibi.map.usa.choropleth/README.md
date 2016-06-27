@@ -66,8 +66,8 @@ To configure or customize your extension edit "properties" object in properties.
 ## Data Buckets
 
 ### Measures:
-* **Value Bucket** - sets numerical values of states.
+* **Value (MES)** - sets numerical values of states.
 
 ### Dimensions:
-* **State Bucket** - represent the states. You can use a state name or a state abbreviation. You can also use Washington D.C. (or DC).
+* **State (DIM)** - represent the states. You can use a state name or a state abbreviation. You can also use Washington D.C. (or DC).
 

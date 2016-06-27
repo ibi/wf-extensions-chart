@@ -59,8 +59,8 @@ You can customize x axis ( category axis on the left ), y axis ( value axis in t
 ## Data Buckets
 
 ### Measures:
-* **Value** - quantitative representations for your categories ( ex. population ).
+* **Value (MES)** - quantitative representations for your categories ( ex. population ).
 
 ### Dimensions
-* **Category** - set of categories ( ex. age groups ).
-* **Type** - types of categories ( ex. gender ).
+* **Category (DIM)** - set of categories ( ex. age groups ).
+* **Type (DIM)** - types of categories ( ex. gender ).

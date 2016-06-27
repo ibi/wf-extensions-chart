@@ -94,9 +94,9 @@
 			"name": "Calendar Heat Map Chart",
 			"description": "Heat Map chart that has weekdays on one axis and months on the other.",
 			"icon_tooltip": "This extension is good for building a heat map out of datasets that have dates and associated values.",
-			"date_name": "Date Bucket(DIM)",
+			"date_name": "Date (DIM)",
 			"date_tooltip": "Drop a dimension here",
-			"value_name": "Value Bucket(MES)",
+			"value_name": "Value (MES)",
 			"value_tooltip": "Drop a measure here"
 		}
 	}

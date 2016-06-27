@@ -45,7 +45,7 @@ To configure or customize your extension edit "properties" object in properties.
 ## Data Buckets
 
 ### Measures:
-* **Value Bucket** - quantitative representations for values in your date series ( ex. sales ).
+* **Value (MES)** - quantitative representations for values in your date series ( ex. sales ).
 
 ### Dimensions
-* **Date Bucket** - a series of date values. Make sure you use full dates ( day, month, year ).
+* **Date (DIM)** - a series of date values. Make sure you use full dates ( day, month, year ).

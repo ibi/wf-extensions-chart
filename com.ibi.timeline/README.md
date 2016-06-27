@@ -76,10 +76,10 @@ This extension doesn't use measure buckets.
 
 
 ### Dimensions:
-* **Task** - a series of tasks that will be use to break the chart by rows.
+* **Task (DIM)** - a series of tasks that will be use to break the chart by rows.
 
-* **Subtask** - a series of subtasks within each task.
+* **Subtask (DIM)** - a series of subtasks within each task.
 
-* **Start** - a series of values that represent when subtasks start.
+* **Start (DIM)** - a series of values that represent when subtasks start.
 
-* **End** - a series of values that represent when subtasks end.
+* **End (DIM)** - a series of values that represent when subtasks end.

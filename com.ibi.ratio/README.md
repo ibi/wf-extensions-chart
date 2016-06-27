@@ -55,7 +55,7 @@ You can customize category axis ( ordinal axis on the left ), ratio axes ( top a
 ## Data Buckets
 
 ### Measures:
-* **Value** - quantitative representations for your categories (sales, costs, stock).
+* **Value (MES)** - quantitative representations for your categories (sales, costs, stock).
 
 ### Dimensions
-* **Category** - set of categories (names, brands, types).
+* **Category (DIM)** - set of categories (names, brands, types).

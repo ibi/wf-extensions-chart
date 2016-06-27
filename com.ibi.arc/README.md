@@ -62,9 +62,9 @@ To configure or customize your extension edit "properties" object in properties.
 
 ### Measures:
 
-* **Value Bucket** - assigns a numerical value to a category.
+* **Value (MES)** - assigns a numerical value to a category.
 
 ### Dimensions:
 
-* **Label Bucket** - defines categories.
+* **Label (DIM)** - defines categories.
 

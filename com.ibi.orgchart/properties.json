@@ -53,9 +53,9 @@
 			"name": "Organization Chart",
 			"description": "Very Simple Organization Chart.",
 			"icon_tooltip": "This extension is good for visualization of hierarchical data sets.",
-			"levels_name": "Levels Bucket",
+			"levels_name": "Levels (DIM)",
 			"levels_tooltip": "Drop a dimension here",
-			"value_name": "Value Bucket",
+			"value_name": "Value (MES)",
 			"value_tooltip": "Drop a measure here"
 		}
 	}
