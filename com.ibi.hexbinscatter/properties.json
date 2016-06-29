@@ -15,7 +15,7 @@
 	
 	"properties": {
 		"circles": {
-			"radius": 0.01
+			"radius": 3
 		},
 		"hexbin": {
 			"mesh": false,
