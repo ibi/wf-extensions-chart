@@ -50,7 +50,7 @@
 
 	"translations": {
 		"en": {
-			"name": "My First Extension Chart",
+			"name": "Compare 2 Bars",
 			"description": "This chart compares 2 series.",
 			"icon_tooltip": "This extension compares 2 series", 
 			"value_name": "Value Bucket", 
