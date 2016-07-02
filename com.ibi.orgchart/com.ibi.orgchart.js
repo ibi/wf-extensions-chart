@@ -8,6 +8,21 @@
 		preRenderConfig.moonbeamInstance.legend.visible = false;
 	}
 
+	function getFormatedBuckets(renderConfig) {
+        if (!renderConfig.dataBuckets || !renderConfig.dataBuckets.buckets) {
+            return;
+        }
+        var bkts = renderConfig.dataBuckets.buckets,
+            modif_bkts = {};
+        for (var bkt in bkts) {
+            if (bkts.hasOwnProperty(bkt)) {
+                modif_bkts[bkt] = Array.isArray(bkts[bkt].title) ? bkts[bkt].title : [bkts[bkt].title];
+            }
+        }
+
+        return modif_bkts;
+    }
+
 	// Required: Is invoked in the middle of each Moonbeam draw cycle
 	// This is where your extension should be rendered
 	// Arguments:
@@ -21,6 +36,11 @@
 		props.data = renderConfig.data;
 		props.levelTitles = (renderConfig.dataBuckets.buckets.levels) ? renderConfig.dataBuckets.buckets.levels.title : null;
 		props.valueTitle = (renderConfig.dataBuckets.buckets.value) ? renderConfig.dataBuckets.buckets.value.title : null;
+
+		props.buckets = getFormatedBuckets(renderConfig);
+
+		props.measureLabel = chart.measureLabel;
+		props.formatNumber = chart.formatNumber;
 
 		var hierarchy = tdghierarchy.init(props);
 		
@@ -39,8 +59,13 @@
 
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
-		props.data = [{"level1":"EUROPE","level2":"W GERMANY","value":18621,"_s":0,"_g":0},{"level1":"EUROPE","level2":"ENGLAND","value":18621,"_s":0,"_g":1},{"level1":"EUROPE","level2":"FRANCE","value":18621,"_s":0,"_g":2},{"level1":"EUROPE","level2":"ITALY","value":18621,"_s":0,"_g":3},{"level1":"ENGLAND","level2":"JAGUAR","value":18621,"_s":0,"_g":4},{"level1":"ENGLAND","level2":"JENSEN","value":14940,"_s":0,"_g":5},{"level1":"ENGLAND","level2":"TRIUMPH","value":4292,"_s":0,"_g":6},{"level1":"FRANCE","level2":"PEUGEOT","value":4631,"_s":0,"_g":7},{"level1":"ITALY","level2":"ALFA ROMEO","value":16235,"_s":0,"_g":8},{"level1":"ITALY","level2":"MASERATI","value":25000,"_s":0,"_g":9},{"level1":"JAPAN","level2":"DATSUN","value":2626,"_s":0,"_g":10},{"level1":"JAPAN","level2":"TOYOTA","value":2886,"_s":0,"_g":11},{"level1":"W GERMANY","level2":"AUDI","value":5063,"_s":0,"_g":12},{"level1":"W GERMANY","level2":"BMW","value":49500,"_s":0,"_g":13}];
+		props.data = [{"levels":["ENGLAND","JAGUAR","V12XKE AUTO","CONVERTIBLE"],"_s":0,"_g":0},{"levels":["ENGLAND","JAGUAR","XJ12L AUTO","SEDAN"],"_s":0,"_g":1},{"levels":["ENGLAND","JENSEN","INTERCEPTOR III","SEDAN"],"_s":0,"_g":2},{"levels":["ENGLAND","TRIUMPH","TR7","HARDTOP"],"_s":0,"_g":3},{"levels":["FRANCE","PEUGEOT","504 4 DOOR","SEDAN"],"_s":0,"_g":4},{"levels":["ITALY","ALFA ROMEO","2000 4 DOOR BERLINA","SEDAN"],"_s":0,"_g":5},{"levels":["ITALY","ALFA ROMEO","2000 GT VELOCE","COUPE"],"_s":0,"_g":6},{"levels":["ITALY","ALFA ROMEO","2000 SPIDER VELOCE","ROADSTER"],"_s":0,"_g":7},{"levels":["ITALY","MASERATI","DORA 2 DOOR","COUPE"],"_s":0,"_g":8},{"levels":["JAPAN","DATSUN","B210 2 DOOR AUTO","SEDAN"],"_s":0,"_g":9},{"levels":["JAPAN","TOYOTA","COROLLA 4 DOOR DIX AUTO","SEDAN"],"_s":0,"_g":10},{"levels":["W GERMANY","AUDI","100 LS 2 DOOR AUTO","SEDAN"],"_s":0,"_g":11},{"levels":["W GERMANY","BMW","2002 2 DOOR","SEDAN"],"_s":0,"_g":12},{"levels":["W GERMANY","BMW","2002 2 DOOR AUTO","SEDAN"],"_s":0,"_g":13},{"levels":["W GERMANY","BMW","3.0 SI 4 DOOR","SEDAN"],"_s":0,"_g":14},{"levels":["W GERMANY","BMW","3.0 SI 4 DOOR AUTO","SEDAN"],"_s":0,"_g":15},{"levels":["W GERMANY","BMW","530I 4 DOOR","SEDAN"],"_s":0,"_g":16},{"levels":["W GERMANY","BMW","530I 4 DOOR AUTO","SEDAN"],"_s":0,"_g":17}];
 
+		props.buckets = getFormatedBuckets(renderConfig);
+
+		props.measureLabel = chart.measureLabel;
+		props.formatNumber = chart.formatNumber;
+		
 		var hierarchy = tdghierarchy.init(props);
 		
 		var container = d3.select(renderConfig.container)
