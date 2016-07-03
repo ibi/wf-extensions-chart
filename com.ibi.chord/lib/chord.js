@@ -14,6 +14,11 @@ var com_tdg_chord = (function () {
 				radius: {
 					inner: 'auto', // can be either 'auto' or a number between 0 and 1
 					outer: 'auto' // can be either 'auto' or a number between 0 and 1
+				},
+				title: {
+					font: "12px sans-serif",
+					color: 'black',
+					bold: true
 				}
 			},
 			axis: {
@@ -133,7 +138,7 @@ var com_tdg_chord = (function () {
 				.duration(1000)
 				.style('opacity', 1);
 
-			if ( props.toolTipEnabled ) {
+			if ( props.toolTipEnabled && false) {
 				group_curves.attr('tdgtitle', buildGroupCurveToolTip(idToIndx));
 			}
 
@@ -203,7 +208,7 @@ var com_tdg_chord = (function () {
 
 				selection.transition()
 				.duration(500)
-				.attr('transform', origTransform + 'scale(' + scale + ')');
+				.attr('transform', origTransform + 'scale(' + ( scale * 0.99 ) + ')');
 			}
 		}
 
@@ -442,6 +447,57 @@ var com_tdg_chord = (function () {
 			};
 		}
 
+		function getGroupTitleOffset ( els ) {
+			var TICK_LENGTH = 5,
+				TITLE_PAD = 10;
+
+			return els.map(function (el) {
+				return el.getBBox().width;
+			}).reduce(function (max, cur) {
+				return (cur > max) ? cur : max;
+			}, -Infinity) + TICK_LENGTH + TITLE_PAD; // tallest axis label + tick length + padding
+		}
+
+		function renderGroupCurvesTitles(chord_titles_group, groups, idToIndx, offset) {
+			var groupNames = [];
+			_.each(idToIndx, function(idx, name){
+				groupNames[parseInt(idx, 10)] = name;
+			});
+
+			var lblOffset = getCurveRadiusObj().outer + offset;
+
+			var titles = chord_titles_group
+				.selectAll('text.title')
+				.data(groups);
+
+			titles.enter()
+				.append('text')
+				.text(function (d) {
+					return groupNames[d.index];
+				})
+				.each(function (d) {
+
+					var rad = d.startAngle + (d.endAngle - d.startAngle) / 2,
+						x = lblOffset * Math.cos(rad - Math.PI / 2),
+						y = lblOffset * Math.sin(rad - Math.PI / 2),
+						rotate = ( rad > 0 && rad < Math.PI )
+							? ( rad - Math.PI / 2 ) * ( 180 / Math.PI )
+							: ( rad - 3 * Math.PI / 2 ) * ( 180 / Math.PI );
+
+					d3.select(this)
+						.style({
+							fill: props.groupCurves.title.color,
+							font: props.groupCurves.title.font,
+							'font-weight': ( props.groupCurves.title.bold ) ? 'bold' : 'normal'
+						})
+						.attr({
+							'text-anchor': ( rad > 0 && rad < Math.PI ) ? 'start' : 'end',
+							transform: ' translate(' + [x, y] + ') rotate(' + rotate  + ')'
+						});
+				});
+
+		}
+
 		function enableMouseInteraction (group_curves, chord_group) {
 			var chords = chord_group.selectAll('path');
 			var curves = group_curves.selectAll('path.group-curve');
@@ -496,8 +552,13 @@ var com_tdg_chord = (function () {
 			var axis_groups = mainGroup.append('g').classed('axis-groups', true);
 			renderAxis(axis_groups, chord.groups());
 
+			var groupTitleOffset = getGroupTitleOffset( axis_groups.selectAll('g.tick>text')[0] );
+
 			var chord_group = mainGroup.append('g').classed('chord-group', true);
 			renderChords(chord_group, chord, matrix.idToIndx);
+
+			var chord_titles_group = mainGroup.append('g').classed('chord-titles-group', true);
+			renderGroupCurvesTitles(chord_titles_group, chord.groups(), matrix.idToIndx, groupTitleOffset);
 
 			enableMouseInteraction(group_curves, chord_group);
 

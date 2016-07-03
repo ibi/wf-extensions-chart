@@ -28,6 +28,11 @@ To configure or customize your extension edit "properties" object in properties.
 			"radius": {
 				"inner": "auto",
 				"outer": "auto"
+			},
+			"title": {
+				"font": "12px sans-serif",
+				"color": "black",
+				"bold": true
 			}
 		},
 		"axis": {

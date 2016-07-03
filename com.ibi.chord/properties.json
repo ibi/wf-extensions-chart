@@ -19,6 +19,11 @@
 			"radius": {
 				"inner": "auto",
 				"outer": "auto"
+			},
+			"title": {
+				"font": "12px sans-serif",
+				"color": "black",
+				"bold": true
 			}
 		},
 		"axis": {
@@ -42,6 +47,11 @@
 			"radius": {
 				"inner": "str",
 				"outer": "str"
+			},
+			"title": {
+				"font": "str",
+				"color": "color",
+				"bold": "bool"
 			}
 		},
 		"axis": {
