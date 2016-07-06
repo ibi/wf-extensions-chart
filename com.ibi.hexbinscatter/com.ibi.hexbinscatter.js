@@ -9,6 +9,21 @@
         successCallback(true);
     }
 
+    function getFormatedBuckets(renderConfig) {
+        if (!renderConfig.dataBuckets || !renderConfig.dataBuckets.buckets) {
+            return;
+        }
+        var bkts = renderConfig.dataBuckets.buckets,
+            modif_bkts = {};
+        for (var bkt in bkts) {
+            if (bkts.hasOwnProperty(bkt)) {
+                modif_bkts[bkt] = Array.isArray(bkts[bkt].title) ? bkts[bkt].title : [bkts[bkt].title];
+            }
+        }
+
+        return modif_bkts;
+    }
+
     // Required: Invoked during each chart engine draw cycle
     // This is where your extension should be rendered
     // Arguments:
@@ -20,6 +35,12 @@
         
         props.height = renderConfig.height;
         props.width = renderConfig.width;
+
+        props.formatNumber = chart.formatNumber;
+        props.measureLabel = chart.measureLabel;
+
+        props.buckets = getFormatedBuckets(renderConfig);
+
         props.axes = {
             x: {
                 title: renderConfig.dataBuckets.buckets.x.title
@@ -43,6 +64,12 @@
                   temp[title] = d.detail[idx];
               });
               d.detail = temp;
+
+              if ( Array.isArray(props.buckets.aggregate) ) {
+                d._aggregate = {};
+                d._aggregate[props.buckets.aggregate[0]] = d.aggregate;
+              }
+
               });
 		} else {
 			props.data = JSON.parse(JSON.stringify(chart.data[0]));
@@ -60,6 +87,11 @@
 
         props.height = renderConfig.height;
         props.width = renderConfig.width;
+
+        props.buckets = {"detail":["MODEL"],"x":["DEALER_COST"],"y":["RETAIL_COST"]};
+
+        props.formatNumber = chart.formatNumber;
+        props.measureLabel = chart.measureLabel;
 
         var container = d3.select(renderConfig.container)
             .attr('class', 'com_ibi_hexbinscatter');

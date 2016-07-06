@@ -15,11 +15,6 @@
 	font-family: sans-serif;
 	font-size: 12;
 }
-.com_ibi_hexbinscatter circle {
-	fill: #fc8200;
-	stroke: #c47642;
-	stroke-width: 1;
-}
 
 .x-axis-title text {
 	font-weight: bold;

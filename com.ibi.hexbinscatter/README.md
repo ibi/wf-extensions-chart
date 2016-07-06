@@ -12,19 +12,47 @@ This extension helps to visualize relationships ( that can be quantified ) betwe
 
 ![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.hexbinscatter/screenshots/1.png)
 
+![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.hexbinscatter/screenshots/2.png)
+
 ## Configurations
 
 To configure or customize your extension edit "properties" object in properties.json file.
 	
 	"properties": {
 		"circles": {
-			"radius": 4
+			"hide": false,
+			"radius": 3,
+			"opacity": 0.8,
+			"color": "#849eb2"
 		},
 		"hexbin": {
 			"mesh": false,
 			"radius": 20,
-			"colors": ["white", "steelblue"]
-		}
+			"colors": ["red", "yellow", "green"]
+		},
+		"colorLegend": {
+            "enabled": true,
+            "background": {
+                "color": "none"
+            },
+            "border": {
+                "color": "black",
+                "width": 1,
+                "round": 2
+            },
+            "title": {
+                "font": "16px serif",
+                "color": "black"
+            },
+            "rows": {
+                "count": "auto",
+                "labels": {
+                    "font": "10px serif",
+                    "color": "black",
+                    "format": "auto"
+                }
+            }
+        }
 	}
 
 ## Data Buckets

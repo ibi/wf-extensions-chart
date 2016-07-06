@@ -9,7 +9,9 @@
             x: null,
             y: null,
             data: [],
-            radius: 2
+            radius: 2,
+            opacity: 1,
+            color: 'grey'
         };
 
         var innerProps = {};
@@ -29,6 +31,10 @@
                 .data(props.data);
 			
             circles.enter().append('circle')
+                .style({
+                    opacity: props.opacity,
+                    fill: props.color
+                })
                 .attr({
                     cx: function(d) {
                         return props.x(d.x);
@@ -40,7 +46,9 @@
                 }).filter(function(d){
 					return d.detail != null;
 				}).attr('tdgtitle', function(d) {
-					var str = '<div style="padding: 5px;">', keys = Object.keys(d.detail);
+					var str = '<div style="padding: 5px;">',
+                        keys = Object.keys(d.detail);
+
 					keys.forEach(function(key, idx){
 						if (idx) {
 							str += '<br/>';
@@ -48,6 +56,15 @@
 						str += '<b>' + key + ': </b>';
 						str += d.detail[key];
 					});
+                    if ( d._aggregate ) {
+                        keys = Object.keys(d._aggregate);
+                        keys.forEach(function(key){
+                            str += '<br/>';
+                            str += '<b>' + key + ': </b>';
+                            str += d._aggregate[key];
+                        });
+                    }
+
                     str += '</div>';
 					return str;
 				});

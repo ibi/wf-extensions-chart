@@ -15,18 +15,47 @@
 	
 	"properties": {
 		"circles": {
-			"radius": 3
+			"hide": false,
+			"radius": 3,
+			"opacity": 0.8,
+			"color": "#849eb2"
 		},
 		"hexbin": {
 			"mesh": false,
 			"radius": 20,
-			"colors": ["white", "steelblue"]
-		}
+			"colors": ["red", "yellow", "green"]
+		},
+		"colorLegend": {
+            "enabled": true,
+            "background": {
+                "color": "none"
+            },
+            "border": {
+                "color": "black",
+                "width": 1,
+                "round": 2
+            },
+            "title": {
+                "font": "16px serif",
+                "color": "black"
+            },
+            "rows": {
+                "count": "auto",
+                "labels": {
+                    "font": "10px serif",
+                    "color": "black",
+                    "format": "auto"
+                }
+            }
+        }
 	},
 	
 	"propertyAnnotations": {
 		"circles": {
-			"radius": "number"
+			"hide": "bool",
+			"radius": "number",
+			"opacity": "number",
+			"color": "color"
 		},
 		"hexbin": {
 			"mesh": "bool",
@@ -35,7 +64,34 @@
 				"typeAnnotation": "array",
 				"arrayTypes": "str"
 			}
-		}
+		},
+		"colorLegend": {
+            "enabled": "bool",
+            "background": {
+                "color": "str"
+            },
+            "border": {
+                "color": "str",
+                "width": "number",
+                "round": "number"
+            },
+            "title": {
+                "font": "str",
+                "color": "color"
+            },
+            "rows": {
+                "count": {
+					"typeAnnotation": "type",
+					"typeValues": ["number", "str"],
+					"stringValues": ["auto"]
+				},
+                "labels": {
+                    "font": "str",
+                    "color": "color",
+                    "format": "str"
+                }
+            }
+        }
 	},
 	
 	"dataBuckets":  {

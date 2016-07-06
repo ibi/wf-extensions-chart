@@ -15,7 +15,10 @@
             mesh: false
         };
 
-        var innerProps = {};
+        var innerProps = {
+            domain: null,
+            colorScale: null
+        };
 
         if (config && config.constructor === Object) {
             for (var key in config) {
@@ -48,8 +51,10 @@
 
             var hexbinData = hexbin(data);
 
-            var color = d3.scale.linear()
-                .domain(getColorScaleDomain(hexbinData, data))
+            innerProps.domain = getColorScaleDomain(hexbinData, data, props.colors);
+
+            var color = innerProps.colorScale = d3.scale.linear()
+                .domain(innerProps.domain)
                 .range(props.colors)
                 .interpolate(d3.interpolateLab);
 
@@ -81,6 +86,14 @@
 
         }
 
+        hexbinBackground.getDomain = function () {
+            return innerProps.domain;
+        };
+
+        hexbinBackground.getColorScale = function () {
+            return innerProps.colorScale.copy();
+        };
+
         function isAggregatable (hexbinData) {
             return props.aggregateBy && hexbinData.some(function(d){
                 return d.some(function (d) {
@@ -89,19 +102,25 @@
             });
         }
 
-        function getColorScaleDomain(hexbinData, data) {
-            var domain;
+        function getColorScaleDomain(hexbinData, data, colorRange) {
+            var extent;
             if (isAggregatable(hexbinData)) {
-                domain = [0, d3.max(hexbinData, function(bin) {
+                extent = [0, d3.max(hexbinData, function(bin) {
                     return d3.sum(bin, function(d) {
                         return d[3] || 0;
                     });
                 })];
             } else {
-                domain = [0, d3.max(hexbinData, function(d) {
+                extent = [0, d3.max(hexbinData, function(d) {
                     return d.length;
                 })];
             }
+
+            var ratio = d3.scale.ordinal().domain(colorRange).rangePoints(extent, 0);
+
+            var domain = colorRange.map(function (color) {
+                return ratio(color);
+            });
 
             return domain;
         }
