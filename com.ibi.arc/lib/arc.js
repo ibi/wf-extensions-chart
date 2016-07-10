@@ -67,6 +67,7 @@ var tdg_arc = (function() { // change name
             height: 400,
             data: null,
             type: 'regular', // 'regular', 'stacked'
+            onRenderComplete: function(){},
             arc: {
                 start: Math.PI / 2,
                 extent: 0.75, // 0.25, 0.5, 0.75;
@@ -202,6 +203,23 @@ var tdg_arc = (function() { // change name
 
         function throwDataError() {
             throw new Error('Wrong data set format');
+        }
+
+        function getOnAllTransitionComplete ( cb ) {
+            return function ( transition ) {
+                var count = transition.size();
+                transition.each('end', function () {
+                    if ( !(--count && typeof cb === 'function') ) cb();
+                });
+            };
+        }
+
+        function getInvokeAfter (cb, count) {
+            if (!count && typeof cb === 'function' ) cb();
+
+            return function () {
+                if (!(--count) && typeof cb === 'function') cb();
+            };
         }
 
         function getData() {
@@ -391,7 +409,7 @@ var tdg_arc = (function() { // change name
             return d3.transpose(result);
         }
 
-        function renderArcsPercent(container) {
+        function renderArcsPercent(container, onRenderComplete) {
             var group_arc = container.append('g')
                 .classed('group-arc', true);
 
@@ -449,7 +467,8 @@ var tdg_arc = (function() { // change name
                     return function(t) {
                         return arc(range(t), i);
                     };
-                });
+                })
+                .call(getOnAllTransitionComplete(onRenderComplete));
 
             arcs.filter(function(d) { // this will remove negative arcs
                 return d.startValue == null || d.endValue == null;
@@ -459,7 +478,7 @@ var tdg_arc = (function() { // change name
 
         }
 
-        function renderArcsStacked(container) {
+        function renderArcsStacked(container, onRenderComplete) {
             var group_arc = container.append('g')
                 .classed('group-arc', true);
 
@@ -517,7 +536,8 @@ var tdg_arc = (function() { // change name
                     return function(t) {
                         return arc(range(t), i);
                     };
-                });
+                })
+                .call(getOnAllTransitionComplete(onRenderComplete));
 
             arcs.filter(function(d) { // this will remove negative arcs
                 return d.startValue == null || d.endValue == null;
@@ -526,7 +546,7 @@ var tdg_arc = (function() { // change name
             return group_arc;
         }
 
-        function renderArcsRegular(container) {
+        function renderArcsRegular(container, onRenderComplete) {
             var group_arc = container.append('g')
                 .classed('group-arc', true);
 
@@ -573,7 +593,8 @@ var tdg_arc = (function() { // change name
                     return function(t) {
                         return arc(range(t), i);
                     };
-                });
+                })
+                .call(getOnAllTransitionComplete(onRenderComplete));
 
             return group_arc;
         }
@@ -586,7 +607,7 @@ var tdg_arc = (function() { // change name
             });
         }
 
-        function renderThetaAxis(container) {
+        function renderThetaAxis(container, onRenderComplete) {
             var group_axis = container.append('g')
                 .classed('group-axis', true);
 
@@ -613,6 +634,7 @@ var tdg_arc = (function() { // change name
                 'stroke-width': innerProps.axis.base.width
             });
 
+            var invokeAfterTwo = getInvokeAfter(onRenderComplete, 2);
 
             axis.transition()
                 .delay(innerProps.axis.base.animation.delay)
@@ -622,7 +644,8 @@ var tdg_arc = (function() { // change name
                     return function(t) {
                         return arc(range(t));
                     };
-                });
+                })
+                .call(getOnAllTransitionComplete(invokeAfterTwo));
 
             var ticks = group_axis.selectAll('g.group-tick')
                 .data(getAxisDataObj(theta));
@@ -671,7 +694,8 @@ var tdg_arc = (function() { // change name
             ticks.transition()
                 .delay(innerProps.axis.ticks.animation.delay)
                 .duration(innerProps.axis.ticks.animation.duration)
-                .style('opacity', 1);
+                .style('opacity', 1)
+                .call(getOnAllTransitionComplete(invokeAfterTwo));
 
             return group_axis;
         }
@@ -689,8 +713,8 @@ var tdg_arc = (function() { // change name
             return formatFn;
         }
 
-        function rescaleGroupChart(selection) {
-            var selectionDim = selection.node().getBBox();
+        function rescaleGroupChart(selection, onScaleComplete) {
+            var selectionDim = selection.node().getBoundingClientRect();
 
             var horrizOverflow = selectionDim.width - props.width;
             var vertOverflow = selectionDim.height - props.height;
@@ -702,7 +726,10 @@ var tdg_arc = (function() { // change name
                 selection.transition()
                     .delay(innerProps.rescale.animation.delay)
                     .duration(innerProps.rescale.animation.duration)
-                    .attr('transform', (origTransform ? origTransform : '') + 'scale(' + scale + ')');
+                    .attr('transform', (origTransform ? origTransform : '') + 'scale(' + scale + ')')
+                    .call(getOnAllTransitionComplete(onScaleComplete));
+            } else {
+                onScaleComplete();
             }
         }
 
@@ -724,7 +751,7 @@ var tdg_arc = (function() { // change name
 
         }*/
 
-        function renderLabels(container) {
+        function renderLabels(container, onRenderComplete) {
 
             function getLabelYPosFun(offset, labelCount) {
                 var totalHeight = offset * labelCount;
@@ -816,16 +843,20 @@ var tdg_arc = (function() { // change name
                     stroke: 'black'
                 });
 
+            var invokeAfterThree = getInvokeAfter(onRenderComplete, 3);
+
             lines.transition()
                 .delay(innerProps.labels.line.animation.delay)
                 .duration(innerProps.labels.line.animation.duration)
-                .attrTween('y2', positionTween);
+                .attrTween('y2', positionTween)
+                .call(getOnAllTransitionComplete(invokeAfterThree));
 
             labels.transition()
                 .delay(innerProps.labels.text.animation.delay)
                 .duration(innerProps.labels.text.animation.duration)
                 .attrTween('y', positionTween)
-                .style('opacity', 1);
+                .style('opacity', 1)
+                .call(getOnAllTransitionComplete(invokeAfterThree));
 
             markers.transition()
                 .delay(innerProps.labels.marker.animation.delay)
@@ -834,9 +865,10 @@ var tdg_arc = (function() { // change name
                     var range = d3.interpolate('translate(0,0)', 'translate(0,' + ypos(d, i) + ')');
                     return function(t) {
                         return range(t);
-                    }
+                    };
                 })
-                .style('opacity', 1);
+                .style('opacity', 1)
+                .call(getOnAllTransitionComplete(invokeAfterThree));
 
             return group_label;
         }
@@ -1021,24 +1053,26 @@ var tdg_arc = (function() { // change name
 
             var group_arc;
 
+            var invokeAfterFour = getInvokeAfter(props.onRenderComplete, 4);
+
             switch (props.type) {
                 case 'stacked':
-                    group_arc = renderArcsStacked(group_chart);
+                    group_arc = renderArcsStacked(group_chart, invokeAfterFour);
                     break;
                 case 'regular':
-                    group_arc = renderArcsRegular(group_chart);
+                    group_arc = renderArcsRegular(group_chart, invokeAfterFour);
                     break;
                 case 'percent':
-                    group_arc = renderArcsPercent(group_chart);
+                    group_arc = renderArcsPercent(group_chart, invokeAfterFour);
                     break;
                 default:
                     throw new Error('Unknown chart type');
             }
 
-            renderThetaAxis(group_chart);
+            renderThetaAxis(group_chart, invokeAfterFour);
 
             if (hasOnlyPositiveValues() && ['stacked', 'percent'].indexOf(props.type) < 0) {
-                var group_label = renderLabels(group_chart);
+                var group_label = renderLabels(group_chart, invokeAfterFour);
                 enableHiglight(group_arc, bg, group_label);
                 enableShowValueOnHiglight(group_arc, bg);
             } else {
@@ -1047,7 +1081,7 @@ var tdg_arc = (function() { // change name
             }
 
             if (innerProps.rescale.enabled) {
-                rescaleGroupChart(group_chart);
+                rescaleGroupChart(group_chart, invokeAfterFour);
             }
 
             /*if ( innerProps.reposition.enabled ) {

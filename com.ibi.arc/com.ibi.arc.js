@@ -20,6 +20,10 @@
         props.height = renderConfig.height;
         props.data = [renderConfig.data];
 
+        props.onRenderComplete = function () {
+            chart.processRenderComplete();
+        };
+
         var container = d3.select(renderConfig.container)
             .attr('class', 'tdg_marker_chart');
 
@@ -42,6 +46,10 @@
             [{ "label": "ENGLAND", "value": 12000, "_s": 0, "_g": 0 }, { "label": "ITALY", "value": 30200, "_s": 0, "_g": 2 }, { "label": "JAPAN", "value": 78030, "_s": 0, "_g": 3 }, { "label": "W GERMANY", "value": 88190, "_s": 0, "_g": 4 }]
         ];
         
+        props.onRenderComplete = function () {
+            chart.processRenderComplete();
+        };
+
         var container = d3.select(renderConfig.container)
             .attr('class', 'tdg_marker_chart');
 
