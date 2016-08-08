@@ -314,7 +314,7 @@ var tdg_sunburst = (function () {
       }
     }
 
-    function getToolTipBuilder () {
+    function getToolTipBuilder (root) {
       var formatMap = {};
       props.toolTip.elements.filter(function (el) {
         return typeof el.format === 'string';
@@ -326,15 +326,20 @@ var tdg_sunburst = (function () {
         var str = '<div style="padding:5px">';
 
         props.toolTip.elements.forEach(function (el, idx) {
-          if ( el.hideForRoot && d === findRoot(d)) {
-            return;
-          }
+          // if ( el.hideForRoot && d === findRoot(d)) {
+          //   return;
+          // }
           if (idx) {
             str += '<br/>';
           }
           str += '<b>' + el.name + ': </b>';
 
-          str += (formatMap[el.name]) ? formatMap[el.name](d[el.name]) : d[el.name];
+          if (el.name === 'ratio') {
+            var ratio = d.value / d.parent.value;
+            str += (formatMap.ratio) ? formatMap.ratio( ratio ) : ratio;
+          } else {
+            str += (formatMap[el.name]) ? formatMap[el.name](d[el.name]) : d[el.name];
+          }
         });
 
         str += '</div>';
@@ -431,7 +436,7 @@ var tdg_sunburst = (function () {
           .filter(function (d) { // get all the nodes besides root
             return d.name !== innerProps.fakeRootName;
           })
-          .attr('tdgtitle', getToolTipBuilder());
+          .attr('tdgtitle', getToolTipBuilder(data));
       }
 
       function click (d) {
