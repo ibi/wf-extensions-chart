@@ -109,7 +109,7 @@
 				},
 				"labels" : {
 					"enabled": "bool",
-					"font": "bool",
+					"font": "str",
 					"format": "str",
 					"color": "color"
 				}
