@@ -21,7 +21,8 @@
 			}
 		},
 	    "toolTip": {
-	      "enabled": true
+	      "enabled": true,
+	      "valueFormat": "auto"
 	    }
 	},
 	
@@ -38,7 +39,8 @@
 			}
 		},
 		"toolTip": {
-	      "enabled": "bool"
+	      "enabled": "bool",
+	      "valueFormat": "str"
 	    }
 	},
 	
