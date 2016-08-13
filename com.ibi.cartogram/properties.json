@@ -1,0 +1,63 @@
+// Copyright 1996-2015 Information Builders, Inc. All rights reserved.
+// $Revision: 1.00 $
+
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 1.0,
+		"author": "Information Builders-Mario Delgado",
+		"copyright": "Information Builders Inc.",
+		"url": "",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	
+	"properties": {
+		"chartHeadroom": 50
+	},
+	
+	"propertyAnnotations": {
+		"chartHeadroom": "number"
+	},
+	
+	"dataBuckets":  {
+	
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+			{
+				"id": "value",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "state",
+				"type": "dimension",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			}
+		]
+	},
+
+	"translations": {
+		"en": {
+			"name": "USA State Cartogram",
+			"description": "Cartogram for U.S. States",
+			"icon_tooltip": "Visualize U.S. State data as a cartogram", 
+			"value_name": "Value Bucket", 
+			"value_tooltip": "Drop a measure here", 
+			"labels_name": "Label Bucket", 
+			"labels_tooltip": "Drop a dimension here"
+		}
+
+	}
+}
