@@ -35,6 +35,14 @@
         renderConfig.modules.tooltip.updateToolTips();
     }
 
+    function getInvokeAfter (cb, count) {
+        if (!count && typeof cb === 'function' ) cb();
+
+        return function () {
+            if (!(--count) && typeof cb === 'function') cb();
+        };
+    }
+
     function noDataRenderCallback(renderConfig) {
         var chart = renderConfig.moonbeamInstance;
         var props = renderConfig.properties;
@@ -48,9 +56,9 @@
         ];
         props.isInteractionDisabled = renderConfig.disableInteracction;
 
-        props.onRenderComplete = function () {
-            chart.processRenderComplete();
-        };
+        var invokeAfterTwo = getInvokeAfter(chart.processRenderComplete.bind(chart), 2);
+
+        props.onRenderComplete = invokeAfterTwo;
 
         var container = d3.select(renderConfig.container)
             .attr('class', 'tdg_marker_chart');
@@ -61,6 +69,7 @@
 
         renderConfig.modules.tooltip.updateToolTips();
         appendCoverScreen(container, props.width, props.height);
+        invokeAfterTwo();
     }
 
     function appendCoverScreen(container, width, height) {
