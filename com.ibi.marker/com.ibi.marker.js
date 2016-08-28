@@ -7,7 +7,7 @@
 	//   data: the data set being rendered
 	//   properties: the block of your extension's properties, as they've been set by the user
 	//   modules: the 'modules' object from your extension's config, along with additional API methods
-	//   
+	//
 	// Properties available during render callback:
 	//   width: width of the container your extension renders into, in px
 	//   height: height of the container your extension renders into, in px
@@ -41,16 +41,30 @@
 		props.data = renderConfig.data;
 		props.formatNumber = renderConfig.moonbeamInstance.formatNumber;
 
+		props.isInteractionDisabled = renderConfig.disableInteracction;
+
+		props.onRenderComplete = function () {
+			chart.processRenderComplete();
+		};
+
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'tdg_marker_chart');
 
 		var marker_chart = tdg_marker(props);
-		
+
 		marker_chart(container);
 
 		//renderConfig.modules.tooltip.updateToolTips();
 	}
-	
+
+	function getInvokeAfter (cb, count) {
+      if (!count && typeof cb === 'function' ) cb();
+
+      return function () {
+          if (!(--count) && typeof cb === 'function') cb();
+      };
+  }
+
 	function noDataRenderCallback (renderConfig) {
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
@@ -62,13 +76,19 @@
 		props.data = [{count: 45, label: 'Democrats'}, {count: 55, label: 'Republicans'}];
 		props.formatNumber = renderConfig.moonbeamInstance.formatNumber;
 
+		props.isInteractionDisabled = renderConfig.disableInteracction;
+
+		var invokeAfterTwo = getInvokeAfter(chart.processRenderComplete.bind(chart), 2);
+
+		props.onRenderComplete = invokeAfterTwo;
+
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'tdg_marker_chart');
 
 		var marker_chart = tdg_marker(props);
-	
+
 		marker_chart(container);
-		
+
 		container.append("rect")
 			.attr({
 				width: props.width,
@@ -78,7 +98,7 @@
 				fill: 'white',
 				opacity: 0.9
 			});
-		
+
 		container.append('text')
 			.text('Add more measures or dimensions')
 			.attr({
@@ -92,7 +112,8 @@
 				dy: '0.35em',
 				fill: 'grey'
 			});
-		
+
+			invokeAfterTwo();
 	}
 
 	// Your extension's configuration
@@ -120,5 +141,5 @@
 
 	// Required: this call will register your extension with Moonbeam
 	tdgchart.extensionManager.register(config);
-  
+
 }());

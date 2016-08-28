@@ -18,6 +18,23 @@ var tdg_marker = (function () {
     return o && o.constructor === Object;
   }
 
+  function getOnAllTransitionComplete ( cb ) {
+      return function ( transition ) {
+          var count = transition.size();
+          transition.each('end', function () {
+              if ( !(--count && typeof cb === 'function') ) cb();
+          });
+      };
+  }
+
+  function getInvokeAfter (cb, count) {
+      if (!count && typeof cb === 'function' ) cb();
+
+      return function () {
+          if (!(--count) && typeof cb === 'function') cb();
+      };
+  }
+
   function each (obj, cb) {
     if ( Array.isArray(obj) ) {
       for (var i = 0; i < obj.length; i++) {
@@ -75,6 +92,8 @@ var tdg_marker = (function () {
 			data: null,
       formatNumber: null, // moonbeam function
       extraMarkersColor: '#898989',
+      isInteractionDisabled: false,
+      onRenderComplete: function(){},
       mode: "proportion", // "proportion" or "count"
       marker: {
         type: 'circle', // 'square', 'star'
@@ -117,7 +136,7 @@ var tdg_marker = (function () {
         }
       }
     };
-	
+
     function getData () {
       if ( !Array.isArray(props.data) ) {
         throw new Error('Wrong data set format');
@@ -183,7 +202,7 @@ var tdg_marker = (function () {
       });
     }
 
-    function renderLabels (group_labels, data) {
+    function renderLabels (group_labels, data, onRenderComplete) {
       var labels = group_labels.selectAll('text.label')
         .data(data);
 
@@ -209,10 +228,16 @@ var tdg_marker = (function () {
           return d.text;
         });
 
-      labels.transition()
-        .delay(innerProps.labels.animation.delay)
-        .duration(innerProps.labels.animation.duration)
-        .style('opacity', 1);
+      if (props.isInteractionDisabled) {
+        labels.style('opacity', 1);
+        onRenderComplete();
+      } else {
+        labels.transition()
+          .delay(innerProps.labels.animation.delay)
+          .duration(innerProps.labels.animation.duration)
+          .style('opacity', 1)
+          .call(getOnAllTransitionComplete(onRenderComplete));
+      }
 
       return labels;
     }
@@ -310,7 +335,7 @@ var tdg_marker = (function () {
         counts += d.count;
         totals = Math.max(totals, d.total);
       });
-      
+
       return Math.max(counts, !isNaN(totals) ? totals : props.marker.countRange[0] );
     }
 
@@ -429,7 +454,7 @@ var tdg_marker = (function () {
       return result;
     }
 
-    function renderMarkers (group_markers, markersData) {
+    function renderMarkers (group_markers, markersData, onRenderComplete) {
       var markerRows = group_markers.selectAll('g.row')
         .data(markersData);
 
@@ -457,10 +482,16 @@ var tdg_marker = (function () {
           opacity: 0
         });
 
-      markers.transition()
-        .delay(innerProps.markers.animation.delay)
-        .duration(innerProps.markers.animation.duration)
-        .style('opacity', 1);
+      if (props.isInteractionDisabled) {
+        markers.style('opacity', 1)
+        onRenderComplete();
+      } else {
+        markers.transition()
+          .delay(innerProps.markers.animation.delay)
+          .duration(innerProps.markers.animation.duration)
+          .style('opacity', 1)
+          .call(getOnAllTransitionComplete(onRenderComplete));
+      }
 
       return markers;
     }
@@ -547,13 +578,17 @@ var tdg_marker = (function () {
 
       var markerInfo = getMarkerInfo();
 
+      var invokeAfterThreeOrTwo = props.label.enabled
+        ? getInvokeAfter(props.onRenderComplete, 3)
+        : getInvokeAfter(props.onRenderComplete, 2);
+
       // -------------- LABEL RENDERING LOGIC STARTS
       var labels, group_labels;
       if (props.label.enabled) {
         group_labels = selection.append('g')
           .classed('group-labels', true);
         var labelsData = buildLabelsData(markerInfo);
-        labels = renderLabels(group_labels, labelsData);
+        labels = renderLabels(group_labels, labelsData, invokeAfterThreeOrTwo);
       }
       // -------------- LABEL RENDERING LOGIC ENDS
 
@@ -569,7 +604,7 @@ var tdg_marker = (function () {
       var layout = getLayoutInfo(markerInfo, width, height);
       var markersData = buildMarkersData(markerInfo, layout);
 
-      var markers = renderMarkers(group_markers, markersData);
+      var markers = renderMarkers(group_markers, markersData, invokeAfterThreeOrTwo);
       // -------------- MARKERS RENDERING LOGIC ENDS
 
       // -------------- GROUP_MARKERS POSITIONING LOGIC STARTS
@@ -587,8 +622,12 @@ var tdg_marker = (function () {
       // -------------- LABEL POSITIONING LOGIC ENDS
 
       // -------------- INTERACTION LOGIC STARTS
-      enableInteraction(labels, markers);
+      if (!props.isInteractionDisabled) {
+          enableInteraction(labels, markers);
+      }
       // -------------- INTERACTION LOGIC ENDS
+
+      invokeAfterThreeOrTwo();
 		}
 
     copyIfExisty(props, user_props || {});
