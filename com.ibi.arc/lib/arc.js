@@ -68,6 +68,7 @@ var tdg_arc = (function() { // change name
             data: null,
             type: 'regular', // 'regular', 'stacked'
             onRenderComplete: function(){},
+            isInteractionDisabled: false,
             arc: {
                 start: Math.PI / 2,
                 extent: 0.75, // 0.25, 0.5, 0.75;
@@ -459,7 +460,11 @@ var tdg_arc = (function() { // change name
                 'stroke-width': props.arc.border.width
             });
 
-            arcs.transition()
+            if (props.isInteractionDisabled) {
+              arcs.attr('d', arc);
+              onRenderComplete();
+            } else {
+              arcs.transition()
                 .delay(innerProps.arc.animation.delay)
                 .duration(innerProps.arc.animation.duration)
                 .attrTween('d', function(d, i) {
@@ -469,6 +474,7 @@ var tdg_arc = (function() { // change name
                     };
                 })
                 .call(getOnAllTransitionComplete(onRenderComplete));
+            }
 
             arcs.filter(function(d) { // this will remove negative arcs
                 return d.startValue == null || d.endValue == null;
@@ -528,7 +534,11 @@ var tdg_arc = (function() { // change name
                 'stroke-width': props.arc.border.width
             });
 
-            arcs.transition()
+            if (props.isInteractionDisabled) {
+              arcs.attr('d', arc);
+              onRenderComplete();
+            } else {
+              arcs.transition()
                 .delay(innerProps.arc.animation.delay)
                 .duration(innerProps.arc.animation.duration)
                 .attrTween('d', function(d, i) {
@@ -538,6 +548,7 @@ var tdg_arc = (function() { // change name
                     };
                 })
                 .call(getOnAllTransitionComplete(onRenderComplete));
+            }
 
             arcs.filter(function(d) { // this will remove negative arcs
                 return d.startValue == null || d.endValue == null;
@@ -585,16 +596,21 @@ var tdg_arc = (function() { // change name
                 'stroke-width': props.arc.border.width
             });
 
-            arcs.transition()
-                .delay(innerProps.arc.animation.delay)
-                .duration(innerProps.arc.animation.duration)
-                .attrTween('d', function(d, i) {
-                    var range = d3.interpolate({ value: 0 }, { value: d.value });
-                    return function(t) {
-                        return arc(range(t), i);
-                    };
-                })
-                .call(getOnAllTransitionComplete(onRenderComplete));
+            if (props.isInteractionDisabled) {
+              arcs.attr('d', arc);
+              onRenderComplete();
+            } else {
+              arcs.transition()
+                  .delay(innerProps.arc.animation.delay)
+                  .duration(innerProps.arc.animation.duration)
+                  .attrTween('d', function(d, i) {
+                      var range = d3.interpolate({ value: 0 }, { value: d.value });
+                      return function(t) {
+                          return arc(range(t), i);
+                      };
+                  })
+                  .call(getOnAllTransitionComplete(onRenderComplete));
+            }
 
             return group_arc;
         }
@@ -636,7 +652,11 @@ var tdg_arc = (function() { // change name
 
             var invokeAfterTwo = getInvokeAfter(onRenderComplete, 2);
 
-            axis.transition()
+            if (props.isInteractionDisabled) {
+              axis.attr('d', arc);
+              invokeAfterTwo();
+            } else {
+              axis.transition()
                 .delay(innerProps.axis.base.animation.delay)
                 .duration(innerProps.axis.base.animation.duration)
                 .attrTween('d', function(d, i) {
@@ -646,6 +666,7 @@ var tdg_arc = (function() { // change name
                     };
                 })
                 .call(getOnAllTransitionComplete(invokeAfterTwo));
+            }
 
             var ticks = group_axis.selectAll('g.group-tick')
                 .data(getAxisDataObj(theta));
@@ -691,11 +712,16 @@ var tdg_arc = (function() { // change name
                     return d.label;
                 });
 
-            ticks.transition()
+            if (props.isInteractionDisabled) {
+              ticks.style('opacity', 1);
+              invokeAfterTwo();
+            } else {
+              ticks.transition()
                 .delay(innerProps.axis.ticks.animation.delay)
                 .duration(innerProps.axis.ticks.animation.duration)
                 .style('opacity', 1)
                 .call(getOnAllTransitionComplete(invokeAfterTwo));
+            }
 
             return group_axis;
         }
@@ -722,12 +748,18 @@ var tdg_arc = (function() { // change name
                 var origTransform = selection.attr('transform'),
                     scale;
                 scale = (horrizOverflow > vertOverflow) ? (props.width - 2 * innerProps.rescale.padding) / selectionDim.width : (props.height - 2 * innerProps.rescale.padding) / selectionDim.height;
-
-                selection.transition()
-                    .delay(innerProps.rescale.animation.delay)
-                    .duration(innerProps.rescale.animation.duration)
-                    .attr('transform', (origTransform ? origTransform : '') + 'scale(' + scale + ')')
-                    .call(getOnAllTransitionComplete(onScaleComplete));
+                if (props.isInteractionDisabled) {
+                  selection.attr('transform', function(d, i) {
+                    return (origTransform ? origTransform : '') + 'scale(' + scale + ')';
+                  });
+                  onScaleComplete();
+                } else {
+                  selection.transition()
+                      .delay(innerProps.rescale.animation.delay)
+                      .duration(innerProps.rescale.animation.duration)
+                      .attr('transform', (origTransform ? origTransform : '') + 'scale(' + scale + ')')
+                      .call(getOnAllTransitionComplete(onScaleComplete));
+                }
             } else {
                 onScaleComplete();
             }
@@ -845,30 +877,43 @@ var tdg_arc = (function() { // change name
 
             var invokeAfterThree = getInvokeAfter(onRenderComplete, 3);
 
-            lines.transition()
-                .delay(innerProps.labels.line.animation.delay)
-                .duration(innerProps.labels.line.animation.duration)
-                .attrTween('y2', positionTween)
-                .call(getOnAllTransitionComplete(invokeAfterThree));
-
-            labels.transition()
-                .delay(innerProps.labels.text.animation.delay)
-                .duration(innerProps.labels.text.animation.duration)
-                .attrTween('y', positionTween)
-                .style('opacity', 1)
-                .call(getOnAllTransitionComplete(invokeAfterThree));
-
-            markers.transition()
-                .delay(innerProps.labels.marker.animation.delay)
-                .duration(innerProps.labels.marker.animation.duration)
-                .attrTween('transform', function(d, i) {
-                    var range = d3.interpolate('translate(0,0)', 'translate(0,' + ypos(d, i) + ')');
-                    return function(t) {
-                        return range(t);
-                    };
+            if (props.isInteractionDisabled) {
+              lines.attr('y2', ypos);
+              invokeAfterThree();
+              labels.attr('y', ypos)
+                .style('opacity', 1);
+              invokeAfterThree();
+              markers.attr('transform', function(d, i) {
+                  return 'translate(0,' + ypos(d, i) + ')';
                 })
-                .style('opacity', 1)
-                .call(getOnAllTransitionComplete(invokeAfterThree));
+                .style('opacity', 1);
+              invokeAfterThree();
+            } else {
+              lines.transition()
+                  .delay(innerProps.labels.line.animation.delay)
+                  .duration(innerProps.labels.line.animation.duration)
+                  .attrTween('y2', positionTween)
+                  .call(getOnAllTransitionComplete(invokeAfterThree));
+
+              labels.transition()
+                  .delay(innerProps.labels.text.animation.delay)
+                  .duration(innerProps.labels.text.animation.duration)
+                  .attrTween('y', positionTween)
+                  .style('opacity', 1)
+                  .call(getOnAllTransitionComplete(invokeAfterThree));
+
+              markers.transition()
+                  .delay(innerProps.labels.marker.animation.delay)
+                  .duration(innerProps.labels.marker.animation.duration)
+                  .attrTween('transform', function(d, i) {
+                      var range = d3.interpolate('translate(0,0)', 'translate(0,' + ypos(d, i) + ')');
+                      return function(t) {
+                          return range(t);
+                      };
+                  })
+                  .style('opacity', 1)
+                  .call(getOnAllTransitionComplete(invokeAfterThree));
+            }
 
             return group_label;
         }
@@ -1073,8 +1118,10 @@ var tdg_arc = (function() { // change name
 
             if (hasOnlyPositiveValues() && ['stacked', 'percent'].indexOf(props.type) < 0) {
                 var group_label = renderLabels(group_chart, invokeAfterFour);
-                enableHiglight(group_arc, bg, group_label);
-                enableShowValueOnHiglight(group_arc, bg);
+                if (!props.isInteractionDisabled) {
+                  enableHiglight(group_arc, bg, group_label);
+                  enableShowValueOnHiglight(group_arc, bg);
+                }
             } else {
                 enableHiglight(group_arc, bg);
                 enableToolTips(group_arc);
@@ -1084,9 +1131,6 @@ var tdg_arc = (function() { // change name
                 rescaleGroupChart(group_chart, invokeAfterFour);
             }
 
-            /*if ( innerProps.reposition.enabled ) {
-            	repositionGroupChart(group_main, group_axis);
-            }*/
         }
 
         function createAccessor(attr) {
