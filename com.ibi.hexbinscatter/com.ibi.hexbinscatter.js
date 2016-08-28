@@ -32,7 +32,7 @@
 
         var chart = renderConfig.moonbeamInstance;
         var props = JSON.parse(JSON.stringify(renderConfig.properties));
-        
+
         props.height = renderConfig.height;
         props.width = renderConfig.width;
 
@@ -52,36 +52,37 @@
 
         var container = d3.select(renderConfig.container)
             .attr('class', 'com_ibi_hexbinscatter');
-		
-		if ( renderConfig.dataBuckets.buckets.detail ) {
-			var temp,
-                titles = Array.isArray(renderConfig.dataBuckets.buckets.detail.title) ? renderConfig.dataBuckets.buckets.detail.title : [renderConfig.dataBuckets.buckets.detail.title];
-			props.data = JSON.parse(JSON.stringify(chart.data[0]));
-			props.data.forEach(function(d){
-              temp = {};
-              d.detail = Array.isArray(d.detail) ? d.detail : [d.detail];
-              titles.forEach(function(title, idx) {
-                  temp[title] = d.detail[idx];
-              });
-              d.detail = temp;
 
-              if ( Array.isArray(props.buckets.aggregate) ) {
-                d._aggregate = {};
-                d._aggregate[props.buckets.aggregate[0]] = d.aggregate;
-              }
+    		if ( renderConfig.dataBuckets.buckets.detail ) {
+    			var temp,
+                    titles = Array.isArray(renderConfig.dataBuckets.buckets.detail.title) ? renderConfig.dataBuckets.buckets.detail.title : [renderConfig.dataBuckets.buckets.detail.title];
+    			props.data = JSON.parse(JSON.stringify(chart.data[0]));
+    			props.data.forEach(function(d){
+                  temp = {};
+                  d.detail = Array.isArray(d.detail) ? d.detail : [d.detail];
+                  titles.forEach(function(title, idx) {
+                      temp[title] = d.detail[idx];
+                  });
+                  d.detail = temp;
 
-              });
-		} else {
-			props.data = JSON.parse(JSON.stringify(chart.data[0]));
-		}
+                  if ( Array.isArray(props.buckets.aggregate) ) {
+                    d._aggregate = {};
+                    d._aggregate[props.buckets.aggregate[0]] = d.aggregate;
+                  }
+
+                  });
+    		} else {
+    			props.data = JSON.parse(JSON.stringify(chart.data[0]));
+    		}
 
         var scatter = tdgscatter.init(props);
         container.call(scatter);
-		renderConfig.modules.tooltip.updateToolTips();
+		    renderConfig.modules.tooltip.updateToolTips();
+        chart.processRenderComplete();
     }
 
     function noDataRenderCallback(renderConfig) {
-        
+
         var chart = renderConfig.moonbeamInstance;
         var props = JSON.parse(JSON.stringify(renderConfig.properties));
 
@@ -110,7 +111,7 @@
                 fill: 'white',
                 opacity: 0.9
             });
-        
+
         container.append('text')
             .text('Add more measures or dimensions')
             .attr({
@@ -124,6 +125,8 @@
                 dy: '0.35em',
                 fill: 'grey'
             });
+
+        chart.processRenderComplete();
     }
 
     // Your extension's configuration
