@@ -32,6 +32,23 @@ var tdg_pack = (function() {
         }
     }
 
+    function getOnAllTransitionComplete ( cb ) {
+        return function ( transition ) {
+            var count = transition.size();
+            transition.each('end', function () {
+                if ( !(--count && typeof cb === 'function') ) cb();
+            });
+        };
+    }
+
+    function getInvokeAfter (cb, count) {
+        if (!count && typeof cb === 'function' ) cb();
+
+        return function () {
+            if (!(--count) && typeof cb === 'function') cb();
+        };
+    }
+
     // --------------------------------- PUT HERE ALL THE GLOBAL VARIABLES AND FUNCTIONS THAT DON'T NEED TO ACCESS PROPS AND INNERPROPS THROUGH SCOPE (Z1)
 
     function jsonCopy (obj) {
@@ -106,6 +123,8 @@ var tdg_pack = (function() {
             data: null,
             buckets: null,
             measureLabel: null,
+            isInteractionDisabled: false,
+            onRenderComplete: function() {},
             circles: {
                 colors: ["#4087b8","#e31a1c","#9ebcda","#c994c7","#41b6c4","#49006a","#ec7014","#a6bddb","#67001f","#800026","#addd8e","#e0ecf4","#fcc5c0","#238b45","#081d58","#d4b9da","#2b8cbe","#74a9cf","#41ab5d","#fed976","#ce1256","#7f0000","#a6bddb","#ffffcc","#e7e1ef","#016c59","#f7fcfd","#99d8c9","#fff7fb","#ffffe5","#fdd49e","#ffffd9","#fe9929","#8c96c6","#810f7c","#993404","#c7e9b4","#bfd3e6","#e7298a","#7fcdbb","#3690c0","#ae017e","#d9f0a3","#ece2f0","#014636","#f7fcb9","#66c2a4","#fff7bc","#f7fcf0","#e5f5f9","#fdbb84","#fa9fb5","#4d004b","#fff7fb","#cc4c02","#78c679","#1d91c0","#ccebc5","#feb24c","#b30000","#8c6bb1","#fec44f","#d0d1e6","#084081","#0868ac","#f7fcfd","#0570b0","#ef6548","#fff7ec","#006837","#f768a1","#edf8b1","#fee391","#238443","#ffffe5","#023858","#7a0177","#67a9cf","#dd3497","#980043","#88419d","#d0d1e6","#fc8d59","#4eb3d3","#fd8d3c","#fff7f3","#fc4e2a","#ccece6","#ece7f2","#a8ddb5","#41ae76","#bd0026","#e0f3db","#045a8d","#ffeda0","#253494","#7bccc4","#fde0dd","#00441b","#225ea8","#006d2c","#02818a","#f7f4f9","#d7301f","#df65b0","#662506","#3690c0","#004529","#fee8c8"],
                 prioritizeSortByMeasure: true,
@@ -139,7 +158,7 @@ var tdg_pack = (function() {
 
         // ---------------------------------- INTERNAL FUNCTIONS THAT NEED ACCESS TO PROPS AND INNERPROPS THROUGH SCOPE GO HERE (Z2)
 
-        function renderCircles ( circles_group ) {
+        function renderCircles ( circles_group, onRenderComplete ) {
             function byMeasure(a, b) {
                 return b.value - a.value;
             }
@@ -291,9 +310,18 @@ var tdg_pack = (function() {
                 })
                 .style('opacity', 0);
 
-            node.transition()
-                .duration(700)
-                .style('opacity', 1);
+            var invokeAfterTwo = getInvokeAfter(onRenderComplete, 2);
+
+            if ( props.isInteractionDisabled ) {
+              node.style('opacity', 1);
+              invokeAfterTwo();
+            } else {
+              node.transition()
+                  .duration(700)
+                  .style('opacity', 1)
+                  .call(getOnAllTransitionComplete(invokeAfterTwo));
+            }
+
 
             node.append('circle')
                 .attr('r', function(d) {
@@ -314,22 +342,26 @@ var tdg_pack = (function() {
 
             var hover = props.hover;
 
-            node.on('mouseenter', function () {
-                var circle = d3.select(this).select('circle');
+            if ( !props.isInteractionDisabled ) {
+              node.on('mouseenter', function () {
+                  var circle = d3.select(this).select('circle');
 
-                circle.attr({
-                    stroke: hover.stroke,
-                    'stroke-width': hover['stroke-width']
-                });
+                  circle.attr({
+                      stroke: hover.stroke,
+                      'stroke-width': hover['stroke-width']
+                  });
 
-            }).on('mouseleave', function () {
-                var circle = d3.select(this).select('circle');
+              }).on('mouseleave', function () {
+                  var circle = d3.select(this).select('circle');
 
-                circle.attr({
-                    stroke: null,
-                    'stroke-width': null
-                });
-            });
+                  circle.attr({
+                      stroke: null,
+                      'stroke-width': null
+                  });
+              });
+            }
+
+            invokeAfterTwo();
         }
 
         function renderLegend ( legends_group, width, height, colorMap, title, widthRatio, props ) {
@@ -429,8 +461,10 @@ var tdg_pack = (function() {
 
         function render (group_main) {
 
+            var invokeAfterTwo = getInvokeAfter(props.onRenderComplete, 2);
+
             var circles_group = group_main.append('g').classed('circles', true);
-            renderCircles(circles_group);
+            renderCircles(circles_group, invokeAfterTwo);
 
             var dataHelper = getDataHelper(props.data, true);
 
@@ -442,6 +476,8 @@ var tdg_pack = (function() {
                     measureLabel: props.measureLabel
                 });
             }
+
+            invokeAfterTwo();
         }
 
         // ---------------------------------- END OF Z2
