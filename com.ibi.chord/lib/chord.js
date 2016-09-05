@@ -282,9 +282,11 @@ var com_tdg_chord = (function () {
 				// .duration(1000)
 				// .style('opacity', 1);
 
+			var invokeAfterTwo = getInvokeAfter(onRenderComplete, 2);
+
 			if ( props.isInteractionDisabled ) {
 				axis_curve.style('opacity', 1);
-				onRenderComplete();
+				invokeAfterTwo();
 			} else {
 				axis_curve
 					.transition()
@@ -293,7 +295,7 @@ var com_tdg_chord = (function () {
 					})
 					.duration(1000)
 					.style('opacity', 1)
-					.call(getOnAllTransitionComplete(onRenderComplete));
+					.call(getOnAllTransitionComplete(invokeAfterTwo));
 			}
 
 			var ticksDataFnc = (props.axis.preciseCount) ? preciseTics : niceTics;
@@ -322,7 +324,7 @@ var com_tdg_chord = (function () {
 				.duration(1000)
 				.style('opacity', 1);
 
-			ticks.filter(function(d){ return d.label != null;})
+			var axisLabels = ticks.filter(function(d){ return d.label != null;})
 				.append("text")
 				.attr({
 					x: 8,
@@ -340,13 +342,28 @@ var com_tdg_chord = (function () {
 					fill: "#000",
 					opacity: 0
 				})
-				.text(function(d) { return d.label; })
-				.transition()
-				.delay(function (d, i) {
-					return 50 * i;
-				})
-				.duration(1000)
-				.style('opacity', 1);
+				.text(function(d) { return d.label; });
+				// .transition()
+				// .delay(function (d, i) {
+				// 	return 50 * i;
+				// })
+				// .duration(1000)
+				// .style('opacity', 1);
+
+				if (props.isInteractionDisabled) {
+					axisLabels.style('opacity', 1);
+					invokeAfterTwo();
+				} else {
+					axisLabels
+						.transition()
+						.delay(function (d, i) {
+							return 50 * i;
+						})
+						.duration(1000)
+						.style('opacity', 1)
+						.call(getOnAllTransitionComplete(invokeAfterTwo));
+				}
+
 		}
 
 		function buildChordToolTip (idToIndx) {
@@ -639,8 +656,9 @@ var com_tdg_chord = (function () {
 				groupTitleOffset,
 				invokeAfterFive
 			);
-
-			enableMouseInteraction(group_curves, chord_group);
+			if (!props.isInteractionDisabled) {
+				enableMouseInteraction(group_curves, chord_group);
+			}
 
 			rescale(mainGroup, invokeAfterFive);
 		}
