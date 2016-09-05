@@ -10,6 +10,8 @@ var com_tdg_chord = (function () {
 			inverseData: false, // not tested
 			chordSort: 'none', // ascending, descending, none
 			groupPadding: 0.05,
+			isInteractionDisabled: false,
+			onRenderComplete: function() {},
 			groupCurves: {
 				radius: {
 					inner: 'auto', // can be either 'auto' or a number between 0 and 1
@@ -36,6 +38,23 @@ var com_tdg_chord = (function () {
 			toolTipEnabled: false,
 			groupColors: ["#4087b8","#e31a1c","#9ebcda","#c994c7","#41b6c4","#49006a","#ec7014","#a6bddb","#67001f","#800026","#addd8e","#e0ecf4","#fcc5c0","#238b45","#081d58","#d4b9da","#2b8cbe","#74a9cf","#41ab5d","#fed976","#ce1256","#7f0000","#a6bddb","#ffffcc","#e7e1ef","#016c59","#f7fcfd","#99d8c9","#fff7fb","#ffffe5","#fdd49e","#ffffd9","#fe9929","#8c96c6","#810f7c","#993404","#c7e9b4","#bfd3e6","#e7298a","#7fcdbb","#3690c0","#ae017e","#d9f0a3","#ece2f0","#014636","#f7fcb9","#66c2a4","#fff7bc","#f7fcf0","#e5f5f9","#fdbb84","#fa9fb5","#4d004b","#fff7fb","#cc4c02","#78c679","#1d91c0","#ccebc5","#feb24c","#b30000","#8c6bb1","#fec44f","#d0d1e6","#084081","#0868ac","#f7fcfd","#0570b0","#ef6548","#fff7ec","#006837","#f768a1","#edf8b1","#fee391","#238443","#ffffe5","#023858","#7a0177","#67a9cf","#dd3497","#980043","#88419d","#d0d1e6","#fc8d59","#4eb3d3","#fd8d3c","#fff7f3","#fc4e2a","#ccece6","#ece7f2","#a8ddb5","#41ae76","#bd0026","#e0f3db","#045a8d","#ffeda0","#253494","#7bccc4","#fde0dd","#00441b","#225ea8","#006d2c","#02818a","#f7f4f9","#d7301f","#df65b0","#662506","#3690c0","#004529","#fee8c8"]
 		};
+
+		function getOnAllTransitionComplete ( cb ) {
+	      return function ( transition ) {
+	          var count = transition.size();
+	          transition.each('end', function () {
+	              if ( !(--count && typeof cb === 'function') ) cb();
+	          });
+	      };
+	  }
+
+	  function getInvokeAfter (cb, count) {
+	      if (!count && typeof cb === 'function' ) cb();
+
+	      return function () {
+	          if (!(--count) && typeof cb === 'function') cb();
+	      };
+	  }
 
 		function getCurveRadiusObj () { // not tested
 			function isValidValue (val) {
@@ -92,7 +111,7 @@ var com_tdg_chord = (function () {
 				// range of fill we get from series colors only
 				.range(props.groupColors.slice(0, groupsCount));
 		}
-		
+
 		function buildGroupCurveToolTip (idToIndx) {
 			//var groupNames = _.keys(idToIndx);
 			var groupNames = [];
@@ -108,7 +127,7 @@ var com_tdg_chord = (function () {
 			};
 		}
 
-		function renderGroupCurves (containerGroup, groups, idToIndx) {
+		function renderGroupCurves (containerGroup, groups, idToIndx, onRenderComplete) {
 			var group_curves = containerGroup.selectAll('path.group-curve')
 				.data(groups);
 
@@ -120,7 +139,7 @@ var com_tdg_chord = (function () {
 
 			var fill = getGroupFillScale(groups.length);
 
-			group_curves
+			var curves = group_curves
 				.attr('d', d3.svg.arc().innerRadius(radiusObj.inner).outerRadius(radiusObj.outer))
 				.style({
 					fill: function (d) {
@@ -130,13 +149,27 @@ var com_tdg_chord = (function () {
 						return fill(d.index);
 					},
 					opacity: 0
-				})
-				.transition()
-				.delay(function (d, i) {
-					return 100 * i;
-				})
-				.duration(1000)
-				.style('opacity', 1);
+				});
+				// .transition()
+				// .delay(function (d, i) {
+				// 	return 100 * i;
+				// })
+				// .duration(1000)
+				// .style('opacity', 1);
+
+			if ( props.isInteractionDisabled ) {
+				curves.style('opacity', 1);
+				onRenderComplete();
+			} else {
+				curves
+					.transition()
+					.delay(function (d, i) {
+						return 100 * i;
+					})
+					.duration(1000)
+					.style('opacity', 1)
+					.call(getOnAllTransitionComplete(onRenderComplete));
+			}
 
 			if ( props.toolTipEnabled && false) {
 				group_curves.attr('tdgtitle', buildGroupCurveToolTip(idToIndx));
@@ -197,7 +230,7 @@ var com_tdg_chord = (function () {
 			});
 		}
 
-		function rescale (selection) {
+		function rescale (selection, onResizeComplete) {
 			var selectionDim = selection.node().getBBox();
 
 			var horrizOverflow = selectionDim.width - props.width;
@@ -206,13 +239,23 @@ var com_tdg_chord = (function () {
 				var origTransform = selection.attr('transform'), scale;
 				scale = (horrizOverflow > vertOverflow) ? props.width / selectionDim.width : props.height / selectionDim.height;
 
-				selection.transition()
-				.duration(500)
-				.attr('transform', origTransform + 'scale(' + ( scale * 0.99 ) + ')');
+				if ( props.isInteractionDisabled ) {
+					selection.attr(
+						'transform',
+						origTransform + 'scale(' + ( scale * 0.99 ) + ')'
+					);
+					onResizeComplete();
+				} else {
+					selection
+						.transition()
+						.duration(500)
+						.attr('transform', origTransform + 'scale(' + ( scale * 0.99 ) + ')')
+						.call(getOnAllTransitionComplete(onResizeComplete));
+				}
 			}
 		}
 
-		function renderAxis (containerGroup, groups) {
+		function renderAxis (containerGroup, groups, onRenderComplete) {
 			var axis_groups = containerGroup.selectAll("g.axis-group")
 				.data(groups);
 
@@ -223,7 +266,7 @@ var com_tdg_chord = (function () {
 
 			var radiusObj = getCurveRadiusObj();
 
-			axis_group.selectAll('path.axis-curve')
+			var axis_curve = axis_group.selectAll('path.axis-curve')
 				.data(groups)
 				.enter().append('path')
 				.classed('.axis-curve', true)
@@ -231,13 +274,27 @@ var com_tdg_chord = (function () {
 				.style({
 					stroke: 'black',
 					opacity: 0
-				})
-				.transition()
-				.delay(function (d, i) {
-					return 100 * i;
-				})
-				.duration(1000)
-				.style('opacity', 1);
+				});
+				// .transition()
+				// .delay(function (d, i) {
+				// 	return 100 * i;
+				// })
+				// .duration(1000)
+				// .style('opacity', 1);
+
+			if ( props.isInteractionDisabled ) {
+				axis_curve.style('opacity', 1);
+				onRenderComplete();
+			} else {
+				axis_curve
+					.transition()
+					.delay(function (d, i) {
+						return 100 * i;
+					})
+					.duration(1000)
+					.style('opacity', 1)
+					.call(getOnAllTransitionComplete(onRenderComplete));
+			}
 
 			var ticksDataFnc = (props.axis.preciseCount) ? preciseTics : niceTics;
 
@@ -298,7 +355,7 @@ var com_tdg_chord = (function () {
 			_.each(idToIndx, function(idx, name){
 				ids[parseInt(idx, 10)] = name;
 			});
-			
+
 			var map = {
 				index: 'source',
 				subindex: 'target',
@@ -335,7 +392,7 @@ var com_tdg_chord = (function () {
 			};
 		}
 
-		function renderChords (containerGroup, chord, idToIndx) {
+		function renderChords (containerGroup, chord, idToIndx, onRenderComplete) {
 
 			var fill = getGroupFillScale(chord.groups().length);
 
@@ -354,13 +411,27 @@ var com_tdg_chord = (function () {
 						return fill(d.target.index);
 					},
 					opacity: 0
-				})
-				.transition()
-				.delay(function (d, i) {
-					return 50 * i;
-				})
-				.duration(1000)
-				.style('opacity', 0.8);
+				});
+				// .transition()
+				// .delay(function (d, i) {
+				// 	return 50 * i;
+				// })
+				// .duration(1000)
+				// .style('opacity', 0.8);
+
+				if ( props.isInteractionDisabled ) {
+					chords.style('opacity', 0.8);
+					onRenderComplete();
+				} else {
+					chords
+						.transition()
+						.delay(function (d, i) {
+							return 50 * i;
+						})
+						.duration(1000)
+						.style('opacity', 0.8)
+						.call(getOnAllTransitionComplete(onRenderComplete));
+				}
 
 				if ( props.toolTipEnabled ) {
 					chords.attr('tdgtitle', buildChordToolTip(idToIndx));
@@ -382,7 +453,7 @@ var com_tdg_chord = (function () {
 			var idToIndx = {}, lastIndx = 0;
 
 			var result = [];
-			
+
 			data.forEach(function (array) {
 				array.forEach(function (d, idx) {
 					if (idToIndx[d.source] == null) {
@@ -458,7 +529,7 @@ var com_tdg_chord = (function () {
 			}, -Infinity) + TICK_LENGTH + TITLE_PAD; // tallest axis label + tick length + padding
 		}
 
-		function renderGroupCurvesTitles(chord_titles_group, groups, idToIndx, offset) {
+		function renderGroupCurvesTitles(chord_titles_group, groups, idToIndx, offset, onRenderComplete) {
 			var groupNames = [];
 			_.each(idToIndx, function(idx, name){
 				groupNames[parseInt(idx, 10)] = name;
@@ -496,12 +567,13 @@ var com_tdg_chord = (function () {
 						});
 				});
 
+			onRenderComplete();
 		}
 
 		function enableMouseInteraction (group_curves, chord_group) {
 			var chords = chord_group.selectAll('path');
 			var curves = group_curves.selectAll('path.group-curve');
-				
+
 			curves
 				.on('mouseover', groupCurvefadeInteraction(0.1, chords, curves))
 				.on('mouseout', groupCurvefadeInteraction(0.8, chords, curves));
@@ -546,23 +618,31 @@ var com_tdg_chord = (function () {
 			var mainGroup = selection.append('g')
 				.attr('transform', 'translate(' + [ props.width / 2, props.height / 2 ] + ')');
 
+			var invokeAfterFive = getInvokeAfter(props.onRenderComplete, 5);
+
 			var group_curves = mainGroup.append('g').classed('group-curves', true);
-			renderGroupCurves(group_curves, chord.groups(), matrix.idToIndx);
+			renderGroupCurves(group_curves, chord.groups(), matrix.idToIndx, invokeAfterFive);
 
 			var axis_groups = mainGroup.append('g').classed('axis-groups', true);
-			renderAxis(axis_groups, chord.groups());
+			renderAxis(axis_groups, chord.groups(), invokeAfterFive);
 
 			var groupTitleOffset = getGroupTitleOffset( axis_groups.selectAll('g.tick>text')[0] );
 
 			var chord_group = mainGroup.append('g').classed('chord-group', true);
-			renderChords(chord_group, chord, matrix.idToIndx);
+			renderChords(chord_group, chord, matrix.idToIndx, invokeAfterFive);
 
 			var chord_titles_group = mainGroup.append('g').classed('chord-titles-group', true);
-			renderGroupCurvesTitles(chord_titles_group, chord.groups(), matrix.idToIndx, groupTitleOffset);
+			renderGroupCurvesTitles(
+				chord_titles_group,
+				chord.groups(),
+				matrix.idToIndx,
+				groupTitleOffset,
+				invokeAfterFive
+			);
 
 			enableMouseInteraction(group_curves, chord_group);
 
-			rescale(mainGroup, chord_group);
+			rescale(mainGroup, invokeAfterFive);
 		}
 
 		for (var attr in props) {

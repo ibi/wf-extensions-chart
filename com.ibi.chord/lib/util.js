@@ -8,13 +8,32 @@ var com_tdg_util = (function () {
 
 	// this function only copies attributes values if it is present on src and it's not null or undefined on trgt
 	function copyIfExisty (src, trgt) {
-		_.each(src, function (attr, key) {
-			if ( _.isObject(attr) && _.isObject(trgt[key]) ) {
+		each(src, function (attr, key) {
+			if ( isObject(attr) && isObject(trgt[key]) ) {
 				copyIfExisty(attr, trgt[key]);
-			} else if (trgt[key] != null && !_.isObject(src[key])) {
+			} else if (trgt[key] != null && !isObject(src[key])) {
 				src[key] = trgt[key];
 			}
 		});
+	}
+
+	function isObject (o) {
+		return o && o.constructor === Object;
+	}
+
+	function each (obj, cb) {
+		if ( Array.isArray(obj) ) {
+			for (var i = 0; i < obj.length; i++) {
+				cb(obj[i], i, obj);
+			}
+			obj.forEach(cb);
+		} else if ( isObject(obj) ) {
+			for (var key in obj) {
+				if ( obj.hasOwnProperty(key) ) {
+					cb(obj[key], key, obj);
+				}
+			}
+		}
 	}
 
 	function getTextBBox (text, font_family, font_size, selection) {
