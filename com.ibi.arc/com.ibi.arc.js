@@ -19,7 +19,7 @@
         props.width = renderConfig.width;
         props.height = renderConfig.height;
         props.data = [renderConfig.data];
-        props.isInteractionDisabled = renderConfig.disableInteracction;
+        props.isInteractionDisabled = renderConfig.disableInteraction;
 
         props.onRenderComplete = function () {
             chart.processRenderComplete();
@@ -54,7 +54,7 @@
         props.data = [
             [{ "label": "ENGLAND", "value": 12000, "_s": 0, "_g": 0 }, { "label": "ITALY", "value": 30200, "_s": 0, "_g": 2 }, { "label": "JAPAN", "value": 78030, "_s": 0, "_g": 3 }, { "label": "W GERMANY", "value": 88190, "_s": 0, "_g": 4 }]
         ];
-        props.isInteractionDisabled = renderConfig.disableInteracction;
+        props.isInteractionDisabled = renderConfig.disableInteraction;
 
         var invokeAfterTwo = getInvokeAfter(chart.processRenderComplete.bind(chart), 2);
 

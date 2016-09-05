@@ -41,7 +41,7 @@
 		props.data = renderConfig.data;
 		props.formatNumber = renderConfig.moonbeamInstance.formatNumber;
 
-		props.isInteractionDisabled = renderConfig.disableInteracction;
+		props.isInteractionDisabled = renderConfig.disableInteraction;
 
 		props.onRenderComplete = function () {
 			chart.processRenderComplete();
@@ -76,7 +76,7 @@
 		props.data = [{count: 45, label: 'Democrats'}, {count: 55, label: 'Republicans'}];
 		props.formatNumber = renderConfig.moonbeamInstance.formatNumber;
 
-		props.isInteractionDisabled = renderConfig.disableInteracction;
+		props.isInteractionDisabled = renderConfig.disableInteraction;
 
 		var invokeAfterTwo = getInvokeAfter(chart.processRenderComplete.bind(chart), 2);
 

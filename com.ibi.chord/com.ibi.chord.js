@@ -29,7 +29,7 @@
 		props.data = [renderConfig.data];
 		props.toolTipEnabled = chart.htmlToolTip && chart.htmlToolTip.enabled;
 
-		props.isInteractionDisabled = renderConfig.disableInteracction;
+		props.isInteractionDisabled = renderConfig.disableInteraction;
 		props.onRenderComplete = chart.processRenderComplete.bind(chart);
 
 		var container = d3.select(renderConfig.container)
@@ -61,7 +61,7 @@
 
 		var invokeAfterTwo = getInvokeAfter(chart.processRenderComplete.bind(chart), 2);
 
-		props.isInteractionDisabled = renderConfig.disableInteracction;
+		props.isInteractionDisabled = renderConfig.disableInteraction;
 		props.onRenderComplete = invokeAfterTwo;
 
 		var container = d3.select(renderConfig.container)
