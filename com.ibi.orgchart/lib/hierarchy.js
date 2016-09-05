@@ -86,7 +86,7 @@ window.tdghierarchy.init = (function () {
       var band = rowsPosScale.rangeBand();
 
       var rows = values.map(function (value) {
-          
+
           return {
               translate: [ pad, rowsTopOffset + rowsPosScale(value) ],
               marker: {
@@ -210,7 +210,7 @@ window.tdghierarchy.init = (function () {
   }
 
   function getBGColorByParent ( edges, label ) {
-    var prntHash = getParentsHashStr(data.edges, node.label);    
+    var prntHash = getParentsHashStr(data.edges, node.label);
   }
 
   function getElementAttrsMaps ( graph, data, props ) {
@@ -280,12 +280,12 @@ window.tdghierarchy.init = (function () {
   function getInitScale (groupBBox, width, height) {
     var horiz_ratio = width / groupBBox.width;
     var vert_ratio = height / groupBBox.height;
-    
-    // we need to resize zoomPanel so that all the nodes are seen in the viewport 
+
+    // we need to resize zoomPanel so that all the nodes are seen in the viewport
     // for that we need to compare horizontal and vertical ratious and pick smallest number
     var init_scale = Math.min(horiz_ratio, vert_ratio);
 
-    init_scale *= 0.8; // make scale even smaller so we have some extra space 
+    init_scale *= 0.8; // make scale even smaller so we have some extra space
     return init_scale;
   }
 
@@ -293,7 +293,7 @@ window.tdghierarchy.init = (function () {
 
 
     // helper functions ---------------------------------------------------
-    
+
 
 
     function renderHierarchy (main_group, data, props) {
@@ -366,9 +366,10 @@ window.tdghierarchy.init = (function () {
         };
       }
 
-      node_groups.on('mouseover', fade(0.3) );
-      node_groups.on('mouseout', fade(1) );
-
+      if (!props.isInteractionDisabled) {
+        node_groups.on('mouseover', fade(0.3) );
+        node_groups.on('mouseout', fade(1) );
+      }
     }
 
     function getData () {
@@ -448,21 +449,23 @@ window.tdghierarchy.init = (function () {
 
       var initScale = getInitScale(groupBBox, props.width, props.height);
       var initTranslate = centerGroup(groupBBox, props.width, props.height, initScale);
-
+      //TODO: this logic should be outsize enableZoom function
       zoomContainer.attr('transform', 'translate(' + initTranslate + ') scale(' + initScale + ')');
 
-      var zoom = d3.behavior.zoom()
-        .scale(initScale)
-        .translate(initTranslate)
-        .scaleExtent([initScale, initScale + 5])
-        .on('zoom', function () {
-          zoomContainer.attr(
-            'transform',
-            'translate(' + d3.event.translate + ')' + ' scale(' + d3.event.scale + ')'
-          );
-        });
+      if (!props.isInteractionDisabled) {
+        var zoom = d3.behavior.zoom()
+          .scale(initScale)
+          .translate(initTranslate)
+          .scaleExtent([initScale, initScale + 5])
+          .on('zoom', function () {
+            zoomContainer.attr(
+              'transform',
+              'translate(' + d3.event.translate + ')' + ' scale(' + d3.event.scale + ')'
+            );
+          });
 
-        eventContainer.call(zoom);
+          eventContainer.call(zoom);
+      }
     }
     // helper functions end -----------------------------------------------
 
@@ -471,6 +474,7 @@ window.tdghierarchy.init = (function () {
 		var props = {
 			width: 300,
 			height: 400,
+      isInteractionDisabled: false,
       node : {
         colorRange: ["red", "yellow", "green"],
         label: {
@@ -547,7 +551,7 @@ window.tdghierarchy.init = (function () {
       renderHierarchy(group_main, data, props);
 
       enableZoom(selection, group_main, props);
-      
+
       if (hasClrLegend) {
         // render color legend
         var legendLayout = getClrLegendLayout(data, props, innerProps);

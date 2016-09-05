@@ -37,6 +37,8 @@
 		props.levelTitles = (renderConfig.dataBuckets.buckets.levels) ? renderConfig.dataBuckets.buckets.levels.title : null;
 		props.valueTitle = (renderConfig.dataBuckets.buckets.value) ? renderConfig.dataBuckets.buckets.value.title : null;
 
+		props.isInteractionDisabled = renderConfig.disableInteraction;
+
 		props.buckets = getFormatedBuckets(renderConfig);
 
 		props.measureLabel = chart.measureLabel;
