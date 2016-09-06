@@ -77,7 +77,7 @@ var tdg_population = (function() {
         //yaxis ends
         //type lbls starts
         if ( data.some(function(d){ return d.type; }) ) {
-            var typeLblsHeight = props.measureLabel('L', props.typeLabels.font).height; // all type labels will have the same height        
+            var typeLblsHeight = props.measureLabel('L', props.typeLabels.font).height; // all type labels will have the same height
             var typeLblsVertsize = typeLblsHeight + 2 * pad;
 
             margins.top = Math.max(margins.top, typeLblsVertsize);
@@ -337,7 +337,7 @@ var tdg_population = (function() {
 
         layout.y = getYAxisLayout( data, layout.margins, props, innerProps );
         layout.x = getXAxisLayout( data, layout.margins, props, layout.y );
-        
+
         layout.canvas = getCanvasLayout ( data, layout.margins, props, layout.y, layout.x );
 
         layout.typeLabels = getTypeLabelsLayout( layout.margins, layout.y );
@@ -363,7 +363,7 @@ var tdg_population = (function() {
         return str;
     }
 
-    function render ( group_main, layout, props ) {
+    function render ( group_main, layout, props, onRenderComplete ) {
         var type_labels = group_main.append('g').classed('type-labels', true)
             .attr('transform', 'translate(' + [layout.typeLabels.x, layout.typeLabels.y] + ')');
 
@@ -430,11 +430,11 @@ var tdg_population = (function() {
 
         var y_axes = group_main.append('g').classed('y-axes', true)
             .attr('transform', 'translate(' + [layout.y.x, layout.y.y] + ')');
-            
+
 
         var y_axis = y_axes.selectAll('g.y-axis')
             .data(layout.y.axes);
-        
+
         var y_axis_enter = y_axis.enter().append('g').classed('y-axis', true)
             .attr({
                 transform: function (l) {
@@ -512,8 +512,25 @@ var tdg_population = (function() {
         components.rects.on('mouseout', hover(1, components.rects));
     }
 
+    function getOnAllTransitionComplete ( cb ) {
+        return function ( transition ) {
+            var count = transition.size();
+            transition.each('end', function () {
+                if ( !(--count && typeof cb === 'function') ) cb();
+            });
+        };
+    }
+
+    function getInvokeAfter (cb, count) {
+        if (!count && typeof cb === 'function' ) cb();
+
+        return function () {
+            if (!(--count) && typeof cb === 'function') cb();
+        };
+    }
+
     // --------------------------------- PUT HERE ALL THE GLOBAL VARIABLES AND FUNCTIONS THAT DON'T NEED TO ACCESS PROPS AND INNERPROPS THROUGH SCOPE (Z1)
-    
+
 
 
     // --------------------------------- END OF Z1
@@ -525,6 +542,8 @@ var tdg_population = (function() {
             buckets: null,
             measureLabel: null, // function
             formatNumber: null, // function
+            isInteractionDisabled: false,
+            onRenderComplete: function(){},
             colorBySeries: ['#ffafbf', '#cce9f8'],
             typeLabels: {
                 font: '14px sans-serif',
@@ -587,15 +606,27 @@ var tdg_population = (function() {
                 .classed('group-main', true)
                 .style('opacity', 0);
 
-            group_main.transition()
+            var invokeAfterTwo = getInvokeAfter(props.onRenderComplete, 2);
+
+            if (props.isInteractionDisabled) {
+              group_main.style('opacity', 1);
+              invokeAfterTwo();
+            } else {
+              group_main.transition()
                 .duration(500)
-                .style('opacity', 1);
+                .style('opacity', 1)
+                .call(getOnAllTransitionComplete(invokeAfterTwo));
+            }
 
             var layout = buildLayout(props, innerProps);
-            
+
             var components = render( group_main, layout, props );
 
-            addInteractions(components);
+            if (!props.isInteractionDisabled) {
+              addInteractions(components);
+            }
+
+            invokeAfterTwo();
         }
 
         for (var attr in props) {
