@@ -2,7 +2,7 @@
 (function() {
 	// Optional: if defined, is invoked once at the very beginning of each Moonbeam draw cycle
 	// Use this to configure a specific Moonbeam instance before rendering.
-	// Arguments: 
+	// Arguments:
 	//  - preRenderConfig: the standard callback argument object
 	function preRenderCallback(preRenderConfig) {
 		preRenderConfig.moonbeamInstance.legend.visible = false;
@@ -30,65 +30,19 @@
 	function renderCallback(renderConfig) {
 		var chart = renderConfig.moonbeamInstance;
 
-
-		/*renderConfig.properties = {
-			"axes": {
-				"invert": true,
-				"numerical" : {
-					"labels": {
-						"format": "auto",
-						"font": "12px serif"
-					}
-				},
-				"ordinal": {
-					"labels": {
-						"format": "auto",
-						"font": "12px serif"
-					},
-					"title": {
-						"font": "16px serif",
-						"color": "black"
-					}
-				}
-			},
-			"canvas": {
-				"ranges": {
-					"color": "pink",
-					"widthRatio": 0.8,
-					"tooltip": {
-						"enabled": true
-					}
-				},
-				"markers": {
-					"size": 10,
-					"stroke": "none",
-					"strokeWidth": 1,
-					"colors": ["#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd", "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"],
-					"symbols": ["circle", "diamond", "square", "cross" , "triangle-down", "triangle-up"],
-					"tooltip": {
-						"enabled": true
-					}
-				}
-			},
-			"legend": {
-				"labels": {
-					"font": "12px serif",
-					"color": "black"
-				}
-			}
-		};*/
-
 		var props = JSON.parse(JSON.stringify(renderConfig.properties));
 
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
 		props.data = renderConfig.data;
-		
+
 		props.measureLabel = chart.measureLabel;
 
 		props.formatNumber = chart.formatNumber.bind(chart);
 
 		props.buckets = getFormatedBuckets(renderConfig);
+
+		props.isInteractionDisabled = renderConfig.disableInteraction;
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_tdg_sunburst');
@@ -97,6 +51,8 @@
 
 		var range = tdg_range(props);
 		range(container);
+
+		chart.processRenderComplete();
 
 		// ---------------- END ( INIT YOUR EXTENSION HERE )
 
@@ -107,7 +63,7 @@
 	function noDataRenderCallback (renderConfig) {
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
-		
+
 		chart.legend.visible = false;
 
 		props.width = renderConfig.width;
@@ -117,6 +73,7 @@
 		props.measureLabel = chart.measureLabel;
 		props.buckets = getFormatedBuckets(renderConfig);
 
+		props.isInteractionDisabled = renderConfig.disableInteraction;
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_tdg_sunburst');
@@ -130,7 +87,7 @@
 
 		// ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
 		renderConfig.modules.tooltip.updateToolTips();
-		
+
 		// ADD TRANSPARENT SCREEN
 
 		container.append("rect")
@@ -142,9 +99,9 @@
 				fill: 'white',
 				opacity: 0.9
 			});
-		
+
 		// ADD NO DATA TEXT
-		
+
 		container.append('text')
 			.text('Add more measures or dimensions')
 			.attr({
@@ -158,7 +115,8 @@
 				dy: '0.35em',
 				fill: 'grey'
 			});
-		
+
+			chart.processRenderComplete();
 	}
 
 	// Your extension's configuration
@@ -185,5 +143,5 @@
 
 	// Required: this call will register your extension with Moonbeam
 	tdgchart.extensionManager.register(config);
-  
+
 }());

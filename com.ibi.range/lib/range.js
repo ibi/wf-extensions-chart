@@ -34,7 +34,7 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
 
     // --------------------------------- PUT HERE ALL THE GLOBAL VARIABLES AND FUNCTIONS THAT DON'T NEED TO ACCESS PROPS AND INNERPROPS THROUGH SCOPE (Z1)
     // every datum needs to have group and either at least one marker, or min, max range
-    
+
     function isValidDatum (d) {
         return d.group && (d.marker || (d.min && d.max) );
     }
@@ -205,7 +205,7 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
         var width = pad + lblsVertSpace + tSize + pad;
 
         var titleHeight = getAxisTitleHeight(scale, props);
-        
+
         if ( titleHeight && !skipTitle ) {
             width += pad + titleHeight;
         }
@@ -357,7 +357,7 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
             return res.concat(markers);
 
         }, []);
-        
+
     }
 
     function hasLegend (props) {
@@ -380,7 +380,7 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
 
         var lblMaxHeight = props.measureLabel('W', props.legend.labels.font).height;
         var markerDiameter = props.canvas.markers.size * 2;
-        
+
         var rowHeight = Math.max(
             markerDiameter,
             lblMaxHeight
@@ -418,7 +418,7 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
             height : height,
             rows : rows
         };
-        
+
     }
 
     // make a copy of initial properties
@@ -617,7 +617,7 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
                     'transform',
                     'translate(' + [layout.title.x, layout.title.y] + ')'
                 );
-                
+
                 text.attr('dy', '1em')
                     .style({
                         'text-anchor' : 'middle',
@@ -637,7 +637,7 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
             .attr('transform', transform);
 
         // start debugging background
-        
+
         /*group.append('rect')
             .attr({
                 x: type === 'vertical' ? d=>-d.width : 0,
@@ -749,7 +749,7 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
                 fill: props.canvas.markers.labels.color
             });
         }
-        
+
     }
 
     function renderLegend ( group, layout, props, innerProps ) {
@@ -858,7 +858,7 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
             .append('g')
             .each(renderGroups(props, innerProps));
 
-        
+
     }
 
     function behaviors ( group_main ) {
@@ -876,12 +876,12 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
 
         // ranges hover
         var range = group_main.selectAll('g.ranges > rect.range');
-        
+
         range.on('mouseover', fade(0.3, range))
             .on('mouseout', fade(1, range));
         // markers hover
         var marker = group_main.selectAll('g.markers > g.marker');
-        
+
         marker.on('mouseover', fade(0.3, marker))
             .on('mouseout', fade(1, marker));
     }
@@ -895,6 +895,7 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
             buckets: [],
             measureLabel: null,
             formatNumber: null,
+            isInteractionDisabled: false,
             axes: {
                 invert: false,
                 numerical : {
@@ -982,8 +983,9 @@ var tdg_range = (function() { // <---------------------------------------- CHANG
             var l = layout(data, props, innerProps);
 
             render( group_main, l, props, innerProps );
-
-            behaviors( group_main );
+            if ( !props.isInteractionDisabled ) {
+              behaviors( group_main );
+            }
         }
 
         for (var attr in props) {
