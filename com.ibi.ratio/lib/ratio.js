@@ -73,7 +73,7 @@ var tdg_ratio = (function() {
         // top/bottom axis starts
         margins.top = margins.bottom = props.measureLabel('L', props.axes.ratio.labels.font).height + innerProps.whiskersSize  + 3 * pad;
         // top/bottom axis ends
-        
+
         return margins;
     }
 
@@ -453,7 +453,7 @@ var tdg_ratio = (function() {
         layout.ratioAxes = getRatioAxesLayout( data, rscale, layout.margins, props, innerProps );
 
         //layout.y = getYAxisLayout( data, layout.margins, props, innerProps );
-        
+
         layout.canvas = getCanvasLayout ( data, layout.margins, props, rscale, layout.x );
 
         //layout.typeLabels = getTypeLabelsLayout( layout.margins, layout.y );
@@ -631,7 +631,7 @@ var tdg_ratio = (function() {
     }
 
     // --------------------------------- PUT HERE ALL THE GLOBAL VARIABLES AND FUNCTIONS THAT DON'T NEED TO ACCESS PROPS AND INNERPROPS THROUGH SCOPE (Z1)
-    
+
 
 
     // --------------------------------- END OF Z1
@@ -643,6 +643,7 @@ var tdg_ratio = (function() {
             buckets: null,
             measureLabel: null, // function
             formatNumber: null, // function
+            isInteractionDisabled: false,
             risers: {
                 color: 'salmon',
                 label: {
@@ -704,17 +705,15 @@ var tdg_ratio = (function() {
             var group_main = selection
                 .append('g')
                 .classed('group-main', true);
-                /*.style('opacity', 0);
 
-            group_main.transition()
-                .duration(500)
-                .style('opacity', 1);*/
-            //layout
+
             var layout = buildLayout(props, innerProps);
             //render
             var components = render( group_main, layout, props );
             //interactions
-            addInteractions(components);
+            if (!props.isInteractionDisabled) {
+              addInteractions(components);
+            }
         }
 
         for (var attr in props) {
