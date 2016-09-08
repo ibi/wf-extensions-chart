@@ -32,6 +32,23 @@ var tdg_sunburst = (function () {
     }
   }
 
+  function getOnAllTransitionComplete ( cb ) {
+      return function ( transition ) {
+          var count = transition.size();
+          transition.each('end', function () {
+              if ( !(--count && typeof cb === 'function') ) cb();
+          });
+      };
+  }
+
+  function getInvokeAfter (cb, count) {
+      if (!count && typeof cb === 'function' ) cb();
+
+      return function () {
+          if (!(--count) && typeof cb === 'function') cb();
+      };
+  }
+
   function getHierarchyObj (data) {
     var res = [], roots = [];
     data.forEach(function (d) {
@@ -227,6 +244,8 @@ var tdg_sunburst = (function () {
 			height: 400,
 			data: null,
       formatNumber: null,
+      isInteractionDisabled: false,
+      onRenderComplete: function(){},
       node: {
         colors: ["#4087b8","#e31a1c","#9ebcda","#c994c7","#41b6c4","#49006a","#ec7014","#a6bddb","#67001f","#800026","#addd8e","#e0ecf4","#fcc5c0","#238b45","#081d58","#d4b9da","#2b8cbe","#74a9cf","#41ab5d","#fed976","#ce1256","#7f0000","#a6bddb","#ffffcc","#e7e1ef","#016c59","#f7fcfd","#99d8c9","#fff7fb","#ffffe5","#fdd49e","#ffffd9","#fe9929","#8c96c6","#810f7c","#993404","#c7e9b4","#bfd3e6","#e7298a","#7fcdbb","#3690c0","#ae017e","#d9f0a3","#ece2f0","#014636","#f7fcb9","#66c2a4","#fff7bc","#f7fcf0","#e5f5f9","#fdbb84","#fa9fb5","#4d004b","#fff7fb","#cc4c02","#78c679","#1d91c0","#ccebc5","#feb24c","#b30000","#8c6bb1","#fec44f","#d0d1e6","#084081","#0868ac","#f7fcfd","#0570b0","#ef6548","#fff7ec","#006837","#f768a1","#edf8b1","#fee391","#238443","#ffffe5","#023858","#7a0177","#67a9cf","#dd3497","#980043","#88419d","#d0d1e6","#fc8d59","#4eb3d3","#fd8d3c","#fff7f3","#fc4e2a","#ccece6","#ece7f2","#a8ddb5","#41ae76","#bd0026","#e0f3db","#045a8d","#ffeda0","#253494","#7bccc4","#fde0dd","#00441b","#225ea8","#006d2c","#02818a","#f7f4f9","#d7301f","#df65b0","#662506","#3690c0","#004529","#fee8c8"],
         colorBy: 'node', // 'parent', node
@@ -387,7 +406,7 @@ var tdg_sunburst = (function () {
       return root;
     }
 
-    function renderSunburst (group_main) {
+    function renderSunburst (group_main, onRenderComplete) {
       var data = getFixedDataSet(getData(), innerProps.fakeRootName);
 
       var radius = Math.min( props.width, props.height ) / 2 * innerProps.radiusRatio;
@@ -395,7 +414,7 @@ var tdg_sunburst = (function () {
       var x = d3.scale.linear().range([0, 2 * Math.PI]);
 
       var y = d3.scale.sqrt().range([0, radius]);
-      
+
       var group_chart = group_main.append('g').classed('group-chart', true)
         .attr('transform', 'translate(' + props.width / 2 + ',' + props.height / 2 + ')');
 
@@ -438,21 +457,37 @@ var tdg_sunburst = (function () {
           stroke: props.node.border.color,
           'stroke-width': props.node.border.width,
           opacity: 0
-        })
-        .on('click', click)
-        .filter(function (d) { // get all the nodes besides root
-          return d.name !== innerProps.fakeRootName;
-        })
-        .on('mouseover', fade(0.2))
-        .on('mouseout', fade(1));
+        });
+
+
+      if ( !props.isInteractionDisabled ) {
+        paths
+          .on('click', click)
+          .filter(function (d) { // get all the nodes besides root
+            return d.name !== innerProps.fakeRootName;
+          })
+          .on('mouseover', fade(0.2))
+          .on('mouseout', fade(1));
+      }
 
       paths.filter(function (d) {
         return d.name === innerProps.fakeRootName;
       }).attr('pointer-events', 'all');
-      
-      paths.transition().delay(function (d, i) {
-        return 10 * (paths[0].length - i );
-      }).duration(600).style('opacity', 1);
+
+      var invokeAfterTwo = getInvokeAfter(onRenderComplete, 2);
+
+      if (props.isInteractionDisabled) {
+        paths.style('opacity', 1);
+        invokeAfterTwo();
+      } else {
+        paths
+          .transition().delay(function (d, i) {
+            return 10 * (paths[0].length - i );
+          })
+          .duration(600)
+          .style('opacity', 1)
+          .call(getOnAllTransitionComplete(invokeAfterTwo));
+      }
 
       if ( props.toolTip.enabled ) {
         paths
@@ -485,8 +520,8 @@ var tdg_sunburst = (function () {
 
         return function (d, i) {
           if (i) {
-            return function(t) { 
-              return arc(d); 
+            return function(t) {
+              return arc(d);
             };
           } else {
             return function (t) {
@@ -497,13 +532,15 @@ var tdg_sunburst = (function () {
           }
         }
       }
+
+      invokeAfterTwo();
     }
 
 		function chart (selection) {
 
       var group_main = selection.append('g').classed('group-main', true);
 
-      renderSunburst(group_main);
+      renderSunburst(group_main, props.onRenderComplete);
 		}
 
 		for (var attr in props) {
@@ -513,7 +550,7 @@ var tdg_sunburst = (function () {
 		}
 
 		/* start-test-block */
-		
+
 		/* end-test-block */
 
 		return chart;
