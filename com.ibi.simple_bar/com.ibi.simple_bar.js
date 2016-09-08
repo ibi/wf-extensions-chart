@@ -1,3 +1,5 @@
+/* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
+/* $Revision: 1.8 $ */
 
 (function() {
 
@@ -71,7 +73,7 @@
 			var v = Array.isArray(el.value) ? el.value : [el.value];
 			var y0 = 0;
 			return v.map(function(d, s) {
-				return chart.mergeObjects(d, {y0: y0, y1: y0 += d, seriesID: s, value: d, labels: seriesLabels[idx]});
+				return chart.mergeObjects(el, {y0: y0, y1: y0 += d, seriesID: s, value: d, labels: seriesLabels[idx]});
 			});
 		});
 		
@@ -92,46 +94,38 @@
 			.attr("width", x.rangeBand())
 			.attr("y", function(d) {return h - y(d.y1);})
 			.attr("height", function(d){return y(d.y1) - y(d.y0);})
-			.attr('tdgtitle', function(d, s, g) {
-				// To support tooltips, each chart object that should draw a tooltip must 
-				// set its 'tdgtitle' attribute to the tooltip's content string.
-				
-				// Retrieve the chart engine's user-defined tooltip content with getToolTipContent():
-				// 's' and 'g' are the series and group IDs for the riser in question.
-				// 'd' is this riser's individual datum, and seriesData is the array of data for this riser's series.
-				var seriesData = chart.data[s];
-				var tooltip = renderConfig.modules.tooltip.getToolTipContent(s, g, d, seriesData);
-				// getToolTipContent() return values:
-				//  - undefined: do not add any content to this riser's tooltip
-				//  - the string 'auto': you must define some 'nice' automatic tooltip content for this riser
-				//  - anything else: use this directly as the tooltip content
-				if (tooltip === 'auto') {
-					if (d.hasOwnProperty('color')) {
-						return 'Bar Size: ' + d.value + '<br />Bar Color: ' + d.color;
-					}
-					return 'Bar Size: ' + d.value;
-				}
-				return tooltip;
-			})
 			.attr('class', function(d, s, g) {
-				// To support data selection and tooltips, each riser must include a class name with the appropriate seriesID and groupID
+				
+				// To support data selection, events and tooltips, each riser must include a class name with the appropriate seriesID and groupID
 				// Use chart.buildClassName to create an appropriate class name.
 				// 1st argument must be 'riser', 2nd is seriesID, 3rd is groupID, 4th is an optional extra string which can be used to identify the risers in your extension.
+				
 				return chart.buildClassName('riser', s, g, 'bar');
 			})
 			.attr('fill', function(d) {
+				
 				// getSeriesAndGroupProperty(seriesID, groupID, property) is a handy function
 				// to easily look up any series dependent property.  'property' can be in
 				// dot notation (eg: 'marker.border.width').
+				
 				return chart.getSeriesAndGroupProperty(d.seriesID, null, 'color');
+			})
+			.each(function(d, s, g) {
+				
+				// addDefaultToolTipContent will add the same tooltip to this riser as the built in chart types would.
+				// Assumes that 'this' node includes a fully qualified series & group class string.
+				// addDefaultToolTipContent can also accept optional arguments:
+				// addDefaultToolTipContent(target, s, g, d, data), useful if this node does not have a class
+				// or if you want to override the default series / group / datum lookup logic.
+				
+				renderConfig.modules.tooltip.addDefaultToolTipContent(this);
 			});
 			
 		svg.append('text')
 			.attr('transform', function(d) {return 'translate(' + (x.rangeBand() / 2) + ',' + (h - 5) + ')';})
-			.text(function(d, i){return seriesLabels[i];})
-			
-		renderConfig.modules.tooltip.updateToolTips();  // Tell the chart engine your chart is ready for tooltips to be added
-		renderConfig.modules.dataSelection.activateSelection();  // Tell the chart engine your chart is ready for data selection to be enabled
+			.text(function(d, i){return seriesLabels[i];});
+
+		renderConfig.renderComplete();
 	}
 	
 	function noDataRenderCallback(renderConfig) {
@@ -161,8 +155,20 @@
 				needSVGEventPanel: false, // if you're using an HTML container or altering the SVG container, set this to true and the chart engine will insert the necessary SVG elements to capture user interactions
 				svgNode: function(arg){}  // if you're using an HTML container or altering the SVG container, return a reference to your root SVG node here.
 			},
+			eventHandler: {
+				supported: true
+			},
 			tooltip: {
-				supported: true  // Set this true if your extension wants to enable HTML tooltips
+				supported: true,  // Set this true if your extension wants to enable HTML tooltips
+				// This callback is called when no default tooltip content is passed into the chart.
+				// Use this to define 'nice' default tooltips for the given target, ids & data.
+				// Return value can be a string (including HTML), or HTML nodes, or any Moonbeam tooltip API object.
+				autoContent: function(target, s, g, d, data) {
+					if (d.hasOwnProperty('color')) {
+						return 'Bar Size: ' + d.value + '<br />Bar Color: ' + d.color;
+					}
+					return 'Bar Size: ' + d.value;
+				}
 			}
 			// Not used in this extension; here for documentation purposes.
 //			colorScale: {
