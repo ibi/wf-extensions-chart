@@ -53,13 +53,14 @@
         // do not calulate anything in this function! It's only for rendering
         // if you need to calculate s-g do it in buildLayout
         function render(selection, layout, props, innerProps) {
+
             var brush = d3.svg.brush()
                 .x(layout.x)
                 .on('brush', function() {
-                    if (typeof props.onChange === 'function') {
-                        props.onChange(brush.empty() ? layout.x.domain() : brush.extent());
-                    }
-                });
+                  if (typeof props.onChange === 'function') {
+                      props.onChange(brush.empty() ? layout.x.domain() : brush.extent());
+                  }
+              });
 
             selection.call(brush)
                 .selectAll('rect')
@@ -381,7 +382,7 @@
         }
 
         function render(group_main, layout, props, innerProps) {
-            
+
             var clip_area_id = parseInt(Math.random() * 10000000, 10);
 
             group_main.append('clipPath')
@@ -468,7 +469,7 @@
                 .attr('transform',  function (d) {
                     return 'translate(' + [d.x, d.y] + ')';
                 });
-            
+
             function getTDGTitleHTML ( tooltip ) {
                 var lstIdx = tooltip.length - 1;
                 return tooltip.reduce(function ( str, cur, idx ) {
@@ -499,13 +500,15 @@
 
                 });
 
-            riser_lbl_groups_enter.on('mouseover', function () {
-                d3.select(this).select('rect').style('stroke', 'black');
-                canvas_group.node().appendChild(d3.select(this).node());
-                
-            }).on('mouseout', function () {
-                d3.select(this).select('rect').style('stroke', null);
-            });
+            if (!props.isInteractionDisabled) {
+              riser_lbl_groups_enter.on('mouseover', function () {
+                  d3.select(this).select('rect').style('stroke', 'black');
+                  canvas_group.node().appendChild(d3.select(this).node());
+
+              }).on('mouseout', function () {
+                  d3.select(this).select('rect').style('stroke', null);
+              });
+            }
 
             riser_lbl_groups_enter.filter(function (d) {
                 return d.label != null;
@@ -526,7 +529,7 @@
                     return d.label.text;
                 });
 
-            if (props.context.enabled) {
+            if (props.context.enabled && !props.isInteractionDisabled) {
                 group_main.append('g')
                     .attr(
                         'transform',
@@ -555,6 +558,8 @@
                 height: 400,
                 data: null,
                 measureLabel: null,
+                onRenderComplete: function() {},
+                isInteractionDisabled: false,
                 context: {
                     enabled: false
                 },
@@ -683,6 +688,23 @@
             }
         }
 
+        function getOnAllTransitionComplete ( cb ) {
+            return function ( transition ) {
+                var count = transition.size();
+                transition.each('end', function () {
+                    if ( !(--count && typeof cb === 'function') ) cb();
+                });
+            };
+        }
+
+        function getInvokeAfter (cb, count) {
+            if (!count && typeof cb === 'function' ) cb();
+
+            return function () {
+                if (!(--count) && typeof cb === 'function') cb();
+            };
+        }
+
         // --------------------------------- PUT HERE ALL THE GLOBAL VARIABLES AND FUNCTIONS THAT DON'T NEED TO ACCESS PROPS AND INNERPROPS THROUGH SCOPE (Z1)
         // it's importan to separate your layout calculation logic
         // from your rendering logic. This function should return
@@ -711,11 +733,24 @@
         // use layout obj to render your component
         // do not calulate anything in this function! It's only for rendering
         // if you need to calculate s-g do it in buildLayout
-        function render(group_main, layout, props, innerProps) {
+        function render(group_main, layout, props, innerProps, onRenderComplete) {
             var chart = this;
+
+            var invokeAfterThree = getInvokeAfter(onRenderComplete, 2);
 
             var focus_group = group_main.append('g')
                 .classed('focus', true);
+
+            if (!props.isInteractionDisabled) {
+              focus_group
+                .style('opacity', 0)
+                .transition()
+                .duration(400)
+                .style('opacity', 1)
+                .call(getOnAllTransitionComplete(invokeAfterThree));
+            } else {
+              invokeAfterThree();
+            }
 
             /*var focusRisersProps = JSON.parse(JSON.stringify(props.focus.risers));
             focusRisersProps.tdgtitle.enabled = true;*/
@@ -728,7 +763,8 @@
                 rows: props.focus.rows,
                 timeAxis: props.focus.timeAxis,
                 risers: props.focus.risers,
-                buckets: props.buckets
+                buckets: props.buckets,
+                isInteractionDisabled: props.isInteractionDisabled
             });
 
             focus_group
@@ -739,6 +775,17 @@
                 .attr('transform',
                     'translate(' + layout.context.translate + ')'
                 );
+
+            if (!props.isInteractionDisabled) {
+              context_group
+                .style('opacity', 0)
+                .transition()
+                .duration(400)
+                .style('opacity', 1)
+                .call(getOnAllTransitionComplete(invokeAfterThree));
+            } else {
+              invokeAfterThree();
+            }
 
             var context_chart = tdg_timeline({
                 width: layout.context.width,
@@ -751,6 +798,7 @@
                 rows: props.context.rows,
                 timeAxis: props.context.timeAxis,
                 risers: props.context.risers,
+                isInteractionDisabled: props.isInteractionDisabled,
                 onContextChange: function(domain) {
                     focus_chart.setTimeAxisDomain(domain);
                     focus_chart.rerender();
@@ -762,6 +810,8 @@
 
             context_group
                 .call(context_chart);
+
+          invokeAfterThree();
         }
 
         // --------------------------------- END OF Z1
@@ -771,6 +821,8 @@
                 height: 300,
                 data: null,
                 measureLabel: null,
+                onRenderComplete: function() {},
+                isInteractionDisabled: false,
                 buckets: {
                     task: null,
                     subtask: null,
@@ -816,7 +868,7 @@
                             font: '10px sans-serif',
                             color: 'black'
                         }
-                    }  
+                    }
                 }
             };
 
@@ -846,7 +898,7 @@
 
                 var layout = buildLayout(props, innerProps);
 
-                render.call(chart, group_main, layout, props, innerProps);
+                render.call(chart, group_main, layout, props, innerProps, props.onRenderComplete);
             }
 
             /*add extra methods to chart object zone*/

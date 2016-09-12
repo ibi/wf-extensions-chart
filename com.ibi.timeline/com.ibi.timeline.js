@@ -2,7 +2,7 @@
 (function() {
     // Optional: if defined, is invoked once at the very beginning of each Moonbeam draw cycle
     // Use this to configure a specific Moonbeam instance before rendering.
-    // Arguments: 
+    // Arguments:
     //  - preRenderConfig: the standard callback argument object
     function preRenderCallback(preRenderConfig) {
         preRenderConfig.moonbeamInstance.legend.visible = false;
@@ -61,6 +61,10 @@
 
         props.buckets = getFormatedBuckets(renderConfig);
 
+        props.isInteractionDisabled = renderConfig.disableInteraction;
+
+    		props.onRenderComplete = mbInstance.processRenderComplete.bind(mbInstance);
+
         var container = d3.select(renderConfig.container)
             .attr('class', 'com_tdg_timeline');
 
@@ -77,7 +81,17 @@
         // ---------------- END ( INIT YOUR EXTENSION HERE )
 
         // ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
-        renderConfig.modules.tooltip.updateToolTips();
+        if (!props.isInteractionDisabled) {
+          renderConfig.modules.tooltip.updateToolTips();
+        }
+    }
+
+    function getInvokeAfter (cb, count) {
+        if (!count && typeof cb === 'function' ) cb();
+
+        return function () {
+            if (!(--count) && typeof cb === 'function') cb();
+        };
     }
 
     function noDataRenderCallback(renderConfig) {
@@ -91,7 +105,13 @@
         props.measureLabel = mbInstance.measureLabel;
 
         props.buckets = getFormatedBuckets(renderConfig);
-        
+
+        var invokeAfterTwo = getInvokeAfter(mbInstance.processRenderComplete.bind(mbInstance), 2);
+
+        props.isInteractionDisabled = renderConfig.disableInteraction;
+
+    		props.onRenderComplete = invokeAfterTwo;
+
         props.data = [{
             "task": "Task 1",
             "subtask": "Subtask 1",
@@ -156,7 +176,9 @@
         // ---------------- END ( INIT YOUR EXTENSION HERE )
 
         // ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
-        renderConfig.modules.tooltip.updateToolTips();
+        if (!props.isInteractionDisabled) {
+          renderConfig.modules.tooltip.updateToolTips();
+        }
 
         // ADD TRANSPARENT SCREEN
 
@@ -186,6 +208,7 @@
                 fill: 'grey'
             });
 
+        invokeAfterTwo();
     }
 
     // Your extension's configuration
