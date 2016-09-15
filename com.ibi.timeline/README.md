@@ -20,8 +20,9 @@ Context is the lower part that also contains a timeline chart. User can interact
 ## Configurations
 
 To configure or customize your extension edit "properties" object in properties.json file.
-	
+
 	"properties": {
+		"colorByRow": false,
 		"focus": {
             "rows": {
                 "labels": {
@@ -41,7 +42,9 @@ To configure or customize your extension edit "properties" object in properties.
                 },
                 "toolTip": {
                 	"enabled": true
-                }
+                },
+								"borderColor": "white",
+								"borderWidth": 2
             }
         },
         "context": {
@@ -60,14 +63,16 @@ To configure or customize your extension edit "properties" object in properties.
             "risers": {
                 "labels": {
                     "font": "10px sans-serif"
-                }
+                },
+								"borderColor": "white",
+								"borderWidth": 2
             }
         },
 	    "toolTip": {
 	      "enabled": true
 	    }
 	}
-	
+
 
 ## Data Buckets
 
