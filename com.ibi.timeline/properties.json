@@ -10,8 +10,9 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
+		"colorByRow": false,
 		"focus": {
             "rows": {
                 "labels": {
@@ -31,7 +32,9 @@
                 },
                 "toolTip": {
                 	"enabled": true
-                }
+                },
+								"borderColor": "white",
+								"borderWidth": 2
             }
         },
         "context": {
@@ -50,15 +53,18 @@
             "risers": {
                 "labels": {
                     "font": "10px sans-serif"
-                }
+                },
+								"borderColor": "white",
+								"borderWidth": 2
             }
         },
 	    "toolTip": {
 	      "enabled": true
 	    }
 	},
-	
+
 	"propertyAnnotations": {
+		"colorByRow": "bool",
 		"focus": {
             "rows": {
                 "labels": {
@@ -78,7 +84,9 @@
                 },
                 "toolTip": {
                 	"enabled": "bool"
-                }
+                },
+								"borderColor": "str",
+								"borderWidth": "number"
             }
         },
         "context": {
@@ -98,14 +106,16 @@
             "risers": {
                 "labels": {
                     "font": "str"
-                }
+                },
+								"borderColor": "str",
+								"borderWidth": "number"
             }
         },
 		"toolTip": {
 	      "enabled": "bool"
 	    }
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": false,
 		"matrix": false,
