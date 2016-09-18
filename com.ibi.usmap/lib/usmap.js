@@ -32,6 +32,23 @@ var tdg_usmap = (function() { // <---------------------------------------- CHANG
         }
     }
 
+    function getOnAllTransitionComplete ( cb ) {
+        return function ( transition ) {
+            var count = transition.size();
+            transition.each('end', function () {
+                if ( !(--count && typeof cb === 'function') ) cb();
+            });
+        };
+    }
+
+    function getInvokeAfter (cb, count) {
+        if (!count && typeof cb === 'function' ) cb();
+
+        return function () {
+            if (!(--count) && typeof cb === 'function') cb();
+        };
+    }
+
     // --------------------------------- PUT HERE ALL THE GLOBAL VARIABLES AND FUNCTIONS THAT DON'T NEED TO ACCESS PROPS AND INNERPROPS THROUGH SCOPE (Z1)
     function getProjection(states, width, height) {
         var projection = (true) ? d3.geo.albersUsa() : d3.geo.albers();
@@ -190,7 +207,7 @@ var tdg_usmap = (function() { // <---------------------------------------- CHANG
             return d.size;
         });
 
-        return d3.scale.sqrt() /*.exponent(2)*/ .domain(domain).range(range); // add max bubble size ratio to properties.js   
+        return d3.scale.sqrt() /*.exponent(2)*/ .domain(domain).range(range); // add max bubble size ratio to properties.js
     }
 
     function getFixedData(orig_data, projection, airports, dynamicValsInfo, props) {
@@ -260,7 +277,7 @@ var tdg_usmap = (function() { // <---------------------------------------- CHANG
         }
 
         // this function adds a link to links array and also modifies nodes objects by adding targets and targetOf info
-        // 
+        //
         function addLink(src, dst, d) {
             // if link width is dynamic and width of the current link is undefined then we do not render this link
             if (lWidthScale && d.width == null) {
@@ -937,7 +954,7 @@ var tdg_usmap = (function() { // <---------------------------------------- CHANG
             domain = d3.extent(data.links, function (d) {
                 return d.tooltip.width;
             });
-            
+
             wLegendProp = drawWidthLegend(legends_group, 'widthLegend', 0, offset, maxLegendWidth, domain, props.links.widthRange, props.buckets.width[0], props.measureLabel, props.legends.linkWidth);
             legendsTotHeight += offset + wLegendProp.height;
             offset += wLegendProp.height + legendPad;
@@ -951,7 +968,7 @@ var tdg_usmap = (function() { // <---------------------------------------- CHANG
             legendsTotHeight = offset + cLegendProp.height;
             offset += cLegendProp.height + legendPad;
         }
-        
+
         if ( props.legends.nodeSize.enabled && dynamicValsInfo.hasDynamicNodeSize ) {
             domain = d3.extent(data.nodes, function (d) {
                 return d.size;
@@ -975,6 +992,8 @@ var tdg_usmap = (function() { // <---------------------------------------- CHANG
         var props = {
             width: 300,
             height: 400,
+            isInteractionDisabled: false,
+            onRenderComplete: function() {},
             buckets: null,
             data: null,
             states: null,
@@ -1060,7 +1079,9 @@ var tdg_usmap = (function() { // <---------------------------------------- CHANG
             var nodes_group = group_main.append('g').classed('nodes', true);
             var nodes = renderNodes(nodes_group, data.nodes, props.buckets, props.nodes);
 
-            enableInteractions(nodes, links);
+            if (!props.isInteractionDisabled) {
+              enableInteractions(nodes, links);
+            }
         }
 
         // ---------------------------------- END OF Z2
@@ -1078,8 +1099,24 @@ var tdg_usmap = (function() { // <---------------------------------------- CHANG
         }
 
         function chart(selection) {
+
             var group_main = selection.append('g').classed('group-main', true);
+
+            var invokeAfterTwo = getInvokeAfter(props.onRenderComplete, 2);
+
+            if (!props.isInteractionDisabled) {
+              group_main.style('opacity', 0)
+                .transition()
+                .duration(500)
+                .style('opacity', 1)
+                .call(getOnAllTransitionComplete(invokeAfterTwo));
+            } else {
+              invokeAfterTwo();
+            }
+
             render(group_main);
+
+            invokeAfterTwo();
         }
 
         for (var attr in props) {
