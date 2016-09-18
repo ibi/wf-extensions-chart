@@ -64,6 +64,22 @@ var tdg_usa_choropleth = (function() {
     var STATES_NAMES = ["alabama", "alaska", "arizona", "arkansas", "california", "colorado", "connecticut", "delaware", "florida", "georgia", "hawaii", "idaho", "illinois", "indiana", "iowa", "kansas", "kentucky", "louisiana", "maine", "maryland", "massachusetts", "michigan", "minnesota", "mississippi", "missouri", "montana", "nebraska", "nevada", "newhampshire", "newjersey", "newmexico", "newyork", "northcarolina", "northdakota", "ohio", "oklahoma", "oregon", "pennsylvania", "rhodeisland", "southcarolina", "southdakota", "tennessee", "texas", "utah", "vermont", "virginia", "washington", "washingtondc", "westvirginia", "wisconsin", "wyoming"];
     var STATES_ABBR = ["AL","AK","AZ","AR","CA","CO","CT","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VT","VA","WA", 'DC',"WV","WI","WY"];
 
+    function getOnAllTransitionComplete ( cb ) {
+        return function ( transition ) {
+            var count = transition.size();
+            transition.each('end', function () {
+                if ( !(--count && typeof cb === 'function') ) cb();
+            });
+        };
+    }
+
+    function getInvokeAfter (cb, count) {
+        if (!count && typeof cb === 'function' ) cb();
+
+        return function () {
+            if (!(--count) && typeof cb === 'function') cb();
+        };
+    }
 
     function copyIfExisty(src, trgt) {
         each(src, function(attr, key) {
@@ -217,9 +233,9 @@ var tdg_usa_choropleth = (function() {
             if ( typeof cur.value === 'number' ) {
                 str += formatNumber(cur.value, formatType, minMax);
             } else {
-                str += cur.value;    
+                str += cur.value;
             }
-            
+
             return str;
         }, '<div style="padding: 5px">').concat('</div>');
     }
@@ -266,7 +282,7 @@ var tdg_usa_choropleth = (function() {
         var band = rowsPosScale.rangeBand();
 
         var rows = values.map(function (value) {
-            
+
             return {
                 translate: [ pad, rowsTopOffset + rowsPosScale(value) ],
                 marker: {
@@ -299,7 +315,7 @@ var tdg_usa_choropleth = (function() {
     }
 
     function hasLegend (data, props) {
-        return props.colorLegend.enabled 
+        return props.colorLegend.enabled
             && data.some(function(d){ return d.value; })
             && Array.isArray(props.buckets.value)
             && props.buckets.value.length;
@@ -350,7 +366,7 @@ var tdg_usa_choropleth = (function() {
     }
 
     function renderLegend (group_legend, legendLayout, props) {
-        
+
         var bg = group_legend
             .append('rect')
             .attr({
@@ -451,7 +467,7 @@ var tdg_usa_choropleth = (function() {
                 .classed('legend-color', true)
                 .attr('transform', 'translate(' + layout.legend.translate + ')');
 
-            renderLegend(group_legend, layout.legend, props); 
+            renderLegend(group_legend, layout.legend, props);
         }
     }
 
@@ -490,6 +506,8 @@ var tdg_usa_choropleth = (function() {
             height: 400,
             data: [],
             buckets: null,
+            isInteractionDisabled: false,
+            onRenderComplete: function() {},
             states: {
                 exclude: [],
                 colorRange: ['#d7ebef', '#4a89db'],
@@ -557,9 +575,25 @@ var tdg_usa_choropleth = (function() {
 
             var group_main = selection.append('g').classed('group-main', true);
 
+            var invokeAfterTwo = getInvokeAfter(props.onRenderComplete, 2);
+
+            if (!props.isInteractionDisabled) {
+              group_main.style('opacity', 0)
+                .transition()
+                .duration(500)
+                .style('opacity', 1)
+                .call(getOnAllTransitionComplete(invokeAfterTwo));
+            } else {
+              invokeAfterTwo();
+            }
+
             render( group_main, l, props, innerProps );
 
-            interactions(group_main);
+            if (!props.isInteractionDisabled) {
+              interactions(group_main);
+            }
+
+            invokeAfterTwo();
         }
 
         for (var attr in props) {

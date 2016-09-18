@@ -2,7 +2,7 @@
 (function() {
 	// Optional: if defined, is invoked once at the very beginning of each Moonbeam draw cycle
 	// Use this to configure a specific Moonbeam instance before rendering.
-	// Arguments: 
+	// Arguments:
 	//  - preRenderConfig: the standard callback argument object
 	function preRenderCallback(preRenderConfig) {
 		preRenderConfig.moonbeamInstance.legend.visible = false;
@@ -36,8 +36,12 @@
 		props.data = renderConfig.data;
 		props.buckets = getFormatedBuckets(renderConfig);
 
-        props.measureLabel = chart.measureLabel;
-        props.formatNumber = chart.formatNumber;
+    props.measureLabel = chart.measureLabel;
+    props.formatNumber = chart.formatNumber;
+
+		props.isInteractionDisabled = renderConfig.disableInteraction;
+
+		props.onRenderComplete = chart.processRenderComplete.bind(chart);
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_tdg_sunburst');
@@ -50,13 +54,23 @@
 		// ---------------- END ( INIT YOUR EXTENSION HERE )
 
 		// ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
-		renderConfig.modules.tooltip.updateToolTips();
+		if ( !renderConfig.disableInteraction ) {
+			renderConfig.modules.tooltip.updateToolTips();
+		}
+	}
+
+	function getInvokeAfter (cb, count) {
+			if (!count && typeof cb === 'function' ) cb();
+
+			return function () {
+					if (!(--count) && typeof cb === 'function') cb();
+			};
 	}
 
 	function noDataRenderCallback (renderConfig) {
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
-		
+
 		chart.legend.visible = false;
 
 		props.width = renderConfig.width;
@@ -66,7 +80,12 @@
 		props.buckets = {"state":["state"],"value":["value"]};
 
 		props.measureLabel = chart.measureLabel;
-        props.formatNumber = chart.formatNumber;
+    props.formatNumber = chart.formatNumber;
+
+		var invokeAfterTwo = getInvokeAfter(chart.processRenderComplete.bind(chart), 2);
+
+		props.isInteractionDisabled = renderConfig.disableInteraction;
+		props.onRenderComplete = invokeAfterTwo;
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_tdg_sunburst');
@@ -79,8 +98,8 @@
 		// ---------------- END ( INIT YOUR EXTENSION HERE )
 
 		// ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
-		renderConfig.modules.tooltip.updateToolTips();
-		
+		//renderConfig.modules.tooltip.updateToolTips();
+
 		// ADD TRANSPARENT SCREEN
 
 		container.append("rect")
@@ -92,9 +111,9 @@
 				fill: 'white',
 				opacity: 0.9
 			});
-		
+
 		// ADD NO DATA TEXT
-		
+
 		container.append('text')
 			.text('Add more measures or dimensions')
 			.attr({
@@ -108,7 +127,8 @@
 				dy: '0.35em',
 				fill: 'grey'
 			});
-		
+
+		invokeAfterTwo();
 	}
 
 	// Your extension's configuration
@@ -135,5 +155,5 @@
 
 	// Required: this call will register your extension with Moonbeam
 	tdgchart.extensionManager.register(config);
-  
+
 }());
