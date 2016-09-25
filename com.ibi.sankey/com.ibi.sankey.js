@@ -1,12 +1,12 @@
 /*global tdgchart: false, d3: false */
 
  (function() {
-	 
+
 	 var tdg = tdgchart.util;
 
 	function preRenderCallback(preRenderConfig) {
-		var chart = preRenderConfig.moonbeamInstance; 
-		if (chart.noDataMode) {
+		var chart = preRenderConfig.moonbeamInstance;
+		if (chart.noDataMode || !hasAtLeastOneValidDatum(preRenderConfig.data)) {
 			chart.title.visible = true;
 			chart.title.text = "Drop Measures or Sorts into the Query Pane";
 			chart.title.font = "20pt Sans-Serif";
@@ -14,32 +14,42 @@
 		}
 		chart.legend.visible = false;
 	}
+// flatDataArray: Array<{}>
+  function hasAtLeastOneValidDatum(flatDataArray) {
+    return flatDataArray.some(function(datum){
+      return datum.source != null && datum.target != null && datum.value != null;
+    });
+  }
 
 	function renderCallback(renderConfig) {
 
 		if (tdg.isEmpty(renderConfig.data)) {
-			return;
+			return noDataRenderCallback(renderConfig);
 		}
-		
+
+    if ( !hasAtLeastOneValidDatum(renderConfig.data) ) {
+      return noDataRenderCallback(renderConfig);
+    }
+
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
 		var formatNumber = d3.format(",.0f");
 		var format = function(d) { return formatNumber(d) + " TWh"; };
 		var color = d3.scale.category20();
-		
+
 		var margin = {left: 10, right: 10, top: 10, bottom: 10};
 		var width = renderConfig.width - margin.left - margin.right;
 		var height = renderConfig.height - margin.top - margin.bottom;
-		
+
 		var data = {
 			nodes: [],
 			links: []
 		};
-		
+
 		if (renderConfig.greyState) {
 			color = function() {return renderConfig.baseColor;};
 		}
-		
+
 		function pushNode(name) {
 			var idx = data.nodes.indexOf(name);
 			if (idx >= 0) {
@@ -48,7 +58,7 @@
 			data.nodes.push(name);
 			return data.nodes.length - 1;
 		}
-		
+
 		data.links = renderConfig.data.map(function(el) {
 			return {
 				source: pushNode(el.source),
@@ -56,20 +66,20 @@
 				value: el.value
 			};
 		});
-		
+
 		data.nodes = data.nodes.map(function(el) {
 			return {name: el};
 		});
-		
+
 		for (var i = data.links.length - 1; i >= 0; i--) {
 			if (data.links[i].source === data.links[i].target) {
 				data.links.splice(i, 1);
 			}
 		}
-		
+
 		var sourceNodes = [];
 		data.links.forEach(function(el){sourceNodes[el.source] = true;});
-		
+
 		for (var i = 0; i < data.links.length; i++) {
 			var link = data.links[i];
 			if (link.deleted) {
@@ -79,7 +89,7 @@
 			sourceList[link.source] = sourceList[link.target] = true;
 			checkCycles(link.target, sourceList);
 		}
-		
+
 		function checkCycles(target, sourceList) {
 			if (!sourceNodes[target]) {
 				return;
@@ -96,7 +106,7 @@
 				}
 			}
 		}
-		
+
 		for (var i = data.links.length - 1; i >= 0; i--) {
 			if (data.links[i].deleted) {
 				data.links.splice(i, 1);
@@ -107,7 +117,7 @@
 			.attr('class', 'com_ibi_chart')
 		.append('g')
 			.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
-			
+
 		var sankey = d3.sankey()
 			.nodeWidth(15)
 			.nodePadding(10)
@@ -115,9 +125,9 @@
 			.nodes(data.nodes)
 			.links(data.links)
 			.layout(32);
-			
+
 		var path = sankey.link();
-		
+
 		var link = container.append('g').selectAll('.link')
 			.data(data.links)
 		.enter().append("path")
@@ -135,8 +145,8 @@
 		.call(d3.behavior.drag()
 			.origin(function(d) { return d; })
 			.on("dragstart", function() { this.parentNode.appendChild(this); })
-			.on("drag", dragmove));			
-			
+			.on("drag", dragmove));
+
 		node.append("rect")
 			.attr("height", function(d) { return d.dy; })
 			.attr("width", sankey.nodeWidth())
@@ -156,7 +166,7 @@
 				.attr("x", 6 + sankey.nodeWidth())
 				.attr("text-anchor", "start");
 		}
-			
+
 		function dragmove(d) {
 			d3.select(this).attr("transform", "translate(" + d.x + "," + (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) + ")");
 			sankey.relayout();
@@ -184,7 +194,7 @@
 		renderConfig.greyState = true;
 		renderCallback(renderConfig);
 	}
-	
+
 	var config = {
 		id: 'com.ibi.sankey',
 		name: 'Sankey Chart',
@@ -201,5 +211,5 @@
 	};
 
 	tdgchart.extensionManager.register(config);
-  
+
 }());
