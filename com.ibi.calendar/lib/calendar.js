@@ -72,7 +72,8 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
         return data.map(function (d) {
             return {
                 value : d.value,
-                date : parseDate(d.date)
+                date : parseDate(d.date),
+                elClassName: d.elClassName
             };
         }).filter(function (d) {
             return d.value != null && d.date != null;
@@ -202,6 +203,7 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
                 width: cellSize,
                 height: cellSize,
                 fill: (dateToDatumMap[dId] && dateToDatumMap[dId].color ) ? dateToDatumMap[dId].color : 'none',
+                class: (dateToDatumMap[dId] && dateToDatumMap[dId].elClassName ) ? dateToDatumMap[dId].elClassName : null,
                 tdgtitle: (dateToDatumMap[dId] && dateToDatumMap[dId].toolTip) ? buildCellTitle(d, dateToDatumMap[dId].toolTip) : null
             };
         });
@@ -291,7 +293,8 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
         var dateToDatumMap = data.reduce(function (map, cur) {
             var dId = getDateIdentifier(cur.date);
             map[dId] = {
-                color: props.colorScale(cur.value).toString()
+                color: props.colorScale(cur.value).toString(),
+                elClassName: cur.elClassName
             };
 
             if ( props.toolTip.enabled ) {
