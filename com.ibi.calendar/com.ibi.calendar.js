@@ -5,6 +5,13 @@
 	// Arguments:
 	//  - preRenderConfig: the standard callback argument object
 	function preRenderCallback(preRenderConfig) {
+		
+		/*preRenderConfig.moonbeamInstance.eventDispatcher = { // testing drilling capability
+        events: [
+          { event: 'setURL', object: 'riser', series: 0, group: 0, url: 'http://google.com' ,target: '_blank' }
+        ]
+		};*/
+
 		var buck = preRenderConfig.dataBuckets.buckets;
 		if ( !buck.date || !buck.value ) {
 			preRenderConfig.moonbeamInstance.legend.visible = false;
