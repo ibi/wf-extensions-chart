@@ -355,6 +355,7 @@
                 end = x( parseDateStr(d.end) );
 
                 var riser = {
+                    class: d.elClassName,
                     tooltip: toolTipBuilder(d),
                     x: start,
                     y: y(d.task) + riserVertOffset,
@@ -495,6 +496,8 @@
                         height: d.height,
                         fill: d.fill
                     });
+
+                    riser.classed(d.class, true);
 
                     if ( Array.isArray(d.tooltip) && d.tooltip.length ) {
                         riser.attr('tdgtitle', getTDGTitleHTML(d.tooltip) );

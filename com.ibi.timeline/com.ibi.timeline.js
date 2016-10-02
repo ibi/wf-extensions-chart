@@ -5,7 +5,14 @@
     // Arguments:
     //  - preRenderConfig: the standard callback argument object
     function preRenderCallback(preRenderConfig) {
-        preRenderConfig.moonbeamInstance.legend.visible = false;
+
+      /*preRenderConfig.moonbeamInstance.eventDispatcher = { // testing drilling capability
+          events: [
+            { event: 'setURL', object: 'riser', series: 0, group: 0, url: 'http://google.com' ,target: '_blank' }
+          ]
+  		};*/
+
+      preRenderConfig.moonbeamInstance.legend.visible = false;
     }
 
     function validateDatum (str) {
@@ -20,12 +27,10 @@
 
     function getFixedData (data) {
         return data.map(function (d) {
-            return {
-                task: d.task,
-                subtask: d.subtask,
-                start: validateDatum( d.start ),
-                end: validateDatum( d.end )
-            };
+            var dCpy = jsonCpy(d);
+            dCpy.start = validateDatum( d.start );
+            dCpy.end = validateDatum( d.end );
+            return dCpy;
         });
     }
 
@@ -44,26 +49,39 @@
         return modif_bkts;
     }
 
+    function jsonCpy( el ) {
+  		return JSON.parse(JSON.stringify(el));
+  	}
+
     // Required: Is invoked in the middle of each Moonbeam draw cycle
     // This is where your extension should be rendered
     // Arguments:
     //  - renderConfig: the standard callback argument object, including additional properties width, height, etc
     function renderCallback(renderConfig) {
-        var mbInstance = renderConfig.moonbeamInstance;
+        var chart = renderConfig.moonbeamInstance;
         var props = renderConfig.properties;
 
-        mbInstance.legend.visible = false;
+        chart.legend.visible = false;
 
         props.width = renderConfig.width;
         props.height = renderConfig.height;
-        props.measureLabel = mbInstance.measureLabel;
-        props.data = getFixedData(renderConfig.data);
+        props.measureLabel = chart.measureLabel;
+
+        props.data = getFixedData(
+          (renderConfig.data || []).map(function(datum){
+      			var datumCpy = jsonCpy(datum);
+      			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'bar');
+      			return datumCpy;
+    		  })
+        );
+
+        //props.data = getFixedData(renderConfig.data);
 
         props.buckets = getFormatedBuckets(renderConfig);
 
         props.isInteractionDisabled = renderConfig.disableInteraction;
 
-    		props.onRenderComplete = mbInstance.processRenderComplete.bind(mbInstance);
+    		props.onRenderComplete = renderConfig.renderComplete.bind(chart);
 
         var container = d3.select(renderConfig.container)
             .attr('class', 'com_tdg_timeline');
@@ -75,14 +93,14 @@
         chart(container);
 
         chart.onrerender = function () {
-            renderConfig.modules.tooltip.updateToolTips();
+            renderConfig.renderComplete();
         };
 
         // ---------------- END ( INIT YOUR EXTENSION HERE )
 
         // ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
         if (!props.isInteractionDisabled) {
-          renderConfig.modules.tooltip.updateToolTips();
+          renderConfig.renderComplete();
         }
     }
 
@@ -95,18 +113,18 @@
     }
 
     function noDataRenderCallback(renderConfig) {
-        var mbInstance = renderConfig.moonbeamInstance;
+        var chart = renderConfig.moonbeamInstance;
         var props = renderConfig.properties;
 
-        mbInstance.legend.visible = false;
+        chart.legend.visible = false;
 
         props.width = renderConfig.width;
         props.height = renderConfig.height;
-        props.measureLabel = mbInstance.measureLabel;
+        props.measureLabel = chart.measureLabel;
 
         props.buckets = getFormatedBuckets(renderConfig);
 
-        var invokeAfterTwo = getInvokeAfter(mbInstance.processRenderComplete.bind(mbInstance), 2);
+        var invokeAfterTwo = getInvokeAfter(renderConfig.renderComplete.bind(chart), 2);
 
         props.isInteractionDisabled = renderConfig.disableInteraction;
 
@@ -177,7 +195,7 @@
 
         // ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
         if (!props.isInteractionDisabled) {
-          renderConfig.modules.tooltip.updateToolTips();
+          renderConfig.renderComplete();
         }
 
         // ADD TRANSPARENT SCREEN
@@ -227,6 +245,9 @@
             	needSVGEventPanel: false, // if you're using an HTML container or altering the SVG container, set this to true and Moonbeam will insert the necessary SVG elements to capture user interactions
             	svgNode: function(arg){}  // if you're using an HTML container or altering the SVG container, return a reference to your root SVG node here.
             },*/
+            eventHandler: {
+      				supported: true
+      			},
             tooltip: {
                 supported: true // Set this true if your extension wants to enable HTML tooltips
             }
