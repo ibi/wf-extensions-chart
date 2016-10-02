@@ -361,8 +361,9 @@ var tdg_arc = (function() { // change name
                     res = {
                         label: d.label,
                         color: (d.color != null) ? d.color : innerProps.colors[i],
-                        value: d.value
-                    }
+                        value: d.value,
+                        class: d.elClassName
+                    };
                     if (d.value > 0) {
                         res.startValue = lastEndValuePos;
                         res.endValue = lastEndValuePos += d.value;
@@ -379,7 +380,8 @@ var tdg_arc = (function() { // change name
                 return {
                     label: d.label,
                     color: (d.color != null) ? d.color : innerProps.colors[i],
-                    value: d.value
+                    value: d.value,
+                    class: d.elClassName
                 };
             });
         }
@@ -397,8 +399,9 @@ var tdg_arc = (function() { // change name
                         label: d.label,
                         color: (d.color != null) ? d.color : innerProps.colors[i],
                         value: d.value,
-                        ratio: (d.value / sum)
-                    }
+                        ratio: (d.value / sum),
+                        class: d.elClassName
+                    };
                     if (d.value > 0) {
                         res.startValue = lastEndValuePos;
                         res.endValue = lastEndValuePos += res.ratio;
@@ -441,12 +444,16 @@ var tdg_arc = (function() { // change name
                 .append('g')
                 .classed('series', true);
 
-            var arcs = series.selectAll('path.arc')
+            var arcs = series.selectAll('path')
                 .data(function(d) {
                     return d;
                 });
 
-            arcs.enter().append('path').classed('arc', true);
+            arcs.enter().append('path');
+
+            arcs.each(function(d) {
+              d3.select(this).classed(d.class, true);
+            });
 
             arcs.style({
                 fill: function(d, i, g) {
@@ -515,12 +522,17 @@ var tdg_arc = (function() { // change name
                 .append('g')
                 .classed('series', true);
 
-            var arcs = series.selectAll('path.arc')
+            var arcs = series.selectAll('path')
                 .data(function(d) {
                     return d;
                 });
 
-            arcs.enter().append('path').classed('arc', true);
+            arcs.enter()
+              .append('path');
+
+            arcs.each(function(d) {
+              d3.select(this).classed(d.class, true);
+            });
 
             arcs.style({
                 fill: function(d, i, g) {
@@ -577,12 +589,15 @@ var tdg_arc = (function() { // change name
                     return theta(d.value);
                 });
 
-            var arcs = group_arc.selectAll('path.arc')
+            var arcs = group_arc.selectAll('path')
                 .data(buildRegularDataset());
 
             arcs.enter()
-                .append('path')
-                .classed('arc', true);
+                .append('path');
+
+            arcs.each(function(d) {
+              d3.select(this).classed(d.class, true);
+            });
 
             arcs.style({
                 fill: function(d, i) {

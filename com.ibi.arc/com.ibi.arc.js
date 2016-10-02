@@ -7,7 +7,18 @@
     //  - renderConfig: the standard callback argument object, including additional properties width, height, etc
 
     function preRenderCallback(prerenderConfig) {
-        prerenderConfig.moonbeamInstance.legend.visible = false;
+
+      /*prerenderConfig.moonbeamInstance.eventDispatcher = { // testing drilling capability
+          events: [
+            { event: 'setURL', object: 'riser', series: 0, group: 0, url: 'http://google.com' ,target: '_blank' }
+          ]
+      };*/
+
+      prerenderConfig.moonbeamInstance.legend.visible = false;
+    }
+
+    function jsonCpy( el ) {
+      return JSON.parse(JSON.stringify(el));
     }
 
     function renderCallback(renderConfig) {
@@ -18,12 +29,17 @@
 
         props.width = renderConfig.width;
         props.height = renderConfig.height;
-        props.data = [renderConfig.data];
+
+        props.data = [(renderConfig.data || []).map(function(datum){
+    			var datumCpy = jsonCpy(datum);
+    			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'bar');
+    			return datumCpy;
+    		})];
+
+        //props.data = [renderConfig.data];
         props.isInteractionDisabled = renderConfig.disableInteraction;
 
-        props.onRenderComplete = function () {
-            chart.processRenderComplete();
-        };
+        props.onRenderComplete = renderConfig.renderComplete.bind(renderConfig);
 
         var container = d3.select(renderConfig.container)
             .attr('class', 'tdg_marker_chart');
@@ -31,8 +47,6 @@
         var arc_chart = tdg_arc(props);
 
         arc_chart(container);
-
-        renderConfig.modules.tooltip.updateToolTips();
     }
 
     function getInvokeAfter (cb, count) {
@@ -56,7 +70,7 @@
         ];
         props.isInteractionDisabled = renderConfig.disableInteraction;
 
-        var invokeAfterTwo = getInvokeAfter(chart.processRenderComplete.bind(chart), 2);
+        var invokeAfterTwo = getInvokeAfter(renderConfig.renderComplete.bind(renderConfig), 2);
 
         props.onRenderComplete = invokeAfterTwo;
 
@@ -67,7 +81,6 @@
 
         arc_chart(container);
 
-        renderConfig.modules.tooltip.updateToolTips();
         appendCoverScreen(container, props.width, props.height);
         invokeAfterTwo();
     }
@@ -116,6 +129,9 @@
             	needSVGEventPanel: false, // if you're using an HTML container or altering the SVG container, set this to true and Moonbeam will insert the necessary SVG elements to capture user interactions
             	svgNode: function(arg){}  // if you're using an HTML container or altering the SVG container, return a reference to your root SVG node here.
             },*/
+            eventHandler: {
+      				supported: true
+      			},
             tooltip: {
                 supported: true // Set this true if your extension wants to enable HTML tooltips
             }
