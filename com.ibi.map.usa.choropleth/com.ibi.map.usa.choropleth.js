@@ -5,6 +5,13 @@
 	// Arguments:
 	//  - preRenderConfig: the standard callback argument object
 	function preRenderCallback(preRenderConfig) {
+
+		/*preRenderConfig.moonbeamInstance.eventDispatcher = { // testing drilling capability
+        events: [
+          { event: 'setURL', object: 'riser', series: 0, group: 0, url: 'http://google.com' ,target: '_blank' }
+        ]
+		};*/
+
 		preRenderConfig.moonbeamInstance.legend.visible = false;
 	}
 
@@ -23,6 +30,10 @@
         return modif_bkts;
     }
 
+	function jsonCpy( el ) {
+		return JSON.parse(JSON.stringify(el));
+	}
+
 	// Required: Is invoked in the middle of each Moonbeam draw cycle
 	// This is where your extension should be rendered
 	// Arguments:
@@ -33,7 +44,14 @@
 
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
-		props.data = renderConfig.data;
+
+		props.data = (renderConfig.data || []).map(function(datum){
+			var datumCpy = jsonCpy(datum);
+			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'bar');
+			return datumCpy;
+		});
+
+		//props.data = renderConfig.data;
 		props.buckets = getFormatedBuckets(renderConfig);
 
     props.measureLabel = chart.measureLabel;
@@ -41,7 +59,7 @@
 
 		props.isInteractionDisabled = renderConfig.disableInteraction;
 
-		props.onRenderComplete = chart.processRenderComplete.bind(chart);
+		props.onRenderComplete = renderConfig.renderComplete.bind(chart);
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_tdg_sunburst');
@@ -55,7 +73,7 @@
 
 		// ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
 		if ( !renderConfig.disableInteraction ) {
-			renderConfig.modules.tooltip.updateToolTips();
+			renderConfig.renderComplete();
 		}
 	}
 
@@ -82,7 +100,7 @@
 		props.measureLabel = chart.measureLabel;
     props.formatNumber = chart.formatNumber;
 
-		var invokeAfterTwo = getInvokeAfter(chart.processRenderComplete.bind(chart), 2);
+		var invokeAfterTwo = getInvokeAfter(renderConfig.renderComplete.bind(chart), 2);
 
 		props.isInteractionDisabled = renderConfig.disableInteraction;
 		props.onRenderComplete = invokeAfterTwo;
@@ -98,7 +116,7 @@
 		// ---------------- END ( INIT YOUR EXTENSION HERE )
 
 		// ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
-		//renderConfig.modules.tooltip.updateToolTips();
+		//renderConfig.renderComplete();
 
 		// ADD TRANSPARENT SCREEN
 
@@ -147,6 +165,9 @@
 				needSVGEventPanel: false, // if you're using an HTML container or altering the SVG container, set this to true and Moonbeam will insert the necessary SVG elements to capture user interactions
 				svgNode: function(arg){}  // if you're using an HTML container or altering the SVG container, return a reference to your root SVG node here.
 			},*/
+			eventHandler: {
+				supported: true
+			},
 			tooltip: {
 				supported: true  // Set this true if your extension wants to enable HTML tooltips
 			}

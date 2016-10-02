@@ -355,6 +355,7 @@ var tdg_usa_choropleth = (function() {
 
         layout.states = data.map(function (d, idx) {
             return {
+                class: d.elClassName,
                 state: d.state,
                 tdgtitle: getTDGTitle(toolTip(d), props.formatNumber.bind(props), extent, props.colorLegend.rows.labels.format),
                 color: d.value != null ? color(d.value) : props.states.defaultColor,
@@ -446,6 +447,9 @@ var tdg_usa_choropleth = (function() {
             .data(layout.states)
             .enter().append("path")
             .attr({
+                class : function (d) {
+                  return d.class;
+                },
                 d : function (d) {
                     return d.path;
                 },
