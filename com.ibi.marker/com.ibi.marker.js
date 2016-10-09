@@ -15,6 +15,15 @@
 	//   container: DOM node for your extension to render into;
 	//   rootContainer: DOM node containing the overall Moonbeam chart.
 
+	function preRenderCallback(preRenderConfig) {
+		/*preRenderConfig.moonbeamInstance.eventDispatcher = { // testing drilling capability
+        events: [
+          { event: 'setURL', object: 'riser', series: 0, group: 0, url: 'http://amazon.com' ,target: '_blank' },
+					{ event: 'setURL', object: 'riser', series: 0, group: 2, url: 'http://google.com' ,target: '_blank' }
+        ]
+		};*/
+	}
+
 	function extractSeriesColors (chart) {
 		var len = chart.seriesCount(),
 			i,
@@ -23,6 +32,10 @@
 			result[i] = chart.getSeriesAndGroupProperty(i, null, 'color');
 		}
 		return result;
+	}
+
+	function jsonCpy( el ) {
+		return JSON.parse(JSON.stringify(el));
 	}
 
 	// Required: Is invoked in the middle of each Moonbeam draw cycle
@@ -38,14 +51,19 @@
 
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
-		props.data = renderConfig.data;
+		//props.data = renderConfig.data;
+
+		props.data = (renderConfig.data || []).map(function(datum){
+			var datumCpy = jsonCpy(datum);
+			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'bar');
+			return datumCpy;
+		});
+
 		props.formatNumber = renderConfig.moonbeamInstance.formatNumber;
 
 		props.isInteractionDisabled = renderConfig.disableInteraction;
 
-		props.onRenderComplete = function () {
-			chart.processRenderComplete();
-		};
+		props.onRenderComplete = renderConfig.renderComplete.bind(renderConfig);
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'tdg_marker_chart');
@@ -78,7 +96,7 @@
 
 		props.isInteractionDisabled = renderConfig.disableInteraction;
 
-		var invokeAfterTwo = getInvokeAfter(chart.processRenderComplete.bind(chart), 2);
+		var invokeAfterTwo = getInvokeAfter(renderConfig.renderComplete.bind(renderConfig), 2);
 
 		props.onRenderComplete = invokeAfterTwo;
 
@@ -121,6 +139,7 @@
 		id: 'com.ibi.marker',  // string that uniquely identifies this extension
 		name: 'Chord Diagram',  // colloquial name for your chart - might be used in some extension list UI
 		description: 'd3 chord diagram',  // description useful for a UI tooltip or similar
+		preRenderCallback: preRenderCallback,
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
 		noDataRenderCallback: noDataRenderCallback,
 		resources:  {  // Additional external resources (CSS & JS) required by this extension
@@ -128,6 +147,9 @@
 			css: ['css/style.css']
 		},
 		modules: {
+			eventHandler: {
+				supported: true
+			},
 			/*dataSelection: {
 				supported: true,  // Set this true if your extension wants to enable data selection
 				needSVGEventPanel: false, // if you're using an HTML container or altering the SVG container, set this to true and Moonbeam will insert the necessary SVG elements to capture user interactions

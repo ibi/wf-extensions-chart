@@ -319,8 +319,11 @@ var tdg_marker = (function () {
           break;
       }
 
+      var classNameByGroup = data.map(function(d){ return d.elClassName;});
+
       return {
         countByGroup: counts,
+        classNameByGroup: classNameByGroup,
         groupSequence: groupSequence,
         totalCount: actualTotalCount
       };
@@ -445,7 +448,8 @@ var tdg_marker = (function () {
             x: colNum * layout.sideLength + cellHalfLength,
             y: rowNum * layout.sideLength + cellHalfLength,
             radius: radius,
-            group: clusterIndex
+            group: clusterIndex,
+            class: markerInfo.classNameByGroup[clusterIndex]
           };
         }
         lastIndx = i;
@@ -465,7 +469,15 @@ var tdg_marker = (function () {
           return d;
         });
 
-      markers.enter().append('path').classed('marker', true);
+      markers.enter().append('path');
+
+      markers.each(function(d){
+        d3.select(this).classed(d.class, true);
+      });
+
+      markers.classed('marker', true);
+
+
 
       markers.attr({
           d : function (d) {
