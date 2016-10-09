@@ -6,6 +6,12 @@
 	//  - preRenderConfig: the standard callback argument object
 	function preRenderCallback(preRenderConfig) {
 		preRenderConfig.moonbeamInstance.legend.visible = false;
+
+		/*preRenderConfig.moonbeamInstance.eventDispatcher = { // testing drilling capability
+        events: [
+          { event: 'setURL', object: 'riser', series: 0, group: 0, url: 'http://google.com' ,target: '_blank' }
+        ]
+		};*/
 	}
 
 	function getFormatedBuckets ( renderConfig ) {
@@ -23,6 +29,10 @@
 		return modif_bkts;
 	}
 
+	function jsonCpy( el ) {
+		return JSON.parse(JSON.stringify(el));
+	}
+
 	// Required: Is invoked in the middle of each Moonbeam draw cycle
 	// This is where your extension should be rendered
 	// Arguments:
@@ -33,7 +43,14 @@
 
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
-		props.data = renderConfig.data;
+
+		props.data = (renderConfig.data || []).map(function(datum){
+			var datumCpy = jsonCpy(datum);
+			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'bar');
+			return datumCpy;
+		});
+
+		//props.data = renderConfig.data;
 		props.measureLabel = chart.measureLabel;
 		props.formatNumber = chart.formatNumber;
 
@@ -41,9 +58,7 @@
 
     props.isInteractionDisabled = renderConfig.disableInteraction;
 
-		props.onRenderComplete = function () {
-			chart.processRenderComplete();
-		};
+		props.onRenderComplete = renderConfig.renderComplete.bind(renderConfig);
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_tdg_population');
@@ -56,7 +71,7 @@
 		// ---------------- END ( INIT YOUR EXTENSION HERE )
 
 		// ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
-		renderConfig.modules.tooltip.updateToolTips();
+		//renderConfig.modules.tooltip.updateToolTips();
 	}
 
   function getInvokeAfter (cb, count) {
@@ -83,7 +98,7 @@
 
     props.isInteractionDisabled = renderConfig.disableInteraction;
 
-    var invokeAfterTwo = getInvokeAfter(chart.processRenderComplete.bind(chart), 2);
+    var invokeAfterTwo = getInvokeAfter(renderConfig.renderComplete.bind(renderConfig), 2);
 
 		props.onRenderComplete = invokeAfterTwo;
 
@@ -98,7 +113,7 @@
 		// ---------------- END ( INIT YOUR EXTENSION HERE )
 
 		// ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
-		renderConfig.modules.tooltip.updateToolTips();
+		//renderConfig.modules.tooltip.updateToolTips();
 
 		// ADD TRANSPARENT SCREEN
 
@@ -142,6 +157,9 @@
 			css: ['css/styles.css']
 		},
 		modules: {
+			eventHandler: {
+				supported: true
+			},
 			/*dataSelection: {
 				supported: true,  // Set this true if your extension wants to enable data selection
 				needSVGEventPanel: false, // if you're using an HTML container or altering the SVG container, set this to true and Moonbeam will insert the necessary SVG elements to capture user interactions

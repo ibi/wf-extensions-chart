@@ -269,26 +269,28 @@ var tdg_population = (function() {
             var idx = ( types.length > 1 && d.type ) ? types.indexOf( d.type ) : 0;
 
             if ( rvrsdAxisIdx === idx ) {
-                rect.x = ypos(d); // ypos takes obj with y attribute and also type attribute (if double series)
-                rect.width = y_origin - ypos(d);
+              rect.x = ypos(d); // ypos takes obj with y attribute and also type attribute (if double series)
+              rect.width = y_origin - ypos(d);
             } else {
-                rect.x = y_origin;
-                rect.width = ypos(d) - y_origin;
+              rect.x = y_origin;
+              rect.width = ypos(d) - y_origin;
             }
 
             rect.y = xpos(d.x);
             rect.height = bandWidth;
             rect.color = props.colorBySeries[idx];
 
+            rect.class = d.elClassName;
+
             rect.tooltip = {};
 
             for ( var key in props.buckets ) {
-                if (props.buckets.hasOwnProperty(key)) {
-                    var values = ( Array.isArray( d[key] ) ) ? d[key] : [ d[key] ];
-                    props.buckets[key].forEach(function (name, idx) {
-                        rect.tooltip[name] = values[idx];
-                    });
-                }
+              if (props.buckets.hasOwnProperty(key)) {
+                var values = ( Array.isArray( d[key] ) ) ? d[key] : [ d[key] ];
+                props.buckets[key].forEach(function (name, idx) {
+                    rect.tooltip[name] = values[idx];
+                });
+              }
             }
 
             layout.rects.push(rect);
@@ -468,23 +470,26 @@ var tdg_population = (function() {
 
         var rect_enter = rect.enter().append('rect')
             .attr({
-                y: function (d) {
-                    return d.y;
-                },
-                x: function (d) {
-                    return d.x;
-                },
-                width: function (d) {
-                    return d.width;
-                },
-                height: function (d) {
-                    return d.height;
-                }
+              class: function(d) {
+                return d.class;
+              },
+              y: function (d) {
+                return d.y;
+              },
+              x: function (d) {
+                return d.x;
+              },
+              width: function (d) {
+                return d.width;
+              },
+              height: function (d) {
+                return d.height;
+              }
             })
             .style({
-                fill : function (d) {
-                    return d.color;
-                }
+              fill : function (d) {
+                return d.color;
+              }
             });
 
         if ( props.toolTip && props.toolTip.enabled ) {
