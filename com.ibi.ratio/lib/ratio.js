@@ -260,6 +260,8 @@ var tdg_ratio = (function() {
             rect.y = xpos(d.x);
             rect.height = bandWidth;
 
+            rect.class = d.elClassName;
+
             rect.label = {
                 text: props.formatNumber(d.y, props.risers.label.format, config),
                 color: lblColor,
@@ -576,6 +578,9 @@ var tdg_ratio = (function() {
 
         rect_enter.append('rect')
             .attr({
+                class: function(d) {
+                  return d.class;
+                },
                 width: function (d) {
                     return d.width;
                 },
