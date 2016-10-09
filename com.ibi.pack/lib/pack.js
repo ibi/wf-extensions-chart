@@ -324,6 +324,9 @@ var tdg_pack = (function() {
 
 
             node.append('circle')
+                .attr('class', function(d){
+                  return d.elClassName;
+                })
                 .attr('r', function(d) {
                     return d.r;
                 })

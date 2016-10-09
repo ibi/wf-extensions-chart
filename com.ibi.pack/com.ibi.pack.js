@@ -1,11 +1,22 @@
 /* globals _*/
 (function() {
+
 	// Optional: if defined, is invoked once at the very beginning of each Moonbeam draw cycle
 	// Use this to configure a specific Moonbeam instance before rendering.
 	// Arguments:
 	//  - preRenderConfig: the standard callback argument object
 	function preRenderCallback(preRenderConfig) {
 		preRenderConfig.moonbeamInstance.legend.visible = false;
+
+		/*preRenderConfig.moonbeamInstance.eventDispatcher = { // testing drilling capability
+        events: [
+          { event: 'setURL', object: 'riser', series: 0, group: 0, url: 'http://google.com' ,target: '_blank' }
+        ]
+		};*/
+	}
+
+	function jsonCpy( el ) {
+		return JSON.parse(JSON.stringify(el));
 	}
 
 	// Required: Is invoked in the middle of each Moonbeam draw cycle
@@ -18,12 +29,19 @@
 
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
-		props.data = renderConfig.data;
+
+		props.data = (renderConfig.data || []).map(function(datum){
+			var datumCpy = jsonCpy(datum);
+			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'bar');
+			return datumCpy;
+		});
+
+		//props.data = renderConfig.data;
 		props.measureLabel = renderConfig.moonbeamInstance.measureLabel;
 
 		props.isInteractionDisabled = renderConfig.disableInteraction;
 
-		props.onRenderComplete = chart.processRenderComplete.bind(chart);
+		props.onRenderComplete =  renderConfig.renderComplete.bind(renderConfig);// chart.processRenderComplete.bind(chart);
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_ibi_pack');
@@ -55,7 +73,9 @@
 		// ---------------- END ( INIT YOUR EXTENSION HERE )
 
 		// ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
-		renderConfig.modules.tooltip.updateToolTips();
+		//renderConfig.modules.tooltip.updateToolTips();
+
+
 	}
 
 	function getInvokeAfter (cb, count) {
@@ -80,7 +100,7 @@
 
 		props.isInteractionDisabled = renderConfig.disableInteraction;
 
-		var invokeAfterTwo = getInvokeAfter(chart.processRenderComplete.bind(chart), 2);
+		var invokeAfterTwo = getInvokeAfter(renderConfig.renderComplete.bind(renderConfig), 2);
 
 		props.onRenderComplete = invokeAfterTwo;
 
@@ -149,6 +169,9 @@
 			css: []
 		},
 		modules: {
+			eventHandler: {
+				supported: true
+			},
 			/*dataSelection: {
 				supported: true,  // Set this true if your extension wants to enable data selection
 				needSVGEventPanel: false, // if you're using an HTML container or altering the SVG container, set this to true and Moonbeam will insert the necessary SVG elements to capture user interactions
