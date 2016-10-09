@@ -3,6 +3,13 @@
 
 (function() {
 
+    function preRenderCallback(preRenderConfig) {
+  		/*preRenderConfig.moonbeamInstance.eventDispatcher = { // testing drilling capability
+          events: [
+            { event: 'setURL', object: 'riser', series: 0, group: 0, url: 'http://google.com' ,target: '_blank' }
+          ]
+  		};*/
+  	}
 
     function initCallback(successCallback, initConfig) {
         initConfig.moonbeamInstance.legend.visible = false;
@@ -24,6 +31,10 @@
         return modif_bkts;
     }
 
+    function jsonCpy( el ) {
+  		return JSON.parse(JSON.stringify(el));
+  	}
+
     // Required: Invoked during each chart engine draw cycle
     // This is where your extension should be rendered
     // Arguments:
@@ -42,43 +53,50 @@
         props.buckets = getFormatedBuckets(renderConfig);
 
         props.axes = {
-            x: {
-                title: renderConfig.dataBuckets.buckets.x.title
-            },
-            y: {
-                title: renderConfig.dataBuckets.buckets.y.title
-            }
+          x: {
+              title: renderConfig.dataBuckets.buckets.x.title
+          },
+          y: {
+              title: renderConfig.dataBuckets.buckets.y.title
+          }
         };
 
         var container = d3.select(renderConfig.container)
             .attr('class', 'com_ibi_hexbinscatter');
 
+        props.data = JSON.parse(JSON.stringify(chart.data[0]));
+
+        props.data = (props.data || []).map(function(datum){
+    			var datumCpy = jsonCpy(datum);
+    			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'bar');
+    			return datumCpy;
+    		});
+
     		if ( renderConfig.dataBuckets.buckets.detail ) {
     			var temp,
-                    titles = Array.isArray(renderConfig.dataBuckets.buckets.detail.title) ? renderConfig.dataBuckets.buckets.detail.title : [renderConfig.dataBuckets.buckets.detail.title];
-    			props.data = JSON.parse(JSON.stringify(chart.data[0]));
+            titles = Array.isArray(renderConfig.dataBuckets.buckets.detail.title) ? renderConfig.dataBuckets.buckets.detail.title : [renderConfig.dataBuckets.buckets.detail.title];
+
     			props.data.forEach(function(d){
-                  temp = {};
-                  d.detail = Array.isArray(d.detail) ? d.detail : [d.detail];
-                  titles.forEach(function(title, idx) {
-                      temp[title] = d.detail[idx];
-                  });
-                  d.detail = temp;
+            temp = {};
+            d.detail = Array.isArray(d.detail) ? d.detail : [d.detail];
+            titles.forEach(function(title, idx) {
+                temp[title] = d.detail[idx];
+            });
+            d.detail = temp;
 
-                  if ( Array.isArray(props.buckets.aggregate) ) {
-                    d._aggregate = {};
-                    d._aggregate[props.buckets.aggregate[0]] = d.aggregate;
-                  }
-
-                  });
-    		} else {
-    			props.data = JSON.parse(JSON.stringify(chart.data[0]));
+            if ( Array.isArray(props.buckets.aggregate) ) {
+              d._aggregate = {};
+              d._aggregate[props.buckets.aggregate[0]] = d.aggregate;
+            }
+          });
     		}
 
         var scatter = tdgscatter.init(props);
         container.call(scatter);
-		    renderConfig.modules.tooltip.updateToolTips();
-        chart.processRenderComplete();
+
+        /*renderConfig.modules.tooltip.updateToolTips();
+        chart.processRenderComplete();*/
+        renderConfig.renderComplete();
     }
 
     function noDataRenderCallback(renderConfig) {
@@ -126,7 +144,8 @@
                 fill: 'grey'
             });
 
-        chart.processRenderComplete();
+        //chart.processRenderComplete();
+        renderConfig.renderComplete();
     }
 
     // Your extension's configuration
@@ -134,6 +153,7 @@
         id: 'com.ibi.hexbinscatter', // string that uniquely identifies this extension
         containerType: 'svg', // either 'html' or 'svg' (default)
         initCallback: initCallback,
+        preRenderCallback: preRenderCallback,
         renderCallback: renderCallback, // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
         noDataRenderCallback: noDataRenderCallback,
         resources: { // Additional external resources (CSS & JS) required by this extension
@@ -141,6 +161,9 @@
             css: ['css/style.css']
         },
         modules: {
+            eventHandler: {
+              supported: true
+            },
             dataSelection: {
                 supported: true, // Set this true if your extension wants to enable data selection
                 needSVGEventPanel: false, // if you're using an HTML container or altering the SVG container, set this to true and the chart engine will insert the necessary SVG elements to capture user interactions
