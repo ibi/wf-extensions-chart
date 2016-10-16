@@ -75,7 +75,11 @@ var tdg_sunburst = (function () {
         } else {
           obj.size = val;
         }
-      })(root, d.value, d.levels, 0, levels.length - 1);
+      })(
+        root, d.value,
+        Array.isArray(d.levels) ? d.levels : [d.levels],
+        0, levels.length - 1
+      );
 
     });
 
