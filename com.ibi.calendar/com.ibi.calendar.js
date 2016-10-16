@@ -5,7 +5,7 @@
 	// Arguments:
 	//  - preRenderConfig: the standard callback argument object
 	function preRenderCallback(preRenderConfig) {
-		
+
 		/*preRenderConfig.moonbeamInstance.eventDispatcher = { // testing drilling capability
         events: [
           { event: 'setURL', object: 'riser', series: 0, group: 0, url: 'http://google.com' ,target: '_blank' }
@@ -37,6 +37,18 @@
 		return JSON.parse(JSON.stringify(el));
 	}
 
+	function isDatumConvertableToDate(datum) {
+		return !isNaN((new Date(datum)).getTime());
+	}
+
+	function isNumber(number) {
+		return !isNaN(number);
+	}
+
+	function isValidDatum (datum) {
+		return isDatumConvertableToDate(datum.date) && isNumber(datum.value);
+	}
+
 	// Required: Is invoked in the middle of each Moonbeam draw cycle
 	// This is where your extension should be rendered
 	// Arguments:
@@ -52,7 +64,7 @@
 			var datumCpy = jsonCpy(datum);
 			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'bar');
 			return datumCpy;
-		});
+		}).filter(isValidDatum);
 
 		//props.data = JSON.parse(JSON.stringify(renderConfig.data || [])).map(d);
 		props.measureLabel = chart.measureLabel;
