@@ -11,15 +11,20 @@
 			chart.title.text = "Drop Measures or Sorts into the Query Pane";
 			chart.title.font = "20pt Sans-Serif";
 			chart.title.color = "#A8A8A8";
+		} else {
+			chart.title.visible = false;
 		}
 		chart.legend.visible = false;
 	}
-// flatDataArray: Array<{}>
-  function hasAtLeastOneValidDatum(flatDataArray) {
-    return flatDataArray.some(function(datum){
-      return datum.source != null && datum.target != null && datum.value != null;
-    });
-  }
+	
+	function hasAtLeastOneValidDatum(flatDataArray) {
+		return flatDataArray.some(function(datum) {
+			if (Array.isArray(datum)) {
+				return datum[0] != null && datum[1] != null && datum[2] != null;
+			}
+			return datum.source != null && datum.target != null && datum.value != null;
+		});
+	}
 
 	function renderCallback(renderConfig) {
 
@@ -27,14 +32,13 @@
 			return noDataRenderCallback(renderConfig);
 		}
 
-    if ( !hasAtLeastOneValidDatum(renderConfig.data) ) {
-      return noDataRenderCallback(renderConfig);
-    }
+		if ( !hasAtLeastOneValidDatum(renderConfig.data) ) {
+			return noDataRenderCallback(renderConfig);
+		}
 
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
 		var formatNumber = d3.format(",.0f");
-		var format = function(d) { return formatNumber(d) + " TWh"; };
 		var color = d3.scale.category20();
 
 		var margin = {left: 10, right: 10, top: 10, bottom: 10};
@@ -133,7 +137,17 @@
 		.enter().append("path")
 			.attr("class", "link")
 			.attr("d", path)
-			.attr("tdgtitle", function(d) { return d.source.name + " ? " + d.target.name + "\n" + format(d.value); })
+			.attr("tdgtitle", function(d) {
+				if (!d || typeof d !== 'object') {
+					return 'No Data';
+				}
+				if (d.source) {
+					if (d.target) {
+						return d.source.name + ' -> ' + d.target.name + ': ' + formatNumber(d.value);
+					}
+					return d.source.name + ': ' + formatNumber(d.value);
+				}
+			})
 			.style("stroke-width", function(d) { return Math.max(1, d.dy); })
 			.sort(function(a, b) { return b.dy - a.dy; });
 
@@ -150,7 +164,7 @@
 		node.append("rect")
 			.attr("height", function(d) { return d.dy; })
 			.attr("width", sankey.nodeWidth())
-			.attr("tdgtitle", function(d) { return d.name + "\n" + format(d.value); })
+			.attr("tdgtitle", function(d) { return d.name + ": " + formatNumber(d.value); })
 			.style("fill", function(d) { return d.color = color(d.name.replace(/ .*/, "")); })
 			.style("stroke", function(d) { return d3.rgb(d.color).darker(2); });
 
