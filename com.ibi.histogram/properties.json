@@ -1,0 +1,105 @@
+
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 1.0,
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.histogram",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+
+	"properties": {
+		"bins": {
+			"count": "auto",
+			"thresholds": [],
+			"color": "steelblue"
+		},
+		"xaxis": {
+			"labels": {
+				"format": "auto",
+				"font": "12px sans-serif",
+				"color": "black"
+			}
+		},
+		"yaxis": {
+			"title": {
+				"font": "24px sans-serif",
+				"color": "black"
+			},
+			"labels": {
+				"format": "auto",
+				"font": "12px sans-serif",
+				"color": "black"
+			}
+		},
+		"tooltips": {
+			"enabled": true
+		}
+	},
+
+	"propertyAnnotations": {
+		"bins": {
+			"count": {
+				"typeAnnotation": "type",
+				"typeValues": ["number", "str"],
+				"stringValues": ["auto"]
+			},
+			"thresholds": {
+				"typeAnnotation": "array",
+				"arrayTypes": "number"
+			},
+			"color": "color"
+		},
+		"xaxis": {
+			"labels": {
+				"format": "str",
+				"font": "str",
+				"color": "color"
+			}
+		},
+		"yaxis": {
+			"title": {
+				"font": "str",
+				"color": "color"
+			},
+			"labels": {
+				"format": "str",
+				"font": "str",
+				"color": "color"
+			}
+		},
+		"tooltips": {
+			"enabled": "bool"
+		}
+	},
+
+	"dataBuckets":  {
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+		"buckets": [
+	      {
+	        "id": "value",
+	        "type": "measure",
+	        "count": {
+	          "min": 1,
+	          "max": 1
+	        }
+	      }
+	    ]
+	},
+
+	"translations": {
+		"en": {
+			"name": "Histogram Chart",
+			"description": "This extension helps to graphicaly represent the distribution of numerical data",
+			"icon_tooltip": "Histogram Chart.",
+			"value_name": "Value (MES)",
+			"value_tooltip": "Drop a measure here"
+		}
+	}
+}
