@@ -108,17 +108,20 @@
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_ibi_chart');
 			
-		var seriesCount = renderConfig.data[0].value.length; //chart.dataBuckets.buckets.value.count
+		var seriesCount = (Array.isArray(renderConfig.data[0].value)) ? renderConfig.data[0].value.length : 1;
 		var groupCount = renderConfig.data.length;
 		var seriesLabels = renderConfig.data.map(function(el){return el.labels;});
 		var data = [];
 		for (var i = 0; i<renderConfig.data.length;i++) {
 			var d = renderConfig.data[i];
-			for (var j = 0; j<d.value.length;j++) {
-				data.push({label: d.labels, value:d.value[j], groupID:i, seriesID: j});
+			if (Array.isArray(d.value)) {				
+				for (var j = 0; j<d.value.length;j++) {
+					data.push({label: d.labels, value:d.value[j], groupID:i, seriesID: j});
+				}
+			} else {
+				data.push({label: d.labels, value:d.value, groupID:i, seriesID: 0});
 			}
 		}
-		
 		
 		var w = renderConfig.width;
 		var h = renderConfig.height;
@@ -133,7 +136,6 @@
 		var svg = container.selectAll("g")
 			.data(data)
 			.enter().append('g')
-
 
 		var buildToolTip;
 		if ( Array.isArray(buckets.value) && buckets.value.length === 2 ) {
