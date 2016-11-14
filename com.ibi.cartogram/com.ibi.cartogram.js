@@ -85,12 +85,16 @@
 					.map(function(rgb) { return d3.hsl(rgb); });
 
 			  
-			var map = container,
-				  layer = map.append("g")
-					.attr("id", "layer"),
-				  states = layer.append("g")
+			var map = container;
+
+			var	layer = map.append("g")
+					.attr("id", "layer");
+		    var states = layer.append("g")
 					.attr("id", "states")
 					.selectAll("path");
+					
+			var toolTipRectangle =  map.append("rect").attr("fill","white");	//Light Weight tooltip	
+			var toolTip = map.append("text").attr("fill","black");					
 
 			/*	 
 			//alternate way of getting topology json from a server-side file
@@ -120,8 +124,33 @@
 			states = states.data(features)
 			  .enter()
 			  .append("path")
-				.attr("d", path);		
-			states.append("title");
+				.attr("d", path)
+				.attr("id",function (d) {return d.id})
+				.on("mouseover", function() { toolTip.style("opacity", 1); toolTipRectangle.style("opacity", 1); })
+				.on("mouseout", function(){ toolTip.style("opacity", 0); toolTipRectangle.style("opacity", 0);}) 
+				.on("mousemove", function(){
+									debugger;
+									var id = this.id;
+									var bBox = this.getBBox(); 
+									var width = bBox.width;
+									var height = bBox.height;
+									var x = Math.floor(bBox.x + width/2.0); 
+									var y = Math.floor(bBox.y + height/2.0);	
+									toolTip.text(function(	) {
+													return [id, fnAddCommas(statesDataValues[id]),].join(": ");
+												})				 
+									bBox = toolTip.node().getBBox();
+									width = bBox.width + 2;
+									height = bBox.height + 2;
+									toolTipRectangle
+										.attr("width",width)
+										.attr("height",height)
+										.attr("x",x).attr("y",y);	
+									toolTip
+										.attr("x",x + 2)     
+										.attr("y",y + height/2 + 4);
+									});					
+			//states.append("title");   //Replaced with light-weight tooltip logic
 			
 			//Override state areas with the values they will be cartogram-ed with	
 			if (sequence == "withdata") {
@@ -161,13 +190,13 @@
 			
 
 			// update the data
-			states.data(features)
+			states.data(features);
+			/*  Logic replaced with light-weight tooltiop
 			  .select("title")
 				.text(function(d,i) {
 				  return [d.id, fnAddCommas(statesDataValues[d.id])].join(": ");
-				  //return [renderConfig.data[i].state, fnAddCommas(renderConfig.data[i].value)].join(": ");
 				});
-		
+			*/
 				
 			states.transition()
 			  .duration(750)
@@ -191,7 +220,6 @@
 			}//fnAddCommas
 
 				
-		
 			//Get the initial areas pased on the projection by first converting topojson back to geojson using area method
 			function fnGetStateAreas () {
 			
