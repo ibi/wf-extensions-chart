@@ -1101,6 +1101,42 @@ var tdg_arc = (function() { // change name
             });
             //.style('fill', 'white');
         }
+        
+        function onRenderComplete ( group_main, props ) {
+            // resize main_group to fit into a container
+            // call onRenderComplete callback 
+            return function () {
+                var bbox = group_main.node().getBBox();
+
+                var overflow = {
+                    horiz: bbox.width - props.width,
+                    vert:  bbox.height - props.height
+                };
+                
+                if ( overflow.horiz > 0 || overflow.vert > 0 ) {
+                    var factor = ( overflow.horiz > overflow.vert )
+                        ? props.width / bbox.width
+                        : props.height / bbox.height;
+                    
+                    var translate = [
+                          props.width / 2 * (1 - factor) * -1,
+                          props.height / 2 * (1 - factor)
+                    ]; 
+
+                    group_main
+                        .transition()
+                        .attr(
+                            'transform',
+                            'translate(' + translate + ')' + 'scale(' + factor + ')'
+                        )
+                        .call(
+                            getOnAllTransitionComplete(props.onRenderComplete)
+                        );
+                } else {
+                    props.onRenderComplete();
+                }
+            }
+        }
 
         function chart(selection) {
             var group_main = selection.append('g').classed('group-main', true);
@@ -1113,7 +1149,7 @@ var tdg_arc = (function() { // change name
 
             var group_arc;
 
-            var invokeAfterFour = getInvokeAfter(props.onRenderComplete, 4);
+            var invokeAfterFour = getInvokeAfter(onRenderComplete(group_main, props), 4);
 
             switch (props.type) {
                 case 'stacked':
