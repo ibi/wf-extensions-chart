@@ -10,7 +10,11 @@ This extension is used to visualize numeric values that are assigned to countrie
 
 ## Screenshots
 
+### Bubble Mode
+
 ![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.map.world/screenshots/1.png)
+
+### Choropleth Mode
 
 ![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.map.world/screenshots/2.png)
 
