@@ -36,18 +36,10 @@
     			return datumCpy;
     		})];
 
-//        props.data = [
-//            [{ "label": "ENGLAND", "value": 120000000.23452, "_s": 0, "_g": 0 }, { "label": "ITALY", "value": 120000000, "_s": 0, "_g": 2 }, { "label": "JAPAN", "value": 30200, "_s": 0, "_g": 3 }, { "label": "W GERMANY", "value": 120000000, "_s": 0, "_g": 4 }]
-//        ];
-
 
         props.isInteractionDisabled = renderConfig.disableInteraction;
 
-        props.onRenderComplete = function() {
-        //renderConfig.renderComplete.bind(renderConfig);
-            //renderConfig.modules.tooltip.updateToolTips();
-            renderConfig.renderComplete();
-        }
+        props.onRenderComplete = renderConfig.renderComplete.bind(renderConfig);
 
         var container = d3.select(renderConfig.container)
             .attr('class', 'tdg_marker_chart');
