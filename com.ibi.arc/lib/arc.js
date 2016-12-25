@@ -104,6 +104,9 @@ var tdg_arc = (function() { // change name
                 marker: {
                     type: 'circle'
                 }
+            },
+            tooltip: {
+              enabled: true 
             }
         };
 
@@ -451,6 +454,15 @@ var tdg_arc = (function() { // change name
 
             arcs.enter().append('path');
 
+            if ( props.tooltip.enabled ) {
+              arcs.attr('tdgtitle', function(d) {
+                  var str = '<div style="padding:5px">';
+                  str += '<b>'+ d.label  +': </b>'; 
+                  str += '<span>'+ d.value  +'</span>'; 
+                  return str + '</div>'; 
+              });
+            }
+
             arcs.each(function(d) {
               d3.select(this).classed(d.class, true);
             });
@@ -521,7 +533,7 @@ var tdg_arc = (function() { // change name
             series.enter()
                 .append('g')
                 .classed('series', true);
-
+      
             var arcs = series.selectAll('path')
                 .data(function(d) {
                     return d;
@@ -529,6 +541,15 @@ var tdg_arc = (function() { // change name
 
             arcs.enter()
               .append('path');
+
+            if ( props.tooltip.enabled ) {
+              arcs.attr('tdgtitle', function(d) {
+                  var str = '<div style="padding:5px">';
+                  str += '<b>'+ d.label  +': </b>'; 
+                  str += '<span>'+ d.value  +'</span>'; 
+                  return str + '</div>'; 
+              });
+            }
 
             arcs.each(function(d) {
               d3.select(this).classed(d.class, true);
@@ -593,7 +614,16 @@ var tdg_arc = (function() { // change name
                 .data(buildRegularDataset());
 
             arcs.enter()
-                .append('path');
+                .append('path') ;
+
+            if ( props.tooltip.enabled ) {
+              arcs.attr('tdgtitle', function(d) {
+                  var str = '<div style="padding:5px">';
+                  str += '<b>'+ d.label  +': </b>'; 
+                  str += '<span>'+ d.value  +'</span>'; 
+                  return str + '</div>'; 
+              });
+            }
 
             arcs.each(function(d) {
               d3.select(this).classed(d.class, true);
@@ -1014,7 +1044,7 @@ var tdg_arc = (function() { // change name
         }
 
         function enableHiglight(group_arc, bg, group_label) {
-            var arcs = group_arc.selectAll('path.arc');
+            var arcs = group_arc.selectAll('path');
 
             var fade = (props.type === 'stacked') ? fadeStacked : fadeRegular;
 
@@ -1055,9 +1085,11 @@ var tdg_arc = (function() { // change name
         }
 
         function enableShowValueOnHiglight(group_arc, bg) {
-            var group_value = group_arc.append('g').classed('group-value', true);
+            var group_value = group_arc
+                .append('g')
+                .classed('group-value', true);
 
-            var arcs = group_arc.selectAll('path.arc');
+            var arcs = group_arc.selectAll('path');
 
             var lblProps = props.valueLabel || {};
 
@@ -1123,15 +1155,25 @@ var tdg_arc = (function() { // change name
                           props.height / 2 * (1 - factor)
                     ]; 
 
-                    group_main
-                        .transition()
-                        .attr(
-                            'transform',
-                            'translate(' + translate + ')' + 'scale(' + factor + ')'
-                        )
-                        .call(
-                            getOnAllTransitionComplete(props.onRenderComplete)
-                        );
+                    if ( !props.isInteractionDisabled ) {
+                        group_main
+                            .transition()
+                            .attr(
+                                'transform',
+                                'translate(' + translate + ')' + 'scale(' + factor + ')'
+                            )
+                            .call(
+                                getOnAllTransitionComplete(props.onRenderComplete)
+                            );
+                    } else {
+                        group_main
+                            .attr(
+                                'transform',
+                                'translate(' + translate + ')' + 'scale(' + factor + ')'
+                            );
+
+                        props.onRenderComplete();
+                    }
                 } else {
                     props.onRenderComplete();
                 }
@@ -1151,7 +1193,7 @@ var tdg_arc = (function() { // change name
 
             var invokeAfterFour = getInvokeAfter(onRenderComplete(group_main, props), 4);
 
-            switch (props.type) {
+            switch ( props.type ) {
                 case 'stacked':
                     group_arc = renderArcsStacked(group_chart, invokeAfterFour);
                     break;
@@ -1169,9 +1211,9 @@ var tdg_arc = (function() { // change name
 
             if (hasOnlyPositiveValues() && ['stacked', 'percent'].indexOf(props.type) < 0) {
                 var group_label = renderLabels(group_chart, invokeAfterFour);
-                if (!props.isInteractionDisabled) {
-                  enableHiglight(group_arc, bg, group_label);
-                  enableShowValueOnHiglight(group_arc, bg);
+                if ( !props.isInteractionDisabled ) {
+                    enableHiglight(group_arc, bg, group_label);
+                    enableShowValueOnHiglight(group_arc, bg);
                 }
             } else {
                 enableHiglight(group_arc, bg);

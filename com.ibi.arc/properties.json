@@ -47,7 +47,10 @@
 			"marker": {
 				"type": "circle"
 			}
-		}
+		},
+                "tooltip": {
+                    "enabled": true 
+                }
 	},
 	
 	propertyAnnotations: {
@@ -87,7 +90,10 @@
 			"marker": {
 				"type": "str"
 			}
-		}
+		},
+                "tooltip": {
+                    "enabled": "bool" 
+                }
 	},
 	
 	"dataBuckets": {
