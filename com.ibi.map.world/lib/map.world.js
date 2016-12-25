@@ -372,6 +372,7 @@ window.COM_IBI_MAP_WORLD.init = (function() {
 
       return cleanData.map( function( datum ) {
         return {
+          class: datum.elClassName, 
           size: sizeScale( datum.value[0] ),
           color: colorScale ? colorScale(datum.value[1]) : defaultColor,
           tooltip: getTDGTitle( tooltipFn(datum) ),
@@ -542,21 +543,13 @@ window.COM_IBI_MAP_WORLD.init = (function() {
 
       return cleanData.map(function( datum ){
         return {
+          class: datum.elClassName, 
           d : pathFn( nameToTopoGeom[getCleanCountryName( datum.name )] ),
           color : colorScale( datum.value[0] ),
           tooltip: getTDGTitle(tooltipFn(datum))
         }; 
-      }); 	
+      });
     }
-    
-//    function objForEach(obj, cb) {
-//      var counter = 0;
-//      for (var key in obj) {
-//        if (obj.hasOwnProperty(key)) {
-//          cb(obj[key], key, obj, counter++); 
-//        } 
-//      } 
-//    }
 
     function renderColorLegend ( group_legend, legendLayout, props ) {
       var bg = group_legend
@@ -699,6 +692,9 @@ window.COM_IBI_MAP_WORLD.init = (function() {
             .enter()
             .append("circle")
             .attr({
+              class : function (datum) {
+                return datum.class;
+              },
               r: function( datum ){
                 return datum.size; 
               },

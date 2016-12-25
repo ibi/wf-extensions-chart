@@ -7,9 +7,9 @@
 	function preRenderCallback(preRenderConfig) {
 
 		/*preRenderConfig.moonbeamInstance.eventDispatcher = { // testing drilling capability
-        events: [
-          { event: 'setURL', object: 'riser', series: 0, group: 0, url: 'http://google.com' ,target: '_blank' }
-        ]
+			events: [
+			  { event: 'setURL', object: 'riser', series: 0, group: 0, url: 'http://google.com' ,target: '_blank' }
+			]
 		};*/
 
 		preRenderConfig.moonbeamInstance.legend.visible = false;
@@ -89,9 +89,7 @@
           // ---------------- END ( INIT YOUR EXTENSION HERE )
 
           // ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
-          if ( !renderConfig.disableInteraction ) {
-            renderConfig.renderComplete();
-          }
+	  renderConfig.renderComplete();
 	}
 
 	function getInvokeAfter (cb, count) {
