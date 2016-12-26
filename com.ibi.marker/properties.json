@@ -24,6 +24,9 @@
             "font": {
                 "color": 'auto'
             }
+        },
+        "tooltip": {
+          "enabled": true 
         }
     },
 
@@ -45,6 +48,9 @@
             "font": {
                 "color": 'str'
             }
+        },
+        "tooltip": {
+          "enabled": "bool" 
         }
     },
 
