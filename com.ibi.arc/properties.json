@@ -28,14 +28,15 @@
 		},
 		"axis": {
 			"labels": {
-				"format": null
+				"format": "auto"
 			}
 		},
 		"valueLabel": {
 			"fontFamily": "sans-serif",
-			"fontSize": "24px",
+			"fontSize": "auto",
 			"color": "#000000",
-			"fontWeight": "bold", // "normal", "bolder" or "bold"
+			"fontWeight": "bold", // "normal", "bolder" or "bold",
+                        "format": "auto"
 		},
 		"labels": {
 			"text": {
@@ -78,7 +79,8 @@
 			"fontFamily": "str",
 			"fontSize": "str",
 			"fontWeight": "str",
-			"color": "color"
+			"color": "color",
+                        "format": "str"
 		},
 		"labels": {
 			"text": {

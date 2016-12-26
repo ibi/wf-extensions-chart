@@ -69,6 +69,7 @@ var tdg_arc = (function() { // change name
             type: 'regular', // 'regular', 'stacked'
             onRenderComplete: function(){},
             isInteractionDisabled: false,
+            formatNumber: function(){ throw new Error('provide formatNumber function') },
             arc: {
                 start: Math.PI / 2,
                 extent: 0.75, // 0.25, 0.5, 0.75;
@@ -93,6 +94,7 @@ var tdg_arc = (function() { // change name
                 fontSize: "16px",
                 color: "#000000",
                 fontWeight: "bold",
+                format: 'auto'
             },
             labels: {
                 text: {
@@ -111,6 +113,7 @@ var tdg_arc = (function() { // change name
         };
 
         var innerProps = {
+            padding: 5,
             colors: ["#e1542b", "#fee08b", "#33a02c", "#b2df8a", "#1f78b4", "#ffb061", "#ec7014", "#a6bddb", "#67001f", "#800026", "#addd8e", "#e0ecf4", "#fcc5c0", "#238b45", "#081d58", "#d4b9da", "#2b8cbe", "#74a9cf", "#41ab5d", "#fed976", "#ce1256", "#7f0000", "#a6bddb", "#ffffcc", "#e7e1ef", "#016c59", "#f7fcfd", "#99d8c9", "#fff7fb", "#ffffe5", "#fdd49e", "#ffffd9", "#fe9929", "#8c96c6", "#810f7c", "#993404", "#c7e9b4", "#bfd3e6", "#e7298a", "#7fcdbb", "#3690c0", "#ae017e", "#d9f0a3", "#ece2f0", "#014636", "#f7fcb9", "#66c2a4", "#fff7bc", "#f7fcf0", "#e5f5f9", "#fdbb84", "#fa9fb5", "#4d004b", "#fff7fb", "#cc4c02", "#78c679", "#1d91c0", "#ccebc5", "#feb24c", "#b30000", "#8c6bb1", "#fec44f", "#d0d1e6", "#084081", "#0868ac", "#f7fcfd", "#0570b0", "#ef6548", "#fff7ec", "#006837", "#f768a1", "#edf8b1", "#fee391", "#238443", "#ffffe5", "#023858", "#7a0177", "#67a9cf", "#dd3497", "#980043", "#88419d", "#d0d1e6", "#fc8d59", "#4eb3d3", "#fd8d3c", "#fff7f3", "#fc4e2a", "#ccece6", "#ece7f2", "#a8ddb5", "#41ae76", "#bd0026", "#e0f3db", "#045a8d", "#ffeda0", "#253494", "#7bccc4", "#fde0dd", "#00441b", "#225ea8", "#006d2c", "#02818a", "#f7f4f9", "#d7301f", "#df65b0", "#662506", "#3690c0", "#004529", "#fee8c8"],
             arc: {
                 radius: {
@@ -353,6 +356,19 @@ var tdg_arc = (function() { // change name
 
             return d3.scale.ordinal().domain(d3.range(data.length)).rangeBands([radiusInfo.inner, radiusInfo.outer], props.arc.padding, 0);
         }
+        
+        function buildDataset( type ) {
+            switch ( type ) {
+                case 'stacked':
+                    return buildStackDataset();
+                case 'regular':
+                    return buildRegularDataset();
+                case 'percent':
+                    return buildPercentDataset();
+                default:
+                    throw new Error('Unknown chart type');
+            }
+        }
 
         function buildStackDataset() {
             var data = d3.transpose(getData()),
@@ -414,6 +430,21 @@ var tdg_arc = (function() { // change name
             });
 
             return d3.transpose(result);
+        }
+        
+        function getFormater( formatNumberFn, format, extent ) {
+            var minMax = {
+                min: extent[0],
+                max: extent[1] 
+            };
+
+            return function ( num ) {
+                return formatNumberFn(
+                    num,
+                    format,
+                    minMax
+                );
+            }; 
         }
 
         function renderArcsPercent(container, onRenderComplete) {
@@ -609,18 +640,24 @@ var tdg_arc = (function() { // change name
                 .endAngle(function(d) {
                     return theta(d.value);
                 });
+            
+            var data = buildRegularDataset();
 
             var arcs = group_arc.selectAll('path')
-                .data(buildRegularDataset());
+                .data(data);
 
             arcs.enter()
                 .append('path') ;
+            
+            var extent = d3.extent(data, function(d){ return d.value; });
+
+            var format = getFormater( props.formatNumber, props.valueLabel.format, extent );
 
             if ( props.tooltip.enabled ) {
               arcs.attr('tdgtitle', function(d) {
                   var str = '<div style="padding:5px">';
                   str += '<b>'+ d.label  +': </b>'; 
-                  str += '<span>'+ d.value  +'</span>'; 
+                  str += '<span>'+ format(d.value)  +'</span>'; 
                   return str + '</div>'; 
               });
             }
@@ -662,7 +699,16 @@ var tdg_arc = (function() { // change name
 
         function getAxisDataObj(axis) {
             var ticks = axis.ticks();
-            var format = getAxisLabelFormatFunction();
+
+            var extent = d3.extent(ticks);
+
+            var format = getFormater(
+                props.formatNumber,
+                props.axis.labels.format,
+                extent
+            );
+
+            //var format = getAxisLabelFormatFunction();
             return ticks.map(function(d) {
                 return { label: format(d), angle: axis(d) };
             });
@@ -1083,6 +1129,17 @@ var tdg_arc = (function() { // change name
               });
 
         }
+        
+        function getTextScaleFactorForRadius( radius, width, height ) {
+            var widthToFit = Math.pow( Math.pow( radius, 2 ) - Math.pow( height, 2 ), 0.5), 
+                heightToFit = Math.pow( Math.pow( radius, 2 ) - Math.pow( width, 2 ), 0.5),
+                deltaWidth = width - widthToFit,
+                deltaHeight = height - heightToFit;
+        
+            return ( Math.abs(deltaWidth) > Math.abs(deltaHeight) ) 
+                ? widthToFit / width
+                : heightToFit / height; 
+        }
 
         function enableShowValueOnHiglight(group_arc, bg) {
             var group_value = group_arc
@@ -1093,20 +1150,44 @@ var tdg_arc = (function() { // change name
 
             var lblProps = props.valueLabel || {};
 
+            var minRadius = getRadiusScale().range()[0];
+
+            var data = buildDataset(props.type);
+
+            var extent = d3.extent(data, function(d){ return d.value;});
+
+            var format = getFormater(
+                props.formatNumber,
+                lblProps.format,
+                extent
+            );
+
             function mouseover(d) {
 
-              group_value.select('text').remove();
+                group_value.select('text').remove();
 
-              group_value.append('text')
-                  .style({
-                      'font-family': lblProps.fontFamily || 'sans-serif',
-                      'font-size': lblProps.fontSize || '16px',
-                      'font-weight': lblProps.fontWeight || 'normal',
-                      fill: lblProps.color || "#000",
-                      'text-anchor': 'middle',
-                      dy: '.35em'
-                  })
-                  .text(d.value);
+                var text = group_value.append('text')
+                    .style({
+                        'font-family': lblProps.fontFamily || 'sans-serif',
+                        'font-weight': lblProps.fontWeight || 'normal',
+                        fill: lblProps.color || "#000",
+                        'text-anchor': 'middle',
+                        dy: '.35em'
+                    })
+                    .text(format(d.value));
+
+                if ( lblProps.fontSize === 'auto' ) {
+                  var bbox = text.node().getBBox();
+                  var factor = getTextScaleFactorForRadius(
+                      minRadius - innerProps.padding,
+                      bbox.width,
+                      bbox.height
+                  );
+
+                  text.attr('transform', 'scale('+ factor +')');
+                } else {
+                    text.style('font-size', lblProps.fontSize || '16px');
+                }
             }
 
             function mouseout(d) {

@@ -30,12 +30,17 @@
         props.width = renderConfig.width;
         props.height = renderConfig.height;
         
+        props.formatNumber = chart.formatNumber.bind(chart);
+
         props.data = [(renderConfig.data || []).map(function(datum){
     			var datumCpy = jsonCpy(datum);
     			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'bar');
     			return datumCpy;
     		})];
 
+//        props.data = [
+//            [{ "label": "ENGLAND", "value": 123456789.123456, "_s": 0, "_g": 0 }, { "label": "ITALY", "value": 30200, "_s": 0, "_g": 2 }, { "label": "JAPAN", "value": 78030, "_s": 0, "_g": 3 }, { "label": "W GERMANY", "value": 88190, "_s": 0, "_g": 4 }]
+//        ];
 
         props.isInteractionDisabled = renderConfig.disableInteraction;
 
@@ -62,6 +67,8 @@
         var props = renderConfig.properties;
 
         chart.legend.visible = false;
+
+        props.formatNumber = chart.formatNumber.bind(chart);
 
         props.width = renderConfig.width;
         props.height = renderConfig.height;
