@@ -63,16 +63,20 @@
 
 		props.isInteractionDisabled = renderConfig.disableInteraction;
 
-		props.onRenderComplete = renderConfig.renderComplete.bind(renderConfig);
-
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'tdg_marker_chart');
 
+		props.onRenderComplete = function() {
+                  console.log(container);
+                  renderConfig.modules.tooltip.updateToolTips();
+                  renderConfig.renderComplete();
+                }
+
 		var marker_chart = tdg_marker(props);
+
 
 		marker_chart(container);
 
-		//renderConfig.modules.tooltip.updateToolTips();
 	}
 
 	function getInvokeAfter (cb, count) {

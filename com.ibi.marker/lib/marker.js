@@ -232,7 +232,7 @@ var tdg_marker = (function () {
         labels.style('opacity', 1);
         onRenderComplete();
       } else {
-        labels.transition()
+        labels.transition('labels_fade_in')
           .delay(innerProps.labels.animation.delay)
           .duration(innerProps.labels.animation.duration)
           .style('opacity', 1)
@@ -436,6 +436,8 @@ var tdg_marker = (function () {
       var rowNum, colNum,
         lastIndx = 0;
 
+      var labelsData = buildLabelsData(markerInfo);
+
       counts.forEach(function (count, clusterIndex) {
         for ( i = lastIndx; i < count + lastIndx; i++ ) {
           rowNum = Math.floor(i / layout.colCount);
@@ -449,6 +451,7 @@ var tdg_marker = (function () {
             y: rowNum * layout.sideLength + cellHalfLength,
             radius: radius,
             group: clusterIndex,
+            label: labelsData[clusterIndex] && labelsData[clusterIndex].text,
             class: markerInfo.classNameByGroup[clusterIndex]
           };
         }
@@ -477,9 +480,12 @@ var tdg_marker = (function () {
 
       markers.classed('marker', true);
 
-
-
       markers.attr({
+          tdgtitle: function(d) {
+            var str = '<div style="padding: 5px">';
+            str += '<b>'+ d.label +'</b>';
+            return str + '</div>'; 
+          },
           d : function (d) {
             return pathMarker[props.marker.type](d.radius);
           },
@@ -498,7 +504,7 @@ var tdg_marker = (function () {
         markers.style('opacity', 1)
         onRenderComplete();
       } else {
-        markers.transition()
+        markers.transition('markers_fade_in')
           .delay(innerProps.markers.animation.delay)
           .duration(innerProps.markers.animation.duration)
           .style('opacity', 1)
@@ -544,10 +550,10 @@ var tdg_marker = (function () {
             return i !== d.group;
           });
 
-          lf.transition()
+          lf.transition('interaction')
             .style('opacity', opacity);
 
-          mf.transition()
+          mf.transition('interaction')
             .style('opacity', opacity);
         };
       }
@@ -584,7 +590,7 @@ var tdg_marker = (function () {
         .on('mouseout', fadeMarkers(1));
     }
 
-		function chart (selection) {
+    function chart (selection) {
       var group_main = selection.append('g')
         .classed('group-main', true);
 
@@ -600,7 +606,9 @@ var tdg_marker = (function () {
         group_labels = selection.append('g')
           .classed('group-labels', true);
         var labelsData = buildLabelsData(markerInfo);
-        labels = renderLabels(group_labels, labelsData, invokeAfterThreeOrTwo);
+        labels = renderLabels(group_labels, labelsData, function(){
+          invokeAfterThreeOrTwo();
+        });
       }
       // -------------- LABEL RENDERING LOGIC ENDS
 
@@ -616,7 +624,9 @@ var tdg_marker = (function () {
       var layout = getLayoutInfo(markerInfo, width, height);
       var markersData = buildMarkersData(markerInfo, layout);
 
-      var markers = renderMarkers(group_markers, markersData, invokeAfterThreeOrTwo);
+      var markers = renderMarkers(group_markers, markersData, function(){
+          invokeAfterThreeOrTwo();
+        });
       // -------------- MARKERS RENDERING LOGIC ENDS
 
       // -------------- GROUP_MARKERS POSITIONING LOGIC STARTS
@@ -640,7 +650,7 @@ var tdg_marker = (function () {
       // -------------- INTERACTION LOGIC ENDS
 
       invokeAfterThreeOrTwo();
-		}
+    }
 
     copyIfExisty(props, user_props || {});
 
