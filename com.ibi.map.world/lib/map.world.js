@@ -384,6 +384,21 @@ window.COM_IBI_MAP_WORLD.init = (function() {
       }); 
     }
 
+    function getFilteredTopojsonCountires( topojson_countries, excludeCountries ){
+      var countryName_to_id_map = getCountryNameToIdMap();
+
+      var excludeCountryIds = excludeCountries.map(function(name){
+        return countryName_to_id_map[getCleanCountryName(name)]; 
+      });
+
+      return  {
+        type: 'GeometryCollection',
+        geometries:  topojson_countries.geometries.filter(function(geom){
+          return excludeCountryIds.indexOf( geom.id ) < 0;
+        })
+      };
+    }
+
     function getLayout ( cleanData, props, innerProps ) {
         
         var layout = {
@@ -447,8 +462,13 @@ window.COM_IBI_MAP_WORLD.init = (function() {
           return offset + legend.height + pad;
         }, topOffset);
 	
-        var projection = getProjection(
+        var filteredTopojsonCountires = getFilteredTopojsonCountires(
           COM_IBI_MAP_WORLD.topojson_countries,
+          props.countries.exclude
+        );
+
+        var projection = getProjection(
+          filteredTopojsonCountires,
           mapDim.width,
           mapDim.height
 	);
@@ -456,7 +476,15 @@ window.COM_IBI_MAP_WORLD.init = (function() {
         var path = d3.geo.path()
           .projection(projection);
 
-	layout.countries = COM_IBI_MAP_WORLD.topojson_countries
+        
+//        var excludedCountires = (props.countries.exclude || []).map(function(name){
+//          return getCleanCountryName(name); 
+//        });
+//
+//        var clean_topojson_countires = countryName_to_id_map
+         
+
+	layout.countries = filteredTopojsonCountires
           .geometries.map(function( geom ) {
              return {
                path: path(geom)	
@@ -505,6 +533,18 @@ window.COM_IBI_MAP_WORLD.init = (function() {
 
       }, []);
     }
+    
+    function getCountryNameToIdMap() {
+      var countryName_to_id_map = {};
+
+      for ( var key in COM_IBI_MAP_WORLD.countryName_to_id_map ) {
+        if ( COM_IBI_MAP_WORLD.countryName_to_id_map.hasOwnProperty(key) ) {
+          countryName_to_id_map[getCleanCountryName(key)] = +COM_IBI_MAP_WORLD.countryName_to_id_map[key];
+        } 
+      }
+
+      return countryName_to_id_map; 
+    }
 
     function getChoroplethLayout( cleanData, pathFn, props ){
       var colorScale = getColorScaleForValueAtIdx( 
@@ -518,13 +558,7 @@ window.COM_IBI_MAP_WORLD.init = (function() {
           return geom.id; 
         });
       
-      var countryName_to_id_map = {};
-
-      for ( var key in COM_IBI_MAP_WORLD.countryName_to_id_map ) {
-       if ( COM_IBI_MAP_WORLD.countryName_to_id_map.hasOwnProperty(key) ) {
-        countryName_to_id_map[getCleanCountryName(key)] = COM_IBI_MAP_WORLD.countryName_to_id_map[key];
-       } 
-      }
+      var countryName_to_id_map = getCountryNameToIdMap();
 
       var nameToTopoGeom = cleanData.reduce(function(map, datum){
 
@@ -532,7 +566,7 @@ window.COM_IBI_MAP_WORLD.init = (function() {
         var countryId = countryName_to_id_map[cleanCountryName];
         
         map[cleanCountryName] = COM_IBI_MAP_WORLD.topojson_countries
-          .geometries[idAtPositionList.indexOf(+countryId)];
+          .geometries[idAtPositionList.indexOf(countryId)];
 
         return map;
       }, {}); 

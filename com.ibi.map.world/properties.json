@@ -12,7 +12,7 @@
   
   "properties": {
     "countries": {
-      "exclude": [],
+      "exclude": ["Antarctica"],
       "defaultColor": "lightgrey",
       "borders": {
         "color": "black",
