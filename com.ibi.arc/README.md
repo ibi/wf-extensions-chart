@@ -31,19 +31,20 @@ To configure or customize your extension edit "properties" object in properties.
 			},
 			"border": {
 				"width": 1,
-				"color": "black"
+				"color": "white"
 			}
 		},
 		"axis": {
 			"labels": {
-				"format": null
+				"format": "auto"
 			}
 		},
 		"valueLabel": {
 			"fontFamily": "sans-serif",
-			"fontSize": "24px",
+			"fontSize": "auto",
 			"color": "#000000",
-			"fontWeight": "bold", // "normal", "bolder" or "bold"
+			"fontWeight": "bold", // "normal", "bolder" or "bold",
+                        "format": "auto"
 		},
 		"labels": {
 			"text": {
@@ -55,7 +56,10 @@ To configure or customize your extension edit "properties" object in properties.
 			"marker": {
 				"type": "circle"
 			}
-		}
+		},
+                "tooltip": {
+                    "enabled": true 
+                }
 	}
 
 ## Data Buckets
