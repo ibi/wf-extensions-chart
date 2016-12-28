@@ -136,11 +136,11 @@
           // ADD TRANSPARENT SCREEN
 
           container.append("rect")
-            .attr({
+            .attrs({
               width: props.width,
               height: props.height
             })
-            .style({
+            .styles({
               fill: 'white',
               opacity: 0.9
             });
@@ -149,12 +149,12 @@
 
           container.append('text')
             .text('Add more measures or dimensions')
-            .attr({
+            .attrs({
               'text-anchor': 'middle',
               y: props.height / 2,
               x: props.width / 2
             })
-            .style({
+            .styles({
               'font-weight' : 'bold',
               'font-size' : '14',
               dy: '0.35em',
@@ -172,7 +172,9 @@
 		noDataRenderCallback: noDataRenderCallback,
 		resources:  {  // Additional external resources (CSS & JS) required by this extension
 			script: [
-				'lib/d3.min.js',
+				'lib/d3.v4.min.js',
+				'lib/d3-selection-multi.min.js',
+				'lib/d3-geo-projection.min.js',
 				'lib/map.world.js',
 			       	'data/id_to_countryName_map.js',
 			       	'data/countryName_to_id_map.js',

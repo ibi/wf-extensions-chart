@@ -36,12 +36,12 @@ window.COM_IBI_MAP_WORLD.init = (function() {
     // --------------------------------- PUT HERE ALL THE GLOBAL VARIABLES AND FUNCTIONS THAT DON'T NEED TO ACCESS PROPS AND INNERPROPS THROUGH SCOPE (Z1)
 
     function getProjection(countries, width, height) {
-        var projection = d3.geo.equirectangular();
+        var projection = d3.geoCylindricalStereographic();
 
         projection.scale(1)
             .translate([0, 0]);
 
-        var path = d3.geo.path()
+        var path = d3.geoPath()
 		.projection(projection);
 
         var b = path.bounds(countries),
@@ -98,15 +98,15 @@ window.COM_IBI_MAP_WORLD.init = (function() {
           return d.value[idx];
         });
 
-        var ratio = d3.scale.ordinal()
+        var ratio = d3.scalePoint()
           .domain(colorRange)
-          .rangePoints(extent, 0);
+          .range(extent);
 
         var domain = colorRange.map(function (color) {
             return ratio(color);
         });
 
-        return d3.scale.linear()
+        return d3.scaleLinear()
           .domain(domain)
           .range(colorRange);
     }
@@ -175,7 +175,7 @@ window.COM_IBI_MAP_WORLD.init = (function() {
 
       var extent = d3.extent(data, function(d){ return d.value[0]; });
 
-      var values = d3.scale.linear()
+      var values = d3.scaleLinear()
         .domain(extent)
         .nice()
         .ticks(ticksCount);
@@ -198,11 +198,11 @@ window.COM_IBI_MAP_WORLD.init = (function() {
 
       var rowsVertSpace = lgndVertSpace - rowsTopOffset - pad;
 
-      var rowsPosScale = d3.scale.ordinal()
+      var rowsPosScale = d3.scaleBand()
           .domain(values)
-          .rangeBands([rowsVertSpace, 0], 0);
+          .range([rowsVertSpace, 0]);
 
-      var band = rowsPosScale.rangeBand();
+      var band = rowsPosScale.bandwidth();
 
       var rows = values.map(function (value) {
         return {
@@ -342,7 +342,7 @@ window.COM_IBI_MAP_WORLD.init = (function() {
     
     function getSizeScale( cleanData, range ) {
       var extent = d3.extent(cleanData, function(d){ return d.value[0]; });       
-      return d3.scale.sqrt()
+      return d3.scaleSqrt()
         .domain(extent)
         .range( range || [5, 15] );
     }
@@ -473,7 +473,7 @@ window.COM_IBI_MAP_WORLD.init = (function() {
           mapDim.height
 	);
 
-        var path = d3.geo.path()
+        var path = d3.geoPath()
           .projection(projection);
 
         
@@ -588,13 +588,13 @@ window.COM_IBI_MAP_WORLD.init = (function() {
     function renderColorLegend ( group_legend, legendLayout, props ) {
       var bg = group_legend
         .append('rect')
-        .attr({
+        .attrs({
           width: legendLayout.width,
           height: legendLayout.height,
           rx: props.colorLegend.border.round,
           ry: props.colorLegend.border.round
         })
-        .style({
+        .styles({
           fill: props.colorLegend.background.color,
           stroke: props.colorLegend.border.color,
           'stroke-width': props.colorLegend.border.width
@@ -606,7 +606,7 @@ window.COM_IBI_MAP_WORLD.init = (function() {
         .attr('transform', 'translate(' + legendLayout.title.translate + ')')
         .append('text')
         .attr('dy', '.35em')
-        .style({
+        .styles({
           font: props.colorLegend.title.font,
           fill: props.colorLegend.title.color,
           'text-anchor': 'middle'
@@ -631,7 +631,7 @@ window.COM_IBI_MAP_WORLD.init = (function() {
           return d.marker;
         })
         .each(function (d) {
-          d3.select(this).attr({
+          d3.select(this).attrs({
             width: d.width,
             height: d.height,
             fill: d.color
@@ -643,12 +643,12 @@ window.COM_IBI_MAP_WORLD.init = (function() {
           return d.label;
         })
         .each(function (d) {
-          d3.select(this).attr({
+          d3.select(this).attrs({
             x: d.x,
             y: d.y,
             dy: '.35em'
           })
-          .style({
+          .styles({
             font: props.colorLegend.rows.labels.font,
             fill: props.colorLegend.rows.labels.color
           })
@@ -670,12 +670,12 @@ window.COM_IBI_MAP_WORLD.init = (function() {
         var countries_enter = group_countries.selectAll("path")
           .data(layout.countries)
           .enter().append("path")
-          .attr({
+          .attrs({
             d : function (d) {
               return d.path;
             }
           })
-          .style({
+          .styles({
               stroke : props.countries.borders.color,
               'stroke-width' : props.countries.borders.width,
               fill: function (d) {
@@ -695,7 +695,7 @@ window.COM_IBI_MAP_WORLD.init = (function() {
             .data(layout.choropleths)
             .enter()
             .append("path")
-            .attr({
+            .attrs({
               class : function (datum) {
                 return datum.class;
               },
@@ -709,7 +709,7 @@ window.COM_IBI_MAP_WORLD.init = (function() {
                 return datum.tooltip;
               }
             })
-            .style({
+            .styles({
               stroke: props.choropleth.border.color,
               'stroke-width': props.choropleth.border.width 
             });
@@ -725,7 +725,7 @@ window.COM_IBI_MAP_WORLD.init = (function() {
             .data( layout.bubbles )
             .enter()
             .append("circle")
-            .attr({
+            .attrs({
               class : function (datum) {
                 return datum.class;
               },
@@ -745,7 +745,7 @@ window.COM_IBI_MAP_WORLD.init = (function() {
                 return datum.tooltip;
               }
             })
-            .style({
+            .styles({
               stroke: props.bubbles.border.color,
               'stroke-width': props.bubbles.border.width 
             });
@@ -785,13 +785,13 @@ window.COM_IBI_MAP_WORLD.init = (function() {
     function renderSizeLegend(group_legend, legendLayout, props) {
       var bg = group_legend
         .append('rect')
-        .attr({
+        .attrs({
           width: legendLayout.width,
           height: legendLayout.height,
           rx: props.sizeLegend.border.round,
           ry: props.sizeLegend.border.round
         })
-        .style({
+        .styles({
           fill: props.sizeLegend.background.color,
           stroke: props.sizeLegend.border.color,
           'stroke-width': props.sizeLegend.border.width
@@ -806,7 +806,7 @@ window.COM_IBI_MAP_WORLD.init = (function() {
         )
         .append('text')
         .attr('dy', '.35em')
-        .style({
+        .styles({
           font: props.sizeLegend.title.font,
           fill: props.sizeLegend.title.color,
           'text-anchor': 'middle'
