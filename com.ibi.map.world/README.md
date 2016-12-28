@@ -24,7 +24,7 @@ To configure or customize your extension edit "properties" object in properties.
 	
 	"properties": {
           "countries": {
-            "exclude": [],
+            "exclude": ["Antarctica"],
             "defaultColor": "lightgrey",
             "borders": {
               "color": "black",
@@ -49,6 +49,29 @@ To configure or customize your extension edit "properties" object in properties.
             "bubbleSizeRange": [7, 17]
           },
           "colorLegend": {
+            "enabled": true,
+            "background": {
+              "color": 'none'
+            },
+            "border": {
+              "color": 'black',
+              "width": 1,
+              "round": 2
+            },
+            "title": {
+              "font": '16px serif',
+              "color": 'black'
+            },
+            "rows": {
+              "count": 'auto',
+              "labels": {
+                "font": '10px serif',
+                "color": 'black',
+                "format": 'auto'
+              }
+            }
+          },
+          "sizeLegend": {
             "enabled": true,
             "background": {
               "color": 'none'
