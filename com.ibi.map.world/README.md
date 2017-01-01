@@ -36,7 +36,7 @@ To configure or customize your extension edit "properties" object in properties.
             }
           },
           "colorScale": {
-            "range": ['#d7ebef', '#4a89db'],
+            "range": ['#d7ebef', '#4a89db']
           },
           "choropleth": {
             "border": {
@@ -49,8 +49,16 @@ To configure or customize your extension edit "properties" object in properties.
               "color": "black",
               "width": 1 
             },
-            "defaultColor": "#4a89db",
-            "bubbleSizeRange": [7, 17]
+            "labels": {
+              "enabled": false,
+              "format": "auto",
+              "color": "black",
+              "fontFamily": "sans-serif",
+              "fontWeight": "bolder",
+              "toBubbleSizeRatio": 0.5	
+            },
+            "defaultColor": "auto",
+            "bubbleSizeRange": [7, 20]
           },
           "colorLegend": {
             "enabled": true,
