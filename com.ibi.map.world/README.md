@@ -14,6 +14,10 @@ This extension is used to visualize numeric values that are assigned to countrie
 
 ![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.map.world/screenshots/1.png)
 
+### Bubble Mode with Value Labels
+
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.map.world/screenshots/1.5.png)
+
 ### Choropleth Mode
 
 ![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.map.world/screenshots/2.png)

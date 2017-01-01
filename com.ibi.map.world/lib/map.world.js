@@ -317,6 +317,14 @@ window.COM_IBI_MAP_WORLD.init = (function() {
         }
       };
     }
+    
+    function getDefaultColorScale( defaultColorStr ) {
+      return ( defaultColorStr === 'auto' )
+        ? function (i) {
+          return d3.schemeCategory20[i % d3.schemeCategory20.length];
+        }
+        : (function() { return this; }).bind(defaultType); 
+    }
 
     function getHasColorLegend ( data, props ) {
       
@@ -344,19 +352,46 @@ window.COM_IBI_MAP_WORLD.init = (function() {
       var extent = d3.extent(cleanData, function(d){ return d.value[0]; });       
       return d3.scaleSqrt()
         .domain(extent)
-        .range( range || [5, 15] );
+        .range( range );
+    }
+
+    function getTextScaleFactorForRadius( radius, width, height ) {
+        var widthToFit = Math.pow( Math.pow( radius, 2 ) - Math.pow( Math.min(height, radius), 2 ), 0.5), 
+            heightToFit = Math.pow( Math.pow( radius, 2 ) - Math.pow( Math.min(width, radius), 2 ), 0.5),
+            deltaWidth = width - widthToFit,
+            deltaHeight = height - heightToFit;
+    
+        return ( Math.abs(deltaWidth) > Math.abs(deltaHeight) ) 
+            ? widthToFit / width
+            : heightToFit / height; 
+    }
+
+    function contrast (r, g, b) {
+        var rgb = [ r/255, g/255, b/255 ];
+        for ( var i = 0; i < rgb.length; ++i ) {
+            if ( rgb[i] <= 0.03928 ) {
+                rgb[i] = rgb[i] / 12.92;
+            } else {
+                rgb[i] = Math.pow( ( rgb[i] + 0.055 ) / 1.055, 2.4);
+            }
+        }
+        var l = 0.2126 * rgb[0] + 0.7152 * rgb[1] + 0.0722 * rgb[2];
+        return (l > 0.179) ? "#000" : "#FFF";
     }
 
     function getBubblesLayout( cleanData, projection, props ) {
 
-      var range = props.bubbles.bubbleSizeRange,
-          defaultColor = props.bubbles.defaultColor;
+      var hasSizeLegend = getHasSizeLegend(cleanData);
+
+      var range =  ( hasSizeLegend )
+          ? props.bubbles.bubbleSizeRange
+          : [ props.bubbles.defaultColor, props.bubbles.defaultColor ];
 
       var sizeScale = getSizeScale(cleanData, range);
       
-      var hasColorScale = cleanData.some(function(data){
-        return data.value[1]; 
-      });
+      var  defaultColorFn = getDefaultColorScale( props.bubbles.defaultColor );
+
+      var hasColorScale = cleanData.some(function(d){ return d.value[1]; });
 
       var colorScale = ( hasColorScale )
         ? getColorScaleForValueAtIdx( 
@@ -370,17 +405,53 @@ window.COM_IBI_MAP_WORLD.init = (function() {
 
       var tooltipFn = getToolTipFn ( props.buckets, formatValueAtIdx );
 
-      return cleanData.map( function( datum ) {
-        return {
+      var extent = d3.extent(cleanData, function(d){ return d.value[0]; }); 
+
+      var minMax = {
+        min: extent[0],
+        max: extent[1] 
+      };
+
+      return cleanData.map( function( datum, idx ) {
+        
+	var bubble = {
           class: datum.elClassName, 
           size: sizeScale( datum.value[0] ),
-          color: colorScale ? colorScale(datum.value[1]) : defaultColor,
+          color: colorScale ? colorScale(datum.value[1]) : defaultColorFn(idx),
           tooltip: getTDGTitle( tooltipFn(datum) ),
           pos: projection([
             +datum.longitude,
             +datum.latitude
           ]) 
-        }; 
+        };
+        
+        var bubbleLblProps = props.bubbles.labels;
+
+        if ( bubbleLblProps.enabled ) {
+
+          var lblTxt = props.formatNumber(
+            datum.value[0],
+            bubbleLblProps.format,
+            minMax
+          );
+          
+          var lblBBox = props.measureLabel(lblTxt);
+          var resize = getTextScaleFactorForRadius(
+            bubble.size * ( bubbleLblProps.toBubbleSizeRatio || 0.9 ),
+            lblBBox.width / 2,
+            lblBBox.height / 2
+          ) 
+
+          var rgb = d3.rgb(bubble.color);
+
+          bubble.label = {
+            text: lblTxt,
+            color: contrast(rgb.r, rgb.g, rgb.b),
+            resizeBy: resize   
+          };  
+        }
+
+	return bubble;	
       }); 
     }
 
@@ -412,11 +483,11 @@ window.COM_IBI_MAP_WORLD.init = (function() {
         var hasColorLegend = getHasColorLegend( cleanData, props );
         var hasSizeLegend = getHasSizeLegend(cleanData);
 
-        if ( hasSizeLegend ) {
+        if ( hasSizeLegend && props.sizeLegend.enabled ) {
           layout.sizeLegend = getSizeLegendLayout( cleanData, props, innerProps );
         }
 
-        if ( hasColorLegend ) {
+        if ( hasColorLegend && props.colorLegend.enabled ) {
           layout.colorLegend = getClrLegendLayout( cleanData, props, innerProps );
         }
 
@@ -475,14 +546,6 @@ window.COM_IBI_MAP_WORLD.init = (function() {
 
         var path = d3.geoPath()
           .projection(projection);
-
-        
-//        var excludedCountires = (props.countries.exclude || []).map(function(name){
-//          return getCleanCountryName(name); 
-//        });
-//
-//        var clean_topojson_countires = countryName_to_id_map
-         
 
 	layout.countries = filteredTopojsonCountires
           .geometries.map(function( geom ) {
@@ -721,22 +784,26 @@ window.COM_IBI_MAP_WORLD.init = (function() {
             .classed('bubbles', true);
  
           renderedDataElements.bubbles = group_bubbles
-            .selectAll("circle")
+            .selectAll('g.bubble-group')
             .data( layout.bubbles )
             .enter()
-            .append("circle")
+            .append('g')
+            .classed('bubble-group', true)
+            .attr(
+              'transform',
+              function(datum) {
+                return 'translate(' + datum.pos + ')';
+              }
+            );
+
+          renderedDataElements.bubbles
+            .append('circle')
             .attrs({
               class : function (datum) {
                 return datum.class;
               },
               r: function( datum ){
                 return datum.size; 
-              },
-              cx: function( datum ){
-                return datum.pos[0]; 
-              },
-              cy: function( datum ){
-                return datum.pos[1]; 
               },
               fill: function (datum) {
                 return datum.color;
@@ -748,6 +815,30 @@ window.COM_IBI_MAP_WORLD.init = (function() {
             .styles({
               stroke: props.bubbles.border.color,
               'stroke-width': props.bubbles.border.width 
+            });
+
+          renderedDataElements.bubbles
+            .filter(function(datum){
+              return datum.label != null; 
+            })
+            .append('text')
+            .attrs({
+              'text-anchor': 'middle',
+              dy: '.35em',
+              fill: function(datum) {
+                return datum.label.color; 
+              },
+              transform: function(datum){
+                return 'scale(' + datum.label.resizeBy + ')'; 
+              }
+            })
+            .styles({
+              cursor: 'default',
+              'font-family': props.bubbles.labels.fontFamily,
+              'font-weight': props.bubbles.labels.fontWeight
+            })
+            .text(function(datum){
+              return datum.label.text; 
             });
         }
 
@@ -903,6 +994,14 @@ window.COM_IBI_MAP_WORLD.init = (function() {
             border: {
               color: 'black',
               width: 1 
+            },
+            labels: {
+              enabled: true,
+              format: 'auto',
+              color: 'auto',
+              fontFamily: 'serif',
+              fontWeight: 'normal',
+              toBubbleSizeRatio: 0.9	
             },
             defaultColor: '#4a89db',
             bubbleSizeRange: [7, 17]
