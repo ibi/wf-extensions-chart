@@ -176,8 +176,8 @@
 				'lib/d3-selection-multi.min.js',
 				'lib/d3-geo-projection.min.js',
 				'lib/map.world.js',
-			       	'data/id_to_countryName_map.js',
-			       	'data/countryName_to_id_map.js',
+				'data/id_to_countryName_map.js',
+				'data/countryName_to_id_map.js',
 				'data/topojson_countries.js'
 			],
 			css: []
