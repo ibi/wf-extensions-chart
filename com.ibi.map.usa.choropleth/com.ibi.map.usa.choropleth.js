@@ -59,7 +59,9 @@
 
 		props.isInteractionDisabled = renderConfig.disableInteraction;
 
-		props.onRenderComplete = renderConfig.renderComplete.bind(chart);
+		props.onRenderComplete = function() {
+                  renderConfig.renderComplete()
+                };
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_tdg_sunburst');
@@ -72,9 +74,9 @@
 		// ---------------- END ( INIT YOUR EXTENSION HERE )
 
 		// ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
-		if ( !renderConfig.disableInteraction ) {
-			renderConfig.renderComplete();
-		}
+//		if ( !renderConfig.disableInteraction ) {
+//			renderConfig.renderComplete();
+//		}
 	}
 
 	function getInvokeAfter (cb, count) {
@@ -100,10 +102,10 @@
 		props.measureLabel = chart.measureLabel;
     props.formatNumber = chart.formatNumber;
 
-		var invokeAfterTwo = getInvokeAfter(renderConfig.renderComplete.bind(chart), 2);
+		//var invokeAfterTwo = getInvokeAfter(renderConfig.renderComplete.bind(chart), 2);
 
-		props.isInteractionDisabled = renderConfig.disableInteraction;
-		props.onRenderComplete = invokeAfterTwo;
+		props.isInteractionDisabled = true;
+		//props.onRenderComplete = invokeAfterTwo;
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_tdg_sunburst');
@@ -146,7 +148,7 @@
 				fill: 'grey'
 			});
 
-		invokeAfterTwo();
+		//invokeAfterTwo();
 	}
 
 	// Your extension's configuration
