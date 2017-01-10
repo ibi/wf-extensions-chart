@@ -232,16 +232,23 @@
                 pad = 5;
 
             var data = props.data;
-            var timeAxisDomain;
 
-            var isWithinDomain = getIsWithinDomainFn(innerProps.timeAxisScaleDomain);
+            var isWithinDomain;
+            var isVisibleRiserAtIndex;
+            
+            var timeAxisDomain = ( innerProps.timeAxisScaleDomain )
+              ? innerProps.timeAxisScaleDomain
+              : timeAxisDomain = getTimeAxisDomain(data);
 
             if (innerProps.timeAxisScaleDomain) {
-                data = props.data.filter(isWithinDomain);
+                //data = props.data.filter(isWithinDomain);
                 timeAxisDomain = innerProps.timeAxisScaleDomain;
+                isVisibleRiserAtIndex = props.data
+                    .map(getIsWithinDomainFn(innerProps.timeAxisScaleDomain));
             } else {
                 timeAxisDomain = getTimeAxisDomain(data);
-                data = props.data;
+                //data = props.data;
+                isVisibleRiserAtIndex = props.data.map(function(){ return true });
             }
 
             // use props.data because even if riser got filtered out
@@ -322,8 +329,7 @@
             var riserVertOffset = (layout.rowLabels.scale.rangeBand() * 0.2) / 2;
 
             var x = layout.timeAxis.scale,
-                y = layout.rowLabels.scale,
-                start, end;
+                y = layout.rowLabels.scale;
 
             var colors = innerProps.colors;
 
@@ -346,39 +352,42 @@
 
             var toolTipBuilder = getToolTipBuilder(props.buckets);
 
-            layout.canvas.risers = data.filter(function (d) {
-                start = x( parseDateStr(d.start) );
-                end = x( parseDateStr(d.end) );
-                return ( end - start ) > 0;
-            }).map(function(d, i) {
-                start = x( parseDateStr(d.start) );
-                end = x( parseDateStr(d.end) );
+            layout.canvas.risers = data.map(function(d, i) {
+                var start = x( parseDateStr(d.start) );
+                var end = x( parseDateStr(d.end) );
+                var riser;
 
-                var riser = {
-                    class: d.elClassName,
-                    tooltip: toolTipBuilder(d),
-                    x: start,
-                    y: y(d.task) + riserVertOffset,
-                    width: end - start,
-                    height: riserHeight,
-                    fill: (props.colorByRow)
-                      ? colors[hash(d.task) % colors.length]
-                      : colors[i % colors.length]
-                };
-                // subtask string is used as a label
-                var lblDim = props.measureLabel(d.subtask || d.task, props.risers.labels.font);
+                if ( ( end - start ) > 0 ) {
+                  riser = {
+                      class: d.elClassName,
+                      tooltip: toolTipBuilder(d),
+                      x: start,
+                      y: y(d.task) + riserVertOffset,
+                      width: end - start,
+                      height: riserHeight,
+                      fill: (props.colorByRow)
+                        ? colors[hash(d.task) % colors.length]
+                        : colors[i % colors.length]
+                  };
+                  // subtask string is used as a label
+                  var lblDim = props.measureLabel(d.subtask || d.task, props.risers.labels.font);
 
-                if ( lblDim.width + 2 * pad < riser.width && lblDim.height + 2 * pad < riser.height ) {
-                    var clr = d3.rgb(riser.fill);
-                    riser.label = {
-                        text: d.subtask || d.task,
-                        x: riser.width / 2,
-                        y: riser.height / 2,
-                        fill: contrast(clr.r, clr.g, clr.b)
-                    };
+                  if ( lblDim.width + 2 * pad < riser.width && lblDim.height + 2 * pad < riser.height ) {
+                      var clr = d3.rgb(riser.fill);
+                      riser.label = {
+                          text: d.subtask || d.task,
+                          x: riser.width / 2,
+                          y: riser.height / 2,
+                          fill: contrast(clr.r, clr.g, clr.b)
+                      };
+                  }
+
+                  return riser;
                 }
 
-                return riser;
+            })
+            .filter(function(d, i){
+              return d && isVisibleRiserAtIndex[i]; 
             });
 
             return layout;
@@ -768,7 +777,7 @@
         function render(group_main, layout, props, innerProps, onRenderComplete) {
             var chart = this;
 
-            var invokeAfterThree = getInvokeAfter(onRenderComplete, 2);
+            var invokeAfterThree = getInvokeAfter(onRenderComplete, 3);
 
             var focus_group = group_main.append('g')
                 .classed('focus', true);

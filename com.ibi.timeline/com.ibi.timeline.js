@@ -81,7 +81,9 @@
 
         props.isInteractionDisabled = renderConfig.disableInteraction;
 
-    		props.onRenderComplete = renderConfig.renderComplete.bind(chart);
+        props.onRenderComplete = function() {
+          renderConfig.renderComplete();
+        }
 
         var container = d3.select(renderConfig.container)
             .attr('class', 'com_tdg_timeline');
@@ -99,9 +101,6 @@
         // ---------------- END ( INIT YOUR EXTENSION HERE )
 
         // ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
-        if (!props.isInteractionDisabled) {
-          renderConfig.renderComplete();
-        }
     }
 
     function getInvokeAfter (cb, count) {
@@ -124,11 +123,7 @@
 
         props.buckets = getFormatedBuckets(renderConfig);
 
-        var invokeAfterTwo = getInvokeAfter(renderConfig.renderComplete.bind(chart), 2);
-
         props.isInteractionDisabled = renderConfig.disableInteraction;
-
-    		props.onRenderComplete = invokeAfterTwo;
 
         props.data = [{
             "task": "Task 1",
@@ -194,9 +189,6 @@
         // ---------------- END ( INIT YOUR EXTENSION HERE )
 
         // ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
-        if (!props.isInteractionDisabled) {
-          renderConfig.renderComplete();
-        }
 
         // ADD TRANSPARENT SCREEN
 
@@ -226,7 +218,6 @@
                 fill: 'grey'
             });
 
-        invokeAfterTwo();
     }
 
     // Your extension's configuration
