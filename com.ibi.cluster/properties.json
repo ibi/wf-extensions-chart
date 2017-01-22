@@ -1,0 +1,86 @@
+{
+  "info": {
+    "version": 1.0,
+    "implements_api_version": 1.0,
+    "author": "Information Builders",
+    "copyright": "Information Builders Inc.",
+    "url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.cluster",
+    "icons": {
+      "medium": "icons/medium.png"
+    }
+  },
+	
+  "properties": {
+    "isRadial": false,
+    "nodes": {
+      "size": 5,
+      "maxLevelOffset": 180,
+      "colors": {
+        "empty": "white",
+        "notEmpty": "lightblue"
+      },
+      "border": {
+        "width": 1,
+        "color": "blue"
+      },
+      "labels": {
+        "color": "black",
+	"font": "10px sans-serif"
+      }
+    },
+    "links": {
+      "color": "lightgrey",
+      "width": 1
+    }
+  },
+	
+  "propertyAnnotations": {
+    "isRadial": "bool",
+    "nodes": {
+      "size": "number",
+      "maxLevelOffset": "number",
+      "colors": {
+        "empty": "color",
+        "notEmpty": "color"
+      },
+      "border": {
+        "width": "number",
+        "color": "color"
+      },
+      "labels": {
+        "color": "color",
+	"font": "str"
+      }
+    },
+    "links": {
+      "color": "color",
+      "width": "number"
+    }
+  },
+	
+  "dataBuckets":  {
+      "tooltip": false,
+      "matrix": false,
+      "data_page": false,
+      "series_break": false,
+
+      "buckets": [{
+          "id": "levels",
+          "type": "dimension",
+          "count": {
+            "min": 1,
+            "max": 99
+          }
+       }]
+  },
+
+  "translations": {
+    "en": {
+      "name": "Cluster Diagram",
+      "description": "This extension helps to visualize hierarchical data.",
+      "icon_tooltip": "Cluster Diagram.",
+      "levels_name": "Levels (DIM)",
+      "levels_tooltip": "Drop a dimension here",
+    }
+  }
+}
