@@ -71,7 +71,15 @@ var tdg_sunburst = (function () {
           }
           var child = {};
           iterate(child, val, path, idx + 1, len);
-          obj.children.push(child);
+          
+          var existingChild = obj.children
+            .filter(function(node){ return node.name === child.name; })[0];
+
+          if ( existingChild && existingChild.children ) { // if already have a child with the same name, merge their children
+            existingChild.children = existingChild.children.concat(child.children);
+          } else if ( !existingChild ) { // new child
+            obj.children.push(child);
+          }
         } else {
           obj.size = val;
         }
@@ -154,48 +162,6 @@ var tdg_sunburst = (function () {
 
     var hierarchy = getHierarchyObj(data);
 
-    /*var dataHelper = getDataHelper(data);
-
-    if (dataHelper.edges.length) {
-      data = dataHelper.edges.map(function (edge) {
-        return {
-          node: edge[0],
-          parent: edge[1],
-          value: dataHelper.nodeValueMap[edge[0]]
-        };
-      });
-    } else if (dataHelper.nodes.length) {
-      data = dataHelper.nodes.map(function (node) {
-        return {
-          node: node,
-          parent: null,
-          value: dataHelper.nodeValueMap[node]
-        };
-      });
-    }
-
-    var nodes = [];
-
-    data.forEach(function (d) {
-      if ( typeof d.parent === 'string' && nodes.indexOf(d.parent) < 0 ) {
-        nodes.push(d.parent);
-      }
-      if ( typeof d.parent === 'string' && nodes.indexOf(d.node) < 0 ) {
-        nodes.push(d.node);
-      }
-    });
-
-    nodes.forEach(function (name) {
-      if ( data.every(function (d) { return d.node !== name;}) ) {
-        data.push({
-          node: name,
-          parent: null
-        });
-      }
-    });
-
-    roots = data.filter(function(d){ return d.parent == null; });*/
-
     if ( hierarchy.length > 1 ) {
       return {
         name: fakeRootName,
@@ -204,41 +170,6 @@ var tdg_sunburst = (function () {
     } else {
       return hierarchy[0];
     }
-
-    /*if ( roots.length > 1 ) {
-      root = {
-        node: fakeRootName,
-        parent: null,
-        value: null,
-        _fake: true
-      };
-      data.push(root);
-      roots.forEach(function (d) {
-        d.parent = root.node;
-      });
-    } else {
-      root = roots[0];
-    }
-
-    var result = {},
-      children;
-
-    (function iterate (parent, dObj) {
-      dObj.name = parent.node;
-      children = data.filter(function(d){ return d.parent === parent.node; });
-      if ( children.length ) {
-        dObj.children = [];
-        children.forEach(function (child) {
-          var childDObj = {};
-          iterate(child, childDObj);
-          dObj.children.push(childDObj);
-        });
-      } else { // leaf
-        dObj.size = parent.value || 0;
-      }
-    })(root, result);
-
-    return result;*/
   }
 
 	return function (user_props) {
@@ -321,7 +252,7 @@ var tdg_sunburst = (function () {
       }
     }
 
-    function getDiscreteColorScale (sunburstData) {
+    function getDiscreteColorScale (sunburstData, fakeRootName) {
       var groups = sunburstData.map(function (d) {
         return getGroup(d);
       }).reduce(function (uniq, nodeId) {
@@ -331,11 +262,23 @@ var tdg_sunburst = (function () {
       return d3.scale.ordinal().domain(groups).range(getColors(groups.length));
     }
 
-    function getGroup (d) {
-      if ( props.node.colorBy === 'parent' ) {
-        return ( d.parent ) ? d.parent.name : null;
+    function getGroup (d, fakeRootName) {
+      var groupByParent = props.node.colorBy === 'parent'
+        && !!d.parent;
+
+      if ( groupByParent &&  d.parent.name === fakeRootName ) {
+
+        return d.parent.name + d.parent.children
+          .reduce(function(idx, child, curIdx){ return ( d.name === child.name ) ? curIdx : idx; }, -1);
+
+      } else if ( groupByParent ) {
+
+        return d.parent.name;
+
       } else if ( props.node.colorBy === 'node' ) {
+
         return d.name;
+
       }
     }
 
@@ -431,7 +374,7 @@ var tdg_sunburst = (function () {
         d.ratio = getRatio(d);
       });
 
-      var colorScale = getDiscreteColorScale(sunburstData);
+      var colorScale = getDiscreteColorScale(sunburstData, innerProps.fakeRootName);
 
       var arc = d3.svg.arc()
         .startAngle(function(d) {
@@ -456,7 +399,9 @@ var tdg_sunburst = (function () {
         })
         .style({
           fill : function (d) {
-            return ( d.name !== innerProps.fakeRootName ) ? colorScale(getGroup(d)) : 'none';
+            return ( d.name !== innerProps.fakeRootName )
+            ? colorScale(getGroup(d, innerProps.fakeRootName))
+            : 'none';
           },
           stroke: props.node.border.color,
           'stroke-width': props.node.border.width,
