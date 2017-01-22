@@ -366,7 +366,7 @@ var com_tdg_chord = (function () {
 
 		}
 
-		function buildChordToolTip (idToIndx) {
+		function buildChordToolTip (idToIndx, originalMatrix) {
 			//var ids = _.keys(idToIndx);
 			var ids = [];
 			_.each(idToIndx, function(idx, name){
@@ -385,9 +385,11 @@ var com_tdg_chord = (function () {
 			return function (d) {
 				var str = '<div style="padding: 5px">';
 				names.forEach(function (name, idx, arr) {
-					if ( d[name].index === d[name].subindex && idx > 0) {
-						return;
-					}
+                                        var shouldSkip = ( d[name].index === d[name].subindex && idx > 0 )
+                                          || originalMatrix[d[name].index][d[name].subindex] == null
+
+					if ( shouldSkip ) return;
+
 					if (idx > 0) {
 						str += '<br/><br/>';
 					}
@@ -409,7 +411,7 @@ var com_tdg_chord = (function () {
 			};
 		}
 
-		function renderChords (containerGroup, chord, idToIndx, onRenderComplete) {
+		function renderChords (containerGroup, chord, idToIndx, originalMatrix, onRenderComplete) {
 
 			var fill = getGroupFillScale(chord.groups().length);
 
@@ -429,12 +431,6 @@ var com_tdg_chord = (function () {
 					},
 					opacity: 0
 				});
-				// .transition()
-				// .delay(function (d, i) {
-				// 	return 50 * i;
-				// })
-				// .duration(1000)
-				// .style('opacity', 0.8);
 
 				if ( props.isInteractionDisabled ) {
 					chords.style('opacity', 0.8);
@@ -451,7 +447,7 @@ var com_tdg_chord = (function () {
 				}
 
 				if ( props.toolTipEnabled ) {
-					chords.attr('tdgtitle', buildChordToolTip(idToIndx));
+					chords.attr('tdgtitle', buildChordToolTip(idToIndx, originalMatrix));
 				}
 		}
 
@@ -467,7 +463,8 @@ var com_tdg_chord = (function () {
 				throw new Error('Wrong data set format');
 			}
 
-			var idToIndx = {}, lastIndx = 0;
+			var idToIndx = {},
+                            lastIndx = 0;
 
 			var result = [];
 
@@ -485,6 +482,10 @@ var com_tdg_chord = (function () {
 					result[idToIndx[d.source]][idToIndx[d.target]] = d.value;
 				});
 			});
+                        
+                        var originalMatrix = JSON.parse(JSON.stringify(result));
+                        result.originalMatrix = originalMatrix;
+
 			var len;
 			result.forEach(function (arr) {
 				len = lastIndx;
@@ -646,7 +647,13 @@ var com_tdg_chord = (function () {
 			var groupTitleOffset = getGroupTitleOffset( axis_groups.selectAll('g.tick>text')[0] );
 
 			var chord_group = mainGroup.append('g').classed('chord-group', true);
-			renderChords(chord_group, chord, matrix.idToIndx, invokeAfterFive);
+			renderChords(
+                          chord_group,
+                          chord,
+                          matrix.idToIndx,
+                          matrix.originalMatrix,
+                          invokeAfterFive
+                        );
 
 			var chord_titles_group = mainGroup.append('g').classed('chord-titles-group', true);
 			renderGroupCurvesTitles(
