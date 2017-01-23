@@ -216,7 +216,7 @@ var tdg_marker = (function () {
       labels
         .attr({
           x: innerProps.horizontalPadding,
-          dy: '.5em'
+          dy: '.34em'
         })
         .style({
           fill: function (d) {
@@ -529,19 +529,47 @@ var tdg_marker = (function () {
           return arr.concat(cur);
         });
     }
+    
+    function removeOverlapingLabels ( labels, markers ) {
+      var yPositions = getGroupLabelsVerticalPosition(labels, markers);
+
+        var isVisibleAtGroupIdx = yPositions.reduce(function(info, pos){
+          if ( pos === info.lastPos ) {
+            info.res.push(false); 
+          } else {
+            info.lastPos = pos; 
+            info.res.push(true); 
+          }
+
+           return info; 
+        }, {res: [], lastPos: null}).res;
+        
+        labels.filter(function(d, group){
+          return !isVisibleAtGroupIdx[group];
+        })
+        .remove();
+    }
+    
+    function getGroupLabelsVerticalPosition ( labels, markers ) {
+      return labels.data()
+        .map(function(d, group){
+          var groupYPositions = [];
+          markers.filter(function (d) {
+            return group === d.group;
+          }).each(function (d) {
+            groupYPositions.push(d.y);
+          });
+
+          return Math.round(d3.mean(groupYPositions) * 10) / 10;
+        });
+    }
 
     function positionLabelsVerticaly (labels, markers) {
-      var yPositions;
-      labels.attr('y', function (d, group) {
-        yPositions = [];
-        markers.filter(function (d) {
-          return group === d.group;
-        }).each(function (d) {
-          yPositions.push(d.y);
-        });
+      var yPositions = getGroupLabelsVerticalPosition(labels, markers);
 
-        return d3.mean(yPositions);
-      });
+        labels.attr('y', function(d, group){
+          return yPositions[group];
+        });
     }
 
     function enableInteraction (labels, markers) {
@@ -611,7 +639,9 @@ var tdg_marker = (function () {
       if (props.label.enabled) {
         group_labels = selection.append('g')
           .classed('group-labels', true);
+
         var labelsData = buildLabelsData(markerInfo);
+
         labels = renderLabels(group_labels, labelsData, function(){
           invokeAfterThreeOrTwo();
         });
@@ -646,6 +676,7 @@ var tdg_marker = (function () {
         group_labels
           .attr('transform', 'translate(' + [0, innerProps.verticalPadding] + ')');
         positionLabelsVerticaly(labels, markers);
+        removeOverlapingLabels(labels, markers);
       }
       // -------------- LABEL POSITIONING LOGIC ENDS
 
