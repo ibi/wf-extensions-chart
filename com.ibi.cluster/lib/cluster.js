@@ -141,8 +141,16 @@ var tdg_cluster = (function() {
 
             iterate( child, val, path, pathIdx + 1, pathLength );
 
-            child.childIndex = obj.children.length;
-            obj.children[obj.children.length] = child;
+            var existingChild = obj.children
+              .filter(function(node){ return node.name === child.name; })[0];
+
+            if ( existingChild && existingChild.children ) { // if already have a child with the same name, merge their children
+              existingChild.children = existingChild.children.concat(child.children);
+            } else if ( !existingChild ) { // new child
+              child.childIndex = obj.children.length;
+              obj.children[obj.children.length] = child;
+            }
+
           }
         })(
           root,
