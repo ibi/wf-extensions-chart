@@ -85,9 +85,21 @@ var tdg_arc = (function() { // change name
                 }
             },
             axis: {
+		base: {
+			color: 'black',
+			width: 1
+		},
                 labels: {
                     format: null
-                }
+                },
+		ticks: {
+			color: 'black',
+			width: 1,
+			labels: {
+				fontSize: '10px',
+				color: 'black'
+			}
+		}
             },
             valueLabel: {
                 fontFamily: "sans-serif",
@@ -178,7 +190,7 @@ var tdg_arc = (function() { // change name
                     vertical: 0
                 },
                 marker: {
-                    radius: 5,
+                    radius: 8,
                     animation: {
                         delay: 500,
                         duration: 500
@@ -737,8 +749,8 @@ var tdg_arc = (function() { // change name
             axis.enter().append('path').classed('base');
 
             axis.style({
-                stroke: innerProps.axis.base.color,
-                'stroke-width': innerProps.axis.base.width
+                stroke: props.axis.base.color,
+                'stroke-width': props.axis.base.width
             });
 
             var invokeAfterTwo = getInvokeAfter(onRenderComplete, 2);
@@ -779,8 +791,8 @@ var tdg_arc = (function() { // change name
                     y2: 0
                 })
                 .style({
-                    stroke: innerProps.axis.ticks.color,
-                    'stroke-width': innerProps.axis.ticks.width
+                    stroke: props.axis.ticks.color,
+                    'stroke-width': props.axis.ticks.width
                 });
 
             ticks.append('text').classed('label', true)
@@ -796,8 +808,8 @@ var tdg_arc = (function() { // change name
                         return d.angle > Math.PI ? "end" : null;
                     },
                     'font-family': innerProps.axis.ticks.labels.fontFamily,
-                    'font-size': innerProps.axis.ticks.labels.fontSize,
-                    fill: innerProps.axis.ticks.labels.color
+                    'font-size': props.axis.ticks.labels.fontSize,
+                    fill: props.axis.ticks.labels.color
                 })
                 .text(function(d) {
                     return d.label;
@@ -838,7 +850,12 @@ var tdg_arc = (function() { // change name
             if (horrizOverflow > 0 || vertOverflow > 0) {
                 var origTransform = selection.attr('transform'),
                     scale;
-                scale = (horrizOverflow > vertOverflow) ? (props.width - 2 * innerProps.rescale.padding) / selectionDim.width : (props.height - 2 * innerProps.rescale.padding) / selectionDim.height;
+                scale = (horrizOverflow > vertOverflow)
+                  ? (props.width - 2 * innerProps.rescale.padding) / selectionDim.width
+                  : (props.height - 2 * innerProps.rescale.padding) / selectionDim.height;
+
+                scale *= 0.95;
+
                 if (props.isInteractionDisabled) {
                   selection.attr('transform', function(d, i) {
                     return (origTransform ? origTransform : '') + 'scale(' + scale + ')';
@@ -944,7 +961,7 @@ var tdg_arc = (function() { // change name
                     x2: 0
                 })
                 .style({
-                    stroke: 'black'
+                    stroke: '#333333'
                 });
 
             var markers = group_label.append('path')
@@ -963,7 +980,7 @@ var tdg_arc = (function() { // change name
                             return innerProps.colors[d.idx];
                         }
                     },
-                    stroke: 'black'
+                    stroke: '#333333'
                 });
 
             var invokeAfterThree = getInvokeAfter(onRenderComplete, 3);

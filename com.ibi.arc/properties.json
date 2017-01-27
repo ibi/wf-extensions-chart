@@ -27,20 +27,32 @@
 			}
 		},
 		"axis": {
+			"base": {
+				"color": "black",
+				"width": 1,
+			},
 			"labels": {
 				"format": "auto"
+			},
+			"ticks": {
+				"color": "black",
+				"width": 1,
+				"labels": {
+					"fontSize": "14px",
+					"color": "black"
+				}
 			}
 		},
 		"valueLabel": {
 			"fontFamily": "sans-serif",
-			"fontSize": "auto",
-			"color": "#000000",
-			"fontWeight": "bold", // "normal", "bolder" or "bold",
+			"fontSize": "18px",
+			"color": "#333333",
+			"fontWeight": "bold", // "normal", "bolder" or "bold"
                         "format": "auto"
 		},
 		"labels": {
 			"text": {
-				"color": "black",
+				"color": "#333333",
 				"font": "Verdana",
 				"weight": "bold",
 				"size": "14px"
@@ -71,8 +83,20 @@
 			}
 		},
 		"axis": {
+			"base": {
+				"color": "str",
+				"width": "number"
+			},
 			"labels": {
 				"format": "str"
+			},
+			"ticks": {
+				"color": "str",
+				"width": "number",
+				"labels": {
+					"fontSize": "str",
+					"color": "str"
+				}
 			}
 		},
 		"valueLabel": {
