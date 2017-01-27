@@ -1186,6 +1186,7 @@ var tdg_arc = (function() { // change name
                 var text = group_value.append('text')
                     .style({
                         'font-family': lblProps.fontFamily || 'sans-serif',
+                      'font-size': lblProps.fontSize || '16px',
                         'font-weight': lblProps.fontWeight || 'normal',
                         fill: lblProps.color || "#000",
                         'text-anchor': 'middle',
@@ -1205,6 +1206,7 @@ var tdg_arc = (function() { // change name
                 } else {
                     text.style('font-size', lblProps.fontSize || '16px');
                 }
+		group_value.select('text').attr("dy",".35em");
             }
 
             function mouseout(d) {

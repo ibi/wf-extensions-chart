@@ -45,7 +45,7 @@
 		},
 		"valueLabel": {
 			"fontFamily": "sans-serif",
-			"fontSize": "18px",
+			"fontSize": "auto",
 			"color": "#333333",
 			"fontWeight": "bold", // "normal", "bolder" or "bold"
                         "format": "auto"
