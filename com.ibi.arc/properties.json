@@ -28,7 +28,7 @@
 		},
 		"axis": {
 			"base": {
-				"color": "transparent",
+				"color": "black",
 				"width": 1,
 			},
 			"labels": {
@@ -36,10 +36,10 @@
 			},
 			"ticks": {
 				"color": "black",
-				"width": 0,
+				"width": 1,
 				"labels": {
 					"fontSize": "14px",
-					"color": "transparent"
+					"color": "black"
 				}
 			}
 		},

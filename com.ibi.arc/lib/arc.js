@@ -85,21 +85,21 @@ var tdg_arc = (function() { // change name
                 }
             },
             axis: {
-				base: {
-					color: 'black',
-					width: 1
-				},
+		base: {
+			color: 'black',
+			width: 1
+		},
                 labels: {
                     format: null
                 },
-				ticks: {
-					color: 'black',
-					width: 1,
-					labels: {
-						fontSize: '10px',
-						color: 'black'
-					}
-				}
+		ticks: {
+			color: 'black',
+			width: 1,
+			labels: {
+				fontSize: '10px',
+				color: 'black'
+			}
+		}
             },
             valueLabel: {
                 fontFamily: "sans-serif",
@@ -850,7 +850,12 @@ var tdg_arc = (function() { // change name
             if (horrizOverflow > 0 || vertOverflow > 0) {
                 var origTransform = selection.attr('transform'),
                     scale;
-                scale = (horrizOverflow > vertOverflow) ? (props.width - 2 * innerProps.rescale.padding) / selectionDim.width : (props.height - 2 * innerProps.rescale.padding) / selectionDim.height;
+                scale = (horrizOverflow > vertOverflow)
+                  ? (props.width - 2 * innerProps.rescale.padding) / selectionDim.width
+                  : (props.height - 2 * innerProps.rescale.padding) / selectionDim.height;
+
+                scale *= 0.95;
+
                 if (props.isInteractionDisabled) {
                   selection.attr('transform', function(d, i) {
                     return (origTransform ? origTransform : '') + 'scale(' + scale + ')';
