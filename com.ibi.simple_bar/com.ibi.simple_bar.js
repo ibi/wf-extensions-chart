@@ -1,5 +1,4 @@
 /* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
-/* $Revision: 1.8 $ */
 
 (function() {
 

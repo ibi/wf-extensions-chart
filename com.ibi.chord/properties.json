@@ -106,6 +106,150 @@
 			"target_tooltip": "Drop a dimension here",
 			"value_name": "Node Link Values (MES)",
 			"value_tooltip": "Drop a measure here"
+		},
+		
+		"de": {
+			"name": "Chord-Diagramm",
+			"description": "Chord-Diagramm",
+			"icon_tooltip": "Chord-Diagramm", 
+			"source_name": "Quellen-Nodes", 
+			"source_tooltip": "Dimension hier ablegen",
+			"target_name": "Ziel-Nodes", 
+			"target_tooltip": "Dimension hier ablegen",
+			"value_name": "Node-Link-Werte",
+			"value_tooltip": "Maßeinheit hier ablegen"
+		},
+		
+		"es": {
+			"name": "Diagrama de acorde",
+			"description": "Diagrama de acorde",
+			"icon_tooltip": "Diagrama de acorde", 
+			"source_name": "Nodos de origen", 
+			"source_tooltip": "Soltar aquí una dimensión",
+			"target_name": "Nodos de destino", 
+			"target_tooltip": "Soltar aquí una dimensión",
+			"value_name": "Valores de vínculo de nodos",
+			"value_tooltip": "Soltar aquí una medida"
+		},
+		
+		"fr": {
+			"name": "Diagramme d'accord",
+			"description": "Diagramme d'accord",
+			"icon_tooltip": "Diagramme d'accord", 
+			"source_name": "Noeuds sources", 
+			"source_tooltip": "Déposer une dimension ici",
+			"target_name": "Noeuds cibles", 
+			"target_tooltip": "Déposer une dimension ici",
+			"value_name": "Valeurs de Lien de noeud",
+			"value_tooltip": "Déposer une mesure ici"
+		},
+		
+		"fc": {
+			"name": "Diagramme d'accord",
+			"description": "Diagramme d'accord",
+			"icon_tooltip": "Diagramme d'accord", 
+			"source_name": "Noeuds sources", 
+			"source_tooltip": "Déposer une dimension ici",
+			"target_name": "Noeuds cibles", 
+			"target_tooltip": "Déposer une dimension ici",
+			"value_name": "Valeurs de Lien de noeud",
+			"value_tooltip": "Déposer une mesure ici"
+		},
+		
+		"it": {
+			"name": "Diagramma di Accordo",
+			"description": "Diagramma di Accordo",
+			"icon_tooltip": "Diagramma di Accordo", 
+			"source_name": "Nodi Origine", 
+			"source_tooltip": "Rilascia qui una dimensione",
+			"target_name": "Nodi Target", 
+			"target_tooltip": "Rilascia qui una dimensione",
+			"value_name": "Valori Link Nodo",
+			"value_tooltip": "Rilascia qui una misura"
+		},
+		
+		"iw": {
+			"name": "Chord Diagram",
+			"description": "Chord Diagram",
+			"icon_tooltip": "Chord Diagram", 
+			"source_name": "Source Nodes", 
+			"source_tooltip": "Drop a dimension here",
+			"target_name": "Target Nodes", 
+			"target_tooltip": "Drop a dimension here",
+			"value_name": "Node Link Values",
+			"value_tooltip": "Drop a measure here"
+		},
+		
+		"ja": {
+			"name": "コードダイアグラム",
+			"description": "コードダイアグラムです。",
+			"icon_tooltip": "コードダイアグラム", 
+			"source_name": "ソースノード", 
+			"source_tooltip": "ここにディメンションをドロップ",
+			"target_name": "ターゲットノード", 
+			"target_tooltip": "ここにディメンションをドロップ",
+			"value_name": "ノードリンク値",
+			"value_tooltip": "ここに基軸をドロップ"
+		},
+		
+		"br": {
+			"name": "Diagrama de Cordas",
+			"description": "Diagrama de Cordas",
+			"icon_tooltip": "Diagrama de Cordas", 
+			"source_name": "Nós de Origem", 
+			"source_tooltip": "Solte uma dimensăo aqui",
+			"target_name": "Nós de Destino", 
+			"target_tooltip": "Solte uma dimensăo aqui",
+			"value_name": "Valores de Link de Nó",
+			"value_tooltip": "Solte uma medida aqui"
+		},
+		
+		"ru": {
+			"name": "Chord Diagram",
+			"description": "Chord Diagram",
+			"icon_tooltip": "Chord Diagram", 
+			"source_name": "Source Nodes", 
+			"source_tooltip": "Drop a dimension here",
+			"target_name": "Target Nodes", 
+			"target_tooltip": "Drop a dimension here",
+			"value_name": "Node Link Values",
+			"value_tooltip": "Drop a measure here"
+		},
+		
+		"ko": {
+			"name": "코드 다이어그램",
+			"description": "코드 다이어그램",
+			"icon_tooltip": "코드 다이어그램", 
+			"source_name": "소스 노드", 
+			"source_tooltip": "여기에 특성 항목 놓기",
+			"target_name": "대상 노드", 
+			"target_tooltip": "여기에 특성 항목 놓기",
+			"value_name": "노드 링크 값",
+			"value_tooltip": "여기에 측정 드롭"
+		},	
+			
+		"tw": {
+			"name": "弦樂圖表",
+			"description": "弦樂圖表",
+			"icon_tooltip": "弦樂圖表", 
+			"source_name": "來源節點", 
+			"source_tooltip": "拖曳維度到這裡",
+			"target_name": "目標節點", 
+			"target_tooltip": "拖曳維度到這裡",
+			"value_name": "節點鏈結值",
+			"value_tooltip": "拖曳測量到這裡"
+		},
+		
+		"zh": {
+			"name": "弦形图",
+			"description": "弦形图",
+			"icon_tooltip": "弦形图", 
+			"source_name": "源节点", 
+			"source_tooltip": "将维拖到此处",
+			"target_name": "目标节点", 
+			"target_tooltip": "将维拖到此处",
+			"value_name": "节点链接值",
+			"value_tooltip": "将度量拖到此处"
 		}
 	}
 }

@@ -7,6 +7,7 @@
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.liquid_gauge",
 		"license": "BSD 3-clause",
 		"icons": {
+			"small": "icons/liquid_gauge_icon_small.png",
 			"medium": "icons/liquid_gauge_icon_medium.png"
 		}
 	},
@@ -79,7 +80,103 @@
 			"description": "Fancy animated gauge chart with a liquid interior",
 			"icon_tooltip": "Liquid Gauge Chart", 
 			"value_name": "Value Bucket", 
-			"value_tooltip": "Drop a measusre here"
+			"value_tooltip": "Drop a measure here"
+		},
+		
+		"de": {
+			"name": "Pegeldiagramm",
+			"description": "Animiertes Pegeldiagramm mit Flüssigkeitsfüllung",
+			"icon_tooltip": "Pegeldiagramm (Flüssigkeitsfüllung)", 
+			"value_name": "Wert-Bucket", 
+			"value_tooltip": "Maßeinheit hier ablegen"
+		},
+		
+		"es": {
+			"name": "Diagrama de indicador líquido",
+			"description": "Sofisticado diagrama animado con interior líquido",
+			"icon_tooltip": "Diagrama de indicador líquido", 
+			"value_name": "Depósito de valores", 
+			"value_tooltip": "Soltar aquí una medida"
+		},
+		
+		"fr": {
+			"name": "Graphique de jauge liquide",
+			"description": "Graphique de jauge animée avec intérieur liquide",
+			"icon_tooltip": "Graphique de jauge liquide", 
+			"value_name": "Compartiment de valeurs", 
+			"value_tooltip": "Déposer une mesure ici"
+		},
+		
+		"fc": {
+			"name": "Graphique de jauge liquide",
+			"description": "Graphique de jauge animée avec intérieur liquide",
+			"icon_tooltip": "Graphique de jauge liquide", 
+			"value_name": "Compartiment de valeurs", 
+			"value_tooltip": "Déposer une mesure ici"
+		},
+		
+		"it": {
+			"name": "Grafico Indicatore Liquido",
+			"description": "Grafico indicatore animato con interiore liquido",
+			"icon_tooltip": "Grafico Interiore Liquido", 
+			"value_name": "Bucket di Valori", 
+			"value_tooltip": "Rilascia qui una misura"
+		},
+		
+		"iw": {
+			"name": "Liquid Gauge Chart",
+			"description": "Fancy animated gauge chart with a liquid interior",
+			"icon_tooltip": "Liquid Gauge Chart", 
+			"value_name": "Value Bucket", 
+			"value_tooltip": "Drop a measure here"
+		},
+		
+		"ja": {
+			"name": "液体メータグラフ",
+			"description": "内部の液体をアニメーション化した高度なメータグラフです。",
+			"icon_tooltip": "液体メータグラフ", 
+			"value_name": "値バケット", 
+			"value_tooltip": "ここに基軸をドロップ"
+		},
+		
+		"br": {
+			"name": "Medidor Líquido",
+			"description": "Medidor com animaçăo sofisticada e interior líquido",
+			"icon_tooltip": "Medidor Líquido", 
+			"value_name": "Recipiente de Valor", 
+			"value_tooltip": "Solte uma medida aqui"
+		},
+		
+		"ru": {
+			"name": "Liquid Gauge Chart",
+			"description": "Fancy animated gauge chart with a liquid interior",
+			"icon_tooltip": "Liquid Gauge Chart", 
+			"value_name": "Value Bucket", 
+			"value_tooltip": "Drop a measure here"
+		},
+
+		"ko": {
+			"name": "액체 게이지 차트",
+			"description": "액체 인테리어와 멋진 애니메이션 게이지 차트",
+			"icon_tooltip": "액체 게이지 차트", 
+			"value_name": "값 버킷", 
+			"value_tooltip": "여기에 측정 드롭"
+		},		
+
+		"tw": {
+			"name": "液態量規圖表",
+			"description": "具有液態內部的新潮動畫量規圖表",
+			"icon_tooltip": "液態量規圖表", 
+			"value_name": "值儲存區", 
+			"value_tooltip": "拖曳測量到這裡"
+		},
+		
+		"zh": {
+			"name": "液标尺图表",
+			"description": "带有液体内部的流行动画标尺图表",
+			"icon_tooltip": "液标尺图表", 
+			"value_name": "值存储区", 
+			"value_tooltip": "将度量拖到此处"
 		}
 	}
 }

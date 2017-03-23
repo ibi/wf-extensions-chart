@@ -1,4 +1,5 @@
 /* globals _*/
+// Copyright 1996-2016 Information Builders, Inc. All rights reserved.
 
 (function() {
     // Required: Is invoked in the middle of each Moonbeam draw cycle

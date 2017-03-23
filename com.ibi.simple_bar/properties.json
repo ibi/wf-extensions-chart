@@ -1,6 +1,3 @@
-// Copyright 1996-2015 Information Builders, Inc. All rights reserved.
-// $Revision: 1.15 $
-
 {
 	"info": {
 		"version": 1.0,
@@ -9,7 +6,7 @@
 		"copyright": "Information Builders Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/simple_bar%20example",
 		"icons": {
-			"medium": "icons/medium.png"
+			"medium": "icons/small.png"
 		}
 	},
 	
@@ -149,6 +146,16 @@
 			"labels_tooltip": "Drop a dimension here"
 		},
 		
+		"ko": {
+			"name": "내 간단한 막대 차트",
+			"description": "이 차트는 단순한 막 대형 차트이며 여기서는 볼 수 없습니다.",
+			"icon_tooltip": "이 확장 기능은 ...", 
+			"value_name": "값 버킷", 
+			"value_tooltip": "여기에 측정 드롭", 
+			"labels_name": "라벨 버킷", 
+			"labels_tooltip": "여기에 특성 항목 놓기"
+		},
+			
 		"tw": {
 			"name": "簡式直條圖",
 			"description": "這圖表只是一個簡式直條圖, 沒有任何資料。",

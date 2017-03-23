@@ -153,6 +153,126 @@
 			"value_tooltip": "Drop a measure here",
 			"label_name": "Label (DIM)", 
 			"label_tooltip": "Drop a measure here"
+		},
+		
+		"de": {
+			"name": "Bogendiagramm",
+			"description": "Bogendiagramm",
+			"icon_tooltip": "Bogendiagramm", 
+			"value_name": "Wert-Bucket", 
+			"value_tooltip": "Maßeinheit hier ablegen",
+			"label_name": "Label-Bucket", 
+			"label_tooltip": "Maßeinheit hier ablegen"
+		},
+		
+		"es": {
+			"name": "Diagrama de arco",
+			"description": "Diagrama de arco",
+			"icon_tooltip": "Diagrama de arco ", 
+			"value_name": "Depósito de valores", 
+			"value_tooltip": "Soltar aquí una medida",
+			"label_name": "Depósito de etiquetas", 
+			"label_tooltip": "Soltar aquí una medida"
+		},
+		
+		"fr": {
+			"name": "Diagramme d'arc",
+			"description": "Diagramme d'arc",
+			"icon_tooltip": "Diagramme d'arc", 
+			"value_name": "Compartiment de valeurs", 
+			"value_tooltip": "Déposer une mesure ici",
+			"label_name": "Compartiment d'étiquettes", 
+			"label_tooltip": "Déposer une mesure ici"
+		},
+		
+		"fc": {
+			"name": "Diagramme d'arc",
+			"description": "Diagramme d'arc",
+			"icon_tooltip": "Diagramme d'arc", 
+			"value_name": "Compartiment de valeurs", 
+			"value_tooltip": "Déposer une mesure ici",
+			"label_name": "Compartiment d'étiquettes", 
+			"label_tooltip": "Déposer une mesure ici"
+		},
+		
+		"it": {
+			"name": "Grafico ad Arco",
+			"description": "Grafico ad Arco",
+			"icon_tooltip": "Grafico ad Arco", 
+			"value_name": "Bucket di Valori", 
+			"value_tooltip": "Rilascia qui una misura",
+			"label_name": "Bucket di Etichette", 
+			"label_tooltip": "Rilascia qui una misura"
+		},
+		
+		"iw": {
+			"name": "Arc Chart",
+			"description": "Arc Chart",
+			"icon_tooltip": "Arc Chart", 
+			"value_name": "Value Bucket", 
+			"value_tooltip": "Drop a measure here",
+			"label_name": "Label Bucket", 
+			"label_tooltip": "Drop a measure here"
+		},
+		
+		"ja": {
+			"name": "円弧グラフ",
+			"description": "円弧グラフです。",
+			"icon_tooltip": "円弧グラフ", 
+			"value_name": "値バケット", 
+			"value_tooltip": "ここに基軸をドロップ",
+			"label_name": "ラベルバケット", 
+			"label_tooltip": "ここに基軸をドロップ"
+		},
+		
+		"br": {
+			"name": "Gráfico de Arco",
+			"description": "Gráfico de Arco",
+			"icon_tooltip": "Gráfico de Arco", 
+			"value_name": "Recipiente de Valor", 
+			"value_tooltip": "Solte uma medida aqui",
+			"label_name": "Recipiente do Rótulo", 
+			"label_tooltip": "Solte uma medida aqui"
+		},
+		
+		"ru": {
+			"name": "Arc Chart",
+			"description": "Arc Chart",
+			"icon_tooltip": "Arc Chart", 
+			"value_name": "Value Bucket", 
+			"value_tooltip": "Drop a measure here",
+			"label_name": "Label Bucket", 
+			"label_tooltip": "Drop a measure here"
+		},
+		
+		"ko": {
+			"name": "원형 차트",
+			"description": "원형 차트",
+			"icon_tooltip": "원형 차트", 
+			"value_name": "값 버킷 ", 
+			"value_tooltip": "여기에 측정 드롭",
+			"label_name": "레이블 버킷", 
+			"label_tooltip": "여기에 측정 드롭"
+		},
+		
+		"tw": {
+			"name": "弧圖表",
+			"description": "弧圖表",
+			"icon_tooltip": "弧圖表", 
+			"value_name": "值儲存區", 
+			"value_tooltip": "拖曳測量到這裡",
+			"label_name": "標籤儲存區", 
+			"label_tooltip": "拖曳測量到這裡"
+		},
+		
+		"zh": {
+			"name": "弧图表",
+			"description": "弧图表",
+			"icon_tooltip": "弧图表", 
+			"value_name": "值存储区", 
+			"value_tooltip": "将度量拖到此处",
+			"label_name": "标签存储区", 
+			"label_tooltip": "将度量拖到此处"
 		}
 	}
 }

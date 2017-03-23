@@ -1,4 +1,6 @@
 /* globals _*/
+// Copyright 1996-2015 Information Builders, Inc. All rights reserved.
+
 (function() {
 	// All extension callback functions are passed a standard 'renderConfig' argument:
 	//

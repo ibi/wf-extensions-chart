@@ -9,6 +9,7 @@
 		"copyright": "Information Builders Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/simple_bar%20example",
 		"icons": {
+			"small": "icons/small.png",
 			"medium": "icons/medium.png"
 		}
 	},
