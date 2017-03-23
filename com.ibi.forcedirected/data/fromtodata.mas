@@ -1,0 +1,12 @@
+FILENAME=FROMTODATA, SUFFIX=DIREXCEL,
+ DATASET=C:\ibi\WebFOCUS_BUE82\WebFOCUS\config\web_resource\extensions\com.ibi.forcedirected\data\FromToData.xlsx, $
+  SEGMENT=FROMTODATA, SEGTYPE=S0, $
+    FIELDNAME=FROM1, ALIAS=From, USAGE=A14V, ACTUAL=A14V,
+      MISSING=ON,
+      TITLE='From', $
+    FIELDNAME=TO1, ALIAS=To, USAGE=A19V, ACTUAL=A19V,
+      MISSING=ON,
+      TITLE='To', $
+    FIELDNAME=THICKNESS, ALIAS=Thickness, USAGE=I5, ACTUAL=A11,
+      MISSING=ON,
+      TITLE='Thickness', $
