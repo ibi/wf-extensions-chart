@@ -6,16 +6,18 @@
 		"copyright": "Information Builders Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/simple_bar%20example",
 		"icons": {
-			"medium": "icons/small.png"
+			"medium": "icons/icon.svg"
 		}
 	},
 	
 	"properties": {
-		"chartHeadroom": 50
+		"chartHeadroom": 50,
+		"external_library": "lib/d3.min.js"
 	},
 	
 	"propertyAnnotations": {
-		"chartHeadroom": "number"
+		"chartHeadroom": "number",
+		"external_library": "str"
 	},
 	
 	"dataBuckets":  {
@@ -23,7 +25,7 @@
 		"tooltip": false,
 		"matrix": false,
 		"data_page": false,
-		"series_break": false,
+		"series_break": true,
 
 		"buckets": [
 			{
@@ -31,7 +33,7 @@
 				"type": "measure",
 				"count": {
 					"min": 1,
-					"max": 5
+					"max": 1
 				}
 			},
 			{
@@ -39,7 +41,7 @@
 				"type": "dimension",
 				"count": {
 					"min": 0,
-					"max": 5
+					"max": 1
 				}
 			}
 		]
@@ -47,8 +49,8 @@
 
 	"translations": {
 		"en": {
-			"name": "My Simple Bar Chart",
-			"description": "This chart is just a simple bar chart, nothing to see here.",
+			"name": "Simple Bar Chart",
+			"description": "This chart is a simple bar chart which demonstrates many chart extension features",
 			"icon_tooltip": "This extension does ...", 
 			"value_name": "Value Bucket", 
 			"value_tooltip": "Drop a measure here", 
@@ -159,7 +161,7 @@
 		"tw": {
 			"name": "簡式直條圖",
 			"description": "這圖表只是一個簡式直條圖, 沒有任何資料。",
-			"icon_tooltip": "此副檔名會 ...", 
+			"icon_tooltip": "此擴充功能會 ...", 
 			"value_name": "值儲存區", 
 			"value_tooltip": "拖曳測量到這裡", 
 			"labels_name": "標籤儲存區", 
@@ -169,7 +171,7 @@
 		"zh": {
 			"name": "简单条形图",
 			"description": "这图表只是一个简单的条形图, 这里什么都没有。",
-			"icon_tooltip": "此扩展名会 ...", 
+			"icon_tooltip": "此扩展会 ...", 
 			"value_name": "值存储区", 
 			"value_tooltip": "将度量拖到此处", 
 			"labels_name": "标签存储区", 
