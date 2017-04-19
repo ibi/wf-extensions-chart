@@ -1,0 +1,276 @@
+// Copyright 1996-2015 Information Builders, Inc. All rights reserved.
+// $Revision: 1.15 $
+
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 1.0,
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/simple_bar%20example",
+		"icons": {
+			"medium": "icons/datatables.png"
+		}
+	},
+	
+	"properties": {
+		"paging": true,
+		"ordering": true,
+		"info": true,
+		"searching": true,
+		"lengthChange": false,
+		"colReorder": true,
+		"responsive": true,
+		"scroller": false,
+		"scrollY": 370,
+		"showTotal": false,
+		"color": '#555',
+		"padding": '8px',
+		"border": '1px solid #ddd',
+		"fontFamily": '"Helvetica Neue",Helvetica,Arial,sans-serif',
+		"fontSize": '14px',
+		"title": {
+			"fontWeight": 'bold',
+			"color": 'inherit',
+			"backgroundColor": 'transparent'
+		},
+		"data": {
+			"fontWeight": 'normal',
+			"color": 'inherit',
+			"backgroundColorOdd": '#f9f9f9',
+			"backgroundColorEven": 'transparent',
+			"selected": {
+				"color": 'inherit',
+				"border": '1px solid #99cfff',
+				"backgroundColor": '#cde8ff',
+			}
+		},
+		"crossTabs": {
+			"fontWeight": 'bold',
+			"color": 'inherit',
+			"backgroundColorOdd": '#f9f9f9',
+			"backgroundColorEven": 'transparent'
+		}
+	},
+	
+	"propertyAnnotations": {
+		"paging": "bool",
+		"ordering": "bool",
+		"info": "bool",
+		"searching": "bool",
+		"lengthChange": "bool",
+		"colReorder": "bool",
+		"responsive": "bool",
+		"scroller": "bool",
+		"scrollY": "number",
+		"showTotal": "bool",
+		"color": "str",
+		"padding": "str",
+		"border": "str",
+		"fontFamily": "str",
+		"fontSize": "str",
+		"title": {
+			"fontWeight": "str",
+			"color": "str",
+			"backgroundColor": "str"
+		},
+		"data": {
+			"fontWeight": "str",
+			"color": "str",
+			"backgroundColorOdd": "str",
+			"backgroundColorEven": "str",
+			"selected": {
+				"color": "str",
+				"border": "str",
+				"backgroundColor": "str",
+			}
+		},
+		"crossTabs": {
+			"fontWeight": "str",
+			"color": "str",
+			"backgroundColorOdd": "str",
+			"backgroundColorEven": "str"
+		}
+	},
+	
+	"dataBuckets":  {
+	
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+			{
+				"id": "measure",
+				"type": "measure",
+				"count": {
+					"min": 0,
+					"max": 16
+				}
+			},
+			{
+				"id": "row",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 16
+				}
+			},
+			{
+				"id": "column",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 16
+				}
+			}
+		]
+	},
+
+	"translations": {
+		"en": {
+			"name": "Datatables Grid",
+			"description": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.",
+			"icon_tooltip": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.", 
+			"measures_name": "Measures", 
+			"measures_tooltip": "Drop a measure here", 
+			"rows_name": "Rows", 
+			"rows_tooltip": "Drop a dimension here",
+			"columns_name": "Columns", 
+			"columns_tooltip": "Drop a dimension here"
+		},
+		
+		"de": {
+			"name": "Datatables Grid",
+			"description": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.",
+			"icon_tooltip": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.", 
+			"measures_name": "Measures", 
+			"measures_tooltip": "Drop a measure here", 
+			"rows_name": "Rows", 
+			"rows_tooltip": "Drop a dimension here",
+			"columns_name": "Columns", 
+			"columns_tooltip": "Drop a dimension here"
+		},
+		
+		"es": {
+			"name": "Datatables Grid",
+			"description": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.",
+			"icon_tooltip": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.", 
+			"measures_name": "Measures", 
+			"measures_tooltip": "Drop a measure here", 
+			"rows_name": "Rows", 
+			"rows_tooltip": "Drop a dimension here",
+			"columns_name": "Columns", 
+			"columns_tooltip": "Drop a dimension here"
+		},
+		
+		"fr": {
+			"name": "Datatables Grid",
+			"description": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.",
+			"icon_tooltip": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.", 
+			"measures_name": "Measures", 
+			"measures_tooltip": "Drop a measure here", 
+			"rows_name": "Rows", 
+			"rows_tooltip": "Drop a dimension here",
+			"columns_name": "Columns", 
+			"columns_tooltip": "Drop a dimension here"
+		},
+		
+		"fc": {
+			"name": "Datatables Grid",
+			"description": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.",
+			"icon_tooltip": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.", 
+			"measures_name": "Measures", 
+			"measures_tooltip": "Drop a measure here", 
+			"rows_name": "Rows", 
+			"rows_tooltip": "Drop a dimension here",
+			"columns_name": "Columns", 
+			"columns_tooltip": "Drop a dimension here"
+		},
+		
+		"it": {
+			"name": "Datatables Grid",
+			"description": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.",
+			"icon_tooltip": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.", 
+			"measures_name": "Measures", 
+			"measures_tooltip": "Drop a measure here", 
+			"rows_name": "Rows", 
+			"rows_tooltip": "Drop a dimension here",
+			"columns_name": "Columns", 
+			"columns_tooltip": "Drop a dimension here"
+		},
+		
+		"iw": {
+			"name": "Datatables Grid",
+			"description": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.",
+			"icon_tooltip": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.", 
+			"measures_name": "Measures", 
+			"measures_tooltip": "Drop a measure here", 
+			"rows_name": "Rows", 
+			"rows_tooltip": "Drop a dimension here",
+			"columns_name": "Columns", 
+			"columns_tooltip": "Drop a dimension here"
+		},
+		
+		"ja": {
+			"name": "Datatables Grid",
+			"description": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.",
+			"icon_tooltip": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.", 
+			"measures_name": "Measures", 
+			"measures_tooltip": "Drop a measure here", 
+			"rows_name": "Rows", 
+			"rows_tooltip": "Drop a dimension here",
+			"columns_name": "Columns", 
+			"columns_tooltip": "Drop a dimension here"
+		},
+		
+		"br": {
+			"name": "Datatables Grid",
+			"description": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.",
+			"icon_tooltip": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.", 
+			"measures_name": "Measures", 
+			"measures_tooltip": "Drop a measure here", 
+			"rows_name": "Rows", 
+			"rows_tooltip": "Drop a dimension here",
+			"columns_name": "Columns", 
+			"columns_tooltip": "Drop a dimension here"
+		},
+		
+		"ru": {
+			"name": "Datatables Grid",
+			"description": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.",
+			"icon_tooltip": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.", 
+			"measures_name": "Measures", 
+			"measures_tooltip": "Drop a measure here", 
+			"rows_name": "Rows", 
+			"rows_tooltip": "Drop a dimension here",
+			"columns_name": "Columns", 
+			"columns_tooltip": "Drop a dimension here"
+		},
+		
+		"tw": {
+			"name": "Datatables Grid",
+			"description": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.",
+			"icon_tooltip": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.", 
+			"measures_name": "Measures", 
+			"measures_tooltip": "Drop a measure here", 
+			"rows_name": "Rows", 
+			"rows_tooltip": "Drop a dimension here",
+			"columns_name": "Columns", 
+			"columns_tooltip": "Drop a dimension here"
+		},
+		
+		"zh": {
+			"name": "Datatables Grid",
+			"description": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.",
+			"icon_tooltip": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.", 
+			"measures_name": "Measures", 
+			"measures_tooltip": "Drop a measure here", 
+			"rows_name": "Rows", 
+			"rows_tooltip": "Drop a dimension here",
+			"columns_name": "Columns", 
+			"columns_tooltip": "Drop a dimension here"
+		}
+	}
+}
