@@ -11,18 +11,18 @@
     },
 
     "properties": {
-        "extraMarkersColor": '#898989',
+        "extraMarkersColor": "#898989",
         "mode": "proportion",
         "marker": {
-            "type": 'circle',
+            "type": "circle",
             "cellRatio": 0.8,
             "countRange" : [100, 625]
         },
         "label": {
             "enabled": false,
-            "format": 'auto',
+            "format": "auto",
             "font": {
-                "color": 'auto'
+                "color": "auto"
             }
         },
         "tooltip": {
@@ -32,22 +32,21 @@
     },
 
     "propertyAnnotations": {
-        "extraMarkersColor": 'color',
+        "extraMarkersColor": "color",
         "mode": "str",
         "marker": {
-            "type": 'str',
-            "cellRatio": 'number',
-            "defaultCount": 'number',
+            "type": "str",
+            "cellRatio": "number",
             "countRange": {
                 "typeAnnotation": "array",
                 "arrayTypes": "number"
             }
         },
         "label": {
-            "enabled": 'bool',
-            "format": 'str',
+            "enabled": "bool",
+            "format": "str",
             "font": {
-                "color": 'str'
+                "color": "str"
             }
         },
         "tooltip": {
@@ -82,28 +81,10 @@
             "name": "Marker Chart",
             "description": "Simple Marker Chart",
             "icon_tooltip": "Simple Marker Chart",
-            "count_name": "Number of Markers (MES)",
+            "count_name": "Number of Markers",
             "count_tooltip": "Drop a measure here",
-            "label_name": "Label (DIM)",
+            "label_name": "Label",
             "label_tooltip": "Drop a dimension here"
-        },
-        "tw": {
-            "name": "記號圖表",
-            "description": "簡式記號圖表",
-            "icon_tooltip": "簡式記號圖表",
-            "count_name": "記號數 (MES)",
-            "count_tooltip": "拖曳測量到這裡",
-            "label_name": "標籤 (DIM)",
-            "label_tooltip": "拖曳維度到這裡"
-        },
-        "zh": {
-            "name": "标记图表",
-            "description": "简单标记图表",
-            "icon_tooltip": "简单标记图表",
-            "count_name": "标记数 (MES)",
-            "count_tooltip": "将度量拖到此处",
-            "label_name": "标签 (DIM)",
-            "label_tooltip": "将维拖到此处"
         }
     }
 }
