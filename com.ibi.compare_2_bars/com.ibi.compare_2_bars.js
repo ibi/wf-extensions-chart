@@ -202,6 +202,7 @@
 			
 		renderConfig.modules.tooltip.updateToolTips();  // Tell the chart engine your chart is ready for tooltips to be added
 		renderConfig.modules.dataSelection.activateSelection();  // Tell the chart engine your chart is ready for data selection to be enabled
+		renderConfig.renderComplete();
 	}
 	
 	function noDataRenderCallback(renderConfig) {
@@ -232,6 +233,9 @@
 				supported: true,  // Set this true if your extension wants to enable data selection
 				needSVGEventPanel: false, // if you're using an HTML container or altering the SVG container, set this to true and the chart engine will insert the necessary SVG elements to capture user interactions
 				svgNode: function(arg){}  // if you're using an HTML container or altering the SVG container, return a reference to your root SVG node here.
+			},
+			eventHandler: {
+				supported: true
 			},
 			tooltip: {
 				supported: true  // Set this true if your extension wants to enable HTML tooltips

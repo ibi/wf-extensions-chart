@@ -10,10 +10,9 @@
 		if (chart.noDataMode || !hasAtLeastOneValidDatum(preRenderConfig.data)) {
 			chart.title.visible = true;
 			chart.title.text = "Drop Measures or Sorts into the Query Pane";
+			chart.title.align = "center";
 			chart.title.font = "20pt Sans-Serif";
 			chart.title.color = "#A8A8A8";
-		} else {
-			chart.title.visible = false;
 		}
 		chart.legend.visible = false;
 	}
