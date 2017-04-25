@@ -430,7 +430,7 @@
 		noDataPreRenderCallback: noDataPreRenderCallback, 
 		noDataRenderCallback: noDataRenderCallback,
 		resources:  {  // Additional external resources (CSS & JS) required by this extension
-			script: ['lib/datatables.min.js','lib/lasso.js'],
+			script: ['../../../../../jquery/jquery_min.js','lib/datatables.min.js','lib/lasso.js'],
 			css: ['css/datatables.min.css','css/symbol.css']
 		},
 		modules: {

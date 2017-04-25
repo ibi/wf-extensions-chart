@@ -24,32 +24,32 @@
 		"scroller": false,
 		"scrollY": 370,
 		"showTotal": false,
-		"color": '#555',
-		"padding": '8px',
-		"border": '1px solid #ddd',
+		"color": "#555",
+		"padding": "8px",
+		"border": "1px solid #ddd",
 		"fontFamily": '"Helvetica Neue",Helvetica,Arial,sans-serif',
-		"fontSize": '14px',
+		"fontSize": "14px",
 		"title": {
-			"fontWeight": 'bold',
-			"color": 'inherit',
-			"backgroundColor": 'transparent'
+			"fontWeight": "bold",
+			"color": "inherit",
+			"backgroundColor": "transparent"
 		},
 		"data": {
-			"fontWeight": 'normal',
-			"color": 'inherit',
-			"backgroundColorOdd": '#f9f9f9',
-			"backgroundColorEven": 'transparent',
+			"fontWeight": "normal",
+			"color": "inherit",
+			"backgroundColorOdd": "#f9f9f9",
+			"backgroundColorEven": "transparent",
 			"selected": {
-				"color": 'inherit',
-				"border": '1px solid #99cfff',
-				"backgroundColor": '#cde8ff',
+				"color": "inherit",
+				"border": "1px solid #99cfff",
+				"backgroundColor": "#cde8ff",
 			}
 		},
 		"crossTabs": {
-			"fontWeight": 'bold',
-			"color": 'inherit',
-			"backgroundColorOdd": '#f9f9f9',
-			"backgroundColorEven": 'transparent'
+			"fontWeight": "bold",
+			"color": "inherit",
+			"backgroundColorOdd": "#f9f9f9",
+			"backgroundColorEven": "transparent"
 		}
 	},
 	
