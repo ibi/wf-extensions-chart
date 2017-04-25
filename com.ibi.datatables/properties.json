@@ -7,7 +7,7 @@
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
-		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/simple_bar%20example",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.datatables",
 		"icons": {
 			"medium": "icons/datatables.png"
 		}
