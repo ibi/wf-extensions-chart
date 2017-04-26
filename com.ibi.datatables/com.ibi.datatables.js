@@ -367,7 +367,7 @@
 				var selected = dt.rows(indexes).data();
 				var target = e.target;
 			});
-			$('.dataTables_scrollBody table').lasso();
+			//$('.dataTables_scrollBody table').lasso();
 		}
 
 		renderConfig.renderComplete();	
