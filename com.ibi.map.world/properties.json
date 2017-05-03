@@ -235,7 +235,7 @@
       },
       {
         "id": "longitude",
-        "type": "dimension",
+        "type": "both",
         "count": {
           "min": 0,
           "max": 1
@@ -243,7 +243,7 @@
       },
       { 
         "id": "latitude",
-        "type": "dimension",
+        "type": "both",
         "count": {
           "min": 0,
           "max": 1
@@ -261,11 +261,11 @@
       "name_name": "Name (DIM)",
       "name_tooltip": "Drop a dimension here",
 
-      "longitude_name": "Longitude (DIM)",
-      "longitude_tooltip": "Drop a dimension here",
+      "longitude_name": "Longitude (DIM, MES)",
+      "longitude_tooltip": "Drop a dimension or measure here",
       
-      "latitude_name": "Latitude (DIM)",
-      "latitude_tooltip": "Drop a dimension here",
+      "latitude_name": "Latitude (DIM, MES)",
+      "latitude_tooltip": "Drop a dimension or measure here",
 
       "value_name": "Value (MES)",
       "value_tooltip": "Drop a measure here"
