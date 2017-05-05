@@ -2,8 +2,6 @@
 /* $Revision: 1.0 $ */
 
 (function() {
-	var dataJSON = [];
-
 	// All extension callback functions are passed a standard 'renderConfig' argument:
 	//
 	// Properties that are always available:
@@ -68,11 +66,12 @@
 		var numberOfMeasures = 0;
 		var numberOfAcross = 0;
 		var groupIds = [];
+		var dataJSON = [];
 		
 		/* Format JSON Data */
 		if (typeof data[0].measure !== 'undefined'||typeof data[0].row !== 'undefined'||typeof data[0].column !== 'undefined') {
 
-			console.log('Start rendering extension:', new Date());
+			//console.log('Start rendering extension:', new Date());
 
 			for (var i=0; i<data.length; i++) {
 				var row = {};
@@ -214,12 +213,13 @@
 				}
 				numberOfMeasures = typeof dataBuckets.measure.title === 'string'? 1 : dataBuckets.measure.title.length;
 			}
-			console.log('Finished Creating JSON files:', new Date());
+			//console.log('Finished Creating JSON files:', new Date());
 		}
 	
 		/* Create Grid */
 		if (dataJSON.length>0){
 			/* Add Inline Style */
+			$(container).html('');
 			$(container).append('<style id="ib-inline-style"></style>')
 
 			/* Table Style */
@@ -308,6 +308,7 @@
 
 			/* Load Datatables */
 			var m = 0;
+			var fixedColumns = numberOfAcross==0? false : { leftColumns: numberOfBys };
 			$(container).children('.table.table-striped').dataTable({
 				"data": dataJSON,
 				"columns": titleJSON,
@@ -324,11 +325,9 @@
 				"deferRender": dataJSON.length<=10? false : props.scroller,
 				"scroller": dataJSON.length<=10? false : props.scroller,
 				"processing": true,
-				"fixedColumns": {
-					leftColumns: numberOfBys
-				},
+				"fixedColumns": fixedColumns,
 				"initComplete": function(settings, json) {
-					console.log('Datatables completed rendering:', new Date());
+					//console.log('Datatables completed rendering:', new Date());
 				},
 				"footerCallback": !props.showTotal? false : function(row, data, start, end, display) {
 					var api = this.api(), data;
@@ -342,10 +341,8 @@
 					$(row).find('th.dt-right').each(function(){
 						var columnIndex = $(this).index();
 						var total = api.column(columnIndex).data().reduce( function (a, b) {
-							console.log(a,b)
 							return intVal(a) + intVal(b);
 						}, 0);
-						console.log(columnIndex, total)
 
 						$(api.column(columnIndex).footer() ).html( numFormat(total) );
 					});
@@ -443,16 +440,10 @@
 				supported: true
 			},
 			tooltip: {
-				supported: false,  // Set this true if your extension wants to enable HTML tooltips
+				supported: true  // Set this true if your extension wants to enable HTML tooltips
 				// This callback is called when no default tooltip content is passed into the chart.
 				// Use this to define 'nice' default tooltips for the given target, ids & data.
 				// Return value can be a string (including HTML), or HTML nodes, or any Moonbeam tooltip API object.
-				autoContent: function(target, s, g, d, data) {
-					if (d.hasOwnProperty('color')) {
-						return 'Bar Size: ' + d.value + '<br />Bar Color: ' + d.color;
-					}
-					return 'Bar Size: ' + d.value;
-				}
 			}
 		}
 	};
