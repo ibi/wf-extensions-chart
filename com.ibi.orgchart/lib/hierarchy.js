@@ -34,6 +34,42 @@ window.tdghierarchy.init = (function () {
     }
   }
 
+  function addShadowMask( defs, id ) {
+    var filter = defs.append("svg:defs")
+      .append("svg:filter")
+      .attr("id", id)
+      .attr("height", "150%")
+      .attr("width", "150%");
+                    
+    filter.append("svg:feOffset")
+      .attr("dx", "2").attr("dy", "2").attr("result", "offOut");
+
+    filter.append("svg:feGaussianBlur")
+      .attr("in", "offOut").attr("result", "blurOut").attr("stdDeviation", "2");
+
+    filter.append("svg:feBlend")
+      .attr("in", "SourceGraphic").attr("in2", "blurOut").attr("mode", "normal");
+  }
+
+  function addGradient( defs, id ) {
+    var gradient = defs.append("linearGradient")
+       .attr("id", id)
+       .attr("x1", "0%")
+       .attr("x2", "0%")
+       .attr("y1", "0%")
+       .attr("y2", "100%");
+
+    gradient.append("stop")
+       .attr("offset", "0%")
+       .attr("stop-color", "white");
+       //.attr("stop-opacity", 1)
+     
+    gradient.append("stop")
+     .attr("offset", "100%")
+     .attr("stop-color", "black")
+     //.attr("stop-opacity", 1);
+  }
+
   function getColorScale (extent, colorRange) {
       var ratio = d3.scale.ordinal().domain(colorRange).rangePoints(extent, 0);
 
@@ -234,8 +270,10 @@ window.tdghierarchy.init = (function () {
 
         if (hasDataDrivenColor) {
           bgColor = color(data.nodeValueMap[node.label]);
-        } else {
+        } else if ( props.node.defaultColor === 'auto' ) {
           bgColor = color(getParentsHashStr(data.edges, node.label));
+        } else {
+          bgColor = props.node.defaultColor;
         }
 
         maps.labelToBGColor[node.label] = bgColor;
@@ -244,7 +282,9 @@ window.tdghierarchy.init = (function () {
 
         maps.labelToFontColor[node.label] = contrast(rgb.r, rgb.g, rgb.b);
       } else {
-        bgColor = maps.labelToBGColor[node.label] = color(data.nodeValueMap[node.label]);
+        bgColor = maps.labelToBGColor[node.label] = ( props.node.defaultColor === 'auto' ) 
+          ? color(data.nodeValueMap[node.label])
+          : props.node.defaultColor;
         rgb = d3.rgb(bgColor);
         maps.labelToFontColor[node.label] = contrast(rgb.r, rgb.g, rgb.b);
       }
@@ -311,7 +351,12 @@ window.tdghierarchy.init = (function () {
         graph.setEdge(edge[0], edge[1]);
       });
 
-      maps = getElementAttrsMaps(graph, data, props);
+      data.edges.forEach(function (edge) {
+        (graph.edge(edge[0], edge[1]) || {}).lineInterpolate =
+          'basis';//'step-after';
+      });
+
+      maps = getElementAttrsMaps( graph, data, props );
 
       // Create the renderer
       var render = new dagreD3.render();
@@ -335,8 +380,9 @@ window.tdghierarchy.init = (function () {
             return '<div style="padding: 5px"><b>VALUE: </b>' + props.formatNumber(data.nodeValueMap[d], props.node.toolTip.format, frmtCnfg ) + '</div>';
           }
         });
-
+      
       node_groups.selectAll('rect')
+        .classed('card', true)
         .attr({
           'rx' : props.node.border.round,
           'ry' : props.node.border.round
@@ -346,15 +392,48 @@ window.tdghierarchy.init = (function () {
             return maps.labelToBGColor[d];
           },
           stroke : props.node.border.color || 'grey',
-          'stroke-width' : props.node.border.width || 5
+          'stroke-width' : props.node.border.width
         });
 
+      var nodeRect = node_groups.select('rect');
+
+      var rectAttrArr = [];
+
+      node_groups.selectAll('.card').each(function() {
+        var nodeRect = d3.select(this);
+        rectAttrArr.push({
+          width: nodeRect.attr('width'),
+          height: nodeRect.attr('height'),
+          x: nodeRect.attr('x'),
+          y: nodeRect.attr('y')
+        });
+      });
+
       node_groups.selectAll('text')
+        .classed('label', true)
         .style({
           fill: function (d) {
             return maps.labelToFontColor[d];
           },
           font: props.node.label.font
+        });
+
+      node_groups.insert('rect', '.card')
+        .classed('shadow', true)
+        .each(function( d, i ) {
+          d3.select(this)
+            .attr(rectAttrArr[i])
+            .attr('fill', 'grey')
+            .attr('filter', 'url(#boxShadow)');
+        });
+
+      node_groups.insert('rect', '.label')
+        .classed('gradient', true)
+        .each(function( d, i ) {
+          d3.select(this)
+            .attr(rectAttrArr[i])
+            .attr('fill', 'url(#cardGradient)')
+            .style('opacity', 0.3);
         });
 
       function fade (opacity) {
@@ -471,12 +550,13 @@ window.tdghierarchy.init = (function () {
 
 
     // functions declared here will have access to props and innerProps object
-		var props = {
-			width: 300,
-			height: 400,
+var props = {
+      width: 300,
+      height: 400,
       isInteractionDisabled: false,
       node : {
         colorRange: ["red", "yellow", "green"],
+        defaultColor: "auto",
         label: {
           font : "14px serif"
         },
@@ -529,18 +609,24 @@ window.tdghierarchy.init = (function () {
         }
     };
 
-		copyIfExisty(props, user_props || {});
+    copyIfExisty(props, user_props || {});
 
-		function createAccessor (attr) {
-			function accessor (value) {
-				if (!arguments.length) { return props[attr]; }
-				props[attr] = value;
-				return chart;
-			}
-			return accessor;
-		}
+    function createAccessor (attr) {
+      function accessor (value) {
+        if (!arguments.length) { return props[attr]; }
+        props[attr] = value;
+        return chart;
+      }
+      return accessor;
+    }
 
-		function chart (selection) {
+    function chart ( selection ) {
+
+      var defs = selection.append('defs');
+
+      addShadowMask( defs, 'boxShadow' );
+
+      addGradient( defs, 'cardGradient' );
 
       var hasClrLegend = props.buckets && Array.isArray(props.buckets.value) && props.buckets.value.length;
 
@@ -548,7 +634,7 @@ window.tdghierarchy.init = (function () {
 
       var group_main = selection.append('g').classed('group-main', true);
 
-      renderHierarchy(group_main, data, props);
+      renderHierarchy( group_main, data, props );
 
       enableZoom(selection, group_main, props);
 
@@ -566,14 +652,14 @@ window.tdghierarchy.init = (function () {
         // render color legend ends
       }
 
-		}
+    }
 
-		for (var attr in props) {
-			if ((!chart[attr]) && (props.hasOwnProperty(attr))) {
-				chart[attr] = createAccessor(attr);
-			}
-		}
+      for (var attr in props) {
+              if ((!chart[attr]) && (props.hasOwnProperty(attr))) {
+                      chart[attr] = createAccessor(attr);
+              }
+      }
 
-		return chart;
-	};
+      return chart;
+  };
 })();

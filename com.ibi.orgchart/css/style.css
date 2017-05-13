@@ -19,7 +19,7 @@
 	cursor: default;
 }
 
-.com_tdg_hierarchy .node rect {
+.com_tdg_hierarchy .node rect.card {
   stroke: #999;
   fill: #fff;
   stroke-width: 1.5px;

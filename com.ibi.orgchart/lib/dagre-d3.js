@@ -80,7 +80,8 @@ function normal(parent, id, edge, type) {
   var path = marker.append("path")
     .attr("d", "M 0 0 L 10 5 L 0 10 z")
     .style("stroke-width", 1)
-    .style("stroke-dasharray", "1,0");
+    .style("stroke-dasharray", "1,0")
+    .style("fill", "black");
   util.applyStyle(path, edge[type + "Style"]);
 }
 
