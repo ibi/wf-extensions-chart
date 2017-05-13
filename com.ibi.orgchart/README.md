@@ -20,21 +20,22 @@ To configure or customize your extension edit "properties" object in properties.
 	
 	
 	"properties": {
-		"node" : {
-			"colorRange": ["red", "yellow", "green"],
-			"label": {
-				"font" : "14px serif"
-			},
-			"toolTip": {
-				"format" : "auto"
-			},
-			"border": {
-				"width": 1,
-				"color": "grey",
-				"round": 5
-			}
-		},
-		"colorLegend": {
+            "node" : {
+              "colorRange": ["red", "yellow", "green"],
+              "defaultColor": "auto",
+              "label": {
+                "font" : "14px serif"
+              },
+              "toolTip": {
+                "format" : "auto"
+              },
+              "border": {
+                "width": 1,
+                "color": "grey",
+                "round": 5
+              }
+            },
+            "colorLegend": {
             "enabled": true,
             "background": {
                 "color": "white"
