@@ -28,7 +28,7 @@
 		gauge.width = width;
 		gauge.height = height;
 		
-		var value = chart.data[0][0].value;
+		var value = (((chart.data || [])[0] || [])[0] || {}).value || 0;
 		gauge.draw("gaugeContainer", value);
 	}
 
