@@ -18,7 +18,7 @@
       prerenderConfig.moonbeamInstance.legend.visible = false;
     }
 
-    function jsonCpy( el ) {asdfasdf
+    function jsonCpy( el ) {
       return JSON.parse(JSON.stringify(el));
     }
 
