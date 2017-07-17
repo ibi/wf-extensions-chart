@@ -96,7 +96,7 @@
 	"translations": {
 		"en": {
 			"name": "Histogram Chart",
-			"description": "This extension helps to graphicaly represent the distribution of numerical data",
+			"description": "This extension helps to graphically represent the distribution of numerical data",
 			"icon_tooltip": "Histogram Chart.",
 			"value_name": "Value (MES)",
 			"value_tooltip": "Drop a measure here"
