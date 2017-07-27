@@ -15,65 +15,85 @@
 	}
 
 	function getFormatedBuckets ( renderConfig ) {
-		if ( !renderConfig.dataBuckets || !renderConfig.dataBuckets.buckets ) {
-			return;
-		}
-		var bkts = renderConfig.dataBuckets.buckets,
-			modif_bkts = {};
-		for ( var bkt in bkts ) {
-			if ( bkts.hasOwnProperty( bkt ) ) {
-				modif_bkts[bkt] = Array.isArray( bkts[bkt].title ) ? bkts[bkt].title : [bkts[bkt].title];
-			}
-		}
+          if ( !renderConfig.dataBuckets || !renderConfig.dataBuckets.buckets ) {
+            return;
+          }
+          var bkts = renderConfig.dataBuckets.buckets,
+          modif_bkts = {};
+          for ( var bkt in bkts ) {
+            if ( bkts.hasOwnProperty( bkt ) ) {
+              modif_bkts[bkt] = Array.isArray( bkts[bkt].title ) ? bkts[bkt].title : [bkts[bkt].title];
+            }
+          }
 
-		return modif_bkts;
+          return modif_bkts;
 	}
 
 	function jsonCpy( el ) {
-		return JSON.parse(JSON.stringify(el));
+          return JSON.parse(JSON.stringify(el));
 	}
+
+        function getUseMoonbeamColorSeries( moonbeamSeries ) {
+          return (moonbeamSeries || []).filter(function(s){
+              return typeof s.series === 'number' && !!s.color;
+            }).reduce(function(clrs, s) {
+              clrs[s.series] = s.color;
+              return clrs;
+            }, []);
+        }
 
 	// Required: Is invoked in the middle of each Moonbeam draw cycle
 	// This is where your extension should be rendered
 	// Arguments:
 	//  - renderConfig: the standard callback argument object, including additional properties width, height, etc
-	function renderCallback(renderConfig) {
-		var chart = renderConfig.moonbeamInstance;
-		var props = JSON.parse(JSON.stringify(renderConfig.properties));
+	function renderCallback( renderConfig ) {
+          var chart = renderConfig.moonbeamInstance;
+          var props = JSON.parse(JSON.stringify(renderConfig.properties));
 
-		props.width = renderConfig.width;
-		props.height = renderConfig.height;
+          if ( props.risers.useMoonbeamColorSeries ) {
+            props.risers.colorSeries = getUseMoonbeamColorSeries(
+              renderConfig.moonbeamInstance.series
+            );
+          }
 
-		props.data = (renderConfig.data || []).map(function(datum){
-			var datumCpy = jsonCpy(datum);
-			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'bar');
-			return datumCpy;
-		});
+          props.width = renderConfig.width;
+          props.height = renderConfig.height;
 
-		//props.data = renderConfig.data;
-		props.measureLabel = chart.measureLabel;
-		props.formatNumber = chart.formatNumber;
+          props.data = (renderConfig.data || []).map(function(datum){
+            var datumCpy = jsonCpy(datum);
+            datumCpy.elClassName = chart.buildClassName(
+              'riser',
+              datum._s,
+              datum._g,
+              'bar'
+            );
+            return datumCpy;
+          });
 
-		props.buckets = getFormatedBuckets(renderConfig);
+          //props.data = renderConfig.data;
+          props.measureLabel = chart.measureLabel;
+          props.formatNumber = chart.formatNumber;
 
-		props.isInteractionDisabled = renderConfig.disableInteraction || true;
+          props.buckets = getFormatedBuckets(renderConfig);
 
-		var container = d3.select(renderConfig.container)
-			.attr('class', 'com_tdg_ratio');
+          props.isInteractionDisabled = renderConfig.disableInteraction || true;
 
-		// ---------------- INIT YOUR EXTENSION HERE
+          var container = d3.select(renderConfig.container)
+                  .attr('class', 'com_tdg_ratio');
 
-		var tdg_ratio_chart = tdg_ratio(props);
-		tdg_ratio_chart(container);
+          // ---------------- INIT YOUR EXTENSION HERE
 
-		// ---------------- END ( INIT YOUR EXTENSION HERE )
+          var tdg_ratio_chart = tdg_ratio(props);
+          tdg_ratio_chart(container);
 
-		// ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
+          // ---------------- END ( INIT YOUR EXTENSION HERE )
 
-		renderConfig.renderComplete();
+          // ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
 
-		// renderConfig.modules.tooltip.updateToolTips();
-		// chart.processRenderComplete();
+          renderConfig.renderComplete();
+
+          // renderConfig.modules.tooltip.updateToolTips();
+          // chart.processRenderComplete();
 	}
 
 	function noDataRenderCallback (renderConfig) {

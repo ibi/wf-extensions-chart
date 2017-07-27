@@ -1,121 +1,123 @@
 
 {
-	"info": {
-		"version": 1.0,
-		"implements_api_version": 1.0,
-		"author": "Information Builders",
-		"copyright": "Information Builders Inc.",
-		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.ratio",
-		"icons": {
-			"medium": "icons/medium.png"
-		}
-	},
-	
-	"properties": {
-		"risers": {
-            "color": "lightblue",
-            "label": {
-                "font": "12px sans-serif",
-                "format": "auto"
-            }
+  "info": {
+    "version": 1.0,
+    "implements_api_version": 1.0,
+    "author": "Information Builders",
+    "copyright": "Information Builders Inc.",
+    "url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.ratio",
+    "icons": {
+      "medium": "icons/medium.png"
+    }
+  },
+  
+  "properties": {
+    "risers": {
+      "color": "lightblue",
+      "useMoonbeamColorSeries": false,
+      "label": {
+        "font": "12px sans-serif",
+        "format": "auto"
+      }
+    },
+    "axes": {
+      "category": {
+        "labels": {
+          "font": "12px sans-serif",
+          "color": "black"
         },
-        "axes": {
-            "category": {
-                "labels": {
-                    "font": "12px sans-serif",
-                    "color": "black"
-                },
-                "grid": {
-                	"stroke-dasharray" : "2 5",
-                	"width": 1,
-                	"color": "black"
-                }
-            },
-            "ratio": {
-                "labels": {
-                    "font": "14px sans-serif",
-                    "color": "black"
-                },
-                "base": {
-                	"color": "black"
-                }
-            }
+        "grid": {
+          "stroke-dasharray" : "2 5",
+          "width": 1,
+          "color": "black"
+        }
+      },
+      "ratio": {
+        "labels": {
+          "font": "14px sans-serif",
+          "color": "black"
         },
-	    "toolTip": {
-	      "enabled": true
-	    }
-	},
-	
-	"propertyAnnotations": {
-		"risers": {
-            "color": "color",
-            "label": {
-                "font": "str",
-                "format": "str"
-            }
+        "base": {
+          "color": "black"
+        }
+      }
+    },
+    "toolTip": {
+      "enabled": true
+    }
+  },
+  
+  "propertyAnnotations": {
+    "risers": {
+      "color": "color",
+      "useMoonbeamColorSeries": "bool",
+      "label": {
+        "font": "str",
+        "format": "str"
+      }
+    },
+    "axes": {
+      "category": {
+        "labels": {
+          "font" : "str",
+          "color" : "color"
         },
-        "axes": {
-            "category": {
-                "labels": {
-                    "font" : "str",
-                    "color" : "color"
-                },
-                "grid": {
-                	"stroke-dasharray" : "str",
-                	"width": "number",
-                	"color": "color"
-                }
-            },
-            "ratio": {
-                "labels": {
-                    "font": "str",
-                    "color": "color"
-                },
-                "base": {
-                	"color": "color"
-                }
-            }
+        "grid": {
+          "stroke-dasharray" : "str",
+          "width": "number",
+          "color": "color"
+        }
+      },
+      "ratio": {
+        "labels": {
+          "font": "str",
+          "color": "color"
         },
-		"toolTip": {
-	      "enabled": "bool"
-	    }
-	},
-	
-	"dataBuckets":  {
-		"tooltip": false,
-		"matrix": false,
-		"data_page": false,
-		"series_break": false,
+        "base": {
+          "color": "color"
+        }
+      }
+    },
+    "toolTip": {
+      "enabled": "bool"
+    }
+  },
+  
+  "dataBuckets":  {
+    "tooltip": false,
+    "matrix": false,
+    "data_page": false,
+    "series_break": false,
 
-		"buckets": [
-	      {
-	        "id": "x",
-	        "type": "dimension",
-	        "count": {
-	          "min": 1,
-	          "max": 1
-	        }
-	      },
-	      {
-	        "id": "y",
-	        "type": "measure",
-	        "count": {
-	          "min": 1,
-	          "max": 1
-	        }
-	      }
-	    ]
-	},
+    "buckets": [
+      {
+        "id": "x",
+        "type": "dimension",
+        "count": {
+          "min": 1,
+          "max": 1
+        }
+      },
+      {
+        "id": "y",
+        "type": "measure",
+        "count": {
+          "min": 1,
+          "max": 1
+        }
+      }
+    ]
+  },
 
-	"translations": {
-		"en": {
-			"name": "Ratio Chart",
-			"description": "This extension helps to compare ratios of different categories.",
-			"icon_tooltip": "Ratio Chart.",
-			"x_name": "Category (DIM)",
-			"x_tooltip": "Drop a dimension here",
-			"y_name": "Value (MES)",
-			"y_tooltip": "Drop a measure here"
-		}
-	}
+  "translations": {
+    "en": {
+      "name": "Ratio Chart",
+      "description": "This extension helps to compare ratios of different categories.",
+      "icon_tooltip": "Ratio Chart.",
+      "x_name": "Category (DIM)",
+      "x_tooltip": "Drop a dimension here",
+      "y_name": "Value (MES)",
+      "y_tooltip": "Drop a measure here"
+    }
+  }
 }

@@ -249,10 +249,8 @@ var tdg_ratio = (function() {
             max: extent[1]
         };
 
-        var rgb = d3.rgb(props.risers.color);
-        var lblColor = contrast(rgb.r, rgb.g, rgb.b);
 
-        data.forEach( function ( d ) {
+        data.forEach( function ( d, idx ) {
             rect = {};
 
             rect.width = yscale(d.y);
@@ -262,6 +260,15 @@ var tdg_ratio = (function() {
 
             rect.class = d.elClassName;
 
+            if ( Array.isArray(props.risers.colorSeries) ) {
+              rect.color = props.risers.colorSeries[idx];
+            } else {
+              rect.color = props.risers.color;
+            }
+
+            var rgb = d3.rgb( rect.color );
+            var lblColor = contrast(rgb.r, rgb.g, rgb.b);
+            
             rect.label = {
                 text: props.formatNumber(d.y, props.risers.label.format, config),
                 color: lblColor,
@@ -273,7 +280,6 @@ var tdg_ratio = (function() {
                 rect.label.text = '';
             }
 
-            rect.color = props.risers.color;
 
             rect.tooltip = {};
 
@@ -642,43 +648,43 @@ var tdg_ratio = (function() {
     // --------------------------------- END OF Z1
     return function(user_props) {
         var props = {
-            width: 300,
-            height: 400,
-            data: null,
-            buckets: null,
-            measureLabel: null, // function
-            formatNumber: null, // function
-            isInteractionDisabled: false,
-            risers: {
-                color: 'salmon',
-                label: {
-                    font: '12px sans-serif',
-                    format: 'auto',
-                    color: 'black'
-                }
-            },
-            axes: {
-                category: {
-                    labels: {
-                        font: '12px sans-serif',
-                        color: 'black'
-                    },
-                    grid: {
-                        "stroke-dasharray" : "2 5",
-                        width: 1,
-                        color: "black"
-                    }
-                },
-                ratio: {
-                    labels: {
-                        font: '14px sans-serif',
-                        color: 'black'
-                    },
-                    base: {
-                        color: 'black'
-                    }
-                }
+          width: 300,
+          height: 400,
+          data: null,
+          buckets: null,
+          measureLabel: null, // function
+          formatNumber: null, // function
+          isInteractionDisabled: false,
+          risers: {
+            color: 'salmon',
+            colorSeries: null,
+            label: {
+              font: '12px sans-serif',
+              format: 'auto'
             }
+          },
+          axes: {
+            category: {
+              labels: {
+                font: '12px sans-serif',
+                color: 'black'
+              },
+              grid: {
+                "stroke-dasharray" : "2 5",
+                width: 1,
+                color: "black"
+              }
+            },
+            ratio: {
+              labels: {
+                font: '14px sans-serif',
+                color: 'black'
+              },
+              base: {
+                color: 'black'
+              }
+            }
+          }
         };
 
         var innerProps = {
