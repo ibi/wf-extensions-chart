@@ -52,21 +52,38 @@ var tdg_ratio = (function() {
             return cur[attr] != null && all.indexOf(cur[attr]) ? all.concat(cur[attr]) : all;
         }, []);
     }
+    
+    function getXaxisMaxLblWidth( data, font, measureLabel ) {
+        var xaxisLbls = extractUniqueValues(data, 'x');
+
+        return d3.max(xaxisLbls, function (lbl) {
+            return measureLabel(font).width;
+        });
+    }
+    
+    function getLabelsPad( innerProps ) {
+      return innerProps.labelsPad || 5
+    }
 
     function calcMargins (data, props, innerProps ) {
-        var margins = { top: 10, right: 10, bottom: 10, left: 10 };
+        var margins = {
+          top: 10,
+          right: 10,
+          bottom: 10,
+          left: 10
+        };
 
-        var pad = innerProps.labelsPad || 5;
+        var pad = getLabelsPad(innerProps);
 
         //var axesLbls = getUniqueAxesValues( props.data );
         //xaxis starts
-        var xaxisLbls = extractUniqueValues(data, 'x');
+        var xaxisMaxLblWidth = getXaxisMaxLblWidth(
+            data,
+            props.axes.category.labels.font,
+            props.measureLabel
+          );
 
-        var xaxisMaxLblWidth = d3.max(xaxisLbls, function (lbl) {
-            return props.measureLabel(lbl, props.axes.category.labels.font).width;
-        }) + 2 * pad;
-
-        var xaxisHorizSize = xaxisMaxLblWidth + 2 * pad;
+        var xaxisHorizSize = xaxisMaxLblWidth + 4 * pad;
 
         margins.left = Math.max(margins.left, xaxisHorizSize);
 
@@ -160,15 +177,39 @@ var tdg_ratio = (function() {
         return layout;
     }
 
-    function getXAxisLayout ( data, margins, props ) {
+    function getIsAxisLeftAligned(props) {
+      return false;//props.axes.category.labels.align === 'left'; 
+    }
+
+    function getXAxisLayout ( data, margins, props, innerProps ) {
+        var isAxisLeftAligned = getIsAxisLeftAligned(props);
+
+        var pad = getLabelsPad(innerProps);
+        var xaxisMaxLblWidth = getXaxisMaxLblWidth(
+            data,
+            props.axes.category.labels.font,
+            props.measureLabel
+          );
+
+        var leftOffset;
+
+        if ( isAxisLeftAligned )  {
+          leftOffset = margins.left - xaxisMaxLblWidth - 4 * pad;
+        } else {
+          leftOffset = margins.left;
+        }
+
         var layout = {
             x : margins.left,
             y : margins.top,
+            lblLeftOffset: leftOffset,
+            gridLeftOffset: isAxisLeftAligned ? xaxisMaxLblWidth + 3 * pad : 0,
             labels : [],
             bandWidth: 0,
             gridLinesPos: [],
             gridLinesWidth: 0,
-            pos: null
+            pos: null,
+            orientation: isAxisLeftAligned ? 'right' : 'left'
         };
 
         var height = props.height - margins.top - margins.bottom;
@@ -178,7 +219,9 @@ var tdg_ratio = (function() {
 
         var innerPaddingRatio = 0.2;
 
-        layout.pos = d3.scale.ordinal().domain(labels).rangeBands([height, 0], innerPaddingRatio );
+        layout.pos = d3.scale.ordinal()
+            .domain(labels)
+            .rangeBands([height, 0], innerPaddingRatio );
 
         layout.bandWidth = layout.pos.rangeBand();
 
@@ -454,7 +497,7 @@ var tdg_ratio = (function() {
 
         layout.margins = calcMargins( data, props, innerProps );
 
-        layout.x = getXAxisLayout( data, layout.margins, props );
+        layout.x = getXAxisLayout( data, layout.margins, props, innerProps );
 
         var rscale = getRatioScale(data, props.width, layout.margins, innerProps.bars.maxBarRatio);
 
@@ -492,12 +535,17 @@ var tdg_ratio = (function() {
         var x_axis = group_main.selectAll('g.x-axis')
             .data([layout.x]);
 
-        var ordAxis = d3.svg.axis().scale(layout.x.pos).orient('left');
+        var ordAxis = d3.svg.axis()
+            .scale(layout.x.pos)
+            .tickSize(0)
+            .orient(layout.x.orientation);
 
-        var x_axis_enter = x_axis.enter().append('g').classed('x-axis', true)
+        var x_axis_enter = x_axis.enter()
+            .append('g')
+            .classed('x-axis', true)
             .attr({
                 transform: function (l) {
-                    return 'translate(' + [l.x, l.y] + ')';
+                    return 'translate(' + [l.lblLeftOffset, l.y] + ')';
                 }
             })
             .style({
@@ -515,6 +563,7 @@ var tdg_ratio = (function() {
 
         x_grid.enter().append('line').classed('grid', true)
             .attr({
+                transform: 'translate(' + [layout.x.gridLeftOffset, 0] +')',
                 x0: 0,
                 y1: function (d) {
                     return d;
@@ -666,6 +715,7 @@ var tdg_ratio = (function() {
           axes: {
             category: {
               labels: {
+                align: 'right',
                 font: '12px sans-serif',
                 color: 'black'
               },

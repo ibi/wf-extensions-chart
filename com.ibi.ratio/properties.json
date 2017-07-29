@@ -23,6 +23,7 @@
     "axes": {
       "category": {
         "labels": {
+          "align": "left",
           "font": "12px sans-serif",
           "color": "black"
         },
@@ -59,6 +60,7 @@
     "axes": {
       "category": {
         "labels": {
+          "align": "str",
           "font" : "str",
           "color" : "color"
         },

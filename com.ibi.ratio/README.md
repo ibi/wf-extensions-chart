@@ -18,40 +18,42 @@ Very simple chart, that can be used to compare numerical ratios of different cat
 To configure or customize your extension edit "properties" object in properties.json file.
 	
 	"properties": {
-		"risers": {          
-	            "color": "lightblue",
-	            "label": {
-	                "font": "12px sans-serif",
-	                "format": "auto"
-	            }
-	        },
-	        "axes": {
-	            "category": {
-	                "labels": {
-	                    "font": "12px sans-serif",
-	                    "color": "black"
-	                },
-	                "grid": {
-	                	"stroke-dasharray" : "2 5",
-	                	"width": 1,
-	                	"color": "black"
-	                }
-	            },
-	            "ratio": {
-	                "labels": {
-	                    "font": "14px sans-serif",
-	                    "color": "black"
-	                },
-	                "base": {
-	                	"color": "black"
-	                }
-	            }
-	        },
-	    "toolTip": {
-	      "enabled": true
-	    }
+          "risers": {          
+            "color": "lightblue",
+            "useMoonbeamColorSeries": false,
+            "label": {
+              "font": "12px sans-serif",
+              "format": "auto"
+            }
+          },
+          "axes": {
+            "category": {
+              "labels": {
+                "align": "left",
+                "font": "12px sans-serif",
+                "color": "black"
+              },
+              "grid": {
+                "stroke-dasharray" : "2 5",
+                "width": 1,
+                "color": "black"
+              }
+            },
+            "ratio": {
+              "labels": {
+                "font": "14px sans-serif",
+                "color": "black"
+              },
+              "base": {
+                "color": "black"
+              }
+            }
+          },
+          "toolTip": {
+            "enabled": true
+          }
 	}
-You can customize category axis ( ordinal axis on the left ), ratio axes ( top and bottom sides of the chart ) and risers. You can also enable/disable the tooltip. `risers.label.format` uses the same format string as Moonbeam.
+You can customize category axis ( ordinal axis on the left ), ratio axes ( top and bottom sides of the chart ) and risers. You can also enable/disable the tooltip. `risers.label.format` uses the same format string as Moonbeam. Category axis labels can be "left" or "right" aligned.
 ## Data Buckets
 
 ### Measures:
