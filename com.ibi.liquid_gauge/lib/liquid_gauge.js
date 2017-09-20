@@ -8,7 +8,7 @@
  
 (function() {
 	
-d3.liquidGauge = function() {
+window.liquidGauge = function() {
     return {
         minValue: 0, // The gauge minimum value.
         maxValue: 100, // The gauge maximum value.

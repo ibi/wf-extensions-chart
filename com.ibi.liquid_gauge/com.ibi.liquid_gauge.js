@@ -23,7 +23,7 @@
 			.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
 			.attr('id', 'gaugeContainer');
 
-		var gauge = d3.liquidGauge();
+		var gauge = liquidGauge();
 		tdgchart.util.mergeObjects(gaugeProps, gauge);
 		gauge.width = width;
 		gauge.height = height;

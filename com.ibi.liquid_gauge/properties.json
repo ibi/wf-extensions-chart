@@ -157,10 +157,10 @@
 
 		"ko": {
 			"name": "액체 게이지 차트",
-			"description": "액체 인테리어와 멋진 애니메이션 게이지 차트",
+			"description": "내부에 액체가 있는 멋진 동영향 게이지 도표",
 			"icon_tooltip": "액체 게이지 차트", 
 			"value_name": "값 버킷", 
-			"value_tooltip": "여기에 측정 드롭"
+			"value_tooltip": "여기에 측정을 드롭(drop)"
 		},		
 
 		"tw": {
