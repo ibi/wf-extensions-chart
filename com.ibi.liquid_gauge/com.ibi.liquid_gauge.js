@@ -16,12 +16,13 @@
 		var margin = {left: 10, right: 10, top: 10, bottom: 10};
 		var width = renderConfig.width - margin.left - margin.right;
 		var height = renderConfig.height - margin.top - margin.bottom;
+		var id = renderConfig.containerIDPrefix + '_gaugeContainer';
 		
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_ibi_chart')
 		.append('g')
 			.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')')
-			.attr('id', 'gaugeContainer');
+			.attr('id', id);
 
 		var gauge = liquidGauge();
 		tdgchart.util.mergeObjects(gaugeProps, gauge);
@@ -29,7 +30,7 @@
 		gauge.height = height;
 		
 		var value = (((chart.data || [])[0] || [])[0] || {}).value || 0;
-		gauge.draw("gaugeContainer", value);
+		gauge.draw(id, value);
 	}
 
 	var config = {
