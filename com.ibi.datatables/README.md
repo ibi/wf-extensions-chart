@@ -20,6 +20,8 @@ To configure or customize your extension edit "properties" object in properties.
 	
 	"properties": {
 		"paging": true,
+		"pageLength": 10,
+		"lengthMenu": "[ 10, 25, 50, 100 ]",
 		"ordering": true,
 		"info": true,
 		"searching": true,

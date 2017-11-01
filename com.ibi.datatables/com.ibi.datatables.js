@@ -313,6 +313,8 @@
 				"data": dataJSON,
 				"columns": titleJSON,
 				"paging": props.paging,
+				"pageLength": props.pageLength,
+				"lengthMenu": JSON.parse(props.lengthMenu),
 				"ordering": props.ordering,
 				"info": props.info,
 				"searching": props.searching,
@@ -410,11 +412,14 @@
 	}
 	
 	function noDataRenderCallback(renderConfig) {
+		var container = renderConfig.container;
 		var grey = renderConfig.baseColor;
-		renderConfig.data = [{value: [3, 3]}, {value: [4, 4]}, {value: [5, 5]}, {value: [6, 6]}, {value: [7, 7]}];
-		renderConfig.moonbeamInstance.getSeries(0).color = grey;
-		renderConfig.moonbeamInstance.getSeries(1).color = pv.color(grey).lighter(0.18).color;
+		renderConfig.data = [{"row":"1","measure":10,"_s":0,"_g":0},{"row":"2","measure":20,"_s":0,"_g":1},{"row":"3","measure":30,"_s":0,"_g":2},{"row":"4","measure":40,"_s":0,"_g":3},{"row":"5","measure":50,"_s":0,"_g":4}];
+		renderConfig.dataBuckets = {"buckets":{"row":{"title":"A","count":1},"measure":{"title":"B","count":1}},"depth":1};
 		renderCallback(renderConfig);
+		
+		$(container).append('<div class="placeholder">Add measures or dimensions</div>');
+		$(container).find('.placeholder').height( $(container).height() );
 	}
 
 	// Your extension's configuration
@@ -426,8 +431,11 @@
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
 		noDataPreRenderCallback: noDataPreRenderCallback, 
 		noDataRenderCallback: noDataRenderCallback,
-		resources:  {  // Additional external resources (CSS & JS) required by this extension
+		resources:  window.jQuery? {
 			script: ['lib/datatables.min.js','lib/lasso.js'],
+			css: ['css/datatables.min.css','css/symbol.css']
+		} : {
+			script: ['lib/datatables-w-jquery.min.js','lib/lasso.js'],
 			css: ['css/datatables.min.css','css/symbol.css']
 		},
 		modules: {
