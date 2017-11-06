@@ -181,6 +181,10 @@
 			.attr('transform', function() {
 				return 'translate(-10,' + (yHeight / 2) + ') rotate(-90)';
 			})
+			.attr('fill', 'black')
+			.attr('font-size', '12px')
+			.attr('font-family', 'helvetica')
+			.attr('text-anchor', 'middle')
 			.text(function(d, i) {return tdgchart.util.get('dataBuckets.buckets.value.title[' + i + ']', renderConfig, '');});
 
 		// Add risers, grouped by stack
@@ -239,6 +243,10 @@
 			.attr('transform', function(d) {
 				return 'translate(' + (x(d) + xLabelHeight + (x.rangeBand() / 2)) + ',' + (h - 5) + ')';
 			})
+			.attr('fill', 'black')
+			.attr('font-size', '12px')
+			.attr('font-family', 'helvetica')
+			.attr('text-anchor', 'middle')
 			.text(function(d, i) {return axisLabels[i];});
 
 		renderConfig.renderComplete();
@@ -261,8 +269,7 @@
 				function(callbackArg) {
 					return callbackArg.properties.external_library;
 				}
-			],
-			css: ['css/extension.css']
+			]
 		},
 		modules: {
 			dataSelection: {

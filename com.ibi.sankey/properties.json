@@ -175,11 +175,11 @@
 			"description": "Sankey 흐름도",
 			"icon_tooltip": "Sankey 흐름도",
 			"source_name": "소스 노드",
-			"source_tooltip": "여기에 특성 항목 놓기",
+			"source_tooltip": "여기에 치수를 드롭(drop)",
 			"target_name": "대상 노드",
-			"target_tooltip": "여기에 특성 항목 놓기",
-			"value_name": "링크 값",
-			"value_tooltip": "여기에 측정 드롭"
+			"target_tooltip": "여기에 치수를 드롭(drop)",
+			"value_name": "값 연결",
+			"value_tooltip": "여기에 측정을 드롭(drop)"
 		},
 		
 		"tw": {

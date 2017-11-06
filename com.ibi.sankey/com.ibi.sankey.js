@@ -137,6 +137,9 @@
 		.enter().append("path")
 			.attr("class", "link")
 			.attr("d", path)
+			.attr("fill", "none")
+			.attr("stroke", "#000")
+			.attr("stroke-opacity", 0.2)
 			.attr("tdgtitle", function(d) {
 				if (!d || typeof d !== 'object') {
 					return 'No Data';
@@ -165,6 +168,9 @@
 			.attr("height", function(d) { return d.dy; })
 			.attr("width", sankey.nodeWidth())
 			.attr("tdgtitle", function(d) { return d.name + ": " + formatNumber(d.value); })
+			.attr("shape-rendering", "crispEdges")
+			.attr("stroke-width", 1)
+			.attr("fill-opacity", 0.9)
 			.style("fill", function(d) { return d.color = color(d.name.replace(/ .*/, "")); })
 			.style("stroke", function(d) { return d3.rgb(d.color).darker(2); });
 
@@ -175,6 +181,9 @@
 				.attr("dy", ".35em")
 				.attr("text-anchor", "end")
 				.attr("transform", null)
+				.attr("fill", "black")
+				.attr("font-size", "10px")
+				.attr("font-family", "sans-serif")
 				.text(function(d) { return d.name; })
 			.filter(function(d) { return d.x < width / 2; })
 				.attr("x", 6 + sankey.nodeWidth())

@@ -99,8 +99,8 @@
 		},
 		
 		"it": {
-			"name": "Grafico a Barre Semplice Personale",
-			"description": "Questo grafico rappresenta solo un grafico a barre semplice, niente di speciale.",
+			"name": "Simple Bar Chart",
+			"description": "This chart is a simple bar chart which demonstrates many chart extension features",
 			"icon_tooltip": "Questa estensione esegue ...", 
 			"value_name": "Bucket di Valori", 
 			"value_tooltip": "Rilascia qui una misura", 
@@ -109,8 +109,8 @@
 		},
 		
 		"iw": {
-			"name": "My Simple Bar Chart",
-			"description": "This chart is just a simple bar chart, nothing to see here.",
+			"name": "Simple Bar Chart",
+			"description": "This chart is a simple bar chart which demonstrates many chart extension features",
 			"icon_tooltip": "This extension does ...", 
 			"value_name": "Value Bucket", 
 			"value_tooltip": "Drop a measure here", 
@@ -120,7 +120,7 @@
 		
 		"ja": {
 			"name": "単純棒グラフ",
-			"description": "単純な棒グラフです。",
+			"description": "さまざまなグラフ拡張機能を例示する単純な棒グラフです。",
 			"icon_tooltip": "この拡張グラフは...", 
 			"value_name": "値バケット", 
 			"value_tooltip": "ここに基軸をドロップ", 
@@ -139,8 +139,8 @@
 		},
 		
 		"ru": {
-			"name": "My Simple Bar Chart",
-			"description": "This chart is just a simple bar chart, nothing to see here.",
+			"name": "Simple Bar Chart",
+			"description": "This chart is a simple bar chart which demonstrates many chart extension features",
 			"icon_tooltip": "This extension does ...", 
 			"value_name": "Value Bucket", 
 			"value_tooltip": "Drop a measure here", 
@@ -149,13 +149,13 @@
 		},
 		
 		"ko": {
-			"name": "내 간단한 막대 차트",
-			"description": "이 차트는 단순한 막 대형 차트이며 여기서는 볼 수 없습니다.",
-			"icon_tooltip": "이 확장 기능은 ...", 
+			"name": "Simple Bar Chart",
+			"description": "This chart is a simple bar chart which demonstrates many chart extension features",
+			"icon_tooltip": "이 확장자...", 
 			"value_name": "값 버킷", 
-			"value_tooltip": "여기에 측정 드롭", 
-			"labels_name": "라벨 버킷", 
-			"labels_tooltip": "여기에 특성 항목 놓기"
+			"value_tooltip": "여기에 측정을 드롭(drop)", 
+			"labels_name": "레이블 버킷", 
+			"labels_tooltip": "여기에 치수를 드롭(drop)"
 		},
 			
 		"tw": {
