@@ -10,7 +10,7 @@
 		}
 	},
 	
-	properties:{
+	"properties": {
 		"type": "regular",
 		"arc": {
 			"start": 1.5708,
@@ -29,7 +29,7 @@
 		"axis": {
 			"base": {
 				"color": "black",
-				"width": 1,
+				"width": 1
 			},
 			"labels": {
 				"format": "auto"
@@ -47,8 +47,8 @@
 			"fontFamily": "sans-serif",
 			"fontSize": "auto",
 			"color": "#333333",
-			"fontWeight": "bold", // "normal", "bolder" or "bold"
-                        "format": "auto"
+			"fontWeight": "bold",
+			"format": "auto"
 		},
 		"labels": {
 			"text": {
@@ -61,12 +61,12 @@
 				"type": "circle"
 			}
 		},
-                "tooltip": {
-                    "enabled": true 
-                }
+		"tooltip": {
+			"enabled": true 
+		}
 	},
 	
-	propertyAnnotations: {
+	"propertyAnnotations": {
 		"type": "str",
 		"arc": {
 			"start": "number",
@@ -117,9 +117,9 @@
 				"type": "str"
 			}
 		},
-                "tooltip": {
-                    "enabled": "bool" 
-                }
+		"tooltip": {
+			"enabled": "bool"
+		}
 	},
 	
 	"dataBuckets": {
@@ -138,7 +138,7 @@
 				"type": "measure",
 				"count": {
 					"min": 1,
-					"max": 1,
+					"max": 1
 				}
 			}
 		]
@@ -219,9 +219,9 @@
 			"name": "円弧グラフ",
 			"description": "円弧グラフです。",
 			"icon_tooltip": "円弧グラフ", 
-			"value_name": "値バケット", 
+			"value_name": "値 (基軸)", 
 			"value_tooltip": "ここに基軸をドロップ",
-			"label_name": "ラベルバケット", 
+			"label_name": "ラベル (ディメンション)", 
 			"label_tooltip": "ここに基軸をドロップ"
 		},
 		
@@ -250,9 +250,9 @@
 			"description": "원형 차트",
 			"icon_tooltip": "원형 차트", 
 			"value_name": "값 버킷 ", 
-			"value_tooltip": "여기에 측정 드롭",
+			"value_tooltip": "여기에 측정을 드롭(drop)",
 			"label_name": "레이블 버킷", 
-			"label_tooltip": "여기에 측정 드롭"
+			"label_tooltip": "여기에 측정을 드롭(drop)"
 		},
 		
 		"tw": {

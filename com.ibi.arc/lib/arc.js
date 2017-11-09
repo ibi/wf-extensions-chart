@@ -1238,6 +1238,11 @@ var tdg_arc = (function() { // change name
             // resize main_group to fit into a container
             // call onRenderComplete callback 
             return function () {
+                if (!group_main || !document.body.contains(group_main.node())) {
+                    // Do not do any of this if the current target is no longer in the DOM.
+                    // In Firefox, getBBox() throws a horribly generic NS_ERROR_FAILURE if its target is not in the DOM.
+                    return;
+                }
                 var bbox = group_main.node().getBBox();
 
                 var overflow = {
