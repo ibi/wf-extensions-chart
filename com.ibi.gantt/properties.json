@@ -1,0 +1,248 @@
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 1.0,
+		"author": "Remi Gagne",
+		"copyright": "Information Builders Inc.",
+		"url": "",
+		"icons": {
+			"medium": "icons/icon.svg"
+		}
+	},
+	
+	"properties": {
+		"sort": undefined,
+		"layout": {
+			"max_label_width": 0.3
+		},
+		"style": {
+			"timeAxis": {
+				"fill": "white",
+				"border": {
+					"color": "lightgrey",
+					"width": 1
+				},
+				"dividers": {
+					"color": "lightgrey",
+					"width": 1,
+				},
+				"rows": [
+					{
+						"label": {
+							"color": "black",
+							"font": "10pt helvetica"
+						}
+					},
+					{
+						"label": {
+							"color": "black",
+							"font": "10pt helvetica"
+						}
+					},
+				]
+			},
+			"labels": {
+				"fill": "white",
+				"border": {
+					"color": "lightgrey",
+					"width": 1
+				},
+				"dividers": {
+					"color": "lightgrey",
+					"width": 1,
+				},
+				"font": "8pt helvetica",
+				"color": "black"
+			},
+			"risers": {
+				"inset": 0.25,
+				"data": {
+					"onlyStart": {
+						"color": "green",
+						"border": {
+							"color": undefined,
+							"width": 3
+						},
+						"marker": {
+							"shape": undefined,
+							"size": 15
+						}
+					},
+					"onlyStop": {
+						"color": "red",
+						"border": {
+							"color": undefined,
+							"width": 3
+						},
+						"marker": {
+							"shape": undefined,
+							"size": 15
+						}
+					},
+					"invertedStartStop": {
+						"color": "green",
+						"border": {
+							"color": undefined,
+							"width": undefined
+						}
+					}
+				},
+				"fill": "white",
+				"altRowFill": undefined,
+				"border": {
+					"color": "lightgrey",
+					"width": 1
+				},
+				"dividers": {
+					"color": "lightgrey",
+					"width": 1,
+				}
+			}
+		}
+	},
+	
+	"propertyAnnotations": {
+		"sort": "str",
+		"layout": {
+			"max_label_width": "number"
+		},
+		"style": {
+			"timeAxis": {
+				"border": {
+					"color": "color",
+					"width": "number"
+				},
+				"dividers": {
+					"color": "color",
+					"width": "number"
+				},
+				"rows": "object"
+			},
+			"labels": {
+				"border": {
+					"color": "color",
+					"width": "number"
+				},
+				"dividers": {
+					"color": "color",
+					"width": "number"
+				},
+				"font": "font",
+				"color": "color"
+			},
+			"risers": {
+				"inset": "number",
+				"data": {
+					"onlyStart": {
+						"color": "color",
+						"border": {
+							"color": "color",
+							"width": "number"
+						},
+						"marker": {
+							"shape": "str",
+							"size": "number"
+						}
+					},
+					"onlyStop": {
+						"color": "color",
+						"border": {
+							"color": "color",
+							"width": "number"
+						},
+						"marker": {
+							"shape": "str",
+							"size": "number"
+						}
+					},
+					"invertedStartStop": {
+						"color": "color",
+						"border": {
+							"color": "color",
+							"width": "number"
+						}
+					}
+				},
+				"fill": "color",
+				"altRowFill": "color",
+				"border": {
+					"color": "color",
+					"width": "number"
+				},
+				"dividers": {
+					"color": "color",
+					"width": "number",
+				}
+			}
+		}
+	},
+	
+	"dataBuckets":  {
+	
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+			{
+				"id": "label",
+				"type": "dimension",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "start",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "stop",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "milestone",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 10
+				}
+			},
+			{
+				"id": "drill_down",
+				"type": "measure",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			}
+		]
+	},
+
+	"translations": {
+		"en": {
+			"name": "Gantt Chart",
+			"description": "Gantt Chart",
+			"icon_tooltip": "Gantt Chart", 
+			"label_name": "Label", 
+			"label_tooltip": "Drop a dimension here",
+			"start_name": "Start Time", 
+			"start_tooltip": "Drop a dimension here",
+			"stop_name": "Stop Time", 
+			"stop_tooltip": "Drop a dimension here",
+			"milestone_name": "Milestones", 
+			"milestone_tooltip": "Drop a dimension here",
+			"drill_down_name": "Drill Down", 
+			"drill_down_tooltip": "Drop a measure here",
+		}
+	}
+}
