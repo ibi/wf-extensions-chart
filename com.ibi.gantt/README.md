@@ -6,6 +6,7 @@ For installation instructions please visit this [link] (https://github.com/ibi/w
 
 ## Description
 
+This extension helps to visualize a project schedule or list of tasks with start and finish times.
 
 ## Screenshots
 
