@@ -14,12 +14,12 @@ This extension helps to visualize a project schedule or list of tasks with start
 
 ## Configurations
 
-To configure or customize your extension edit "properties" object in properties.json file.
+To configure or customize your extension edit the "properties" object in properties.json file.
 	
 	"properties": {
 		"sort": null,  // One of 'label', 'start_time', 'stop_time' or null (do not sort)
 		"layout": {
-			"max_label_width": 0.3  // Maximum percentage of overall chart width to allocate to task label list
+			"max_label_width": 0.3  // Max percentage of overall chart width to allocate to task label list
 		},
 		"style": {
 			"timeAxis": {
