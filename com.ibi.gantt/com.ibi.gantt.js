@@ -593,10 +593,14 @@ function renderCallback(renderConfig) {
 								marker.border.width = marker.border.width || 1;
 								marker.color = null;
 							} else {
-								path = pv.SvgScene.getPath({shape: marker.shape || 'diamond', radius: marker.size || 10});
-								if (pv.SvgScene.pathRequiresStroke) {
+								path = pv.SvgScene.getPath({
+									shape: marker.shape || 'diamond',
+									radius: marker.size || 10,
+									size: marker.size || 10
+								});
+								if (pv.SvgScene.pathRequiresStroke(marker.shape)) {
 									marker.border.color = marker.color;
-									marker.border.width = marker.borderWidth || 1;
+									marker.border.width = marker.border.width || 1;
 									marker.color = null;
 								}
 							}

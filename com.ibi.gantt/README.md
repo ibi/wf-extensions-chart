@@ -1,0 +1,119 @@
+#### Extension for WebFocus 8200
+
+# Gantt Chart
+
+For installation instructions please visit this [link] (https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension "Installing a WebFocus Extension").
+
+## Description
+
+
+## Screenshots
+
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.gantt/screenshots/1.png)
+
+## Configurations
+
+To configure or customize your extension edit "properties" object in properties.json file.
+	
+	"properties": {
+		"sort": null,  // One of 'label', 'start_time', 'stop_time' or null (do not sort)
+		"layout": {
+			"max_label_width": 0.3  // Maximum percentage of overall chart width to allocate to task label list
+		},
+		"style": {
+			"timeAxis": {
+				"fill": "white",
+				"border": {
+					"color": "lightgrey",
+					"width": 1
+				},
+				"dividers": {
+					"color": "lightgrey",
+					"width": 1,
+				},
+				"rows": [
+					{
+						"label": {
+							"color": "black",
+							"font": "10pt helvetica"
+						}
+					},
+					{
+						"label": {
+							"color": "black",
+							"font": "10pt helvetica"
+						}
+					},
+				]
+			},
+			"labels": {
+				"fill": "white",
+				"border": {
+					"color": "lightgrey",
+					"width": 1
+				},
+				"dividers": {
+					"color": "lightgrey",
+					"width": 1,
+				},
+				"font": "8pt helvetica",
+				"color": "black"
+			},
+			"risers": {
+				"inset": 0.25,
+				"data": {
+					"onlyStart": {
+						"color": "green",
+						"border": {
+							"color": undefined,
+							"width": 3
+						},
+						"marker": {
+							"shape": undefined,
+							"size": 15
+						}
+					},
+					"onlyStop": {
+						"color": "red",
+						"border": {
+							"color": undefined,
+							"width": 3
+						},
+						"marker": {
+							"shape": undefined,
+							"size": 15
+						}
+					},
+					"invertedStartStop": {
+						"color": "green",
+						"border": {
+							"color": undefined,
+							"width": undefined
+						}
+					}
+				},
+				"fill": "white",
+				"altRowFill": undefined,
+				"border": {
+					"color": "lightgrey",
+					"width": 1
+				},
+				"dividers": {
+					"color": "lightgrey",
+					"width": 1,
+				}
+			}
+		}
+	}
+
+## Data Buckets
+
+### Dimensions:
+
+* **label** - Set of task names to visualize.
+
+* **start** - Start time for each task.
+
+* **stop** - End time for each task.
+
+* **milestone** - Set of additional markers to visualize on each task.
