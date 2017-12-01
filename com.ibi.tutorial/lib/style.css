@@ -1,0 +1,16 @@
+.extension_container rect {
+  shape-rendering: crispEdges;
+}
+
+.extension_container path {
+	shape-rendering: crispEdges;
+	stroke: grey;
+	stroke-width: 1;
+}
+
+.extension_container text {
+	fill: black;
+	font-size: 12px;
+	font-family: helvetica;
+	text-anchor: middle;
+}
