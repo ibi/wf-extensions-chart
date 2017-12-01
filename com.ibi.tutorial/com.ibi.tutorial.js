@@ -7,6 +7,7 @@
 var tutorialExtensions = {};
 var tutorialList = [
 	'tooltips',
+	'drilldown',
 	'color_scale_legend',
 	'series_break',
 ];
@@ -37,6 +38,13 @@ function initCallback(successCallback, renderConfig) {
 		}
 	};
 
+	var realInitModules = tdgchart.extensionManager.initModules;
+	tdgchart.extensionManager.initModules = function(chart) {
+		var ext = tdgchart.extensionManager.__extensionList[chart.chartType];
+		ext.modules = tdg.clone(currentExtension.modules);
+		realInitModules(chart);
+	};
+
 	tutorialList.forEach(function(extID) {
 		extID = 'com.ibi.tutorial_' + extID;
 		tdg.loadScriptFile(renderConfig.loadPath + extID + '/' + extID + '.js', null, function() {
@@ -45,11 +53,9 @@ function initCallback(successCallback, renderConfig) {
 	});
 }
 
-function noDataPreRenderCallback(renderConfig) {
-}
+function noDataPreRenderCallback(renderConfig) {}
 
-function noDataRenderCallback(renderConfig) {
-}
+function noDataRenderCallback(renderConfig) {}
 
 function initModules(ext, renderConfig) {
 	if (!ext || !ext.modules) {
@@ -57,10 +63,6 @@ function initModules(ext, renderConfig) {
 	}
 	var chart = renderConfig.moonbeamInstance;
 	chart.legend.visible = ext.modules.legend != null;
-
-	if (renderConfig.modules && ext.modules.colorScale) {
-		ext.modules.colorScale.getColorScale = renderConfig.modules.colorScale.getColorScale;
-	}
 }
 
 function preRenderCallback(renderConfig) {
@@ -74,8 +76,6 @@ function titlecase(s) {
 }
 
 function renderCallback(renderConfig) {
-
-	alert(renderConfig.dataBuckets.series_break.fields[0].title);
 
 	var chart = renderConfig.moonbeamInstance;
 	var w = renderConfig.width;
@@ -105,9 +105,11 @@ function renderCallback(renderConfig) {
 			.attr('id', renderConfig.containerIDPrefix + '_subContainer')
 			.attr('style', 'border: 1px solid black;');
 
-	renderConfig.modules.tooltip.activate = function() {
-		chart.addHTMLToolTips(tdgchart.d3.select(extContainer.node()));
-	};
+	if (renderConfig.modules.tooltip) {
+		renderConfig.modules.tooltip.activate = function() {
+			chart.addHTMLToolTips(tdgchart.d3.select(extContainer.node()));
+		};
+	}
 
 	if (currentExtension) {
 		selectBox.node().value = currentExtension.id;
@@ -165,34 +167,7 @@ var config = {
 	noDataRenderCallback: noDataRenderCallback,
 	resources: {  // Additional external resources (CSS & JS) required by this extension
 		script: ['lib/d3.min.js'],
-			css: ['lib/style.css']
-	},
-	modules: {
-		dataSelection: {
-			supported: true,  // Set this true if your extension wants to enable data selection
-			needSVGEventPanel: false, // if you're using an HTML container or altering the SVG container, set this to true and the chart engine will insert the necessary SVG elements to capture user interactions
-			svgNode: function() {}  // if you're using an HTML container or altering the SVG container, return a reference to your root SVG node here.
-		},
-		eventHandler: {
-			supported: true
-		},
-		tooltip: {
-			supported: true,
-			autoContent: function() {return 'NYI';}
-		},
-		colorScale: {
-			supported: true,
-			minMax: resolveModuleLookup('modules.colorScale.minMax')
-		},
-		sizeScale: {
-			supported: false,
-			minMax: resolveModuleLookup('modules.sizeScale.minMax')
-		},
-		legend: {
-			colorMode: resolveModuleLookup('modules.legend.colorMode'),
-			sizeMode: resolveModuleLookup('modules.legend.sizeMode'),
-			seriesCount: resolveModuleLookup('modules.legend.seriesCount')
-		}
+		css: ['lib/style.css']
 	}
 };
 
