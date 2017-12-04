@@ -17,6 +17,12 @@ var tdg = tdgchart.util, isArray = Array.isArray;
 
 function initCallback(successCallback, renderConfig) {
 
+//	tdgchart.d3.select(document).on('mousedown.tdg_global', function(d, data, e) {
+//		if (e && e.target && e.target instanceof HTMLSelectElement && e.target.getAttribute('class') === 'extension_selector') {
+//			console.log("click");
+//		}
+//	});
+
 	var loaded = (function() {
 		var loadedCount = 0;
 		var originalRegister = tdgchart.extensionManager.register;
@@ -32,10 +38,13 @@ function initCallback(successCallback, renderConfig) {
 	tdgchart.extensionManager.register = function(ext) {
 		ext.properties = tdg.ajax(renderConfig.loadPath + ext.id + '/properties.json', {asJSON: true});
 		tutorialExtensions[ext.id] = ext;
-		loaded();
 		if (currentExtension == null) {
 			currentExtension = ext;
 		}
+		if (ext.id === renderConfig.properties.selectedExtension) {
+			currentExtension = ext;
+		}
+		loaded();
 	};
 
 	var realInitModules = tdgchart.extensionManager.initModules;
@@ -85,6 +94,7 @@ function renderCallback(renderConfig) {
 		.attr('class', 'com_ibi_chart');
 
 	var selectBox = container.append('select')
+		.attr('class', 'extension_selector')
 		.style('margin-left', '10px')
 		.on('change', function() {
 			currentExtension = tutorialExtensions[this.value];

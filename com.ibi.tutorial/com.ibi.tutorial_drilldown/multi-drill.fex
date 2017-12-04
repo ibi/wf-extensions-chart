@@ -1,0 +1,20 @@
+GRAPH FILE wf_retail_lite
+SUM WF_RETAIL_SALES.SALE_UNITY
+BY WF_RETAIL_PRODUCT.PRODUCT_CATEGORY
+ON GRAPH PCHOLD FORMAT JSCHART
+ON GRAPH SET LOOKGRAPH EXTENSION
+ON GRAPH SET AUTOFIT ON
+ON GRAPH SET STYLE *
+
+INCLUDE=IBFS:/FILE/IBI_HTML_DIR/ibi_themes/Warm.sty,$
+TYPE=DATA, COLUMN=N1, BUCKET=(detail >labels), $
+TYPE=DATA, COLUMN=N2, BUCKET= >value, DRILLMENUITEM='Drill Down 1', TARGET='_blank', URL=http://google.com/search?(q=WF_RETAIL_PRODUCT.PRODUCT_CATEGORY), DRILLMENUITEM='Drill Down 2', TARGET='_blank', URL=http://bing.com/search?(q=WF_RETAIL_PRODUCT.PRODUCT_CATEGORY), $
+
+*GRAPH_JS_FINAL
+"chartType": "com.ibi.tutorial",
+"extensions": {
+    "com.ibi.tutorial": {
+        "selectedExtension": "com.ibi.tutorial_drilldown"
+    }
+}
+END
