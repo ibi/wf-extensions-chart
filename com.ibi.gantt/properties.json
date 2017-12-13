@@ -2,7 +2,7 @@
 	"info": {
 		"version": 1.0,
 		"implements_api_version": 1.0,
-		"author": "Remi Gagne",
+		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
 		"url": "",
 		"icons": {
@@ -108,6 +108,7 @@
 		},
 		"style": {
 			"timeAxis": {
+				"fill": "color",
 				"border": {
 					"color": "color",
 					"width": "number"
@@ -119,6 +120,7 @@
 				"rows": "object"
 			},
 			"labels": {
+				"fill": "color",
 				"border": {
 					"color": "color",
 					"width": "number"
