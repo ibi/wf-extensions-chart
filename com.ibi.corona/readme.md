@@ -10,19 +10,19 @@ This extension shows comparisons among series within groups. It allows a quick c
 To configure the default values for this extension, edit "properties" object in properties.json file.
 
 properties: {
-    "title": {
-        "visible": true,                                         ## Boolean value to trigger the display or not of the title text.
-        "text": "",                                              ## If provided, this will form the title rendered within the chart.   
-        "align": "centre",                                       ## The alignment of the chart title, left or right defaults to centre.
-        "color": "rgb(255,255,255)"                              ## The font colour of the title text.        
-    },        
-    "datarange": {
-        "inc_zero": true,                                        ## Boolean value to trigger the chart range to begin at a zero value.
-    },        
-    "ringlabels": {
-        "visible": true,                                         ## Boolean to trigger the display ornot of the labels for the grid rings.
-        "angle": 345                                             ## The angle at which the grid ring labels should be shown. 0 is the 12 o'clock position
-    },
+        "title": {
+            "visible": true,                                         ## Boolean value to trigger the display or not of the title text.
+            "text": "",                                              ## If provided, this will form the title rendered within the chart.   
+            "align": "centre",                                       ## The alignment of the chart title, left or right defaults to centre.
+            "color": "rgb(255,255,255)"                              ## The font colour of the title text.        
+        },        
+        "datarange": {
+            "inc_zero": true,                                        ## Boolean value to trigger the chart range to begin at a zero value.
+        },        
+        "ringlabels": {
+            "visible": true,                                         ## Boolean to trigger the display ornot of the labels for the grid rings.
+            "angle": 345                                             ## The angle at which the grid ring labels should be shown. 0 is the 12 o'clock position
+        },
     "backcolors": {
         "stopcolor1": "rgb(255,255,255)",                        ## The background colour is a gradient which goes from color1 though color2
         "stopcolor2": "rgb(255,255,255)"                         ## and then back to color1 again. Resulting in equal transitions across the chart background.
