@@ -1,4 +1,16 @@
+// Copyright 1996-2018 Information Builders, Inc. All rights reserved.
 // Corona Chart HTML 5 Extension JavaScript
+// Written by   : Anthony Alsford
+// Date Created : 20th November 2017
+// --------------------------------------------------------------------------------
+// Modification History
+// --------------------------------------------------------------------------------
+// Anthony Alsford: 27 Dec 2017
+//   1. Additional property to allow non-display of the reference ring on mouseover
+//   2. Change format of radial labels to 3 significant digits
+//   3. Additional attribute to "dots" series to identify Radial value so that it
+//      can be added to central labels on mouseover events.
+// --------------------------------------------------------------------------------
 
 function checkData(data,container,width,height,arrBuckets,props) {
 
@@ -59,7 +71,7 @@ function drawChart(data,svgContainer,width,height,arrBuckets,props) {
   var x_min_len = (parseInt(x_min).toString()).length - 2;
   var x_max_len = (parseInt(x_max).toString()).length - 2;
   
-// If then minimum value length is less than that of the maximum, then use 1 significant digit  
+// If the minimum value length is less than that of the maximum, then use 1 significant digit  
       x_min_len = (x_min_len < x_max_len) ? x_min_len + 1 : x_min_len;
   
   var x_min = Math.round((x_min / Math.pow(10, x_min_len)) - 0.5) * Math.pow(10, x_min_len);
@@ -97,13 +109,13 @@ function drawChart(data,svgContainer,width,height,arrBuckets,props) {
 // As the SVG container is setup for us, we need to ensure that our definitions for our gradients are in the correct location.
   var defs       = d3.select("body").selectAll("defs");
   
-  var color1    = props.backcolors.stopcolor1;
-  var color2    = props.backcolors.stopcolor2;
+  var color1     = props.backcolors.stopcolor1;
+  var color2     = props.backcolors.stopcolor2;
 
   var linearGrad = defs.append("linearGradient").attr("id","svg_fill").attr("x1","0%").attr("y1","0%").attr("x2","100%").attr("y2","0%");
-  var stop1 = linearGrad.append("stop").attr("offset","0%").attr("style","stop-color:"+color1+";stop-opacity:1");
-  var stop2 = linearGrad.append("stop").attr("offset","50%").attr("style","stop-color:"+color2+";stop-opacity:0.9");
-  var stop3 = linearGrad.append("stop").attr("offset","100%").attr("style","stop-color:"+color1+";stop-opacity:1");
+  var stop1      = linearGrad.append("stop").attr("offset","0%").attr("style","stop-color:"+color1+";stop-opacity:1");
+  var stop2      = linearGrad.append("stop").attr("offset","50%").attr("style","stop-color:"+color2+";stop-opacity:0.9");
+  var stop3      = linearGrad.append("stop").attr("offset","100%").attr("style","stop-color:"+color1+";stop-opacity:1");
 /**/
   var rcolor1    = props.radialcolor.stopcolor1;
   var ropacity1  = props.radialcolor.stopopacity1;
@@ -169,7 +181,7 @@ function drawChart(data,svgContainer,width,height,arrBuckets,props) {
                       .attr("style", "font-size:"+parseInt(fontScale1(MinPlot * 0.75))+"pt;opacity:0.4;")
                       .style("fill",props.labels.radial.color)
                       .attr("startOffset", "50%")
-                      .text(function() {var parse = d3.format("s");
+                      .text(function() {var parse = d3.format(".3s");
                                         var fmtNumber = (currRing === 0) ? 0 : parse(currRing);
                                         return fmtNumber;
                                        });
@@ -241,6 +253,12 @@ function drawChart(data,svgContainer,width,height,arrBuckets,props) {
                          .enter()
                          .append("circle")
                            .attr("angle",function(d,i) {return (360 / plotPoints) * arrRadials.indexOf(d.radial);})
+                           .attr("radialval",function(d,i) {if (d.radial) {
+                                                              return d.radial;
+                                                            } else {
+                                                              return "undefined";
+                                                            }
+                                                           })
                            .attr("seriesval",function(d,i) {if (d.series) {
                                                               return d.series;
                                                             } else {
@@ -274,6 +292,7 @@ function drawChart(data,svgContainer,width,height,arrBuckets,props) {
                            .on("mouseover", function(d,i) {
                                                       var thisseries = d3.select(this).attr("gid");
                                                       var thisAngle = d3.select(this).attr("angle");
+                                                      var radialVal = d3.select(this).attr("radialval");
                                                       var seriesVal = d3.select(this).attr("seriesval");
                                                       d3.selectAll(".circles")
                                                           .attr("opacity", "0.15");
@@ -298,9 +317,18 @@ function drawChart(data,svgContainer,width,height,arrBuckets,props) {
                                                           .attr("fill-opacity","1");
                                                       var thisvalue = d3.select(this).attr("value");
                                                       d3.select("#textval")
-                                                          .text(arrBuckets.value.title+": "+thisvalue);
+//                                                          .text(arrBuckets.value.title+": "+thisvalue);
+                                                          .text(function() {var parse = d3.format(".3s");
+                                                                            var fmtNumber = (thisvalue === 0) ? 0 : parse(thisvalue);
+                                                                            return arrBuckets.value.title+": "+thisvalue;
+                                       });
                                                       d3.select("#valCircle")
-                                                          .attr("r",linearScale(thisvalue) * MinCentre / centreY);
+                                                          .attr("r", function() {if (props.ringreference.visible) {
+                                                                                   return linearScale(thisvalue) * MinCentre / centreY
+                                                                                 } else {
+                                                                                   return 0;
+                                                                                 }
+                                                                     });
 //                                                      d3.select("#DataLabel")
 //                                                          .text(function() {var lblIndex = thisAngle / 15;
 //                                                                            return lblPoints[lblIndex];});
