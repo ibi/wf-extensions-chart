@@ -4,8 +4,8 @@ For installation instructions please visit this [link] (https://github.com/ibi/w
 ## Description
 This extension shows comparisons among series within groups. It allows a quick comparison between groups when the cursor is moved over data points.
 ## Screenshots
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.corona/screenshots/1.png)
-![screenshot_2](https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.corona/screenshots/2.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.corona/screenshots/1.png )
+![screenshot_2](https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.corona/screenshots/2.png )
 ## Configurations
 To configure the default values for this extension, edit "properties" object in properties.json file.
 	
