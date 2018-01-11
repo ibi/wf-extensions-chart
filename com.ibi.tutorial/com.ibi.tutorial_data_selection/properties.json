@@ -2,7 +2,7 @@
 	"info": {
 		"version": 1.0,
 		"implements_api_version": 2.0,
-		"author": "Remi Gagne",
+		"author": "Information Builders Inc.",
 		"copyright": "Information Builders Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.tutorial",
 		"icons": {
@@ -20,7 +20,7 @@
 	
 	"dataBuckets":  {
 	
-		"tooltip": true,
+		"tooltip": false,
 		"matrix": false,
 		"data_page": false,
 		"series_break": false,
@@ -47,9 +47,9 @@
 
 	"translations": {
 		"en": {
-			"name": "Drilldown Demo",
-			"description": "Drilldown Demo",
-			"icon_tooltip": "Drilldown Demo", 
+			"name": "Data Selection Demo",
+			"description": "Data Selection Demo",
+			"icon_tooltip": "Data Selection Demo", 
 			"value_name": "Value Bucket", 
 			"value_tooltip": "Drop a measure here", 
 			"labels_name": "Label Bucket", 

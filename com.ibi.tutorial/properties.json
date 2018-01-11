@@ -2,7 +2,7 @@
 	"info": {
 		"version": 1.0,
 		"implements_api_version": 2.0,
-		"author": "Remi Gagne",
+		"author": "Information Builders Inc.",
 		"copyright": "Information Builders Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.tutorial",
 		"icons": {
@@ -11,18 +11,22 @@
 	},
 	
 	"properties": {
-		"selectedExtension": "com.ibi.tutorial_series_break"
+		"selectedExtension": null,
+		"baseProperties": {},
+		"tutorialSpecificProperties": {}
 	},
 	
 	"propertyAnnotations": {
-		"selectedExtension": "str"
+		"selectedExtension": "str",
+		"baseProperties": "json",
+		"tutorialSpecificProperties": "json"
 	},
 	
 	"dataBuckets":  {
 	
 		"tooltip": true,
-		"matrix": false,
-		"data_page": false,
+		"matrix": true,
+		"data_page": true,
 		"series_break": true,
 
 		"buckets": [
@@ -41,7 +45,15 @@
 					"min": 0,
 					"max": 1
 				}
-			}
+			},
+			{
+				"id": "size",
+				"type": "measure",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
 		]
 	},
 
