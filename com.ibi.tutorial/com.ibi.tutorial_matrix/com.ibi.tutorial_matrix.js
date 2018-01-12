@@ -66,18 +66,6 @@
 			css: ['../lib/style.css']
 		},
 		modules: {
-			tooltip: {
-				supported: true,  // Set this true if your extension wants to enable HTML tooltips
-				// This callback is called when no default tooltip content is passed into the chart.
-				// Use this to define 'nice' default tooltips for the given target, ids & data.
-				// Return value can be a string (including HTML), or HTML nodes, or any Moonbeam tooltip API object.
-				autoContent: function(target, s, g, d) {
-					if (d.hasOwnProperty('color')) {
-						return 'Bar Size: ' + d.value + '<br />Bar Color: ' + d.color;
-					}
-					return 'Bar Size: ' + d.value;
-				}
-			}
 		}
 	};
 
