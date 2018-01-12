@@ -1,0 +1,59 @@
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 1.0,
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/tutorial",
+		"icons": {
+			"medium": "icons/icon.svg"
+		}
+	},
+	
+	"properties": {
+		"chartHeadroom": 50,
+	},
+	
+	"propertyAnnotations": {
+		"chartHeadroom": "number",
+	},
+	
+	"dataBuckets":  {
+	
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+			{
+				"id": "value",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "labels",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			}
+		]
+	},
+
+	"translations": {
+		"en": {
+			"name": "Template for creating new extensions",
+			"description": "When creating a new extension, start by cloning this extension",
+			"icon_tooltip": "This extension does ...", 
+			"value_name": "Value Bucket", 
+			"value_tooltip": "Drop a measure here", 
+			"labels_name": "Label Bucket", 
+			"labels_tooltip": "Drop a dimension here"
+		}
+	}
+}
