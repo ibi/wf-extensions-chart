@@ -1,0 +1,20 @@
+GRAPH FILE wf_retail_lite
+SUM WF_RETAIL_SALES.SALE_UNITY
+BY WF_RETAIL_PRODUCT.PRODUCT_CATEGORY
+ON GRAPH PCHOLD FORMAT JSCHART
+ON GRAPH SET LOOKGRAPH EXTENSION
+ON GRAPH SET AUTOFIT ON
+ON GRAPH SET STYLE *
+
+INCLUDE=IBFS:/FILE/IBI_HTML_DIR/ibi_themes/Warm.sty,$
+TYPE=DATA, COLUMN=N1, BUCKET= >labels, $
+TYPE=DATA, COLUMN=N2, BUCKET= >value, $
+
+*GRAPH_JS_FINAL
+"chartType": "com.ibi.tutorial",
+"extensions": {
+    "com.ibi.tutorial": {
+        "selectedExtension": "com.ibi.tutorial_tooltip"
+    }
+}
+END

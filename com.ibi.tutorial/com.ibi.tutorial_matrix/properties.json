@@ -21,9 +21,9 @@
 	"dataBuckets":  {
 	
 		"tooltip": false,
-		"matrix": false,
+		"matrix": true,
 		"data_page": false,
-		"series_break": true,
+		"series_break": false,
 
 		"buckets": [
 			{
@@ -47,12 +47,12 @@
 
 	"translations": {
 		"en": {
-			"name": "Series Break Demo",
-			"description": "Series Break Demo",
-			"icon_tooltip": "Series Break Demo", 
-			"value_name": "Value Bucket", 
-			"value_tooltip": "Drop a measure here", 
-			"labels_name": "Label Bucket", 
+			"name": "Matrix Data Demo",
+			"description": "Matrix Data Demo",
+			"icon_tooltip": "Matrix Data Demo", 
+			"value_name": "Value Bucket",
+			"value_tooltip": "Drop a measure here",
+			"labels_name": "Label Bucket",
 			"labels_tooltip": "Drop a dimension here"
 		}
 	}

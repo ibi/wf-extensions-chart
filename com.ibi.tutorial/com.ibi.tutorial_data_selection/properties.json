@@ -23,7 +23,7 @@
 		"tooltip": false,
 		"matrix": false,
 		"data_page": false,
-		"series_break": true,
+		"series_break": false,
 
 		"buckets": [
 			{
@@ -47,9 +47,9 @@
 
 	"translations": {
 		"en": {
-			"name": "Series Break Demo",
-			"description": "Series Break Demo",
-			"icon_tooltip": "Series Break Demo", 
+			"name": "Data Selection Demo",
+			"description": "Data Selection Demo",
+			"icon_tooltip": "Data Selection Demo", 
 			"value_name": "Value Bucket", 
 			"value_tooltip": "Drop a measure here", 
 			"labels_name": "Label Bucket", 

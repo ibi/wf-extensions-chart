@@ -6,22 +6,22 @@
 // key = ext id, value = extension info
 var tutorialExtensions = {};
 var tutorialList = [
-	'tooltips',
-	'drilldown',
 	'color_scale_legend',
+	'data_labels',
+	'data_page_slider',
+	'data_selection',
+	'matrix',
+	'multi_drill',
 	'series_break',
+	'single_drill',
+	'size_scale_legend',
+	'tooltips'
 ];
 var currentExtension;
 
 var tdg = tdgchart.util, isArray = Array.isArray;
 
 function initCallback(successCallback, renderConfig) {
-
-//	tdgchart.d3.select(document).on('mousedown.tdg_global', function(d, data, e) {
-//		if (e && e.target && e.target instanceof HTMLSelectElement && e.target.getAttribute('class') === 'extension_selector') {
-//			console.log("click");
-//		}
-//	});
 
 	var loaded = (function() {
 		var loadedCount = 0;
@@ -51,6 +51,13 @@ function initCallback(successCallback, renderConfig) {
 	tdgchart.extensionManager.initModules = function(chart) {
 		var ext = tdgchart.extensionManager.__extensionList[chart.chartType];
 		ext.modules = tdg.clone(currentExtension.modules);
+		if (ext.modules.colorScale && typeof ext.modules.colorScale.minMax === 'function') {
+			var originalMinMax = ext.modules.colorScale.minMax;
+			ext.modules.colorScale.minMax = function(renderConfig) {
+				renderConfig.data = sanitizeData(currentExtension, renderConfig);
+				return originalMinMax(renderConfig);
+			}
+		}
 		realInitModules(chart);
 	};
 
@@ -62,9 +69,10 @@ function initCallback(successCallback, renderConfig) {
 	});
 }
 
-function noDataPreRenderCallback(renderConfig) {}
-
-function noDataRenderCallback(renderConfig) {}
+function noDataRenderCallback(renderConfig) {
+	renderConfig.moonbeamInstance.errorMessage = "Add a measure to the 'Value' bucket to begin.";
+	renderConfig.moonbeamInstance.redraw();
+}
 
 function initModules(ext, renderConfig) {
 	if (!ext || !ext.modules) {
@@ -72,9 +80,29 @@ function initModules(ext, renderConfig) {
 	}
 	var chart = renderConfig.moonbeamInstance;
 	chart.legend.visible = ext.modules.legend != null;
+	if (ext.id.endsWith('data_labels')) {
+		chart.dataLabels.visible = true;
+		chart.dataLabels.position = 'center';
+	}
 }
 
 function preRenderCallback(renderConfig) {
+	var chart = renderConfig.moonbeamInstance;
+	var extName = currentExtension.id.replace('com.ibi.tutorial_', '');
+	var sliderPage = (extName === 'data_page_slider') ? chart.dataPageSlider.currentPage : null;
+	if (!tdg.isEmpty(renderConfig.properties.baseProperties)) {
+		chart.resetProperties();
+		chart.dataBuckets = {};
+		chart.set(renderConfig.properties.baseProperties);
+	}
+
+	if (renderConfig.properties.tutorialSpecificProperties) {
+		var extraProps = renderConfig.properties.tutorialSpecificProperties[extName];
+		chart.set(extraProps);
+		if (sliderPage != null) {
+			chart.dataPageSlider.currentPage = sliderPage;
+		}
+	}
 	initModules(currentExtension, renderConfig);
 }
 
@@ -141,6 +169,12 @@ function drawExtension(ext, container, renderConfig) {
 }
 
 function sanitizeData(ext, renderConfig) {
+	if (renderConfig.dataBuckets.matrix && !ext.properties.dataBuckets.matrix) {
+		if (isArray(renderConfig.data) && isArray(renderConfig.data[0]) && isArray(renderConfig.data[0][0])) {
+			renderConfig.data = renderConfig.data[0][0];
+			renderConfig.dataBuckets.depth -= 2;
+		}
+	}
 	if (renderConfig.dataBuckets.series_break && !ext.properties.dataBuckets.series_break) {
 		if (isArray(renderConfig.data) && isArray(renderConfig.data[0])) {
 			// TODO: aggregrate split data across group IDs
@@ -152,20 +186,6 @@ function sanitizeData(ext, renderConfig) {
 	return renderConfig.data;
 }
 
-function resolveModuleLookup(prop) {
-	return function(renderConfig) {
-		var v = tdg.get(prop, currentExtension, 'DNE');
-		if (typeof v === 'function') {
-			renderConfig = tdg.clone(renderConfig);
-			renderConfig.data = sanitizeData(currentExtension, renderConfig);
-			return v(renderConfig);
-		} else if (v !== 'DNE') {
-			return v;
-		}
-		return null;
-	};
-}
-
 // Your extension's configuration
 var config = {
 	id: 'com.ibi.tutorial',     // string that uniquely identifies this extension
@@ -173,7 +193,6 @@ var config = {
 	initCallback: initCallback,
 	preRenderCallback: preRenderCallback,  // reference to a function that is called right *before* your extension is rendered.  Will be passed one 'preRenderConfig' object, defined below.  Use this to configure a Monbeam instance as needed
 	renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
-	noDataPreRenderCallback: noDataPreRenderCallback,
 	noDataRenderCallback: noDataRenderCallback,
 	resources: {  // Additional external resources (CSS & JS) required by this extension
 		script: ['lib/d3.min.js'],

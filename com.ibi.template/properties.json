@@ -1,10 +1,10 @@
 {
 	"info": {
 		"version": 1.0,
-		"implements_api_version": 2.0,
-		"author": "Remi Gagne",
+		"implements_api_version": 1.0,
+		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
-		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.tutorial",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/tutorial",
 		"icons": {
 			"medium": "icons/icon.svg"
 		}
@@ -20,7 +20,7 @@
 	
 	"dataBuckets":  {
 	
-		"tooltip": true,
+		"tooltip": false,
 		"matrix": false,
 		"data_page": false,
 		"series_break": false,
@@ -47,9 +47,9 @@
 
 	"translations": {
 		"en": {
-			"name": "Drilldown Demo",
-			"description": "Drilldown Demo",
-			"icon_tooltip": "Drilldown Demo", 
+			"name": "Template for creating new extensions",
+			"description": "When creating a new extension, start by cloning this extension",
+			"icon_tooltip": "This extension does ...", 
 			"value_name": "Value Bucket", 
 			"value_tooltip": "Drop a measure here", 
 			"labels_name": "Label Bucket", 
