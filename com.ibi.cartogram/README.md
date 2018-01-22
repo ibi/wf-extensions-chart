@@ -11,7 +11,7 @@ CartogramPrototype.html is a simplified prototype of the technique on http://pra
 
 Cartogram for U.S. states.
 
-##Screenshots
+## Screenshots
 
 ![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.cartogram/screenshots/cartogram1.png)
 
