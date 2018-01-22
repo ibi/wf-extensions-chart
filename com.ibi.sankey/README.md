@@ -32,6 +32,6 @@ To configure or customize your extension, edit the "properties" object in the pr
 
 ### Dimensions:
 
-* ** Source Node** - Dimension whose values will form the start of the link connecting each value to each shared target value. 
+* **Source Node** - Dimension whose values will form the start of the link connecting each value to each shared target value. 
 
-* ** Target Node** - Dimension whose values will form the end of the link.
+* **Target Node** - Dimension whose values will form the end of the link.
