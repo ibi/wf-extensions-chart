@@ -1,4 +1,4 @@
-#### Extension for WebFocus 8200
+#### Extension for WebFOCUS 8200
 
 # Arc Diagram
 
