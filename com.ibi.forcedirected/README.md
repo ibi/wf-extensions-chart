@@ -10,12 +10,17 @@ For installation instructions please visit this [link](https://github.com/ibi/wf
 
 This extension shows connections between categories.
 
+## Screenshots
+
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.forcedirected/screenshots/forcedirected1.png)
+
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.forcedirected/screenshots/forcedirected2.png)
 
 ## Configurations
 
 To configure or customize your extension edit "properties" object in properties.json file.
 	
-"properties": {
+	"properties": {
 		"chartHeadroom": 50
 	},	
 
