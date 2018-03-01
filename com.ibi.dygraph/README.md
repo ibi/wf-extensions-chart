@@ -4,7 +4,7 @@ For installation instructions please visit this [link] (https://github.com/ibi/w
 ## Description
 This extension exposes the DyGraph (version 2.1.0) which shows multiple series of data across a Date Range.
 ## Screenshots
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/add-dygraph-extension/com.ibi.dygraph/screenshots/1.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.dygraph/screenshots/1.png)
 ## Configurations
 To configure the default values for this extension, edit "properties" object in properties.json file.
 	
