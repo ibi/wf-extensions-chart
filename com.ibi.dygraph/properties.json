@@ -1,0 +1,153 @@
+{
+    "info": {
+        "version": 1.0,
+        "implements_api_version": 1.0,
+        "author": "Anthony Alsford Information Builders (UK) Ltd",
+        "copyright": "Information Builders Inc.",
+        "url": "",
+        "icons": {
+            "medium": "icons/medium.png"
+        }
+    },
+    
+    "properties": {
+      axes: {
+        x: {
+          pixelsPerLabel: 70,
+          axisLabelWidth: 60,
+          axisLineColor: "rgb(0,0,0)",
+          axisLabelFontSize: 14,
+          axisLineWidth: 0.3,
+          axisTickSize: 3.0,
+          drawGrid: true,
+          drawAxis: true,
+          independentTicks: true,
+        },
+        y: {
+          pixelsPerLabel: 30,
+          axisLabelWidth: 50,
+          axisLineColor: "rgb(0,0,0)",
+          axisLabelFontSize: 14,
+          axisLineWidth: 0.3,
+          axisTickSize: 3.0,
+          drawGrid: true,
+          drawAxis: true,
+          independentTicks: true
+        }
+      },
+      colors: ["rgb(102,128,0)","rgb(102,0,128)","rgb(0,51,128)","rgb(0,128,51)"],
+//      series: {
+//          []
+//      },
+      titleHeight: 28,
+      xLabelHeight: 18,
+      yLabelWidth: 18,
+      labelsKMB: "K",
+      labelsSeparateLines: true,
+      legend: "always",
+      customBars: false,
+      errorBars: false,
+      showRoller: false,
+      rollPeriod: 14,
+      gridLineWidth: 0.15,
+      title: "DyGraph Extension",
+      ylabel: "Sales",
+      xlabel: "Date",
+      maxNumberWidth: 12,
+      displayAnnotations: true,
+      xAxisHeight: 40,
+      drawAxesAtZero: true
+    },
+    
+    "propertyAnnotations": {
+      axes: {
+        x: {
+          pixelsPerLabel: "number",
+          axisLabelWidth: "number",
+          axisLineColor: "color",
+          axisLabelFontSize: "number",
+          axisLineWidth: "number",
+          axisTickSize: "number",
+          drawGrid: "bool",
+          drawAxis: "bool",
+          independentTicks: "bool",
+        },
+        y: {
+          pixelsPerLabel: "number",
+          axisLabelWidth: "number",
+          axisLineColor: "color",
+          axisLabelFontSize: "number",
+          axisLineWidth: "number",
+          axisTickSize: "number",
+          drawGrid: "bool",
+          drawAxis: "bool",
+          independentTicks: "bool"
+        }
+      },
+      colors: {
+                "typeAnnotation": "array",
+                "arrayTypes": "color"
+              },
+//      series: {
+//                "typeAnnotation": "array",
+//                "arrayTypes": ["str","auto"]
+//      },
+      titleHeight: "number",
+      xLabelHeight: "number",
+      yLabelWidth: "number",
+      labelsKMB: "str",
+      labelsSeparateLines: "bool",
+      legend: "str",
+      title: "str",
+      customBars: "bool",
+      errorBars: "bool",
+      showRoller: "bool",
+      rollPeriod: "number",
+      gridLineWidth: "number",
+      ylabel: "str",
+      xlabel: "str",
+      maxNumberWidth: "number",
+      displayAnnotations: "bool",
+      xAxisHeight: "number",
+      drawAxesAtZero: "bool"
+    },
+    
+    "dataBuckets":  {
+    
+        "tooltip": false,
+        "matrix": false,
+        "data_page": false,
+        "series_break": false,
+
+        "buckets": [
+            {
+                "id": "value",
+                "type": "measure",
+                "count": {
+                    "min": 1,
+                    "max": 4
+                }
+            },
+            {
+                "id": "timeline",
+                "type": "dimension",
+                "count": {
+                    "min": 1,
+                    "max": 1
+                }
+            }
+        ]
+    },
+
+    "translations": {
+        "en": {
+            "name": "DyGraph Chart",
+            "description": "DyGraph Chart",
+            "icon_tooltip": "This extension creates a timeline chart using the DyGraph library.", 
+            "value_name": "Value Bucket", 
+            "value_tooltip": "Drop a measure here", 
+            "timeline_name": "Time Line Bucket", 
+            "timeline_tooltip": "Drop a measure here", 
+        }
+    }
+}
