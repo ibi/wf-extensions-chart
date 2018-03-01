@@ -1,5 +1,5 @@
 #### Extension for WebFocus 8200
-# Corona Chart
+# Dygraph Chart
 For installation instructions please visit this [link] (https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension "Installing a WebFocus Extension").
 ## Description
 This extension exposes the DyGraph (version 2.1.0) which shows multiple series of data across a Date Range.
