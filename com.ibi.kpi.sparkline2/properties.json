@@ -1,0 +1,116 @@
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 1.0,
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.kpi.sparkline2",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	
+	"properties": {
+		"type": "bar",
+		"color": "#666",
+		"fontFamily": "'Open Sans'",
+		"fontSize": "12px",
+		"headingTitle": {
+			"fontWeight": "400",
+			"color": "inherit",
+			"fontSize": "16px"
+		},
+		"headingSubtitle": {
+			"fontWeight": "400",
+			"color": "inherit",
+			"fontSize": "11px"
+		},
+		"headingData": {
+			"fontWeight": "700",
+			"color": "inherit",
+			"fontSize": "24px"
+		},
+		"barProperties": {
+			"height": 40,
+			"width": 8,
+			"goodColor": "#37BF54",
+			"badColor": "#F53554"
+		}
+	},
+	
+	"propertyAnnotations": {
+		"type": "str", 
+		"color": "str", 
+		"fontFamily": "str", 
+		"fontSize": "str", 
+		"headingTitle": {
+			"fontWeight": "str",
+			"color": "str",
+			"fontSize": "str"
+		},
+		"headingSubtitle": {
+			"fontWeight": "str",
+			"color": "str",
+			"fontSize": "str"
+		},
+		"headingData": {
+			"fontWeight": "str",
+			"color": "str",
+			"fontSize": "str"
+		},
+		"barProperties": {
+			"height": "number",
+			"width": "number",
+			"goodColor": "str",
+			"badColor": "str"
+		}
+	},
+	
+	"dataBuckets":  {
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+			{
+				"id": "measure",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "group",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "xaxis",
+				"type": "dimension",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			}
+		]
+	},
+
+	"translations": {
+		"en": {
+			"name": "KPI with Sparkline Large",
+			"description": "KPI with jQuery Sparkline plug-in - Large.",
+			"icon_tooltip": "KPI with jQuery Sparkline plug-in - Large.", 
+			"measure_name": "Key Measure", 
+			"measure_tooltip": "Drop a measure here", 
+			"xaxis_name": "X-Axis", 
+			"xaxis_tooltip": "Drop a dimension here",
+			"group_name": "Group", 
+			"group_tooltip": "Drop a dimension here"
+		}
+	}
+}
