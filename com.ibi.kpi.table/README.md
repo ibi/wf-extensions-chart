@@ -10,8 +10,8 @@ This extension creates a widget that allows you to scroll through dimension fiel
 
 ## Screenshots
 
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpi.table/screenshots/1.png)
-![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpi.table/screenshots/2.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpi.table/screenshots/1.PNG)
+![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpi.table/screenshots/2.PNG)
 
 ## Configurations
 
