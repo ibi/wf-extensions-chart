@@ -1,0 +1,112 @@
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 1.0,
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.kpi.table",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	
+	"properties": {
+		"color": "#666",
+		"fontFamily": "'Open Sans'",
+		"fontSize": "12px",
+		"headingTitle": {
+			"fontWeight": "400",
+			"color": "inherit",
+			"fontSize": "16px"
+		},
+		"headingData": {
+			"fontWeight": "700",
+			"color": "inherit",
+			"fontSize": "24px"
+		},
+		"columnTitle": {
+			"fontWeight": "400",
+			"color": "inherit",
+			"fontSize": "14px"
+		},
+		"columnData": {
+			"fontWeight": "700",
+			"color": "inherit",
+			"fontSize": "16px"
+		}
+	},
+	
+	"propertyAnnotations": {
+		"color": "str", 
+		"fontFamily": "str", 
+		"fontSize": "str", 
+		"headingTitle": {
+			"fontWeight": "str",
+			"color": "str",
+			"fontSize": "str"
+		},
+		"headingData": {
+			"fontWeight": "str",
+			"color": "str",
+			"fontSize": "str"
+		},
+		"columnTitle": {
+			"fontWeight": "str",
+			"color": "str",
+			"fontSize": "str"
+		},
+		"columnData": {
+			"fontWeight": "str",
+			"color": "str",
+			"fontSize": "str"
+		}
+	},
+	
+	"dataBuckets":  {
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+			{
+				"id": "keymeasure",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "measure",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 3
+				}
+			},
+			{
+				"id": "group",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			}
+		]
+	},
+
+	"translations": {
+		"en": {
+			"name": "KPI Table",
+			"description": "KPI Table Widget.",
+			"icon_tooltip": "KPI Table Widget.", 
+			"keymeasure_name": "Key Measure", 
+			"keymeasure_tooltip": "Drop a measure here", 
+			"measure_name": "Supporting Measures", 
+			"measure_tooltip": "Drop a measure here", 
+			"group_name": "Group", 
+			"group_tooltip": "Drop a dimension here"
+		}
+	}
+}

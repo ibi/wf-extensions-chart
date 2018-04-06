@@ -1,0 +1,40 @@
+.kpi-container {
+	font-family: 'Open Sans';
+	display: block;
+	margin: auto;
+	text-align: center;
+	min-width: 200px;
+	max-width: 500px;
+	padding: 10px;
+}
+.kpi-title {
+	display: inline-block;
+	text-align: left;
+	font-size: 12px;
+	font-weight: 700;
+	width: 100%;
+}
+.kpi-title.compare {
+	width: 60%;
+}
+.kpi-change {
+	display: inline-block;
+	text-align: right;
+	font-size: 12px;
+	width: 40%;
+}
+.kpi-total {
+	display: inline-block;
+	text-align: left;
+	font-size: 20px;
+	padding: 5px 0 0 0;
+	vertical-align: middle;
+	width: 40%;
+}
+.kpi-sparkline {
+	display: inline-block;
+	text-align: right;
+	padding: 5px 0 0 0;
+	vertical-align: middle;
+	width: 60%;
+}
