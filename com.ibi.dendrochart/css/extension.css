@@ -1,1 +1,208 @@
+/* Copyright 1996-2014 Information Builders, Inc. All rights reserved. */
+/* $Revision: 1.2 $ */
 
+  .com_ibi_chart text {
+  }
+
+  .chart {
+    overflow: visible !important;
+  }
+  
+  #tooltip {
+    width:230;
+    padding:5px;
+    border-radius:9px;
+    height:auto;
+    position:absolute;
+    visibility:hidden;
+    white-space:nowrap;
+    font-family: sans-serif;
+    font-size: 10pt;
+  }
+  
+  .svgContainer {
+    display: block;
+    margin: auto;
+    background-color: rgba(128,128,255,0.2);
+    border: 1px solid black;
+  }
+
+  .RAG_green_hover {
+    border: 1px solid rgb(0,97,0);
+    background: rgb(198,239,206);
+    color: rgb(0,97,0);
+  }
+
+  .RAG_amber_hover {
+    border: 1px solid rgb(156,101,0);
+    background: rgb(255,235,156);
+    color: rgb(156,101,0);
+  }
+
+  .RAG_red_hover {
+    border: 1px solid rgb(156,0,6);
+    background: rgb(255,192,206);
+    color: rgb(156,0,6);
+  }
+
+  .node {
+    cursor: pointer;
+  }
+
+  .node rect {
+    stroke: steelblue;
+    stroke-width: 2;
+  }
+
+  .node text {
+    font: 14px sans-serif;
+  }
+
+  .link {
+    fill: none;
+    stroke: #ccc;
+    stroke-width: 1.5px;
+  }
+
+  .node text {
+    font-weight: 600;
+  }
+
+  circle {
+    stroke-width: 2;
+  }
+
+  circle.RAG_green {
+    stroke: rgb(0,176,80);
+  }
+
+  circle.RAG_green_hover {
+    fill: rgb(198,239,206);
+    stroke: rgb(0,176,80);
+  }
+
+  circle.RAG_amber {
+    stroke: rgb(255,192,0);
+  }
+
+  circle.RAG_amber_hover {
+    fill: rgb(255,235,156);
+    stroke: rgb(255,192,0);
+  }
+
+  circle.RAG_red {
+    stroke: rgb(255,0,0);
+  }
+
+  circle.RAG_red_hover {
+    fill: rgb(255,192,206);
+    stroke: rgb(255,0,0);
+  }
+
+  rect {
+    stroke-width: 2;
+  }
+
+  rect.RAG_undefined {
+    fill: rgb(160,160,160);
+    stroke: rgb(0,0,0);
+  }
+
+  rect.RAG_undefined_hover {
+    fill: rgb(160,160,160);
+    stroke: rgb(0,0,0);
+  }
+
+  rect.RAG_green {
+    fill: rgb(0,176,80);
+    stroke: rgb(0,176,80);
+  }
+
+  rect.RAG_green_hover {
+    fill: rgb(198,239,206);
+    stroke: rgb(0,176,80);
+  }
+
+  rect.RAG_amber {
+    fill: rgb(255,192,0);
+    stroke: rgb(255,192,0);
+  }
+
+  rect.RAG_amber_hover {
+    fill: rgb(255,235,156);
+    stroke: rgb(255,192,0);
+  }
+
+  rect.RAG_red {
+    fill: rgb(255,0,0);
+    stroke: rgb(255,0,0);
+  }
+
+  rect.RAG_red_hover {
+    fill: rgb(255,192,206);
+    stroke: rgb(255,0,0);
+  }
+
+  text.RAG_green {
+    fill: rgb(255,255,255);
+  }
+
+  text.RAG_greenX {
+    fill: none;
+  }
+
+  text.RAG_green_hover {
+    fill: rgb(0,97,0);
+  }
+
+  text.RAG_amber {
+    fill: rgb(255,255,255);
+  }
+
+  text.RAG_amberX {
+    fill: none;
+  }
+
+  text.RAG_amber_hover {
+    fill: rgb(156,101,0);
+  }
+
+  text.RAG_red {
+    fill: rgb(255,255,255);
+  }
+
+  text.RAG_redX {
+    fill: none;
+  }
+
+  text.RAG_red_hover {
+    fill: rgb(156,0,6);
+  }
+
+  line {
+    stroke-width: 2;
+  }
+
+  line.RAG_green {
+    stroke: rgb(0,176,80);
+  }
+
+  line.RAG_green_hover {
+    stroke: rgb(0,176,80);
+  }
+
+  line.RAG_amber {
+    stroke: rgb(255,192,0);
+  }
+
+  line.RAG_amber_hover {
+    stroke: rgb(255,192,0);
+  }
+
+  line.RAG_red {
+    stroke: rgb(255,0,0);
+  }
+
+  line.RAG_red_hover {
+    stroke: rgb(255,0,0);
+  }
