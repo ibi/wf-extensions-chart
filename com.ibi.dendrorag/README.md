@@ -1,6 +1,6 @@
 #### Extension for WebFocus 8200
 # Dendro RAG Chart
-For installation instructions please visit this [link] (https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension "Installing a WebFocus Extension").
+For installation instructions please visit this [link](https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension "Installing a WebFocus Extension").
 ## Description
 This extension displays a horizontal dendro chart with nodes containing the data value within a lozenge.
 Up to three levels can be added together with "fail" and "total" values.
@@ -9,8 +9,8 @@ The "total" and "fail" values are accumulated from the lowest level through to t
 A main node is added when two or more nodes exist within the level[0] attribute. The main node data value can be set within the "properties" section of the extensions "properties.json" file. The default is "".
 A drill down can be applied to the lowest node within the complete dendro chart by specifying the RS style path within the "properties" section of the extensions "properties.json" file. The default is "" for no drill down. Examples of both the Applications and Content folders are given within the "properties.json" file.
 ## Screenshots
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/add-dendrorag-extension/com.ibi.dendrorag/screenshots/1.png)
-![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/add-dendrorag-extension/com.ibi.dendrorag/screenshots/2.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.dendrorag/screenshots/1.png)
+![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.dendrorag/screenshots/2.png)
 ## Configurations
 To configure the default values for this extension, edit "properties" object in properties.json file.
 	
