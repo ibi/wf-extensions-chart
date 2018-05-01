@@ -1,0 +1,83 @@
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 1.0,
+		"author": "Anthony Alsford Information Builders (UK) Ltd",
+		"copyright": "Information Builders Inc.",
+		"url": "",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	
+	"properties": {
+        "RootName": "",
+        "indRed": 50,
+        "indAmber": 70,
+        "useParentRAG": false,
+        "showSuccess": true,
+        "drilldown": "",
+//        "drilldown": "/EDA/EDASERVE/ibisamp/carinst.fex",
+//        "drilldown": "/WFC/Repository/Public/carinst.fex",
+        "ddtarget": "_blank"
+	},
+	
+	"propertyAnnotations": {
+        "RootName": "str",
+        "indRed": "number",
+        "indAmber": "number",
+        "useParentRAG": "bool",
+        "showSuccess": "bool",
+        "drilldown": "str",
+        "ddtarget": "str"
+	},
+	
+	"dataBuckets":  {
+	
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+			{
+				"id": "total",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "fail",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "levels",
+				"type": "dimension",
+				"count": {
+					"min": 1,
+					"max": 3
+				}
+			}
+		]
+	},
+
+	"translations": {
+		"en": {
+			"name": "Dendro RAG Chart",
+			"description": "This extension displays a collapsible hierarchy showing RAG for each level based on accumulated values.",
+			"icon_tooltip": "Dendro RAG Chart", 
+			"value_name": "Total Bucket", 
+			"value_tooltip": "Drop a measure here", 
+			"radial_name": "Fail Bucket", 
+			"radial_tooltip": "Drop a measure here", 
+			"series_name": "Levels Bucket", 
+			"series_tooltip": "Drop up to three dimensions here"
+		}
+	}
+}
