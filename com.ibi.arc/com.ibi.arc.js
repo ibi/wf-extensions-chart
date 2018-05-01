@@ -51,8 +51,19 @@
             .attr('class', 'tdg_marker_chart');
 
         var arc_chart = tdg_arc(props);
-
+		
+		//Start Chart-2836	
+		arc_chart.isInteractionDisabled(!chart.introAnimation.enabled);                 //Turn of intro animation if false
+		
+		if (window.event != undefined) {
+			if (window.event.type == "resize") arc_chart.isInteractionDisabled(true);   //Turn Off animation if chart is being resized
+		}
+		//End Chart-2836
+		
         arc_chart(container);
+
+		
+		
     }
 
     function getInvokeAfter (cb, count) {
