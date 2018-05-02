@@ -9,8 +9,8 @@ The "total" and "fail" values are accumulated from the lowest level through to t
 A main node is added when two or more nodes exist within the level[0] attribute. The main node data value can be set within the "properties" section of the extensions "properties.json" file. The default is "".<br />
 A drill down can be applied to the lowest node within the complete dendro chart by specifying the RS style path within the "properties" section of the extensions "properties.json" file. The default is "" for no drill down. Examples of both the Applications and Content folders are given within the "properties.json" file.
 ## Screenshots
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/add-dendrorag-extension/com.ibi.dendrorag/screenshots/1.png)
-![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/add-dendrorag-extension/com.ibi.dendrorag/screenshots/2.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.dendrorag/screenshots/1.png)
+![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.dendrorag/screenshots/2.png)
 ## Configurations
 To configure the default values for this extension, edit "properties" object in properties.json file.
 	
@@ -20,8 +20,8 @@ To configure the default values for this extension, edit "properties" object in 
         "indAmber": 70,
         "useParentRAG": false,  // Each node has 2 values from which a percentage is calculated
 		                    // Standard method is that each parent node would be assigned the
-		// percentage from the worse child.
-		// Change this property to true to retain parent percentages.
+		                    // percentage from the worse child.
+		                    // Change this property to true to retain parent percentages.
         "showSuccess": true,
         "drilldown": "",
        // "drilldown": "/EDA/EDASERVE/ibisamp/carinst.fex", // format of drilldown call for Apps files
