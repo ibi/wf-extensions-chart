@@ -19,13 +19,13 @@ To configure the default values for this extension, edit "properties" object in 
         "indRed": 50,
         "indAmber": 70,
         "useParentRAG": false,  // Each node has 2 values from which a percentage is calculated
-		                        // Standard method is that each parent node would be assigned the
-								// percentage from the worse child.
-								// Change this property to true to retain parent percentages.
+		                    // Standard method is that each parent node would be assigned the
+		// percentage from the worse child.
+		// Change this property to true to retain parent percentages.
         "showSuccess": true,
         "drilldown": "",
-       // "drilldown": "/EDA/EDASERVE/ibisamp/carinst.fex",
-       // "drilldown": "/WFC/Repository/Public/carinst.fex",
+       // "drilldown": "/EDA/EDASERVE/ibisamp/carinst.fex", // format of drilldown call for Apps files
+       // "drilldown": "/WFC/Repository/Public/carinst.fex", // format of drilldown call for Domain files
         "ddtarget": "_blank"
 	}
     
