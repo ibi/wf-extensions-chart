@@ -1,16 +1,16 @@
 #### Extension for WebFocus 8200
 # Dendro RAG Chart
-For installation instructions please visit this [link](https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension "Installing a WebFocus Extension").
+For installation instructions please visit this [link] (https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension "Installing a WebFocus Extension").
 ## Description
-This extension displays a horizontal dendro chart with nodes containing the data value within a lozenge.
-Up to three levels can be added together with "fail" and "total" values.
-The lowest level is not expanded at runtime, but can be expanded by clicking on the parent node. Clicking on a parent node will expand or collapse the child node(s).
-The "total" and "fail" values are accumulated from the lowest level through to the highest and are used to calculate a success percentage using "((total - fail) / total) * 100". The precentage is then used to evaluate how the node should be coloured. The thresholds are set within the "properties" section of the extensions "properties.json" file. Tooltips are automatic and are colour coded per the node to which it applies.
-A main node is added when two or more nodes exist within the level[0] attribute. The main node data value can be set within the "properties" section of the extensions "properties.json" file. The default is "".
+This extension displays a horizontal dendro chart with nodes containing the data value within a lozenge.<br />
+Up to three levels can be added together with "fail" and "total" values.<br />
+The lowest level is not expanded at runtime, but can be expanded by clicking on the parent node. Clicking on a parent node will expand or collapse the child node(s).<br />
+The "total" and "fail" values are accumulated from the lowest level through to the highest and are used to calculate a success percentage using "((total - fail) / total) * 100". The precentage is then used to evaluate how the node should be coloured. The thresholds are set within the "properties" section of the extensions "properties.json" file. Tooltips are automatic and are colour coded per the node to which it applies.<br />
+A main node is added when two or more nodes exist within the level[0] attribute. The main node data value can be set within the "properties" section of the extensions "properties.json" file. The default is "".<br />
 A drill down can be applied to the lowest node within the complete dendro chart by specifying the RS style path within the "properties" section of the extensions "properties.json" file. The default is "" for no drill down. Examples of both the Applications and Content folders are given within the "properties.json" file.
 ## Screenshots
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.dendrorag/screenshots/1.png)
-![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.dendrorag/screenshots/2.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/add-dendrorag-extension/com.ibi.dendrorag/screenshots/1.png)
+![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/add-dendrorag-extension/com.ibi.dendrorag/screenshots/2.png)
 ## Configurations
 To configure the default values for this extension, edit "properties" object in properties.json file.
 	
@@ -18,9 +18,14 @@ To configure the default values for this extension, edit "properties" object in 
         "RootName": "",
         "indRed": 50,
         "indAmber": 70,
+        "useParentRAG": false,  // Each node has 2 values from which a percentage is calculated
+		                        // Standard method is that each parent node would be assigned the
+								// percentage from the worse child.
+								// Change this property to true to retain parent percentages.
+        "showSuccess": true,
         "drilldown": "",
-//        "drilldown": "/EDA/EDASERVE/ibisamp/carinst.fex",
-//        "drilldown": "/WFC/Repository/Public/carinst.fex",
+       // "drilldown": "/EDA/EDASERVE/ibisamp/carinst.fex",
+       // "drilldown": "/WFC/Repository/Public/carinst.fex",
         "ddtarget": "_blank"
 	}
     
