@@ -184,11 +184,11 @@
 			"name": "コードダイアグラム",
 			"description": "コードダイアグラムです。",
 			"icon_tooltip": "コードダイアグラム", 
-			"source_name": "ソースノード", 
+			"source_name": "ソースノード (ディメンション)", 
 			"source_tooltip": "ここにディメンションをドロップ",
-			"target_name": "ターゲットノード", 
+			"target_name": "ターゲットノード(ディメンション)", 
 			"target_tooltip": "ここにディメンションをドロップ",
-			"value_name": "ノードリンク値",
+			"value_name": "ノードリンク値 (基軸)",
 			"value_tooltip": "ここに基軸をドロップ"
 		},
 		
@@ -217,15 +217,15 @@
 		},
 		
 		"ko": {
-			"name": "코드 다이어그램",
-			"description": "코드 다이어그램",
-			"icon_tooltip": "코드 다이어그램", 
+			"name": "현 다이어그램",
+			"description": "현 다이어그램",
+			"icon_tooltip": "현 다이어그램", 
 			"source_name": "소스 노드", 
-			"source_tooltip": "여기에 특성 항목 놓기",
+			"source_tooltip": "여기에 치수를 드롭(drop)",
 			"target_name": "대상 노드", 
-			"target_tooltip": "여기에 특성 항목 놓기",
+			"target_tooltip": "여기에 치수를 드롭(drop)",
 			"value_name": "노드 링크 값",
-			"value_tooltip": "여기에 측정 드롭"
+			"value_tooltip": "여기에 측정을 드롭(drop)"
 		},	
 			
 		"tw": {

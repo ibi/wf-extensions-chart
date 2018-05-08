@@ -171,7 +171,8 @@ var com_tdg_chord = (function () {
 					.call(getOnAllTransitionComplete(onRenderComplete));
 			}
 
-			if ( props.toolTipEnabled && false) {
+			//if ( props.toolTipEnabled && false) {                               //'false' boolean was keeping group_curves tooltip from being generated.
+			if ( props.toolTipEnabled) {                                          //Fix for CHART-2949
 				group_curves.attr('tdgtitle', buildGroupCurveToolTip(idToIndx));
 			}
 
