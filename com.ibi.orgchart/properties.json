@@ -1,11 +1,11 @@
 
 {
 	"info": {
-		"version": 1.0,
+		"version": 1.01,
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
-		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.hiearachy",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.orgchart",
 		"icons": {
 			"medium": "icons/medium.png"
 		}
