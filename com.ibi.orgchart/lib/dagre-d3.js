@@ -600,6 +600,7 @@ var addTextLabel = require("./add-text-label"),
 module.exports = addLabel;
 
 function addLabel(root, node) {
+		
   var label = node.label;
   var labelSvg = root.append("g");
 

@@ -46,9 +46,16 @@
 
 		var hierarchy = tdghierarchy.init(props);
 
-		var container = d3.select(renderConfig.container)
-			.attr('class', 'com_tdg_hierarchy')
-			.call(hierarchy);
+		//Start CHART-2947 issue with FireFox getBBox issue on hidden svg elements
+		try {
+			var container = d3.select(renderConfig.container)
+				.attr('class', 'com_tdg_hierarchy')
+				.call(hierarchy);
+		}
+		catch(err) {
+			console.log(err);
+		}
+		//END CHART-2947
 
 		chart.processRenderComplete();
 
@@ -71,34 +78,43 @@
 		props.formatNumber = chart.formatNumber;
 
 		var hierarchy = tdghierarchy.init(props);
+		
+		//Start CHART-2947 issue with FireFox getBBox issue on hidden svg elements
+		try {
+			var container = d3.select(renderConfig.container)
+				.attr('class', 'com_tdg_hierarchy')
+				.call(hierarchy);
 
-		var container = d3.select(renderConfig.container)
-			.attr('class', 'com_tdg_hierarchy')
-			.call(hierarchy);
+			container.append("rect")
+				.attr({
+					width: props.width,
+					height: props.height
+				})
+				.style({
+					fill: 'white',
+					opacity: 0.9
+				});
 
-		container.append("rect")
-			.attr({
-				width: props.width,
-				height: props.height
-			})
-			.style({
-				fill: 'white',
-				opacity: 0.9
-			});
+			container.append('text')
+				.text('Add more measures or dimensions')
+				.attr({
+					'text-anchor': 'middle',
+					y: props.height / 2,
+					x: props.width / 2
+				})
+				.style({
+					'font-weight' : 'bold',
+					'font-size' : '14',
+					dy: '0.35em',
+					fill: 'grey'
+				});
+				
+		} //try
+		catch(err) {
+			console.log(err);
+		} //catch
+		//End CHART-2947
 
-		container.append('text')
-			.text('Add more measures or dimensions')
-			.attr({
-				'text-anchor': 'middle',
-				y: props.height / 2,
-				x: props.width / 2
-			})
-			.style({
-				'font-weight' : 'bold',
-				'font-size' : '14',
-				dy: '0.35em',
-				fill: 'grey'
-			});
 
 		chart.processRenderComplete();
 	}
@@ -127,5 +143,11 @@
 
 	// Required: this call will register your extension with Moonbeam
 	tdgchart.extensionManager.register(config);
+	
+
+	window.onbeforeunload = function (e) {
+								debugger;        
+							}
+	
 
 }());
