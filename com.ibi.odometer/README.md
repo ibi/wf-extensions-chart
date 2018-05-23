@@ -6,7 +6,7 @@ For installation instructions please visit this [link] (https://github.com/ibi/w
 
 ## Description
 
-This extension shows a simple label with an odometer-style spinning animation.
+This extension shows a simple label with an odometer-style spinning animation.  Based on the [Odometer](http://github.hubspot.com/odometer/docs/welcome/) JavaScript library.
 
 ## Configurations
 
