@@ -1,0 +1,57 @@
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 2.0,
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/odometer",
+		"icons": {
+			"medium": "icons/icon.svg"
+		}
+	},
+	
+	"properties": {
+		"startValue": 1,     // Initial value to draw in the odometer; will cycle up (or down) from this value to the bucket driven data set value
+		"theme": "default",  // One of 'car', 'default', 'digital', 'minimal', 'plaza', 'slot-machine', 'train-station'
+		"animation": "spin", // One of 'spin' or 'count'
+		"updateSpeed": 0,    // length of time between each odometer animation update, in ms.  If 0 or null and animation is spin, will spin nicely
+		"fontSize": null     // Height of font, in pixels.  If undefined, will pick a font that fills up the container.
+	},
+	
+	"propertyAnnotations": {
+		"startValue": "number",
+		"theme": "str",
+		"animation": "str",
+		"updateSpeed": "number",
+		"fontSize": "number"
+	},
+	
+	"dataBuckets":  {
+	
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+			{
+				"id": "value",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			}
+		]
+	},
+
+	"translations": {
+		"en": {
+			"name": "Odometer",
+			"description": "Simple numeric label with spinning animation",
+			"icon_tooltip": "Simple numeric label with spinning animation", 
+			"value_name": "Value Bucket", 
+			"value_tooltip": "Drop a measure here"
+		}
+	}
+}
