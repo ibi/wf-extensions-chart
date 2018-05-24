@@ -10,9 +10,9 @@ This extension shows a simple label with an odometer-style spinning animation.  
 
 ## Screenshots
 
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.odometer/screenshots/1.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.odometer/screenshots/1.PNG)
 
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.odometer/screenshots/2.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.odometer/screenshots/2.PNG)
 
 ## Configurations
 
