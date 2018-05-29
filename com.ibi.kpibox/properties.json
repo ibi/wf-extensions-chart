@@ -22,9 +22,9 @@
 		"colorScale": {
 			"colorMode":"discrete",
 			"colorBands": [
-			{"start": -1000000000000, "stop": 0,"color":"red"},
-			{"start": 0, "stop": 1000000000000,"color":"green"}
-		]
+				{"start": -1000000000000, "stop": 0, "color":"red"},
+				{"start": 0, "stop": 1000000000000, "color":"green"}
+			]
 		},
 		"shortenNumbers": true, // If true, The numbers are shortened
 		"shortenNumbersTooltip": false, // If true, The numbers are shortened in tooltip
