@@ -110,13 +110,13 @@
 			});
 		
 		if (hasCompareValue) {
-
+			
 			var compareTitle =  $ib3.config.getBucketTitle('comparevalue'),
 				percentageCalcValue = (kpiDataElem.value - compareValue) / compareValue,
 				percentageValue = (percentageCalcValue == 'Infinity') 
 					? String.fromCharCode(8734)
 					: $ib3.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), '#,###.00%'),
-				percentageColor = calculateColor(percentageCalcValue);
+				percentageColor = calculateColor(percentageCalcValue, kpiSign);
 				percentageTriangleDirection = percentageCalcValue < 0 ? 'down' : 'up';
 
 			var triangleHeight = kpiValueElem.node().getBBox().height;
@@ -243,16 +243,16 @@
 		
 		$ib3.config.finishRender();
 		
-		function calculateColor(field){
+		function calculateColor(field, kpiSign){
 			var the_fill = 'black';
-			for (var a = 0; a < colorBands.length; a++){
-				if ((field > colorBands[a].start) &&
-					(field < colorBands[a].stop)){
-					the_fill = colorBands[a].color;
-					break;
-				}
-			}
-			return the_fill;
+			
+			var isRange1 = field > colorBands[0].start && field < colorBands[0].stop,
+				isRange2 = field > colorBands[1].start && field < colorBands[1].stop;
+				
+			if (isRange1 && kpiSign) return colorBands[0].color;
+			if (isRange2 && kpiSign) return colorBands[1].color;
+			if (isRange1 && !kpiSign) return colorBands[1].color;
+			if (isRange2 && !kpiSign) return colorBands[0].color;
 		}
 	}
 	
