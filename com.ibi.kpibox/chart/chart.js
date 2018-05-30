@@ -238,8 +238,9 @@
 		//Asing drill/tooltip clases
 		d3.select(container)
 			.attr('class', $ib3.config.getDrillClass(0, 0));		
-			
+
 		$ib3.utils.setUpTooltip(d3.select(container).node(), 0, 0, kpiDataElem);
+		$ib3.utils.setUpTooltip(d3.select('svg > rect').node(), 0, 0, kpiDataElem);
 		
 		$ib3.config.finishRender();
 		

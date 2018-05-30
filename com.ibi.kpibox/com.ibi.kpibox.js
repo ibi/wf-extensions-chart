@@ -35,6 +35,29 @@
 		//IMPORTANT: Setup the renderConfig to custom $ib3
 		$ib3.config.setup(renderConfig);
 		$ib3.chart.draw(isDummyData);
+		
+		//HIDE Image path and Kpi Sign Buckets from Tooltip
+		var extraCss = '';
+		
+		var imageBucket = $ib3.config.getBucket('image');
+		if(imageBucket) {
+			extraCss = ' .tdgchart-tooltip table > tr:first-child { display: none; } '
+		}
+		
+		var	compareValueBucket = $ib3.config.getBucket('comparevalue'),
+			kpiSignBucket = $ib3.config.getBucket('kpisign');
+			
+		if(kpiSignBucket) {
+			var index = 2;
+			if(imageBucket) index++;
+			if(compareValueBucket) index++;
+			
+			extraCss += ' .tdgchart-tooltip table > tr:nth-of-type(' + index + ') { display: none; } ';
+		}
+		
+		if(extraCss) {
+			$("<style type='text/css'> " + extraCss + " </style>").appendTo("head");
+		}
 
 	}
 
