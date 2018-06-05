@@ -1,0 +1,51 @@
+
+#### Extension from WebFocus 8200
+
+# Kpi Distribution
+
+For installation instructions please visit this [link] (https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension "Installing a WebFocus Extension").
+
+## Description
+
+Draw in animated bars the distribution of measure by one dimensions
+
+## Screenshots
+
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpi_distribution/screenshots/1.png)
+
+![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpi_distribution/screenshots/2.png)
+
+## Configurations
+
+To configure or customize your extension edit "properties" object in properties.json file.
+
+**Any property can be overwritten from a property that is written in the webfocus chart code (GRAPH_JS_FINAL Properties) or in the STY file**
+	
+	"properties": {
+		"sizes": {
+			"titlesFont": "17px"
+		},
+		"colors": {
+			"minColor": "#912BA7",
+			"maxColor": "#036DB2",
+			"titlesColor": "#415D6B"
+		}
+	},
+	
+	"propertyAnnotations": {
+	
+		"sizes": "json",
+		"colors": "json"
+		
+	},
+
+
+## Data Buckets
+
+### Measures:
+* **Value Bucket (1, required)** - Required. KPI value
+* **Max value Bucket (0:1, non required)** - Non required. Max value
+* **Min value Bucket (0:1, non required)** - Non required. Min value
+
+### Dimensions
+* **Dimension Bucket (1, required)** - Required. Dimension.
