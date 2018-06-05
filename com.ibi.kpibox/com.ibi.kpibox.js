@@ -63,7 +63,7 @@
 
 	var config = {
 		id: 'com.ibi.kpibox',
-		ibiVersion: '1.01', // control developing version
+		ibiVersion: '1.02', // control developing version
 		containerType: 'svg',
 		name: 'KPI Box',
 		initCallback: initCallback,

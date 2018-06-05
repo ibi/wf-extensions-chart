@@ -4,7 +4,7 @@
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
-		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/kpibox",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.kpibox",
 		"license": "BSD 3-clause",
 		"icons": {
 			"medium": "icons/kpibox_icon_medium.png"
@@ -27,7 +27,7 @@
 			]
 		},
 		"shortenNumbers": true, // If true, The numbers are shortened
-		"shortenNumbersTooltip": false, // If true, The numbers are shortened in tooltip
+		"title_row": false, // If true, The title will fill a complete row
 		"calculateFontSize": false,  // If true, The size of text is calculated automatically
 		"fixedFontSizeProp": "26px", // If calculateFontSize is false, the text size will take this value
 		"fixedPixelLinesMargin": 20  // If calculateFontSize is false, the text separation will take this value
@@ -42,7 +42,7 @@
 		"textColor": "str",
 		"colorScale":"json",
 		"shortenNumbers":"bool",
-		"shortenNumbersTooltip":"bool",
+		"title_row": "bool",
 		"calculateFontSize": "bool",
 		"fixedFontSizeProp": "str",
 		"fixedPixelLinesMargin": "number"	
@@ -94,13 +94,13 @@
 			"name": "KPI Box",
 			"description": "Fancy KPI Box",
 			"icon_tooltip": "KPI Box", 
-			"value_name": "Value Bucket (1)", 
+			"value_name": "Value Bucket (1, required)", 
 			"value_tooltip": "Drop a measusre here",
-			"comparevalue_name": "Compare Value Bucket (0-1)", 
+			"comparevalue_name": "Compare Value Bucket (1, non required)", 
 			"comparevalue_tooltip": "Drop a measusre here",
-			"kpisign_name": "Sign Comparision Bucket (0-1)", 
+			"kpisign_name": "Sign Comparision Bucket (1, non required)", 
 			"kpisign_tooltip": "Drop a measusre here",
-			"image_name": "Image Bucket (0-1)", 
+			"image_name": "Image Bucket (1, non required)", 
 			"image_tooltip": "Drop a field with path to image"
 		}
 	}
