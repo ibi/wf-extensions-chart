@@ -27,9 +27,18 @@
 		var numberFormat = $ib3.config.getFormatByBucketName('value', 0),
 			colorBands = $ib3.config.getProperty('colorScale.colorBands'),
 			shortenNumbers = $ib3.config.getProperty('shortenNumbers'),
-			shortenNumbersTooltip = $ib3.config.getProperty('shortenNumbersTooltip'),
+			title_row = $ib3.config.getProperty('title_row'),
 			widthImage = width * 0.4,
 			widthInfo = width * 0.6,
+			height_image = title_row 
+				? height - 40
+				: height,
+			y_image = title_row 
+				? 40
+				: 0,		
+			x_title = title_row 
+				? 10
+				: 0,	
 			calculateFontSize = $ib3.config.getProperty('calculateFontSize'),
 			fixedFontSizeProp = $ib3.config.getProperty('fixedFontSizeProp') || '20px',
 			fixedPixelLinesMargin = $ib3.config.getProperty('fixedPixelLinesMargin') || 0;
@@ -48,19 +57,20 @@
 			kpiSign = !!parseInt(typeof kpiDataElem.kpisign === 'undefined' ? 1 : kpiDataElem.kpisign),
 			kpiBoxTitle = $ib3.config.getBucketTitle('value', 0),
 			hasCompareValue = typeof compareValue !== 'undefined';
+		
 
 		var imageContainer = d3.select(container)
 			.append('g')
 			.attr('width', widthImage)
-			.attr('height', height);
-
+			.attr('height', height_image);
+ 
 		var imageElem = imageContainer.append('svg:image')
 			.attr('class', 'image-container')
 			.attr('width', widthImage)
-			.attr('height', height)
+			.attr('height', height_image)
 			.attr('xlink:href', image)
 			.attr('x', 0)
-			.attr('y', 0);
+			.attr('y', y_image);
 
 		var infoContainer = d3.select(container)
 			.append('g')
@@ -68,14 +78,18 @@
 			.attr('width', widthInfo)
 			.attr('height', height)
 			.attr('transform', 'translate(' + width * 0.4 + ',0)');
-
-		var kpiTitleElem = infoContainer.append('text')
+			
+		var title_container = 	title_row 
+			? d3.select(container)
+			: infoContainer;
+				
+		var kpiTitleElem = title_container.append('text')
 			.attr('class', 'kpi-title')
 			.attr('width', widthInfo)
 			.attr('fill', '#333')
-			.attr('x', 0)
-			.text(kpiBoxTitle);
-
+			.attr('x', x_title)
+			.text(kpiBoxTitle);	
+	
 		kpiTitleElem
 			.attr('font-size', function() { 
 				return calculateFontSize
@@ -124,12 +138,14 @@
 			var trianglePath = d3.symbol()
 				.size([triangleHeight * triangleHeight / 2]) //TODO: Make responsive size
 				.type(d3.symbolTriangle);
-	
+				
+			var margin_triangle = percentageTriangleDirection == 'up' ? 1.75 : 1.5;
+			
 			var triangleElem = infoContainer.append('path')
 				.attr('d', trianglePath)
 				.attr('fill', percentageColor)
 				.attr('transform', function() {
-					return 'translate( ' + (this.getBBox().width / 2) + ', ' + (this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height + fixedPixelLinesMargin * 2) + ') ' + 
+					return 'translate( ' + (this.getBBox().width / 2) + ', ' + (this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height + fixedPixelLinesMargin * margin_triangle) + ') ' + 
 						'rotate(' + ( percentageTriangleDirection == 'up' ? 0 : 180) + ')'; 
 				});		
 
@@ -156,6 +172,12 @@
 				});
 		
 		}
+		 if((calculateFontSize) && (title_row)){
+			imageElem
+				.attr('y', 20 + kpiTitleElem.node().getBBox().height);
+		 }
+		
+		 
 		
 		//Check if text over flow height
 		var availableHeight = height,
@@ -245,6 +267,7 @@
 		$ib3.config.finishRender();
 		
 		function calculateColor(field, kpiSign){
+			
 			var the_fill = 'black';
 			
 			var isRange1 = field > colorBands[0].start && field < colorBands[0].stop,
@@ -254,6 +277,7 @@
 			if (isRange2 && kpiSign) return colorBands[1].color;
 			if (isRange1 && !kpiSign) return colorBands[1].color;
 			if (isRange2 && !kpiSign) return colorBands[0].color;
+			if (!isRange2 && !isRange1) return the_fill;
 		}
 	}
 	

@@ -37,6 +37,7 @@ To configure or customize your extension edit "properties" object in properties.
 		]
 		},
 		"shortenNumbers": true, // If true, The numbers are shortened
+		"title_row": false, // If true, The title will fill a complete row
 		"shortenNumbersTooltip": false, // If true, The numbers are shortened in tooltip
 		"calculateFontSize": false,  // If true, The size of text is calculated automatically
 		"fixedFontSizeProp": "26px", // If calculateFontSize is false, the text size will take this value
@@ -52,6 +53,7 @@ To configure or customize your extension edit "properties" object in properties.
 		"textColor": "str",
 		"colorScale":"json",
 		"shortenNumbers":"bool",
+		"title_row": "bool",
 		"shortenNumbersTooltip":"bool",
 		"calculateFontSize": "bool",
 		"fixedFontSizeProp": "str",
@@ -62,9 +64,9 @@ To configure or customize your extension edit "properties" object in properties.
 ## Data Buckets
 
 ### Measures:
-* **Value Bucket (1)** - Required. KPI value
-* **Compare Value Bucket (0-1)** - Not required. KPI for comparison.
-* **Sign Comparision Bucket (0-1)** - Not required. Positive or negative value to set comparision direction.
+* **Value Bucket (1, required)** - Required. KPI value
+* **Compare Value Bucket (1, non required)** - Not required. KPI for comparison.
+* **Sign Comparision Bucket (1, non required)** - Not required. Positive or negative value to set comparision direction.
 
 ### Dimensions
-* **Image Bucket (0-1)** - Not required. Reference the IBFS path of an image.
+* **Image Bucket (1, non required)** - Not required. Reference the IBFS path of an image.
