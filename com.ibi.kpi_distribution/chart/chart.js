@@ -28,9 +28,9 @@
 			minColor = isDummyData ? 'grey': $ib3.config.getProperty('colors.minColor'),
 			maxColor = isDummyData ? '#5a5a5a': $ib3.config.getProperty('colors.maxColor'),
 			textColor = isDummyData ? 'grey': $ib3.config.getProperty('colors.titlesColor'),
-			marginTop = 10,
-			distributionHeight = 80,
-			barHeight = 15,
+			marginTop = parseFloat($ib3.config.getProperty('sizes.marginTop')),
+			rowHeight = parseFloat($ib3.config.getProperty('sizes.rowHeight')),
+			barHeight = parseFloat($ib3.config.getProperty('sizes.barHeight')),
 			animationSeconds = 500,
 			fontSize = $ib3.config.getProperty('sizes.titlesFont');
 					
@@ -56,7 +56,7 @@
 			.attr('alignment-baseline', 'central')
 			.attr('font-size', fontSize)
 			.attr('y', function(d, i) { 
-				return i * distributionHeight + marginTop;
+				return i * rowHeight + marginTop;
 			})
 			.text(function(d) { 
 				var number;
@@ -86,7 +86,7 @@
 			.attr('height', barHeight)
 			.attr('width', barWidth)
 			.attr('y', function(d, i) { 
-				return i * distributionHeight + distributionHeight / 4 + marginTop;
+				return i * rowHeight + rowHeight / 4 + marginTop;
 			});
 
 		var progress = groups.append('rect')
@@ -95,21 +95,21 @@
 			.attr('height', barHeight)
 			.attr('width', 0)
 			.attr('y', function(d, i) {
-				return i * distributionHeight + distributionHeight / 4 + marginTop;
+				return i * rowHeight + rowHeight / 4 + marginTop;
 			})
 			.attr('x', 0);
-			
-		var dataMin = 0,
-			dataMax = Math.max.apply(Math, $(data).map(function(i,d) { return d.value }).get()),
+		
+		var defaultMin = 0,
+			defaultMax = $(data).map(function(i,d) { return d.value }).get().reduce(function(total, elem) { return total + elem }),
 			bucketMinValue = $ib3.config.getBucket('minvalue'),
 			bucketMaxValue = $ib3.config.getBucket('maxvalue');
 
 		var colorDefaultScale = d3.scaleLinear()
-			.domain([0, dataMax])
+			.domain([0, defaultMax])
 			.range([minColor, maxColor]);
 
 		var widthDefaultScale = d3.scaleLinear()
-			.domain([0, dataMax])
+			.domain([0, defaultMax])
 			.range([0, barWidth]);
 		
 		progress
@@ -123,7 +123,7 @@
 				if (hasMinValue || hasMaxValue) {
 					
 					widthScale = d3.scaleLinear()
-						.domain([hasMinValue ? d.minvalue : 0, hasMaxValue ? d.maxvalue : dataMax])
+						.domain([hasMinValue ? d.minvalue : 0, hasMaxValue ? d.maxvalue : defaultMax])
 						.range([0, barWidth]);
 						
 				}
@@ -139,7 +139,7 @@
 				if (hasMinValue || hasMaxValue) {
 					
 					colorScale = d3.scaleLinear()
-						.domain([hasMinValue ? d.minvalue : 0, hasMaxValue ? d.maxvalue : dataMax])
+						.domain([hasMinValue ? d.minvalue : 0, hasMaxValue ? d.maxvalue : defaultMax])
 						.range([minColor, maxColor]);
 						
 				}
