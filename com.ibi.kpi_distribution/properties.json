@@ -13,7 +13,10 @@
 
 	"properties": {
 		"sizes": {
-			"titlesFont": "17px"
+			"titlesFont": "15px",
+			"marginTop": "10",
+			"rowHeight": "50",
+			"barHeight": "10"
 		},
 		"colors": {
 			"minColor": "#912BA7",
