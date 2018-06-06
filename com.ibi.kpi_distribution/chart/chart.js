@@ -48,6 +48,8 @@
 					return drillClass;
 				});
 
+		var valueFormat = $ib3.config.getFormatByBucketName('value', 0);
+		
 		groups.append('text')
 			.attr('class', 'title')
 			.attr('fill', textColor)
@@ -57,8 +59,25 @@
 				return i * distributionHeight + marginTop;
 			})
 			.text(function(d) { 
+				var number;
+				
+				var abbr = $ib3.utils.getNumericAbbreviation(d.value),
+					shortenNumber = $ib3.utils.getShortenNumberByAbbreviation(d.value, abbr),
+					valueFormatApplied = valueFormat;
+					
+				var lastCharValueFormat = valueFormatApplied.substring(valueFormatApplied.length - 1);
+				if(lastCharValueFormat == '%') {
+					valueFormatApplied += abbr;								
+				} else if(lastCharValueFormat == '€') {
+					valueFormatApplied = valueFormatApplied.substring(0, valueFormatApplied.length - 2) + abbr + lastCharValueFormat;
+				} else {
+					valueFormatApplied += abbr;
+				}
+				
+				$ib3.config.formatNumber(shortenNumber, valueFormatApplied); 
+							
 				return d.dimension + '   ' +
-					$ib3.utils.setShortenNumber(d.value, false, 2);
+					$ib3.config.formatNumber(shortenNumber, valueFormatApplied);
 			});
 
 		groups.append('rect')
