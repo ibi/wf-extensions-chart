@@ -17,7 +17,7 @@
 		var grey = renderConfig.baseColor;
 		renderConfig.data = JSON.parse('[{"dimension":"Accessories","value":8975389800,"url1":8975389800,"_s":0,"_g":0},{"dimension":"Camcorder","value":10486685700,"url1":10486685700,"_s":0,"_g":1},{"dimension":"Computers","value":6980766400,"url1":6980766400,"_s":0,"_g":2},{"dimension":"Media Player","value":19024048100,"url1":19024048100,"_s":0,"_g":3},{"dimension":"Stereo Systems","value":20511386300,"url1":20511386300,"_s":0,"_g":4},{"dimension":"Televisions","value":6155110900,"url1":6155110900,"_s":0,"_g":5},{"dimension":"Video Production","value":4010565700,"url1":4010565700,"_s":0,"_g":6}]');
 		renderConfig.moonbeamInstance.dataBuckets = JSON.parse('{"internal_api_version":2,"buckets":[{"id":"dimension","fields":[{"title":"Categoría de Producto","fieldName":"WF_RETAIL.WF_RETAIL_PRODUCT.PRODUCT_CATEGORY"}]},{"id":"value","fields":[{"title":"Costo de los bienes","fieldName":"WF_RETAIL.WF_RETAIL_SALES.COGS_US","numberFormat":"$#,###.00"}]}]}');
-		//renderConfig.dataBuckets = renderConfig.moonbeamInstance.dataBuckets;
+		renderConfig.moonbeamInstance.dataBuckets.getBucket = function() {};
 		renderConfig.moonbeamInstance.getSeries(0).color = grey;
 		renderConfig.moonbeamInstance.getSeries(1).color = pv.color(grey).lighter(0.18).color;
 		renderCallback(renderConfig);
