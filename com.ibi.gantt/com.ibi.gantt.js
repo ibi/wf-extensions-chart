@@ -3,8 +3,10 @@
 
 (function() {
 
-tdgchart.util.color.isLineVisible = tdgchart.util.color.isLineVisible || function(props) {
-	return props && props.width > 0 && tdgchart.util.color.isVisible(props.color);
+var tdg = tdgchart.util;
+
+tdg.color.isLineVisible = tdg.color.isLineVisible || function(props) {
+	return props && props.width > 0 && tdg.color.isVisible(props.color);
 };
 
 var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -50,6 +52,13 @@ function sortData(data, sort) {
 		return data;
 	}
 
+	// First, sort each datum's list of risers
+	data.forEach(function(d) {
+		if (d && d.risers && d.risers.length > 1) {
+			sortData(d.risers, sort);
+		}
+	});
+
 	return data.sort(function(a, b) {
 		if (sort === 'label') {
 			if (a && b && a.label && b.label) {
@@ -60,6 +69,12 @@ function sortData(data, sort) {
 				return -1;
 			}
 		} else if (sort === 'start_time') {
+			if (a && a.risers && a.risers[0]) {
+				a = a.risers[0];
+			}
+			if (b && b.risers && b.risers[0]) {
+				b = b.risers[0];
+			}
 			if (a && b && a.start && b.start) {
 				if (a.start < b.start) {
 					return -1;
@@ -73,6 +88,12 @@ function sortData(data, sort) {
 				return -1;
 			}
 		} else if (sort === 'stop_time') {
+			if (a && Array.isArray(a.risers)) {
+				a = a.risers[a.risers.length - 1];
+			}
+			if (b && Array.isArray(b.risers)) {
+				b = b.risers[b.risers.length - 1];
+			}
 			if (a && b && a.stop && b.stop) {
 				if (a.stop < b.stop) {
 					return -1;
@@ -106,21 +127,71 @@ function createClipRect(defs, size, url) {
 		.attr('height', size.height + 1);
 }
 
+function convertData(data) {
+
+	/*
+	data in, all times are unsanitized: [
+		{label: 'taskName', start, stop, milestone: [time, time, ...]}
+	]
+
+	data out, all times are sanitized: [{
+		label: 'taskName',
+		risers: [{start, stop, groupID}, {start, stop, groupID}, ...],
+		milestone: [{time, groupID}, {time, groupID}]}
+	}]
+	*/
+
+	// Convert all string dates in the data set to JS Date objects
+	// Convert flat {start, stop} into riser: [{start, stop}] array
+	// Ensure milestone is an array
+	data = data.map(function(d, idx) {
+		var risers = [{start: sanitizeTime(d.start), stop: sanitizeTime(d.stop), groupID: idx}];
+		var milestone = Array.isArray(d.milestone) ? d.milestone : (d.milestone ? [d.milestone] : []);
+		milestone = milestone.map(function(time) {
+			return {time: sanitizeTime(time), groupID: idx};
+		});
+		return {
+			label: d.label,
+			risers: risers,
+			milestone: milestone
+		};
+	});
+
+	// Merge datums that have the same label into one datum
+	var labelSet = {}, newData = [];
+	while (data.length) {
+		var d = data.shift();
+		if (labelSet.hasOwnProperty(d.label)) {
+			labelSet[d.label].risers.push(d.risers[0]);
+			labelSet[d.label].milestone = labelSet[d.label].milestone.concat(d.milestone);
+		} else {
+			labelSet[d.label] = d;
+			newData.push(d);
+		}
+	}
+
+	return newData;
+}
+
 function getAxis(data) {
 
 	// Find first and last time entries across all start & stop values
-	var i, d, start, stop;
+	var i, j, d, start, stop;
 	for (i = 0; i < data.length; i++) {
 		d = data[i];
 		if (!d) {
 			continue;
 		}
-		start = time_min(start, time_min(d.start, d.stop));
-		stop = time_max(stop, time_max(d.start, d.stop));
-		d.milestone.forEach(function(m) {
-			start = time_min(start, m);
-			stop = time_max(stop, m);
-		});
+		for (j = 0; j < d.risers.length; j++) {
+			var dStart = d.risers[j].start, dStop = d.risers[j].stop;
+			start = time_min(start, time_min(dStart, dStop));
+			stop = time_max(stop, time_max(dStart, dStop));
+		}
+		for (j = 0; j < d.milestone.length; j++) {
+			var time = d.milestone[j].start;
+			start = time_min(start, time);
+			stop = time_max(stop, time);
+		}
 	}
 
 	if (start == null && stop == null) {
@@ -235,7 +306,6 @@ function getAxis(data) {
 // props: container, x, y, width, height, style, className, clipURL, contentCallback
 function drawRegion(props) {
 
-	var tdg = tdgchart.util;
 	var fmt = tdg.formatString;
 
 	var group = props.container.append('g')
@@ -277,7 +347,6 @@ function renderCallback(renderConfig) {
 	var data = renderConfig.data;
 	var properties = renderConfig.properties;
 	var style = properties.style;
-	var tdg = tdgchart.util;
 	var fmt = tdg.formatString;
 	var labelScrollGroup, riserScrollGroup, axisScrollGroup, i;
 
@@ -290,20 +359,7 @@ function renderCallback(renderConfig) {
 
 	var defs = getDefsNode(renderConfig.container.id);
 
-	// Convert all string dates in the data set to JS Date objects
-	data = data.map(function(d, i) {
-		var milestone = Array.isArray(d.milestone) ? d.milestone : (d.milestone ? [d.milestone] : []);
-		milestone = milestone.map(function(m) {
-			return sanitizeTime(m);
-		});
-		return {
-			label: d.label,
-			start: sanitizeTime(d.start),
-			stop: sanitizeTime(d.stop),
-			milestone: milestone,
-			group: i
-		};
-	});
+	data = convertData(data);
 
 	data = sortData(data, properties.sort);
 
@@ -495,13 +551,13 @@ function renderCallback(renderConfig) {
 			contentCallback: function(props) {
 
 				// Draw the risers
-				data.forEach(function(d, i) {
+				data.forEach(function(d, idx) {
 
 					var node, path;
 					var g = props.scrollGroup.append('g')
-						.attr('transform', fmt('translate(0, {0})', cellSize.height * i));
+						.attr('transform', fmt('translate(0, {0})', cellSize.height * idx));
 
-					if (altRowFill && (i % 2 === 1)) {
+					if (altRowFill && (idx % 2 === 1)) {
 						g.append('rect')
 							.attr('x', 0)
 							.attr('y', 0)
@@ -510,15 +566,18 @@ function renderCallback(renderConfig) {
 							.attr('fill', altRowFill);
 					}
 
-					if (d.start || d.stop) {
+					d.risers.forEach(function(riser) {
+						if (!riser.start && !riser.stop) {
+							return;
+						}
 						var borderOffset = tdg.color.isLineVisible(riserStyle.border) ? riserStyle.border.width : 0;
 						var riserHeight = (1 - (style.risers.inset || 0)) * cellSize.height;
 
-						if (d.start && d.stop) {
-							var inverted = (d.stop < d.start);
-							var start = inverted ? d.stop : d.start, stop = inverted ? d.start : d.stop;
+						if (riser.start && riser.stop) {
+							var inverted = (riser.stop < riser.start);
+							var start = inverted ? riser.stop : riser.start, stop = inverted ? riser.start : riser.stop;
 							g.append('rect')
-								.attr('class', chart.buildClassName('riser', 0, d.group, 'bar'))
+								.attr('class', chart.buildClassName('riser', 0, riser.groupID, 'bar'))
 								.attr('x', axis.scale(start))
 								.attr('y', (cellSize.height - riserHeight) / 2)
 								.attr('width', Math.max(2, axis.scale(stop) - axis.scale(start)))
@@ -531,7 +590,7 @@ function renderCallback(renderConfig) {
 									this.tdgtitle = tooltip;
 								});
 						} else {
-							var haveStart = (d.start != null && d.stop == null);
+							var haveStart = (riser.start != null && riser.stop == null);
 							var errorStyle = style.risers.data[haveStart ? 'onlyStart' : 'onlyStop'];
 							var marker = {
 								shape: errorStyle.marker.shape,
@@ -576,9 +635,9 @@ function renderCallback(renderConfig) {
 								node = g.append('path').attr('d', path);
 							}
 							if (node) {
-								var dx = axis.scale(haveStart ? d.start : d.stop), dy = cellSize.height / 2;
+								var dx = axis.scale(haveStart ? riser.start : riser.stop), dy = cellSize.height / 2;
 								node.attr('transform', fmt('translate({0}, {1})', dx, dy))
-									.attr('class', chart.buildClassName('riser', 0, d.group, 'riser'))
+									.attr('class', chart.buildClassName('riser', 0, riser.groupID, 'riser'))
 									.attr('fill', marker.color)
 									.attr('shape-rendering', marker.antiAlias ? 'auto' : 'crispEdges')
 									.attr('stroke', marker.border.color)
@@ -590,20 +649,20 @@ function renderCallback(renderConfig) {
 									});
 							}
 						}
-					}
+					});
 
 					d.milestone.forEach(function(m, idx) {
-						if (!m) {
+						if (!m || !m.time) {
 							return;
 						}
-						var s = idx + 1;
+						var seriesID = idx + 1;
 						var marker = {
-							shape: chart.getSeriesAndGroupProperty(s, i, 'marker.shape'),
-							size: chart.getSeriesAndGroupProperty(s, i, 'marker.size'),
-							color: chart.getSeriesAndGroupProperty(s, i, 'color'),
+							shape: chart.getSeriesAndGroupProperty(seriesID, m.groupID, 'marker.shape'),
+							size: chart.getSeriesAndGroupProperty(seriesID, m.groupID, 'marker.size'),
+							color: chart.getSeriesAndGroupProperty(seriesID, m.groupID, 'color'),
 							border: {
-								color: chart.getSeriesAndGroupProperty(s, i, 'marker.border.color'),
-								width: chart.getSeriesAndGroupProperty(s, i, 'marker.border.width')
+								color: chart.getSeriesAndGroupProperty(seriesID, m.groupID, 'marker.border.color'),
+								width: chart.getSeriesAndGroupProperty(seriesID, m.groupID, 'marker.border.width')
 							}
 						};
 						if (marker.shape === 'circle') {
@@ -636,9 +695,9 @@ function renderCallback(renderConfig) {
 							node = g.append('path').attr('d', path);
 						}
 						if (node) {
-							var dx = axis.scale(m), dy = cellSize.height / 2;
+							var dx = axis.scale(m.time), dy = cellSize.height / 2;
 							node.attr('transform', fmt('translate({0}, {1})', dx, dy))
-								.attr('class', chart.buildClassName('marker', 0, d.group, 'marker'))
+								.attr('class', chart.buildClassName('marker', 0, m.groupID, 'marker'))
 								.attr('fill', marker.color)
 								.attr('shape-rendering', 'auto')
 								.attr('stroke', marker.border.color)
