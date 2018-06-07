@@ -1,4 +1,4 @@
-/*global tdgchart: false, d3: false, pv: false */
+/*global tdgchart: false, d3: false, pv: false, document: false */
 /* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
 
 (function() {
@@ -134,7 +134,7 @@ function getAxis(data) {
 	var scale = d3.scaleTime().domain([start, stop]).nice();
 	var years = scale.ticks(d3.timeYear.every(1));
 	years.pop();
-	var yearDivisions = [], monthDivisons = [], dayDivisions = [], startTime;
+	var yearDivisions = [], monthDivisons = [], dayDivisions = [], hourDivisions = [], startTime;
 	if (years.length > 5) {
 		yearDivisions = years.map(function(el, i) {
 			return {start: i, width: 1, text: el.getFullYear() + ''};
@@ -175,7 +175,7 @@ function getAxis(data) {
 	scale = d3.scaleTime().domain([start, stop]).nice(d3.timeDay);
 	var days = scale.ticks(d3.timeDay.every(1));
 	days.pop();
-	if (days.length > 4) {
+	if (days.length > 1) {
 		dayDivisions = days.map(function(el, i) {
 			return {start: i, width: 1, text: el.getDate() + ''};
 		});
@@ -200,6 +200,35 @@ function getAxis(data) {
 			count: days.length
 		};
 	}
+	scale = d3.scaleTime().domain([start, stop]).nice(d3.timeHour);
+	var hours = scale.ticks(d3.timeHour.every(1));
+	if (hours.length > 2) {
+		if (start.getHours() < 3) {
+			start = start.clone().setHours(0);  // If start hour is near 0h, round down to 0
+		} else {
+			start = start.clone().setHours(start.getHours() - 1);  // Round start hour down one
+		}
+		var stopHour = stop.getHours();
+		if (stopHour > 10 && stopHour < 13) {
+			stop = stop.clone().setHours(12);  // If stop hour is near but below 12, round up to 12
+		} else if (stopHour > 19) {
+			stop = stop.clone().setHours(24);  // If stop hour is near 24, round up to 24
+		} else {
+			stop = stop.clone().setHours(stopHour + 1);  // Round stop hour up one
+		}
+		scale = d3.scaleTime().domain([start, stop]).nice(d3.timeHour);
+		hours = scale.ticks(d3.timeHour.every(1));
+		hours.pop();
+		hourDivisions = hours.map(function(el, i) {
+			return {start: i, width: 1, text: d3.timeFormat('%H:%M')(el)};
+		});
+		return {
+			scale: scale,
+			rows: [hourDivisions],
+			count: hours.length
+		};
+	}
+
 	return null;
 }
 
