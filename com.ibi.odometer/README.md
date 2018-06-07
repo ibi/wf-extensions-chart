@@ -2,11 +2,17 @@
 
 # Odometer
 
-For installation instructions please visit this [link] (https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension "Installing a WebFocus Extension").
+For installation instructions please visit this [link](https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension "Installing a WebFocus Extension").
 
 ## Description
 
-This extension shows a simple label with an odometer-style spinning animation.
+This extension shows a simple label with an odometer-style spinning animation.  Based on the [Odometer](http://github.hubspot.com/odometer/docs/welcome/) JavaScript library.
+
+## Screenshots
+
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.odometer/screenshots/1.PNG)
+
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.odometer/screenshots/2.PNG)
 
 ## Configurations
 
@@ -24,4 +30,4 @@ To configure or customize your extension edit "properties" object in properties.
 
 ### Measures:
 
-* **Value** - Define the end value drawn in the odometer label
+* **Value** - Define the end value drawn in the odometer label.
