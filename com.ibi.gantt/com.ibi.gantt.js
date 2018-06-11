@@ -145,16 +145,13 @@ function convertData(data) {
 	// Convert flat {start, stop} into riser: [{start, stop}] array
 	// Ensure milestone is an array
 	data = data.map(function(d, idx) {
-		var risers = [{start: sanitizeTime(d.start), stop: sanitizeTime(d.stop), groupID: idx}];
-		var milestone = Array.isArray(d.milestone) ? d.milestone : (d.milestone ? [d.milestone] : []);
-		milestone = milestone.map(function(time) {
+		var d2 = tdg.clone(d);
+		d2.risers = [{start: sanitizeTime(d.start), stop: sanitizeTime(d.stop), groupID: idx, shape: d.shape, color: d.color}];
+		d2.milestone = Array.isArray(d.milestone) ? d.milestone : (d.milestone ? [d.milestone] : []);
+		d2.milestone = d2.milestone.map(function(time) {
 			return {time: sanitizeTime(time), groupID: idx};
 		});
-		return {
-			label: d.label,
-			risers: risers,
-			milestone: milestone
-		};
+		return d2;
 	});
 
 	// Merge datums that have the same label into one datum
@@ -526,7 +523,7 @@ function renderCallback(renderConfig) {
 			createClipRect(defs, {width: axisGroupSize.width, height: labelGroupSize.height}, riserClipURL);
 		}
 
-		var riserStyle = {
+		var baseRiserStyle = {
 			color: chart.getSeriesAndGroupProperty(0, null, 'color'),
 			invertedColor: style.risers.data.invertedStartStop.color,
 			border: {
@@ -570,21 +567,57 @@ function renderCallback(renderConfig) {
 						if (!riser.start && !riser.stop) {
 							return;
 						}
+						var riserStyle = baseRiserStyle;
+						if (riser.color != null) {
+							if (typeof riser.color === 'number') {
+								riserStyle = {
+									color: chart.getSeriesAndGroupProperty(riser.color, null, 'color'),
+									invertedColor: style.risers.data.invertedStartStop.color,
+									border: {
+										color: chart.getSeriesAndGroupProperty(riser.color, null, 'border.color'),
+										width: chart.getSeriesAndGroupProperty(riser.color, null, 'border.width')
+									}
+								};
+							} else if (typeof riser.color === 'string') {
+								riserStyle = tdg.clone(baseRiserStyle);
+								riserStyle.color = riser.color;
+							}
+						}
 						var borderOffset = tdg.color.isLineVisible(riserStyle.border) ? riserStyle.border.width : 0;
 						var riserHeight = (1 - (style.risers.inset || 0)) * cellSize.height;
 
 						if (riser.start && riser.stop) {
+							var riserElement;
 							var inverted = (riser.stop < riser.start);
 							var start = inverted ? riser.stop : riser.start, stop = inverted ? riser.start : riser.stop;
-							g.append('rect')
-								.attr('class', chart.buildClassName('riser', 0, riser.groupID, 'bar'))
-								.attr('x', axis.scale(start))
-								.attr('y', (cellSize.height - riserHeight) / 2)
-								.attr('width', Math.max(2, axis.scale(stop) - axis.scale(start)))
-								.attr('height', riserHeight - 1 + borderOffset)
-								.attr('fill', inverted ? riserStyle.invertedColor : riserStyle.color)
-								.attr('stroke', riserStyle.border.color)
-								.attr('stroke-width', riserStyle.border.width)
+
+							var shape = 'bar';
+							if (riser.shape != null) {
+								if (typeof riser.shape === 'number') {
+									shape = chart.getSeriesAndGroupProperty(riser.shape, null, 'riserShape');
+								} else if (typeof riser.shape === 'string' && riser.shape.toLowerCase() === 'line') {
+									shape = 'line';
+								}
+							}
+							if (shape === 'line') {
+								riserElement = g.append('line')
+									.attr('x1', axis.scale(start))
+									.attr('y1', cellSize.height / 2)
+									.attr('x2', axis.scale(stop))
+									.attr('y2', cellSize.height / 2)
+									.attr('stroke', inverted ? riserStyle.invertedColor : riserStyle.color)
+									.attr('stroke-width', riserStyle.border.width || 1);
+							} else {
+								riserElement = g.append('rect')
+									.attr('x', axis.scale(start))
+									.attr('y', (cellSize.height - riserHeight) / 2)
+									.attr('width', Math.max(2, axis.scale(stop) - axis.scale(start)))
+									.attr('height', riserHeight - 1 + borderOffset)
+									.attr('fill', inverted ? riserStyle.invertedColor : riserStyle.color)
+									.attr('stroke', riserStyle.border.color)
+									.attr('stroke-width', riserStyle.border.width);
+							}
+							riserElement.attr('class', chart.buildClassName('riser', 0, riser.groupID, 'bar'))
 								.attr('tdgtitle', 'placeholder')
 								.each(function() {
 									this.tdgtitle = tooltip;

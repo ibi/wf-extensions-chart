@@ -6,7 +6,7 @@ For installation instructions please see the [Installing a WebFocus Extension](h
 
 ## Description
 
-This extension helps to visualize a project schedule or list of tasks with start/stop times and milestones.
+This extension helps visualize a project schedule or list of tasks with start/stop times and milestones.
 
 ## Screenshots
 
@@ -118,3 +118,7 @@ To configure or customize your extension edit the "properties" object in propert
 * **stop** - End time for each task.
 
 * **milestone** - Set of additional markers to visualize on each task.
+
+* **color** - Color to use for each task bar.  Can be either a color string (eg: "rgb(1,2,3)" or "red"), or an integer series ID, to use the chart engine's series colors.
+
+* **shape** - Shape to use for each task bar.  Can be either a string (either "bar" or "line"), or an integer series ID, to use the chart engine's series riser shapes.

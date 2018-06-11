@@ -9,7 +9,7 @@
 			"medium": "icons/icon.png"
 		}
 	},
-	
+
 	"properties": {
 		"sort": undefined,
 		"layout": {
@@ -24,7 +24,7 @@
 				},
 				"dividers": {
 					"color": "lightgrey",
-					"width": 1,
+					"width": 1
 				},
 				"rows": [
 					{
@@ -38,7 +38,7 @@
 							"color": "black",
 							"font": "10pt helvetica"
 						}
-					},
+					}
 				]
 			},
 			"labels": {
@@ -49,7 +49,7 @@
 				},
 				"dividers": {
 					"color": "lightgrey",
-					"width": 1,
+					"width": 1
 				},
 				"font": "8pt helvetica",
 				"color": "black"
@@ -95,12 +95,12 @@
 				},
 				"dividers": {
 					"color": "lightgrey",
-					"width": 1,
+					"width": 1
 				}
 			}
 		}
 	},
-	
+
 	"propertyAnnotations": {
 		"sort": "str",
 		"layout": {
@@ -173,14 +173,14 @@
 				},
 				"dividers": {
 					"color": "color",
-					"width": "number",
+					"width": "number"
 				}
 			}
 		}
 	},
-	
-	"dataBuckets":  {
-	
+
+	"dataBuckets": {
+
 		"tooltip": false,
 		"matrix": false,
 		"data_page": false,
@@ -220,8 +220,24 @@
 				}
 			},
 			{
+				"id": "shape",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "color",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
 				"id": "drill_down",
-				"type": "measure",
+				"type": "dimension",
 				"count": {
 					"min": 0,
 					"max": 1
@@ -234,17 +250,21 @@
 		"en": {
 			"name": "Gantt Chart",
 			"description": "Gantt Chart",
-			"icon_tooltip": "Gantt Chart", 
-			"label_name": "Label", 
+			"icon_tooltip": "Gantt Chart",
+			"label_name": "Label",
 			"label_tooltip": "Drop a dimension here",
-			"start_name": "Start Time", 
+			"start_name": "Start Time",
 			"start_tooltip": "Drop a dimension here",
-			"stop_name": "Stop Time", 
+			"stop_name": "Stop Time",
 			"stop_tooltip": "Drop a dimension here",
-			"milestone_name": "Milestones", 
+			"milestone_name": "Milestones",
 			"milestone_tooltip": "Drop a dimension here",
-			"drill_down_name": "Drill Down", 
-			"drill_down_tooltip": "Drop a measure here",
+			"color_name": "Color",
+			"color_tooltip": "Drop a measure here",
+			"shape_name": "Shape",
+			"shape_tooltip": "Drop a measure here",
+			"drill_down_name": "Drill Down",
+			"drill_down_tooltip": "Drop a measure here"
 		}
 	}
 }
