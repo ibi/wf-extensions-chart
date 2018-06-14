@@ -2,6 +2,21 @@
 /* $Revision: 1.0 $ */
 
 (function() {
+
+	function abbreviateNumber(number) {
+		var SI_POSTFIXES = ["", "k", "M", "B", "T", "P", "E"];
+		var tier = Math.log10(Math.abs(number)) / 3 | 0;
+		if (tier == 0) 
+			return number.toFixed(1).replace('.0','');
+		var postfix = SI_POSTFIXES[tier];
+		var scale = Math.pow(10, tier * 3);
+		var scaled = number / scale;
+		var formatted = scaled.toFixed(1) + '';
+		if (/\.0$/.test(formatted))
+			formatted = formatted.substr(0, formatted.length - 2);
+		return formatted.replace('.0','') + postfix;
+	}
+
 	// All extension callback functions are passed a standard 'renderConfig' argument:
 	//
 	// Properties that are always available:
@@ -16,8 +31,6 @@
 	//   containerIDPrefix:  the ID of the DOM container your extension renders into.  Prepend this to *all* IDs your extension generates, to ensure multiple copies of your extension work on one page.
 	//   container: DOM node for your extension to render into;
 	//   rootContainer: DOM node containing the specific chart engine instance being rendered.
-
-	
 
 	// Optional: if defined, is called exactly *once* during chart engine initialization
 	// Arguments:
@@ -168,12 +181,9 @@
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
 		noDataPreRenderCallback: noDataPreRenderCallback, 
 		noDataRenderCallback: noDataRenderCallback,
-		resources: window.jQuery? {
-			script: ['../com.ibi.kpi.sparkline2/lib/jquery.sparkline.min.js','../com.ibi.kpi.sparkline2/lib/util.js'],
-			css: ['../com.ibi.kpi.sparkline2/css/open-sans.css','css/sparkline.css']
-		} : {
-			script: ['../com.ibi.kpi.sparkline2/lib/jquery-3.2.1.min.js','../com.ibi.kpi.sparkline2/lib/jquery.sparkline.min.js','../com.ibi.kpi.sparkline2/lib/util.js'],
-			css: ['../com.ibi.kpi.sparkline2/css/open-sans.css','css/sparkline.css']
+		resources: {
+			script: [{name: 'jQuery'}, 'lib/jquery.sparkline.min.js'],
+			css: ['css/open-sans.css', 'css/sparkline.css']
 		},
 		modules: {
 			dataSelection: {
@@ -202,4 +212,3 @@
 	// Required: this call will register your extension with the chart engine
 	tdgchart.extensionManager.register(config);
 }());
-
