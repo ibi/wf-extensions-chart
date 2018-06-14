@@ -15,6 +15,8 @@ Draw in animated bars the distribution of measure by one dimensions
 
 ![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpi_distribution/screenshots/2.png)
 
+![screenshot_3](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpi_distribution/screenshots/3.png)
+
 ## Configurations
 
 To configure or customize your extension edit "properties" object in properties.json file.
@@ -22,8 +24,17 @@ To configure or customize your extension edit "properties" object in properties.
 **Any property can be overwritten from a property that is written in the webfocus chart code (GRAPH_JS_FINAL Properties) or in the STY file**
 	
 	"properties": {
+		"options": {
+			"showPercentagesOfTheTotal": true,
+			"showValue": true,
+			"shortenValue": false,
+			"forceSortRows": true
+		},
 		"sizes": {
-			"titlesFont": "17px"
+			"titlesFont": "15px",
+			"marginTop": "10",
+			"rowHeight": "50",
+			"barHeight": "10"
 		},
 		"colors": {
 			"minColor": "#912BA7",
@@ -34,6 +45,7 @@ To configure or customize your extension edit "properties" object in properties.
 	
 	"propertyAnnotations": {
 	
+		"options": "json",
 		"sizes": "json",
 		"colors": "json"
 		

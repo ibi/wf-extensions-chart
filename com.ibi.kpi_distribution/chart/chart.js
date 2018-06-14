@@ -32,23 +32,59 @@
 			rowHeight = parseFloat($ib3.config.getProperty('sizes.rowHeight')),
 			barHeight = parseFloat($ib3.config.getProperty('sizes.barHeight')),
 			animationSeconds = 500,
-			fontSize = $ib3.config.getProperty('sizes.titlesFont');
+			fontSize = $ib3.config.getProperty('sizes.titlesFont'),
+			showPercentagesOfTheTotal = $ib3.config.getProperty('options.showPercentagesOfTheTotal'),
+			showValue = $ib3.config.getProperty('options.showValue'),
+			shortenValue = $ib3.config.getProperty('options.shortenValue'),
+			forceSortRows = $ib3.config.getProperty('options.forceSortRows');
 					
 		var container = d3.select(mainContainer).attr('class', 'extension_container').append('g');
+				
+		//change for control drill index
+		data = $(data).map(function(i, d) {
+				d.originalIndex = i;
+				return d;
+			})
+			
+		if(forceSortRows) {
+			
+			data = $(data).sort(function(a,b) { return b.value - a.value }).get();
+			
+		}
 
 		var groups = container.selectAll('g')
 			.data(data)
 			.enter()
 				.append('g')
-				.each(function(d, g) {
-					$ib3.utils.setUpTooltip(this, 0, g, d);
+				.each(function(d, i) {
+					$ib3.utils.setUpTooltip(this, 0, d.originalIndex, d);
 				})
 				.attr("class", function(d, i) {
-					var drillClass = $ib3.config.getDrillClass(0, i);
+					var drillClass = $ib3.config.getDrillClass(0, d.originalIndex);
 					return drillClass;
 				});
 
-		var valueFormat = $ib3.config.getFormatByBucketName('value', 0);
+		var valueFormat = $ib3.config.getFormatByBucketName('value', 0),
+			total = $(data).map(function(i, d) { return d.value; }).get().reduce(function(a,b) { return a + b }, 0);
+			
+		if(showPercentagesOfTheTotal) {
+			groups.append('text')
+				.attr('class', 'percentage')
+				.attr('fill', textColor)
+				.attr('alignment-baseline', 'central')
+				.attr('font-size', fontSize)
+				.attr('width', 50)
+				.attr('y', function(d, i) { 
+					return i * rowHeight + marginTop;
+				})
+				.text(function(d) { 
+				
+					var percentage = d.value / total * 100,
+						percentageFormatted = percentage.toFixed(2) + '%';
+								
+					return percentageFormatted;
+				});
+		}
 		
 		groups.append('text')
 			.attr('class', 'title')
@@ -58,26 +94,38 @@
 			.attr('y', function(d, i) { 
 				return i * rowHeight + marginTop;
 			})
+			.attr('x', showPercentagesOfTheTotal ? 68 : 0)
 			.text(function(d) { 
-				var number;
+				var number = '';
 				
-				var abbr = $ib3.utils.getNumericAbbreviation(d.value),
-					shortenNumber = $ib3.utils.getShortenNumberByAbbreviation(d.value, abbr),
-					valueFormatApplied = valueFormat;
+				if(showValue) {
 					
-				var lastCharValueFormat = valueFormatApplied.substring(valueFormatApplied.length - 1);
-				if(lastCharValueFormat == '%') {
-					valueFormatApplied += abbr;								
-				} else if(lastCharValueFormat == '€') {
-					valueFormatApplied = valueFormatApplied.substring(0, valueFormatApplied.length - 2) + abbr + lastCharValueFormat;
-				} else {
-					valueFormatApplied += abbr;
-				}
+					if(shortenValue) {
 				
-				$ib3.config.formatNumber(shortenNumber, valueFormatApplied); 
+						var abbr = $ib3.utils.getNumericAbbreviation(d.value),
+							shortenNumber = $ib3.utils.getShortenNumberByAbbreviation(d.value, abbr),
+							valueFormatApplied = valueFormat;
 							
-				return d.dimension + '   ' +
-					$ib3.config.formatNumber(shortenNumber, valueFormatApplied);
+						var lastCharValueFormat = valueFormatApplied.substring(valueFormatApplied.length - 1);
+						if(lastCharValueFormat == '%') {
+							valueFormatApplied += abbr;								
+						} else if(lastCharValueFormat == '€') {
+							valueFormatApplied = valueFormatApplied.substring(0, valueFormatApplied.length - 2) + abbr + lastCharValueFormat;
+						} else {
+							valueFormatApplied += abbr;
+						}
+						
+						number = ' | ' + $ib3.config.formatNumber(shortenNumber, valueFormatApplied);
+						
+					} else {
+						
+						number = ' | ' + $ib3.config.formatNumber(d.value, valueFormat); 
+						
+					} 
+				
+				}
+							
+				return (showPercentagesOfTheTotal ? '| ' : '') + d.dimension + '   ' + number;
 			});
 
 		groups.append('rect')

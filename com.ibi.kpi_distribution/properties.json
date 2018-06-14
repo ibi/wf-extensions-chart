@@ -1,7 +1,7 @@
 {
 	"info": {
-		"version": 1.0,
-		"implements_api_version": 1.0,
+		"version": "1.0.2",
+		"implements_api_version": "1.0/2.0",
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.kpi_distribution",
@@ -12,6 +12,12 @@
 	},
 
 	"properties": {
+		"options": {
+			"showPercentagesOfTheTotal": true,
+			"showValue": true,
+			"shortenValue": false,
+			"forceSortRows": true
+		},
 		"sizes": {
 			"titlesFont": "15px",
 			"marginTop": "10",
@@ -27,6 +33,7 @@
 	
 	"propertyAnnotations": {
 	
+		"options": "json",
 		"sizes": "json",
 		"colors": "json"
 		
