@@ -59,7 +59,7 @@
 
 	var config = {
 		id: 'com.ibi.kpi_distribution',
-		ibiVersion: '1.0.1', // control developing version
+		ibiVersion: '1.0.2', // control developing version
 		containerType: 'svg',
 		name: 'Kpi distribution',
 		initCallback: initCallback,
