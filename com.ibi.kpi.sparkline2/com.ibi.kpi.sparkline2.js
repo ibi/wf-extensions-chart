@@ -1,5 +1,5 @@
 /* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
-/* $Revision: 1.0 $ */
+/* $Revision: 1.1 $ */
 
 (function() {
 
@@ -182,7 +182,7 @@
 		noDataPreRenderCallback: noDataPreRenderCallback, 
 		noDataRenderCallback: noDataRenderCallback,
 		resources: {
-			script: [{name: 'jQuery'}, 'lib/jquery.sparkline.min.js'],
+			script: window.jQuery ? ['lib/jquery.sparkline.min.js'] : ['/ibi_apps/jquery/js/jquery.js', 'lib/jquery.sparkline.min.js'],
 			css: ['css/open-sans.css', 'css/sparkline.css']
 		},
 		modules: {
