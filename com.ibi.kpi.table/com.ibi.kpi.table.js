@@ -17,7 +17,19 @@
 	//   container: DOM node for your extension to render into;
 	//   rootContainer: DOM node containing the specific chart engine instance being rendered.
 
-	
+	function abbreviateNumber(number) {
+		var SI_POSTFIXES = ["", "k", "M", "B", "T", "P", "E"];
+		var tier = Math.log10(Math.abs(number)) / 3 | 0;
+		if (tier == 0) 
+			return number.toFixed(1).replace('.0','');
+		var postfix = SI_POSTFIXES[tier];
+		var scale = Math.pow(10, tier * 3);
+		var scaled = number / scale;
+		var formatted = scaled.toFixed(1) + '';
+		if (/\.0$/.test(formatted))
+			formatted = formatted.substr(0, formatted.length - 2);
+		return formatted.replace('.0','') + postfix;
+	}
 
 	// Optional: if defined, is called exactly *once* during chart engine initialization
 	// Arguments:
@@ -74,19 +86,39 @@
 			
 			data.forEach(function(row, index){
 				if (typeof row.group !== 'undefined')
-					$(container).find('.kpi-table-container>.kpi-table-nav').append('<a href="#" class="kpi-table-nav-pill">'+row.group+'</a>');
+					$(container)
+						.find('.kpi-table-container>.kpi-table-nav')
+						.append('<a href="#" class="kpi-table-nav-pill">' + row.group + '</a>');
 
 				var slide = '<div class="kpi-table-slide"><table>'
-				+ '<thead>'
-				+ '<tr><th class="kpi-table-heading-title" colspan="'+numOfMeasures+'" style="font-weight:'+props.headingTitle.fontWeight+';font-size:'+props.headingTitle.fontSize+';color:'+props.headingTitle.color+'">'+dataBuckets.keymeasure.title+'</th></tr>'
-				+ '<tr><th class="kpi-table-heading-nbr" colspan="'+numOfMeasures+'" style="font-weight:'+props.headingData.fontWeight+';font-size:'+props.headingData.fontSize+';color:'+props.headingData.color+'">'+abbreviateNumber(row.keymeasure)+'</th></tr>'
-				+ '</thead>'
-				+ '<tbody><tr></tr><tr></tr></tbody></table></div>'
+					+ '<thead>'
+						+ '<tr><th class="kpi-table-heading-title" colspan="' + numOfMeasures
+							+ '" style="font-weight:' + props.headingTitle.fontWeight
+							+ ';font-size:' + props.headingTitle.fontSize
+							+ ';color:' + props.headingTitle.color + '">'
+							+ dataBuckets.keymeasure.title+'</th></tr>'
+						+ '<tr><th class="kpi-table-heading-nbr" colspan="' + numOfMeasures
+							+ '" style="font-weight:' + props.headingData.fontWeight
+							+ ';font-size:' + props.headingData.fontSize
+							+ ';color:' + props.headingData.color + '">'
+						+ abbreviateNumber(row.keymeasure) + '</th></tr>'
+					+ '</thead>'
+					+ '<tbody><tr></tr><tr></tr></tbody></table></div>'
 				$(container).find('.kpi-table-container').append(slide);
 
 				for (var i=0; i<numOfMeasures; i++) {
-					$(container).find('.kpi-table-container>.kpi-table-slide:last tbody>tr:first').append('<td class="kpi-table-title" style="font-weight:'+props.columnTitle.fontWeight+';font-size:'+props.columnTitle.fontSize+';color:'+props.columnTitle.color+'">'+dataBuckets.measure.title[i]+'</td>')
-					$(container).find('.kpi-table-container>.kpi-table-slide:last tbody>tr:last').append('<td class="kpi-table-data" style="font-weight:'+props.columnData.fontWeight+';font-size:'+props.columnData.fontSize+';color:'+props.columnData.color+'">'+abbreviateNumber(row.measure[i])+'</td>')
+					$(container)
+						.find('.kpi-table-container>.kpi-table-slide:last tbody>tr:first')
+						.append('<td class="kpi-table-title" style="font-weight:' + props.columnTitle.fontWeight
+							+ ';font-size:' + props.columnTitle.fontSize
+							+ ';color:' + props.columnTitle.color
+							+ '">' + dataBuckets.measure.title[i] + '</td>')
+					$(container)
+						.find('.kpi-table-container>.kpi-table-slide:last tbody>tr:last')
+						.append('<td class="kpi-table-data" style="font-weight:' + props.columnData.fontWeight
+							+ ';font-size:' + props.columnData.fontSize
+							+ ';color:' + props.columnData.color
+							+ '">' + abbreviateNumber(Array.isArray(row.measure) ? row.measure[i] : row.measure) + '</td>')
 				}
 			});
 			
@@ -106,15 +138,23 @@
 
 				var $container = $(this).closest('.kpi-table-container');
 					if (activeIndex<index) {
-						$container.find('.kpi-table-slide:eq('+activeIndex+')').animate({ left: '-200%' }, function(){ $(this).removeClass('active') });
-						$container.find('.kpi-table-slide:eq('+index+')').css('left', '200%').addClass('active').animate({ left: '0' });				
+						$container
+							.find('.kpi-table-slide:eq('+activeIndex+')')
+							.animate({ left: '-200%' }, function(){ $(this).removeClass('active') });
+						$container
+							.find('.kpi-table-slide:eq('+index+')')
+							.css('left', '200%')
+							.addClass('active').animate({ left: '0' });				
 					}
-					else if (activeIndex>index) {
-						$container.find('.kpi-table-slide:eq('+activeIndex+')').animate({ left: '200%' }, function(){ $(this).removeClass('active') });
-						$container.find('.kpi-table-slide:eq('+index+')').css('left', '-200%').addClass('active').animate({ left: '0' });										
+					else if (activeIndex > index) {
+						$container
+							.find('.kpi-table-slide:eq('+activeIndex+')')
+							.animate({ left: '200%' }, function(){ $(this).removeClass('active') });
+						$container
+							.find('.kpi-table-slide:eq('+index+')')
+							.css('left', '-200%').addClass('active').animate({ left: '0' });										
 					}				
 			})
-			
 		}
 		
 		renderConfig.renderComplete();	
@@ -139,11 +179,8 @@
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
 		noDataPreRenderCallback: noDataPreRenderCallback, 
 		noDataRenderCallback: noDataRenderCallback,
-		resources:  window.jQuery? {
-			script: ['lib/util.js'],
-			css: ['css/open-sans.css','css/table.css']
-		} : {
-			script: ['lib/jquery-3.2.1.min.js','lib/util.js'],
+		resources: {
+			script: window.jQuery ? [] : ['lib/jquery-3.2.1.min.js'],
 			css: ['css/open-sans.css','css/table.css']
 		},
 		modules: {
