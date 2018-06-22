@@ -60,7 +60,7 @@
 	// Your extension's configuration
 	var config = {
 		id: 'com.ibi.horizontal_comparison_bars',     // string that uniquely identifies this extension
-		ibiVersion: '1.0', // control developing version
+		ibiVersion: '1.0.1', // control developing version
 		containerType: 'svg',  // either 'html' or 'svg' (default)
 		initCallback: initCallback,
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below

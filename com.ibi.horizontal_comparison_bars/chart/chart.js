@@ -22,7 +22,14 @@
 			}).get());
 		}
 		
-		var data = $ib3.config.getData().reverse(),
+		var originalData = $ib3.config.getData();
+		
+		originalData = $(originalData).map(function(i, d) {
+			d.originalIndex = i;
+			return d;
+		}).get();
+		
+		var	data = originalData.reverse(),
 			w = $ib3.config.getChartWidth(),
 			h = $ib3.config.getChartHeight(),
 			max_width_dimension = 0,
@@ -76,7 +83,7 @@
 		var gy = svg.append("g")
 			.attr("fill", $ib3.config.getProperty('axisList.y1.labels.color'))
 			.call(yAxis);
-			
+		
 		var bars = svg.selectAll(".bar")
 			.data(data)
 			.enter()
@@ -91,6 +98,8 @@
 			return y(d.dimension);
 		}).attr("height", y.rangeBand()).attr("width", function(d) {
 			return x(d.value);
+		}).each(function(d, g) {
+			$ib3.utils.setUpTooltip(this, 0, d.originalIndex, d);
 		})
 		
 		//add a value label to the right of each bar
@@ -127,9 +136,8 @@
 				return $ib3.utils.setShortenNumber(d, false, 0)
 			});
 		}
-		bars.each(function(d, g) {
-			$ib3.utils.setUpTooltip(this, 0, g, d);
-		}).on("mousemove", function(d, i) {
+		
+		bars.on("mousemove", function(d, i) {
 			d3.select(this).selectAll("rect").style("fill-opacity", 0.5);
 		}).on("mouseout", function(d) {
 			d3.select(this).selectAll("rect").style("fill-opacity", 1);
