@@ -509,7 +509,7 @@ var tdg_usmap = (function() { // <---------------------------------------- CHANG
         };
     }
 
-    function renderLinks(group, data, buckets, defs) {
+    function renderLinks(group, data, buckets, defs, renderConfig) {  //CHART-2954 added renderConfig as parameter
         var links = group.selectAll('line')
             .data(data);
 
@@ -524,7 +524,7 @@ var tdg_usmap = (function() { // <---------------------------------------- CHANG
                     y2: d.dpos[1]
                 });
             })
-            .attr('tdgtitle', buildLinkTooltip(buckets))
+            //.attr('tdgtitle', buildLinkTooltip(buckets)) // Code Prior to CHART-2954 NFR
             .style({
                 stroke: function(d) {
                     return d.color;
@@ -532,7 +532,24 @@ var tdg_usmap = (function() { // <---------------------------------------- CHANG
                 'stroke-width': function(d) {
                     return d.width;
                 }
-            });
+            })
+			
+		//Start CHART-2954
+		//Design Pattern found here: https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.tutorial/com.ibi.tutorial_tooltips
+			.attr('class', function (d,g){
+								return renderConfig.moonbeamInstance.buildClassName('riser', 0, g, 'line');   //Build extension 'riser' class for each g index
+							} //function 
+			) //.attr('class'...
+			.each(function(d,g) {
+					renderConfig.modules.tooltip.addDefaultToolTipContent(this, 0, g, d);
+				  } //function
+			
+			)// .each			
+		;  // links.enter()...
+		
+		renderConfig.renderComplete();		
+	    
+		//End CHART-2954
 
         return links;
     }
@@ -990,6 +1007,7 @@ var tdg_usmap = (function() { // <---------------------------------------- CHANG
     // --------------------------------- END OF Z1
     return function(user_props) {
         var props = {
+			renderConfig: null,				//CHART-2954 addded props.renderConfig
             width: 300,
             height: 400,
             isInteractionDisabled: false,
@@ -1074,7 +1092,7 @@ var tdg_usmap = (function() { // <---------------------------------------- CHANG
             }
 
             var links_group = group_main.append('g').classed('links', true);
-            var links = renderLinks(links_group, data.links, props.buckets, defs);
+            var links = renderLinks(links_group, data.links, props.buckets, defs, props.renderConfig);  //CHART-2954 addded props.renderConfig as parameter
 
             var nodes_group = group_main.append('g').classed('nodes', true);
             var nodes = renderNodes(nodes_group, data.nodes, props.buckets, props.nodes);

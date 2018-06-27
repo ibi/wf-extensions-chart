@@ -30,6 +30,8 @@
 	function renderCallback(renderConfig) {
 		var chart = renderConfig.moonbeamInstance;
 		var props = JSON.parse(JSON.stringify(renderConfig.properties));
+		
+		props.renderConfig = renderConfig;   //For CHART-2954 NFR, need access to renderConfig.chart and renderConfig.modules inside tdg_usmap function
 
 		props.buckets = getFormatedBuckets(renderConfig);
 		if (!props.buckets || !props.buckets.src) {
@@ -154,7 +156,7 @@
 				svgNode: function(arg){}  // if you're using an HTML container or altering the SVG container, return a reference to your root SVG node here.
 			},*/
 			tooltip: {
-				supported: true  // Set this true if your extension wants to enable HTML tooltips
+				supported: true  // Set this true if your extension wants to enable HTML tooltips  //Used by CHART-2954
 			}
 		}
 	};
