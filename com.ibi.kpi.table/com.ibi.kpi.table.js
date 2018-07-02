@@ -107,12 +107,21 @@
 				$(container).find('.kpi-table-container').append(slide);
 
 				for (var i=0; i<numOfMeasures; i++) {
-					$(container)
-						.find('.kpi-table-container>.kpi-table-slide:last tbody>tr:first')
-						.append('<td class="kpi-table-title" style="font-weight:' + props.columnTitle.fontWeight
-							+ ';font-size:' + props.columnTitle.fontSize
-							+ ';color:' + props.columnTitle.color
+					if (numOfMeasures==1)
+						$(container)
+							.find('.kpi-table-container>.kpi-table-slide:last tbody>tr:first')
+							.append('<td class="kpi-table-title" style="font-weight:' + props.columnTitle.fontWeight
+								+ ';font-size:' + props.columnTitle.fontSize
+								+ ';color:' + props.columnTitle.color
+							+ '">' + dataBuckets.measure.title + '</td>')
+					else
+						$(container)
+							.find('.kpi-table-container>.kpi-table-slide:last tbody>tr:first')
+							.append('<td class="kpi-table-title" style="font-weight:' + props.columnTitle.fontWeight
+								+ ';font-size:' + props.columnTitle.fontSize
+								+ ';color:' + props.columnTitle.color
 							+ '">' + dataBuckets.measure.title[i] + '</td>')
+
 					$(container)
 						.find('.kpi-table-container>.kpi-table-slide:last tbody>tr:last')
 						.append('<td class="kpi-table-data" style="font-weight:' + props.columnData.fontWeight
