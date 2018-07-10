@@ -276,14 +276,15 @@ var tdg_sunburst = (function () {
     }
 
     function getDiscreteColorScale ( sunburstData, fakeRootName ) {
-
       var groups = sunburstData.map(function (d) {
-          return getGroup(d, fakeRootName);                                                         
+          return getGroup(d, fakeRootName);
         })
-        .filter(function(d){ return !!d; })                                     	
-        .reduce(function (uniq, nodeId) {											
-          return ( uniq.indexOf(nodeId) < 0 ) ? uniq.concat(nodeId) : uniq;		
-        }, []);																	
+        .filter(function(d){ return !!d; })
+        .reduce(function (uniq, nodeId) {
+          return ( uniq.indexOf(nodeId) < 0 ) ? uniq.concat(nodeId) : uniq;
+        }, []);
+
+      
 
       return d3.scale.ordinal()
         .domain(groups)
@@ -388,8 +389,6 @@ var tdg_sunburst = (function () {
             str += (formatMap[el.name]) ? formatMap[el.name](d[el.name]) : d[el.name];
           }
         });
-		
-		// str += "<br> color: " + d.fillColor.toLocaleString();   //Remove line comment to see color in tooltip...for debugging
 
         str += '</div>';
         return str;
@@ -435,34 +434,10 @@ var tdg_sunburst = (function () {
         d.ratio = getRatio(d);
       });
  
-      	/*  Logic prior to CHART-2004 NFR
       var colorScale = ( isEvenOddColorMode() ) 
         ? getEvenOddDiscreteColorScale( sunburstData, innerProps.fakeRootName )
         : getDiscreteColorScale( sunburstData, innerProps.fakeRootName );
-	 */	
-	  
-	  //Start logic for CHART-2004 NFR. Parent Child color scheme similar to https://codepen.io/johnwun/pen/htJEn and  //https://bl.ocks.org/mbostock/4348373	  
-			  var newColor = d3.scale.category20b();	//https://github.com/d3/d3-3.x-api-reference/blob/master/Ordinal-Scales.md#category20b
-			  sunburstData.forEach(function (d) {
-										function fnShiftColor(color) {
-															 var hsl = d3.rgb(color.brighter(.1)).hsl();
-															 var rnd = Math.round((Math.random() + 1) * 40);
-															 var colorshift = Math.min(hsl.h + rnd,360);
-															 return d3.hsl(colorshift, Math.min(hsl.s,50), Math.min(hsl.l,40));
-														}
-				  
-										if (d.depth == 0 ) {
-											d.fillColor = "#ffffff";     //White	
-										}
-										else if (d.depth == 1) {
-											d.fillColor = d3.hsl(newColor(d.name));  //Assign a new color to roots
-										}
-										else {
-											d.fillColor =  fnShiftColor(d.parent.fillColor);  //shiftcolors of children
-										}
-									} );
-	  //End logic for CHART-2004 NFR
-	  
+
       var arc = d3.svg.arc()
         .startAngle(function(d) {
           return Math.max(0, Math.min(2 * Math.PI, x(d.x)));
@@ -487,8 +462,7 @@ var tdg_sunburst = (function () {
         .style({
           fill : function (d) {
             return ( d.name !== innerProps.fakeRootName )
-            //? colorScale(getGroup(d, innerProps.fakeRootName))     //Logic prior to CHART-2004 NFR. 
-			? d.fillColor                                            //Logic for CHART-2004. Color is pre-calculated
+            ? colorScale(getGroup(d, innerProps.fakeRootName))
             : 'none';
           },
           stroke: props.node.border.color,
