@@ -25,18 +25,18 @@
 			properties = $ib3.config.getCustomProperties();
 			
 		var barWidth = width,
-			minColor = isDummyData ? 'grey': $ib3.config.getProperty('colors.minColor'),
-			maxColor = isDummyData ? '#5a5a5a': $ib3.config.getProperty('colors.maxColor'),
-			textColor = isDummyData ? 'grey': $ib3.config.getProperty('colors.titlesColor'),
-			marginTop = parseFloat($ib3.config.getProperty('sizes.marginTop')),
-			rowHeight = parseFloat($ib3.config.getProperty('sizes.rowHeight')),
-			barHeight = parseFloat($ib3.config.getProperty('sizes.barHeight')),
+			minColor = isDummyData ? 'grey': $ib3.config.getProperty('kpidistributionProperties.colors.minColor'),
+			maxColor = isDummyData ? '#5a5a5a': $ib3.config.getProperty('kpidistributionProperties.colors.maxColor'),
+			textColor = isDummyData ? 'grey': $ib3.config.getProperty('kpidistributionProperties.colors.titlesColor'),
+			marginTop = parseFloat($ib3.config.getProperty('kpidistributionProperties.sizes.marginTop')),
+			rowHeight = parseFloat($ib3.config.getProperty('kpidistributionProperties.sizes.rowHeight')),
+			barHeight = parseFloat($ib3.config.getProperty('kpidistributionProperties.sizes.barHeight')),
 			animationSeconds = 500,
-			fontSize = $ib3.config.getProperty('sizes.titlesFont'),
-			showPercentagesOfTheTotal = $ib3.config.getProperty('options.showPercentagesOfTheTotal'),
-			showValue = $ib3.config.getProperty('options.showValue'),
-			shortenValue = $ib3.config.getProperty('options.shortenValue'),
-			forceSortRows = $ib3.config.getProperty('options.forceSortRows');
+			fontSize = $ib3.config.getProperty('kpidistributionProperties.sizes.titlesFont'),
+			showPercentagesOfTheTotal = $ib3.config.getProperty('kpidistributionProperties.options.showPercentagesOfTheTotal'),
+			showValue = $ib3.config.getProperty('kpidistributionProperties.options.showValue'),
+			shortenValue = $ib3.config.getProperty('kpidistributionProperties.options.shortenValue'),
+			forceSortRows = $ib3.config.getProperty('kpidistributionProperties.options.forceSortRows');
 					
 		var container = d3.select(mainContainer).attr('class', 'extension_container').append('g');
 				

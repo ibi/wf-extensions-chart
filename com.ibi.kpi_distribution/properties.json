@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": "1.0.2",
+		"version": "2.0.1",
 		"implements_api_version": "1.0/2.0",
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
@@ -12,30 +12,31 @@
 	},
 
 	"properties": {
-		"options": {
-			"showPercentagesOfTheTotal": true,
-			"showValue": true,
-			"shortenValue": false,
-			"forceSortRows": true
-		},
-		"sizes": {
-			"titlesFont": "15px",
-			"marginTop": "10",
-			"rowHeight": "50",
-			"barHeight": "10"
-		},
-		"colors": {
-			"minColor": "#912BA7",
-			"maxColor": "#036DB2",
-			"titlesColor": "#415D6B"
+		"kpidistributionProperties":{
+			"options": {
+				"showPercentagesOfTheTotal": true,
+				"showValue": true,
+				"shortenValue": false,
+				"forceSortRows": true
+			},
+			"sizes": {
+				"titlesFont": "15px",
+				"marginTop": "10",
+				"rowHeight": "50",
+				"barHeight": "10"
+			},
+			"colors": {
+				"minColor": "#912BA7",
+				"maxColor": "#036DB2",
+				"titlesColor": "#415D6B"
+			}
 		}
+		
 	},
 	
 	"propertyAnnotations": {
 	
-		"options": "json",
-		"sizes": "json",
-		"colors": "json"
+		"kpidistributionProperties": "json"
 		
 	},
 	
