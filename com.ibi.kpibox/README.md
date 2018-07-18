@@ -22,42 +22,46 @@ To configure or customize your extension edit "properties" object in properties.
 **Any property can be overwritten from a property that is written in the webfocus chart code (GRAPH_JS_FINAL Properties) or in the STY file**
 	
 	"properties": {
-
-		"textVertPosition": 0.5,   // The height at which to display the percentage text withing the wave circle. 0 = bottom, 1 = top.
-		"textSize": 1,   
-		"ibiAppsPath": "/ibi_apps/",          // The relative height of the text to display in the wave circle. 1 = 50%
-		"valueCountUp": true,      // If true, the displayed value counts up from 0 to it's final value upon loading. If false, the final value is displayed.
-		"displayPercent": true,    // If true, a % symbol is displayed after the value.
-		"textColor": "#045681",    // The color of the value text when the wave does not overlap it.
+	
+		"kpiboxProperties": {
+			"textVertPosition": 0.5, 
+			"textSize": 1,   
+			"ibiAppsPath": "/ibi_apps/",
+			"valueCountUp": true, 
+			"displayPercent": true,
+			"textColor": "#045681", 			
+			"calculeComparationFunction": {
+				"param1": "valueKpi", 
+				"param2": "compareValue", 
+				"body": "var result = (valueKpi - compareValue) / compareValue; return result"
+			},	
+			"formatComparation": "#,###.00%",
+			"customCompareIcon": {
+				"active": false,	
+				"iconUpIBFS": "",
+				"iconDownIBFS": "",
+			},
+			"shortenNumbers": true, 
+			"title_row": false,
+			"calculateFontSize": false, 
+			"fixedFontSizeProp": "26px",
+			"fixedPixelLinesMargin": 20
+		},
 		"colorScale": {
 			"colorMode":"discrete",
 			"colorBands": [
-			{"start": -1000000000000, "stop": 0,"color":"red"},
-			{"start": 0, "stop": 1000000000000,"color":"green"}
-		]
-		},
-		"shortenNumbers": true, // If true, The numbers are shortened
-		"title_row": false, // If true, The title will fill a complete row
-		"shortenNumbersTooltip": false, // If true, The numbers are shortened in tooltip
-		"calculateFontSize": false,  // If true, The size of text is calculated automatically
-		"fixedFontSizeProp": "26px", // If calculateFontSize is false, the text size will take this value
-		"fixedPixelLinesMargin": 20  // If calculateFontSize is false, the text separation will take this value
+				{"start": -1000000000000, "stop": 0, "color":"red"},
+				{"start": 0, "stop": 1000000000000, "color":"green"}
+			]
+		}
+		
 	},
-	
+	 
 	"propertyAnnotations": {
-		"textVertPosition": "number",
-		"textSize": "number",
-		"ibiAppsPath": "str",
-		"valueCountUp": "bool",
-		"displayPercent": "bool",
-		"textColor": "str",
-		"colorScale":"json",
-		"shortenNumbers":"bool",
-		"title_row": "bool",
-		"shortenNumbersTooltip":"bool",
-		"calculateFontSize": "bool",
-		"fixedFontSizeProp": "str",
-		"fixedPixelLinesMargin": "number"	
+	
+		"kpiboxProperties": "json",		
+		"colorScale": "json"
+		
 	}
 
 
