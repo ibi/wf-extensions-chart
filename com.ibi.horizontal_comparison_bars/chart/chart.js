@@ -35,7 +35,7 @@
 			max_width_dimension = 0,
 			max_width_percentaje = 0,
 			has_comparevalue = true,
-			shorten_numbers = $ib3.config.getProperty('shorten_numbers'),
+			shorten_numbers = $ib3.config.getProperty('horizontalcomparisonbarsProperties.shorten_numbers'),
 			the_colorBands = $ib3.config.getProperty('colorScale.colorBands');
 			
 		// calculate percentajes
