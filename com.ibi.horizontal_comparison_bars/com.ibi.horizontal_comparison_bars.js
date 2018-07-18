@@ -60,7 +60,6 @@
 	// Your extension's configuration
 	var config = {
 		id: 'com.ibi.horizontal_comparison_bars',     // string that uniquely identifies this extension
-		ibiVersion: '1.0.1', // control developing version
 		containerType: 'svg',  // either 'html' or 'svg' (default)
 		initCallback: initCallback,
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
@@ -159,10 +158,6 @@
 		}
 	};
 
-	// IBI This Global variable will be container of extension and will contain services, etc...
-	if(window.console) {
-		window.console.log(window.name + ':' + config.id + ' WF Extension. v' + config.ibiVersion);
-	}
 
 	// Required: this call will register your extension with the chart engine
 	tdgchart.extensionManager.register(config);

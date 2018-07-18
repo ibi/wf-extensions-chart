@@ -20,8 +20,11 @@ To configure or customize your extension edit "properties" object in properties.
 **Any property can be overwritten from a property that is written in the graphic code or in the STY file**
 	
 	"properties": {
-		"chartHeadroom": 50,
-		"shorten_numbers": true, //If true, The numbers are shortened
+	
+		"horizontalcomparisonbarsProperties": {
+			"chartHeadroom": 50,
+			"shorten_numbers": true, //If true, The numbers are shortened
+		},
 		"external_library": "lib/d3.min.js",
 		"colorScale": {
 			"colorMode":"discrete",
@@ -33,8 +36,7 @@ To configure or customize your extension edit "properties" object in properties.
 	},
 	
 	"propertyAnnotations": {
-		"chartHeadroom": "number",
-		"shorten_numbers":"bool",
+		"horizontalcomparisonbarsProperties": "json",		
 		"external_library": "str",
 		"colorScale": "json"
 	},
