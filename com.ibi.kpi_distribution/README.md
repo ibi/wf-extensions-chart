@@ -24,30 +24,30 @@ To configure or customize your extension edit "properties" object in properties.
 **Any property can be overwritten from a property that is written in the webfocus chart code (GRAPH_JS_FINAL Properties) or in the STY file**
 	
 	"properties": {
-		"options": {
-			"showPercentagesOfTheTotal": true,
-			"showValue": true,
-			"shortenValue": false,
-			"forceSortRows": true
-		},
-		"sizes": {
-			"titlesFont": "15px",
-			"marginTop": "10",
-			"rowHeight": "50",
-			"barHeight": "10"
-		},
-		"colors": {
-			"minColor": "#912BA7",
-			"maxColor": "#036DB2",
-			"titlesColor": "#415D6B"
+		"kpidistributionProperties":{
+			"options": {
+				"showPercentagesOfTheTotal": true,
+				"showValue": true,
+				"shortenValue": false,
+				"forceSortRows": true
+			},
+			"sizes": {
+				"titlesFont": "15px",
+				"marginTop": "10",
+				"rowHeight": "50",
+				"barHeight": "10"
+			},
+			"colors": {
+				"minColor": "#912BA7",
+				"maxColor": "#036DB2",
+				"titlesColor": "#415D6B"
+			}
 		}
 	},
 	
 	"propertyAnnotations": {
 	
-		"options": "json",
-		"sizes": "json",
-		"colors": "json"
+		"kpidistributionProperties": "json"
 		
 	},
 

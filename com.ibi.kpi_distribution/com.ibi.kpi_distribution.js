@@ -59,7 +59,6 @@
 
 	var config = {
 		id: 'com.ibi.kpi_distribution',
-		ibiVersion: '1.0.2', // control developing version
 		containerType: 'svg',
 		name: 'Kpi distribution',
 		initCallback: initCallback,
@@ -125,10 +124,6 @@
 		}
 	};
 
-	// IBI This Global variable will be container of extension and will contain services, etc...
-	if(window.console) {
-		window.console.log(window.name + ':' + config.id + ' WF Extension. v' + config.ibiVersion);
-	}
 
 	tdgchart.extensionManager.register(config);
 
