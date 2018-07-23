@@ -38,8 +38,8 @@ To configure or customize your extension edit "properties" object in properties.
 			"formatComparation": "#,###.00%",
 			"customCompareIcon": {
 				"active": false,	
-				"iconUpIBFS": "",
-				"iconDownIBFS": "",
+				"iconUp": "",
+				"iconDown": "",
 			},
 			"shortenNumbers": true, 
 			"title_row": false,
