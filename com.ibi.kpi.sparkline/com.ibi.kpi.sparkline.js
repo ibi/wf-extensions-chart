@@ -155,7 +155,6 @@
 		$(container).append('<div class="placeholder">Add measures or dimensions</div>');
 	}
 
-	
 	// Your extension's configuration
 	var config = {
 		id: 'com.ibi.kpi.sparkline',     // string that uniquely identifies this extension
@@ -166,7 +165,13 @@
 		noDataPreRenderCallback: noDataPreRenderCallback, 
 		noDataRenderCallback: noDataRenderCallback,
 		resources: {
-			script: window.jQuery ? ['lib/jquery.sparkline.min.js'] : ['jquery/js/jquery.js', 'lib/jquery.sparkline.min.js'],
+			script:
+				window.jQuery
+					? ['lib/jquery.sparkline.min.js']
+					: [
+						['', tdgchart.getScriptPath().split('/')[1], 'jquery/js/jquery.js'].join('/'),
+						'lib/jquery.sparkline.min.js'
+					],
 			css: ['css/open-sans.css', 'css/sparkline.css']
 		},
 		modules: {
