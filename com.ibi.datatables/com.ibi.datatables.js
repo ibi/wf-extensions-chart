@@ -53,7 +53,7 @@
 	// Arguments:
 	//  - renderConfig: the standard callback argument object, including additional properties width, height, etc
 	function renderCallback(renderConfig) {
-
+		console.log(123, window.jQuery);
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
 		
@@ -369,7 +369,7 @@
 			//$('.dataTables_scrollBody table').lasso();
 		}
 
-		renderConfig.renderComplete();	
+		renderConfig.renderComplete();
 	}
 	
 	function findIndex(arr, comparator) {
@@ -431,11 +431,15 @@
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
 		noDataPreRenderCallback: noDataPreRenderCallback, 
 		noDataRenderCallback: noDataRenderCallback,
-		resources:  window.jQuery? {
-			script: ['lib/datatables.min.js','lib/lasso.js'],
-			css: ['css/datatables.min.css','css/symbol.css']
-		} : {
-			script: ['lib/datatables-w-jquery.min.js','lib/lasso.js'],
+		resources: {
+			script:
+				window.jQuery
+					? ['lib/datatables.min.js','lib/lasso.js']
+					: [
+						['', tdgchart.getScriptPath().split('/')[1], 'jquery/js/jquery.js'].join('/'),
+						'lib/datatables.min.js',
+						'lib/lasso.js'
+					],
 			css: ['css/datatables.min.css','css/symbol.css']
 		},
 		modules: {
