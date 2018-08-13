@@ -189,7 +189,11 @@
 		noDataPreRenderCallback: noDataPreRenderCallback, 
 		noDataRenderCallback: noDataRenderCallback,
 		resources: {
-			script: window.jQuery ? [] : ['lib/jquery-3.2.1.min.js'],
+			script: window.jQuery
+					? []
+					: [
+						['', tdgchart.getScriptPath().split('/')[1], 'jquery/js/jquery.js'].join('/')
+					],
 			css: ['css/open-sans.css','css/table.css']
 		},
 		modules: {
