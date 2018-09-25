@@ -5,7 +5,7 @@
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
-		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.sunburst",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.range",
 		"icons": {
 			"medium": "icons/medium.png"
 		}
