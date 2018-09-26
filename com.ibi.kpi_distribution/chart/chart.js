@@ -117,7 +117,7 @@
 					$ib3.utils.setUpTooltip(this, 0, d.originalIndex, d);
 				})
 				.attr("class", function(d, i) {
-					var drillClass = $ib3.config.getDrillClass(0, d.originalIndex);
+					var drillClass = $ib3.config.getDrillClass('riser', 0, d.originalIndex);
 					return drillClass;
 				});
 
