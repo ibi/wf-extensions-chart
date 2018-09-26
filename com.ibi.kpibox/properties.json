@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": "2.0.2",
+		"version": "2.0.4",
 		"implements_api_version": "1.0, 2.0",
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
@@ -34,7 +34,7 @@
 			"shortenNumbers": true, 
 			"title_row": false,
 			"calculateFontSize": false, 
-			"fixedFontSizeProp": "26px",
+			"fixedFontSizeProp": "18px",
 			"fixedPixelLinesMargin": 20
 		},
 		"colorScale": {
