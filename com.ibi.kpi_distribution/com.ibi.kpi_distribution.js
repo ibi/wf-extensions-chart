@@ -33,27 +33,13 @@
 		var isDummyData = renderConfig.testData;
 
 		//IMPORTANT: Setup the renderConfig to custom $ib3
-		$ib3.config.setup(renderConfig);
+		$ib3.config.setup(renderConfig, {
+			tooltip: {
+				hiddenBuckets: ['minvalue', 'maxvalue', 'valueispercentage', 'image']
+			}
+		});
 		$ib3.chart.draw(isDummyData);	
 		$ib3.config.finishRender();
-		
-		//HIDE Min and Max value Buckets from Tooltip
-		var extraCss = '';
-		
-		var minValueBucket = $ib3.config.getBucket('minvalue');
-		if(minValueBucket) {
-			extraCss += ' .tdgchart-tooltip table > tr:nth-of-type(3) { display: none; } ';
-		}
-		
-		var maxValueBucket = $ib3.config.getBucket('maxvalue');
-		if(maxValueBucket) {
-			var indexMaxValueBucket = minValueBucket ? 4 : 3;
-			extraCss += ' .tdgchart-tooltip table > tr:nth-of-type(' + indexMaxValueBucket + ') { display: none; } ';
-		}
-		
-		if(extraCss) {
-			$("<style type='text/css'> " + extraCss + " </style>").appendTo("head");
-		}
 
 	}
 

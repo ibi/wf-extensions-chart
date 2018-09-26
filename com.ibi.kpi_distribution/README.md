@@ -17,6 +17,8 @@ Draw in animated bars the distribution of measure by one dimensions
 
 ![screenshot_3](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpi_distribution/screenshots/3.png)
 
+![screenshot_4](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpi_distribution/screenshots/4.png)
+
 ## Configurations
 
 To configure or customize your extension edit "properties" object in properties.json file.
@@ -29,20 +31,22 @@ To configure or customize your extension edit "properties" object in properties.
 				"showPercentagesOfTheTotal": true,
 				"showValue": true,
 				"shortenValue": false,
-				"forceSortRows": true
+				"forceSortRows": true,
+				"showBarIcons": false
 			},
 			"sizes": {
 				"titlesFont": "15px",
 				"marginTop": "10",
 				"rowHeight": "50",
-				"barHeight": "10"
+				"barHeight": "10",
+				"barIconWidth": "40"
 			},
 			"colors": {
 				"minColor": "#912BA7",
 				"maxColor": "#036DB2",
 				"titlesColor": "#415D6B"
 			}
-		}
+		}		
 	},
 	
 	"propertyAnnotations": {
@@ -56,6 +60,7 @@ To configure or customize your extension edit "properties" object in properties.
 
 ### Measures:
 * **Value Bucket (1, required)** - Required. KPI value
+* **Is Percentage Bucket (0:1, non required)** - Non required. Is Percentage value
 * **Max value Bucket (0:1, non required)** - Non required. Max value
 * **Min value Bucket (0:1, non required)** - Non required. Min value
 
