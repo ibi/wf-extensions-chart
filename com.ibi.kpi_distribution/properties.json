@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": "2.0.1",
+		"version": "2.1.1",
 		"implements_api_version": "1.0/2.0",
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
@@ -17,21 +17,22 @@
 				"showPercentagesOfTheTotal": true,
 				"showValue": true,
 				"shortenValue": false,
-				"forceSortRows": true
+				"forceSortRows": true,
+				"showBarIcons": false
 			},
 			"sizes": {
 				"titlesFont": "15px",
 				"marginTop": "10",
 				"rowHeight": "50",
-				"barHeight": "10"
+				"barHeight": "10",
+				"barIconWidth": "40"
 			},
 			"colors": {
 				"minColor": "#912BA7",
 				"maxColor": "#036DB2",
 				"titlesColor": "#415D6B"
 			}
-		}
-		
+		}		
 	},
 	
 	"propertyAnnotations": {
@@ -45,12 +46,20 @@
 		"matrix": false,
 		"data_page": false,
 		"series_break": false,
-		"buckets": [ // At least one measure and one dimension have to exist
+		"buckets": [
 			{
 				"id": "value",
 				"type": "measure",
 				"count": {
 					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "valueispercentage",
+				"type": "measure",
+				"count": {
+					"min": 0,
 					"max": 1
 				}
 			},
@@ -77,6 +86,14 @@
 					"min": 1,
 					"max": 1
 				}
+			},
+			{
+				"id": "image",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
 			}
 		]
 	},
@@ -88,12 +105,16 @@
 			"icon_tooltip": "New Extension Tooltip", 
 			"value_name": "Value Bucket (1, required)", 
 			"value_tooltip": "Drop a measusre here",
+			"valueispercentage_name": "Is Percentage Bucket (0:1, non required)", 
+			"valueispercentage_tooltip": "Drop a measusre here",
 			"minvalue_name": "Min value Bucket (0:1, non required)", 
 			"minvalue_tooltip": "Drop a measusre here",
 			"maxvalue_name": "Max value Bucket (0:1, non required)", 
 			"maxvalue_tooltip": "Drop a measusre here",
 			"dimension_name": "Dimension Bucket (1, required)", 
-			"dimension_tooltip": "Drop a dimension here"
+			"dimension_tooltip": "Drop a dimension here",
+			"image_name": "Image Bucket (1, non required)", 
+			"image_tooltip": "Drop a field with path to image"
 		}
 	}
 }
