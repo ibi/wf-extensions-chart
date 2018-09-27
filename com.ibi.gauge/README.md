@@ -10,9 +10,9 @@ This is a 180 degree arc gauge that displays a color state based on threshold va
 
 ## Screenshots
 
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.gauge/screenshots/1.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.gauge/screenshots/1.PNG)
 
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.gauge/screenshots/2.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.gauge/screenshots/2.PNG)
 
 ## Configurations
 
