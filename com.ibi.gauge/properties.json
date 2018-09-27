@@ -1,0 +1,104 @@
+// Copyright 1996-2015 Information Builders, Inc. All rights reserved.
+// $Revision: 1.15 $
+
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 1.0,
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	
+	"properties": {
+		"min": 0
+		,"max": 100
+		,"arc_width": 25
+		,"label_type": "actual"
+		,"color_states":  ["#FF0000", "#F97600", "#F6C600", "#60B044"]
+		,"thresholds": [30,60,90,100]
+		,"show_label": true
+		,"show_endpoints": true
+	},
+	
+	"propertyAnnotations": {
+		"min": "number"
+		,"max": "number"
+		,"arc_width": "number"
+		,"label_type": "str"
+		,"color_states": {
+			"typeAnnotation": "array",
+			"arrayTypes": "color"
+		}
+		,"thresholds": {
+			"typeAnnotation": "array",
+			"arrayTypes": "number"
+		}
+		,"show_label": "bool"
+		,"show_endpoints": "bool"
+	},
+	
+	"dataBuckets":  {
+	
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+			{
+				"id": "actual",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "min",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "max",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			}
+		]
+	},
+
+	"translations": {
+		"en": {
+			"name": "Arc Gauge",
+			"description": "This is a 180 degree arc gauge that represents 3 states",
+			"icon_tooltip": "This is a 180 degree arc gauge that represents 3 states", 
+			"actual_name": "Gauge Value", 
+			"actual_tooltip": "Drop a measure here",
+			"min_name": "Min Gauge Value", 
+			"min_tooltip": "Drop a measure here",
+			"max_name": "Max Gauge Value", 
+			"max_tooltip": "Drop a measure here"
+		},
+
+		"fr": {
+			"name": "Graphique à barres simple personnel",
+			"description": "Ce graphique est un simple graphique à barres, rien de spécial.",
+			"icon_tooltip": "Cette extension réalise ...", 
+			"actual_name": "Gauge Value", 
+			"actual_tooltip": "Drop a measure here",
+			"min_name": "Min Gauge Value", 
+			"min_tooltip": "Drop a measure here",
+			"max_name": "Max Gauge Value", 
+			"max_tooltip": "Drop a measure here"
+		}
+	}
+}
