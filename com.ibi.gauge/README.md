@@ -27,6 +27,7 @@ To configure or customize your extension edit "properties" object in properties.
 		,"thresholds": [30,60,90,100]
 		,"show_label": true
 		,"show_endpoints": true
+		,"show_legend": true
 	},
 
 ## Data Buckets

@@ -7,7 +7,7 @@
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
-		"url": "",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.gauge",
 		"icons": {
 			"medium": "icons/medium.png"
 		}
@@ -22,6 +22,7 @@
 		,"thresholds": [30,60,90,100]
 		,"show_label": true
 		,"show_endpoints": true
+		,"show_legend": true
 	},
 	
 	"propertyAnnotations": {
@@ -39,6 +40,7 @@
 		}
 		,"show_label": "bool"
 		,"show_endpoints": "bool"
+		,"show_legend": "bool"
 	},
 	
 	"dataBuckets":  {

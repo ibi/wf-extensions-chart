@@ -118,53 +118,53 @@
                 //,width: w
             }
         });
-        var legend_html = [];
+		
+		if(renderConfig.properties.show_legend)
+		{
 
+			var legend_html = [];
+			var color_states = renderConfig.properties.color_states;
+			if (color_states.length > 1) {
 
+				var thresholds = renderConfig.properties.thresholds;
 
-        
+				legend_html.push('<table class="com_ibi_gauge_table">');
+				legend_html.push('<tbody>');
+				legend_html.push('<tr>');
 
-        var color_states = renderConfig.properties.color_states;
-        if (color_states.length > 1) {
+				for (var index = 0; index < color_states.length; index++) {
+					legend_html.push('<td>');
+					legend_html.push('<div style="width: 12px; height: 12px; display: inline-block; background-color: ' + color_states[index] + '"></div>');
+					legend_html.push('</td>');
+					legend_html.push('<td>');
+					switch (index) {
+						case 0:
+							var end_point = thresholds[index];
+							legend_html.push('< ' + end_point);
+							break;
+						case color_states.length - 1:
+							var start_point = thresholds[index];
+							legend_html.push(start_point + '+');
+							break;
+						default:
+							var start_point = thresholds[index - 1];
+							var end_point = thresholds[index];
+							legend_html.push(start_point + ' - ' + end_point);
+							break;
+					}
 
-            var thresholds = renderConfig.properties.thresholds;
+					legend_html.push('</td>');
+				}
+				legend_html.push('</tr>');
+				legend_html.push('</tbody>');
+				legend_html.push('</table>');
 
-            legend_html.push('<table class="com_ibi_gauge_table">');
-            legend_html.push('<tbody>');
-            legend_html.push('<tr>');
-
-            for (var index = 0; index < color_states.length; index++) {
-                legend_html.push('<td>');
-                legend_html.push('<div style="width: 12px; height: 12px; display: inline-block; background-color: ' + color_states[index] + '"></div>');
-                legend_html.push('</td>');
-                legend_html.push('<td>');
-                switch (index) {
-                    case 0:
-                        var end_point = thresholds[index];
-                        legend_html.push('< ' + end_point);
-                        break;
-                    case color_states.length - 1:
-                        var start_point = thresholds[index];
-                        legend_html.push(start_point + '+');
-                        break;
-                    default:
-                        var start_point = thresholds[index - 1];
-                        var end_point = thresholds[index];
-                        legend_html.push(start_point + ' - ' + end_point);
-                        break;
-                }
-
-                legend_html.push('</td>');
-            }
-            legend_html.push('</tr>');
-            legend_html.push('</tbody>');
-            legend_html.push('</table>');
-
-            container.append(legend_html.join(''));
-            var table_width = $('.com_ibi_gauge_table').width();
-            $('.com_ibi_gauge_table').css('margin-left', 'calc((100% - ' + table_width + 'px)/2)');
-        }
-
+				container.append(legend_html.join(''));
+				var table_width = $('.com_ibi_gauge_table').width();
+				$('.com_ibi_gauge_table').css('margin-left', 'calc((100% - ' + table_width + 'px)/2)');
+			}
+				
+		}
         container.css('max-height', '');
 
         container.css('height', h+'px');
