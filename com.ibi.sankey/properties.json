@@ -5,7 +5,7 @@
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
 		"license": "BSD 3-clause",
-		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/simple_bar%20example",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.sankey",
 		"icons": {
 			"medium": "icons/medium.png"
 		}
