@@ -225,7 +225,7 @@
 		renderCallback: renderCallback,
 		noDataRenderCallback: noDataRenderCallback,
 		resources:  {
-			script: ['http://d3js.org/d3.v3.min.js', 'lib/sankey.js'],
+			script: ['//d3js.org/d3.v3.min.js', 'lib/sankey.js'],
 			css: ['lib/sankey.css']
 		},
 		modules: {
