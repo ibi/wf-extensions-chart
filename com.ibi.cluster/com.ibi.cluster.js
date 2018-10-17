@@ -128,7 +128,7 @@
       })
       .style({
         fill: 'white',
-        opacity: 0.7
+        opacity: 0.3
       });
 
           // ADD NO DATA TEXT

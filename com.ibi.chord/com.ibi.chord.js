@@ -85,7 +85,7 @@
 			})
 			.style({
 				fill: 'white',
-				opacity: 0.9
+				opacity: 0.3
 			});
 
 		container.append('text')
