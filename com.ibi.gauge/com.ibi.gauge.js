@@ -69,11 +69,11 @@
         var data = renderConfig.data;
         var min_value = data[0].min;
         var max_value = data[0].max;    
-        /*
-        if (renderConfig.dataBuckets.depth === 1) {
-            data = [data];
+        var target = null;
+        if (renderConfig.dataBuckets.buckets.tgt !== undefined) {
+            target = data[0].tgt;
         }
-        */
+        
         root_container.css('background-color', chart.fill.color);
         
         var container = $('#' + renderConfig.rootContainer.id + ' .chartHolder_relative_container');
@@ -116,6 +116,44 @@
             size: {
                 height: h-40
                 //,width: w
+            },
+            onrendered: function () {
+                if (target != null) {
+                    var min = this.config.gauge_min;
+                    var max = this.config.gauge_max;
+                    var arc_width = this.config.gauge_width;
+
+                    //set the length of the scale
+                    var full_scale = (max - min) * 1.0;
+
+                    //set the length of the target relative to the min value
+                    var relative_target = target - min;
+
+                    //set the width of the containg box for the arc
+                    var bounding_box = d3.select('#' + renderConfig.rootContainer.id + ' svg').select('.c3-chart-arcs-background path').node().getBBox();
+
+                    //set the radius of the inner arc
+                    var radius = (bounding_box.width / 2) - arc_width;
+
+                    //calculate the degrees that the relative target length represents
+                    var degree_offset = -180;
+                    var target_degrees = (relative_target * 180 / full_scale) + degree_offset;
+                    var target_radians = target_degrees * Math.PI / 180;
+
+                    //use math to solve for where the x and y coordinates of where the target line would go relative to 
+                    //the mid point of the gauge.
+                    var target_x = radius * Math.cos(target_radians);
+                    var target_y = (radius * Math.sin(target_radians));
+
+                    d3.select('#' + renderConfig.rootContainer.id + ' svg').select('.c3-chart-arcs').append("line")
+                        .attr("x1", 0)
+                        .attr("y1", 0)
+                        .attr("x2", (-1.0 * (arc_width)))
+                        .attr("y2", 0)
+                        .attr("stroke-width", props.target_width)
+                        .attr("style", "stroke: " + props.target_color)
+                        .attr("transform", "translate(" + target_x + ", " + target_y + ") rotate(" + (target_degrees - 180) + ")");
+                }
             }
         });
 		
