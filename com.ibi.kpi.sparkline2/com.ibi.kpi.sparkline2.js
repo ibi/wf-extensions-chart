@@ -1,5 +1,5 @@
 /* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
-/* $Revision: 1.3 $ */
+/* $Revision: 1.4 $ */
 
 (function() {
 
@@ -169,7 +169,8 @@
 		renderConfig.dataBuckets = {"buckets":{"group":{"title":"Sale Year","count":1},"xaxis":{"title":"Sale Month","count":1},"measure":{"title":"Revenue","count":1}},"depth":1};
 		renderCallback(renderConfig);
 		
-		$(container).append('<div class="placeholder">Add measures or dimensions</div>');
+		if ($('.drop-label.ibx-widget').length==0)
+			$(container).append('<div class="placeholder">Add measures or dimensions</div>');
 	}
 
 	// Your extension's configuration
