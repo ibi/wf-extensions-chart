@@ -18,29 +18,19 @@ This is a 180 degree arc gauge that displays a color state based on threshold va
 
 To configure or customize your extension edit "properties" object in properties.json file.
 	
-"properties": {
+	"properties": {
+		"arc_width": 25,
+		"label_type": "actual",
+		"color_states": [ "#FF0000", "#F97600", "#F6C600", "#60B044" ],
+		"thresholds": [ 30, 60, 90, 100 ],
+		"show_label": true,
+		"show_endpoints": true,
+		"show_legend": true,
+		"target_width": 2,
+		"target_color": "#505050"
+			},
 
-    
-	"arc_width": 25,
-    
-	"label_type": "actual",
-    
-	"color_states": [ "#FF0000", "#F97600", "#F6C600", "#60B044" ],
-   
-	"thresholds": [ 30, 60, 90, 100 ],
-	
-	"show_label": true,
-    
-	"show_endpoints": true,
-    
-	"show_legend": true,
-    
-	"target_width": 2,
-    
-	"target_color": "#505050"
-	
-		},
-
+			
 ## Data Buckets
 
 ### Measures:
