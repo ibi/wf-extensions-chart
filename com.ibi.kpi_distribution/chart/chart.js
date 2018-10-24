@@ -255,7 +255,7 @@
 		function _getImagePath(customImage) {
 			
 			var imagePath = '',
-				wfPath = (typeof WFInstallOption_CGIPath == 'undefined' ? $ib3.config.getProperty('kpiboxProperties.ibiAppsPath') : WFInstallOption_CGIPath);
+				wfPath = (typeof WFInstallOption_CGIPath == 'undefined' ? $ib3.config.getProperty('kpidistributionProperties.ibiAppsPath') : WFInstallOption_CGIPath);
 			
 			wfPath = $.trim(wfPath);
 			wfPath = wfPath.substring(wfPath.length - 1) == '/'
