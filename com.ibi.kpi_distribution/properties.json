@@ -13,12 +13,13 @@
 
 	"properties": {
 		"kpidistributionProperties":{
+			"ibiAppsPath": "/ibi_apps/",
 			"options": {
-				"showPercentagesOfTheTotal": true,
+				"showPercentagesOfTheTotal": false,
 				"showValue": true,
 				"shortenValue": false,
 				"forceSortRows": true,
-				"showBarIcons": false
+				"showBarIcons": true
 			},
 			"sizes": {
 				"titlesFont": "15px",
