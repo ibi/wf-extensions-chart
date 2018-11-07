@@ -2,7 +2,7 @@
 
 # Liquid Gauge
 
-Liquid Gauge extension for WebFocus 8200. Based on the d3 pluging by [Curtis Bratton](http://bl.ocks.org/brattonc/5e5ce9beee483220e2f6).
+Liquid Gauge extension for WebFocus 8200. Based on the d3 plug-in by [Curtis Bratton](http://bl.ocks.org/brattonc/5e5ce9beee483220e2f6).
 
 For installation instructions please visit this [link](https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension "Installing a WebFocus Extension").
 
