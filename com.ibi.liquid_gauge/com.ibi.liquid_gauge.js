@@ -28,9 +28,29 @@
 		tdgchart.util.mergeObjects(gaugeProps, gauge);
 		gauge.width = width;
 		gauge.height = height;
-		
+
 		var value = (((chart.data || [])[0] || [])[0] || {}).value || 0;
 		gauge.draw(id, value);
+		
+		//Start CHART-2971 new feature code
+		
+		var lGauge = d3.select("#"+ id);   //D3 css selector reference to the liquid guage DOM object
+		
+		// To support multi-drill, a riser must include a class name with the appropriate seriesID and groupID
+		// You can use chart.buildClassName to create an appropriate class name.
+		// 1st argument must be 'riser', 2nd is seriesID, 3rd is groupID, 4th is an optional extra string which can be used to identify the risers in your extension.	
+		//Adopted from example in com.ibi.simple_bar.js: https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.simple_bar/com.ibi.simple_bar.js	
+		lGauge.attr('class', chart.buildClassName('riser', 0, 0, 'liquidGauge'));
+
+		// addDefaultToolTipContent will add the same tooltip a riser as the built in chart types would.
+		//Adopted from example in com.ibi.simple_bar.js: https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.simple_bar/com.ibi.simple_bar.js
+		if (chart.data) {		
+			renderConfig.modules.tooltip.addDefaultToolTipContent(lGauge.node(), 0, 0, chart.data[0][0]);   //lGauge.node is the DOM reference to the liquid guage
+			renderConfig.renderComplete();  //Method will build the tooltip content referenced by chart.buildClassName and renderConfig.modules.tooltip.addDefaultToolTipContent
+		}	
+		
+		//End CHART-2917 new feature code	
+		
 	}
 
 	var config = {
@@ -40,7 +60,20 @@
 		renderCallback: renderCallback,
 		resources:  {
 			script: ['lib/d3.min.js', 'lib/liquid_gauge.js']
+		},
+		//Start CHART-2971 new feature code
+		modules: {
+			eventHandler: {        
+				supported: true
+			},			
+			tooltip: {
+				supported: true  // Multi drills are handled by adding additional entries to a riser's tooltip.  Enable this module, and define a default tooltip for each riser to support multi-drill.
+			},
+			autoContent: function(target, s, g, d) {
+					return d.value;
+			}
 		}
+        //End CHART-2917 new feature code		
 	};
 
 	tdgchart.extensionManager.register(config);

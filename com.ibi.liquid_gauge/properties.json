@@ -62,6 +62,7 @@
 	},
 	
 	"dataBuckets":  {
+		"tooltip": true,    //Added for CHART-2971
 		"buckets": [
 			{
 				"id": "value",
