@@ -225,7 +225,8 @@
 		renderCallback: renderCallback,
 		noDataRenderCallback: noDataRenderCallback,
 		resources:  {
-			script: ['//d3js.org/d3.v3.min.js', 'lib/sankey.js'],
+			//script: ['http://d3js.org/d3.v3.min.js', 'lib/sankey.js'], //Code prior to CHART-3033 fix
+			script: ['lib/d3.v3.min.js', 'lib/sankey.js'],    //Fix for CHART-3033, d3.v3.min.js library also placed in relative lib folder
 			css: ['lib/sankey.css']
 		},
 		modules: {
