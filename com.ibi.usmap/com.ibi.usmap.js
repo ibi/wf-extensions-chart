@@ -78,6 +78,8 @@
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
 
+		props.renderConfig = renderConfig;   //For CHART-2954 NFR and CHART-3172: need access to renderConfig.chart and renderConfig.modules inside tdg_usmap function		
+			
 		chart.legend.visible = false;
 
 		props.width = renderConfig.width;
