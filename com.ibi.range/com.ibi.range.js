@@ -68,7 +68,8 @@
 
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
-		props.data = []; // <------------------------ YOUR DATA
+		//props.data = []; // <------------------------ YOUR DATA
+		renderConfig.data = [{ group: "A", min: 10, max: 80},{ group: "B", min: 50, max: 100} ]// IA-9152
 
 		props.measureLabel = chart.measureLabel;
 		props.buckets = getFormatedBuckets(renderConfig);
@@ -97,7 +98,7 @@
 			})
 			.style({
 				fill: 'white',
-				opacity: 0.3
+				opacity: 0.5  //IA-9152
 			});
 
 		// ADD NO DATA TEXT
@@ -116,7 +117,8 @@
 				fill: 'grey'
 			});
 
-			chart.processRenderComplete();
+			//chart.processRenderComplete();
+			renderCallback(renderConfig) // IA-9152
 	}
 
 	// Your extension's configuration
