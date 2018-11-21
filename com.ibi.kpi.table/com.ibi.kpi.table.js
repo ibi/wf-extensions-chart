@@ -176,7 +176,8 @@
 		renderConfig.dataBuckets = {"buckets":{"group":{"title":"Store Region","count":1},"keymeasure":{"title":"Revenue","count":1},"measure":{"title":["Cost of Goods","Gross Profit","Quantity Sold"],"count":3}},"depth":1};
 		renderCallback(renderConfig);
 		
-		$(container).append('<div class="placeholder">Add measures or dimensions</div>');
+		if ($('.drop-label.ibx-widget').length==0)  //IA-9152
+			$(container).append('<div class="placeholder">Add measures or dimensions</div>');
 	}
 
 	// Your extension's configuration
