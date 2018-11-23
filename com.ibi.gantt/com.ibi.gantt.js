@@ -773,7 +773,16 @@ function renderCallback(renderConfig) {
 		});
 
 		function moveBox(target, prop, dt, min, max) {
-			var matrix = target.transform.baseVal[0].matrix;
+			//var matrix = target.transform.baseVal[0].matrix;
+			//Start CHART-2895 
+			try {   //For non-IE or non-Edge browser
+				var matrix = target.transform.baseVal[0].matrix;	
+			}
+			catch(error) { //For IE or Edge browser
+				var matrix = target.transform.baseVal.getItem(0).matrix; 
+			}
+			
+			//End CHART-2895
 			matrix[prop] += dt;
 			matrix[prop] = Math.round(tdg.bound(matrix[prop], min, max));
 		}
