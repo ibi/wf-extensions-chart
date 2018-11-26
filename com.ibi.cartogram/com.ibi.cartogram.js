@@ -157,9 +157,22 @@
 				//Zero out all values
 				Object.keys(statesDataValues).map(function ( key ) { statesDataValues[key] = 0; });
 				
+				var incorrectStates=[];
+				
 				//Get values from renderConfig.data and over-write respective statesDataValues json
-				renderConfig.data.map(function (obj) {statesDataValues[obj.state] = obj.value;  });
-			}
+				renderConfig.data.map(function (obj) {
+					if (statesDataValues[obj.state] != undefined) {
+						statesDataValues[obj.state] = obj.value;
+					} //if
+					else {
+					  incorrectStates.push(obj.state);
+					} //else
+					
+				}); //renderConfig.data.map
+				
+				if (incorrectStates.length > 0) alert("The following value(s) don't have a corresponding state in the cartogram: \r\n\r\n" + incorrectStates.join("\r\n"));
+				
+			} //if
 
 						
 			var arr = Object.keys( statesDataValues ).map(function ( key ) { return statesDataValues[key]; }),
