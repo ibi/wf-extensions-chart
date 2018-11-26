@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": "2.0.4",
+		"version": "2.0.5",
 		"implements_api_version": "1.0, 2.0",
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
@@ -16,6 +16,7 @@
 		"kpiboxProperties": {
 			"textVertPosition": 0.5, 
 			"textSize": 1,   
+			"setInfiniteToZero": false,   
 			"ibiAppsPath": "/ibi_apps/",
 			"valueCountUp": true, 
 			"displayPercent": true,

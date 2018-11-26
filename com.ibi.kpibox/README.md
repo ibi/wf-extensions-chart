@@ -26,6 +26,7 @@ To configure or customize your extension edit "properties" object in properties.
 		"kpiboxProperties": {
 			"textVertPosition": 0.5, 
 			"textSize": 1,   
+			"setInfiniteToZero": false,   
 			"ibiAppsPath": "/ibi_apps/",
 			"valueCountUp": true, 
 			"displayPercent": true,

@@ -33,6 +33,7 @@
 			customCompareIconUp = $ib3.config.getProperty('kpiboxProperties.customCompareIcon.iconUp'),
 			customCompareIconDown = $ib3.config.getProperty('kpiboxProperties.customCompareIcon.iconDown'),
 			formatComparation = $ib3.config.getProperty('kpiboxProperties.formatComparation'),
+			setInfiniteToZero = $ib3.config.getProperty('kpiboxProperties.setInfiniteToZero'),
 			shortenNumbers = $ib3.config.getProperty('kpiboxProperties.shortenNumbers'),
 			title_row = $ib3.config.getProperty('kpiboxProperties.title_row'),
 			widthImage = width * 0.4,
@@ -51,7 +52,6 @@
 			calculateFontSize = $ib3.config.getProperty('kpiboxProperties.calculateFontSize'),
 			fixedFontSizeProp = $ib3.config.getProperty('kpiboxProperties.fixedFontSizeProp') || '20px',
 			fixedPixelLinesMargin = $ib3.config.getProperty('kpiboxProperties.fixedPixelLinesMargin') || 0;
-
 		//get Buckets
 		var kpiDataElem = data[0],
 			kpiValue = kpiDataElem.value,
@@ -164,11 +164,20 @@
 				$ib3.utils.showRenderError('Error compare function definition<br>Params names must match the var names used inside the body of the function<br><br> Javascript Error: ' + e.message);			
 				return;
 			}
-			
-			var percentageValue = (percentageCalcValue == 'Infinity') 
+			/*if(formatComparation.substring(formatComparation.length - 1) == '%') {
+				formatComparation = formatComparation.replace('%', '`%');
+			}*/
+			if(setInfiniteToZero){
+				var percentageValue = ((percentageCalcValue == 'Infinity')||(isNaN(percentageCalcValue))) 
+					? 0
+					: $ib3.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
+			}else{
+				var percentageValue = (percentageCalcValue == 'Infinity') 
 					? String.fromCharCode(8734)
-					: $ib3.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation),	
-				percentageColor = calculateColor(percentageCalcValue, kpiSign, isDummyData);
+					: $ib3.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
+			}
+			
+				var percentageColor = calculateColor(percentageCalcValue, kpiSign, isDummyData);
 				percentageVariationDirection = percentageCalcValue < 0 ? 'down' : 'up';
 
 			var triangleHeight = kpiValueElem.node().getBBox().height;
@@ -187,7 +196,8 @@
 					
 					var imageCompare = percentageVariationDirection == 'up' ? imageUp : imageDown,
 					
-					marginFontCustom = calculateFontSize ? 1 : 1.5;
+					//marginFontCustom = calculateFontSize ? 1 : 1.5;
+					marginFontCustom = 1;
 					
 					
 				var variationElem = infoContainer.append('svg:image')
@@ -375,7 +385,8 @@
 			}else{
 				for (var a = 0; a < colorBands.length; a++) {
 					var aux = (kpiSign == 0) ? (value * (-1)) : value;
-					if ((aux > colorBands[a].start/100) && (aux < colorBands[a].stop/100)) {
+					//if ((aux > colorBands[a].start/100) && (aux < colorBands[a].stop/100)) {
+					if ((aux > colorBands[a].start) && (aux < colorBands[a].stop)) {
 						fillColor = colorBands[a].color;
 						break;
 					}
