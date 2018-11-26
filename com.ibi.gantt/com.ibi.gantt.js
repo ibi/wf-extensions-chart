@@ -339,15 +339,14 @@ function drawRegion(props) {
 }
 
 function renderCallback(renderConfig) {
-
 	var chart = renderConfig.moonbeamInstance;
 	var data = renderConfig.data;
 	var properties = renderConfig.properties;
 	var style = properties.style;
 	var fmt = tdg.formatString;
 	var labelScrollGroup, riserScrollGroup, axisScrollGroup, i;
-
-	var container = d3.select('#' + renderConfig.container.id)
+	//var container = d3.select('#' + renderConfig.container.id)
+	var container = d3.select(renderConfig.container)   //Fix for IA-8622
 		.append('g')
 		.attr('transform', 'translate(5, 5)')
 		.attr('class', 'com_ibi_gantt')
@@ -846,6 +845,7 @@ function renderCallback(renderConfig) {
 }
 
 function noDataRenderCallback(renderConfig) {
+
 	var grey = renderConfig.baseColor;
 	renderConfig.data = [
 		{
