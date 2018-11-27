@@ -34,7 +34,7 @@ To configure or customize your extension edit "properties" object in properties.
 			"calculeComparationFunction": {
 				"param1": "valueKpi", 
 				"param2": "compareValue", 
-				"body": "var result = (valueKpi - compareValue) / compareValue; return result"
+				"body": "var result = Math.abs(valueKpi - compareValue) / Math.abs(compareValue); if(valueKpi < compareValue) { result = (-1) * result; } return result;"
 			},	
 			"formatComparation": "#,###.00%",
 			"customCompareIcon": {
@@ -45,7 +45,7 @@ To configure or customize your extension edit "properties" object in properties.
 			"shortenNumbers": true, 
 			"title_row": false,
 			"calculateFontSize": false, 
-			"fixedFontSizeProp": "26px",
+			"fixedFontSizeProp": "18px",
 			"fixedPixelLinesMargin": 20
 		},
 		"colorScale": {
