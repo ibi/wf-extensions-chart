@@ -162,6 +162,7 @@ var tdg_sunburst = (function () {
 
     var hierarchy = getHierarchyObj(data);
 
+	/* Logic prior to CHART-2425 
     if ( hierarchy.length > 1 ) {
       return {
         name: fakeRootName,
@@ -170,6 +171,13 @@ var tdg_sunburst = (function () {
     } else {
       return hierarchy[0];
     }
+	*/
+	
+	  return {				//CHART-2425...always create a fakeRootName to handle single element charts
+        name: fakeRootName,
+        children: hierarchy
+      };
+	
   }
 
 	return function (user_props) {
@@ -450,7 +458,7 @@ var tdg_sunburst = (function () {
 															 var colorshift = Math.min(hsl.h + rnd,360);
 															 return d3.hsl(colorshift, Math.min(hsl.s,50), Math.min(hsl.l,40));
 														}
-				  
+										
 										if (d.depth == 0 ) {
 											d.fillColor = "#ffffff";     //White	
 										}
