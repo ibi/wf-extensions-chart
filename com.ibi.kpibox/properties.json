@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": "2.0.5",
+		"version": "2.0.6",
 		"implements_api_version": "1.0, 2.0",
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
@@ -24,7 +24,7 @@
 			"calculeComparationFunction": {
 				"param1": "valueKpi", 
 				"param2": "compareValue", 
-				"body": "var result = (valueKpi - compareValue) / compareValue; return result"
+				"body": "var result = Math.abs(valueKpi - compareValue) / Math.abs(compareValue); if(valueKpi < compareValue) { result = (-1) * result; } return result;"
 			},	
 			"formatComparation": "#,###.00%",
 			"customCompareIcon": {
