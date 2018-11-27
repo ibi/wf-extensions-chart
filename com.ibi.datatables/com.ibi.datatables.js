@@ -169,6 +169,8 @@
 			
 			/* Process Titles */
 			columnIndex=0;
+			
+			/* Start Pre CHART-2985 Logic using implements_api_version 1.0 
 			if (typeof dataBuckets.row !== 'undefined'){
 				if (typeof dataBuckets.row.title === 'string') {
 					titleJSON.push({ mData: "col"+columnIndex, title: dataBuckets.row.title, className: "dt-left dt-by" });
@@ -213,7 +215,88 @@
 				}
 				numberOfMeasures = typeof dataBuckets.measure.title === 'string'? 1 : dataBuckets.measure.title.length;
 			}
+			
+			 End Pre CHART-2985 Logic using implements_api_version 1.0 */ 
+			
+			// Start Chart-2985 Logic using implements_api_version 2.0
+
+		
+			var bucketRows = dataBuckets.find(function(bucket){return bucket.id == "row" });
+			if (typeof bucketRows !== 'undefined'){
+
+				for (var i=0; i < bucketRows.fields.length; i++) {
+					//titleJSON.push({ mData: "col" + columnIndex, title: bucketRows.fields[i].title, className: "dt-left dt-by" });
+					titleJSON.push({ mData: "col" + columnIndex, title: bucketRows.fields[i].title, className: "dt-left dt-by", render: fnGetNumberFormat(bucketRows.fields[i].numberFormat), defaultContent: fnGetDefaultContent(bucketRows.fields[i].numberFormat) }); 
+					columnIndex++;
+
+				} //for
+				
+				numberOfBys = columnIndex;
+				
+			} //  if (typeof bucketRows !== 'undefined')
+				
+			var bucketMeasures = dataBuckets.find(function(bucket){return bucket.id == "measure" });
+			if (typeof bucketMeasures !== 'undefined') {
+				if (acrossJSON.length==0) {
+
+					for (var i=0; i < bucketMeasures.fields.length; i++){
+						//titleJSON.push({ mData: "col"+columnIndex, title: bucketMeasures.fields[i].title, className: "dt-right", render: $.fn.dataTable.render.number(',', '.', 2, ''), defaultContent: '0.00' });
+						titleJSON.push({ mData: "col"+columnIndex, title: bucketMeasures.fields[i].title, className: "dt-right", render: fnGetNumberFormat(bucketMeasures.fields[i].numberFormat), defaultContent: fnGetDefaultContent(bucketMeasures.fields[i].numberFormat) }); 
+						columnIndex++;
+					} //for
+
+				} //if (acrossJSON.length==0)
+				else {					
+					var bucketColumns = dataBuckets.find(function(bucket){return bucket.id == "column" });
+					if (typeof bucketColumns !== 'undefined') {					
+						numberOfAcross =  bucketColumns.fields.length;
+						for (var k=0; k < acrossJSON.length; k++){
+							columnIndex=0;
+							for (var i=0; i < bucketMeasures.fields.length; i++){
+								//titleJSON.push({ mData: "col"+(acrossJSON[k].index+'_') + columnIndex, title: bucketMeasures.fields[i].title, className: "dt-right", render: $.fn.dataTable.render.number(',', '.', 2, ''), defaultContent: '0.00' });
+								titleJSON.push({ mData: "col"+(acrossJSON[k].index+'_') + columnIndex, title: bucketMeasures.fields[i].title, className: "dt-right", render: fnGetNumberFormat(bucketMeasures.fields[i].numberFormat), defaultContent: fnGetDefaultContent(bucketMeasures.fields[i].numberFormat) }); 
+								columnIndex++;
+							} //for i
+						} //for	k		
+					} //if	
+				} //else
+			
+				numberOfMeasures = bucketMeasures.fields.length;
+			
+			} //if (typeof bucketMeasures !== 'undefined')
+			
+			function fnGetNumberFormat(format){
+				
+				/* 	Documentation for $.fn.dataTable.render.number:
+					https://datatables.net/forums/discussion/30540/fn-datatable-render-number-documentation#Comment_81757
+					The datatables numeric formatting method only has a subset of functionality of the renderConfig.moonbeamInstance.formatNumber method
+					Documentation for render: https://datatables.net/reference/option/columns.render
+				*/
+				if (format == undefined) {
+					return $.fn.dataTable.render.number('', '', 0, '');
+				} //if
+				else {
+					var commaSplit = format.split(",");
+					var periodSplit = format.split(".");
+					
+					var thousandSeperator =  commaSplit.length == 2 ? "," : "";
+					var decimalIndicator =  periodSplit.length == 2 ? "." : "";
+					var numDecimals = decimalIndicator == "" ? 0 : periodSplit[1].length; 
+					return $.fn.dataTable.render.number(thousandSeperator, decimalIndicator, numDecimals, '');
+				} //else
+				
+			}
+			
+			function fnGetDefaultContent(format) {
+				// Datatables default content documentation: https://datatables.net/reference/option/columns.defaultContent
+				return format == undefined ?  '' : chart.formatNumber(0, format );
+			}		
+		     
+			// End Chart-2985 Logic using implements_api_version 2.0
+			
 			//console.log('Finished Creating JSON files:', new Date());
+			
+			
 		}
 	
 		/* Create Grid */
@@ -415,7 +498,8 @@
 		var container = renderConfig.container;
 		var grey = renderConfig.baseColor;
 		renderConfig.data = [{"row":"1","measure":10,"_s":0,"_g":0},{"row":"2","measure":20,"_s":0,"_g":1},{"row":"3","measure":30,"_s":0,"_g":2},{"row":"4","measure":40,"_s":0,"_g":3},{"row":"5","measure":50,"_s":0,"_g":4}];
-		renderConfig.dataBuckets = {"buckets":{"row":{"title":"A","count":1},"measure":{"title":"B","count":1}},"depth":1};
+		//renderConfig.dataBuckets = {"buckets":{"row":{"title":"A","count":1},"measure":{"title":"B","count":1}},"depth":1};
+		renderConfig.dataBuckets = {"buckets":[{"id":"row", "fields":[{"title":"A","fieldName":"A"}]},{id:"measure", "fields":[{"title":"B","fieldName":"B"}]}]}; //CHART-2985
 		renderCallback(renderConfig);
 		
 		$(container).append('<div class="placeholder">Add measures or dimensions</div>');
