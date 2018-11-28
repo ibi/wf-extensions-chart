@@ -3,8 +3,8 @@
 
 .com_ibi_chart text {
 /*  fill: black; */
-  font: 12px helvetica;
-  text-anchor: end;
+  font: 13px helvetica;
+  text-anchor: start;
 }
 body {
     font-family: "Arial", sans-serif;
@@ -14,14 +14,14 @@ body {
     font-size: 13px;
 }
 
-.axis path,
+
 .axis line {
     fill: none;
     display: none;
 }
 
 .label {
-    font-size: 13px;
+    font-size: 16px;
 }
 .tick{
 	text-anchor: start;
@@ -35,7 +35,7 @@ body {
         visibility: hidden;
         width: auto;
         height: auto;
-        font: 12px sans-serif;
+        font: 14px sans-serif;
         padding: 5px;
         text-align: left;
 }

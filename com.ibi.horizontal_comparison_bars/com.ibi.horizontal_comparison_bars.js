@@ -52,7 +52,12 @@
 		var isDummyData = renderConfig.testData;
 		//IMPORTANT: Setup the renderConfig to custom $ib3
 		
-		$ib3.config.setup(renderConfig);
+		$ib3.config.setup(renderConfig, {
+			tooltip: {
+				hiddenBuckets: ['kpisign']
+			}
+		});
+		
 		$ib3.chart.draw(isDummyData);
 		
 	}
