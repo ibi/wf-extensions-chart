@@ -1,7 +1,7 @@
 {
 	"info": {
-		"version": "2.0.1",
-		"implements_api_version": 1.0,
+		"version": "2.0.6",
+		"implements_api_version": "1.0/2.0",
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/horizontal_comparison_bars",
@@ -12,8 +12,14 @@
 	
 	"properties": {
 		"horizontalcomparisonbarsProperties": {
+			"setInfiniteToZero": false,
 			"chartHeadroom": 50,
-			"shorten_numbers": true, //If true, The numbers are shortened
+			"shorten_numbers": true,
+			"calculeComparationFunction": {
+				"param1": "valueKpi", 
+				"param2": "compareValue", 
+				"body": "if(valueKpi == 0 && compareValue == 0) { return 0; } var result = (valueKpi - compareValue) / Math.abs(compareValue);  return result;"
+			}
 		},
 		
 		"external_library": "lib/d3.min.js",
