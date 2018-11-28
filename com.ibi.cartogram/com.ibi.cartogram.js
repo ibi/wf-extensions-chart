@@ -33,27 +33,51 @@
 		successCallback(true);
 	}
 	
+
+	function noDataPreRenderCallback(preRenderConfig) {
+		/* Commented out while working on CHART-1935; not needed
+		var chart = preRenderConfig.moonbeamInstance;
+		chart.legend.visible = false;
+		chart.dataArrayMap = undefined;
+		chart.dataSelection.enabled = false;
+		fnShowCartogram("initialize",preRenderConfig);   
+		*/
+	}
+	
+	function noDataRenderCallback(renderConfig) {
+		/* Commented out while working on CHART-1935; not needed
+		var grey = renderConfig.baseColor;
+		renderConfig.data = [{value: [3, 3]}, {value: [4, 4]}, {value: [5, 5]}, {value: [6, 6]}, {value: [7, 7]}];
+		renderConfig.moonbeamInstance.getSeries(0).color = grey;
+		renderConfig.moonbeamInstance.getSeries(1).color = pv.color(grey).lighter(0.18).color;
+		renderCallback(renderConfig);
+		*/
+		fnShowCartogram("initialize",renderConfig);  //Correctly placed here while working on CHART-1935
+	}	
+	
+
 	// Optional: if defined, is invoked once at the very beginning of each chart engine draw cycle
 	// Use this to configure a specific chart engine instance before rendering.
 	// Arguments: 
 	//  - preRenderConfig: the standard callback argument object
 	function preRenderCallback(preRenderConfig) {
 		var chart = preRenderConfig.moonbeamInstance;
+		
+		/* Removing default sample title and footnote as requested by CHART-1935
+		
+		//title and footnote can be assinged to chart with GRAPH commands 'HEADING' and 'FOOTING'
+		
 		chart.title.visible = true;
 		chart.title.text = "USA Cartogram";  // contrived example
 		chart.footnote.visible = false;
 		chart.footnote.text = "footnote";
 		chart.footnote.align = 'right';
+		
+		*/
 	}
+		
 	
-	function noDataPreRenderCallback(preRenderConfig) {
-		var chart = preRenderConfig.moonbeamInstance;
-		chart.legend.visible = false;
-		chart.dataArrayMap = undefined;
-		chart.dataSelection.enabled = false;
-		fnShowCartogram("initialize",preRenderConfig);
-	}
-
+	
 	// Required: Invoked during each chart engine draw cycle
 	// This is where your extension should be rendered
 	// Arguments:
@@ -129,7 +153,6 @@
 				.on("mouseover", function() { toolTip.style("opacity", 1); toolTipRectangle.style("opacity", 1); })
 				.on("mouseout", function(){ toolTip.style("opacity", 0); toolTipRectangle.style("opacity", 0);}) 
 				.on("mousemove", function(){
-									debugger;
 									var id = this.id;
 									var bBox = this.getBBox(); 
 									var width = bBox.width;
@@ -157,7 +180,7 @@
 				//Zero out all values
 				Object.keys(statesDataValues).map(function ( key ) { statesDataValues[key] = 0; });
 				
-				var incorrectStates=[];
+				var incorrectStates=[];  //IA-9120 NFR
 				
 				//Get values from renderConfig.data and over-write respective statesDataValues json
 				renderConfig.data.map(function (obj) {
@@ -165,12 +188,12 @@
 						statesDataValues[obj.state] = obj.value;
 					} //if
 					else {
-					  incorrectStates.push(obj.state);
+					  incorrectStates.push(obj.state); //IA-9120 NFR
 					} //else
 					
 				}); //renderConfig.data.map
 				
-				if (incorrectStates.length > 0) alert("The following value(s) don't have a corresponding state in the cartogram: \r\n\r\n" + incorrectStates.join("\r\n"));
+				if (incorrectStates.length > 0) alert("The following value(s) don't have a corresponding state in the cartogram: \r\n\r\n" + incorrectStates.join("\r\n")); //IA-9120 NFR
 				
 			} //if
 
@@ -257,13 +280,7 @@
 		}//fnShowCartogram
 	
 	
-	function noDataRenderCallback(renderConfig) {
-		var grey = renderConfig.baseColor;
-		renderConfig.data = [{value: [3, 3]}, {value: [4, 4]}, {value: [5, 5]}, {value: [6, 6]}, {value: [7, 7]}];
-		renderConfig.moonbeamInstance.getSeries(0).color = grey;
-		renderConfig.moonbeamInstance.getSeries(1).color = pv.color(grey).lighter(0.18).color;
-		renderCallback(renderConfig);
-	}
+
 
 	// Your extension's configuration
 	var config = {
