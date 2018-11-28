@@ -20,11 +20,17 @@ To configure or customize your extension edit "properties" object in properties.
 **Any property can be overwritten from a property that is written in the graphic code or in the STY file**
 	
 	"properties": {
-	
 		"horizontalcomparisonbarsProperties": {
+			"setInfiniteToZero": false,
 			"chartHeadroom": 50,
-			"shorten_numbers": true, //If true, The numbers are shortened
+			"shorten_numbers": true,
+			"calculeComparationFunction": {
+				"param1": "valueKpi", 
+				"param2": "compareValue", 
+				"body": "if(valueKpi == 0 && compareValue == 0) { return 0; } var result = (valueKpi - compareValue) / Math.abs(compareValue);  return result;"
+			}
 		},
+		
 		"external_library": "lib/d3.min.js",
 		"colorScale": {
 			"colorMode":"discrete",

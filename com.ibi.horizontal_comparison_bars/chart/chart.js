@@ -43,12 +43,16 @@
 			}
 		}
 		
+		var everyDataIsNegative = $(data).filter(function(i, d) { 
+			return Math.sign(d.value) >= 0;
+		}).get().length == 0;
+			
 		//set up svg using margin conventions - we'll need plenty of room on the left for labels
 		var margin = {
 			top: 15,
-			right: calculateWidth('percentaje') + 25,
+			right: everyDataIsNegative ? calculateWidth('dimension') : calculateWidth('percentaje') + 25,
 			bottom: 15,
-			left: calculateWidth('dimension')
+			left: everyDataIsNegative ? calculateWidth('percentaje') + 25 : calculateWidth('dimension')
 		};
 		
 		var width = w - margin.left - margin.right,
@@ -110,6 +114,7 @@
 			});
 		
 		if (hasComparevalue) {
+			
 			barGroups.append("text")
 				.attr("fill", function(d, i) {
 					return calculateColor(d, 'percentaje', colorBands, isDummyData);
@@ -118,15 +123,15 @@
 					return y(d.originalIndex) + y.rangeBand() / 2 + 4;
 				})
 				.attr("x", function(d) {
-					var x = (w - margin.left - margin.right + 20);
-					if(Math.sign(d.value) < 0) {
-						x = 0 - 10;
+					var x = (w - margin.left - margin.right / 2 + 10);
+					if(everyDataIsNegative) {
+						x = -20;
 					} 
 					return x;
 				})
 				.style('text-anchor', function(d) {
 					var x = 'start';
-					if(Math.sign(d.value) < 0) {
+					if(everyDataIsNegative) {
 						x = 'end';
 					} 
 					return x;
@@ -151,10 +156,10 @@
 				.attr("fill", function(d, i) {
 					return calculateColor(d, 'percentaje', colorBands, isDummyData);
 				}).attr("transform", function(d, dataIndex) {
-					var translateX = (w - margin.left - margin.right + 10);
-					if(Math.sign(d.value) < 0) {
-						translateX = 0;
-					}
+					var translateX = (w - margin.left - margin.right / 2)
+					if(everyDataIsNegative) {
+						translateX = -10;
+					} 
 					
 					var rotate = '';
 					if(d.percentaje == 0) {
