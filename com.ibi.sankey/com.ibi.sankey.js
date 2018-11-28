@@ -63,6 +63,7 @@
 			return data.nodes.length - 1;
 		}
 
+		/* Logic prior to CHART-2117
 		data.links = renderConfig.data.map(function(el) {
 			return {
 				source: pushNode(el.source),
@@ -70,6 +71,22 @@
 				value: el.value
 			};
 		});
+		*/
+		// Start CHART-2117
+		
+			var filteredData = renderConfig.data.filter(function (row) {   //Filter out all Sources with 0 (zero) target values
+													return row.value != 0;
+											   });
+			
+			data.links = filteredData.map(function(el) {
+				return {
+					source: pushNode(el.source),
+					target: pushNode(el.target),
+					value: el.value
+				};
+			});		
+			
+		// End CHART-2117
 
 		data.nodes = data.nodes.map(function(el) {
 			return {name: el};
