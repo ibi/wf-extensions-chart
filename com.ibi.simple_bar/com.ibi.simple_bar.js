@@ -64,12 +64,34 @@
 		// Example of manually loading a file in this extension's folder path and using it.
 		var info = tdgchart.util.ajax(preRenderConfig.loadPath + 'lib/extra_properties.json', {asJSON: true});
 
-		// Example of using the chart engine's built in title properties
-		chart.title.visible = true;
-		chart.title.text = info.custom_title;
-		chart.footnote.visible = true;
-		chart.footnote.text = 'footnote';
-		chart.footnote.align = 'right';
+		/* Logic before CHART-1935 NFR	
+			// Example of using the chart engine's built in title properties
+			chart.title.visible = true;
+			chart.title.text = info.custom_title;
+			chart.footnote.visible = true;
+			chart.footnote.text = 'footnote';
+			chart.footnote.align = 'right';
+		*/
+		
+		//Start CHART-1935 NFR
+		
+			if (!chart.title.visible){    //Developer has not set HEADING in GRAPH request; so use custom title found in: preRenderConfig.loadPath + 'lib/extra_properties.json'
+				// Example of using the chart engine's built in title properties
+				chart.title.visible = true;
+				chart.title.text = info.custom_title;	
+			} // if (!chart.title.visible) //Developer has not set FOOTING in GRAPH request; so use 'footnote' text to illustrate how custom programmatic footing can be assinged to chart
+			
+			if (!chart.footnote.visible) {
+			chart.footnote.visible = true;
+			chart.footnote.text = 'footnote';
+			chart.footnote.align = 'right';			
+				
+			} //if (!chart.footnote.visible)
+		
+		
+		//End CHART-1935 NFR
+		
+		
 	}
 
 	// Required: Invoked during each chart engine draw cycle
