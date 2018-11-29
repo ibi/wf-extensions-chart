@@ -71,13 +71,17 @@
 		noDataPreRenderCallback: noDataPreRenderCallback,
 		noDataRenderCallback: noDataRenderCallback,
 		resources: {  // Additional external resources (CSS & JS) required by this extension
-			script: [
-				'lib/d3.min.js',
-				'lib/jquery-3.3.1.min.js',
-				'services/config-service.min.js',
-				'services/utils-service.min.js',
-				'chart/chart.js'
-			],
+			script: (function() {
+				var scripts = window.jQuery ? [] : [ ['', tdgchart.getScriptPath().split('/')[1], 'jquery/js/jquery.js'].join('/') ],
+					customScripts = [
+						'lib/d3.min.js',
+						'services/config-service.min.js',
+						'services/utils-service.min.js',
+						'chart/chart.js'
+					];
+				
+				return scripts.concat(customScripts);
+			}()),
 			css: [
 				'css/horizontal_comparison_bars.css'
 			]
