@@ -52,13 +52,17 @@
 		noDataRenderCallback: noDataRenderCallback,
 		renderCallback: renderCallback,
 		resources: {
-			script: [
-				'lib/d3.v5.min.js',
-				'lib/jquery-3.3.1.min.js',
-				'services/config-service.min.js',
-				'services/utils-service.min.js',
-				'chart/chart.js'
-			],
+			script: (function() {
+				var scripts = window.jQuery ? [] : [ ['', tdgchart.getScriptPath().split('/')[1], 'jquery/js/jquery.js'].join('/') ],
+					customScripts = [
+						'lib/d3.v5.min.js',
+						'services/config-service.min.js',
+						'services/utils-service.min.js',
+						'chart/chart.js'
+					];
+				
+				return scripts.concat(customScripts);
+			}()),
 			css: [
 				'css/ib3.css',
 				'css/extension.css'
