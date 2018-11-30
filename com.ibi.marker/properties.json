@@ -85,6 +85,53 @@
             "count_tooltip": "Drop a measure here",
             "label_name": "Label",
             "label_tooltip": "Drop a dimension here"
+        },
+        "it": {
+            "name": "Grafico Contrassegno",
+            "description": "Grafico Contrassegno Semplice",
+            "icon_tooltip": "Grafico Contrassegno Semplice",
+            "count_name": "Numero di Contrassegni",
+            "count_tooltip": "Rilasciare una misura qui",
+            "label_name": "Etichetta",
+            "label_tooltip": "Rilasciare una dimensione qui"
+        }, 
+
+        "ja": {
+            "name": "マーカーグラフ",
+            "description": "単純なマーカーグラフです。",
+            "icon_tooltip": "単純マーカーグラフ",
+            "count_name": "マーカー数",
+            "count_tooltip": "ここに基軸をドロップ",
+            "label_name": "ラベル",
+            "label_tooltip": "ここにディメンションをドロップ"
+        },
+
+        "ko": {
+            "name": "마커 도표",
+            "description": "단순 마커 도표",
+            "icon_tooltip": "단순 마커 도표",
+            "count_name": "마커 수",
+            "count_tooltip": "여기에 측정을 드롭(drop)",
+            "label_name": "레이블",
+            "label_tooltip": "여기에 치수를 드롭(drop)"
+        },
+        "tw": {
+            "name": "記號圖表",
+            "description": "簡式記號圖表",
+            "icon_tooltip": "簡式記號圖表",
+            "count_name": "記號數",
+            "count_tooltip": "拖曳測量到這裡",
+            "label_name": "標籤",
+            "label_tooltip": "拖曳維度到這裡"
+        },
+        "zh": {
+            "name": "标记图表",
+            "description": "简单标记图表",
+            "icon_tooltip": "简单标记图表",
+            "count_name": "标记数",
+            "count_tooltip": "将度量拖到此处",
+            "label_name": "标签",
+            "label_tooltip": "将维拖到此处"
         }
     }
 }
