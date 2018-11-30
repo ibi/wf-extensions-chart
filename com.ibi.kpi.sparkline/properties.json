@@ -111,6 +111,50 @@
 			"xaxis_tooltip": "Drop a dimension here",
 			"compare_name": "Compare Group", 
 			"compare_tooltip": "Drop a dimension here"
+		},
+		"ko": {
+			"name": "Sparkline KPI",
+			"description": "KPI Widget using jQuery Sparkline plug-in.",
+			"icon_tooltip": "KPI Widget using jQuery Sparkline plug-in.", 
+			"measure_name": "측정", 
+			"measure_tooltip": "여기에 측정을 드롭(drop)", 
+			"xaxis_name": "X축", 
+			"xaxis_tooltip": "여기에 치수를 드롭(drop)",
+			"compare_name": "Compare Group", 
+			"compare_tooltip": "여기에 치수를 드롭(drop)"
+		},
+		"it": {
+			"name": "Sparkline KPI",
+			"description": "KPI Widget using jQuery Sparkline plug-in.",
+			"icon_tooltip": "KPI Widget using jQuery Sparkline plug-in.", 
+			"measure_name": "Misura", 
+			"measure_tooltip": "Rilasciare una misura qui", 
+			"xaxis_name": "Asse-X", 
+			"xaxis_tooltip": "Rilasciare una dimensione qui",
+			"compare_name": "Compare Group", 
+			"compare_tooltip": "Rilasciare una dimensione qui"
+		},		
+		"tw": {
+			"name": "走勢圖 KPI",
+			"description": "使用 jQuery 走勢圖外掛程式的 KPI 小工具。",
+			"icon_tooltip": "使用 jQuery 走勢圖外掛程式的 KPI 小工具。", 
+			"measure_name": "測量", 
+			"measure_tooltip": "拖曳測量到這裡", 
+			"xaxis_name": "X 軸", 
+			"xaxis_tooltip": "拖曳維度到這裡",
+			"compare_name": "比較群組", 
+			"compare_tooltip": "拖曳維度到這裡"
+		},
+		"zh": {
+			"name": "迷你图 KPI",
+			"description": "使用 jQuery 迷你图插件的 KPI 小组件。",
+			"icon_tooltip": "使用 jQuery 迷你图插件的 KPI 小组件。", 
+			"measure_name": "度量", 
+			"measure_tooltip": "将度量拖到此处", 
+			"xaxis_name": "X 轴", 
+			"xaxis_tooltip": "将维拖到此处",
+			"compare_name": "比较组", 
+			"compare_tooltip": "将维拖到此处"
 		}
 	}
 }
