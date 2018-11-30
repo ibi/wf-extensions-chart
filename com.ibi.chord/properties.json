@@ -179,8 +179,19 @@
 			"value_name": "Node Link Values",
 			"value_tooltip": "Drop a measure here"
 		},
-		
-		
+				
+ 		"ja": {
+  
+			"name": "コードダイアグラム",
+			"description": "コードダイアグラムです。",
+			"icon_tooltip": "コードダイアグラム", 
+			"source_name": "ソースノード (ディメンション)", 
+			"source_tooltip": "ここにディメンションをドロップ",
+			"target_name": "ターゲットノード(ディメンション)", 
+			"target_tooltip": "ここにディメンションをドロップ",
+			"value_name": "ノードリンク値 (基軸)",
+			"value_tooltip": "ここに基軸をドロップ"
+		}, 
 		
 		"br": {
 			"name": "Diagrama de Cordas",
@@ -204,10 +215,42 @@
 			"target_tooltip": "Drop a dimension here",
 			"value_name": "Node Link Values",
 			"value_tooltip": "Drop a measure here"
+		},
+		
+		"ko": {
+			"name": "현 다이어그램",
+			"description": "현 다이어그램",
+			"icon_tooltip": "현 다이어그램", 
+			"source_name": "소스 노드 (DIM)", 
+			"source_tooltip": "여기에 치수를 드롭(drop)",
+			"target_name": "대상 노드 (DIM)", 
+			"target_tooltip": "여기에 치수를 드롭(drop)",
+			"value_name": "노드 링크 값 (MES)",
+			"value_tooltip": "여기에 측정을 드롭(drop)"
+		},	
+			
+		"tw": {
+			"name": "弦樂圖表",
+			"description": "弦樂圖表",
+			"icon_tooltip": "弦樂圖表", 
+			"source_name": "來源節點 (DIM)", 
+			"source_tooltip": "拖曳維度到這裡",
+			"target_name": "目標節點 (DIM)", 
+			"target_tooltip": "拖曳維度到這裡",
+			"value_name": "節點鏈結值 (MES)",
+			"value_tooltip": "拖曳測量到這裡"
+		},
+		
+		"zh": {
+			"name": "弦形图",
+			"description": "弦形图",
+			"icon_tooltip": "弦形图", 
+			"source_name": "源节点 (DIM)", 
+			"source_tooltip": "将维拖到此处",
+			"target_name": "目标节点 (DIM)", 
+			"target_tooltip": "将维拖到此处",
+			"value_name": "节点链接值 (MES)",
+			"value_tooltip": "将度量拖到此处"
 		}
-		
-			
-			
-		
-	}
+	}	
 }
