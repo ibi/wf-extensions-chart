@@ -199,9 +199,9 @@
 			"name": "Grafico ad Arco",
 			"description": "Grafico ad Arco",
 			"icon_tooltip": "Grafico ad Arco", 
-			"value_name": "Bucket di Valori", 
+			"value_name": "Valore (MES)", 
 			"value_tooltip": "Rilascia qui una misura",
-			"label_name": "Bucket di Etichette", 
+			"label_name": "Etichetta (DIM)", 
 			"label_tooltip": "Rilascia qui una misura"
 		},
 		
@@ -209,9 +209,9 @@
 			"name": "Arc Chart",
 			"description": "Arc Chart",
 			"icon_tooltip": "Arc Chart", 
-			"value_name": "Value Bucket", 
+			"value_name": "Value (MES)", 
 			"value_tooltip": "Drop a measure here",
-			"label_name": "Label Bucket", 
+			"label_name": "Label (DIM)", 
 			"label_tooltip": "Drop a measure here"
 		},
 		
@@ -239,9 +239,9 @@
 			"name": "Arc Chart",
 			"description": "Arc Chart",
 			"icon_tooltip": "Arc Chart", 
-			"value_name": "Value Bucket", 
+			"value_name": "Value (MES)", 
 			"value_tooltip": "Drop a measure here",
-			"label_name": "Label Bucket", 
+			"label_name": "Label (DIM)", 
 			"label_tooltip": "Drop a measure here"
 		},
 		
@@ -249,9 +249,9 @@
 			"name": "원형 차트",
 			"description": "원형 차트",
 			"icon_tooltip": "원형 차트", 
-			"value_name": "값 버킷 ", 
+			"value_name": "값(MES)", 
 			"value_tooltip": "여기에 측정을 드롭(drop)",
-			"label_name": "레이블 버킷", 
+			"label_name": "레이블(DIM)", 
 			"label_tooltip": "여기에 측정을 드롭(drop)"
 		},
 		
@@ -259,9 +259,9 @@
 			"name": "弧圖表",
 			"description": "弧圖表",
 			"icon_tooltip": "弧圖表", 
-			"value_name": "值儲存區", 
+			"value_name": "值 (MES)", 
 			"value_tooltip": "拖曳測量到這裡",
-			"label_name": "標籤儲存區", 
+			"label_name": "標籤 (DIM)", 
 			"label_tooltip": "拖曳測量到這裡"
 		},
 		
@@ -269,9 +269,9 @@
 			"name": "弧图表",
 			"description": "弧图表",
 			"icon_tooltip": "弧图表", 
-			"value_name": "值存储区", 
+			"value_name": "值 (MES)", 
 			"value_tooltip": "将度量拖到此处",
-			"label_name": "标签存储区", 
+			"label_name": "标签 (DIM)", 
 			"label_tooltip": "将度量拖到此处"
 		}
 	}
