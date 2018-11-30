@@ -111,6 +111,50 @@
 			"xaxis_tooltip": "Drop a dimension here",
 			"group_name": "Group", 
 			"group_tooltip": "Drop a dimension here"
+		},
+		"it": {
+			"name": "KPI with Sparkline Large",
+			"description": "KPI with jQuery Sparkline plug-in - Large.",
+			"icon_tooltip": "KPI with jQuery Sparkline plug-in - Large.", 
+			"measure_name": "Key Measure", 
+			"measure_tooltip": "Rilasciare una misura qui", 
+			"xaxis_name": "Asse-X", 
+			"xaxis_tooltip": "Rilasciare una dimensione qui",
+			"group_name": "Gruppo", 
+			"group_tooltip": "Rilasciare una dimensione qui"
+		},
+		"ko": {
+			"name": "KPI with Sparkline Large",
+			"description": "KPI with jQuery Sparkline plug-in - Large.",
+			"icon_tooltip": "KPI with jQuery Sparkline plug-in - Large.", 
+			"measure_name": "Key Measure", 
+			"measure_tooltip": "여기에 측정을 드롭(drop)", 
+			"xaxis_name": "X축", 
+			"xaxis_tooltip": "여기에 치수를 드롭(drop)",
+			"group_name": "그룹", 
+			"group_tooltip": "여기에 치수를 드롭(drop)"
+		},
+		"tw": {
+			"name": "具有大走勢圖的 KPI",
+			"description": "具有 jQuery 走勢圖外掛程式的 KPI - 大。",
+			"icon_tooltip": "具有 jQuery 走勢圖外掛程式的 KPI - 大。", 
+			"measure_name": "索引鍵測量", 
+			"measure_tooltip": "拖曳測量到這裡", 
+			"xaxis_name": "X 軸", 
+			"xaxis_tooltip": "拖曳維度到這裡",
+			"group_name": "群組", 
+			"group_tooltip": "拖曳維度到這裡"
+		},
+		"zh": {
+			"name": "带有大迷你图的 KPI",
+			"description": "带有 jQuery 迷你图插件的 KPI - 大。",
+			"icon_tooltip": "带有 jQuery 迷你图插件的 KPI - 大。", 
+			"measure_name": "键度量", 
+			"measure_tooltip": "将度量拖到此处", 
+			"xaxis_name": "X 轴", 
+			"xaxis_tooltip": "将维拖到此处",
+			"group_name": "组", 
+			"group_tooltip": "将维拖到此处"
 		}
 	}
-}
+}	
