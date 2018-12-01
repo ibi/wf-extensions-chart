@@ -98,14 +98,22 @@
 					var across = {};
 					if (typeof data[i].column === 'string') {
 						across = {};
-						across["acol0"]=data[i].column;
+						//across["acol0"]=data[i].column;
+						// Start Chart-2985 Logic using implements_api_version 2.0
+							var formatString = renderConfig.dataBuckets.getBucket("column").fields[0].numberFormat;
+							across["acol0"] = formatString ? chart.formatNumber(data[i].column, formatString ) : data[i].column;
+						// End Chart-2985 Logic using implements_api_version 2.0
 						if (findIndex(acrossJSON, across)==-1)
 							acrossJSON.push(across);
 					}
 					else {
 						across = {};
 						for (var j=0; j<data[i].column.length; j++) {
-							across["acol"+j]=data[i].column[j];
+							//across["acol"+j]=data[i].column[j];
+							// Start Chart-2985 Logic using implements_api_version 2.0
+								var formatString = renderConfig.dataBuckets.getBucket("column").fields[j].numberFormat;
+								across["acol"+j] = formatString ? chart.formatNumber(data[i].column[j], formatString ) : data[i].column[j];
+							// End Chart-2985 Logic using implements_api_version 2.0							
 						}
 						if (findIndex(acrossJSON, across)==-1)
 							acrossJSON.push(across);
@@ -226,7 +234,7 @@
 
 				for (var i=0; i < bucketRows.fields.length; i++) {
 					//titleJSON.push({ mData: "col" + columnIndex, title: bucketRows.fields[i].title, className: "dt-left dt-by" });
-					titleJSON.push({ mData: "col" + columnIndex, title: bucketRows.fields[i].title, className: "dt-left dt-by", render: fnGetNumberFormat(bucketRows.fields[i].numberFormat), defaultContent: fnGetDefaultContent(bucketRows.fields[i].numberFormat) }); 
+					titleJSON.push({ mData: "col" + columnIndex, title: bucketRows.fields[i].title, className: "dt-left dt-by", render: fnGetNumberFormat(), defaultContent: fnGetDefaultContent(bucketRows.fields[i].numberFormat) }); 
 					columnIndex++;
 
 				} //for
@@ -236,25 +244,26 @@
 			} //  if (typeof bucketRows !== 'undefined')
 				
 			var bucketMeasures = dataBuckets.find(function(bucket){return bucket.id == "measure" });
+			var bucketColumns = dataBuckets.find(function(bucket){return bucket.id == "column" });			
+			
 			if (typeof bucketMeasures !== 'undefined') {
 				if (acrossJSON.length==0) {
 
 					for (var i=0; i < bucketMeasures.fields.length; i++){
 						//titleJSON.push({ mData: "col"+columnIndex, title: bucketMeasures.fields[i].title, className: "dt-right", render: $.fn.dataTable.render.number(',', '.', 2, ''), defaultContent: '0.00' });
-						titleJSON.push({ mData: "col"+columnIndex, title: bucketMeasures.fields[i].title, className: "dt-right", render: fnGetNumberFormat(bucketMeasures.fields[i].numberFormat), defaultContent: fnGetDefaultContent(bucketMeasures.fields[i].numberFormat) }); 
+						titleJSON.push({ mData: "col"+columnIndex, title: bucketMeasures.fields[i].title, className: "dt-right", render: fnGetNumberFormat(), defaultContent: fnGetDefaultContent(bucketMeasures.fields[i].numberFormat) }); 
 						columnIndex++;
 					} //for
 
 				} //if (acrossJSON.length==0)
 				else {					
-					var bucketColumns = dataBuckets.find(function(bucket){return bucket.id == "column" });
 					if (typeof bucketColumns !== 'undefined') {					
 						numberOfAcross =  bucketColumns.fields.length;
 						for (var k=0; k < acrossJSON.length; k++){
 							columnIndex=0;
 							for (var i=0; i < bucketMeasures.fields.length; i++){
 								//titleJSON.push({ mData: "col"+(acrossJSON[k].index+'_') + columnIndex, title: bucketMeasures.fields[i].title, className: "dt-right", render: $.fn.dataTable.render.number(',', '.', 2, ''), defaultContent: '0.00' });
-								titleJSON.push({ mData: "col"+(acrossJSON[k].index+'_') + columnIndex, title: bucketMeasures.fields[i].title, className: "dt-right", render: fnGetNumberFormat(bucketMeasures.fields[i].numberFormat), defaultContent: fnGetDefaultContent(bucketMeasures.fields[i].numberFormat) }); 
+								titleJSON.push({ mData: "col"+(acrossJSON[k].index+'_') + columnIndex, title: bucketMeasures.fields[i].title, className: "dt-right", render: fnGetNumberFormat(), defaultContent: fnGetDefaultContent(bucketMeasures.fields[i].numberFormat) }); 
 								columnIndex++;
 							} //for i
 						} //for	k		
@@ -264,26 +273,56 @@
 				numberOfMeasures = bucketMeasures.fields.length;
 			
 			} //if (typeof bucketMeasures !== 'undefined')
+				
 			
-			function fnGetNumberFormat(format){
+			function fnGetNumberFormat(){
 				
 				/* 	Documentation for $.fn.dataTable.render.number:
 					https://datatables.net/forums/discussion/30540/fn-datatable-render-number-documentation#Comment_81757
 					The datatables numeric formatting method only has a subset of functionality of the renderConfig.moonbeamInstance.formatNumber method
 					Documentation for render: https://datatables.net/reference/option/columns.render
-				*/
-				if (format == undefined) {
-					return $.fn.dataTable.render.number('', '', 0, '');
-				} //if
-				else {
-					var commaSplit = format.split(",");
-					var periodSplit = format.split(".");
+				*/				
+				
+				var fnRenderer = function (data,type,row,meta){
 					
-					var thousandSeperator =  commaSplit.length == 2 ? "," : "";
-					var decimalIndicator =  periodSplit.length == 2 ? "." : "";
-					var numDecimals = decimalIndicator == "" ? 0 : periodSplit[1].length; 
-					return $.fn.dataTable.render.number(thousandSeperator, decimalIndicator, numDecimals, '');
-				} //else
+									if (renderConfig.dataBuckets.getBucket("measure") == null || data == undefined) return data; // Keep current display behavior
+									
+									var colAttribute = meta.settings.aoColumns[meta.col].mData; // Found by inspecting meta.settings
+									//eg: "col0" (for a measure when no row exist)
+									//eg: col0 (for a row or measure) or col0_2 (for a measure when rows or columns exist)
+									
+									var aSplitColAttribute = colAttribute.split("_"); //eg: ["col0"] or ["col0","2"]
+									var rowBucketIndex = (aSplitColAttribute.length == 1) 
+												? parseInt(aSplitColAttribute[0].split("col")[1]) //eg: parseInt("0") from "col0"
+												: parseInt(aSplitColAttribute[1]); //eg: parseInt("2") from "col0_2"
+									
+									if (renderConfig.dataBuckets.getBucket("row") == null) {
+										var bucketType	= "measure";		//always a measure
+									} // (renderConfig.dataBuckets.getBucket("row") == null)
+									else { //row buckets included 					
+										
+										if (aSplitColAttribute.length == 1) {  //possible special case with mixed row(s) and measure(s)
+											if (rowBucketIndex > renderConfig.dataBuckets.getBucket("row").fields.length - 1){
+												var bucketType = "measure";
+												rowBucketIndex = rowBucketIndex - renderConfig.dataBuckets.getBucket("row").fields.length;
+											} //if
+											else {
+												var bucketType = "row";
+											} //else
+										} //if (aSplitColAttribute.length == 1)
+										else {  //always a measures when "_N"
+											var bucketType = "measure";
+										} //else
+										
+									} // else row buckets included 
+									
+									var numberFormat = renderConfig.dataBuckets.getBucket(bucketType).fields[rowBucketIndex].numberFormat; //May or may not exist
+									return numberFormat ? chart.formatNumber(data, numberFormat ) : data; //Format the data if it has a numberFormat, else just return data			
+								
+								}; //function
+								
+				return fnRenderer;				
+				
 				
 			}
 			
