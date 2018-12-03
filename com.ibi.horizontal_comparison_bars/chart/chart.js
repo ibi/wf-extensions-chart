@@ -189,7 +189,7 @@
 			.attr("fill", $ib3.config.getChart().getSeriesAndGroupProperty(0, null, 'color'))
 			.style("text-anchor", function(dataIndex) { 
 				var dataElem = $(data).filter(function(i, d){return d.originalIndex == dataIndex})[0];
-				if(parseFloat(dataElem.value) < -1) {
+				if(parseFloat(dataElem.value) < 0) {
 					return 'start';
 				} else {
 					return 'end'
@@ -216,7 +216,7 @@
 		
 		if (shortenNumbers) {
 			xAxisG.selectAll("text").text(function(d) {
-				if(parseInt(d) == 0) {
+				if(parseFloat(d) == 0) {
 					return 0;
 				}
 				
