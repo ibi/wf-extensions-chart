@@ -228,7 +228,6 @@
 			
 			// Start Chart-2985 Logic using implements_api_version 2.0
 
-		
 			var bucketRows = dataBuckets.find(function(bucket){return bucket.id == "row" });
 			if (typeof bucketRows !== 'undefined'){
 
@@ -538,7 +537,7 @@
 		var grey = renderConfig.baseColor;
 		renderConfig.data = [{"row":"1","measure":10,"_s":0,"_g":0},{"row":"2","measure":20,"_s":0,"_g":1},{"row":"3","measure":30,"_s":0,"_g":2},{"row":"4","measure":40,"_s":0,"_g":3},{"row":"5","measure":50,"_s":0,"_g":4}];
 		//renderConfig.dataBuckets = {"buckets":{"row":{"title":"A","count":1},"measure":{"title":"B","count":1}},"depth":1};
-		renderConfig.dataBuckets = {"buckets":[{"id":"row", "fields":[{"title":"A","fieldName":"A"}]},{id:"measure", "fields":[{"title":"B","fieldName":"B"}]}]}; //CHART-2985
+		renderConfig.dataBuckets.buckets = [{"id":"row", "fields":[{"title":"A","fieldName":"A"}]},{id:"measure", "fields":[{"title":"B","fieldName":"B"}]}]; //CHART-2985
 		renderCallback(renderConfig);
 		
 		$(container).append('<div class="placeholder">Add measures or dimensions</div>');
