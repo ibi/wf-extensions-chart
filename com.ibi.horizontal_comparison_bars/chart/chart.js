@@ -44,7 +44,7 @@
 		}
 		
 		var everyDataIsNegative = $(data).filter(function(i, d) { 
-			return Math.sign(d.value) >= 0;
+			return parseFloat(d.value) >= 0;
 		}).get().length == 0;
 			
 		//set up svg using margin conventions - we'll need plenty of room on the left for labels
@@ -189,7 +189,7 @@
 			.attr("fill", $ib3.config.getChart().getSeriesAndGroupProperty(0, null, 'color'))
 			.style("text-anchor", function(dataIndex) { 
 				var dataElem = $(data).filter(function(i, d){return d.originalIndex == dataIndex})[0];
-				if(Math.sign(dataElem.value) == -1) {
+				if(parseFloat(dataElem.value) < 0) {
 					return 'start';
 				} else {
 					return 'end'
@@ -197,9 +197,10 @@
 			})
 			.attr("x", function(dataIndex) { 
 				var dataElem = $(data).filter(function(i, d){return d.originalIndex == dataIndex})[0],
-					currentX = parseFloat(d3.select(this).attr('x'));
+					currentX = parseFloat(d3.select(this).attr('x')),
+					sign = parseFloat(dataElem.value) >= 0 ? 1 : -1;
 					
-				return Math.sign(dataElem.value) * currentX;
+				return sign * currentX;
 			});
 			
 		var xAxis = d3.svg.axis()
@@ -215,10 +216,13 @@
 		
 		if (shortenNumbers) {
 			xAxisG.selectAll("text").text(function(d) {
-				if(Math.sign(d) == 0) {
+				if(parseFloat(d) == 0) {
 					return 0;
 				}
-				return Math.sign(d) + $ib3.utils.setShortenNumber(Math.abs(d), false, 0);
+				
+				var signTxt = parseFloat(d) >= 0 ? '' : '-';
+				
+				return signTxt + $ib3.utils.setShortenNumber(Math.abs(d), false, 0);
 			});
 		}
 		
