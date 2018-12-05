@@ -1316,10 +1316,17 @@ var tdg_arc = (function() { // change name
 
             if (hasOnlyPositiveValues() && ['stacked', 'percent'].indexOf(props.type) < 0) {
                 var group_label = renderLabels(group_chart, invokeAfterFour);
+				
+				/* Logic prior to CHART-3188
                 if ( !props.isInteractionDisabled ) {
                     enableHiglight(group_arc, bg, group_label);
                     enableShowValueOnHiglight(group_arc, bg);
                 }
+				*/ 
+				//Start CHART-3188
+				    enableHiglight(group_arc, bg, group_label);
+                    enableShowValueOnHiglight(group_arc, bg);
+				//END CHART-3188
             } else {
                 enableHiglight(group_arc, bg);
                 enableToolTips(group_arc);
