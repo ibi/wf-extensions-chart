@@ -1,7 +1,7 @@
 {
 	"info": {
 		"version": 1.0,
-		"implements_api_version": 1.0,
+		"implements_api_version": 2.0,
 		"author": "Three D Graphics",
 		"copyright": "Three D Graphics Inc.",
 		"url": "https://threedgraphics.com",

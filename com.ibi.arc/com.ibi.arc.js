@@ -49,6 +49,16 @@
 
         var container = d3.select(renderConfig.container)
             .attr('class', 'tdg_marker_chart');
+			
+		//Start CHART-3184
+		
+			var numFormatAPI20 = renderConfig.dataBuckets.getBucket("value").fields[0].numberFormat;  //Reference API 2.0 number format if it exists
+			props.valueLabel.format =  numFormatAPI20 ? numFormatAPI20 : props.valueLabel.format;  //If API 2.0 number format exists, use it, else use whatever's in the properties.json file
+			props.axis.labels.format = numFormatAPI20 ? numFormatAPI20 : props.axis.labels.format;  //If API 2.0 number format exists, use it, else use whatever's in the properties.json file
+		
+		//End CHART-3184
+			
+			
 
         var arc_chart = tdg_arc(props);
 		
