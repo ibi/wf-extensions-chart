@@ -37,6 +37,35 @@
 				// 'd' (single riser datum), 'data' (array of data for this series) and series / group ID object.
 				// This returns an object describing the content, style and position of the label to be drawn.
 				var lbl = renderConfig.modules.dataLabels.getDataLabelProperties(d, data, {series: 0, group: g});
+				
+				//Start CHART-3189
+				
+				/* lbl is returned as and object in the following format:  { content: string, position: string, font: string, color: string}
+				   The 'content' property can be further enriched with the 'numberFormat' property available with API 2.0 via the dataBuckets object
+				   as documented here: 'Data bucket field names and number formats': https://github.com/ibi/wf-extensions-chart/wiki/Extension-Data-Interface
+				   
+				   If the 'numberFormat' property has been propagated from WebFOCUS, it can be used with the renderConfig.moonbeamInstance.formatNumber helper function 
+				   to re-format a numeric value.
+				   
+				   The renderConfig.moonbeamInstance.formatNumber helper function takes two parameters:
+					
+					renderConfig.moonbeamInstance.formatNumber(parm1,parm2):
+					
+						parm1: 	number 				is the number to be formatted
+						parm2: 	string  			is the string format; typically retrieved from the data bucket's field's 'numberFormat' property. Euro Currency Example: "€#,###.00;-€#,###.00" 
+						return: string 				parm1 formatted in parm2 format 
+				
+				*/ 
+
+				var valueBucket =  renderConfig.dataBuckets.getBucket("value");  	//Reference to the 'value' data bucket
+				var field =  valueBucket.fields[0]; 								//Since the 'value' bucket has a maximum of 1 entry (via properties.json), .fields[0] can be referenced directly.
+				var numberFormat = field.numberFormat; 								//Reference the number format; if it exists.
+				lbl.content = numberFormat ? 										//Number format may-or-may-not have been assigned in WebFOCUS.  For example, 'I6' format is not assigned.
+					renderConfig.moonbeamInstance.formatNumber(d.value,numberFormat) :	//If numberFormat exists (not undefined), re-format the value for display with the renderConfig.moonbeamInstance.formatNumber helper function	
+                    lbl.content;							  							//If not, leave the 'content'  un-changed.
+				
+				//End CHART-3189
+				
 
 				// The second step is to draw the label in the right spot.  An extension can do this itself
 				// manually, by reading the necessary info from 'lbl' above.  Or an extension can use the built in
