@@ -192,26 +192,9 @@
 						
 						number = ' | ' +  d.value.toFixed(2) + '%';
 						
-					} else if(shortenValue) {
-				
-						var abbr = $ib3.utils.getNumericAbbreviation(d.value),
-							shortenNumber = $ib3.utils.getShortenNumberByAbbreviation(d.value, abbr),
-							valueFormatApplied = valueFormat;
-							
-						var lastCharValueFormat = valueFormatApplied.substring(valueFormatApplied.length - 1);
-						if(lastCharValueFormat == '%') {
-							valueFormatApplied += abbr;								
-						} else if(lastCharValueFormat == '€') {
-							valueFormatApplied = valueFormatApplied.substring(0, valueFormatApplied.length - 2) + abbr + lastCharValueFormat;
-						} else {
-							valueFormatApplied += abbr;
-						}
-						
-						number = ' | ' + $ib3.config.formatNumber(shortenNumber, valueFormatApplied);
-						
 					} else {
 						
-						number = ' | ' + $ib3.config.formatNumber(d.value, valueFormat); 
+						number = ' | ' + $ib3.utils.getFormattedNumber(d.value, valueFormat, shortenValue);
 						
 					} 
 				
