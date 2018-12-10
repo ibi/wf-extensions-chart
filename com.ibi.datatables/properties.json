@@ -109,7 +109,7 @@
 				"id": "measure",
 				"type": "measure",
 				"count": {
-					"min": 0,
+					"min": 1,
 					"max": 16
 				}
 			},
