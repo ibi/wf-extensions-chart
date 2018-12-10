@@ -416,7 +416,7 @@ var tdg_arc = (function() { // change name
 					/* CHART-2438 Comment out old color assignment logic 
                     color: (d.color != null) ? d.color : innerProps.colors[i],
 					*/
-					//Start CHART-2348
+					//Start CHART-2438
 						color: (d.color != null) ? d.color : props.chart.getSerDepProperty('color', i),
 					//End CHART-2438
                     value: d.value,
@@ -919,7 +919,12 @@ var tdg_arc = (function() { // change name
                 .classed('group-labels', true);
 
             var data = getData().map(function(d, i) {
+				/* CHART-2438 Logic prior to dynamic color assignment
                 return { label: d.label, color: d.color, idx: i };
+				*/
+				//START CHART-2438
+					return { label: d.label, color: props.chart.getSerDepProperty('color', i), idx: i };
+				//End CHART-2438	
             }).filter(function(d) {
                 return d.label != null;
             });
