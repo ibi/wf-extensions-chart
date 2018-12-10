@@ -220,9 +220,7 @@
 					return 0;
 				}
 				
-				var signTxt = parseFloat(d) >= 0 ? '' : '-';
-				
-				return signTxt + $ib3.utils.setShortenNumber(Math.abs(d), false, 0);
+				return $ib3.utils.setShortenNumber(d, false, 0);
 			});
 		}
 		
