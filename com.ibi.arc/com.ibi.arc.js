@@ -58,7 +58,13 @@
 		
 		//End CHART-3184
 			
+		//Start CHART-2438
 			
+			props.chart = chart;     // Propogate access to the .getSerDepProperty function/method for dynamic color assignment
+			
+		//End CHART-2438
+
+		
 
         var arc_chart = tdg_arc(props);
 		
