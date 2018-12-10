@@ -63,7 +63,10 @@ var tdg_arc = (function() { // change name
     return function(user_props) {
         // here we put all the function that need to access props or innerProps objects
         var props = {
-            width: 300,
+			//Start CHART-2438
+			chart: null,   //user-props will now propogate chart object for access to getSerDepProperty function/method used for dynamic color assignment
+			//End CHART-2438
+            width: 300,  
             height: 400,
             data: null,
             type: 'regular', // 'regular', 'stacked'
@@ -410,7 +413,12 @@ var tdg_arc = (function() { // change name
             return getData().map(function(d, i) {
                 return {
                     label: d.label,
+					/* CHART-2438 Comment out old color assignment logic 
                     color: (d.color != null) ? d.color : innerProps.colors[i],
+					*/
+					//Start CHART-2348
+						color: (d.color != null) ? d.color : props.chart.getSerDepProperty('color', i),
+					//End CHART-2438
                     value: d.value,
                     class: d.elClassName
                 };
