@@ -111,6 +111,14 @@
 
         var container = d3.select(renderConfig.container)
             .attr('class', 'tdg_marker_chart');
+			
+			
+		//Start CHART-2438
+			
+			props.chart = chart;     // Propogate access to the .getSerDepProperty function/method for dynamic color assignment
+			
+		//End CHART-2438			
+			
 
         var arc_chart = tdg_arc(props);
 
