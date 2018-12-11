@@ -39,6 +39,17 @@
 	// Arguments:
 	//  - renderConfig: the standard callback argument object, including additional properties width, height, etc
 	function renderCallback(renderConfig) {
+		
+		//Start CHART-2727
+			
+			if (!renderConfig.data[0].state) {    //Possibly invoked from Insight with no state data
+				noDataRenderCallback (renderConfig);
+				return;
+			} //if
+		
+		//End CHART-2727
+		
+		
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
 
