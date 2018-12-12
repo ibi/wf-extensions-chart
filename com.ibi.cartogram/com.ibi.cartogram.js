@@ -77,12 +77,6 @@
 	}
 		
 	
-	
-	// Required: Invoked during each chart engine draw cycle
-	// This is where your extension should be rendered
-	// Arguments:
-	//  - renderConfig: the standard callback argument object, including additional properties width, height, etc
-	
 	function renderCallback(renderConfig) {
 			
 		fnShowCartogram("withdata",renderConfig);	
@@ -94,9 +88,6 @@
 			var chart = renderConfig.moonbeamInstance;
 			var props = renderConfig.properties;
 
-			//var container = d3.select(renderConfig.container)
-			//	.append("svg")
-			//	.attr('class', 'com_ibi_chart');
 				
 				
 			var container = d3.select(renderConfig.container)
@@ -116,9 +107,7 @@
 		    var states = layer.append("g")
 					.attr("id", "states")
 					.selectAll("path");
-					
-			var toolTipRectangle =  map.append("rect").attr("fill","white");	//Light Weight tooltip	
-			var toolTip = map.append("text").attr("fill","black");					
+									
 
 			/*	 
 			//alternate way of getting topology json from a server-side file
@@ -150,40 +139,37 @@
 			  .append("path")
 				.attr("d", path)
 				.attr("id",function (d) {return d.id})
-				.on("mouseover", function() { toolTip.style("opacity", 1); toolTipRectangle.style("opacity", 1); })
-				.on("mouseout", function(){ toolTip.style("opacity", 0); toolTipRectangle.style("opacity", 0);}) 
-				.on("mousemove", function(){
-									var id = this.id;
-									var bBox = this.getBBox(); 
-									var width = bBox.width;
-									var height = bBox.height;
-									var x = Math.floor(bBox.x + width/2.0); 
-									var y = Math.floor(bBox.y + height/2.0);	
-									toolTip.text(function(	) {
-													return [id, fnAddCommas(statesDataValues[id]),].join(": ");
-												})				 
-									bBox = toolTip.node().getBBox();
-									width = bBox.width + 2;
-									height = bBox.height + 2;
-									toolTipRectangle
-										.attr("width",width)
-										.attr("height",height)
-										.attr("x",x).attr("y",y);	
-									toolTip
-										.attr("x",x + 2)     
-										.attr("y",y + height/2 + 4);
-									});					
-			//states.append("title");   //Replaced with light-weight tooltip logic
+				//Start CHART-2104
+				.attr('class', function(d, g) {
+					// To support data selection, events and tooltips, each riser must include a class name with the appropriate seriesID and groupID
+					// Use chart.buildClassName to create an appropriate class name.
+					// 1st argument must be 'riser', 2nd is seriesID, 3rd is groupID, 4th is an optional extra string which can be used to identify the risers in your extension.
+					return chart.buildClassName('riser', 0, g, 'state');
+					}) //attr
+				.each(function(d,i) {
+					// addDefaultToolTipContent will add the same tooltip to this riser as the built in chart types would.
+					// Assumes that 'this' node includes a fully qualified series & group class string.
+					// addDefaultToolTipContent can also accept optional arguments:
+					// addDefaultToolTipContent(target, s, g, d, data), useful if this node does not have a class
+					// or if you want to override the default series / group / datum lookup logic.
+					var inDataIndex = renderConfig.data.findIndex(function(datum){return datum.state == d.id}); //input data matched to state feature
+					if (inDataIndex != -1) {  //Incorrectly spelled state may not have a tooltip assigned to it; as well as data, see below IA-9120 NFR
+						renderConfig.modules.tooltip.addDefaultToolTipContent(this, 0, inDataIndex, renderConfig.data[inDataIndex]);
+					} //if
+					}) //each	
+				 //End CHART-2104	
+				 ;	
+
 			
 			//Override state areas with the values they will be cartogram-ed with	
 			if (sequence == "withdata") {
 				//Zero out all values
-				Object.keys(statesDataValues).map(function ( key ) { statesDataValues[key] = 0; });
+				Object.keys(statesDataValues).forEach(function ( key ) { statesDataValues[key] = 0; });
 				
 				var incorrectStates=[];  //IA-9120 NFR
 				
 				//Get values from renderConfig.data and over-write respective statesDataValues json
-				renderConfig.data.map(function (obj) {
+				renderConfig.data.forEach(function (obj) {
 					if (statesDataValues[obj.state] != undefined) {
 						statesDataValues[obj.state] = obj.value;
 					} //if
@@ -191,7 +177,7 @@
 					  incorrectStates.push(obj.state); //IA-9120 NFR
 					} //else
 					
-				}); //renderConfig.data.map
+				}); //renderConfig.data.forEach
 				
 				if (incorrectStates.length > 0) alert("The following value(s) don't have a corresponding state in the cartogram: \r\n\r\n" + incorrectStates.join("\r\n")); //IA-9120 NFR
 				
@@ -227,12 +213,7 @@
 
 			// update the data
 			states.data(features);
-			/*  Logic replaced with light-weight tooltiop
-			  .select("title")
-				.text(function(d,i) {
-				  return [d.id, fnAddCommas(statesDataValues[d.id])].join(": ");
-				});
-			*/
+
 				
 			states.transition()
 			  .duration(750)
@@ -242,6 +223,12 @@
 			  })
 			  .attr("d", carto.path);
 			  
+			//Start CHART-2104
+			
+				renderConfig.renderComplete();
+			
+			//End CHART-2104
+			
 			
 			function fnAddCommas(nStr){
 					 nStr += '';
@@ -300,23 +287,10 @@
 				supported: false,  // Set this true if your extension wants to enable data selection
 				needSVGEventPanel: false, // if you're using an HTML container or altering the SVG container, set this to true and the chart engine will insert the necessary SVG elements to capture user interactions
 				svgNode: function(arg){}  // if you're using an HTML container or altering the SVG container, return a reference to your root SVG node here.
-			},
+			},				
 			tooltip: {
 				supported: true  // Set this true if your extension wants to enable HTML tooltips
 			}
-			// Not used in this extension; here for documentation purposes.
-//			colorScale: {
-//				supported: true,
-//				minMax: function(arg){}  // Optional: return a {min, max} object to use for the color scale min & max.
-//			}
-//			sizeScale: {
-//				supported: false,
-//				minMax: function(arg){}  // Optional: return a {min, max} object to use for the size scale min & max.
-//			},
-//			legend: {
-//				colorMode: function(arg){}, // Return either 'data' or 'series'.  If implemented, force the chart engine to use this color mode legend
-//				sizeMode: function(arg){},  // return either 'size' or falsey.  If implemented, force the chart engine to use this size legend
-//			}
 		}
 	};
 
