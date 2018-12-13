@@ -26,6 +26,7 @@
 			shortenNumbers = $ib3.config.getProperty('horizontalcomparisonbarsProperties.shorten_numbers'),
 			colorBands = $ib3.config.getProperty('colorScale.colorBands'),
 			setInfiniteToZero = $ib3.config.getProperty('horizontalcomparisonbarsProperties.setInfiniteToZero'),
+			formatComparation = $ib3.config.getProperty('horizontalcomparisonbarsProperties.formatComparation'),
 			calculeComparationFunctionParam1 = $ib3.config.getProperty('horizontalcomparisonbarsProperties.calculeComparationFunction.param1'),
 			calculeComparationFunctionParam2 = $ib3.config.getProperty('horizontalcomparisonbarsProperties.calculeComparationFunction.param2'),
 			calculeComparationFunctionBody = $ib3.config.getProperty('horizontalcomparisonbarsProperties.calculeComparationFunction.body');
@@ -88,6 +89,7 @@
 			.data(data)
 			.enter()
 				.append("g")
+				.classed('group-bar', true)
 				.on("mousemove", function(d, i) {
 					d3.select(this).selectAll("rect").style("fill-opacity", 0.5);
 				}).on("mouseout", function(d) {
@@ -139,7 +141,7 @@
 				.text(function(d) {
 					if(d.percentaje == 'Infinity' || d.percentaje == '-Infinity'){
 						if(setInfiniteToZero) {
-							return $ib3.config.formatNumber(0, '#,###.00') + ' %'; 
+							return $ib3.config.formatNumber(0, formatComparation); 
 						} else {
 							if(d.percentaje == '-Infinity') {
 								return '-' + String.fromCharCode(8734);
@@ -148,7 +150,7 @@
 							}
 						}
 					}else{
-						return $ib3.config.formatNumber(d.percentaje, '#,###.00') + ' %';
+						return $ib3.config.formatNumber(d.percentaje, formatComparation);
 					} 
 				});
 				
@@ -202,10 +204,15 @@
 					
 				return sign * currentX;
 			});
+		
+		var xAxisGWidth = d3.select('.group-bar').node().getBBox().width,
+			xAxisMinLabelSpace = 100,
+			xAxisNumLabels = parseInt(xAxisGWidth / xAxisMinLabelSpace);
 			
 		var xAxis = d3.svg.axis()
 			.scale(x)
-			.orient("bottom");
+			.orient("bottom")
+			.ticks(xAxisNumLabels);
 
 		var xAxisG = svg.append("g")
 			.attr("class", "x axis")
