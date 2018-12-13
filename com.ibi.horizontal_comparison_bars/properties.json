@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": "2.0.10",
+		"version": "2.1.0",
 		"implements_api_version": "1.0/2.0",
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
@@ -13,6 +13,7 @@
 	"properties": {
 		"horizontalcomparisonbarsProperties": {
 			"setInfiniteToZero": false,
+			"hideWhenInfinite": false,
 			"chartHeadroom": 50,
 			"shorten_numbers": true,
 			"calculeComparationFunction": {
