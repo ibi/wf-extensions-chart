@@ -26,6 +26,7 @@
 			shortenNumbers = $ib3.config.getProperty('horizontalcomparisonbarsProperties.shorten_numbers'),
 			colorBands = $ib3.config.getProperty('colorScale.colorBands'),
 			setInfiniteToZero = $ib3.config.getProperty('horizontalcomparisonbarsProperties.setInfiniteToZero'),
+			hideWhenInfinite = $ib3.config.getProperty('horizontalcomparisonbarsProperties.hideWhenInfinite'),
 			formatComparation = $ib3.config.getProperty('horizontalcomparisonbarsProperties.formatComparation'),
 			calculeComparationFunctionParam1 = $ib3.config.getProperty('horizontalcomparisonbarsProperties.calculeComparationFunction.param1'),
 			calculeComparationFunctionParam2 = $ib3.config.getProperty('horizontalcomparisonbarsProperties.calculeComparationFunction.param2'),
@@ -117,7 +118,14 @@
 		
 		if (hasComparevalue) {
 			
-			barGroups.append("text")
+			barGroups.filter(function(d) {
+					if((d.percentaje == 'Infinity' || d.percentaje == '-Infinity')
+						&& hideWhenInfinite) {
+							return false;
+						}
+						
+					return true;
+				}).append("text")
 				.attr("fill", function(d, i) {
 					return calculateColor(d, 'percentaje', colorBands, isDummyData);
 				})
@@ -154,7 +162,14 @@
 					} 
 				});
 				
-			barGroups.append("path")
+			barGroups.filter(function(d) {
+					if((d.percentaje == 'Infinity' || d.percentaje == '-Infinity')
+						&& hideWhenInfinite) {
+							return false;
+						}
+						
+					return true;
+				}).append("path")
 				.attr("fill", function(d, i) {
 					return calculateColor(d, 'percentaje', colorBands, isDummyData);
 				}).attr("transform", function(d, dataIndex) {
