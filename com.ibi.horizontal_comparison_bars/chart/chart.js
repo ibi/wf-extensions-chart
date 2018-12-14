@@ -52,9 +52,9 @@
 		//set up svg using margin conventions - we'll need plenty of room on the left for labels
 		var margin = {
 			top: 15,
-			right: everyDataIsNegative ? calculateWidth('dimension') : calculateWidth('percentaje') + 25,
+			right: everyDataIsNegative ? calculateWidth('dimension') : calculateWidth('percentaje',formatComparation) + 25,
 			bottom: 15,
-			left: everyDataIsNegative ? calculateWidth('percentaje') + 25 : calculateWidth('dimension')
+			left: everyDataIsNegative ? calculateWidth('percentaje',formatComparation) + 25 : calculateWidth('dimension')
 		};
 		
 		var width = w - margin.left - margin.right,
@@ -66,8 +66,6 @@
 			.attr("height", height + margin.top + margin.bottom)
 				.append("g")
 					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-		
-		//var x = d3.scale.linear().range([0, width]).domain([0, d3.max(data, function(d) { return d.value; })]);
 		
 		var max = d3.max(data, function(d) { return d.value; }),
 			min = d3.min(data, function(d) { return d.value; });
@@ -133,7 +131,7 @@
 					return y(d.originalIndex) + y.rangeBand() / 2 + 4;
 				})
 				.attr("x", function(d) {
-					var x = (w - margin.left - margin.right / 2 + 10);
+					var x = (w - margin.left - margin.right + 20);
 					if(everyDataIsNegative) {
 						x = -20;
 					} 
@@ -173,7 +171,7 @@
 				.attr("fill", function(d, i) {
 					return calculateColor(d, 'percentaje', colorBands, isDummyData);
 				}).attr("transform", function(d, dataIndex) {
-					var translateX = (w - margin.left - margin.right / 2)
+					var translateX = (w - margin.left - margin.right + 10)
 					if(everyDataIsNegative) {
 						translateX = -10;
 					} 
@@ -237,12 +235,29 @@
 		xAxisG.selectAll("text").attr("fill", $ib3.config.getProperty('axisList.y1.labels.color'));
 		
 		if (shortenNumbers) {
+			var arr_shorten = {'':0,'K':0,'M':0,'B':0,'T':0},
+				max_shorten = 0,
+				selected_shorten_letter = '',
+				last_shorten = '';
+			xAxisG.selectAll("text").each(function(d) {
+				arr_shorten[$ib3.utils.getNumericAbbreviation(d)]++;
+			});
+			$.each(arr_shorten,function(i,val){
+				if (val > max_shorten){
+					max_shorten = val;
+					selected_shorten_letter = last_shorten;
+				}
+				last_shorten = i;
+			});
 			xAxisG.selectAll("text").text(function(d) {
 				if(parseFloat(d) == 0) {
 					return 0;
 				}
-				
-				return $ib3.utils.setShortenNumber(d, false, 0);
+				if (selected_shorten_letter != ''){
+					return $ib3.utils.setShortenNumber(d, false, 0,selected_shorten_letter);
+				}else{
+					return d;
+				}
 			});
 		}
 		
@@ -268,13 +283,19 @@
 			return calculateValue;
 		}
 
-		function calculateWidth(field) {
-			var div_widths = d3.select("body").append("div").attr("class", "div_widths"),
+		function calculateWidth(field, numberFormat) {
+			var div_widths = d3.select("svg g")
+					.append("text"),
 				max_width = 0,
 				my_width = 0;
+				
 			for (var i = 0; i < data.length; i++) {
-				div_widths.html(data[i][field]);
-				my_width = div_widths.style("width").split('px').join('') * 1;
+				var elem = data[i][field];
+				if(numberFormat) {
+					elem = $ib3.config.formatNumber(elem, numberFormat);
+				}
+				div_widths.text(elem);
+				my_width = div_widths.node().getBBox().width;
 				if (my_width > max_width) {
 					max_width = my_width;
 				}
