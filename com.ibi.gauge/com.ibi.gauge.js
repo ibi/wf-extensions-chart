@@ -231,7 +231,8 @@
 		noDataPreRenderCallback: noDataPreRenderCallback, 
 		noDataRenderCallback: noDataRenderCallback,
 		resources:  {  // Additional external resources (CSS & JS) required by this extension
-			script: ['/ibi_apps/jquery/js/jquery.min.js','lib/d3.js','lib/c3.js'],
+			script: window.jQuery ? ['lib/d3.js','lib/c3.js'] : ['lib/jquery-latest.js','lib/d3.js','lib/c3.js'],
+			
 			css: ['css/extension.css', 'css/c3.css']
 		},
 		modules: {
