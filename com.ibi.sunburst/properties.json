@@ -1,7 +1,9 @@
 
 {
 	"info": {
-		"version": 1.01,
+		"version": "1.0.1",
+		//1.0 Original Release
+		//1.0.1 CHART-2425 chart gives error message for single Dimension value
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
