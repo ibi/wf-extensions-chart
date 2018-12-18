@@ -1,6 +1,8 @@
 {
 	"info": {
-		"version": 1.0,
+		"version": "1.0.1" ,
+		//1.0 Original Release
+		//1.0.1 CHART-3033 extension throws mixed content error, CHART-2117 Null Link Handling, CHART-3175 Invoking Sankey Chart from HTML5 extensions throws error, CHART-3191 Minimal Buckets
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
