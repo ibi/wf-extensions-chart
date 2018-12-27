@@ -1,8 +1,6 @@
 {
 	"info": {
 		"version": "1.1.0",
-		//1.0 Original Release
-		//1.1.0 IA-9120 Insturctive Text, CHART-1935 Editing of Title, CHART-2104: Tooltips and Drilldowns
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",

@@ -1,8 +1,6 @@
 {
 	"info": {
 		"version": "1.0.1",
-		//1.0 Original Version
-		//1.0.1 Fix CHART-3094 JSON Syntax Errors, CHART-2949: Chord Diagram chart shows no tooltip
 		"implements_api_version": 1.0,
 		"author": "Three D Graphics",
 		"copyright": "Three D Graphics Inc.",
