@@ -23,18 +23,12 @@ To configure or customize your extension edit "properties" object in properties.
 	
 	"properties": {
 	
-		"kpiboxProperties": {
-			"textVertPosition": 0.5, 
-			"textSize": 1,   
-			"setInfiniteToZero": false,   
-			"ibiAppsPath": "/ibi_apps/",
-			"valueCountUp": true, 
-			"displayPercent": true,
-			"textColor": "#045681", 			
+		"kpiboxProperties": { 
+			"ibiAppsPath": "/ibi_apps/",	
 			"calculeComparationFunction": {
 				"param1": "valueKpi", 
 				"param2": "compareValue", 
-				"body": "var result = Math.abs(valueKpi - compareValue) / Math.abs(compareValue); if(valueKpi < compareValue) { result = (-1) * result; } return result;"
+				"body": "if(valueKpi == 0 && compareValue == 0) { return 0; } var result = (valueKpi - compareValue) / Math.abs(compareValue);  return result;"
 			},	
 			"formatComparation": "#,###.00%",
 			"customCompareIcon": {
@@ -42,11 +36,13 @@ To configure or customize your extension edit "properties" object in properties.
 				"iconUp": "",
 				"iconDown": "",
 			},
-			"shortenNumbers": true, 
-			"title_row": false,
+			"shortenNumber": true, 
+			"setInfiniteToZero": false,
+			"titleRow": false,
 			"calculateFontSize": false, 
 			"fixedFontSizeProp": "18px",
-			"fixedPixelLinesMargin": 20
+			"fixedPixelLinesMargin": 20,
+			"imagePercentageWidth": 40
 		},
 		"colorScale": {
 			"colorMode":"discrete",
