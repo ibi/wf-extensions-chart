@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": "2.0.7",
+		"version": "2.1.0",
 		"implements_api_version": "1.0, 2.0",
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
@@ -13,14 +13,8 @@
 
 	"properties": {
 	
-		"kpiboxProperties": {
-			"textVertPosition": 0.5, 
-			"textSize": 1,   
-			"setInfiniteToZero": false,   
-			"ibiAppsPath": "/ibi_apps/",
-			"valueCountUp": true, 
-			"displayPercent": true,
-			"textColor": "#045681", 			
+		"kpiboxProperties": {   
+			"ibiAppsPath": "/ibi_apps/",	
 			"calculeComparationFunction": {
 				"param1": "valueKpi", 
 				"param2": "compareValue", 
@@ -32,11 +26,13 @@
 				"iconUp": "",
 				"iconDown": "",
 			},
-			"shortenNumbers": true, 
-			"title_row": false,
+			"shortenNumber": true, 
+			"setInfiniteToZero": false,
+			"titleRow": false,
 			"calculateFontSize": false, 
 			"fixedFontSizeProp": "18px",
-			"fixedPixelLinesMargin": 20
+			"fixedPixelLinesMargin": 20,
+			"imagePercentageWidth": 40
 		},
 		"colorScale": {
 			"colorMode":"discrete",

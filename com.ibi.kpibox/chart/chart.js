@@ -34,77 +34,74 @@
 			customCompareIconDown = $ib3.config.getProperty('kpiboxProperties.customCompareIcon.iconDown'),
 			formatComparation = $ib3.config.getProperty('kpiboxProperties.formatComparation'),
 			setInfiniteToZero = $ib3.config.getProperty('kpiboxProperties.setInfiniteToZero'),
-			shortenNumbers = $ib3.config.getProperty('kpiboxProperties.shortenNumbers'),
-			title_row = $ib3.config.getProperty('kpiboxProperties.title_row'),
-			widthImage = width * 0.4,
-			widthInfo = width * 0.6,
-			widthInfo_2 = width * 0.2,
-			heightInfo_2 = height * 0.2,
-			height_image = title_row 
-				? height - 40
-				: height,
-			y_image = title_row 
-				? 40
-				: 0,		
-			x_title = title_row 
-				? 10
-				: 0,	
+			shortenNumber = $ib3.config.getProperty('kpiboxProperties.shortenNumber'),
+			titleRow = $ib3.config.getProperty('kpiboxProperties.titleRow'),
 			calculateFontSize = $ib3.config.getProperty('kpiboxProperties.calculateFontSize'),
 			fixedFontSizeProp = $ib3.config.getProperty('kpiboxProperties.fixedFontSizeProp') || '20px',
-			fixedPixelLinesMargin = $ib3.config.getProperty('kpiboxProperties.fixedPixelLinesMargin') || 0;
-		//get Buckets
+			fixedPixelLinesMargin = $ib3.config.getProperty('kpiboxProperties.fixedPixelLinesMargin') || 0,
+			imagePercentageWidth = $ib3.config.getProperty('kpiboxProperties.imagePercentageWidth'),
+			wfPath = $ib3.config.getProperty('kpiboxProperties.ibiAppsPath');
+			
+		//Defaults
+		if (typeof imagePercentageWidth == 'undefined') {
+			imagePercentageWidth = 40;
+		}
+			
+		var imageWidth = width * parseFloat(imagePercentageWidth / 100),
+			infoWidth = width - imageWidth,
+			imageHeight = titleRow ? height - 40 : height,
+			imageY = titleRow ? 40 : 0,
+			titleX = titleRow ? 10 : 0;
+			
+		//get Buckets Data
 		var kpiDataElem = data[0],
 			kpiValue = kpiDataElem.value,
+			kpiFormattedValue = $ib3.utils.getFormattedNumber(kpiValue, numberFormat, shortenNumber)
 			compareValue = kpiDataElem.comparevalue,
-			valueKpi = kpiDataElem.value,
 			kpiSign = !!parseInt(typeof kpiDataElem.kpisign === 'undefined' ? 1 : kpiDataElem.kpisign),
 			kpiBoxTitle = $ib3.config.getBucketTitle('value', 0),
 			hasCompareValue = typeof compareValue !== 'undefined';
 			
-		kpiValue = $ib3.utils.getFormattedNumber(kpiValue, numberFormat, shortenNumbers);
-			
+		var imageHref = '';
 		if(typeof kpiDataElem.image === 'undefined') {
-			var image = 'data:image/png;base64,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';
+			imageHref = 'data:image/png;base64,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';
 		} else {
-			var image = getImagePath(kpiDataElem.image);
+			imageHref = $ib3.utils.getWebFOCUSUriByResourcePath(kpiDataElem.image, wfPath);
 		}
-			
 
 		var imageContainer = d3.select(container)
 			.append('g')
-			.attr('width', widthImage)
-			.attr('height', height_image);
+			.attr('width', imageWidth)
+			.attr('height', imageHeight);
  
 		var imageElem = imageContainer.append('svg:image')
 			.attr('class', 'image-container')
-			.attr('width', widthImage)
-			.attr('height', height_image)
-			.attr('xlink:href', image)
+			.attr('width', imageWidth)
+			.attr('height', imageHeight)
+			.attr('xlink:href', imageHref)
 			.attr('x', 0)
-			.attr('y', y_image);
+			.attr('y', imageY);
 
 		var infoContainer = d3.select(container)
 			.append('g')
 			.attr('class', 'info-container')
-			.attr('width', widthInfo)
+			.attr('width', infoWidth)
 			.attr('height', height)
-			.attr('transform', 'translate(' + width * 0.4 + ',0)');
+			.attr('transform', 'translate(' + imageWidth + ',0)');
 			
-		var title_container = 	title_row 
-			? d3.select(container)
-			: infoContainer;
+		var titleContainer = titleRow ? d3.select(container) : infoContainer;
 				
-		var kpiTitleElem = title_container.append('text')
+		var kpiTitleElem = titleContainer.append('text')
 			.attr('class', 'kpi-title')
-			.attr('width', widthInfo)
+			.attr('width', infoWidth)
 			.attr('fill', '#333')
-			.attr('x', x_title)
+			.attr('x', titleX)
 			.text(kpiBoxTitle);	
 	
 		kpiTitleElem
 			.attr('font-size', function() { 
 				return calculateFontSize
-					? Math.min(widthInfo, (widthInfo - 8) / this.getComputedTextLength() * parseInt($(this).css('font-size'))) + 'px'
+					? Math.min((titleRow ? width : infoWidth), ((titleRow ? width : infoWidth) - 8) / this.getComputedTextLength() * parseInt($(this).css('font-size'))) + 'px'
 					: fixedFontSizeProp;
 			})
 			.attr('height', function() { 
@@ -116,15 +113,15 @@
 
 		var kpiValueElem = infoContainer.append('text')
 			.attr('class', 'kpi-value')
-			.attr('width', widthInfo)
+			.attr('width', infoWidth)
 			.attr('fill', '#333')
 			.attr('x', 0)
-			.text(kpiValue);
+			.text(kpiFormattedValue);
 
 		kpiValueElem
 			.attr('font-size', function() { 
 				return calculateFontSize
-					? Math.min(widthInfo, (widthInfo - 8) / this.getComputedTextLength() * parseInt($(this).css('font-size'))) + 'px'
+					? Math.min(infoWidth, (infoWidth - 8) / this.getComputedTextLength() * parseInt($(this).css('font-size'))) + 'px'
 					: fixedFontSizeProp;
 			})
 			.attr('height', function() { 
@@ -135,36 +132,27 @@
 			});
 		
 		if (hasCompareValue) {
-			
-			var compareTitle =  $ib3.config.getBucketTitle('comparevalue'),
-				calculeComparationFunction = new Function(calculeComparationFunctionParam1, calculeComparationFunctionParam2, calculeComparationFunctionBody);
-			
-			
+					
 			var percentageCalcValue;
-
-			try { percentageCalcValue = calculeComparationFunction(valueKpi,compareValue); }
-			catch(e) { 			
+			try { 
+				var calculeComparationFunction = new Function(calculeComparationFunctionParam1, calculeComparationFunctionParam2, calculeComparationFunctionBody);
+				percentageCalcValue = calculeComparationFunction(kpiValue, compareValue); 
+			} catch(e) { 			
 				$ib3.utils.showRenderError('Error compare function definition<br>Params names must match the var names used inside the body of the function<br><br> Javascript Error: ' + e.message);			
 				return;
 			}
-			/*if(formatComparation.substring(formatComparation.length - 1) == '%') {
-				formatComparation = formatComparation.replace('%', '`%');
-			}*/
+			
+			var percentageFormattedValue;
 			if(setInfiniteToZero){
-				var percentageValue = ((percentageCalcValue == 'Infinity')||(isNaN(percentageCalcValue))) 
-					? 0
-					: $ib3.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
-			}else{
-				var percentageValue = (percentageCalcValue == 'Infinity') 
-					? String.fromCharCode(8734)
-					: $ib3.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
+				percentageFormattedValue = ((percentageCalcValue == 'Infinity')||(isNaN(percentageCalcValue))) ? 0 : $ib3.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
+			} else {
+				percentageFormattedValue = (percentageCalcValue == 'Infinity') ? String.fromCharCode(8734) : $ib3.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
 			}
 			
-				var percentageColor = calculateColor(percentageCalcValue, kpiSign, isDummyData);
+			var percentageColor = _calculateComparisonColor(percentageCalcValue, kpiSign, isDummyData);
 				percentageVariationDirection = percentageCalcValue < 0 ? 'down' : 'up';
 
 			var triangleHeight = kpiValueElem.node().getBBox().height;
-	
 			var trianglePath = d3.symbol()
 				.size([triangleHeight * triangleHeight / 2]) //TODO: Make responsive size
 				.type(d3.symbolTriangle);
@@ -173,15 +161,9 @@
 			
 			if(customCompareIconActive) {
 				 
-				var imageUp = getImagePath(customCompareIconUp),
-					imageDown = getImagePath(customCompareIconDown); 
-				
-					
-					var imageCompare = percentageVariationDirection == 'up' ? imageUp : imageDown,
-					
-					//marginFontCustom = calculateFontSize ? 1 : 1.5;
-					marginFontCustom = 1;
-					
+				var imageUp = $ib3.utils.getWebFOCUSUriByResourcePath(customCompareIconUp, wfPath),
+					imageDown = $ib3.utils.getWebFOCUSUriByResourcePath(customCompareIconDown, wfPath),
+					imageCompare = percentageVariationDirection == 'up' ? imageUp : imageDown;
 					
 				var variationElem = infoContainer.append('svg:image')
 					.attr('class', 'image-container')
@@ -189,10 +171,10 @@
 					.attr('height', kpiTitleElem.node().getBBox().height)
 					.attr('xlink:href', imageCompare)
 					.attr('transform', function() {
-					return 'translate(0, ' + ((this.getBBox().height * marginFontCustom) + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height) + ') '; 
+						return 'translate(0, ' + (this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height) + ') '; 
 					});	
 				 
-			}else{
+			} else {
 				var variationElem = infoContainer.append('path')
 					.attr('d', trianglePath)
 					.attr('fill', percentageColor)
@@ -201,16 +183,15 @@
 							'rotate(' + ( percentageVariationDirection == 'up' ? 0 : 180) + ')'; 
 					});	
 			}
-			
 
-			var kpiCompareValueWidth = widthInfo - variationElem.node().getBBox().width;
+			var kpiCompareValueWidth = infoWidth - variationElem.node().getBBox().width;
 
 			var kpiCompareValueElem = infoContainer.append('text')
 				.attr('class', 'kpi-value')
 				.attr('width', kpiCompareValueWidth)
 				.attr('fill', percentageColor)
 				.attr('x', variationElem.node().getBBox().width)
-				.text(percentageValue);
+				.text(percentageFormattedValue);
 
 			kpiCompareValueElem
 				.attr('font-size', function() { 
@@ -226,23 +207,17 @@
 				});
 		
 		}
-		 if((calculateFontSize) && (title_row)){
+		
+		if((calculateFontSize) && (titleRow)){
 			imageElem
 				.attr('y', 20 + kpiTitleElem.node().getBBox().height);
-		 }
-		
-		 
+		}
 		
 		//Check if text over flow height
 		var availableHeight = height,
-			availableWidth = widthInfo,
-			kpiTitleWidth = kpiTitleElem.node().getBBox().width,
 			kpiTitleHeight = kpiTitleElem.node().getBBox().height,
-			kpiValueWidth = kpiValueElem.node().getBBox().width,
 			kpiValueHeight = kpiValueElem.node().getBBox().height,
 			kpiCompareTriangleHeight = hasCompareValue ? variationElem.node().getBBox().height : 0,
-			kpiCompareTriangleWidth = hasCompareValue ? variationElem.node().getBBox().width : 0,
-			kpiCompareValueWidth = hasCompareValue ? kpiCompareValueElem.node().getBBox().width : 0,
 			notHasEnoughtHeight = availableHeight - kpiTitleHeight - kpiValueHeight - kpiCompareTriangleHeight < 0;
 		
 		if (notHasEnoughtHeight && calculateFontSize) {
@@ -311,49 +286,15 @@
 				.attr('fill', '#d1d1d1');
 		}
 		
-		//Asing drill/tooltip clases
-		d3.select(container)
-			.attr('class', $ib3.config.getDrillClass('riser', 0, 0));		
-
+		//Asing drill/tooltip
+		d3.select(container).attr('class', $ib3.config.getDrillClass('riser', 0, 0));
+		d3.select('svg > rect').attr('class', $ib3.config.getDrillClass('riser', 0, 0));
 		$ib3.utils.setUpTooltip(d3.select(container).node(), 0, 0, kpiDataElem);
 		$ib3.utils.setUpTooltip(d3.select('svg > rect').node(), 0, 0, kpiDataElem);
-		
+
 		$ib3.config.finishRender();
 		
-		function getImagePath(customImage) {
-			
-			var imagePath = '',
-				wfPath = (typeof WFInstallOption_CGIPath == 'undefined' ? $ib3.config.getProperty('kpiboxProperties.ibiAppsPath') : WFInstallOption_CGIPath);
-			
-			wfPath = $.trim(wfPath);
-			wfPath = wfPath.substring(wfPath.length - 1) == '/'
-				? wfPath
-				: wfPath + '/';
-				
-			customImage = $.trim(customImage);
-			
-			if (customImage.substring(0, 4) != "IBFS") {
-				if(customImage.substring(0, 4) == "http" || 
-					customImage.substring(0, 10) == "data:image" ||
-					customImage.substring(0,2) == '\\') {
-					imagePath = customImage;
-				} else if (customImage.substring(0, 1) == "/") {
-					imagePath = wfPath + customImage.substring(1);
-				} else {
-					imagePath = wfPath + customImage;
-				}
-				
-			} else {
-				imagePath = wfPath + 'run.bip?BIP_REQUEST_TYPE=BIP_RUN' +
-					'&BIP_folder=' + customImage.substring(0, customImage.lastIndexOf("/")) +
-					'&BIP_item=' + customImage.substring(customImage.lastIndexOf("/") + 1);
-			}
-			
-			return imagePath;		
-			
-		}
-		
-		function calculateColor(value, kpiSign, isDummyData){
+		function _calculateComparisonColor(value, kpiSign, isDummyData){
 			
 			var fillColor = 'black';
 			var is_percentaje = formatComparation.indexOf('%');
@@ -368,14 +309,12 @@
 			}else{
 				for (var a = 0; a < colorBands.length; a++) {
 					var aux = (kpiSign == 0) ? (value * (-1)) : value;
-					//if ((aux > colorBands[a].start/100) && (aux < colorBands[a].stop/100)) {
 					if ((aux > colorBands[a].start) && (aux < colorBands[a].stop)) {
 						fillColor = colorBands[a].color;
 						break;
 					}
 				}
 			}
-			
 			
 			return fillColor;
 			
