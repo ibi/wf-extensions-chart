@@ -43,10 +43,14 @@
 		var container = d3.select(mainContainer).attr('class', 'extension_container').append('g');
 	
 		var defaultMin = 0,
-			defaultMax = $(data)
+			nonPercentageValues = $(data)
 				.filter(function(i,d) { return !d.valueispercentage; })
 				.map(function(i,d) { return d.value })
-				.get().reduce(function(total, elem) { return total + elem });
+				.get(),
+			allValues = $(data)
+				.map(function(i,d) { return d.value })
+				.get(),
+			defaultMax = nonPercentageValues.length ? nonPercentageValues.reduce(function(total, elem) { return total + elem }, 0) : 100;
 
 		var colorDefaultScale = d3.scaleLinear()
 			.domain([0, defaultMax])
