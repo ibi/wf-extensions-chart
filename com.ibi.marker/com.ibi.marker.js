@@ -149,7 +149,9 @@
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
 		noDataRenderCallback: noDataRenderCallback,
 		resources:  {  // Additional external resources (CSS & JS) required by this extension
-			script: ['lib/d3.min.js', 'lib/marker.js'],
+			script: window.d3
+				? ['lib/marker.js']
+				: ['lib/d3.min.js', 'lib/marker.js'],
 			css: ['css/style.css']
 		},
 		modules: {
