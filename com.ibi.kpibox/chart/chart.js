@@ -26,9 +26,9 @@
 			
 		var numberFormat = $ib3.config.getFormatByBucketName('value', 0),
 			colorBands = $ib3.config.getProperty('colorScale.colorBands'),
-			calculeComparationFunctionParam1 = $ib3.config.getProperty('kpiboxProperties.calculeComparationFunction.param1'),
-			calculeComparationFunctionParam2 = $ib3.config.getProperty('kpiboxProperties.calculeComparationFunction.param2'),
-			calculeComparationFunctionBody = $ib3.config.getProperty('kpiboxProperties.calculeComparationFunction.body'),
+			calculateComparationFunctionParam1 = $ib3.config.getProperty('kpiboxProperties.calculateComparationFunction.param1'),
+			calculateComparationFunctionParam2 = $ib3.config.getProperty('kpiboxProperties.calculateComparationFunction.param2'),
+			calculateComparationFunctionBody = $ib3.config.getProperty('kpiboxProperties.calculateComparationFunction.body'),
 			customCompareIconActive = $ib3.config.getProperty('kpiboxProperties.customCompareIcon.active'),
 			customCompareIconUp = $ib3.config.getProperty('kpiboxProperties.customCompareIcon.iconUp'),
 			customCompareIconDown = $ib3.config.getProperty('kpiboxProperties.customCompareIcon.iconDown'),
@@ -41,6 +41,11 @@
 			fixedPixelLinesMargin = $ib3.config.getProperty('kpiboxProperties.fixedPixelLinesMargin') || 0,
 			imagePercentageWidth = $ib3.config.getProperty('kpiboxProperties.imagePercentageWidth'),
 			wfPath = $ib3.config.getProperty('kpiboxProperties.ibiAppsPath');
+			
+		//Advanced Function
+		var calculateComparisonValueFunctionBody = $ib3.config.getProperty('kpiboxProperties.calculateComparisonValueFunction'),
+			calculateComparisonValueColorFunctionBody = $ib3.config.getProperty('kpiboxProperties.calculateComparisonValueColorFunction'),
+			calculateComparisonIconFunctionBody = $ib3.config.getProperty('kpiboxProperties.calculateComparisonIconFunction');
 			
 		//Defaults
 		if (typeof imagePercentageWidth == 'undefined') {
@@ -132,80 +137,151 @@
 			});
 		
 		if (hasCompareValue) {
-					
-			var percentageCalcValue;
-			try { 
-				var calculeComparationFunction = new Function(calculeComparationFunctionParam1, calculeComparationFunctionParam2, calculeComparationFunctionBody);
-				percentageCalcValue = calculeComparationFunction(kpiValue, compareValue); 
-			} catch(e) { 			
-				$ib3.utils.showRenderError('Error compare function definition<br>Params names must match the var names used inside the body of the function<br><br> Javascript Error: ' + e.message);			
-				return;
-			}
 			
-			var percentageFormattedValue;
-			if(setInfiniteToZero){
-				percentageFormattedValue = ((percentageCalcValue == 'Infinity')||(isNaN(percentageCalcValue))) ? 0 : $ib3.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
-			} else {
-				percentageFormattedValue = (percentageCalcValue == 'Infinity') ? String.fromCharCode(8734) : $ib3.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
-			}
-			
-			var percentageColor = _calculateComparisonColor(percentageCalcValue, kpiSign, isDummyData);
-				percentageVariationDirection = percentageCalcValue < 0 ? 'down' : 'up';
+			var isAdvancedWay = !!calculateComparisonValueFunctionBody && !isDummyData;	
+			if(isAdvancedWay) {
+				//To use advanced way set up the following properties in json fileCreatedDate
+				/*
+					"calculateComparisonValueFunction": "if(value == 0 && comparevalue == 0) { return 0; } var result = (value - comparevalue) / Math.abs(comparevalue);  return (result == 'Infinity') ? String.fromCharCode(8734) : $ib3.config.formatNumber(parseFloat(result).toFixed(4), '#,###.00%');",	
+					"calculateComparisonValueColorFunction": "var colorBands = $ib3.config.getProperty('colorScale.colorBands'); var color = 'black'; for (var a = 0; a < colorBands.length; a++) { var aux = (kpisign == 0) ? (value * (-1)) : value; if ((aux > colorBands[a].start) && (aux < colorBands[a].stop)) { color = colorBands[a].color; break; } } return color;",	
+					"calculateComparisonIconFunction": "if(value == 0 && comparevalue == 0) { return 0; } var result = (value - comparevalue) / Math.abs(comparevalue); if(result == 'Infinity' || result == 0) { return '' } else if (result > 0) { return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAArCAYAAAA65tviAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAHxSURBVHja1NnLahRBFIDhzzESNxovoASUaLyQhQuzUIMo2YRgkGwiElAXIt4x8S4BRUPQMcaASMRxGXwZn8S3cOFiWhhietIz09Xd9a+6Z6po/pk6Veec3mZxRmBu4jzuhnxITXje4g4GYha5gqPJ9WqsItvxseX+NiZjFGngxIbPlmMTOZnExUZGMR2TSL3Nd+vYG4PIdBLkaezDu6qL9ON7hnEPcbjKItdwKMO4HVssv1JFDuBrB+NvYLaKIt+wq8M5b6omMoarXcw7hQdVEunll63jYBVE5nC5h/l7OoytICIDOZ0JsxgpU+Q+9ue0PL+UJTKCDznuepdS8rPgImtJqp4nr4oWGcdEgDztOB4VKfI5YB2ztkkdE0RkAWcCl8jLoUUGsVhAw2IGp0OKPEtS9SJohBIZxQvFMYb5ECI/FM8CduYpMoWzJYgM4mWeIivKYylL4GcReZ/UDWVS71VkKFmnZTOFC72IzAXIp7pltVuRCTxXHc61q31qJeVT3XIv7UBOE7neaYpQ4Hb8KatIX7JTVZXHm51ptZQ0+ohqs7KVyLGkDq8647jYTmRJPKxr9pD/E5nUbELHwrCWxmCtJcAb4uOJpB1Va6nIhiMU2Y3X//6JIfwUL0/xq0+zG96P3xXKq7LyR/PF0q2/AwC35DSzyhxPxQAAAABJRU5ErkJggg==' } else { return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAArCAYAAAA65tviAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAMwSURBVHja1JjJTxNxFMdfpxXa2oWWaUtpSxe2VlBEZFEiwYP6JygH44XowUSDJhoOJiToAZcQNyJRjJFEFDXIQTFRlsYFkRBjjUBIlIA1qMRqAkG0luelGMSWdjq/aWcmeYfJ/Oa972e+eW/mN6J+s3a6zOujp5TSgHgBRSCgY0EkwrTZeXGHK/2FxGNQt5Z5fTXGmXkxCPD4KaFgLFVxGBAAOnONQwiAQozmInsjAgAFAOAxqHfNJEtQaG5MquX+KaW0FgAAMBjteSa30Ny4UOKoXdT/F6Su0iWfUMt/CQWi264bxyX6YenJ2dLM/UIBaSjP2RoWBAFgyJjyje8Q97PT3i7XTS1vILeNPsTnBveqZL8HTZqi/y5giOjMNb7iqxuXN9iaQmkOCVJX6VJ9UiQH+AYxQivnMIxmCHehPc/UyzeQ8yWZRxiDIAB4DKoZvkDccxoHV9JKrdRYPXb9UT40eIASwSitPLjiIowQzy3aL4l2484a09NIOiOCnNmUvTOREGOpih8YhU6IZtGtPHN3okAuFjuOEQOpq3SlJGIcewyqWYxSI0S78HpBxt14g5zenF1FHAQB4LVBHbdx3OFMf8lEG8VkDD526KvjtX0d1in3MroJGYbbSn/k2o0bay0PmepiDNJQnrONS4g3+ugbnBVIsPHbuQI5V5p5IG4gCADjKeS3xQMmzddY9VCxNmSfTXeT9PeU26bbHXMCZBH9Zu00KTfa8s0P2Gih2DzFJ1Z6Dwk3fLIkfKdV7GOVBFlGj103wdaN1nUZt9nqYA1yYktu/nfpqoVYIZ5ZUj8jAR1AIsm19da2WEEay7KqeQOCABDcNzCC6LXpPpCqT5Ean302upnJ+tkkCfZbtDuIzW8kGI8c+vfRunG10NpCsjZF8qU2aNJU+cWRU04ppYFJtbyG6CczEo5o/lI2FTvqSdclDlJf4bT7ZOHHcZ+N9iIHdYGLpMEnHhLkZHnOdsGAIAAM65RzyyG6sgwjXNUj2uz//qXU1S89H9es9g+YtQWc7Y+Rw+jKMowuunFpo/0Ul7U4BTle4bQgAE6qZX7kuBYg966MtBTarnBd588A2LuBDm0qJvAAAAAASUVORK5CYII=' }",	
+				*/
+				var percentageCalcValue;
+				try {
+					var calculateComparisonValueFunction = new Function('value', 'comparevalue', 'kpisign', calculateComparisonValueFunctionBody);
+					percentageCalcValue = calculateComparisonValueFunction(kpiValue, compareValue, kpiSign);
+				} catch (e) {
+					$ib3.utils.showRenderError('Error compare function definition<br>Params names must match the buckets names used inside the body of the function<br><br> Javascript Error: ' + e.message);
+					return;
+				}
 
-			var triangleHeight = kpiValueElem.node().getBBox().height;
-			var trianglePath = d3.symbol()
-				.size([triangleHeight * triangleHeight / 2]) //TODO: Make responsive size
-				.type(d3.symbolTriangle);
-				
-			var marginTriangle = percentageVariationDirection == 'up' ? 1.75 : 1.5;
-			
-			if(customCompareIconActive) {
-				 
-				var imageUp = $ib3.utils.getWebFOCUSUriByResourcePath(customCompareIconUp, wfPath),
-					imageDown = $ib3.utils.getWebFOCUSUriByResourcePath(customCompareIconDown, wfPath),
-					imageCompare = percentageVariationDirection == 'up' ? imageUp : imageDown;
-					
-				var variationElem = infoContainer.append('svg:image')
-					.attr('class', 'image-container')
+				var percentageColor;
+				try {
+					var calculateComparisonValueColorFunction = new Function('value', 'comparevalue', 'kpisign', calculateComparisonValueColorFunctionBody);
+					percentageColor = calculateComparisonValueColorFunction(kpiValue, compareValue, kpiSign);
+				} catch (e) {
+					$ib3.utils.showRenderError('Error calculateComparisonValueColor function definition<br>Params names must match the buckets names used inside the body of the function<br><br> Javascript Error: ' + e.message);
+					return;
+				}
+
+				var comparisonIconHref;
+				try {
+					var calculateComparisonIconFunction = new Function('value', 'comparevalue', 'kpisign', calculateComparisonIconFunctionBody);
+					comparisonIconHref = calculateComparisonIconFunction(kpiValue, compareValue, kpiSign);
+				} catch (e) {
+					$ib3.utils.showRenderError('Error calculateComparisonIcon function definition<br>Params names must match the buckets names used inside the body of the function<br><br> Javascript Error: ' + e.message);
+					return;
+				}
+
+				var comparisonIconElem = infoContainer.append('svg:image')
+					.attr('class', 'comparison-image-container')
 					.attr('width', kpiTitleElem.node().getBBox().height)
 					.attr('height', kpiTitleElem.node().getBBox().height)
-					.attr('xlink:href', imageCompare)
+					.attr('xlink:href', comparisonIconHref)
 					.attr('transform', function() {
-						return 'translate(0, ' + (this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height) + ') '; 
-					});	
-				 
-			} else {
-				var variationElem = infoContainer.append('path')
-					.attr('d', trianglePath)
+						return 'translate(0, ' + (this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height) + ') ';
+					});
+
+				var kpiCompareValueWidth = infoWidth - comparisonIconElem.node().getBBox().width;
+
+				var comparisonValueElem = infoContainer.append('text')
+					.attr('class', 'kpi-value')
+					.attr('width', kpiCompareValueWidth)
 					.attr('fill', percentageColor)
-					.attr('transform', function() {
-						return 'translate( ' + (this.getBBox().width / 2) + ', ' + (this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height + fixedPixelLinesMargin * marginTriangle) + ') ' + 
-							'rotate(' + ( percentageVariationDirection == 'up' ? 0 : 180) + ')'; 
-					});	
+					.attr('x', comparisonIconElem.node().getBBox().width)
+					.text(percentageCalcValue);
+
+				comparisonValueElem
+					.attr('font-size', function() {
+						return calculateFontSize ?
+							Math.min(kpiCompareValueWidth, (kpiCompareValueWidth - 8) / this.getComputedTextLength() * parseInt($(this).css('font-size'))) + 'px' :
+							fixedFontSizeProp;
+					})
+					.attr('height', function() {
+						return this.getBBox().height;
+					})
+					.attr('y', function() {
+						return this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height + fixedPixelLinesMargin * 2;
+					});
+
+				comparisonIconElem
+					.attr('transform', 'translate(0, ' + (comparisonValueElem.attr('y') - comparisonIconElem.node().getBBox().height) + ')')
+				
+			} else {
+						
+				var percentageCalcValue;
+				try { 
+					var calculateComparationFunction = new Function(calculateComparationFunctionParam1, calculateComparationFunctionParam2, calculateComparationFunctionBody);
+					percentageCalcValue = calculateComparationFunction(kpiValue, compareValue); 
+				} catch(e) { 			
+					$ib3.utils.showRenderError('Error compare function definition<br>Params names must match the var names used inside the body of the function<br><br> Javascript Error: ' + e.message);			
+					return;
+				}
+				
+				var percentageFormattedValue;
+				if(setInfiniteToZero){
+					percentageFormattedValue = ((percentageCalcValue == 'Infinity')||(isNaN(percentageCalcValue))) ? 0 : $ib3.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
+				} else {
+					percentageFormattedValue = (percentageCalcValue == 'Infinity') ? String.fromCharCode(8734) : $ib3.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
+				}
+				
+				var percentageColor = _calculateComparisonColor(percentageCalcValue, kpiSign, isDummyData);
+					percentageVariationDirection = percentageCalcValue < 0 ? 'down' : 'up';
+
+				var triangleHeight = kpiValueElem.node().getBBox().height;
+				var trianglePath = d3.symbol()
+					.size([triangleHeight * triangleHeight / 2]) //TODO: Make responsive size
+					.type(d3.symbolTriangle);
+					
+				var marginTriangle = percentageVariationDirection == 'up' ? 1.75 : 1.5;
+				
+				if(customCompareIconActive) {
+					 
+					var imageUp = $ib3.utils.getWebFOCUSUriByResourcePath(customCompareIconUp, wfPath),
+						imageDown = $ib3.utils.getWebFOCUSUriByResourcePath(customCompareIconDown, wfPath),
+						imageCompare = percentageVariationDirection == 'up' ? imageUp : imageDown;
+						
+					var comparisonIconElem = infoContainer.append('svg:image')
+						.attr('class', 'image-container')
+						.attr('width', kpiTitleElem.node().getBBox().height)
+						.attr('height', kpiTitleElem.node().getBBox().height)
+						.attr('xlink:href', imageCompare)
+						.attr('transform', function() {
+							return 'translate(0, ' + (this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height) + ') '; 
+						});	
+					 
+				} else {
+					var comparisonIconElem = infoContainer.append('path')
+						.attr('d', trianglePath)
+						.attr('fill', percentageColor)
+						.attr('transform', function() {
+							return 'translate( ' + (this.getBBox().width / 2) + ', ' + (this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height + fixedPixelLinesMargin * marginTriangle) + ') ' + 
+								'rotate(' + ( percentageVariationDirection == 'up' ? 0 : 180) + ')'; 
+						});	
+				}
+
+				var kpiCompareValueWidth = infoWidth - comparisonIconElem.node().getBBox().width;
+
+				var comparisonValueElem = infoContainer.append('text')
+					.attr('class', 'kpi-value')
+					.attr('width', kpiCompareValueWidth)
+					.attr('fill', percentageColor)
+					.attr('x', comparisonIconElem.node().getBBox().width)
+					.text(percentageFormattedValue);
+
+				comparisonValueElem
+					.attr('font-size', function() { 
+						return calculateFontSize
+							? Math.min(kpiCompareValueWidth, (kpiCompareValueWidth - 8) / this.getComputedTextLength() * parseInt($(this).css('font-size'))) + 'px'
+							: fixedFontSizeProp;
+					})
+					.attr('height', function() { 
+						return this.getBBox().height;
+					})
+					.attr('y', function() { 
+						return this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height + fixedPixelLinesMargin * 2;
+					});
 			}
-
-			var kpiCompareValueWidth = infoWidth - variationElem.node().getBBox().width;
-
-			var kpiCompareValueElem = infoContainer.append('text')
-				.attr('class', 'kpi-value')
-				.attr('width', kpiCompareValueWidth)
-				.attr('fill', percentageColor)
-				.attr('x', variationElem.node().getBBox().width)
-				.text(percentageFormattedValue);
-
-			kpiCompareValueElem
-				.attr('font-size', function() { 
-					return calculateFontSize
-						? Math.min(kpiCompareValueWidth, (kpiCompareValueWidth - 8) / this.getComputedTextLength() * parseInt($(this).css('font-size'))) + 'px'
-						: fixedFontSizeProp;
-				})
-				.attr('height', function() { 
-					return this.getBBox().height;
-				})
-				.attr('y', function() { 
-					return this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height + fixedPixelLinesMargin * 2;
-				});
-		
 		}
 		
 		if((calculateFontSize) && (titleRow)){
@@ -217,7 +293,7 @@
 		var availableHeight = height,
 			kpiTitleHeight = kpiTitleElem.node().getBBox().height,
 			kpiValueHeight = kpiValueElem.node().getBBox().height,
-			kpiCompareTriangleHeight = hasCompareValue ? variationElem.node().getBBox().height : 0,
+			kpiCompareTriangleHeight = hasCompareValue ? comparisonIconElem.node().getBBox().height : 0,
 			notHasEnoughtHeight = availableHeight - kpiTitleHeight - kpiValueHeight - kpiCompareTriangleHeight < 0;
 		
 		if (notHasEnoughtHeight && calculateFontSize) {
@@ -246,12 +322,12 @@
 					});
 			}
 				
-			if(hasCompareValue) {
+			if(hasCompareValue && isAdvancedWay) {
 				
 				var compareTriangleScale = elemHeight / kpiCompareTriangleHeight;
 				
 				if (compareTriangleScale < 1) {	
-					variationElem
+					comparisonIconElem
 						.attr('transform', function() {
 							return 'scale(' + compareTriangleScale + ') translate( ' + (this.getBBox().width / 2) + ', ' + (this.getBBox().height + (elemHeight / compareTriangleScale) * 2) + ') ' + 
 								'rotate(' + ( percentageVariationDirection == 'up' ? 0 : 180) + ')'; 
@@ -263,7 +339,7 @@
 				if (compareValueScale < 1) {	
 					kpiCompareValueElem
 						.attr('transform', 'scale(' + compareValueScale + ')')
-						.attr('x', variationElem.node().getBBox().width)
+						.attr('x', comparisonIconElem.node().getBBox().width)
 						.attr('y', function() { 
 							return (elemHeight / compareValueScale) * 3;
 						});
@@ -280,9 +356,9 @@
 				.attr('fill', '#d1d1d1');
 			kpiValueElem
 				.attr('fill', '#d1d1d1');
-			variationElem
+			comparisonValueElem
 				.attr('fill', '#d1d1d1');
-			kpiCompareValueElem
+			comparisonIconElem
 				.attr('fill', '#d1d1d1');
 		}
 		
