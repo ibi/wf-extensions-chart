@@ -42,7 +42,22 @@ To configure or customize your extension edit "properties" object in properties.
 			"calculateFontSize": false, 
 			"fixedFontSizeProp": "18px",
 			"fixedPixelLinesMargin": 20,
-			"imagePercentageWidth": 40
+			"imagePercentageWidth": 40,
+			"titleFont": {
+				"size": "18px",
+				"color": "black",
+				"family": "Arial, sans-serif"
+			},
+			"measureFont": {
+				"size": "18px",
+				"color": "black",
+				"family": "Arial, sans-serif"
+			},
+			"variationFont": {
+				"size": "18px",
+				"family": "Arial, sans-serif"
+			},
+			"bodyBackgroundColor": "transparent"
 		},
 		"colorScale": {
 			"colorMode":"discrete",
