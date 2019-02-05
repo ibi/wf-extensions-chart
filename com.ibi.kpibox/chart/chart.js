@@ -26,6 +26,7 @@
 			
 		var numberFormat = $ib3.config.getFormatByBucketName('value', 0),
 			colorBands = $ib3.config.getProperty('colorScale.colorBands'),
+			bodyBackgroundColor = $ib3.config.getProperty('kpiboxProperties.bodyBackgroundColor') || "transparent",
 			calculateComparationFunctionParam1 = $ib3.config.getProperty('kpiboxProperties.calculateComparationFunction.param1'),
 			calculateComparationFunctionParam2 = $ib3.config.getProperty('kpiboxProperties.calculateComparationFunction.param2'),
 			calculateComparationFunctionBody = $ib3.config.getProperty('kpiboxProperties.calculateComparationFunction.body'),
@@ -46,6 +47,19 @@
 		var calculateComparisonValueFunctionBody = $ib3.config.getProperty('kpiboxProperties.calculateComparisonValueFunction'),
 			calculateComparisonValueColorFunctionBody = $ib3.config.getProperty('kpiboxProperties.calculateComparisonValueColorFunction'),
 			calculateComparisonIconFunctionBody = $ib3.config.getProperty('kpiboxProperties.calculateComparisonIconFunction');
+			
+		//Several Custom Font Sizes
+		var titleFontSize = $ib3.config.getProperty('kpiboxProperties.titleFont.size') || fixedFontSizeProp,
+			titleFontColor = $ib3.config.getProperty('kpiboxProperties.titleFont.color') || 'black',
+			titleFontFamily = $ib3.config.getProperty('kpiboxProperties.titleFont.family') || 'Arial, sans-serif',
+			measureFontSize = $ib3.config.getProperty('kpiboxProperties.measureFont.size') || fixedFontSizeProp,
+			measureFontColor = $ib3.config.getProperty('kpiboxProperties.measureFont.color') || 'black',
+			measureFontFamily = $ib3.config.getProperty('kpiboxProperties.measureFont.family') || 'Arial, sans-serif',
+			variationFontSize = $ib3.config.getProperty('kpiboxProperties.variationFont.size') || fixedFontSizeProp,
+			variationFontFamily = $ib3.config.getProperty('kpiboxProperties.variationFont.family') || 'Arial, sans-serif';
+			
+		d3.select('body')
+			.style('background-color', bodyBackgroundColor)
 			
 		//Defaults
 		if (typeof imagePercentageWidth == 'undefined') {
@@ -99,7 +113,8 @@
 		var kpiTitleElem = titleContainer.append('text')
 			.attr('class', 'kpi-title')
 			.attr('width', infoWidth)
-			.attr('fill', '#333')
+			.attr('fill', titleFontColor)
+			.attr('font-family', titleFontFamily)
 			.attr('x', titleX)
 			.text(kpiBoxTitle);	
 	
@@ -107,7 +122,7 @@
 			.attr('font-size', function() { 
 				return calculateFontSize
 					? Math.min((titleRow ? width : infoWidth), ((titleRow ? width : infoWidth) - 8) / this.getComputedTextLength() * parseInt($(this).css('font-size'))) + 'px'
-					: fixedFontSizeProp;
+					: titleFontSize;
 			})
 			.attr('height', function() { 
 				return this.getBBox().height;
@@ -119,7 +134,8 @@
 		var kpiValueElem = infoContainer.append('text')
 			.attr('class', 'kpi-value')
 			.attr('width', infoWidth)
-			.attr('fill', '#333')
+			.attr('fill', measureFontColor)
+			.attr('font-family', measureFontFamily)
 			.attr('x', 0)
 			.text(kpiFormattedValue);
 
@@ -127,7 +143,7 @@
 			.attr('font-size', function() { 
 				return calculateFontSize
 					? Math.min(infoWidth, (infoWidth - 8) / this.getComputedTextLength() * parseInt($(this).css('font-size'))) + 'px'
-					: fixedFontSizeProp;
+					: measureFontSize;
 			})
 			.attr('height', function() { 
 				return this.getBBox().height;
@@ -188,6 +204,7 @@
 					.attr('class', 'kpi-value')
 					.attr('width', kpiCompareValueWidth)
 					.attr('fill', percentageColor)
+					.attr('font-family', variationFontFamily)
 					.attr('x', comparisonIconElem.node().getBBox().width)
 					.text(percentageCalcValue);
 
@@ -195,7 +212,7 @@
 					.attr('font-size', function() {
 						return calculateFontSize ?
 							Math.min(kpiCompareValueWidth, (kpiCompareValueWidth - 8) / this.getComputedTextLength() * parseInt($(this).css('font-size'))) + 'px' :
-							fixedFontSizeProp;
+							variationFontSize;
 					})
 					.attr('height', function() {
 						return this.getBBox().height;
@@ -225,62 +242,139 @@
 					percentageFormattedValue = (percentageCalcValue == 'Infinity') ? String.fromCharCode(8734) : $ib3.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
 				}
 				
-				var percentageColor = _calculateComparisonColor(percentageCalcValue, kpiSign, isDummyData);
-					percentageVariationDirection = percentageCalcValue < 0 ? 'down' : 'up';
-
-				var triangleHeight = kpiValueElem.node().getBBox().height;
-				var trianglePath = d3.symbol()
-					.size([triangleHeight * triangleHeight / 2]) //TODO: Make responsive size
-					.type(d3.symbolTriangle);
-					
-				var marginTriangle = percentageVariationDirection == 'up' ? 1.75 : 1.5;
+				if(calculateFontSize) {
 				
-				if(customCompareIconActive) {
-					 
-					var imageUp = $ib3.utils.getWebFOCUSUriByResourcePath(customCompareIconUp, wfPath),
-						imageDown = $ib3.utils.getWebFOCUSUriByResourcePath(customCompareIconDown, wfPath),
-						imageCompare = percentageVariationDirection == 'up' ? imageUp : imageDown;
+					var percentageColor = _calculateComparisonColor(percentageCalcValue, kpiSign, isDummyData);
+						percentageVariationDirection = percentageCalcValue < 0 ? 'down' : 'up';
+
+					var triangleHeight = kpiValueElem.node().getBBox().height;
+					var trianglePath = d3.symbol()
+						.size([triangleHeight * triangleHeight / 2]) //TODO: Make responsive size
+						.type(d3.symbolTriangle);
 						
-					var comparisonIconElem = infoContainer.append('svg:image')
-						.attr('class', 'image-container')
-						.attr('width', kpiTitleElem.node().getBBox().height)
-						.attr('height', kpiTitleElem.node().getBBox().height)
-						.attr('xlink:href', imageCompare)
-						.attr('transform', function() {
-							return 'translate(0, ' + (this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height) + ') '; 
-						});	
-					 
-				} else {
-					var comparisonIconElem = infoContainer.append('path')
-						.attr('d', trianglePath)
+					var marginTriangle = percentageVariationDirection == 'up' ? 1.75 : 1.5;
+					
+					if(customCompareIconActive) {
+						 
+						var imageUp = $ib3.utils.getWebFOCUSUriByResourcePath(customCompareIconUp, wfPath),
+							imageDown = $ib3.utils.getWebFOCUSUriByResourcePath(customCompareIconDown, wfPath),
+							imageCompare = percentageVariationDirection == 'up' ? imageUp : imageDown;
+							
+						var comparisonIconElem = infoContainer.append('svg:image')
+							.attr('class', 'image-container')
+							.attr('width', kpiTitleElem.node().getBBox().height)
+							.attr('height', kpiTitleElem.node().getBBox().height)
+							.attr('xlink:href', imageCompare)
+							.attr('transform', function() {
+								return 'translate(0, ' + (this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height) + ') '; 
+							});	
+						 
+					} else {
+						var comparisonIconElem = infoContainer.append('path')
+							.attr('d', trianglePath)
+							.attr('fill', percentageColor)
+							.attr('transform', function() {
+								return 'translate( ' + (this.getBBox().width / 2) + ', ' + (this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height + fixedPixelLinesMargin * marginTriangle) + ') ' + 
+									'rotate(' + ( percentageVariationDirection == 'up' ? 0 : 180) + ')'; 
+							});	
+					}
+
+					var kpiCompareValueWidth = infoWidth - comparisonIconElem.node().getBBox().width;
+
+					var comparisonValueElem = infoContainer.append('text')
+						.attr('class', 'kpi-value')
+						.attr('width', kpiCompareValueWidth)
 						.attr('fill', percentageColor)
-						.attr('transform', function() {
-							return 'translate( ' + (this.getBBox().width / 2) + ', ' + (this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height + fixedPixelLinesMargin * marginTriangle) + ') ' + 
-								'rotate(' + ( percentageVariationDirection == 'up' ? 0 : 180) + ')'; 
-						});	
+						.attr('font-family', variationFontFamily)
+						.attr('x', comparisonIconElem.node().getBBox().width)
+						.text(percentageFormattedValue);
+
+					comparisonValueElem
+						.attr('font-size', function() { 
+							return calculateFontSize
+								? Math.min(kpiCompareValueWidth, (kpiCompareValueWidth - 8) / this.getComputedTextLength() * parseInt($(this).css('font-size'))) + 'px'
+								: variationFontSize;
+						})
+						.attr('height', function() { 
+							return this.getBBox().height;
+						})
+						.attr('y', function() { 
+							return this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height + fixedPixelLinesMargin * 2;
+						});
+				} else {
+					var percentageColor = _calculateComparisonColor(percentageCalcValue, kpiSign, isDummyData);
+						percentageVariationDirection = percentageCalcValue < 0 ? 'down' : 'up';
+
+					var comparisonValueElem = infoContainer.append('text')
+						.attr('class', 'kpi-value')
+						.attr('fill', percentageColor)
+						.attr('font-family', variationFontFamily)
+						.text(percentageFormattedValue);
+
+					comparisonValueElem
+						.attr('font-size', function() { 
+							return variationFontSize;
+						})
+						.attr('height', function() { 
+							return this.getBBox().height;
+						})
+						.attr('y', function() { 
+							return this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height + fixedPixelLinesMargin * 2;
+						});
+
+					var triangleHeight = comparisonValueElem.node().getBBox().height;
+					if(calculateFontSize) {
+						triangleHeight = kpiValueElem.node().getBBox().height;
+					}
+					var trianglePath = d3.symbol()
+						.size([triangleHeight * triangleHeight / 2]) //TODO: Make responsive size
+						.type(d3.symbolTriangle);
+						
+					var marginTriangle = percentageVariationDirection == 'up' ? 1.75 : 1.5;
+					
+					if(customCompareIconActive) {
+						 
+						var imageUp = $ib3.utils.getWebFOCUSUriByResourcePath(customCompareIconUp, wfPath),
+							imageDown = $ib3.utils.getWebFOCUSUriByResourcePath(customCompareIconDown, wfPath),
+							imageCompare = percentageVariationDirection == 'up' ? imageUp : imageDown;
+							
+						var comparisonIconElem = infoContainer.append('svg:image')
+							.attr('class', 'image-container')
+							.attr('width', kpiTitleElem.node().getBBox().height)
+							.attr('height', kpiTitleElem.node().getBBox().height)
+							.attr('xlink:href', imageCompare)
+							.attr('transform', function() {
+								return 'translate(0, ' + (this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height) + ') '; 
+							});	
+						 
+					} else {
+						var comparisonIconElem = infoContainer.append('path')
+							.attr('d', trianglePath)
+							.attr('fill', percentageColor)
+							.attr('transform', function() {
+								return 'translate( ' + (this.getBBox().width / 2) + ', ' + (this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height + fixedPixelLinesMargin * marginTriangle) + ') ' + 
+									'rotate(' + ( percentageVariationDirection == 'up' ? 0 : 180) + ')'; 
+							});	
+					}
+						
+					comparisonValueElem
+						.attr('x', comparisonIconElem.node().getBBox().width)
+						
+					if(calculateFontSize) {
+						
+						var kpiCompareValueWidth = infoWidth - comparisonIconElem.node().getBBox().width;
+						
+						comparisonValueElem
+							.attr('width', kpiCompareValueWidth)
+							
+						comparisonValueElem
+							.attr('font-size', function() {
+								Math.min(kpiCompareValueWidth, (kpiCompareValueWidth - 8) / this.getComputedTextLength() * parseInt($(this).css('font-size'))) + 'px'
+							})
+						
+						
+					}
 				}
-
-				var kpiCompareValueWidth = infoWidth - comparisonIconElem.node().getBBox().width;
-
-				var comparisonValueElem = infoContainer.append('text')
-					.attr('class', 'kpi-value')
-					.attr('width', kpiCompareValueWidth)
-					.attr('fill', percentageColor)
-					.attr('x', comparisonIconElem.node().getBBox().width)
-					.text(percentageFormattedValue);
-
-				comparisonValueElem
-					.attr('font-size', function() { 
-						return calculateFontSize
-							? Math.min(kpiCompareValueWidth, (kpiCompareValueWidth - 8) / this.getComputedTextLength() * parseInt($(this).css('font-size'))) + 'px'
-							: fixedFontSizeProp;
-					})
-					.attr('height', function() { 
-						return this.getBBox().height;
-					})
-					.attr('y', function() { 
-						return this.getBBox().height + kpiTitleElem.node().getBBox().height + kpiValueElem.node().getBBox().height + fixedPixelLinesMargin * 2;
-					});
 			}
 		}
 		

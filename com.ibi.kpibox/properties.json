@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": "2.2.0",
+		"version": "2.2.2",
 		"implements_api_version": "1.0, 2.0",
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
@@ -32,7 +32,22 @@
 			"calculateFontSize": false, 
 			"fixedFontSizeProp": "18px",
 			"fixedPixelLinesMargin": 20,
-			"imagePercentageWidth": 40
+			"imagePercentageWidth": 40,
+			"titleFont": {
+				"size": "18px",
+				"color": "black",
+				"family": "Arial, sans-serif"
+			},
+			"measureFont": {
+				"size": "18px",
+				"color": "black",
+				"family": "Arial, sans-serif"
+			},
+			"variationFont": {
+				"size": "18px",
+				"family": "Arial, sans-serif"
+			},
+			"bodyBackgroundColor": "transparent"
 		},
 		"colorScale": {
 			"colorMode":"discrete",
