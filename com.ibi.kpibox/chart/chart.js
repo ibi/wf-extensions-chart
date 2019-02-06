@@ -1,62 +1,61 @@
 (function() {
 
-    //Set the Global IBI Variable if not exists
-    if(typeof window.$ib3 == 'undefined') {
-        //console.log("Global variable window.$ib3 doesn't exist. ");
-		window.$ib3 = {};
+  //Set the Global IBI Variable if not exists
+  if(typeof window.comIbiKpiboxChartExtension == 'undefined') {
+		window.comIbiKpiboxChartExtension = {};
 	}
 	
-	var chart = {
+	window.comIbiKpiboxChartExtension = {
 		draw: _draw
 	};
 	
-	window.$ib3.chart = chart;
-	
-	function _draw(isDummyData) {
+	function _draw(ib3SLI, isDummyData) {
 		
-		$ib3.config.checkServiceIsInitinalized();
+		$ib3.checkObject(ib3SLI);
+		
+		ib3SLI.config.checkServiceIsInitinalized();
 		
 		//Declare main extension vars
-		var data = $ib3.config.getData(),
-			container = $ib3.config.getContainer(),
-			chart = $ib3.config.getChart(),
-			width = $ib3.config.getChartWidth(),
-			height = $ib3.config.getChartHeight(),
-			properties = $ib3.config.getCustomProperties();	
+		var data = ib3SLI.config.getData(),
+			container = ib3SLI.config.getContainer(),
+			chart = ib3SLI.config.getChart(),
+			width = ib3SLI.config.getChartWidth(),
+			height = ib3SLI.config.getChartHeight(),
+			properties = ib3SLI.config.getCustomProperties();	
 			
-		var numberFormat = $ib3.config.getFormatByBucketName('value', 0),
-			colorBands = $ib3.config.getProperty('colorScale.colorBands'),
-			bodyBackgroundColor = $ib3.config.getProperty('kpiboxProperties.bodyBackgroundColor') || "transparent",
-			calculateComparationFunctionParam1 = $ib3.config.getProperty('kpiboxProperties.calculateComparationFunction.param1'),
-			calculateComparationFunctionParam2 = $ib3.config.getProperty('kpiboxProperties.calculateComparationFunction.param2'),
-			calculateComparationFunctionBody = $ib3.config.getProperty('kpiboxProperties.calculateComparationFunction.body'),
-			customCompareIconActive = $ib3.config.getProperty('kpiboxProperties.customCompareIcon.active'),
-			customCompareIconUp = $ib3.config.getProperty('kpiboxProperties.customCompareIcon.iconUp'),
-			customCompareIconDown = $ib3.config.getProperty('kpiboxProperties.customCompareIcon.iconDown'),
-			formatComparation = $ib3.config.getProperty('kpiboxProperties.formatComparation'),
-			setInfiniteToZero = $ib3.config.getProperty('kpiboxProperties.setInfiniteToZero'),
-			shortenNumber = $ib3.config.getProperty('kpiboxProperties.shortenNumber'),
-			titleRow = $ib3.config.getProperty('kpiboxProperties.titleRow'),
-			calculateFontSize = $ib3.config.getProperty('kpiboxProperties.calculateFontSize'),
-			fixedFontSizeProp = $ib3.config.getProperty('kpiboxProperties.fixedFontSizeProp') || '20px',
-			fixedPixelLinesMargin = $ib3.config.getProperty('kpiboxProperties.fixedPixelLinesMargin') || 0,
-			imagePercentageWidth = $ib3.config.getProperty('kpiboxProperties.imagePercentageWidth'),
-			wfPath = $ib3.config.getProperty('kpiboxProperties.ibiAppsPath');
+		var numberFormat = ib3SLI.config.getFormatByBucketName('value', 0),
+			colorBands = ib3SLI.config.getProperty('colorScale.colorBands'),
+			bodyBackgroundColor = ib3SLI.config.getProperty('kpiboxProperties.bodyBackgroundColor') || "transparent",
+			calculateComparationFunctionParam1 = ib3SLI.config.getProperty('kpiboxProperties.calculateComparationFunction.param1'),
+			calculateComparationFunctionParam2 = ib3SLI.config.getProperty('kpiboxProperties.calculateComparationFunction.param2'),
+			calculateComparationFunctionBody = ib3SLI.config.getProperty('kpiboxProperties.calculateComparationFunction.body'),
+			customCompareIconActive = ib3SLI.config.getProperty('kpiboxProperties.customCompareIcon.active'),
+			customCompareIconUp = ib3SLI.config.getProperty('kpiboxProperties.customCompareIcon.iconUp'),
+			customCompareIconDown = ib3SLI.config.getProperty('kpiboxProperties.customCompareIcon.iconDown'),
+			formatComparation = ib3SLI.config.getProperty('kpiboxProperties.formatComparation'),
+			setInfiniteToZero = ib3SLI.config.getProperty('kpiboxProperties.setInfiniteToZero'),
+			shortenNumber = ib3SLI.config.getProperty('kpiboxProperties.shortenNumber'),
+			titleRow = ib3SLI.config.getProperty('kpiboxProperties.titleRow'),
+			calculateFontSize = ib3SLI.config.getProperty('kpiboxProperties.calculateFontSize'),
+			fixedFontSizeProp = ib3SLI.config.getProperty('kpiboxProperties.fixedFontSizeProp') || '20px',
+			fixedPixelLinesMargin = ib3SLI.config.getProperty('kpiboxProperties.fixedPixelLinesMargin') || 0,
+			imagePercentageWidth = ib3SLI.config.getProperty('kpiboxProperties.imagePercentageWidth'),
+			wfPath = ib3SLI.config.getProperty('kpiboxProperties.ibiAppsPath');
 			
 		//Advanced Function
-		var calculateComparisonValueFunctionBody = $ib3.config.getProperty('kpiboxProperties.calculateComparisonValueFunction'),
-			calculateComparisonValueColorFunctionBody = $ib3.config.getProperty('kpiboxProperties.calculateComparisonValueColorFunction'),
-			calculateComparisonIconFunctionBody = $ib3.config.getProperty('kpiboxProperties.calculateComparisonIconFunction');
+		var calculateComparisonValueFunctionBody = ib3SLI.config.getProperty('kpiboxProperties.calculateComparisonValueFunction'),
+			calculateComparisonValueColorFunctionBody = ib3SLI.config.getProperty('kpiboxProperties.calculateComparisonValueColorFunction'),
+			calculateComparisonIconFunctionBody = ib3SLI.config.getProperty('kpiboxProperties.calculateComparisonIconFunction');
 			
 		//Several Custom Font Sizes
-		var titleFontSize = $ib3.config.getProperty('kpiboxProperties.titleFont.size') || fixedFontSizeProp,
-			titleFontColor = $ib3.config.getProperty('kpiboxProperties.titleFont.color') || 'black',
-			titleFontFamily = $ib3.config.getProperty('kpiboxProperties.titleFont.family') || 'Arial, sans-serif',
-			measureFontSize = $ib3.config.getProperty('kpiboxProperties.measureFont.size') || fixedFontSizeProp,
-			measureFontColor = $ib3.config.getProperty('kpiboxProperties.measureFont.color') || 'black',
-			measureFontFamily = $ib3.config.getProperty('kpiboxProperties.measureFont.family') || 'Arial, sans-serif',
-			variationFontSize = $ib3.config.getProperty('kpiboxProperties.variationFont.size') || fixedFontSizeProp,
-			variationFontFamily = $ib3.config.getProperty('kpiboxProperties.variationFont.family') || 'Arial, sans-serif';
+		var titleFontSize = ib3SLI.config.getProperty('kpiboxProperties.titleFont.size') || fixedFontSizeProp,
+			titleFontColor = ib3SLI.config.getProperty('kpiboxProperties.titleFont.color') || 'black',
+			titleFontFamily = ib3SLI.config.getProperty('kpiboxProperties.titleFont.family') || 'Arial, sans-serif',
+			measureFontSize = ib3SLI.config.getProperty('kpiboxProperties.measureFont.size') || fixedFontSizeProp,
+			measureFontColor = ib3SLI.config.getProperty('kpiboxProperties.measureFont.color') || 'black',
+			measureFontFamily = ib3SLI.config.getProperty('kpiboxProperties.measureFont.family') || 'Arial, sans-serif',
+			variationFontSize = ib3SLI.config.getProperty('kpiboxProperties.variationFont.size') || fixedFontSizeProp,
+			variationFontFamily = ib3SLI.config.getProperty('kpiboxProperties.variationFont.family') || 'Arial, sans-serif';
 			
 		d3.select('body')
 			.style('background-color', bodyBackgroundColor)
@@ -75,10 +74,10 @@
 		//get Buckets Data
 		var kpiDataElem = data[0],
 			kpiValue = kpiDataElem.value,
-			kpiFormattedValue = $ib3.utils.getFormattedNumber(kpiValue, numberFormat, shortenNumber)
+			kpiFormattedValue = $ib3.utils.getFormattedNumber(ib3SLI.config.formatNumber, kpiValue, numberFormat, shortenNumber)
 			compareValue = kpiDataElem.comparevalue,
 			kpiSign = !!parseInt(typeof kpiDataElem.kpisign === 'undefined' ? 1 : kpiDataElem.kpisign),
-			kpiBoxTitle = $ib3.config.getBucketTitle('value', 0),
+			kpiBoxTitle = ib3SLI.config.getBucketTitle('value', 0),
 			hasCompareValue = typeof compareValue !== 'undefined';
 			
 		var imageHref = '';
@@ -158,8 +157,8 @@
 			if(isAdvancedWay) {
 				//To use advanced way set up the following properties in json fileCreatedDate
 				/*
-					"calculateComparisonValueFunction": "if(value == 0 && comparevalue == 0) { return 0; } var result = (value - comparevalue) / Math.abs(comparevalue);  return (result == 'Infinity') ? String.fromCharCode(8734) : $ib3.config.formatNumber(parseFloat(result).toFixed(4), '#,###.00%');",	
-					"calculateComparisonValueColorFunction": "var colorBands = $ib3.config.getProperty('colorScale.colorBands'); var color = 'black'; for (var a = 0; a < colorBands.length; a++) { var aux = (kpisign == 0) ? (value * (-1)) : value; if ((aux > colorBands[a].start) && (aux < colorBands[a].stop)) { color = colorBands[a].color; break; } } return color;",	
+					"calculateComparisonValueFunction": "if(value == 0 && comparevalue == 0) { return 0; } var result = (value - comparevalue) / Math.abs(comparevalue);  return (result == 'Infinity') ? String.fromCharCode(8734) : ib3SLI.config.formatNumber(parseFloat(result).toFixed(4), '#,###.00%');",	
+					"calculateComparisonValueColorFunction": "var colorBands = ib3SLI.config.getProperty('colorScale.colorBands'); var color = 'black'; for (var a = 0; a < colorBands.length; a++) { var aux = (kpisign == 0) ? (value * (-1)) : value; if ((aux > colorBands[a].start) && (aux < colorBands[a].stop)) { color = colorBands[a].color; break; } } return color;",	
 					"calculateComparisonIconFunction": "if(value == 0 && comparevalue == 0) { return 0; } var result = (value - comparevalue) / Math.abs(comparevalue); if(result == 'Infinity' || result == 0) { return '' } else if (result > 0) { return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAArCAYAAAA65tviAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAHxSURBVHja1NnLahRBFIDhzzESNxovoASUaLyQhQuzUIMo2YRgkGwiElAXIt4x8S4BRUPQMcaASMRxGXwZn8S3cOFiWhhietIz09Xd9a+6Z6po/pk6Veec3mZxRmBu4jzuhnxITXje4g4GYha5gqPJ9WqsItvxseX+NiZjFGngxIbPlmMTOZnExUZGMR2TSL3Nd+vYG4PIdBLkaezDu6qL9ON7hnEPcbjKItdwKMO4HVssv1JFDuBrB+NvYLaKIt+wq8M5b6omMoarXcw7hQdVEunll63jYBVE5nC5h/l7OoytICIDOZ0JsxgpU+Q+9ue0PL+UJTKCDznuepdS8rPgImtJqp4nr4oWGcdEgDztOB4VKfI5YB2ztkkdE0RkAWcCl8jLoUUGsVhAw2IGp0OKPEtS9SJohBIZxQvFMYb5ECI/FM8CduYpMoWzJYgM4mWeIivKYylL4GcReZ/UDWVS71VkKFmnZTOFC72IzAXIp7pltVuRCTxXHc61q31qJeVT3XIv7UBOE7neaYpQ4Hb8KatIX7JTVZXHm51ptZQ0+ohqs7KVyLGkDq8647jYTmRJPKxr9pD/E5nUbELHwrCWxmCtJcAb4uOJpB1Va6nIhiMU2Y3X//6JIfwUL0/xq0+zG96P3xXKq7LyR/PF0q2/AwC35DSzyhxPxQAAAABJRU5ErkJggg==' } else { return 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAArCAYAAAA65tviAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAMwSURBVHja1JjJTxNxFMdfpxXa2oWWaUtpSxe2VlBEZFEiwYP6JygH44XowUSDJhoOJiToAZcQNyJRjJFEFDXIQTFRlsYFkRBjjUBIlIA1qMRqAkG0luelGMSWdjq/aWcmeYfJ/Oa972e+eW/mN6J+s3a6zOujp5TSgHgBRSCgY0EkwrTZeXGHK/2FxGNQt5Z5fTXGmXkxCPD4KaFgLFVxGBAAOnONQwiAQozmInsjAgAFAOAxqHfNJEtQaG5MquX+KaW0FgAAMBjteSa30Ny4UOKoXdT/F6Su0iWfUMt/CQWi264bxyX6YenJ2dLM/UIBaSjP2RoWBAFgyJjyje8Q97PT3i7XTS1vILeNPsTnBveqZL8HTZqi/y5giOjMNb7iqxuXN9iaQmkOCVJX6VJ9UiQH+AYxQivnMIxmCHehPc/UyzeQ8yWZRxiDIAB4DKoZvkDccxoHV9JKrdRYPXb9UT40eIASwSitPLjiIowQzy3aL4l2484a09NIOiOCnNmUvTOREGOpih8YhU6IZtGtPHN3okAuFjuOEQOpq3SlJGIcewyqWYxSI0S78HpBxt14g5zenF1FHAQB4LVBHbdx3OFMf8lEG8VkDD526KvjtX0d1in3MroJGYbbSn/k2o0bay0PmepiDNJQnrONS4g3+ugbnBVIsPHbuQI5V5p5IG4gCADjKeS3xQMmzddY9VCxNmSfTXeT9PeU26bbHXMCZBH9Zu00KTfa8s0P2Gih2DzFJ1Z6Dwk3fLIkfKdV7GOVBFlGj103wdaN1nUZt9nqYA1yYktu/nfpqoVYIZ5ZUj8jAR1AIsm19da2WEEay7KqeQOCABDcNzCC6LXpPpCqT5Ean302upnJ+tkkCfZbtDuIzW8kGI8c+vfRunG10NpCsjZF8qU2aNJU+cWRU04ppYFJtbyG6CczEo5o/lI2FTvqSdclDlJf4bT7ZOHHcZ+N9iIHdYGLpMEnHhLkZHnOdsGAIAAM65RzyyG6sgwjXNUj2uz//qXU1S89H9es9g+YtQWc7Y+Rw+jKMowuunFpo/0Ul7U4BTle4bQgAE6qZX7kuBYg966MtBTarnBd588A2LuBDm0qJvAAAAAASUVORK5CYII=' }",	
 				*/
 				var percentageCalcValue;
@@ -237,9 +236,9 @@
 				
 				var percentageFormattedValue;
 				if(setInfiniteToZero){
-					percentageFormattedValue = ((percentageCalcValue == 'Infinity')||(isNaN(percentageCalcValue))) ? 0 : $ib3.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
+					percentageFormattedValue = ((percentageCalcValue == 'Infinity')||(isNaN(percentageCalcValue))) ? 0 : ib3SLI.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
 				} else {
-					percentageFormattedValue = (percentageCalcValue == 'Infinity') ? String.fromCharCode(8734) : $ib3.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
+					percentageFormattedValue = (percentageCalcValue == 'Infinity') ? String.fromCharCode(8734) : ib3SLI.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
 				}
 				
 				if(calculateFontSize) {
@@ -457,12 +456,12 @@
 		}
 		
 		//Asing drill/tooltip
-		d3.select(container).attr('class', $ib3.config.getDrillClass('riser', 0, 0));
-		d3.select('svg > rect').attr('class', $ib3.config.getDrillClass('riser', 0, 0));
-		$ib3.utils.setUpTooltip(d3.select(container).node(), 0, 0, kpiDataElem);
-		$ib3.utils.setUpTooltip(d3.select('svg > rect').node(), 0, 0, kpiDataElem);
+		d3.select(container).attr('class', ib3SLI.config.getDrillClass('riser', 0, 0));
+		d3.select('svg > rect').attr('class', ib3SLI.config.getDrillClass('riser', 0, 0));
+		ib3SLI.config.setUpTooltip(d3.select(container).node(), 0, 0, kpiDataElem);
+		ib3SLI.config.setUpTooltip(d3.select('svg > rect').node(), 0, 0, kpiDataElem);
 
-		$ib3.config.finishRender();
+		ib3SLI.config.finishRender();
 		
 		function _calculateComparisonColor(value, kpiSign, isDummyData){
 			

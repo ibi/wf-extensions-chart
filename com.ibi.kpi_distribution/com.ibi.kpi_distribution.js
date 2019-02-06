@@ -33,13 +33,14 @@
 		var isDummyData = renderConfig.testData;
 
 		//IMPORTANT: Setup the renderConfig to custom $ib3
-		$ib3.config.setup(renderConfig, {
+		var ib3SLI = $ib3(renderConfig, {
 			tooltip: {
 				hiddenBuckets: ['minvalue', 'maxvalue', 'valueispercentage', 'image']
 			}
 		});
-		$ib3.chart.draw(isDummyData);	
-		$ib3.config.finishRender();
+		
+		window.comIbiKpiDistributionChartExtension.draw(ib3SLI, isDummyData);	
+		ib3SLI.config.finishRender();
 
 	}
 
