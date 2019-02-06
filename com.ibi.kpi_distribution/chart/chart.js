@@ -1,44 +1,43 @@
 (function() {
 
-    //Set the Global IBI Variable if not exists
-    if(typeof window.$ib3 == 'undefined') {
-        //console.log("Global variable window.$ib3 doesn't exist. ");
-		window.$ib3 = {};
+  //Set the Global IBI Variable if not exists
+  if(typeof window.comIbiKpiDistributionChartExtension == 'undefined') {
+		window.comIbiKpiDistributionChartExtension = {};
 	}
 	
-	var chart = {
+	window.comIbiKpiDistributionChartExtension = {
 		draw: _draw
 	};
 	
-	window.$ib3.chart = chart;
-	
-	function _draw(isDummyData) {
+	function _draw(ib3SLI, isDummyData) {
 		
-		$ib3.config.checkServiceIsInitinalized();
+		$ib3.checkObject(ib3SLI);
+		
+		ib3SLI.config.checkServiceIsInitinalized();
 		
 		//Declare main extension vars
-		var data = $ib3.config.getData(),
-			mainContainer = $ib3.config.getContainer(),
-			chart = $ib3.config.getChart(),
-			width = $ib3.config.getChartWidth(),
-			height = $ib3.config.getChartHeight(),
-			properties = $ib3.config.getCustomProperties();
+		var data = ib3SLI.config.getData(),
+			mainContainer = ib3SLI.config.getContainer(),
+			chart = ib3SLI.config.getChart(),
+			width = ib3SLI.config.getChartWidth(),
+			height = ib3SLI.config.getChartHeight(),
+			properties = ib3SLI.config.getCustomProperties();
 			
 		var barWidth = width,
-			minColor = isDummyData ? 'grey': $ib3.config.getProperty('kpidistributionProperties.colors.minColor'),
-			maxColor = isDummyData ? '#5a5a5a': $ib3.config.getProperty('kpidistributionProperties.colors.maxColor'),
-			textColor = isDummyData ? 'grey': $ib3.config.getProperty('kpidistributionProperties.colors.titlesColor'),
-			marginTop = parseFloat($ib3.config.getProperty('kpidistributionProperties.sizes.marginTop')),
-			rowHeight = parseFloat($ib3.config.getProperty('kpidistributionProperties.sizes.rowHeight')),
-			barHeight = parseFloat($ib3.config.getProperty('kpidistributionProperties.sizes.barHeight')),
+			minColor = isDummyData ? 'grey': ib3SLI.config.getProperty('kpidistributionProperties.colors.minColor'),
+			maxColor = isDummyData ? '#5a5a5a': ib3SLI.config.getProperty('kpidistributionProperties.colors.maxColor'),
+			textColor = isDummyData ? 'grey': ib3SLI.config.getProperty('kpidistributionProperties.colors.titlesColor'),
+			marginTop = parseFloat(ib3SLI.config.getProperty('kpidistributionProperties.sizes.marginTop')),
+			rowHeight = parseFloat(ib3SLI.config.getProperty('kpidistributionProperties.sizes.rowHeight')),
+			barHeight = parseFloat(ib3SLI.config.getProperty('kpidistributionProperties.sizes.barHeight')),
 			animationSeconds = 500,
-			fontSize = $ib3.config.getProperty('kpidistributionProperties.sizes.titlesFont'),
-			showPercentagesOfTheTotal = $ib3.config.getProperty('kpidistributionProperties.options.showPercentagesOfTheTotal'),
-			showValue = $ib3.config.getProperty('kpidistributionProperties.options.showValue'),
-			shortenValue = $ib3.config.getProperty('kpidistributionProperties.options.shortenValue'),
-			forceSortRows = $ib3.config.getProperty('kpidistributionProperties.options.forceSortRows'),
-			showBarIcons = $ib3.config.getProperty('kpidistributionProperties.options.showBarIcons'),
-			barIconWidth = $ib3.config.getProperty('kpidistributionProperties.sizes.barIconWidth');
+			fontSize = ib3SLI.config.getProperty('kpidistributionProperties.sizes.titlesFont'),
+			showPercentagesOfTheTotal = ib3SLI.config.getProperty('kpidistributionProperties.options.showPercentagesOfTheTotal'),
+			showValue = ib3SLI.config.getProperty('kpidistributionProperties.options.showValue'),
+			shortenValue = ib3SLI.config.getProperty('kpidistributionProperties.options.shortenValue'),
+			forceSortRows = ib3SLI.config.getProperty('kpidistributionProperties.options.forceSortRows'),
+			showBarIcons = ib3SLI.config.getProperty('kpidistributionProperties.options.showBarIcons'),
+			barIconWidth = ib3SLI.config.getProperty('kpidistributionProperties.sizes.barIconWidth');
 					
 		var container = d3.select(mainContainer).attr('class', 'extension_container').append('g');
 	
@@ -118,14 +117,14 @@
 			.enter()
 				.append('g')
 				.each(function(d, i) {
-					$ib3.utils.setUpTooltip(this, 0, d.originalIndex, d);
+					ib3SLI.config.setUpTooltip(this, 0, d.originalIndex, d);
 				})
 				.attr("class", function(d, i) {
-					var drillClass = $ib3.config.getDrillClass('riser', 0, d.originalIndex);
+					var drillClass = ib3SLI.config.getDrillClass('riser', 0, d.originalIndex);
 					return drillClass;
 				});
 
-		var valueFormat = $ib3.config.getFormatByBucketName('value', 0),
+		var valueFormat = ib3SLI.config.getFormatByBucketName('value', 0),
 			total = $(data)
 				.filter(function(i,d) { return !d.valueispercentage; })
 				.map(function(i, d) { return d.value; })
@@ -198,7 +197,7 @@
 						
 					} else {
 						
-						number = ' | ' + $ib3.utils.getFormattedNumber(d.value, valueFormat, shortenValue);
+						number = ' | ' + $ib3.utils.getFormattedNumber(ib3SLI.config.formatNumber, d.value, valueFormat, shortenValue);
 						
 					} 
 				
@@ -237,12 +236,12 @@
 				return d.barColor;
 			})
 						
-		$ib3.utils.createScrolling(d3.select(mainContainer), d3.select('svg > rect'), d3.select('svg'));
+		$ib3.utils.createScrolling(d3.select('svg > rect').node(), d3.select(mainContainer), d3.select('svg > rect'), d3.select('svg'));
 				
 		function _getImagePath(customImage) {
 			
 			var imagePath = '',
-				wfPath = (typeof WFInstallOption_CGIPath == 'undefined' ? $ib3.config.getProperty('kpidistributionProperties.ibiAppsPath') : WFInstallOption_CGIPath);
+				wfPath = (typeof WFInstallOption_CGIPath == 'undefined' ? ib3SLI.config.getProperty('kpidistributionProperties.ibiAppsPath') : WFInstallOption_CGIPath);
 			
 			wfPath = $.trim(wfPath);
 			wfPath = wfPath.substring(wfPath.length - 1) == '/'

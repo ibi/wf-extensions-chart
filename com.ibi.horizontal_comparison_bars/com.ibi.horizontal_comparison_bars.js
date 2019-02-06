@@ -52,13 +52,13 @@
 		var isDummyData = renderConfig.testData;
 		//IMPORTANT: Setup the renderConfig to custom $ib3
 		
-		$ib3.config.setup(renderConfig, {
+		var ib3SLI = $ib3(renderConfig, {
 			tooltip: {
 				hiddenBuckets: ['kpisign']
 			}
 		});
 		
-		$ib3.chart.draw(isDummyData);
+		window.comIbiHorizontalComparisonBarsChartExtension.draw(ib3SLI, isDummyData);	
 		
 	}
 
@@ -74,7 +74,7 @@
 			script: (function() {
 				var scripts = window.jQuery ? [] : [ ['', tdgchart.getScriptPath().split('/')[1], 'jquery/js/jquery.js'].join('/') ],
 					customScripts = [
-						'lib/d3.min.js',
+						'lib/d3.v5.min.js',
 						'services/config-service.min.js',
 						'services/utils-service.min.js',
 						'chart/chart.js'

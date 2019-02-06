@@ -1,36 +1,37 @@
 (function() {
 
-    //Set the Global IBI Variable if not exists
-    if(typeof window.$ib3 == 'undefined') {
-        //console.log("Global variable window.$ib3 doesn't exist. ");
-		window.$ib3 = {};
+  //Set the Global IBI Variable if not exists
+  if(typeof window.comIbiHorizontalComparisonBarsChartExtension == 'undefined') {
+		window.comIbiHorizontalComparisonBarsChartExtension = {};
 	}
 	
-	var chart = {
+	window.comIbiHorizontalComparisonBarsChartExtension = {
 		draw: _draw
 	};
 	
-	window.$ib3.chart = chart;
-	
-	function _draw(isDummyData) {
+	function _draw(ib3SLI, isDummyData) {
 		
-		var originalData = $ib3.config.getData(),	
+		$ib3.checkObject(ib3SLI);
+		
+		ib3SLI.config.checkServiceIsInitinalized();
+		
+		var originalData = ib3SLI.config.getData(),	
 			data = $(originalData).map(function(i, d) {
 				d.originalIndex = i;
 				return d;
 			}).get().reverse();
 			
-		var w = $ib3.config.getChartWidth(),
-			h = $ib3.config.getChartHeight(),
+		var w = ib3SLI.config.getChartWidth(),
+			h = ib3SLI.config.getChartHeight(),
 			hasComparevalue = true,
-			shortenNumbers = $ib3.config.getProperty('horizontalcomparisonbarsProperties.shorten_numbers'),
-			colorBands = $ib3.config.getProperty('colorScale.colorBands'),
-			setInfiniteToZero = $ib3.config.getProperty('horizontalcomparisonbarsProperties.setInfiniteToZero'),
-			hideWhenInfinite = $ib3.config.getProperty('horizontalcomparisonbarsProperties.hideWhenInfinite'),
-			formatComparation = $ib3.config.getProperty('horizontalcomparisonbarsProperties.formatComparation'),
-			calculeComparationFunctionParam1 = $ib3.config.getProperty('horizontalcomparisonbarsProperties.calculeComparationFunction.param1'),
-			calculeComparationFunctionParam2 = $ib3.config.getProperty('horizontalcomparisonbarsProperties.calculeComparationFunction.param2'),
-			calculeComparationFunctionBody = $ib3.config.getProperty('horizontalcomparisonbarsProperties.calculeComparationFunction.body');
+			shortenNumbers = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.shorten_numbers'),
+			colorBands = ib3SLI.config.getProperty('colorScale.colorBands'),
+			setInfiniteToZero = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.setInfiniteToZero'),
+			hideWhenInfinite = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.hideWhenInfinite'),
+			formatComparation = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.formatComparation'),
+			calculeComparationFunctionParam1 = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.calculeComparationFunction.param1'),
+			calculeComparationFunctionParam2 = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.calculeComparationFunction.param2'),
+			calculeComparationFunctionBody = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.calculeComparationFunction.body');
 			
 		// calculate percentajes
 		for (var i = 0; i < data.length; i++) {
@@ -60,7 +61,7 @@
 		var width = w - margin.left - margin.right,
 			height = h - margin.top - margin.bottom;
 			
-		var svg = d3.select($ib3.config.getContainer())
+		var svg = d3.select(ib3SLI.config.getContainer())
 			.attr('class', 'com_ibi_chart')
 			.attr("width", width + margin.left + margin.right)
 			.attr("height", height + margin.top + margin.bottom)
@@ -76,13 +77,16 @@
 			max = 0;
 		}
 		
-		var x = d3.scale.linear()
+		var x = d3.scaleLinear()
 			.range([0, width])
 			.domain([min, max]).nice();
 		
-		var y = d3.scale.ordinal().rangeRoundBands([height, 0], .1).domain(data.map(function(d, i) {
-			return d.originalIndex;
-		}));
+		var y = d3.scaleBand()
+			.range([height, 0])
+			.round(.1)
+			.domain(data.map(function(d, i) {
+				return d.originalIndex;
+			}));
 		
 		var barGroups = svg.selectAll(".bar")
 			.data(data)
@@ -97,21 +101,21 @@
 						
 		barGroups.append("rect")
 			.attr('class', function(d, g) {
-				return $ib3.config.getDrillClass('riser', 0, g, 'bar');
+				return ib3SLI.config.getDrillClass('riser', 0, g, 'bar');
 			})
-			.attr('fill', $ib3.config.getChart().getSeriesAndGroupProperty(0, null, 'color'))
+			.attr('fill', ib3SLI.config.getChart().getSeriesAndGroupProperty(0, null, 'color'))
 			.attr("x", function(d) { 
 				return x(Math.min(0, d.value)); 
 			})
 			.attr("y", function(d, i) {
 				return y(d.originalIndex);
 			})
-			.attr("height", y.rangeBand())
+			.attr("height", y.bandwidth() * 0.9)
 			.attr("width", function(d) { 
 				return Math.abs(x(d.value) - x(0)); 
 			})
 			.each(function(d, g) {
-				$ib3.utils.setUpTooltip(this, 0, d.originalIndex, d);
+				ib3SLI.config.setUpTooltip(this, 0, d.originalIndex, d);
 			});
 		
 		if (hasComparevalue) {
@@ -128,7 +132,7 @@
 					return calculateColor(d, 'percentaje', colorBands, isDummyData);
 				})
 				.attr("y", function(d, i) {
-					return y(d.originalIndex) + y.rangeBand() / 2 + 4;
+					return y(d.originalIndex) + y.bandwidth() / 2 + 4;
 				})
 				.attr("x", function(d) {
 					var x = (w - margin.left - margin.right + 20);
@@ -147,7 +151,7 @@
 				.text(function(d) {
 					if(d.percentaje == 'Infinity' || d.percentaje == '-Infinity'){
 						if(setInfiniteToZero) {
-							return $ib3.config.formatNumber(0, formatComparation); 
+							return ib3SLI.config.formatNumber(0, formatComparation); 
 						} else {
 							if(d.percentaje == '-Infinity') {
 								return '-' + String.fromCharCode(8734);
@@ -156,7 +160,7 @@
 							}
 						}
 					}else{
-						return $ib3.config.formatNumber(d.percentaje, formatComparation);
+						return ib3SLI.config.formatNumber(d.percentaje, formatComparation);
 					} 
 				});
 				
@@ -179,29 +183,34 @@
 					var rotate = '';
 					if(d.percentaje == 0) {
 						rotate = ' rotate(90)';
+					} else {
+						rotate = 'rotate(' + ( d.percentaje >= 0 ? 0 : 180) + ')';
 					}
 					
-					return 'translate(' + translateX + ', ' + (y(d.originalIndex) + y.rangeBand() / 2) + ') ' + rotate;
+					return 'translate(' + translateX + ', ' + (y(d.originalIndex) + y.bandwidth() / 2) + ') ' + rotate;
 				}).attr("d", function(d, i) {
 					if(d.percentaje != 'Infinity' && d.percentaje != '-Infinity') {
-						return d3.svg.symbol().type(getClassVariation(d))();
+						return d3.symbol()
+							.size([200])
+							.type(d3.symbolTriangle)();
 					}
-				});
+				});	
 		}
 		
-		var yAxis = d3.svg.axis().scale(y)
-			.tickSize(0).orient("left")
+		var yAxis = d3.axisLeft()
+			.scale(y)
+			.tickSize(0)
 			.tickFormat(function(dataIndex) { 
 				return $(data).filter(function(i, d){return d.originalIndex == dataIndex})[0].dimension;
 			});
 			
 		var yAxisG = svg.append("g")
-			.attr("fill", $ib3.config.getProperty('axisList.y1.labels.color'))
+			.attr("fill", ib3SLI.config.getProperty('axisList.y1.labels.color'))
 			.attr("transform", "translate(" + x(0) + ",0)")
 			.call(yAxis);
 					
 		yAxisG.selectAll("text")
-			.attr("fill", $ib3.config.getChart().getSeriesAndGroupProperty(0, null, 'color'))
+			.attr("fill", ib3SLI.config.getChart().getSeriesAndGroupProperty(0, null, 'color'))
 			.style("text-anchor", function(dataIndex) { 
 				var dataElem = $(data).filter(function(i, d){return d.originalIndex == dataIndex})[0];
 				if(parseFloat(dataElem.value) < 0) {
@@ -222,9 +231,8 @@
 			xAxisMinLabelSpace = 100,
 			xAxisNumLabels = parseInt(xAxisGWidth / xAxisMinLabelSpace);
 			
-		var xAxis = d3.svg.axis()
+		var xAxis = d3.axisBottom()
 			.scale(x)
-			.orient("bottom")
 			.ticks(xAxisNumLabels);
 
 		var xAxisG = svg.append("g")
@@ -232,7 +240,7 @@
 			.attr("transform", "translate(0," + (h - margin.top - margin.bottom) + ")")
 			.call(xAxis);
 		
-		xAxisG.selectAll("text").attr("fill", $ib3.config.getProperty('axisList.y1.labels.color'));
+		xAxisG.selectAll("text").attr("fill", ib3SLI.config.getProperty('axisList.y1.labels.color'));
 		
 		if (shortenNumbers) {
 			var arr_shorten = {'':0,'K':0,'M':0,'B':0,'T':0},
@@ -262,12 +270,12 @@
 		}
 		
 		svg.selectAll("path.domain")
-			.attr("stroke", $ib3.config.getProperty('xaxis.bodyLineStyle.color'));
+			.attr("stroke", ib3SLI.config.getProperty('xaxis.bodyLineStyle.color'));
 			
 		svg.selectAll(".tick line")
-			.attr("stroke", $ib3.config.getProperty('xaxis.bodyLineStyle.color'));
+			.attr("stroke", ib3SLI.config.getProperty('xaxis.bodyLineStyle.color'));
 			
-		$ib3.config.finishRender();
+		ib3SLI.config.finishRender();
 
 		function calculatePercentaje(value, comparevalue, kpisign) {
 			var change_sign = (kpisign == 0) ? -1 : 1;
@@ -292,7 +300,7 @@
 			for (var i = 0; i < data.length; i++) {
 				var elem = data[i][field];
 				if(numberFormat) {
-					elem = $ib3.config.formatNumber(elem, numberFormat);
+					elem = ib3SLI.config.formatNumber(elem, numberFormat);
 				}
 				div_widths.text(elem);
 				my_width = div_widths.node().getBBox().width;
@@ -302,17 +310,6 @@
 			}
 			div_widths.remove();
 			return max_width + 10;
-		}
-
-		function getClassVariation(d) {
-			 
-			var the_type = "";
-			if (d.percentaje < 0) {
-				the_type = "triangle-down";
-			} else {
-				the_type = "triangle-up";
-			} 
-			return the_type;
 		}
 
 		function calculateColor(d, field, colorBands, isDummyData) {
