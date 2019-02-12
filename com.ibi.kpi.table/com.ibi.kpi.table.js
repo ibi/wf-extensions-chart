@@ -181,6 +181,11 @@
 	}
 
 	// Your extension's configuration
+	var jqueryPath;
+	if (!window.jQuery) {
+		var path = tdgchart.getScriptPath();
+		jqueryPath = path.substr(0, path.indexOf('tdg')) + 'jquery/js/jquery.js';
+	}
 	var config = {
 		id: 'com.ibi.kpi.table',     // string that uniquely identifies this extension
 		containerType: 'html',  // either 'html' or 'svg' (default)
@@ -192,9 +197,7 @@
 		resources: {
 			script: window.jQuery
 					? []
-					: [
-						['', tdgchart.getScriptPath().split('/')[1], 'jquery/js/jquery.js'].join('/')
-					],
+					: [jqueryPath],
 			css: ['css/open-sans.css','css/table.css']
 		},
 		modules: {

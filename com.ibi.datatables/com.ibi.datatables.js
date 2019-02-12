@@ -1,5 +1,4 @@
 /* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
-/* $Revision: 1.0 $ */
 
 (function() {
 	// All extension callback functions are passed a standard 'renderConfig' argument:
@@ -16,8 +15,6 @@
 	//   containerIDPrefix:  the ID of the DOM container your extension renders into.  Prepend this to *all* IDs your extension generates, to ensure multiple copies of your extension work on one page.
 	//   container: DOM node for your extension to render into;
 	//   rootContainer: DOM node containing the specific chart engine instance being rendered.
-
-	
 
 	// Optional: if defined, is called exactly *once* during chart engine initialization
 	// Arguments:
@@ -53,7 +50,7 @@
 	// Arguments:
 	//  - renderConfig: the standard callback argument object, including additional properties width, height, etc
 	function renderCallback(renderConfig) {
-		console.log(123, window.jQuery);
+
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
 		
@@ -71,7 +68,6 @@
 		/* Format JSON Data */
 		if (typeof data[0].measure !== 'undefined'||typeof data[0].row !== 'undefined'||typeof data[0].column !== 'undefined') {
 
-			//console.log('Start rendering extension:', new Date());
 
 			for (var i=0; i<data.length; i++) {
 				var row = {};
@@ -545,6 +541,11 @@
 	}
 
 	// Your extension's configuration
+	var jqueryPath;
+	if (!window.jQuery) {
+		var path = tdgchart.getScriptPath();
+		jqueryPath = path.substr(0, path.indexOf('tdg')) + 'jquery/js/jquery.js';
+	}
 	var config = {
 		id: 'com.ibi.datatables',     // string that uniquely identifies this extension
 		containerType: 'html',  // either 'html' or 'svg' (default)
@@ -557,11 +558,7 @@
 			script:
 				window.jQuery
 					? ['lib/datatables.min.js','lib/lasso.js']
-					: [
-						['', tdgchart.getScriptPath().split('/')[1], 'jquery/js/jquery.js'].join('/'),
-						'lib/datatables.min.js',
-						'lib/lasso.js'
-					],
+					: [jqueryPath, 'lib/datatables.min.js', 'lib/lasso.js'],
 			css: ['css/datatables.min.css','css/symbol.css']
 		},
 		modules: {
