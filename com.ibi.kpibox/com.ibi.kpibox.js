@@ -53,13 +53,20 @@
 		renderCallback: renderCallback,
 		resources: {
 			script: (function() {
-				var scripts = window.jQuery ? [] : [ ['', tdgchart.getScriptPath().split('/')[1], 'jquery/js/jquery.js'].join('/') ],
-					customScripts = [
-						'lib/d3.v5.min.js',
-						'services/config-service.min.js',
-						'services/utils-service.min.js',
-						'chart/chart.js'
-					];
+				var scripts = [];
+				if (!window.jQuery) {
+					var tdgchartPath = tdgchart.getScriptPath();
+						jqueryPath = tdgchartPath.substr(0, tdgchartPath.indexOf('tdg')) + 'jquery/js/jquery.js';
+						
+					scripts.push(jqueryPath);
+				}
+				
+				var customScripts = [
+					'lib/d3.v5.min.js',
+					'services/config-service.min.js',
+					'services/utils-service.min.js',
+					'chart/chart.js'
+				];
 				
 				return scripts.concat(customScripts);
 			}()),
