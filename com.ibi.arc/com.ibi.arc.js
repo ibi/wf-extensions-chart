@@ -163,8 +163,9 @@
         preRenderCallback: preRenderCallback,
         noDataRenderCallback: noDataRenderCallback,
         resources: { // Additional external resources (CSS & JS) required by this extension
-            script: ['lib/d3.min.js', 'lib/arc.js'],
-            css: []
+			script: window.d3
+				? ['lib/arc.js']
+				: ['lib/d3.min.js', 'lib/arc.js']
         },
         modules: {
             /*dataSelection: {

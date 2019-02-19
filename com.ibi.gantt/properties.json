@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": 1.0,
+		"version": "1.0.1",
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
@@ -11,7 +11,7 @@
 	},
 
 	"properties": {
-		"sort": undefined,
+		"sort": null,
 		"layout": {
 			"max_label_width": 0.3
 		},
@@ -60,35 +60,35 @@
 					"onlyStart": {
 						"color": "green",
 						"border": {
-							"color": undefined,
+							"color": null,
 							"width": 3
 						},
 						"marker": {
-							"shape": undefined,
+							"shape": null,
 							"size": 15
 						}
 					},
 					"onlyStop": {
 						"color": "red",
 						"border": {
-							"color": undefined,
+							"color": null,
 							"width": 3
 						},
 						"marker": {
-							"shape": undefined,
+							"shape": null,
 							"size": 15
 						}
 					},
 					"invertedStartStop": {
 						"color": "green",
 						"border": {
-							"color": undefined,
-							"width": undefined
+							"color": null,
+							"width": null
 						}
 					}
 				},
 				"fill": "white",
-				"altRowFill": undefined,
+				"altRowFill": null,
 				"border": {
 					"color": "lightgrey",
 					"width": 1

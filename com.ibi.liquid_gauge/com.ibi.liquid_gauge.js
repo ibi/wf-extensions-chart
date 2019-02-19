@@ -59,7 +59,9 @@
 		preRenderCallback: preRenderCallback,
 		renderCallback: renderCallback,
 		resources:  {
-			script: ['lib/d3.min.js', 'lib/liquid_gauge.js']
+			script: window.d3
+				? ['lib/liquid_gauge.js']
+				: ['lib/d3.min.js', 'lib/liquid_gauge.js']
 		},
 		//Start CHART-2971 new feature code
 		modules: {

@@ -1,9 +1,6 @@
-// Copyright 1996-2015 Information Builders, Inc. All rights reserved.
-// $Revision: 1.15 $
-
 {
 	"info": {
-		"version": 1.1,
+		"version": "1.1.0",
 		"implements_api_version": 2.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
@@ -29,7 +26,7 @@
 		"color": "#555",
 		"padding": "8px",
 		"border": "1px solid #ddd",
-		"fontFamily": '"Helvetica Neue",Helvetica,Arial,sans-serif',
+		"fontFamily": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 		"fontSize": "14px",
 		"title": {
 			"fontWeight": "bold",
@@ -44,7 +41,7 @@
 			"selected": {
 				"color": "inherit",
 				"border": "1px solid #99cfff",
-				"backgroundColor": "#cde8ff",
+				"backgroundColor": "#cde8ff"
 			}
 		},
 		"crossTabs": {
@@ -86,7 +83,7 @@
 			"selected": {
 				"color": "str",
 				"border": "str",
-				"backgroundColor": "str",
+				"backgroundColor": "str"
 			}
 		},
 		"crossTabs": {

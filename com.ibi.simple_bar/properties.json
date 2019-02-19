@@ -1,6 +1,8 @@
 {
 	"info": {
-		"version": 1.0,
+		"version": "1.0.1",
+		//1.0 Original Version
+		//1.0.1 CHART-3094 JSON Syntax Errors
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",

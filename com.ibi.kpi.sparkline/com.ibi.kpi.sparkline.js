@@ -1,5 +1,4 @@
 /* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
-/* $Revision: 1.4 $ */
 
 (function() {
 
@@ -31,8 +30,6 @@
 	//   containerIDPrefix:  the ID of the DOM container your extension renders into.  Prepend this to *all* IDs your extension generates, to ensure multiple copies of your extension work on one page.
 	//   container: DOM node for your extension to render into;
 	//   rootContainer: DOM node containing the specific chart engine instance being rendered.
-
-	
 
 	// Optional: if defined, is called exactly *once* during chart engine initialization
 	// Arguments:
@@ -76,8 +73,9 @@
 		var data = renderConfig.data;
 		var dataBuckets = renderConfig.dataBuckets.buckets;	
 		
+		/* Set Background Color */
 		//$(renderConfig.rootContainer).parent().css('backgroundColor',props.backgroundColor);
-	
+
 		/* Format JSON Data */
 		if (typeof data[0].measure !== 'undefined'||typeof data[0].xaxis !== 'undefined') {
 			var group1='';
@@ -157,6 +155,11 @@
 	}
 
 	// Your extension's configuration
+	var jqueryPath;
+	if (!window.jQuery) {
+		var path = tdgchart.getScriptPath();
+		jqueryPath = path.substr(0, path.indexOf('tdg')) + 'jquery/js/jquery.js';
+	}
 	var config = {
 		id: 'com.ibi.kpi.sparkline',     // string that uniquely identifies this extension
 		containerType: 'html',  // either 'html' or 'svg' (default)
@@ -169,10 +172,7 @@
 			script:
 				window.jQuery
 					? ['lib/jquery.sparkline.min.js']
-					: [
-						['', tdgchart.getScriptPath().split('/')[1], 'jquery/js/jquery.js'].join('/'),
-						'lib/jquery.sparkline.min.js'
-					],
+					: [jqueryPath, 'lib/jquery.sparkline.min.js'],
 			css: ['css/open-sans.css', 'css/sparkline.css']
 		},
 		modules: {

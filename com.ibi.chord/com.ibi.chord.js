@@ -111,8 +111,9 @@
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
 		noDataRenderCallback: noDataRenderCallback,
 		resources:  {  // Additional external resources (CSS & JS) required by this extension
-			script: ['lib/d3.min.js', 'lib/chord.js', 'lib/util.js', 'lib/underscore.js'],
-			css: []
+			script: window.d3
+				? ['lib/chord.js', 'lib/util.js', 'lib/underscore.js']
+				: ['lib/d3.min.js', 'lib/chord.js', 'lib/util.js', 'lib/underscore.js']
 		},
 		modules: {
 			/*dataSelection: {

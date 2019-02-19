@@ -17,8 +17,6 @@
         "useParentRAG": false,
         "showSuccess": true,
         "drilldown": "",
-//        "drilldown": "/EDA/EDASERVE/ibisamp/carinst.fex",
-//        "drilldown": "/WFC/Repository/Public/carinst.fex",
         "ddtarget": "_blank"
 	},
 	

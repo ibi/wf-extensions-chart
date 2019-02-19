@@ -1,6 +1,8 @@
 {
 	"info": {
-		"version": 1.0,
+		"version": "1.1.0",
+		//1.0 Original Release
+		//1.1.0 CHART-1926 Tooltips in Chart Extensions are not inheriting Focus Numeric Formatting like Moonbeam charts do.  Implemented on com.ibi.tutorial_data_labels
 		"implements_api_version": 2.0,
 		"author": "Information Builders Inc.",
 		"copyright": "Information Builders Inc.",

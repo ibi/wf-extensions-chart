@@ -66,12 +66,12 @@ table.dataTable tbody tr.selected,table.dataTable tbody th.selected,table.dataTa
 .pagination,.pagination>li>a{border-radius:0!important}
 .pagination>.active>a,.pagination>.active>a:focus,.pagination>.active>a:hover,.pagination>.active>span,.pagination>.active>span:focus,.pagination>.active>span:hover{background-color:#666;border-color:#666}
 .btn {border-radius:0!important}
-.chartHolder_relative_container{height:100vh;overflow:auto!important;overflow-y:auto!important;overflow-x:hidden!important}
+/*.chartHolder_relative_container{height:100vh;overflow:auto!important;overflow-y:auto!important;overflow-x:hidden!important}*/
 /*[id*=jschart_HOLD_0_com-ibi-datatables]{height:auto!important}*/
 .dataTables_scroll,.DTFC_ScrollWrapper{margin: 6px 0}
 .dataTables_processing{z-index:9999;border-radius:0}
 .DTFC_LeftHeadWrapper{margin-top:-6px}
-.chartHolder_relative_container>div{width:100%!important;height:auto!important}
+/*.chartHolder_relative_container>div{width:100%!important;height:auto!important}*/
 table td, .table tr{-webkit-touch-callout:none;-webkit-user-select:none;-khtml-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}
 .dt-right>span{display:block;margin:-8px;padding:8px;cursor:initial}
 .dt-right>span:hover{border:2px solid rgba(0,0,0,.7);padding:6px}

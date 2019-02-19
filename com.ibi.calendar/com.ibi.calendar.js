@@ -175,7 +175,10 @@
 			},
 			colorScale: {
 				supported: true,
-				minMax: function(props){
+				minMax: function(props) {
+					if (props.moonbeamInstance.noDataMode) {
+						return {min: 78, max: 183768};  // min max values from no-data data case (noDataRenderCallback.localData)
+					}
 					var extent = d3.extent(props.data, function (d) { return d.value; });
 					return {min: extent[0], max: extent[1]};
 				}

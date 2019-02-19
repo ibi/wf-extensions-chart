@@ -47,7 +47,7 @@
 		}
 
 		var div = document.createElement('div');
-		div.setAttribute('style', 'border: 1px solid black; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;');
+		div.setAttribute('style', 'width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;');
 
 		var div2 = document.createElement('div');
 		var color = renderConfig.moonbeamInstance.noDataMode ? ' color: #909090;' : '';
