@@ -16,19 +16,27 @@
 	//   containerIDPrefix:  the ID of the DOM container your extension renders into.  Prepend this to *all* IDs your extension generates, to ensure multiple copies of your extension work on one page.
 	//   container: DOM node for your extension to render into;
 	//   rootContainer: DOM node containing the specific chart engine instance being rendered.
-
-	function abbreviateNumber(number) {
-		var SI_POSTFIXES = ["", "k", "M", "B", "T", "P", "E"];
-		var tier = Math.log10(Math.abs(number)) / 3 | 0;
+	
+	function getTierNumber(number) {
+		return Math.log10(Math.abs(number)) / 3 | 0;
+	}
+	
+	function getShortenNumber(number) {
+		var tier = getTierNumber(number);
 		if (tier == 0) 
-			return number.toFixed(1).replace('.0','');
-		var postfix = SI_POSTFIXES[tier];
+			return number;
+		
 		var scale = Math.pow(10, tier * 3);
-		var scaled = number / scale;
-		var formatted = scaled.toFixed(1) + '';
-		if (/\.0$/.test(formatted))
-			formatted = formatted.substr(0, formatted.length - 2);
-		return formatted.replace('.0','') + postfix;
+		var shortenNumber = number / scale;
+		return shortenNumber;
+	}
+	
+	function getShortenLetter(number) {
+		var SI_POSTFIXES = ["", "k", "M", "B", "T", "P", "E"];
+		var tier = getTierNumber(number);
+		if (tier == 0) 
+			return '';
+		return SI_POSTFIXES[tier];
 	}
 
 	// Optional: if defined, is called exactly *once* during chart engine initialization
@@ -59,7 +67,37 @@
 		chart.dataArrayMap = undefined;
 		chart.dataSelection.enabled = false;
 	}
+	
+	function getNumberFormat(bucketName, fieldIndex, renderConfig) {
+		var bucket = renderConfig.moonbeamInstance.dataBuckets.getBucket(bucketName);
+		if (typeof bucket == 'undefined') {
+			throw 'Bucket: ' + bucketName + ' is undefined';
+		}
+		var numberFormat = bucket.fields[fieldIndex || 0].numberFormat;
+		return numberFormat === undefined ? '###' : numberFormat;
+	}
+	
+	function getFormattedNumber(number, numberFormat, makeShortenNumbers, renderConfig) {
+		if(makeShortenNumbers) {			
+			var shortenLetter = getShortenLetter(number),
+			    shortenNumber = getShortenNumber(number),
+			    valueFormatApplied = numberFormat;
 
+			var lastCharValueFormat = valueFormatApplied.substring(valueFormatApplied.length - 1);
+			if (lastCharValueFormat == '%') {
+				valueFormatApplied = valueFormatApplied.replace('`%', '%').replace('%', shortenLetter + lastCharValueFormat);
+			} else if (lastCharValueFormat == '€') {
+				valueFormatApplied = valueFormatApplied.substring(0, valueFormatApplied.length - 2) + shortenLetter + lastCharValueFormat;
+			} else {
+				valueFormatApplied += shortenLetter;
+			}
+
+			return renderConfig.moonbeamInstance.formatNumber(shortenNumber, valueFormatApplied);			
+		} else {
+			return renderConfig.moonbeamInstance.formatNumber(number, numberFormat);
+		}
+	}
+	
 	// Required: Invoked during each chart engine draw cycle
 	// This is where your extension should be rendered
 	// Arguments:
@@ -84,29 +122,41 @@
 			if (typeof data[0].group !== 'undefined')
 				$(container).find('.kpi-table-container').addClass('multi').append('<div class="kpi-table-nav"></div>');
 			
+			var makeShortenNumbers = props.shortenNumbers;
+			
 			data.forEach(function(row, index){
 				if (typeof row.group !== 'undefined')
 					$(container)
 						.find('.kpi-table-container>.kpi-table-nav')
 						.append('<a href="#" class="kpi-table-nav-pill">' + row.group + '</a>');
+						
+				var keymeasureFormat = getNumberFormat('keymeasure', 0, renderConfig),
+					formattedKeyMeasure = getFormattedNumber(row.keymeasure, keymeasureFormat, makeShortenNumbers, renderConfig);
 
+				var drillMeasureClass = chart.buildClassName('riser', row._s, row._g, 'mbar');
+					
 				var slide = '<div class="kpi-table-slide"><table>'
 					+ '<thead>'
-						+ '<tr><th class="kpi-table-heading-title" colspan="' + numOfMeasures
+						+ '<tr><th class="' + drillMeasureClass + ' kpi-table-heading-title" colspan="' + numOfMeasures
 							+ '" style="font-weight:' + props.headingTitle.fontWeight
 							+ ';font-size:' + props.headingTitle.fontSize
 							+ ';color:' + props.headingTitle.color + '">'
 							+ dataBuckets.keymeasure.title+'</th></tr>'
-						+ '<tr><th class="kpi-table-heading-nbr" colspan="' + numOfMeasures
+						+ '<tr><th class="' + drillMeasureClass + ' kpi-table-heading-nbr" colspan="' + numOfMeasures
 							+ '" style="font-weight:' + props.headingData.fontWeight
 							+ ';font-size:' + props.headingData.fontSize
 							+ ';color:' + props.headingData.color + '">'
-						+ abbreviateNumber(row.keymeasure) + '</th></tr>'
+						+ formattedKeyMeasure + '</th></tr>'
 					+ '</thead>'
 					+ '<tbody><tr></tr><tr></tr></tbody></table></div>'
 				$(container).find('.kpi-table-container').append(slide);
 
 				for (var i=0; i<numOfMeasures; i++) {
+					
+					var measure = Array.isArray(row.measure) ? row.measure[i] : row.measure,
+						measureFormat = getNumberFormat('measure', i, renderConfig),
+						formattedMeasure = getFormattedNumber(measure, measureFormat, makeShortenNumbers, renderConfig);
+					
 					if (numOfMeasures==1)
 						$(container)
 							.find('.kpi-table-container>.kpi-table-slide:last tbody>tr:first')
@@ -127,7 +177,7 @@
 						.append('<td class="kpi-table-data" style="font-weight:' + props.columnData.fontWeight
 							+ ';font-size:' + props.columnData.fontSize
 							+ ';color:' + props.columnData.color
-							+ '">' + abbreviateNumber(Array.isArray(row.measure) ? row.measure[i] : row.measure) + '</td>')
+							+ '">' + formattedMeasure + '</td>')
 				}
 			});
 			
@@ -174,13 +224,19 @@
 		var grey = renderConfig.baseColor;
 		renderConfig.data = [{"group":"EMEA","keymeasure":4696057.26,"measure":[3298764,1397293.26,17155],"_s":0,"_g":0},{"group":"North America","keymeasure":1886995.03,"measure":[1326176,560819.03,6924],"_s":0,"_g":1},{"group":"South America","keymeasure":438176.63,"measure":[306903,131273.63,1733],"_s":0,"_g":2}];
 		renderConfig.dataBuckets = {"buckets":{"group":{"title":"Store Region","count":1},"keymeasure":{"title":"Revenue","count":1},"measure":{"title":["Cost of Goods","Gross Profit","Quantity Sold"],"count":3}},"depth":1};
-		renderCallback(renderConfig);
+		getNumberFormat = function () {return '###'};
+		renderCallback(renderConfig);		
 		
 		if ($('.drop-label.ibx-widget').length==0)  //IA-9152
 			$(container).append('<div class="placeholder">Add measures or dimensions</div>');
 	}
 
 	// Your extension's configuration
+	var jqueryPath;
+	if (!window.jQuery) {
+		var path = tdgchart.getScriptPath();
+		jqueryPath = path.substr(0, path.indexOf('tdg')) + 'jquery/js/jquery.js';
+	}
 	var config = {
 		id: 'com.ibi.kpi.table',     // string that uniquely identifies this extension
 		containerType: 'html',  // either 'html' or 'svg' (default)
@@ -192,9 +248,7 @@
 		resources: {
 			script: window.jQuery
 					? []
-					: [
-						['', tdgchart.getScriptPath().split('/')[1], 'jquery/js/jquery.js'].join('/')
-					],
+					: [jqueryPath],
 			css: ['css/open-sans.css','css/table.css']
 		},
 		modules: {

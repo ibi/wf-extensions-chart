@@ -22,6 +22,8 @@ To configure or customize your extension, edit the "properties" object in proper
 		
 		"color": "#666",
 		
+		"shortenNumbers": true,
+		
 		"fontFamily": "'Open Sans'",
 		
 		"fontSize": "12px",
