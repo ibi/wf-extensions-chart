@@ -152,11 +152,23 @@
 					// addDefaultToolTipContent can also accept optional arguments:
 					// addDefaultToolTipContent(target, s, g, d, data), useful if this node does not have a class
 					// or if you want to override the default series / group / datum lookup logic.
-					var inDataIndex = renderConfig.data.findIndex(function(datum){return datum.state == d.id}); //input data matched to state feature
+					/* IA-9120 fix for IE-11 not supporting .findIndex method
+						var inDataIndex = renderConfig.data.findIndex(function(datum){return datum.state == d.id}); //input data matched to state feature
+					*/
+					//Start IA-9120 .findIndex not supported with IE-11 fix
+					
+					var inDataIndex = -1;
+					for (var j = 0; j < renderConfig.data.length; ++j) {
+						if (renderConfig.data[j].state == d.id) {
+							inDataIndex = j; //input data matched to state feature
+							break;
+						}
+}					
+					//End IA-9120 .findIndex fix
 					if (inDataIndex != -1) {  //Incorrectly spelled state may not have a tooltip assigned to it; as well as data, see below IA-9120 NFR
 						renderConfig.modules.tooltip.addDefaultToolTipContent(this, 0, inDataIndex, renderConfig.data[inDataIndex]);
 					} //if
-					}) //each	
+				}) //each	
 				 //End CHART-2104	
 				 ;	
 
