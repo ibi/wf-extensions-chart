@@ -150,8 +150,29 @@
 		renderConfig.dataBuckets = {"buckets":{"compare":{"title":"LY","count":1},"xaxis":{"title":"Sale Month","count":1},"measure":{"title":"Revenue","count":1}},"depth":1};
 		renderCallback(renderConfig);
 		
-		if ($('.drop-label.ibx-widget').length==0)
-			$(container).append('<div class="placeholder">Add measures or dimensions</div>');
+		// Begin Code prior to CD-720
+			//if ($('.drop-label.ibx-widget').length==0)
+			//	$(container).append('<div class="placeholder">Add measures or dimensions</div>');
+		// End Code prior to CD-720
+		
+		//Begin CD-720
+			
+			var msg = "Add more measures or dimensions"; 
+			fnShowNoDataMsg(container, renderConfig.properties, msg);
+			
+			//Instructional message is framework (D3/JQuery) independent
+			function fnShowNoDataMsg(container,properties) {
+				
+				var divMsg = document.createElement("div");
+				divMsg.textContent = msg;
+				divMsg.style.cssText = "text-align: center; fill: grey; opacity: 0.3; font-weight: bold; font-size: 14px;";			
+				divMsg.width = properties.width;
+				divMsg.height = properties.height;
+				container.appendChild(divMsg);
+				
+			} // fnShowNoDataMsg
+			
+		//End CD-720
 	}
 
 	// Your extension's configuration
