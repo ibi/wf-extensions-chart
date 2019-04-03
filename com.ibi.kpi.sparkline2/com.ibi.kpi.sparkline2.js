@@ -148,11 +148,25 @@
 				var $container = $(this).closest('.kpi-table-container');
 					if (activeIndex<index) {
 						$container.find('.kpi-table-slide:eq('+activeIndex+')').animate({ left: '-200%' }, function(){ $(this).removeClass('active') });
-						$container.find('.kpi-table-slide:eq('+index+')').css('left', '200%').addClass('active').animate({ left: '0' });				
+						
+						//Begin Code Prior to CD-321
+						//$container.find('.kpi-table-slide:eq('+index+')').css('left', '200%').addClass('active').animate({ left: '0' });
+						//End Code Prior to CD-321						
+						
+						//Begin CD-321: invoke .addClass method within .animate method	
+							$container.find('.kpi-table-slide:eq('+index+')').css('left', '200%').animate({ left: '0' }, function(){$(this).addClass('active') });	
+						//End CD-321		
 					}
 					else if (activeIndex>index) {
 						$container.find('.kpi-table-slide:eq('+activeIndex+')').animate({ left: '200%' }, function(){ $(this).removeClass('active') });
-						$container.find('.kpi-table-slide:eq('+index+')').css('left', '-200%').addClass('active').animate({ left: '0' });										
+						
+						//Begin Code Prior to CD-321
+						//$container.find('.kpi-table-slide:eq('+index+')').css('left', '-200%').addClass('active').animate({ left: '0' });
+						//End Code Prior to CD-321							
+						
+						//Begin CD-321: invoke .addClass method within .animate method
+							$container.find('.kpi-table-slide:eq('+index+')').css('left', '-200%').animate({ left: '0' }, function(){$(this).addClass('active') });										
+						//End CD-321
 					}				
 			})
 			
