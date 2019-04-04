@@ -75,7 +75,12 @@
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_tdg_calendar');
-
+		
+		//Begin CHART-3033	
+			props.toolTipFunctions =  renderConfig.modules.tooltip;   //Reference needed for Mulitdrill, addDefaultToolTipContent will be processed in calendar.js logic
+		//End CHART-3033
+		
+		
 		// ---------------- INIT YOUR EXTENSION HERE
 
 		var tdg_calendar_chart = tdg_calendar(props);
@@ -83,9 +88,11 @@
 
 		// ---------------- END ( INIT YOUR EXTENSION HERE )
 
-		// ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
-		renderConfig.modules.tooltip.updateToolTips();
-
+		//Start Code prior to CHART-3033
+			// ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP		
+			//renderConfig.modules.tooltip.updateToolTips();
+		//End Code prior to CHART-3033
+		
 		renderConfig.renderComplete();
 	}
 
@@ -165,11 +172,12 @@
 			css: ['css/styles.css']
 		},
 		modules: {
-			/*dataSelection: {
+			/*
+			dataSelection: {
 				supported: true,  // Set this true if your extension wants to enable data selection
 				needSVGEventPanel: false, // if you're using an HTML container or altering the SVG container, set this to true and Moonbeam will insert the necessary SVG elements to capture user interactions
 				svgNode: function(arg){}  // if you're using an HTML container or altering the SVG container, return a reference to your root SVG node here.
-			},*/
+			}, */
 			eventHandler: {
 				supported: true
 			},
@@ -184,7 +192,12 @@
 				}
 			},
 			tooltip: {
-				supported: true  // Set this true if your extension wants to enable HTML tooltips
+				supported: true  // Set this true if your extension wants to enable HTML tooltips	
+				/*
+				,autoContent: function(target, s, g, d) {
+								return d.value;
+							 }
+                */							 
 			},
 			legend: {
 				colorMode: function(props){
