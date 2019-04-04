@@ -410,8 +410,13 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
         };
     }
 
-    function renderCells (chart_group) {
-
+	//Start Code Prior to CHART-3033
+		    //function renderCells (chart_group) {
+	//End Code Prior to CHART-3033
+	
+	//Begin CHART-3033 
+    function renderCells (chart_group, toolTipFunctions) {
+	//End CHART-3033
         var cell_group = chart_group.append('g')
             .classed('cells', true)
             .attr('transform', function (d) {
@@ -424,8 +429,13 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
             });
 
         var enter_cells = cells.enter().append('rect')
-            .each(function (cell) {
+            .each(function (cell,s,g) {
                 d3.select(this).attr(cell);
+				//Begin CHART-3033
+					//Follow design pattern in https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.simple_bar/com.ibi.simple_bar.js
+					//'cell' object already has class built with chart.buildClassName(...) method by this point
+					toolTipFunctions.addDefaultToolTipContent(this, null, null, null, null);  
+				//End CHART-3033	
             });
 
         enter_cells.filter(isColoredSquare)
@@ -462,7 +472,12 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
             .attr('transform', function (d) {
                 return 'translate(0,' + d.topOffset + ')';
             })
-            .call(renderCells)
+			//Start Code Prior to CHART-3033
+				//.call(renderCells, props.toolTipFunctions)
+			//End Code Prior to CHART-3033
+			//Begin CHART-3033	
+				.call(renderCells, props.toolTipFunctions) //pass reference to TDG toolTipFunctions as a reference
+			//End CHART-3033	
             .call(renderMonthBorders)
             .call(renderLabels, props.titles);
     }
@@ -476,6 +491,9 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
             measureLabel: null,
             colorScale: null,
             formatNumber: null,
+			//Begin CHART-3033
+				toolTipFunctions: null,
+			//End CHART-3033		
             buckets: null,
             toolTip: {
                 enabled: true,
