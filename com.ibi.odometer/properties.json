@@ -11,19 +11,30 @@
 	},
 	
 	"properties": {
-		"startValue": 1,     // Initial value to draw in the odometer; will cycle up (or down) from this value to the bucket driven data set value
-		"theme": "default",  // One of 'car', 'default', 'digital', 'minimal', 'plaza', 'slot-machine', 'train-station'
-		"animation": "spin", // One of 'spin' or 'count'
-		"updateSpeed": 0,    // length of time between each odometer animation update, in ms.  If 0 or null and animation is spin, will spin nicely
-		"fontSize": null     // Height of font, in pixels.  If undefined, will pick a font that fills up the container.
+		"theme": "default",
+		"animation": "spin",
+		"startValue": 1,
+		"updateSpeed": 0,
+		"fontSize": null
 	},
 	
 	"propertyAnnotations": {
+		"theme": {
+			"typeAnnotation": "str",
+			"stringValues": ["default", "car", "digital", "minimal", "plaza", "slot-machine", "train-station"]
+		},
+		"animation": {
+			"typeAnnotation": "str",
+			"stringValues": ["spin", "count"]
+		},
 		"startValue": "number",
-		"theme": "str",
-		"animation": "str",
 		"updateSpeed": "number",
-		"fontSize": "number"
+		"fontSize": {
+			"typeAnnotation": "number",
+			"numericRange": [0, 50],
+			"numericStep": 1,
+			"uiType": "spinner"
+		}
 	},
 	
 	"dataBuckets":  {
@@ -51,7 +62,29 @@
 			"description": "Simple numeric label with spinning animation",
 			"icon_tooltip": "Simple numeric label with spinning animation", 
 			"value_name": "Value Bucket", 
-			"value_tooltip": "Drop a measure here"
+			"value_tooltip": "Drop a measure here",
+			"properties": {
+				"theme": {
+					"_translation": "Theme",
+					"_stringValues": ["Default", "Car", "Digital", "Minimal", "Plaza", "Slot Machine", "Train Station"]
+				},
+				"animation": {
+					"_translation": "Animation Style",
+					"_stringValues": ["Spin", "Count"]
+				},
+				"startValue": {
+					"_translation": "Start Value",
+					"_tooltip": "Initial value to draw in the odometer. Will cycle up (or down) from this value to the bucket driven data value"
+				},
+				"updateSpeed": {
+					"_translation": "Update Speed",
+					"_tooltip": "length of time between each odometer animation update, in ms.  If 0 or null and animation is spin, will spin nicely"
+				},
+				"fontSize": {
+					"_translation": "Font Size",
+					"_tooltip": "Height of font, in pixels. If zero, will pick a font that fills up the container"
+				}
+			}
 		}
 	}
 }
