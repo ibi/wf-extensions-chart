@@ -122,3 +122,8 @@ To configure or customize your extension edit the "properties" object in propert
 * **color** - Color to use for each task bar.  Can be either a color string (eg: "rgb(1,2,3)" or "red"), or an integer series ID, to use the chart engine's series colors.
 
 * **shape** - Shape to use for each task bar.  Can be either a string (either "bar" or "line"), or an integer series ID, to use the chart engine's series riser shapes.
+
+### Measure:
+
+* **drill_down** - Dummy Meassure Bucket for drill set up.
+
