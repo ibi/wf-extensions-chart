@@ -237,7 +237,7 @@
 			},
 			{
 				"id": "drill_down",
-				"type": "dimension",
+				"type": "measure",
 				"count": {
 					"min": 0,
 					"max": 1

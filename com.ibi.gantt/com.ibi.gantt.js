@@ -371,9 +371,9 @@ function renderCallback(renderConfig) {
 
 	var labelSize = {
 		width: tdg.max(labels, function(el) {
-			return chart.measureLabel(el, style.labels.font).width;
+			return chart.measureLabel(el, style.labels.font).width; 
 		}),
-		height: chart.measureLabel('W', style.labels.font).height
+		height: chart.measureLabel('W', style.labels.font).height 
 	};
 
 	if (labelSize.width > renderConfig.width * properties.layout.max_label_width) {
@@ -387,7 +387,6 @@ function renderCallback(renderConfig) {
 	var axisLabelSizes = axis.rows.map(function(row, i) {
 		return chart.measureLabel(maxLabel, style.timeAxis.rows[i].label.font);
 	});
-
 	var cellSize = {
 		width: Math.round((tdg.max(axisLabelSizes, 'width') || 0) + 12),
 		height: Math.round(labelSize.height + 10)
@@ -396,6 +395,7 @@ function renderCallback(renderConfig) {
 	var axisRowHeights = axisLabelSizes.map(function(row, i) {
 		return axisLabelSizes[i].height + 5;
 	});
+	
 	var axisGroupSize = {
 		width: cellSize.width * axis.count,
 		overallWidth: cellSize.width * axis.count,
@@ -404,13 +404,13 @@ function renderCallback(renderConfig) {
 
 	axis.scale.range([0, axisGroupSize.width]);
 
-	var labelClipURL;
 	var labelGroupSize = {
 		width: labelSize.width + 15,
 		height: cellSize.height * labels.length,
 		overallHeight: cellSize.height * labels.length
 	};
 
+	var labelClipURL;
 	if (axisGroupSize.height + labelGroupSize.height > renderConfig.height - 25) {  // 25 for pad + scrollbar
 		labelGroupSize.height = renderConfig.height - axisGroupSize.height - 25;
 		labelClipURL = renderConfig.container.id + '_label_clip';
@@ -531,6 +531,7 @@ function renderCallback(renderConfig) {
 			}
 		};
 
+		
 		var tooltip = chart.getSeriesAndGroupProperty(0, 0, 'tooltip');
 		var altRowFill = style.risers.altRowFill;
 		altRowFill = tdg.color.isVisible(altRowFill) ? altRowFill : null;
@@ -561,7 +562,7 @@ function renderCallback(renderConfig) {
 							.attr('height', cellSize.height)
 							.attr('fill', altRowFill);
 					}
-
+					
 					d.risers.forEach(function(riser) {
 						if (!riser.start && !riser.stop) {
 							return;
