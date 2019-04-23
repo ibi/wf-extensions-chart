@@ -19,9 +19,11 @@ To configure or customize your extension edit the "properties" object in propert
 	"properties": {
 		"sort": null,  // One of 'label', 'start_time', 'stop_time' or null (do not sort)
 		"fixedAxisPeriod": null, // "year", "month", "day", "hour", Default 'automatic'
+		"weekStartsOnMonday": "bool", // Default false --> week starts on Sunday
 		"autoAxisPeriodLimits": { // each value from the period will be define when the period is auto calculated
 			"year": 5,
 			"month": 4,
+			"week": 3,
 			"day": 1,
 			"hour": 2
 		},

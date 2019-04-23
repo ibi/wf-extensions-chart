@@ -206,6 +206,8 @@ function getAxis(data, properties) {
 			return getYearAxis(start, stop);
 		case "month":
 			return getMonthAxis(start, stop);
+		case "week":
+			return getWeekAxis(start, stop);
 		case "day":
 			return getDayAxis(start, stop);
 		case "hour":
@@ -234,6 +236,16 @@ function getAxis(data, properties) {
 		return getMonthAxis(start, stop, monthScale, monthsTicks);
 	}
 	
+	// WEEK PERIOD #######################
+	var weekScale = d3.scaleTime().domain([start, stop]).nice(),
+		weeksTicks = weekScale.ticks(d3.timeMonth.every(1)),
+		dummy = weeksTicks.pop(),
+		useWeekAxis = weeksTicks.length > (properties.autoAxisPeriodLimits.week || 3);
+	
+	if (useWeekAxis) {		
+		return getWeekAxis(start, stop, monthScale, monthsTicks);
+	}
+	
 	// DAY PERIOD #######################	
 	var dayScale = d3.scaleTime().domain([start, stop]).nice(d3.timeDay),
 		daysTicks = dayScale.ticks(d3.timeDay.every(1)),
@@ -255,7 +267,7 @@ function getAxis(data, properties) {
 
 	return null;
 	
-	function getYearAxis(start, stop, scaleFn, ticks) {	
+	function getYearAxis(start, stop, scaleFn, ticks) {
 		var yearScale = scaleFn || d3.scaleTime().domain([start, stop]).nice(),
 			yearsTicks = ticks || yearScale.ticks(d3.timeYear.every(1)),
 			yearDivisions = yearsTicks.map(function(el, i) {
@@ -297,6 +309,44 @@ function getAxis(data, properties) {
 			scale: monthScale,
 			rows: [monthDivisons],
 			count: monthsTicks.length
+		};
+	}
+	
+	function getWeekAxis(start, stop, scaleFn, ticks) {	
+		var weekStartsOnMonday = properties.weekStartsOnMonday;
+			weekScale = scaleFn || d3.scaleTime().domain([start, stop]).nice(),
+			weekTicks = ticks || weekScale.ticks(weekStartsOnMonday ? d3.timeMonday.every(1) : d3.timeWeek.every(1)), //use d3.timeWeek.every(1) to start weeks on sunday
+			weekDivisons = weekTicks.map(function(el, i) {
+				return {start: i, width: 1, text: el.getDate()};
+			}),
+			startYear = null,
+			startMonthIndex = null,
+			monthDivisons = [],
+			firstTick = weekTicks[0],
+			lastTick = weekTicks[weekTicks.length - 1];
+		
+		if (lastTick.getMonth() != firstTick.getMonth() 
+				|| lastTick.getFullYear() != firstTick.getFullYear()) {
+			weekTicks.forEach(function(m, i) {
+				if (startMonthIndex == null || m.getMonth() > startMonthIndex || m.getFullYear() > startYear) {
+					monthDivisons.push({start: i, width: 1, text: monthNames[m.getMonth()] + '-' + m.getFullYear()});
+					startMonthIndex = m.getMonth();
+					startYear = m.getFullYear();
+				} else {
+					monthDivisons[monthDivisons.length - 1].width += 1;
+				}
+			});
+			return {
+				scale: weekScale,
+				rows: [monthDivisons, weekDivisons],
+				count: weekTicks.length
+			};
+		}
+		
+		return {
+			scale: weekScale,
+			rows: [weekDivisons],
+			count: weekTicks.length
 		};
 	}
 	
