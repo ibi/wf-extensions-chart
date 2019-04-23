@@ -170,7 +170,7 @@ function convertData(data) {
 	return newData;
 }
 
-function getAxis(data) {
+function getAxis(data, fixedPeriod) {
 
 	// Find first and last time entries across all start & stop values
 	var i, j, d, start, stop;
@@ -191,36 +191,95 @@ function getAxis(data) {
 		}
 	}
 
-	if (start == null && stop == null) {
+	// Return Standard Scale Timestamps
+	var useBasicAxis = start == null && stop == null;
+	if (useBasicAxis) {
 		return {
 			rows: [],
 			count: 0,
 			scale: d3.scaleTime()
 		};
 	}
+	
+	switch(fixedPeriod) {
+		case "year":
+			return getYearAxis(start, stop);
+		case "month":
+			return getMonthAxis(start, stop);
+		case "day":
+			return getDayAxis(start, stop);
+		case "hour":
+			return getHourAxis(start, stop);
+		default:
+	}
+	
+	// YEARS PERIOD #######################
+	// Get Years between min and max dates
+	var yearScale = d3.scaleTime().domain([start, stop]).nice(),
+		yearsTicks = yearScale.ticks(d3.timeYear.every(1)),
+		dummy = yearsTicks.pop(),
+		useYearPeriods = yearsTicks.length > 5;
+	
+	if(useYearPeriods) {
+		return getYearAxis(start, stop, yearScale, yearsTicks);
+	}
+	
+	// MONTHS PERIOD #######################
+	var monthScale = d3.scaleTime().domain([start, stop]).nice(),
+		monthsTicks = monthScale.ticks(d3.timeMonth.every(1)),
+		dummy = monthsTicks.pop(),
+		useMonthAxis = monthsTicks.length > 4;
+	
+	if (useMonthAxis) {		
+		return getMonthAxis(start, stop, monthScale, monthsTicks);
+	}
+	
+	// DAY PERIOD #######################	
+	var dayScale = d3.scaleTime().domain([start, stop]).nice(d3.timeDay),
+		daysTicks = dayScale.ticks(d3.timeDay.every(1)),
+		dummy = daysTicks.pop(),
+		useDayAxis = daysTicks.length > 1;
+	
+	if (useDayAxis) {
+		return getDayAxis(start, stop, dayScale, daysTicks);
+	}
+	
+	// HOUR PERIOD #######################	
+	var hourScale = d3.scaleTime().domain([start, stop]).nice(d3.timeHour),
+		hoursTicks = hourScale.ticks(d3.timeHour.every(1)),
+		useHourAxis = hoursTicks.length > 2;
+	
+	if (useHourAxis) {
+		return getHourAxis(start, stop, hourScale, hoursTicks);
+	}
 
-	var scale = d3.scaleTime().domain([start, stop]).nice();
-	var years = scale.ticks(d3.timeYear.every(1));
-	years.pop();
-	var yearDivisions = [], monthDivisons = [], dayDivisions = [], hourDivisions = [], startTime;
-	if (years.length > 5) {
-		yearDivisions = years.map(function(el, i) {
-			return {start: i, width: 1, text: el.getFullYear() + ''};
-		});
+	return null;
+	
+	function getYearAxis(start, stop, scaleFn, ticks) {	
+		var yearScale = scaleFn || d3.scaleTime().domain([start, stop]).nice(),
+			yearsTicks = ticks || yearScale.ticks(d3.timeYear.every(1)),
+			yearDivisions = yearsTicks.map(function(el, i) {
+				return {start: i, width: 1, text: el.getFullYear() + ''};
+			});
+			
 		return {
-			scale: scale,
+			scale: yearScale,
 			rows: [yearDivisions],
-			count: years.length
+			count: yearsTicks.length
 		};
 	}
-	var months = scale.ticks(d3.timeMonth.every(1));
-	months.pop();
-	if (months.length > 4) {
-		monthDivisons = months.map(function(el, i) {
-			return {start: i, width: 1, text: monthNames[el.getMonth()]};
-		});
-		if (months[months.length - 1].getFullYear() > months[0].getFullYear()) {
-			months.forEach(function(m, i) {
+	
+	function getMonthAxis(start, stop, scaleFn, ticks) {
+		var monthScale = scaleFn || d3.scaleTime().domain([start, stop]).nice(),
+			monthsTicks = ticks || monthScale.ticks(d3.timeMonth.every(1)),
+			monthDivisons = monthsTicks.map(function(el, i) {
+				return {start: i, width: 1, text: monthNames[el.getMonth()]};
+			}),
+			yearDivisions = [],
+			startTime = null;
+		
+		if (monthsTicks[monthsTicks.length - 1].getFullYear() > monthsTicks[0].getFullYear()) {
+			monthsTicks.forEach(function(m, i) {
 				if (startTime == null || m.getFullYear() > startTime) {
 					yearDivisions.push({start: i, width: 1, text: m.getFullYear() + ''});
 					startTime = m.getFullYear();
@@ -229,26 +288,29 @@ function getAxis(data) {
 				}
 			});
 			return {
-				scale: scale,
+				scale: monthScale,
 				rows: [yearDivisions, monthDivisons],
-				count: months.length
+				count: monthsTicks.length
 			};
 		}
 		return {
-			scale: scale,
+			scale: monthScale,
 			rows: [monthDivisons],
-			count: months.length
+			count: monthsTicks.length
 		};
 	}
-	scale = d3.scaleTime().domain([start, stop]).nice(d3.timeDay);
-	var days = scale.ticks(d3.timeDay.every(1));
-	days.pop();
-	if (days.length > 1) {
-		dayDivisions = days.map(function(el, i) {
-			return {start: i, width: 1, text: el.getDate() + ''};
-		});
-		if (days[days.length - 1].getMonth() > days[0].getMonth()) {
-			days.forEach(function(m, i) {
+	
+	function getDayAxis(start, stop, scaleFn, ticks) {
+		var dayScale = d3.scaleTime().domain([start, stop]).nice(d3.timeDay),
+			daysTicks = dayScale.ticks(d3.timeDay.every(1)),
+			dayDivisions = daysTicks.map(function(el, i) {
+				return {start: i, width: 1, text: el.getDate() + ''};
+			}),
+			startTime,
+			monthDivisons = [];
+			
+		if (daysTicks[daysTicks.length - 1].getMonth() > daysTicks[0].getMonth()) {
+			daysTicks.forEach(function(m, i) {
 				if (startTime == null || m.getMonth() > startTime) {
 					monthDivisons.push({start: i, width: 1, text: monthNames[m.getMonth()]});
 					startTime = m.getMonth();
@@ -257,20 +319,24 @@ function getAxis(data) {
 				}
 			});
 			return {
-				scale: scale,
+				scale: dayScale,
 				rows: [monthDivisons, dayDivisions],
-				count: days.length
+				count: daysTicks.length
 			};
 		}
 		return {
-			scale: scale,
+			scale: dayScale,
 			rows: [dayDivisions],
-			count: days.length
+			count: daysTicks.length
 		};
 	}
-	scale = d3.scaleTime().domain([start, stop]).nice(d3.timeHour);
-	var hours = scale.ticks(d3.timeHour.every(1));
-	if (hours.length > 2) {
+	
+	function getHourAxis(start, stop, scaleFn, ticks) {
+		var hourScale = scaleFn || d3.scaleTime().domain([start, stop]).nice(d3.timeHour),
+			hoursTicks = ticks || hourScale.ticks(d3.timeHour.every(1)),
+			hourDivisions = [],
+			hoursTicks = hourScale.ticks(d3.timeHour.every(1));
+			
 		if (start.getHours() < 3) {
 			start = start.clone().setHours(0);  // If start hour is near 0h, round down to 0
 		} else {
@@ -284,20 +350,18 @@ function getAxis(data) {
 		} else {
 			stop = stop.clone().setHours(stopHour + 1);  // Round stop hour up one
 		}
-		scale = d3.scaleTime().domain([start, stop]).nice(d3.timeHour);
-		hours = scale.ticks(d3.timeHour.every(1));
+		hourScale = d3.scaleTime().domain([start, stop]).nice(d3.timeHour);
+		hours = hourScale.ticks(d3.timeHour.every(1));
 		hours.pop();
 		hourDivisions = hours.map(function(el, i) {
 			return {start: i, width: 1, text: d3.timeFormat('%H:%M')(el)};
 		});
 		return {
-			scale: scale,
+			scale: hourScale,
 			rows: [hourDivisions],
 			count: hours.length
 		};
 	}
-
-	return null;
 }
 
 // props: container, x, y, width, height, style, className, clipURL, contentCallback
@@ -359,23 +423,27 @@ function renderCallback(renderConfig) {
 
 	data = sortData(data, properties.sort);
 
-	var axis = getAxis(data);
+	//Define periods axis
+	var fixedAxisPeriod = properties.fixedAxisPeriod,
+		axis = getAxis(data, fixedAxisPeriod);
 
 	if (axis == null) {
 		throw 'Gantt: Error calculating Time Span';
 	}
 
+	//Dimension labels
 	var labels = data.map(function(el) {
 		return el.label;
 	});
 
 	var labelSize = {
 		width: tdg.max(labels, function(el) {
-			return chart.measureLabel(el, style.labels.font).width; 
+			return chart.measureLabel(el, style.labels.font).width; //Set the dimension column's width
 		}),
-		height: chart.measureLabel('W', style.labels.font).height 
+		height: chart.measureLabel('W', style.labels.font).height //Set row's height
 	};
 
+	//Truncate labelSize if width is greater than the percentage of the total width available
 	if (labelSize.width > renderConfig.width * properties.layout.max_label_width) {
 		labelSize.width = renderConfig.width * properties.layout.max_label_width;
 		labels = labels.map(function(el) {
@@ -384,6 +452,7 @@ function renderCallback(renderConfig) {
 	}
 
 	var maxLabel = 'May';
+	//Set label size (width, height) related with properties.json
 	var axisLabelSizes = axis.rows.map(function(row, i) {
 		return chart.measureLabel(maxLabel, style.timeAxis.rows[i].label.font);
 	});
@@ -396,20 +465,24 @@ function renderCallback(renderConfig) {
 		return axisLabelSizes[i].height + 5;
 	});
 	
+	//Set chart size
 	var axisGroupSize = {
 		width: cellSize.width * axis.count,
 		overallWidth: cellSize.width * axis.count,
 		height: tdg.sum(axisRowHeights)
 	};
 
+	//Set range for d3 scale function
 	axis.scale.range([0, axisGroupSize.width]);
 
+	//Set label column's width, Set labels column's height
 	var labelGroupSize = {
 		width: labelSize.width + 15,
 		height: cellSize.height * labels.length,
 		overallHeight: cellSize.height * labels.length
 	};
 
+	//Set label column's height if is greater than container's height
 	var labelClipURL;
 	if (axisGroupSize.height + labelGroupSize.height > renderConfig.height - 25) {  // 25 for pad + scrollbar
 		labelGroupSize.height = renderConfig.height - axisGroupSize.height - 25;
@@ -417,6 +490,7 @@ function renderCallback(renderConfig) {
 		createClipRect(defs, labelGroupSize, labelClipURL);
 	}
 
+	//Set label column's height if is greater than container's width
 	var axisClipURL;
 	if (axisGroupSize.width + labelGroupSize.width + 25 > renderConfig.width) {
 		axisGroupSize.width = renderConfig.width - labelGroupSize.width - 25;
@@ -424,6 +498,7 @@ function renderCallback(renderConfig) {
 		createClipRect(defs, axisGroupSize, axisClipURL);
 	}
 
+	//Draw label column
 	labelScrollGroup = drawRegion({
 		container: container,
 		x: 0,
@@ -463,6 +538,7 @@ function renderCallback(renderConfig) {
 
 	if (axis.count > 0) {
 
+		//Draw header (periods) row
 		axisScrollGroup = drawRegion({
 			container: container,
 			x: labelGroupSize.width,
@@ -516,6 +592,7 @@ function renderCallback(renderConfig) {
 			}
 		});
 
+		//Draw header row
 		var riserClipURL;
 		if (labelClipURL || axisClipURL) {
 			riserClipURL = renderConfig.container.id + '_riser_clip';
@@ -563,6 +640,7 @@ function renderCallback(renderConfig) {
 							.attr('fill', altRowFill);
 					}
 					
+					//Draw timestamps
 					d.risers.forEach(function(riser) {
 						if (!riser.start && !riser.stop) {
 							return;
@@ -744,6 +822,7 @@ function renderCallback(renderConfig) {
 					});
 				});
 
+				//Draw grid
 				if (tdg.color.isLineVisible(style.risers.dividers)) {
 					var grid = '';
 					for (i = 1; i < data.length; i++) {
