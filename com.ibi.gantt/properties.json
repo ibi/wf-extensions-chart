@@ -12,10 +12,12 @@
 
 	"properties": {
 		"sort": null,
-		"fixedAxisPeriod": null,
+		"fixedAxisPeriod": "null",
+		"weekStartsOnMonday": true,
 		"autoAxisPeriodLimits": {
 			"year": 5,
 			"month": 4,
+			"week": 3,
 			"day": 1,
 			"hour": 2
 		},
@@ -111,6 +113,7 @@
 	"propertyAnnotations": {
 		"sort": "str",
 		"fixedAxisPeriod": "str",
+		"weekStartsOnMonday": "bool",
 		"autoAxisPeriodLimits": "json",
 		"layout": {
 			"max_label_width": "number"
