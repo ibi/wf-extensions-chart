@@ -19,6 +19,12 @@ To configure or customize your extension edit the "properties" object in propert
 	"properties": {
 		"sort": null,  // One of 'label', 'start_time', 'stop_time' or null (do not sort)
 		"fixedAxisPeriod": null, // "year", "month", "day", "hour", Default 'automatic'
+		"autoAxisPeriodLimits": { // each value from the period will be define when the period is auto calculated
+			"year": 5,
+			"month": 4,
+			"day": 1,
+			"hour": 2
+		},
 		"layout": {
 			"max_label_width": 0.3  // Max percentage of overall chart width to allocate to task label list
 		},

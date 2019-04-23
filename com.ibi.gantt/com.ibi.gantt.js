@@ -170,7 +170,7 @@ function convertData(data) {
 	return newData;
 }
 
-function getAxis(data, fixedPeriod) {
+function getAxis(data, properties) {
 
 	// Find first and last time entries across all start & stop values
 	var i, j, d, start, stop;
@@ -201,7 +201,7 @@ function getAxis(data, fixedPeriod) {
 		};
 	}
 	
-	switch(fixedPeriod) {
+	switch(properties.fixedAxisPeriod) {
 		case "year":
 			return getYearAxis(start, stop);
 		case "month":
@@ -218,7 +218,7 @@ function getAxis(data, fixedPeriod) {
 	var yearScale = d3.scaleTime().domain([start, stop]).nice(),
 		yearsTicks = yearScale.ticks(d3.timeYear.every(1)),
 		dummy = yearsTicks.pop(),
-		useYearPeriods = yearsTicks.length > 5;
+		useYearPeriods = yearsTicks.length > (properties.autoAxisPeriodLimits.year || 5);
 	
 	if(useYearPeriods) {
 		return getYearAxis(start, stop, yearScale, yearsTicks);
@@ -228,7 +228,7 @@ function getAxis(data, fixedPeriod) {
 	var monthScale = d3.scaleTime().domain([start, stop]).nice(),
 		monthsTicks = monthScale.ticks(d3.timeMonth.every(1)),
 		dummy = monthsTicks.pop(),
-		useMonthAxis = monthsTicks.length > 4;
+		useMonthAxis = monthsTicks.length > (properties.autoAxisPeriodLimits.month || 4);
 	
 	if (useMonthAxis) {		
 		return getMonthAxis(start, stop, monthScale, monthsTicks);
@@ -238,7 +238,7 @@ function getAxis(data, fixedPeriod) {
 	var dayScale = d3.scaleTime().domain([start, stop]).nice(d3.timeDay),
 		daysTicks = dayScale.ticks(d3.timeDay.every(1)),
 		dummy = daysTicks.pop(),
-		useDayAxis = daysTicks.length > 1;
+		useDayAxis = daysTicks.length > (properties.autoAxisPeriodLimits.day || 1);
 	
 	if (useDayAxis) {
 		return getDayAxis(start, stop, dayScale, daysTicks);
@@ -247,7 +247,7 @@ function getAxis(data, fixedPeriod) {
 	// HOUR PERIOD #######################	
 	var hourScale = d3.scaleTime().domain([start, stop]).nice(d3.timeHour),
 		hoursTicks = hourScale.ticks(d3.timeHour.every(1)),
-		useHourAxis = hoursTicks.length > 2;
+		useHourAxis = hoursTicks.length > (properties.autoAxisPeriodLimits.hour || 2);
 	
 	if (useHourAxis) {
 		return getHourAxis(start, stop, hourScale, hoursTicks);
@@ -424,8 +424,7 @@ function renderCallback(renderConfig) {
 	data = sortData(data, properties.sort);
 
 	//Define periods axis
-	var fixedAxisPeriod = properties.fixedAxisPeriod,
-		axis = getAxis(data, fixedAxisPeriod);
+	var axis = getAxis(data, properties);
 
 	if (axis == null) {
 		throw 'Gantt: Error calculating Time Span';

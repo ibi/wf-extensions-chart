@@ -13,6 +13,12 @@
 	"properties": {
 		"sort": null,
 		"fixedAxisPeriod": null,
+		"autoAxisPeriodLimits": {
+			"year": 5,
+			"month": 4,
+			"day": 1,
+			"hour": 2
+		},
 		"layout": {
 			"max_label_width": 0.3
 		},
@@ -105,6 +111,7 @@
 	"propertyAnnotations": {
 		"sort": "str",
 		"fixedAxisPeriod": "str",
+		"autoAxisPeriodLimits": "json",
 		"layout": {
 			"max_label_width": "number"
 		},
