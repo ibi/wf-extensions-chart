@@ -12,7 +12,7 @@
 
 	"properties": {
 		"sort": null,
-		"fixedAxisPeriod": "null",
+		"fixedAxisPeriod": null,
 		"weekStartsOnMonday": true,
 		"autoAxisPeriodLimits": {
 			"year": 5,

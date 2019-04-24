@@ -207,7 +207,7 @@ function getAxis(data, properties) {
 		case "month":
 			return getMonthAxis(start, stop);
 		case "week":
-			return getWeekAxis(start, stop);
+			return getWeekAxis(start, stop, null, null, properties.weekStartsOnMonday);
 		case "day":
 			return getDayAxis(start, stop);
 		case "hour":
@@ -216,10 +216,8 @@ function getAxis(data, properties) {
 	}
 	
 	// YEARS PERIOD #######################
-	// Get Years between min and max dates
-	var yearScale = d3.scaleTime().domain([start, stop]).nice(),
-		yearsTicks = yearScale.ticks(d3.timeYear.every(1)),
-		dummy = yearsTicks.pop(),
+	var yearScale = getYearScale(start, stop), 
+		yearsTicks = getYearTicks(yearScale), 
 		useYearPeriods = yearsTicks.length > (properties.autoAxisPeriodLimits.year || 5);
 	
 	if(useYearPeriods) {
@@ -227,9 +225,8 @@ function getAxis(data, properties) {
 	}
 	
 	// MONTHS PERIOD #######################
-	var monthScale = d3.scaleTime().domain([start, stop]).nice(),
-		monthsTicks = monthScale.ticks(d3.timeMonth.every(1)),
-		dummy = monthsTicks.pop(),
+	var monthScale = getMonthScale(start, stop),
+		monthsTicks = getMonthTicks(monthScale),
 		useMonthAxis = monthsTicks.length > (properties.autoAxisPeriodLimits.month || 4);
 	
 	if (useMonthAxis) {		
@@ -237,19 +234,17 @@ function getAxis(data, properties) {
 	}
 	
 	// WEEK PERIOD #######################
-	var weekScale = d3.scaleTime().domain([start, stop]).nice(),
-		weeksTicks = weekScale.ticks(d3.timeMonth.every(1)),
-		dummy = weeksTicks.pop(),
+	var weekScale = getWeekScale(start, stop),
+		weeksTicks = getWeekTicks(weekScale, properties.weekStartsOnMonday),
 		useWeekAxis = weeksTicks.length > (properties.autoAxisPeriodLimits.week || 3);
 	
 	if (useWeekAxis) {		
-		return getWeekAxis(start, stop, monthScale, monthsTicks);
+		return getWeekAxis(start, stop, monthScale, monthsTicks, properties.weekStartsOnMonday);
 	}
 	
 	// DAY PERIOD #######################	
-	var dayScale = d3.scaleTime().domain([start, stop]).nice(d3.timeDay),
-		daysTicks = dayScale.ticks(d3.timeDay.every(1)),
-		dummy = daysTicks.pop(),
+	var dayScale = getDayScale(start, stop),
+		daysTicks = getDayTicks(dayScale),
 		useDayAxis = daysTicks.length > (properties.autoAxisPeriodLimits.day || 1);
 	
 	if (useDayAxis) {
@@ -257,8 +252,8 @@ function getAxis(data, properties) {
 	}
 	
 	// HOUR PERIOD #######################	
-	var hourScale = d3.scaleTime().domain([start, stop]).nice(d3.timeHour),
-		hoursTicks = hourScale.ticks(d3.timeHour.every(1)),
+	var hourScale = getHourScale(start, stop),
+		hoursTicks = getHourTicks(hourScale),
 		useHourAxis = hoursTicks.length > (properties.autoAxisPeriodLimits.hour || 2);
 	
 	if (useHourAxis) {
@@ -267,9 +262,10 @@ function getAxis(data, properties) {
 
 	return null;
 	
+	// AXIS FUNCTIONS ####################	
 	function getYearAxis(start, stop, scaleFn, ticks) {
-		var yearScale = scaleFn || d3.scaleTime().domain([start, stop]).nice(),
-			yearsTicks = ticks || yearScale.ticks(d3.timeYear.every(1)),
+		var yearScale = scaleFn || getYearScale(start, stop),
+			yearsTicks = ticks || getYearTicks(yearScale),
 			yearDivisions = yearsTicks.map(function(el, i) {
 				return {start: i, width: 1, text: el.getFullYear() + ''};
 			});
@@ -280,10 +276,20 @@ function getAxis(data, properties) {
 			count: yearsTicks.length
 		};
 	}
+		
+	function getYearScale(start, stop) {
+		return d3.scaleTime().domain([start, stop]).nice();
+	}
+	
+	function getYearTicks(yearScale) {
+		var yearTicks = yearScale.ticks(d3.timeYear.every(1));
+		yearTicks.pop();
+		return yearTicks;
+	}
 	
 	function getMonthAxis(start, stop, scaleFn, ticks) {
-		var monthScale = scaleFn || d3.scaleTime().domain([start, stop]).nice(),
-			monthsTicks = ticks || monthScale.ticks(d3.timeMonth.every(1)),
+		var monthScale = scaleFn || getMonthScale(start, stop),
+			monthsTicks = ticks || getMonthTicks(monthScale),
 			monthDivisons = monthsTicks.map(function(el, i) {
 				return {start: i, width: 1, text: monthNames[el.getMonth()]};
 			}),
@@ -311,11 +317,20 @@ function getAxis(data, properties) {
 			count: monthsTicks.length
 		};
 	}
+		
+	function getMonthScale(start, stop) {
+		return d3.scaleTime().domain([start, stop]).nice();
+	}
 	
-	function getWeekAxis(start, stop, scaleFn, ticks) {	
-		var weekStartsOnMonday = properties.weekStartsOnMonday;
-			weekScale = scaleFn || d3.scaleTime().domain([start, stop]).nice(),
-			weekTicks = ticks || weekScale.ticks(weekStartsOnMonday ? d3.timeMonday.every(1) : d3.timeWeek.every(1)), //use d3.timeWeek.every(1) to start weeks on sunday
+	function getMonthTicks(monthScale) {
+		var monthTicks = monthScale.ticks(d3.timeMonth.every(1));
+		monthTicks.pop();
+		return monthTicks;
+	}
+	
+	function getWeekAxis(start, stop, scaleFn, ticks, weekStartsOnMonday) {	
+		var weekScale = scaleFn || getWeekScale(start, stop),
+			weekTicks = ticks || getWeekTicks(weekScale, weekStartsOnMonday),
 			weekDivisons = weekTicks.map(function(el, i) {
 				return {start: i, width: 1, text: el.getDate()};
 			}),
@@ -348,7 +363,18 @@ function getAxis(data, properties) {
 			rows: [weekDivisons],
 			count: weekTicks.length
 		};
+	}	
+		
+	function getWeekScale(start, stop) {
+		return d3.scaleTime().domain([start, stop]).nice();
 	}
+	
+	function getWeekTicks(weekScale, weekStartsOnMonday) {
+		//use d3.timeWeek.every(1) to start weeks on sunday;
+		var weekTicks = weekScale.ticks(weekStartsOnMonday ? d3.timeMonday.every(1) : d3.timeWeek.every(1));
+		weekTicks.pop();
+		return weekTicks;
+	}	
 	
 	function getDayAxis(start, stop, scaleFn, ticks) {
 		var dayScale = d3.scaleTime().domain([start, stop]).nice(d3.timeDay),
@@ -380,10 +406,20 @@ function getAxis(data, properties) {
 			count: daysTicks.length
 		};
 	}
+		
+	function getDayScale(start, stop) {
+		return d3.scaleTime().domain([start, stop]).nice(d3.timeDay);
+	}
+	
+	function getDayTicks(dayScale) {
+		var dayTicks = dayScale.ticks(d3.timeDay.every(1));
+		dayTicks.pop();
+		return dayTicks;
+	}
 	
 	function getHourAxis(start, stop, scaleFn, ticks) {
-		var hourScale = scaleFn || d3.scaleTime().domain([start, stop]).nice(d3.timeHour),
-			hoursTicks = ticks || hourScale.ticks(d3.timeHour.every(1)),
+		var hourScale = scaleFn || getHourScale(start, stop),
+			hoursTicks = ticks || getHourTicks(hourScale),
 			hourDivisions = [],
 			hoursTicks = hourScale.ticks(d3.timeHour.every(1));
 			
@@ -412,6 +448,17 @@ function getAxis(data, properties) {
 			count: hours.length
 		};
 	}
+	
+	function getHourScale(start, stop) {
+		return d3.scaleTime().domain([start, stop]).nice(d3.timeHour);
+	}
+	
+	function getHourTicks(hourScale) {
+		var hourTicks = hourScale.ticks(d3.timeHour.every(1));
+		hourTicks.pop();
+		return hourTicks;
+	}
+	
 }
 
 // props: container, x, y, width, height, style, className, clipURL, contentCallback
