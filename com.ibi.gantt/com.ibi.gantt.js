@@ -651,7 +651,8 @@ function renderCallback(renderConfig) {
 			labelSubGroups.append('text')
 				.text(function(d) {return d;})
 				.attr('x', labelGroupSize.width - 10)
-				.attr('y', labelSize.height + 1)
+//				.attr('y', labelSize.height + 1)
+				.attr('y', (properties['adaptableSize'] === true) ? (cellSize.height/2) + 3 : labelSize.height + 1)
 				.attr('text-anchor', 'end')
 				.attr('fill', style.labels.color)
 				.attr('style', 'font: ' + style.labels.font);
@@ -714,9 +715,12 @@ function renderCallback(renderConfig) {
 							return d.text;
 						})
 						.attr('class', 'month_text')
-						.attr('x', (axisLabelSizes[i].width + 12) / 2)
+// is trying to center the across but it is based on the width of the title, it is not known how many the across have
+//						.attr('x', (axisLabelSizes[i].width + 12) / 2)
+						.attr('x', 5)
 						.attr('y', axisLabelSizes[i].height)
-						.attr('text-anchor', 'middle')
+//						.attr('text-anchor', 'middle')
+						.attr('text-anchor', 'left')
 						.attr('fill', style.timeAxis.rows[i].label.color)
 						.attr('style', 'font: ' + style.timeAxis.rows[i].label.font);
 				});
@@ -778,7 +782,7 @@ function renderCallback(renderConfig) {
 									.attr('x', (properties.todayLine.otherDay) ? axis.scale(sanitizeTime(properties.todayLine.otherDay)) :axis.scale(sanitizeTime(todayDate)))
 									.attr('y', 1)
 									.attr('width', 1)
-									.attr('height', props.height-2)
+									.attr('height', cellSize.height * labels.length)
 									.attr('fill', properties.todayLine.color)
 									.attr('stroke', properties.todayLine.color)
 									.attr('stroke-width', '3');
