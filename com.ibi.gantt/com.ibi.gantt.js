@@ -9,7 +9,16 @@ tdg.color.isLineVisible = tdg.color.isLineVisible || function(props) {
 	return props && props.width > 0 && tdg.color.isVisible(props.color);
 };
 
+// internacionalizar
 var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+var todayDate = (function(){
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //As January is 0.
+	var yyyy = today.getFullYear();
+	return yyyy+"/"+mm+"/"+dd;
+}());
 
 function sanitizeTime(t) {
 	if (typeof t !== 'string') {
@@ -463,7 +472,6 @@ function getAxis(data, properties) {
 
 // props: container, x, y, width, height, style, className, clipURL, contentCallback
 function drawRegion(props) {
-
 	var fmt = tdg.formatString;
 
 	var group = props.container.append('g')
@@ -531,12 +539,28 @@ function renderCallback(renderConfig) {
 	var labels = data.map(function(el) {
 		return el.label;
 	});
+	
+	var otherHeights=155;
+	if (properties.fixedAxisPeriod){
+		if ((properties.fixedAxisPeriod == null) || (properties.fixedAxisPeriod == 'year')){
+			otherHeights = 135;
+		}
+	}
+	var aux_labelSizeMax = Math.round((document.getElementsByTagName("BODY")[0].offsetHeight - otherHeights) / (labels.length));
+	var aux_labelSizeMin = chart.measureLabel('W', style.labels.font).height;
+	var aux_labelSize;
+	if (properties['adaptableSize'] === true){
+		aux_labelSize = (aux_labelSizeMax < aux_labelSizeMin) ? aux_labelSizeMin : aux_labelSizeMax;
+	}else{
+		aux_labelSize = aux_labelSizeMin;
+	}
 
 	var labelSize = {
 		width: tdg.max(labels, function(el) {
 			return chart.measureLabel(el, style.labels.font).width; //Set the dimension column's width
 		}),
-		height: chart.measureLabel('W', style.labels.font).height //Set row's height
+//		height: chart.measureLabel('W', style.labels.font).height //Set row's height
+		height: aux_labelSize,
 	};
 
 	//Truncate labelSize if width is greater than the percentage of the total width available
@@ -552,8 +576,19 @@ function renderCallback(renderConfig) {
 	var axisLabelSizes = axis.rows.map(function(row, i) {
 		return chart.measureLabel(maxLabel, style.timeAxis.rows[i].label.font);
 	});
+	var aux_labelGroupSizeWidth = labelSize.width + 15;
+	
+	var aux_cellSizeMax = Math.round((document.getElementsByTagName("BODY")[0].offsetWidth - aux_labelGroupSizeWidth -32) / axis.count);
+	var aux_cellSizeMin = Math.round((tdg.max(axisLabelSizes, 'width') || 0) + 12);
+	var aux_cellSize;
+	if (properties['adaptableSize'] === true){
+		aux_cellSize = (aux_cellSizeMax < aux_cellSizeMin) ? aux_cellSizeMin : aux_cellSizeMax
+	}else{
+		aux_cellSize = aux_cellSizeMin;
+	}
 	var cellSize = {
-		width: Math.round((tdg.max(axisLabelSizes, 'width') || 0) + 12),
+		//width: Math.round((tdg.max(axisLabelSizes, 'width') || 0) + 12),
+		width: aux_cellSize,
 		height: Math.round(labelSize.height + 10)
 	};
 
@@ -573,7 +608,7 @@ function renderCallback(renderConfig) {
 
 	//Set label column's width, Set labels column's height
 	var labelGroupSize = {
-		width: labelSize.width + 15,
+		width: aux_labelGroupSizeWidth,
 		height: cellSize.height * labels.length,
 		overallHeight: cellSize.height * labels.length
 	};
@@ -708,6 +743,7 @@ function renderCallback(renderConfig) {
 		var tooltip = chart.getSeriesAndGroupProperty(0, 0, 'tooltip');
 		var altRowFill = style.risers.altRowFill;
 		altRowFill = tdg.color.isVisible(altRowFill) ? altRowFill : null;
+		
 
 		riserScrollGroup = drawRegion({
 			container: container,
@@ -719,7 +755,35 @@ function renderCallback(renderConfig) {
 			className: 'risers',
 			clipURL: riserClipURL,
 			contentCallback: function(props) {
-
+				//Draw grid
+				if (tdg.color.isLineVisible(style.risers.dividers)) {
+					var grid = '';
+					for (i = 1; i < data.length; i++) {
+						grid += fmt('M0 {0}h{1}', cellSize.height * i, axisGroupSize.overallWidth);
+					}
+					for (i = 1; i < axis.count; i++) {
+						grid += fmt('M{0} 0v{1}', cellSize.width * i, labelGroupSize.overallHeight);
+					}
+					props.scrollGroup.append('path')
+						.attr('d', grid)
+						.attr('stroke', style.risers.dividers.color)
+						.attr('stroke-width', style.risers.dividers.width)
+						.attr('stroke-linecap', 'butt');
+				}
+				
+				//Draw today line
+				if (properties.todayLine){
+					if (properties.todayLine.enabled){
+						props.scrollGroup.append('rect')
+									.attr('x', (properties.todayLine.otherDay) ? axis.scale(sanitizeTime(properties.todayLine.otherDay)) :axis.scale(sanitizeTime(todayDate)))
+									.attr('y', 1)
+									.attr('width', 1)
+									.attr('height', props.height-2)
+									.attr('fill', properties.todayLine.color)
+									.attr('stroke', properties.todayLine.color)
+									.attr('stroke-width', '3');
+					}
+				}			
 				// Draw the risers
 				data.forEach(function(d, idx) {
 
@@ -917,22 +981,6 @@ function renderCallback(renderConfig) {
 						}
 					});
 				});
-
-				//Draw grid
-				if (tdg.color.isLineVisible(style.risers.dividers)) {
-					var grid = '';
-					for (i = 1; i < data.length; i++) {
-						grid += fmt('M0 {0}h{1}', cellSize.height * i, axisGroupSize.overallWidth);
-					}
-					for (i = 1; i < axis.count; i++) {
-						grid += fmt('M{0} 0v{1}', cellSize.width * i, labelGroupSize.overallHeight);
-					}
-					props.scrollGroup.append('path')
-						.attr('d', grid)
-						.attr('stroke', style.risers.dividers.color)
-						.attr('stroke-width', style.risers.dividers.width)
-						.attr('stroke-linecap', 'butt');
-				}
 			}
 		});
 	}

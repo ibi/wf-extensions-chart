@@ -30,6 +30,12 @@ To configure or customize your extension edit the "properties" object in propert
 		"layout": {
 			"max_label_width": 0.3  // Max percentage of overall chart width to allocate to task label list
 		},
+		"todayLine": { // Line to show the actual day
+			"enabled": false,
+			"color": "red",
+			"otherDay": null // other date instead of actual day with YYYY/MM/DD format
+		},
+		"adaptableSize": false, // The main frame will take whole available space
 		"style": {
 			"timeAxis": {
 				"fill": "white",

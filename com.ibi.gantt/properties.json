@@ -24,6 +24,12 @@
 		"layout": {
 			"max_label_width": 0.3
 		},
+		"todayLine": {
+			"enabled": false,
+			"color": "red",
+			"otherDay":null
+		},
+		"adaptableSize":false,
 		"style": {
 			"timeAxis": {
 				"fill": "white",
@@ -117,6 +123,11 @@
 		"autoAxisPeriodLimits": "json",
 		"layout": {
 			"max_label_width": "number"
+		},
+		"todayLine": {
+			"enabled": "bool",
+			"color": "str",
+			"otherDay": "str"
 		},
 		"style": {
 			"timeAxis": {
