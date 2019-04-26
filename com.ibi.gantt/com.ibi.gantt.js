@@ -199,6 +199,7 @@ function getAxis(data, properties) {
 			stop = time_max(stop, time);
 		}
 	}
+	
 	// Return Standard Scale Timestamps
 	var useBasicAxis = start == null && stop == null;
 	if (useBasicAxis) {
@@ -277,11 +278,13 @@ function getAxis(data, properties) {
 			yearDivisions = yearsTicks.map(function(el, i) {
 				return {start: i, width: 1, text: el.getFullYear() + ''};
 			});
+			
 		return {
 			scale: yearScale,
 			rows: [yearDivisions],
 			count: yearsTicks.length,
-			dates: yearsTicks
+			start: new Date(start.getFullYear(), 1, 1),
+			stop: new Date(stop.getFullYear(), 12, 1, 23, 59, 59)
 		};
 	}
 		
@@ -317,14 +320,16 @@ function getAxis(data, properties) {
 				scale: monthScale,
 				rows: [yearDivisions, monthDivisons],
 				count: monthsTicks.length,
-				dates: monthsTicks
+				start: new Date(start.getFullYear(), 1, 1),
+				stop: new Date(stop.getFullYear(), 12, 1, 23, 59, 59)
 			};
 		}
 		return {
 			scale: monthScale,
 			rows: [monthDivisons],
 			count: monthsTicks.length,
-			dates: monthsTicks
+			start: new Date(start.getFullYear(), 1, 1),
+			stop: new Date(stop.getFullYear(), 12, 1, 23, 59, 59)
 		};
 	}
 		
@@ -365,7 +370,8 @@ function getAxis(data, properties) {
 				scale: weekScale,
 				rows: [monthDivisons, weekDivisons],
 				count: weekTicks.length,
-				dates: weekTicks
+				start: new Date(start.getFullYear(), 1, 1),
+				stop: new Date(stop.getFullYear(), 12, 1, 23, 59, 59)
 			};
 		}
 		
@@ -373,7 +379,8 @@ function getAxis(data, properties) {
 			scale: weekScale,
 			rows: [weekDivisons],
 			count: weekTicks.length,
-			dates: weekTicks
+			start: new Date(start.getFullYear(), 1, 1),
+			stop: new Date(stop.getFullYear(), 12, 1, 23, 59, 59)
 		};
 	}	
 		
@@ -396,7 +403,7 @@ function getAxis(data, properties) {
 			}),
 			startTime,
 			monthDivisons = [];
-			
+		
 		if (daysTicks[daysTicks.length - 1].getMonth() > daysTicks[0].getMonth()) {
 			daysTicks.forEach(function(m, i) {
 				if (startTime == null || m.getMonth() > startTime) {
@@ -410,14 +417,16 @@ function getAxis(data, properties) {
 				scale: dayScale,
 				rows: [monthDivisons, dayDivisions],
 				count: daysTicks.length,
-				dates: daysTicks
+				start: new Date(start.getFullYear(), 1, 1),
+				stop: new Date(stop.getFullYear(), 12, 1, 23, 59, 59)
 			};
 		}
 		return {
 			scale: dayScale,
 			rows: [dayDivisions],
 			count: daysTicks.length,
-			dates: daysTicks
+			start: new Date(start.getFullYear(), 1, 1),
+			stop: new Date(stop.getFullYear(), 12, 1, 23, 59, 59)
 		};
 	}
 		
@@ -436,7 +445,7 @@ function getAxis(data, properties) {
 			hoursTicks = ticks || getHourTicks(hourScale),
 			hourDivisions = [],
 			hoursTicks = hourScale.ticks(d3.timeHour.every(1));
-			
+		
 		if (start.getHours() < 3) {
 			start = start.clone().setHours(0);  // If start hour is near 0h, round down to 0
 		} else {
@@ -460,7 +469,8 @@ function getAxis(data, properties) {
 			scale: hourScale,
 			rows: [hourDivisions],
 			count: hours.length,
-			dates: hoursTicks
+			start: new Date(start.getFullYear(), 1, 1),
+			stop: new Date(stop.getFullYear(), 12, 1, 23, 59, 59)
 		};
 	}
 	
@@ -786,7 +796,8 @@ function renderCallback(renderConfig) {
 					if (properties.todayLine.enabled){
 						var lineMarkDate = (properties.todayLine.otherDay) ? sanitizeTime(properties.todayLine.otherDay) : sanitizeTime(todayDate);
 						var lineMark = axis.scale(lineMarkDate);
-						if ((lineMarkDate >= axis.dates[0]) && (lineMarkDate <= axis.dates[axis.dates.length-1])){
+						
+						if ((lineMarkDate >= axis.start) && (lineMarkDate <= axis.stop)){
 							props.scrollGroup.append('rect')
 									.attr('x', lineMark)
 									.attr('y', 1)
