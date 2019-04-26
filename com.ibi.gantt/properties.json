@@ -12,7 +12,7 @@
 
 	"properties": {
 		"sort": null,
-		"fixedAxisPeriod": "day",
+		"fixedAxisPeriod": null,
 		"weekStartsOnMonday": true,
 		"autoAxisPeriodLimits": {
 			"year": 5,
@@ -25,11 +25,11 @@
 			"max_label_width": 0.3
 		},
 		"todayLine": {
-			"enabled": true,
+			"enabled": false,
 			"color": "red",
 			"otherDay":null
 		},
-		"adaptableSize":true,
+		"adaptableSize":false,
 		"style": {
 			"timeAxis": {
 				"fill": "white",

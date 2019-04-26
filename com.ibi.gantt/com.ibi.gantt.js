@@ -199,7 +199,6 @@ function getAxis(data, properties) {
 			stop = time_max(stop, time);
 		}
 	}
-
 	// Return Standard Scale Timestamps
 	var useBasicAxis = start == null && stop == null;
 	if (useBasicAxis) {
@@ -278,11 +277,11 @@ function getAxis(data, properties) {
 			yearDivisions = yearsTicks.map(function(el, i) {
 				return {start: i, width: 1, text: el.getFullYear() + ''};
 			});
-			
 		return {
 			scale: yearScale,
 			rows: [yearDivisions],
-			count: yearsTicks.length
+			count: yearsTicks.length,
+			dates: yearsTicks
 		};
 	}
 		
@@ -317,13 +316,15 @@ function getAxis(data, properties) {
 			return {
 				scale: monthScale,
 				rows: [yearDivisions, monthDivisons],
-				count: monthsTicks.length
+				count: monthsTicks.length,
+				dates: monthsTicks
 			};
 		}
 		return {
 			scale: monthScale,
 			rows: [monthDivisons],
-			count: monthsTicks.length
+			count: monthsTicks.length,
+			dates: monthsTicks
 		};
 	}
 		
@@ -363,14 +364,16 @@ function getAxis(data, properties) {
 			return {
 				scale: weekScale,
 				rows: [monthDivisons, weekDivisons],
-				count: weekTicks.length
+				count: weekTicks.length,
+				dates: weekTicks
 			};
 		}
 		
 		return {
 			scale: weekScale,
 			rows: [weekDivisons],
-			count: weekTicks.length
+			count: weekTicks.length,
+			dates: weekTicks
 		};
 	}	
 		
@@ -406,13 +409,15 @@ function getAxis(data, properties) {
 			return {
 				scale: dayScale,
 				rows: [monthDivisons, dayDivisions],
-				count: daysTicks.length
+				count: daysTicks.length,
+				dates: daysTicks
 			};
 		}
 		return {
 			scale: dayScale,
 			rows: [dayDivisions],
-			count: daysTicks.length
+			count: daysTicks.length,
+			dates: daysTicks
 		};
 	}
 		
@@ -454,7 +459,8 @@ function getAxis(data, properties) {
 		return {
 			scale: hourScale,
 			rows: [hourDivisions],
-			count: hours.length
+			count: hours.length,
+			dates: hoursTicks
 		};
 	}
 	
@@ -778,14 +784,18 @@ function renderCallback(renderConfig) {
 				//Draw today line
 				if (properties.todayLine){
 					if (properties.todayLine.enabled){
-						props.scrollGroup.append('rect')
-									.attr('x', (properties.todayLine.otherDay) ? axis.scale(sanitizeTime(properties.todayLine.otherDay)) :axis.scale(sanitizeTime(todayDate)))
+						var lineMarkDate = (properties.todayLine.otherDay) ? sanitizeTime(properties.todayLine.otherDay) : sanitizeTime(todayDate);
+						var lineMark = axis.scale(lineMarkDate);
+						if ((lineMarkDate >= axis.dates[0]) && (lineMarkDate <= axis.dates[axis.dates.length-1])){
+							props.scrollGroup.append('rect')
+									.attr('x', lineMark)
 									.attr('y', 1)
 									.attr('width', 1)
 									.attr('height', cellSize.height * labels.length)
 									.attr('fill', properties.todayLine.color)
 									.attr('stroke', properties.todayLine.color)
 									.attr('stroke-width', '3');
+						}
 					}
 				}			
 				// Draw the risers
