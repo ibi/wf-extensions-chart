@@ -27,6 +27,14 @@ To configure or customize your extension edit the "properties" object in propert
 			"day": 1,
 			"hour": 2
 		},
+		"coloredByTuples":{ // Colors of the graphic by tuples
+			"enabled": false,
+			"tuples": { // tuples to change the color based on the value of the field color
+				"good": "green",
+				"normal": "blue",
+				"wrong": "red"
+			}
+		},
 		"layout": {
 			"max_label_width": 0.3  // Max percentage of overall chart width to allocate to task label list
 		},

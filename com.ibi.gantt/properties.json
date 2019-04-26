@@ -21,6 +21,14 @@
 			"day": 1,
 			"hour": 2
 		},
+		"coloredByTuples":{
+			"enabled": false,
+			"tuples": {
+				"good": "green",
+				"normal": "blue",
+				"wrong": "red"
+			}
+		},
 		"layout": {
 			"max_label_width": 0.3
 		},
@@ -121,6 +129,7 @@
 		"fixedAxisPeriod": "str",
 		"weekStartsOnMonday": "bool",
 		"autoAxisPeriodLimits": "json",
+		"coloredByTuples": "json",
 		"layout": {
 			"max_label_width": "number"
 		},

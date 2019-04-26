@@ -862,13 +862,25 @@ function renderCallback(renderConfig) {
 									shape = 'line';
 								}
 							}
+
+							var riserColor = inverted ? riserStyle.invertedColor : riserStyle.color;
+							if (properties.coloredByTuples){
+								if (properties.coloredByTuples.enabled === true){
+									Object.getOwnPropertyNames(properties.coloredByTuples.tuples).forEach(function (key) {
+										if (riser.color == key){
+											riserColor = properties.coloredByTuples.tuples[key];
+										}
+									});
+								}
+							}
+							
 							if (shape === 'line') {
 								riserElement = g.append('line')
 									.attr('x1', axis.scale(start))
 									.attr('y1', cellSize.height / 2)
 									.attr('x2', axis.scale(stop))
 									.attr('y2', cellSize.height / 2)
-									.attr('stroke', inverted ? riserStyle.invertedColor : riserStyle.color)
+									.attr('stroke', riserColor)
 									.attr('stroke-width', riserStyle.border.width || 1);
 							} else {
 								riserElement = g.append('rect')
@@ -876,7 +888,7 @@ function renderCallback(renderConfig) {
 									.attr('y', (cellSize.height - riserHeight) / 2)
 									.attr('width', Math.max(2, axis.scale(stop) - axis.scale(start)))
 									.attr('height', riserHeight - 1 + borderOffset)
-									.attr('fill', inverted ? riserStyle.invertedColor : riserStyle.color)
+									.attr('fill', riserColor)
 									.attr('stroke', riserStyle.border.color)
 									.attr('stroke-width', riserStyle.border.width);
 							}
