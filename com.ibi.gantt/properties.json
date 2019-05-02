@@ -35,9 +35,10 @@
 		"todayLine": {
 			"enabled": false,
 			"color": "red",
-			"otherDay":null
+			"otherDay": null
 		},
-		"adaptableSize":false,
+		"adaptableSize": false,
+		"adjustToDataLimits": false,
 		"style": {
 			"timeAxis": {
 				"fill": "white",
@@ -133,11 +134,9 @@
 		"layout": {
 			"max_label_width": "number"
 		},
-		"todayLine": {
-			"enabled": "bool",
-			"color": "str",
-			"otherDay": "str"
-		},
+		"todayLine": "json",
+		"adaptableSize": "bool",
+		"adjustToDataLimits": "bool",
 		"style": {
 			"timeAxis": {
 				"fill": "color",

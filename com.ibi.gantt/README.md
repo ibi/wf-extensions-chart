@@ -44,6 +44,7 @@ To configure or customize your extension edit the "properties" object in propert
 			"otherDay": null // other date instead of actual day with YYYY/MM/DD format
 		},
 		"adaptableSize": false, // The main frame will take whole available space
+		"adjustToDataLimits": false, // the chart will take min and max data like limits of chart
 		"style": {
 			"timeAxis": {
 				"fill": "white",
