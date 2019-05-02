@@ -121,6 +121,10 @@
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_tdg_calendar');
+			
+		//Begin CHART-3033	
+			props.toolTipFunctions =  renderConfig.modules.tooltip;   //Reference needed for Mulitdrill, addDefaultToolTipContent will be processed in calendar.js logic
+		//End CHART-3033			
 
 		// ---------------- INIT YOUR EXTENSION HERE
 

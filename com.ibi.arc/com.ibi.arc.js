@@ -101,7 +101,7 @@
         props.width = renderConfig.width;
         props.height = renderConfig.height;
         props.data = [
-            [{ "label": "ENGLAND", "value": 12000, "_s": 0, "_g": 0 }, { "label": "ITALY", "value": 30200, "_s": 0, "_g": 2 }, { "label": "JAPAN", "value": 78030, "_s": 0, "_g": 3 }, { "label": "W GERMANY", "value": 88190, "_s": 0, "_g": 4 }]
+            [{ "label": "Series 0", "value": 12000, "_s": 0, "_g": 0 }, { "label": "Series 1", "value": 30200, "_s": 0, "_g": 2 }, { "label": "Series 2", "value": 78030, "_s": 0, "_g": 3 }, { "label": "Series 3", "value": 88190, "_s": 0, "_g": 4 }]
         ];
         props.isInteractionDisabled = renderConfig.disableInteraction;
 
