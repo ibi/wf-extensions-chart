@@ -67,11 +67,27 @@
 	},
 	
 	"propertyAnnotations": {
-		"type": "str",
+		"type": {
+			"typeAnnotation": "str",
+			"stringValues": ["regular", "stacked"]
+		},
 		"arc": {
-			"start": "number",
-			"extent": "number",
-			"padding": "number",
+			"start": {
+				"typeAnnotation": "number",
+				"numericRange": [-3, 3],
+				"numericStep": 0.05
+			},
+			"extent": {
+				"typeAnnotation": "number",
+				"numericRange": [0, 0.8],
+				"numericStep": 0.05
+			},
+			"padding": {
+				"typeAnnotation": "number",
+				"numericRange": [0, 1],
+				"numericStep": 0.05,
+				"uiType": "spinner"
+			},
 			"sortBy": "str",
 			"sort": {
 				"by": "str",
@@ -79,23 +95,23 @@
 			},
 			"border": {
 				"width": "number",
-				"color": "str"
+				"color": "color"
 			}
 		},
 		"axis": {
 			"base": {
-				"color": "str",
+				"color": "color",
 				"width": "number"
 			},
 			"labels": {
 				"format": "str"
 			},
 			"ticks": {
-				"color": "str",
+				"color": "color",
 				"width": "number",
 				"labels": {
 					"fontSize": "str",
-					"color": "str"
+					"color": "color"
 				}
 			}
 		},
@@ -104,11 +120,11 @@
 			"fontSize": "str",
 			"fontWeight": "str",
 			"color": "color",
-                        "format": "str"
+			"format": "str"
 		},
 		"labels": {
 			"text": {
-				"color": "str",
+				"color": "color",
 				"font": "str",
 				"weight": "str",
 				"size": "str"
@@ -152,7 +168,86 @@
 			"value_name": "Value (MES)", 
 			"value_tooltip": "Drop a measure here",
 			"label_name": "Label (DIM)", 
-			"label_tooltip": "Drop a measure here"
+			"label_tooltip": "Drop a measure here",
+			"properties": {
+				"type": {
+					"_translation": "Arc Type",
+					"_tooltip": "Choose whether arcs layout in a stack or side by side",
+					"_valueTooltip": "Regular or Stacked",
+					"_stringValues": ["Regular", "Stacked"]
+				},
+				"arc": {
+					"_translation": "Arc Properties",
+					"_tooltip": "Choose whether arcs layout in a stack or side by side",
+					"_valueTooltip": "Regular or Stacked",
+					"start": {
+						"_translation": "Start Angle",
+						"_tooltip": "Angle where the arc starts drawing",
+						"_valueTooltip": "A decimal value between 0 and 10"
+					},
+					"extent": "Angle Extent",
+					"padding": "Padding",
+					"sortBy": "Sort by",
+					"sort": {
+						"_translation": "Sort",
+						"by": "By",
+						"ascending": "Ascending"
+					},
+					"border": {
+						"_translation": "Border",
+						"width": "Width",
+						"color": "Color"
+					}
+				},
+				"axis": {
+					"_translation": "Arc Axis",
+					"base": {
+						"_translation": "Axis Base",
+						"color": "Color",
+						"width": "Width"
+					},
+					"labels": {
+						"_translation": "Labels",
+						"format": "Number Format"
+					},
+					"ticks": {
+						"_translation": "Axis Ticks",
+						"color": "Color",
+						"width": "Width",
+						"labels": {
+							"_translation": "Tick Labels",
+							"fontSize": "Font Size",
+							"color": "Font Color"
+						}
+					}
+				},
+				"valueLabel": {
+					"_translation": "Value Label",
+					"fontFamily": "Font Family",
+					"fontSize": "Font Size",
+					"fontWeight": "Font Weight",
+					"color": "Font Color",
+					"format": "Number Format"
+				},
+				"labels": {
+					"_translation": "Arc Labels",
+					"text": {
+						"_translation": "Text",
+						"color": "Font Color",
+						"font": "Font Family",
+						"weight": "Font Weight",
+						"size": "Font Size"
+					},
+					"marker": {
+						"_translation": "Label Marker",
+						"type": "Marker Type"
+					}
+				},
+				"tooltip": {
+					"_translation": "Tool Tip",
+					"enabled": "Enabled"
+				}
+			}
 		},
 		
 		"de": {
@@ -225,7 +320,7 @@
 			"label_tooltip": "ここに基軸をドロップ"
 		},
 		
-		"br": {
+		"pt_BR": {
 			"name": "Gráfico de Arco",
 			"description": "Gráfico de Arco",
 			"icon_tooltip": "Gráfico de Arco", 
