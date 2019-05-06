@@ -59,7 +59,7 @@
 		var od = new Odometer({
 			el: div2,
 			value: startValue,
-			format: '',
+			format: renderConfig.properties.format,
 			theme: theme,
 			duration: (animation === 'count') ? duration : 1000,
 			animation: animation

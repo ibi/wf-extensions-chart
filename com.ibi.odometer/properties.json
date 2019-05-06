@@ -15,7 +15,8 @@
 		"animation": "spin",
 		"startValue": 1,
 		"updateSpeed": 0,
-		"fontSize": null
+		"fontSize": null,
+		"format": "(,ddd)"
 	},
 	
 	"propertyAnnotations": {
@@ -34,7 +35,8 @@
 			"numericRange": [0, 50],
 			"numericStep": 1,
 			"uiType": "spinner"
-		}
+		},
+		"format": "str"
 	},
 	
 	"dataBuckets":  {
