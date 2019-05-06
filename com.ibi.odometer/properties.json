@@ -16,7 +16,7 @@
 		"startValue": 1,
 		"updateSpeed": 0,
 		"fontSize": null,
-		"format": "(,ddd)"
+		"format": ""
 	},
 	
 	"propertyAnnotations": {
