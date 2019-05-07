@@ -59,6 +59,9 @@
 			
 		d3.select('body')
 			.style('background-color', bodyBackgroundColor)
+		
+		d3.select('rect.eventCatcher')
+			.style('fill', bodyBackgroundColor)
 			
 		//Defaults
 		if (typeof imagePercentageWidth == 'undefined') {

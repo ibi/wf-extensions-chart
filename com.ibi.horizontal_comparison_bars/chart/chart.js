@@ -36,6 +36,9 @@
 			
 		d3.select('body')
 			.style('background-color', bodyBackgroundColor)
+		
+		d3.select('rect.eventCatcher')
+			.style('fill', bodyBackgroundColor)
 			
 		// calculate percentajes
 		for (var i = 0; i < data.length; i++) {

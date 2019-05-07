@@ -42,6 +42,9 @@
 			
 		d3.select('body')
 			.style('background-color', bodyBackgroundColor)
+		
+		d3.select('rect.eventCatcher')
+			.style('fill', bodyBackgroundColor)
 					
 		var container = d3.select(mainContainer).attr('class', 'extension_container').append('g');
 	
