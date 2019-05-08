@@ -44,7 +44,8 @@ To configure or customize your extension edit "properties" object in properties.
 			"colors": {
 				"minColor": "#912BA7",
 				"maxColor": "#036DB2",
-				"titlesColor": "#415D6B"
+				"titlesColor": "#415D6B",
+				"bodyBackgroundColor": "transparent"
 			}
 		}		
 	},

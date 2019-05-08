@@ -31,7 +31,14 @@
 			formatComparation = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.formatComparation'),
 			calculeComparationFunctionParam1 = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.calculeComparationFunction.param1'),
 			calculeComparationFunctionParam2 = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.calculeComparationFunction.param2'),
-			calculeComparationFunctionBody = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.calculeComparationFunction.body');
+			calculeComparationFunctionBody = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.calculeComparationFunction.body'),
+			bodyBackgroundColor = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.bodyBackgroundColor') || "transparent";
+			
+		d3.select('body')
+			.style('background-color', bodyBackgroundColor)
+		
+		d3.select('rect.eventCatcher')
+			.style('fill', bodyBackgroundColor)
 			
 		// calculate percentajes
 		for (var i = 0; i < data.length; i++) {

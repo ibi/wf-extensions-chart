@@ -37,7 +37,14 @@
 			shortenValue = ib3SLI.config.getProperty('kpidistributionProperties.options.shortenValue'),
 			forceSortRows = ib3SLI.config.getProperty('kpidistributionProperties.options.forceSortRows'),
 			showBarIcons = ib3SLI.config.getProperty('kpidistributionProperties.options.showBarIcons'),
-			barIconWidth = ib3SLI.config.getProperty('kpidistributionProperties.sizes.barIconWidth');
+			barIconWidth = ib3SLI.config.getProperty('kpidistributionProperties.sizes.barIconWidth'),
+			bodyBackgroundColor = ib3SLI.config.getProperty('kpidistributionProperties.colors.bodyBackgroundColor') || "transparent";
+			
+		d3.select('body')
+			.style('background-color', bodyBackgroundColor)
+		
+		d3.select('rect.eventCatcher')
+			.style('fill', bodyBackgroundColor)
 					
 		var container = d3.select(mainContainer).attr('class', 'extension_container').append('g');
 	
