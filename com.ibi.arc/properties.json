@@ -169,6 +169,7 @@
 			"value_tooltip": "Drop a measure here",
 			"label_name": "Label (DIM)", 
 			"label_tooltip": "Drop a measure here",
+			"add_data": "Add more measures or dimensions",
 			"properties": {
 				"type": {
 					"_translation": "Arc Type",

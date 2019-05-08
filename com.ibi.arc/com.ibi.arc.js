@@ -124,11 +124,18 @@
 
         arc_chart(container);
 
-        appendCoverScreen(container, props.width, props.height);
+        appendCoverScreen(renderConfig, container, props.width, props.height);
         invokeAfterTwo();
     }
 
-    function appendCoverScreen(container, width, height) {
+    function appendCoverScreen(renderConfig, container, width, height) {
+
+        var text;
+        if (renderConfig.modules.translate) {
+            text = renderConfig.modules.translate.getString('add_data');
+		}
+		text = text || 'Add more measures or dimensions';
+
         container.append("rect")
             .attr({
                 width: width,
@@ -140,7 +147,7 @@
             });
 
         container.append('text')
-            .text('Add more measures or dimensions')
+            .text(text)
             .attr({
                 'text-anchor': 'middle',
                 y: height / 2,
