@@ -85,7 +85,8 @@
 				"fontSize": {
 					"_translation": "Font Size",
 					"_tooltip": "Height of font, in pixels. If zero, will pick a font that fills up the container"
-				}
+				},
+				"format": "Format"
 			}
 		}
 	}
