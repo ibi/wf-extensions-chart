@@ -125,10 +125,23 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
     //              }
     //         ]
     //      }
-
-    var month_names = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-
-    var week_days_names = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+	function getMonthNames(language){
+		var month_names = {
+			en: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
+			es: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
+		};
+		return month_names[language];
+	}
+	
+	var day, week;
+	
+	function getWeekDaysNames(language){
+		var week_days_names = {
+			en: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+			es: [ 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab','Dom']
+		};
+		return week_days_names[language];
+	}
 
     function getTitlesDims ( measureLabel, titlesProps ) {
         return {
@@ -147,8 +160,12 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
 
     function monthPath(t0, cellSize) {
       var t1 = new Date(t0.getFullYear(), t0.getMonth() + 1, 0),
+		d0 = +day(t0), w0 = +week(t0),
+        d1 = +day(t1), w1 = +week(t1);
+/*
         d0 = t0.getDay(), w0 = d3.time.weekOfYear(t0),
         d1 = t1.getDay(), w1 = d3.time.weekOfYear(t1);
+*/
       return "M" + (w0 + 1) * cellSize + "," + d0 * cellSize
         + "H" + w0 * cellSize + "V" + 7 * cellSize
         + "H" + w1 * cellSize + "V" + (d1 + 1) * cellSize
@@ -160,11 +177,12 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
         return d.getMonth() + ' ' + d.getDate() + ' ' + d.getYear();
     }
 
-    function buildCellTitle (date, toolTip) {
-        var str = '<div style="padding:5px;">';
+    function buildCellTitle (date, toolTip, language) {
+        var str = '<div style="padding:5px;">',
+			titleText = (language == 'es')? 'Fecha: ' : 'Date: ';
 
-        str += '<b>date: </b>';
-        str += month_names[date.getMonth()] + ' ' + date.getDate() + ', ' + ( 1900 + date.getYear() );
+        str += '<b>'+titleText+'</b>';
+        str += getMonthNames(language)[date.getMonth()] + ' ' + date.getDate() + ', ' + ( 1900 + date.getYear() );
         str += '<br/>';
         str += '<b>' + toolTip.key + ': </b>' + toolTip.value;
         str += '</div>';
@@ -172,7 +190,14 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
         return str;
     }
 
-    function buildSingleChartLayout ( width, height, titleDims, year, dateToDatumMap ) {
+    function buildSingleChartLayout ( width, height, titleDims, year, dateToDatumMap, language ) {
+		if (language == 'es'){
+			day = function(d) { return (d.getDay() + 6) % 7; };
+			week = d3.time.format("%W");
+		}else{
+			day = function(d) { return d.getDay(); },
+			week = d3.time.format("%U");
+		}
         var layout = {
             labels: {
                 year: null,
@@ -198,19 +223,23 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
         layout.cells = days.map(function (d) {
             var dId = getDateIdentifier(d);
             return {
+/*
                 x: d3.time.weekOfYear(d) * cellSize,
                 y: d.getDay() * cellSize,
+*/
+				x: week(d) * cellSize,
+                y: day(d) * cellSize,
                 width: cellSize,
                 height: cellSize,
                 fill: (dateToDatumMap[dId] && dateToDatumMap[dId].color ) ? dateToDatumMap[dId].color : 'none',
                 class: (dateToDatumMap[dId] && dateToDatumMap[dId].elClassName ) ? dateToDatumMap[dId].elClassName : null,
-                tdgtitle: (dateToDatumMap[dId] && dateToDatumMap[dId].toolTip) ? buildCellTitle(d, dateToDatumMap[dId].toolTip) : null
+                tdgtitle: (dateToDatumMap[dId] && dateToDatumMap[dId].toolTip) ? buildCellTitle(d, dateToDatumMap[dId].toolTip, language) : null
             };
         });
 
         var halfCellSize = cellSize / 2;
 
-        layout.labels.weekDays = week_days_names.map(function (text, idx) {
+        layout.labels.weekDays = getWeekDaysNames(language).map(function (text, idx) {
             return {
                 text: text,
                 x: left - pad,
@@ -228,7 +257,7 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
             y: top + extent[0] + ( extent[1] - extent[0] ) / 2
         };
 
-        layout.labels.weekDays = week_days_names.map(function (text, idx) {
+        layout.labels.weekDays = getWeekDaysNames(language).map(function (text, idx) {
             return {
                 text: text,
                 x: left - pad,
@@ -236,17 +265,19 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
             };
         });
 
-        var sundays = days.filter(function(d){ return d.getDay() === 0; });
+//        var sundays = days.filter(function(d){ return d.getDay() === 0; });
+		var firstDayOfWeek = days.filter(function(d){ return day(d) === 0; });
 
         var sundaysByMonth = d3.nest()
             .key(function (d) {
                 return +d.getMonth();
             })
-            .entries(sundays);
+            .entries(firstDayOfWeek);
 
-        layout.labels.months = month_names.map(function (text, idx) {
+        layout.labels.months = getMonthNames(language).map(function (text, idx) {
             var extent = d3.extent(sundaysByMonth[idx].values);
-            var x = d3.time.weekOfYear(extent[0]) * cellSize + ( d3.time.weekOfYear(extent[1]) * cellSize + cellSize - d3.time.weekOfYear(extent[0]) * cellSize ) / 2;
+//            var x = d3.time.weekOfYear(extent[0]) * cellSize + ( d3.time.weekOfYear(extent[1]) * cellSize + cellSize - d3.time.weekOfYear(extent[0]) * cellSize ) / 2;
+			var x = week(extent[0]) * cellSize + ( week(extent[1]) * cellSize + cellSize - week(extent[0]) * cellSize ) / 2;
 
             return {
                 text: text,
@@ -308,7 +339,7 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
         }, {});
 
         years.forEach(function (year, idx) {
-            var chart = buildSingleChartLayout( props.width, height, titleDims, year, dateToDatumMap );
+            var chart = buildSingleChartLayout( props.width, height, titleDims, year, dateToDatumMap, props.language );
             chart.topOffset = (height + chartOffset) * idx;
             layout.charts.push(chart);
         });
@@ -529,7 +560,13 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
 
         // ---------------------------------- END OF Z2
         copyIfExisty(props, user_props || {});
-
+		
+		if (user_props.language){
+			props['language'] = user_props.language;
+		}else{
+			props['language'] = 'en';
+		}
+		
         function createAccessor(attr) {
             function accessor(value) {
                 if (!arguments.length) {

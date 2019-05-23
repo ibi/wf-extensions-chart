@@ -17,6 +17,7 @@ This extension is a heat map chart that helps better visualize a series of date 
 To configure or customize your extension edit "properties" object in properties.json file.
 	
 	"properties": {
+		"language": null, // "en", "es" to set language and first day of week (by the moment only "en" & "es")
 		"titles": {
 			"year": {
 				"font": "14px sans-serif",

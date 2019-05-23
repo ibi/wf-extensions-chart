@@ -12,6 +12,7 @@
 	},
 	
 	"properties": {
+		"language": null,
 		"titles": {
 			"year": {
 				"font": "14px sans-serif",
@@ -38,6 +39,7 @@
 	},
 	
 	"propertyAnnotations": {
+		"language":"str",
 		"titles": {
 			"year": {
 				"font": "str",
