@@ -26,6 +26,7 @@
 
 	function renderCallback(renderConfig) {
 
+		var chart = renderConfig.moonbeamInstance;
 		var container = renderConfig.container;
 		var value = renderConfig.data[0].value;
 		var startValue = renderConfig.properties.startValue;
@@ -47,11 +48,13 @@
 		}
 
 		var div = document.createElement('div');
-		div.setAttribute('style', 'width: 100%; height: 100%; display: flex; align-items: center; justify-content: center;');
+		div.setAttribute('style', 'width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; cursor: default');
 
 		var div2 = document.createElement('div');
 		var color = renderConfig.moonbeamInstance.noDataMode ? ' color: #909090;' : '';
 		div2.setAttribute('style', 'font-size: ' + fontSize + 'px; flex: none;' + color);
+		div2.setAttribute('class', chart.buildClassName('riser', 0, 0, 'bar'));
+		renderConfig.modules.tooltip.addDefaultToolTipContent(div2, 0, 0);
 
 		div.appendChild(div2);
 		container.appendChild(div);
@@ -81,6 +84,7 @@
 		}
 
 		renderConfig.renderComplete();
+		renderConfig.modules.tooltip.activate(div);
 	}
 
 	var config = {
@@ -96,10 +100,10 @@
 		},
 		modules: {
 			eventHandler: {
-				supported: false  // Set this to true if your extension wants to support chart events like single drill down
+				supported: true
 			},
 			tooltip: {
-				supported: false  // Set this true if your extension wants to enable HTML tooltips (necessary for multi-drill)
+				supported: true
 			}
 		}
 	};
