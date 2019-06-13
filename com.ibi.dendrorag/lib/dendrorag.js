@@ -45,11 +45,11 @@
 
 function checkData(data,container,width,height,arrBuckets,props) {
     
-  console.log(JSON.stringify(data));
-  console.log(JSON.stringify(arrBuckets));
+//  console.log(JSON.stringify(data));
+//  console.log(JSON.stringify(arrBuckets));
   
 // Assign values to global variables from the properties and buckets
-  RootName = !(props.RootName == "") ? props.RootName : arrBuckets.levels.title[0];
+  RootName = !(props.RootName == "") ? props.RootName : Array.isArray(arrBuckets.levels.title) ? arrBuckets.levels.title[0] : arrBuckets.levels.title;
   indRed = props.indRed;
   indAmber = props.indAmber;
   useParentRAG = props.useParentRAG;
