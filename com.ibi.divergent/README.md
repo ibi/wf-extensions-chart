@@ -6,7 +6,8 @@ This extension displays a horizontal stacked bar chart with series representing 
 A single dimension representing the Question and exactly 5 measures representing the answers to the questions, are required.
 The series titles within the Legend are taken from the title attribute from within WebFOCUS e.g. DATACOLUMN AS 'Title'.
 Within the configurable section, the colour array can be defined, together with a true/false indicator on whether to use the JSCHART series colours or those from the properties section.
-If long text is used in the question then tha first 70 chars will be displayed if the chart size has sapce to do so. When the chart falls below a set height, the question text is changed to "Question #" where the hash (#) reflects the order of the question within the data.
+If long text is used in the question then the first 70 chars will be displayed if the chart size has space to do so. When the chart falls below a set height, the question text is changed to "Question #" where the hash (#) reflects the order of the question within the data.
+The chart header (title) and legend position (top or bottom only) can be set within the GUI.
 
 
 ## Screenshots
