@@ -10,8 +10,8 @@ If long text is used in the question then tha first 70 chars will be displayed i
 
 
 ## Screenshots
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/add-dendrorag-extension/com.ibi.divergent/screenshots/1.png)
-![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/add-dendrorag-extension/com.ibi.divergent/screenshots/2.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.divergent/screenshots/1.png)
+![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.divergent/screenshots/2.png)
 ## Configurations
 To configure the default values for this extension, edit "properties" object in properties.json file.
 	
