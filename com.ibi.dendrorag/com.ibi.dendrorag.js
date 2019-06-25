@@ -54,7 +54,7 @@
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_ibi_chart');
            
-        var arrBuckets = {"levels":{"title":["COUNTRY","CAR","MODEL"],"count":3},"total":{"title":"Retail Cost","count":1},"fail":{"title":"Dealer Cost","count":1}};
+        var arrBuckets = [{"id":"levels","fields":[{"title":"COUNTRY","fieldName":"COUNTRY"},{"title":"CAR","fieldName":"CAR"},{"title":"MODEL","fieldName":"MODEL"}]},{"id":"total","fields":[{"title":"Retail Cost","fieldName":"RETAIL_COST","numberFormat":"$#,###;-$#,###"}]},{"id":"fail","fields":[{"title":"Dealer Cost","fieldName":"DEALER_COST","numberFormat":"$#,###;-$#,###"}]}];
   
         checkData(data,container,width,height,arrBuckets,props);
 

@@ -49,7 +49,7 @@ function checkData(data,container,width,height,arrBuckets,props) {
 //  console.log(JSON.stringify(arrBuckets));
   
 // Assign values to global variables from the properties and buckets
-  RootName = !(props.RootName == "") ? props.RootName : Array.isArray(arrBuckets.levels.title) ? arrBuckets.levels.title[0] : arrBuckets.levels.title;
+  RootName = !(props.RootName == "") ? props.RootName : Array.isArray(arrBuckets[0].fields) ? arrBuckets[0].fields[0].title : "Root";
   indRed = props.indRed;
   indAmber = props.indAmber;
   useParentRAG = props.useParentRAG;
@@ -58,7 +58,7 @@ function checkData(data,container,width,height,arrBuckets,props) {
   ddtarget = props.ddtarget;
   svg = container;
   height = height;
-  width =  boxWidth * ((arrBuckets.levels.count * 2) + 1);
+  width =  boxWidth * ((arrBuckets.length * 2) + 1);
   
   d3.select("body.tooltip").remove();
   
@@ -106,6 +106,7 @@ function drawChart(data,svgContainer,arrBuckets,props) {
       d.children = null;
     }
     height = tmpCounter * 30;
+    height = height == 0 ? 25 * data.children.length : height;
     var thissvg = d3.selectAll("svg")
                       .attr("height", height + margin.top + margin.bottom);
   }

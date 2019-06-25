@@ -1,8 +1,8 @@
 {
 	"info": {
-		"version": 1.0,
-		"implements_api_version": 1.0,
-		"author": "Anthony Alsford Information Builders (UK) Ltd",
+		"version": 1.1,
+		"implements_api_version": 2.0,
+		"author": "Information Builders (UK) Ltd",
 		"copyright": "Information Builders Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.dendrorag",
 		"icons": {
@@ -17,13 +17,23 @@
         "useParentRAG": false,
         "showSuccess": true,
         "drilldown": "",
+//        "drilldown": "/EDA/EDASERVE/ibisamp/carinst.fex",
+//        "drilldown": "/WFC/Repository/Public/carinst.fex",
         "ddtarget": "_blank"
 	},
 	
 	"propertyAnnotations": {
         "RootName": "str",
-        "indRed": "number",
-        "indAmber": "number",
+        "indRed": {
+				"typeAnnotation": "number",
+				"numericRange": [20, 80],
+				"numericStep": 1
+        },
+        "indAmber": {
+				"typeAnnotation": "number",
+				"numericRange": [20, 80],
+				"numericStep": 1
+        },
         "useParentRAG": "bool",
         "showSuccess": "bool",
         "drilldown": "str",
@@ -31,7 +41,6 @@
 	},
 	
 	"dataBuckets":  {
-	
 		"tooltip": false,
 		"matrix": false,
 		"data_page": false,

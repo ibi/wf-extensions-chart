@@ -123,7 +123,7 @@ function drawChart(data,svgContainer,width,height,arrBuckets,props) {
   var ropacity2  = props.radialcolor.stopopacity2;
 
   var radialGrad = defs.append("radialGradient").attr("id","radial_fill").attr("x1","0%").attr("y1","0%").attr("x2","100%").attr("y2","100%");
-  var stop1      = radialGrad.append("stop").attr("offset","0%").attr("style","stop-color:"+rcolor1+";stop-opacity:"+ropacity1);
+  var stop1      = radialGrad.append("stop").attr("offset","25%").attr("style","stop-color:"+rcolor1+";stop-opacity:"+ropacity1);
   var stop2      = radialGrad.append("stop").attr("offset","100%").attr("style","stop-color:"+rcolor2+";stop-opacity:"+ropacity2);
 
   var MinPlot = (linearXScale(plotX * 2) < linearYScale(plotY * 2)) ? linearXScale(plotX * 2) : linearYScale(plotY * 2);
@@ -306,8 +306,8 @@ function drawChart(data,svgContainer,width,height,arrBuckets,props) {
                                                       d3.select(this)
                                                           .attr("fill-opacity", "1");
                                                       d3.select("#seriesval")
-                                                          .text(function() {if (arrBuckets.series) {
-                                                                              return arrBuckets.series.title+": "+seriesVal;
+                                                          .text(function() {if (arrBuckets[1].fields[0]) {
+                                                                              return arrBuckets[1].fields[0].title+": "+seriesVal;
                                                                             } else {
                                                                               return "undefined: "+seriesVal;
                                                                             }
@@ -320,7 +320,7 @@ function drawChart(data,svgContainer,width,height,arrBuckets,props) {
 //                                                          .text(arrBuckets.value.title+": "+thisvalue);
                                                           .text(function() {var parse = d3.format(".3s");
                                                                             var fmtNumber = (thisvalue === 0) ? 0 : parse(thisvalue);
-                                                                            return arrBuckets.value.title+": "+thisvalue;
+                                                                            return arrBuckets[2].fields[0].title+": "+thisvalue;
                                        });
                                                       d3.select("#valCircle")
                                                           .attr("r", function() {if (props.ringreference.visible) {
