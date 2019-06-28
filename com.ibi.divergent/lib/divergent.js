@@ -187,7 +187,7 @@ function drawChart(data,svgContainer,props,buckets,chart) {
          .attr("x", "1")
          .attr("width", width)
          .attr("fill-opacity", "0.3")
-         .style("fill", "#f9f9f9")
+         .style("fill", "rgba(255,255,255,0)")
          .attr("class", function(d,index) { return index%2==0 ? "even" : "uneven"; });
 
   var startp = svgContainer.append("g")
