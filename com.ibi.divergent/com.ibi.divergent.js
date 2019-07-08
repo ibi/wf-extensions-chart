@@ -44,9 +44,9 @@
 	//  - renderConfig: the standard callback argument object (moonbeamInstance, data, properties, etc)
 	function noDataRenderCallback(renderConfig) {
 		var chart = renderConfig.moonbeamInstance;
-        var data = [{"levels":["ENGLAND","JAGUAR","V12XKE AUTO"],"total":8878,"fail":7427,"_s":0,"_g":0},{"levels":["ENGLAND","JAGUAR","XJ12L AUTO"],"total":13491,"fail":11194,"_s":0,"_g":1},{"levels":["ENGLAND","JENSEN","INTERCEPTOR III"],"total":17850,"fail":14940,"_s":0,"_g":2},{"levels":["ENGLAND","TRIUMPH","TR7"],"total":5100,"fail":4292,"_s":0,"_g":3},{"levels":["ITALY","ALFA ROMEO","2000 4 DOOR BERLINA"],"total":5925,"fail":4915,"_s":0,"_g":5},{"levels":["ITALY","ALFA ROMEO","2000 GT VELOCE"],"total":6820,"fail":5660,"_s":0,"_g":6},{"levels":["ITALY","ALFA ROMEO","2000 SPIDER VELOCE"],"total":6820,"fail":5660,"_s":0,"_g":7},{"levels":["ITALY","MASERATI","DORA 2 DOOR"],"total":31500,"fail":25000,"_s":0,"_g":8},{"levels":["W GERMANY","AUDI","100 LS 2 DOOR AUTO"],"total":5970,"fail":5063,"_s":0,"_g":11},{"levels":["W GERMANY","BMW","2002 2 DOOR"],"total":5940,"fail":5800,"_s":0,"_g":12},{"levels":["W GERMANY","BMW","2002 2 DOOR AUTO"],"total":6355,"fail":6000,"_s":0,"_g":13},{"levels":["W GERMANY","BMW","3.0 SI 4 DOOR"],"total":13752,"fail":10000,"_s":0,"_g":14},{"levels":["W GERMANY","BMW","3.0 SI 4 DOOR AUTO"],"total":14123,"fail":11000,"_s":0,"_g":15},{"levels":["W GERMANY","BMW","530I 4 DOOR"],"total":9097,"fail":8300,"_s":0,"_g":16},{"levels":["W GERMANY","BMW","530I 4 DOOR AUTO"],"total":9495,"fail":8400,"_s":0,"_g":17}];
-
+        var data = [{"Question":"Focal Point is a great resource for all levels of user.","replies":[5,5,20,150,100]},{"Question":"An InfoAssist forum is necessary.","replies":[15,5,200,5,15]},{"Question":"International Summit Series is a great opportunity to meet peers in my group.","replies":[5,5,60,80,100]},{"Question":"WebFOCUS InfoGraphics in 8.2.04 is a good step in BI.","replies":[5,10,100,50,40]}];
         var props = renderConfig.properties;
+		var buckets = {"replies":{"title":["Strongly Disagree","Disagree","Neither Agree nor Disagree","Agree","Strongly Agree"],"count":5}};
 
         var width = renderConfig.width;
         var height = renderConfig.height;
@@ -54,9 +54,7 @@
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_ibi_chart');
            
-        var arrBuckets = [{"id":"levels","fields":[{"title":"COUNTRY","fieldName":"COUNTRY"},{"title":"CAR","fieldName":"CAR"},{"title":"MODEL","fieldName":"MODEL"}]},{"id":"total","fields":[{"title":"Retail Cost","fieldName":"RETAIL_COST","numberFormat":"$#,###;-$#,###"}]},{"id":"fail","fields":[{"title":"Dealer Cost","fieldName":"DEALER_COST","numberFormat":"$#,###;-$#,###"}]}];
-  
-        checkData(data,container,width,height,arrBuckets,props);
+        checkData(data,container,width,height,props,buckets,chart);
 
         appendCoverScreen(container, width, height);
 
@@ -71,7 +69,7 @@
             })
             .style({
                 fill: 'white',
-                opacity: 0.4
+                opacity: 0.7
             });
         container.append('text')
             .text('Currently, there are insufficient buckets completed.')
@@ -112,8 +110,8 @@
 		var info = tdgchart.util.ajax(preRenderConfig.loadPath + 'lib/extra_properties.json', {asJSON: true});
 
 		// Example of using the chart engine's built in title properties
-		chart.title.visible = false;
-		chart.title.text = info.custom_title;
+//		chart.title.visible = false;
+//		chart.title.text = info.custom_title;
 //		chart.title.text = 'Cool Visualisation!';
 		chart.footnote.visible = false;
 		chart.footnote.text = 'xxxxxxxx';
@@ -133,6 +131,7 @@
 		var chart = renderConfig.moonbeamInstance;
 		var data = renderConfig.data;
 		var props = renderConfig.properties;
+		var buckets = renderConfig.dataBuckets.buckets;
 
         var width = renderConfig.width;
         var height = renderConfig.height;
@@ -140,16 +139,22 @@
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_ibi_chart');
             
-        var arrBuckets = renderConfig.dataBuckets.buckets;
-  
-        checkData(data,container,width,height,arrBuckets,props);
+        if (buckets.replies.count) {
+            if (buckets.replies.count === 5) {
+                checkData(data,container,width,height,props,buckets,chart);
+            } else {
+                noDataRenderCallback(renderConfig);
+            }
+        } else {
+            noDataRenderCallback(renderConfig);
+        }
 
 		renderConfig.renderComplete();
 	}
 
 	// Your extension's configuration
 	var config = {
-		id: 'com.ibi.dendrorag',     // string that uniquely identifies this extension
+		id: 'com.ibi.divergent',     // string that uniquely identifies this extension
 		containerType: 'svg',  // either 'html' or 'svg' (default)
 		initCallback: initCallback,
 		preRenderCallback: preRenderCallback,  // reference to a function that is called right *before* your extension is rendered.  Will be passed one 'preRenderConfig' object, defined below.  Use this to configure a Moonbeam instance as needed
@@ -157,37 +162,10 @@
 		noDataPreRenderCallback: noDataPreRenderCallback,
 		noDataRenderCallback: noDataRenderCallback,
 		resources: {  // Additional external resources (CSS & JS) required by this extension
-			script: ['lib/d3.min.js','lib/dendrorag.js'],
+			script: ['lib/d3.min.js','lib/divergent.js'],
 			css: ['css/extension.css']
 		},
 		modules: {
-			dataSelection: {
-				supported: true,  // Set this true if your extension wants to enable data selection
-				needSVGEventPanel: false, // if you're using an HTML container or altering the SVG container, set this to true and the chart engine will insert the necessary SVG elements to capture user interactions
-				svgNode: function() {}  // if you're using an HTML container or altering the SVG container, return a reference to your root SVG node here.
-			},
-			eventHandler: {
-				supported: true
-			},
-			title: {
-				supported: true
-			},
-			tooltip: {
-				supported: false,  // Set this true if your extension wants to enable HTML tooltips
-			}
-			// Not used in this extension; here for documentation purposes.
-//			colorScale: {
-//				supported: true,
-//				minMax: function(arg){}  // Optional: return a {min, max} object to use for the color scale min & max.
-//			}
-//			sizeScale: {
-//				supported: false,
-//				minMax: function(arg){}  // Optional: return a {min, max} object to use for the size scale min & max.
-//			},
-//			legend: {
-//				colorMode: function(arg){}, // Return either 'data' or 'series'.  If implemented, force the chart engine to use this color mode legend
-//				sizeMode: function(arg){},  // return either 'size' or falsey.  If implemented, force the chart engine to use this size legend
-//			}
 		}
 	};
 

@@ -1,164 +1,217 @@
 {
     "info": {
-        "version": 1.0,
-        "implements_api_version": 1.0,
+        "version": "1.1.0",
+        "implements_api_version": 2.0,
         "author": "Anthony Alsford Information Builders (UK) Ltd",
         "copyright": "Information Builders Inc.",
-        "url": "",
+        "url": "http://dygraphs.com/",
         "icons": {
             "medium": "icons/medium.png"
         }
     },
     
     "properties": {
-      axes: {
-        x: {
-          pixelsPerLabel: 70,
-          axisLabelWidth: 60,
-          axisLineColor: "rgb(0,0,0)",
-          axisLabelFontSize: 14,
-          axisLineWidth: 0.3,
-          axisTickSize: 3.0,
-          drawGrid: true,
-          gridLineColor: "black",
-          gridLineWidth: 0.3,
-          drawAxis: true,
-          independentTicks: true,
+      "axes": {
+        "x": {
+          "pixelsPerLabel": 70,
+          "axisLabelHeight": 18,
+          "axisLabelWidth": 60,
+          "axisLabel": "x Axis Label",
+          "axisLineColor": "rgb(0,0,0)",
+          "axisLabelFontSize": 14,
+          "axisLineWidth": 0.15,
+          "axisTickSize": 3.0,
+          "drawGrid": true,
+          "gridLineColor": "#999999",
+          "gridLineWidth": 0.1,
+          "drawAxis": true,
+          "independentTicks": true,
         },
-        y: {
-          pixelsPerLabel: 30,
-          axisLabelWidth: 50,
-          axisLineColor: "rgb(0,0,0)",
-          axisLabelFontSize: 14,
-          axisLineWidth: 0.3,
-          axisTickSize: 3.0,
-          drawGrid: true,
-          gridLineColor: "black",
-          gridLineWidth: 0.3,
-          drawAxis: true,
-          independentTicks: true
+        "y": {
+          "pixelsPerLabel": 30,
+          "axisLabelHeight": 18,
+          "axisLabelWidth": 50,
+          "axisLabel": "y Axis Label",
+          "axisLineColor": "rgb(0,0,0)",
+          "axisLabelFontSize": 14,
+          "axisLineWidth": 0.15,
+          "axisTickSize": 3.0,
+          "drawGrid": true,
+          "gridLineColor": "#999999",
+          "gridLineWidth": 0.1,
+          "drawAxis": true,
+          "independentTicks": true
         }
       },
-      colors: ["rgb(102,128,0)","rgb(102,0,128)","rgb(0,51,128)","rgb(0,128,51)"],
-//      series: {
-//          []
-//      },
-      titleHeight: 28,
-      xLabelHeight: 18,
-      yLabelWidth: 18,
-      labelsKMB: "K",
-      labelsSeparateLines: true,
-      legend: "always",
-      customBars: false,
-      errorBars: false,
-      showRoller: false,
-      rollPeriod: 14,
-      gridLineWidth: 0.15,
-      title: "DyGraph Extension",
-      ylabel: "Sales",
-      xlabel: "Date",
-      maxNumberWidth: 12,
-      includeZero: false,
-      logscale: false,
-      panEdgeFraction: 0.03,
-      connectSeparatedPoints: false,
-      drawGapEdgePoints: false,
-      animatedZooms: false,
-      stackedGraph: false,
-      fillGraph: false,
-      stepPlot: false,
-      displayAnnotations: true,
-      xAxisHeight: 40,
-      drawAxesAtZero: true,
+      "colors": {
+        "color0": "rgb(102,128,0)",
+        "color1": "rgb(102,0,128)",
+        "color2": "rgb(0,51,128)",
+        "color3": "rgb(0,128,51)",
+        "color4": "rgb(51,0,128)",
+        "color5": "rgb(0,102,128)",
+        "color6": "rgb(128,102,0)",
+        "color7": "rgb(0,128,51)",
+        "color8": "rgb(0,128,102)",
+        "color9": "rgb(102,128,51)"
+      },
+      "titleHeight": 28,
+      "labelsKMB": false,
+      "labelsSeparateLines": true,
+      "legend": "always",
+      "title": "DyGraphs.com",
+      "errorBars": false,
+      "showRoller": false,
+      "rollPeriod": 14,
+      "maxNumberWidth": 12,
+      "includeZero": false,
+      "logscale": false,
+      "panEdgeFraction": 0.01,
+      "connectSeparatedPoints": false,
+      "drawGapEdgePoints": false,
+      "animatedZooms": false,
+      "stackedGraph": false,
+      "fillGraph": false,
+      "stepPlot": false,
+      "displayAnnotations": false,
+      "drawAxesAtZero": true,
 // When true, this shows the range selector at the lower edge of the chart
-      showRangeSelector: false,
-      rangeSelectorAlpha: 0.6,
-      rangeSelectorHeight: 40,
-      rangeSelectorPlotFillColor: "#a7b1c4",
-      rangeSelectorPlotFillGradientColor: "white",
-      rangeSelectorPlotLineWidth: 1.5,
-      rangeSelectorPlotStrokeColor: "#808fab",
-      rangeSelectorForegroundLineWidth: 1,
-      rangeSelectorForegroundStrokeColor: "black",
-      rangeSelectorBackgroundLineWidth: 1,
-      rangeSelectorBackgroundStrokeColor: "gray"
+      "showRangeSelector": false,
+      "rangeSelectorAlpha": 0.6,
+      "rangeSelectorHeight": 40,
+      "rangeSelectorPlotFillColor": "#a7b1c4",
+      "rangeSelectorPlotFillGradientColor": "white",
+      "rangeSelectorPlotLineWidth": 1.5,
+      "rangeSelectorPlotStrokeColor": "#808fab",
+      "rangeSelectorForegroundLineWidth": 1,
+      "rangeSelectorForegroundStrokeColor": "black",
+      "rangeSelectorBackgroundLineWidth": 1,
+      "rangeSelectorBackgroundStrokeColor": "gray"
     },
     
     "propertyAnnotations": {
-      axes: {
-        x: {
-          pixelsPerLabel: "number",
-          axisLabelWidth: "number",
-          axisLineColor: "color",
-          axisLabelFontSize: "number",
-          axisLineWidth: "number",
-          axisTickSize: "number",
-          drawGrid: "bool",
-          gridLineColor: "color",
-          gridLineWidth: "number",
-          drawAxis: "bool",
-          independentTicks: "bool",
+      "axes": {
+        "x": {
+          "pixelsPerLabel": "number",
+          "axisLabelHeight": "number",
+          "axisLabelWidth": "number",
+          "axisLabel": "str",
+          "axisLineColor": "color",
+          "axisLabelFontSize": "number",
+          "axisLineWidth": {
+				"typeAnnotation": "number",
+				"numericRange": [0.1, 1],
+				"numericStep": 0.1
+          },
+          "axisTickSize": "number",
+          "drawGrid": "bool",
+          "gridLineColor": "color",
+          "gridLineWidth": {
+				"typeAnnotation": "number",
+				"numericRange": [0.1, 1],
+				"numericStep": 0.1
+          },
+          "drawAxis": "bool",
+          "independentTicks": "bool"
         },
-        y: {
-          pixelsPerLabel: "number",
-          axisLabelWidth: "number",
-          axisLineColor: "color",
-          axisLabelFontSize: "number",
-          axisLineWidth: "number",
-          axisTickSize: "number",
-          drawGrid: "bool",
-          gridLineColor: "color",
-          gridLineWidth: "number",
-          drawAxis: "bool",
-          independentTicks: "bool"
+        "y": {
+          "pixelsPerLabel": "number",
+          "axisLabelHeight": "number",
+          "axisLabelWidth": "number",
+          "axisLabel": "str",
+          "axisLineColor": "color",
+          "axisLabelFontSize": "number",
+          "axisLineWidth": {
+				"typeAnnotation": "number",
+				"numericRange": [0.1, 1],
+				"numericStep": 0.1
+          },
+          "axisTickSize": "number",
+          "drawGrid": "bool",
+          "gridLineColor": "color",
+          "gridLineWidth": {
+				"typeAnnotation": "number",
+				"numericRange": [0.1, 1],
+				"numericStep": 0.1
+          },
+          "drawAxis": "bool",
+          "independentTicks": "bool"
         }
       },
-      colors: {
-                "typeAnnotation": "array",
-                "arrayTypes": "color"
-              },
-//      series: {
-//                "typeAnnotation": "array",
-//                "arrayTypes": ["str","auto"]
-//      },
-      titleHeight: "number",
-      xLabelHeight: "number",
-      yLabelWidth: "number",
-      labelsKMB: "str",
-      labelsSeparateLines: "bool",
-      legend: "str",
-      title: "str",
-      customBars: "bool",
-      errorBars: "bool",
-      showRoller: "bool",
-      rollPeriod: "number",
-      gridLineWidth: "number",
-      ylabel: "str",
-      xlabel: "str",
-      panEdgeFraction: "number",
-      includeZero: "bool",
-      logscale: "bool",
-      maxNumberWidth: "number",
-      connectSeparatedPoints: "bool",
-      drawGapEdgePoints: "bool",
-      animatedZooms: "bool",
-      stackedGraph: "bool",
-      fillGraph: "bool",
-      stepPlot: "bool",
-      displayAnnotations: "bool",
-      xAxisHeight: "number",
-      drawAxesAtZero: "bool",
-      showRangeSelector: "bool",
-      rangeSelectorAlpha: "number",
-      rangeSelectorHeight: "number",
-      rangeSelectorPlotFillColor: "color",
-      rangeSelectorPlotFillGradientColor: "color",
-      rangeSelectorPlotLineWidth: "number",
-      rangeSelectorPlotStrokeColor: "color",
-      rangeSelectorForegroundLineWidth: "number",
-      rangeSelectorForegroundStrokeColor: "color",
-      rangeSelectorBackgroundLineWidth: "number",
-      rangeSelectorBackgroundStrokeColor: "color"
+//      "colors": {
+//                    "typeAnnotation": "array",
+//                    "arrayTypes": "color"
+//                },
+      "colors": {
+        "color0": "color",
+        "color1": "color",
+        "color2": "color",
+        "color3": "color",
+        "color4": "color",
+        "color5": "color",
+        "color6": "color",
+        "color7": "color",
+        "color8": "color",
+        "color9": "color"
+      },
+      "titleHeight": "number",
+      "labelsKMB": "bool",
+      "labelsSeparateLines": "bool",
+      "legend": {
+                "typeAnnotation": "str",
+                "stringValues": ["onmouseover", "never", "always", "follow"]
+      },
+      "title": "str",
+      "errorBars": "bool",
+      "showRoller": "bool",
+      "rollPeriod": "number",
+      "panEdgeFraction": {
+				"typeAnnotation": "number",
+				"numericRange": [0.00, 0.5],
+				"numericStep": 0.05
+      },
+      "includeZero": "bool",
+      "logscale": "bool",
+      "maxNumberWidth": "number",
+      "connectSeparatedPoints": "bool",
+      "drawGapEdgePoints": "bool",
+      "animatedZooms": "bool",
+      "stackedGraph": "bool",
+      "fillGraph": "bool",
+      "stepPlot": "bool",
+      "displayAnnotations": "bool",
+      "drawAxesAtZero": "bool",
+      "showRangeSelector": "bool",
+      "rangeSelectorAlpha": {
+				"typeAnnotation": "number",
+				"numericRange": [0.1, 1],
+				"numericStep": 0.1
+      },
+      "rangeSelectorHeight": {
+				"typeAnnotation": "number",
+				"numericRange": [15, 70],
+				"numericStep": 5
+      },
+      "rangeSelectorPlotFillColor": "color",
+      "rangeSelectorPlotFillGradientColor": "color",
+      "rangeSelectorPlotLineWidth": {
+				"typeAnnotation": "number",
+				"numericRange": [0.05, 3],
+				"numericStep": 0.05
+      },
+      "rangeSelectorPlotStrokeColor": "color",
+      "rangeSelectorForegroundLineWidth": {
+				"typeAnnotation": "number",
+				"numericRange": [0.05, 3],
+				"numericStep": 0.05
+      },
+      "rangeSelectorForegroundStrokeColor": "color",
+      "rangeSelectorBackgroundLineWidth": {
+				"typeAnnotation": "number",
+				"numericRange": [0.05, 3],
+				"numericStep": 0.05
+      },
+      "rangeSelectorBackgroundStrokeColor": "color"
     },
     
     "dataBuckets":  {
@@ -197,6 +250,299 @@
             "value_tooltip": "Drop a measure here", 
             "timeline_name": "Time Line Bucket", 
             "timeline_tooltip": "Drop a measure here", 
+            "properties": {
+              "axes": {
+                "x": {
+                    "pixelsPerLabel": {
+                        "_translation": "Pixels / label",
+                        "_tooltip": "Pixels used between labels",
+                        "_valueTooltip": "Default 70"
+                    },
+                    "axisLabelHeight": {
+                        "_translation": "Label height",
+                        "_tooltip": "Height of the Label in pixels",
+                        "_valueTooltip": "Default 18"
+                    },
+                    "axisLabelWidth": {
+                        "_translation": "Label width",
+                        "_tooltip": "Width (pixels) of div containing labels",
+                        "_valueTooltip": "Default 60"
+                    },
+                    "axisLabel": {
+                        "_translation": "Axis label",
+                        "_tooltip": "Text to display as axis title label",
+                        "_valueTooltip": "Default 'x Axis label'"
+                    },
+                    "axisLineColor": {
+                        "_translation": "Line color",
+                        "_tooltip": "Color of axis line",
+                        "_valueTooltip": "Select a color or type one in"
+                    },
+                    "axisLabelFontSize": {
+                        "_translation": "Label fontsize",
+                        "_tooltip": "Fontsize (pixels) of the axis labels",
+                        "_valueTooltip": "Default 14"
+                    },
+                    "axisLineWidth": {
+                        "_translation": "Line width",
+                        "_tooltip": "Thickness (pixels) of the axis line",
+                        "_valueTooltip": "Default 0.15"
+                    },
+                    "axisTickSize": {
+                        "_translation": "Tick size",
+                        "_tooltip": "Size of line for tick marks",
+                        "_valueTooltip": "Defult 3.0"
+                    },
+                    "drawGrid": {
+                        "_translation": "Draw grid",
+                        "_tooltip": "Draw axis grid",
+                        "_valueTooltip": "Default true"
+                    },
+                    "gridLineColor": {
+                        "_translation": "Grid line color",
+                        "_tooltip": "Grid line color",
+                        "_valueTooltip": "Select a color or type one in"
+                    },
+                    "gridLineWidth": {
+                        "_translation": "Grid line width",
+                        "_tooltip": "Grid line width",
+                        "_valueTooltip": "Default 0.1"
+                    },
+                    "drawAxis": {
+                        "_translation": "Draw axis",
+                        "_tooltip": "Draw axis",
+                        "_valueTooltip": "Default true"
+                    }
+                },
+                "y": {
+                    "pixelsPerLabel": {
+                        "_translation": "Pixels / label",
+                        "_tooltip": "Pixels used between labels",
+                        "_valueTooltip": "Default 70"
+                    },
+                    "axisLabelHeight": {
+                        "_translation": "Label height",
+                        "_tooltip": "Height of the Label in pixels",
+                        "_valueTooltip": "Default 18"
+                    },
+                    "axisLabelWidth": {
+                        "_translation": "Label width",
+                        "_tooltip": "Width (pixels) of div containing labels",
+                        "_valueTooltip": "Default 60"
+                    },
+                    "axisLabel": {
+                        "_translation": "Axis label",
+                        "_tooltip": "Text to display as axis title label",
+                        "_valueTooltip": "Default 'y Axis label'"
+                    },
+                    "axisLineColor": {
+                        "_translation": "Line color",
+                        "_tooltip": "Color of axis line",
+                        "_valueTooltip": "Select a color or type one in"
+                    },
+                    "axisLabelFontSize": {
+                        "_translation": "Label fontsize",
+                        "_tooltip": "Fontsize (pixels) of the axis labels",
+                        "_valueTooltip": "Default 14"
+                    },
+                    "axisLineWidth": {
+                        "_translation": "Line width",
+                        "_tooltip": "Thickness (pixels) of the axis line",
+                        "_valueTooltip": "Default 0.15"
+                    },
+                    "axisTickSize": {
+                        "_translation": "Tick size",
+                        "_tooltip": "Size of line for tick marks",
+                        "_valueTooltip": "Defult 3.0"
+                    },
+                    "drawGrid": {
+                        "_translation": "Draw grid",
+                        "_tooltip": "Draw axis grid",
+                        "_valueTooltip": "Default true"
+                    },
+                    "gridLineColor": {
+                        "_translation": "Grid line color",
+                        "_tooltip": "Grid line color",
+                        "_valueTooltip": "Select a color or type one in"
+                    },
+                    "gridLineWidth": {
+                        "_translation": "Grid line width",
+                        "_tooltip": "Grid line width",
+                        "_valueTooltip": "Default 0.1"
+                    },
+                    "drawAxis": {
+                        "_translation": "Draw axis",
+                        "_tooltip": "Draw axis",
+                        "_valueTooltip": "Default true"
+                    },
+                    "independentTicks": {
+                        "_translation": "Align ticks",
+                        "_tooltip": "Whether Y and Y2 axis should have aligned tick marks",
+                        "_valueTooltip": "Default true"
+                    }
+                }
+              },
+//                "colors": {
+//                    "_translation": "Color array",
+//                    "_tooltip": "Array of colors to be used in chart",
+//                    "_valueTooltip": "Not selectable in API"
+//                },
+                "titleHeight": {
+                    "_translation": "Title height",
+                    "_tooltip": "Height of title in pixels",
+                    "_valueTooltip": "Default 28"
+                },
+                "labelsKMB": {
+                    "_translation": "Labels KMB",
+                    "_tooltip": "Show K/M/B for thousands/millions/billions on y-axis",
+                    "_valueTooltip": "Default false"
+                },
+                "labelsSeparateLines": {
+                    "_translation": "Separate labels",
+                    "_tooltip": "Show legend labels on distinct lines",
+                    "_valueTooltip": "Default true"
+                },
+                "legend": {
+                    "_translation": "Show legend",
+                    "_tooltip": "Legend display options",
+                    "_valueTooltip": "Default always"
+                },
+                "title": {
+                    "_translation": "Title text",
+                    "_tooltip": "Text to be displayed as chart title",
+                    "_valueTooltip": "Default 'DyGraphs.com'"
+                },
+                "errorBars": {
+                    "_translation": "Error bars",
+                    "_tooltip": "Show error bars in chart",
+                    "_valueTooltip": "Default false"
+                },
+                "showRoller": {
+                    "_translation": "Show roller",
+                    "_tooltip": "Show rollr input control",
+                    "_valueTooltip": "Default false"
+                },
+                "rollPeriod": {
+                    "_translation": "Roll period",
+                    "_tooltip": "Number of days over which to average",
+                    "_valueTooltip": "Default 14"
+                },
+                "panEdgeFraction": {
+                    "_translation": "Pan fraction",
+                    "_tooltip": "Percentage of display that panning is possible",
+                    "_valueTooltip": "Default 0.01"
+                },
+                "includeZero": {
+                    "_translation": "Include zero",
+                    "_tooltip": "Include zero on the y axis",
+                    "_valueTooltip": "Default false"
+                },
+                "logscale": {
+                    "_translation": "Log scale",
+                    "_tooltip": "Make the Y axis in a log scale",
+                    "_valueTooltip": "Default false"
+                },
+                "maxNumberWidth": {
+                    "_translation": "Max No. width",
+                    "_tooltip": "Maximum number of digits before scientific notation is used",
+                    "_valueTooltip": "Default 12"
+                },
+                "connectSeparatedPoints": {
+                    "_translation": "Connect points",
+                    "_tooltip": "Connect separated points when null or missing",
+                    "_valueTooltip": "Default false"
+                },
+                "drawGapEdgePoints": {
+                    "_translation": "Gap points",
+                    "_tooltip": "Draw gap edge points for readability",
+                    "_valueTooltip": "Default false"
+                },
+                "animatedZooms": {
+                    "_translation": "Anim zooms",
+                    "_tooltip": "Animate zooms",
+                    "_valueTooltip": "Default false"
+                },
+                "stackedGraph": {
+                    "_translation": "Stacked graph",
+                    "_tooltip": "Stack data series",
+                    "_valueTooltip": "Default false"
+                },
+                "fillGraph": {
+                    "_translation": "Fill graph",
+                    "_tooltip": "Show as area chart - do not use with error bars",
+                    "_valueTooltip": "Default false"
+                },
+                "stepPlot": {
+                    "_translation": "Step plot",
+                    "_tooltip": "Show as stepped data instead of line",
+                    "_valueTooltip": "Default false"
+                },
+                "displayAnnotations": {
+                    "_translation": "Display Annotations",
+                    "_tooltip": "Only applicable when used as a GViz chart",
+                    "_valueTooltip": "Default false"
+                },
+                "drawAxesAtZero": {
+                    "_translation": "Axes at zero",
+                    "_tooltip": "Draw the axes at 0,0 when inside the charts's visible area",
+                    "_valueTooltip": "Default true"
+                },
+                "showRangeSelector": {
+                    "_translation": "Show Miniplot",
+                    "_tooltip": "Show mini plot",
+                    "_valueTooltip": "Default false"
+                },
+                "rangeSelectorAlpha": {
+                    "_translation": "Miniplot transparency",
+                    "_tooltip": "Set the transparency of the veil that is drawn over the unselected range mini plot",
+                    "_valueTooltip": "Default 0.1"
+                },
+                "rangeSelectorHeight": {
+                    "_translation": "Miniplot height",
+                    "_tooltip": "Set the height (pixels) of the range mini plot",
+                    "_valueTooltip": "Default 40"
+                },
+                "rangeSelectorPlotFillColor": {
+                    "_translation": "Miniplot fill color",
+                    "_tooltip": "Mini plot fill color",
+                    "_valueTooltip": "Select a color or type one in"
+                },
+                "rangeSelectorPlotFillGradientColor": {
+                    "_translation": "Miniplot fill gradient color",
+                    "_tooltip": "Mini plot fill gradient color",
+                    "_valueTooltip": "Select a color or type one in"
+                },
+                "rangeSelectorPlotLineWidth": {
+                    "_translation": "Miniplot line width",
+                    "_tooltip": "Mini plot line width",
+                    "_valueTooltip": "Default 1.5"
+                },
+                "rangeSelectorPlotStrokeColor": {
+                    "_translation": "Miniplot stroke color",
+                    "_tooltip": "Mini plot stroke color",
+                    "_valueTooltip": "Select a color or type one in"
+                },
+                "rangeSelectorForegroundLineWidth": {
+                    "_translation": "Miniplot foreground line width",
+                    "_tooltip": "Mini plot foreground line width",
+                    "_valueTooltip": "Default 1"
+                },
+                "rangeSelectorForegroundStrokeColor": {
+                    "_translation": "Miniplot foreground stroke color",
+                    "_tooltip": "Mini plot foreground stroke color",
+                    "_valueTooltip": "Select a color or type one in"
+                },
+                "rangeSelectorBackgroundLineWidth": {
+                    "_translation": "Miniplot background line width",
+                    "_tooltip": "Mini plot background line width",
+                    "_valueTooltip": "Default 1"
+                },
+                "rangeSelectorBackgroundStrokeColor": {
+                    "_translation": "Miniplot background stroke color",
+                    "_tooltip": "Mini plot background stroke color",
+                    "_valueTooltip": "Select a color or type one in"
+                }
+            }
         }
     }
 }

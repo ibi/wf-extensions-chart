@@ -77,9 +77,9 @@
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_ibi_dygraph');
            
-        var arrBuckets = {"timeline":{"title":"Date"},"value":{"title":["Sales","Budget"]}};
+        var arrBuckets = [{"id":"timeline","fields":[{"title":"Date"}]},{"id":"value","fields":[{"title":["Sales","Budget"]}]}];
   
-        drawChart(data,container,width,height,arrBuckets,props);
+        drawChart(data,container,width,height,arrBuckets,props,chart);
 
         appendCoverScreen(container, width, height);
 
@@ -133,7 +133,7 @@
 
 		// Example of using the chart engine's built in title properties
 		chart.title.visible = false;
-		chart.title.text = info.custom_title;
+//		chart.title.text = info.custom_title;
 //		chart.title.text = 'Cool Visualisation!';
 		chart.footnote.visible = false;
 		chart.footnote.text = 'xxxxxxxx';
@@ -162,7 +162,7 @@
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_ibi_dygraph');
             
-        drawChart(data,container,width,height,arrBuckets,props);
+        drawChart(data,container,width,height,arrBuckets,props,chart);
 
 		renderConfig.renderComplete();
 	}

@@ -1,0 +1,64 @@
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 1.0,
+		"author": "Information Builders (UK) Ltd",
+		"copyright": "Information Builders Inc.",
+		"url": "",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	
+	"properties": {
+        "useSeriesColours": true,
+        "colors": ["#c7001e", "#f6a580", "#cccccc", "#92c6db", "#086fad"]
+	},
+	
+	"propertyAnnotations": {
+        "useSeriesColours": "bool",
+        "colors": {
+                    "typeAnnotation": "array",
+                    "arrayTypes": "color"
+                  }
+	},
+	
+	"dataBuckets":  {
+	
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+			{
+				"id": "replies",
+				"type": "measure",
+				"count": {
+					"min": 5,
+					"max": 5
+				}
+			},
+			{
+				"id": "Question",
+				"type": "dimension",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			}
+		]
+	},
+
+	"translations": {
+		"en": {
+			"name": "Diverging Stacked Bar Chart",
+			"description": "This extension displays a stacked horizontal bar chart displaying negative to positive responses.",
+			"icon_tooltip": "Diverging Stacked Bar Chart", 
+			"value_name": "Replies Bucket", 
+			"value_tooltip": "Drop 5 measures here", 
+			"series_name": "Questions Bucket", 
+			"series_tooltip": "Drop 1 dimension here"
+		}
+	}
+}
