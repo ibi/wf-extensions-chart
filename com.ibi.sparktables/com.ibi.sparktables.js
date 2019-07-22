@@ -178,7 +178,7 @@
             //add sparkline column
             if (typeof dataBuckets.sparkline_date !== 'undefined') {
                 titleJSON.push({
-                    mData: "col" + columnIndex, title: ' ', className: "dt-right dt-by sparkline-col-title", width: "110px"
+                    mData: "col" + columnIndex, title: ' ', className: "dt-right dt-by sparkline-col-title", width: "110px", title: dataBuckets.sparkline_value.title
                 });
                 //titleJSON.push({ mData: "col" + columnIndex, title: ' ', className: "dt-right dt-by sparkline-col-title", render: $.fn.dataTable.render.number(',', '.', 2, ''), defaultContent: '0.00' });
                 numberOfBys++;

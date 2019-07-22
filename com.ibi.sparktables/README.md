@@ -62,7 +62,7 @@ To configure or customize your extension edit "properties" object in properties.
 			"color": "#505050",
 			"show_min": false,
 			"show_max": false,
-			"type":  "line"
+			"type":  "line" // can be either "line" or "bar"
      
 		}
 	}
