@@ -8,7 +8,11 @@ Up to three levels can be added together with "fail" and "total" values.<br /><b
 The "total" and "fail" values are accumulated from the lowest level through to the highest and are used to calculate a success percentage using "((total - fail) / total) * 100". The precentage is then used to evaluate how the node should be coloured. The thresholds are set within the "properties" section of the extensions "properties.json" file. Tooltips are automatic and are colour coded per the node to which it applies.<br /><br />
 A main node is added when two or more nodes exist within the level[0] attribute. The main node data value can be set within the "properties" section of the extensions "properties.json" file. The default is "".<br /><br />
 A drill down can be applied to the lowest node within the complete dendro chart by specifying the RS style path within the "properties" section of the extensions "properties.json" file. The default is "" for no drill down. Examples of both the Applications and Content folders are given within the "properties.json" file.<br /><br />
-* If a drilldown property is set, the drilldown will be called to the target frame specified with variables of &Level1, &Level2, Level3, &Fail, &Total and &Value (case sensitive).
+* If a drilldown property is set, the drilldown will be called to the target frame specified with variables of &Level1, &Level2, Level3, &Fail, &Total and &Value (case sensitive).<br /><br />
+** NEW VERSION**<br /><br />
+The nodes now contain an indicator as to whether the node has children nodes and whether the node is collapsable or expandable (-/+)<br /><br />
+The drilldown variables are also enhanced with additional variables of the fieldname(s) of the levels supplied (e.g. &PRODUCT_CATEGORY=Accessories)
+
 ## Screenshots
 ![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.dendrorag/screenshots/1.png)
 ![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.dendrorag/screenshots/2.png)

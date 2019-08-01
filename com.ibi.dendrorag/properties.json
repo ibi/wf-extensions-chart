@@ -26,12 +26,12 @@
         "RootName": "str",
         "indRed": {
 				"typeAnnotation": "number",
-				"numericRange": [20, 80],
+				"numericRange": [1, 99],
 				"numericStep": 1
         },
         "indAmber": {
 				"typeAnnotation": "number",
-				"numericRange": [20, 80],
+				"numericRange": [1, 99],
 				"numericStep": 1
         },
         "useParentRAG": "bool",

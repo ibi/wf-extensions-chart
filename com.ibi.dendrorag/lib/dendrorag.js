@@ -12,6 +12,10 @@
 //      This affects the actual node value as well as the RAG colouration.
 // #### Not applied to the root node yet ####
 // --------------------------------------------------------------------------------
+// Anthony Alsford: 30th July 2019
+//   1. Additional text element to show if collapsed node has children (+/- .. accordian style)
+//      with necessary adjustment of text positioning.
+// --------------------------------------------------------------------------------
 
 // Creat global variables to allow passing of properties to any function.
   var RootName = "",
@@ -24,7 +28,8 @@
       drilldown = "",
       ddtarget = "blank";
 
-  var layers = 0;
+  var layers = 0
+    , layerField = [];
 
   var win = window
     , doc = document
@@ -59,7 +64,11 @@ function checkData(data,container,width,height,arrBuckets,props) {
   svg = container;
   height = height;
   width =  boxWidth * ((arrBuckets.length * 2) + 1);
-  
+  var layerFields = arrBuckets[0].fields;
+  layerFields.forEach(function(d,i) {
+      var arrField = d.fieldName.split(".");
+      layerField[i] = arrField[arrField.length - 1];
+  });
   d3.select("body.tooltip").remove();
   
   var divTooltip = d3.select(".chart").append("div")
@@ -176,10 +185,11 @@ function update(source) {
                                   id += d.name + " ";
                                   return id.replace(/[^A-Z0-9]/ig, "_");})
       .attr("class", function(d) { return "RAG_" + d.colour; })
+//      .on("click", click)
       ;
 
   nodeEnter.append("text")
-      .attr("x", function(d) { return d.children || d._children ? 5 : 5; })
+      .attr("x", function(d) { return d.children || d._children ? 18 : 5; })
       .attr("dy", ".35em")
       .attr("transform", function(d) { return d.children || d._children ? "translate(0,0)" : "translate(0,0)"; })
       .attr("text-anchor", function(d) { return d.children || d._children ? "start" : "start"; })
@@ -195,6 +205,28 @@ function update(source) {
                                   return id.replace(/[^A-Z0-9]/ig, "_");})
       .attr("class", function(d) { return "RAG_" + d.colour; })
       .style("fill-opacity", 1e-6)
+//      .on("click", click)
+      ;                         
+  nodeEnter.append("text")
+      .attr("x", function(d) { return d.children || d._children ? 5 : 5; })
+      .attr("dy", ".35em")
+      .attr("transform", function(d) { return d.children || d._children ? "translate(0,0)" : "translate(0,0)"; })
+      .attr("text-anchor", function(d) { return d.children || d._children ? "start" : "start"; })
+      .text(function(d) { var txtChar = d.children || d._children ? (d.children ? "-" : "+") : "";
+//                          console.log(txtChar);
+                          return txtChar })
+      .attr("id", function(d,i) { var id = "";
+                                  var pparent = (d.parent) ? d.parent : false;
+                                  var ppparent = (pparent) ? pparent.parent : false;
+                                  var pppparent = (ppparent) ? ppparent.parent : false;
+                                  id += (pppparent) ? pppparent.name + " " : "";
+                                  id += (ppparent) ? ppparent.name + " " : "";
+                                  id += (pparent) ? pparent.name + " " : "";
+                                  id += d.name + " ";
+                                  return id.replace(/[^A-Z0-9]/ig, "_");})
+      .attr("class", function(d) { return "RAG_" + d.colour; })
+//      .style("fill-opacity", 1e-6)
+//      .on("click", click)
       ;
 
   // Resize the rectangle labels to boxWidth or as wide as the text requires
@@ -204,8 +236,8 @@ function update(source) {
              .attr("width", function(d) {var textElement = d3.select(this.parentNode).select("text").node();
                                          var parentElement = d3.select(this.parentNode).node();
                                          var bbox = textElement.getBBox();
-                                         var bbwidth = (bbox.width + 12 > boxWidth) ? bbox.width + 12 : boxWidth;
-                                             bbwidth = (d.depth == layers) ? bbox.width + 12 : bbwidth;
+                                         var bbwidth = (bbox.width + 25 > boxWidth) ? bbox.width + 25 : boxWidth;
+                                             bbwidth = (d.depth == layers) ? bbox.width + 25 : bbwidth;
                                          return bbwidth; });
 
   // Transition nodes to their new position.
@@ -321,21 +353,33 @@ function mouseout(d) {
 // Toggle children on click.
 function click(d) {
   if (drilldown != "" && !(d.children || d._children)) {
+    var params = "";
+    var pparent = (d.parent && d.parent.fieldname) ? d.parent : false;
+    var ppparent = (pparent && pparent.fieldname) ? pparent.parent : false;
+    var pppparent = (ppparent && ppparent.fieldname) ? ppparent.parent : false;
+    params += (pppparent && pppparent.fieldname) ? "&" + pppparent.fieldname + "=" + pppparent.name : "";
+    params += (ppparent && ppparent.fieldname) ? "&" + ppparent.fieldname + "=" + ppparent.name : "";
+    params += (pparent && pparent.fieldname) ? "&" + pparent.fieldname + "=" + pparent.name : "";
+    params += "&" + d.fieldname + "=" + d.name;
+    
     var pparent = (d.parent) ? d.parent : false;
     var ppparent = (pparent) ? pparent.parent : false;
     var pppparent = (ppparent) ? ppparent.parent : false;
     var strLevel1 = (pppparent) ? pppparent.name : "_FOC_NULL";
     var strLevel2 = (ppparent) ? ppparent.name : "_FOC_NULL";
     var strLevel3 = (pparent) ? pparent.name : "_FOC_NULL";
-    drillto(drilldown,strLevel1,strLevel2,strLevel3,d.fail,d.total,d.value);
+    var strLevel4 = (d.name) ? d.name : "_FOC_NULL";
+    drillto(drilldown,strLevel1,strLevel2,strLevel3,strLevel4,d.fail,d.total,d.value,params);
     return false;
   }
   if (d.children) {
     d._children = d.children;
     d.children = null;
+    this.childNodes[2].textContent = "+";
   } else {
     d.children = d._children;
     d._children = null;
+    this.childNodes[2].textContent = "-";
   }
   tree.nodeSize([30, width])
 //    .separation(function(a,b) { return (a.parent == b.parent ? 1 : 1.5); })
@@ -344,15 +388,17 @@ function click(d) {
   update(d);
 }
 
-function drillto(fexName, strLevel1, strLevel2, strLevel3, DataFail, DataTotal, DataValue) {
+function drillto(fexName, strLevel1, strLevel2, strLevel3, strLevel4, DataFail, DataTotal, DataValue, params) {
   // Build the URL required to execute the drill down report
   var _iframeurl =  "/ibi_apps/rs/ibfs"+fexName+"?IBIRS_action=run"
                  +  "&Level1="+strLevel1
                  +  "&Level2="+strLevel2
                  +  "&Level3="+strLevel3
+                 +  "&Level4="+strLevel4
                  +  "&Fail="+DataFail
                  +  "&Total="+DataTotal
-                 +  "&Value="+DataValue;
+                 +  "&Value="+DataValue
+                 +  params;
                  
   window.open(_iframeurl, ddtarget, "location=no");
 }
@@ -426,6 +472,7 @@ function fade(opacity,id) {
 
       (function iterate (obj, fail, total, path, idx, len) {
         obj.name = path[idx];
+        obj.fieldname = layerField[idx];
         if ( idx < len ) {
           if ( !Array.isArray(obj.children) ) {
             obj.fail  = 0; // First iteration of building the node so we initialise
