@@ -14,10 +14,22 @@
 // --------------------------------------------------------------------------------
 
 // Create global variables to allow passing of properties to any function.
-var margin = {top: 80, right: 40, bottom: 40, left: 160};
+  var margin = {top: 80, right: 40, bottom: 40, left: 160};
+
+  var win = window
+    , doc = document
+    , ele = doc.documentElement
+    , bdy = doc.getElementsByTagName("body")[0];
 
 function checkData(data,container,width,height,props,buckets,chart) {
     
+  d3.select("body.tooltip").remove();
+  
+  var divTooltip = d3.select(".chart").append("div")
+      .style("display", function() { var vDisplay = !props.enableTooltip ? "none" : "block";
+                                     return vDisplay; })
+      .attr("id", "tooltip");
+  
   drawChart(data,container,props,buckets,chart);
 
 }
@@ -72,7 +84,10 @@ function drawChart(data,svgContainer,props,buckets,chart) {
     d["Reply5"] = +d.replies[4] * 100 / d.N;
     var x0 = -1*(d["Reply3"]/2+d["Reply2"]+d["Reply1"]);
     var idx = -1;
-    d.boxes = color.domain().map(function(name) { return {name: name, x0: x0, x1: x0 += +d[name], N: +d.N, n: +d.replies[idx += 1]}; });
+    d.boxes = color.domain().map(function(name) { idx += 1;
+                                                  var nFormat = buckets.replies.numberFormat[idx];
+                                                  var nValue = nFormat.includes("%") ? d.replies[idx] / 100 : d.replies[idx];
+                                                  return {name: name, x0: x0, x1: x0 += +d[name], N: +d.N, n: + nValue, s:  d._s, g: d._g, title: buckets.replies.title[idx], format: buckets.replies.numberFormat[idx]}; });
   });
 
   var min_val = d3.min(data, function(d) {
@@ -98,6 +113,10 @@ function drawChart(data,svgContainer,props,buckets,chart) {
   svgContainer.append("g")
                 .attr("class", "y axis")
                 .call(yAxis);
+                
+// Depending upon the xAxis properties, "hide" xAxis components
+  var xAxisShow = props.showXAxis ? null : d3.selectAll(".x").style("display", "none"); 
+  var xticks = props.showXAxisValues ? null : d3.selectAll(".x .tick").style("opacity",0);
 
 // add an ID attribute to y axis label text
   var text4tick = svgContainer.selectAll(".y text")
@@ -165,13 +184,20 @@ function drawChart(data,svgContainer,props,buckets,chart) {
   var bars = boxes.selectAll("rect")
       .data(function(d) { return d.boxes; })
     .enter().append("g")
-      .attr("class", "subbar");
+//      .attr("class", function(d) { var barclass = tdgchart.buildClassName('riser', d.s, d.g, 'mbar');
+//                                   return barclass + " subbar"; })
+      .attr("class", "subbar")
+      .style("fill", function(d) { return color(d.name); })
+      .on("mouseover", mouseover)
+      .on("mouseout", mouseout);
 
   bars.append("rect")
         .attr("height", y.rangeBand())
         .attr("x", function(d) { return x(d.x0); })
         .attr("width", function(d) { return x(d.x1) - x(d.x0); })
-        .style("fill", function(d) { return color(d.name); });
+        .style("fill", function(d) { return color(d.name); })
+        .attr("class", function(d) { var barclass = tdgchart.buildClassName('riser', d.s, d.g, 'mbar');
+                                     return barclass; });
 
   bars.append("text")
         .attr("x", function(d) { return x(d.x0); })
@@ -180,7 +206,8 @@ function drawChart(data,svgContainer,props,buckets,chart) {
         .attr("dx", "0.5em")
         .style("font", fontScale(y.rangeBand()) + "px sans-serif")
         .style("text-anchor", "begin")
-        .text(function(d) { return d.n !== 0 && (d.x1-d.x0)>3 ? d.n : "" });
+        .text(function(d) { var text = tdgchart.numberFormatter.formatFromString(d.n,d.format,",");
+                            return d.n !== 0 && (d.x1-d.x0)>3 ? text : "" });
 
   boxes.insert("rect",":first-child")
          .attr("height", y.rangeBand())
@@ -304,3 +331,39 @@ function createTitle(text) {
       svgText.appendChild(textNode);
   return svgText;
 } // end of createTitle function
+
+// Mouseover function.
+function mouseover(d) {
+  var thisColor = this.style.fill;
+  d3.select("#tooltip")
+      .html(function() {var list = tdgchart.numberFormatter.formatFromString(d.n,d.format,",");
+                        var list = tdgchart.numberFormatter.formatFromString(d.n,d.format,",");
+                        var iHtml  = "<span id='title1'>"+d.title+"</span>";
+                            iHtml += "<br /><span id='title2'>Value: </span><span id='value'>"+list+"</span>";
+                            iHtml += !d.format.includes("%") ? "<br /><span id='title3'>Percent: </span><span id='pcnt'>"+tdgchart.numberFormatter.formatFromString((d.n / d.N),"#.00%",",")+"</span>" : "";
+                        return iHtml;
+                       })
+      .style("top", function() {var objTooltip = d3.select("#tooltip");
+                                var objHeight = objTooltip[0][0].offsetHeight;
+                                var clientHeight = (win.innerHeight || ele.clientHeight || bdy.clientHeight);
+                                var scrollTop = (win.scrollY || ele.scrollY || bdy.scrollTop);
+                                var posTop = (clientHeight + scrollTop > (d3.event.pageY + objHeight + 5)) ? d3.event.pageY + 5 : (d3.event.pageY - objHeight - 5);
+                                return (posTop) + "px";
+                               })
+      .style("left", function() {var objTooltip = d3.select("#tooltip");
+                                 var objWidth = objTooltip[0][0].offsetWidth;
+                                 var clientWidth = (win.innerWidth || ele.clientWidth || bdy.clientWidth);
+                                 var scrollLeft = (win.scrollX || ele.scrollX || bdy.scrollLeft);
+                                 var posLeft = (clientWidth + scrollLeft > (d3.event.pageX + objWidth + 20)) ? d3.event.pageX + 20 : (d3.event.pageX - objWidth - 20);
+                                 return (posLeft) + "px";
+                                })
+      .style("visibility", "visible")
+      .style("background-color", thisColor);
+}
+
+// Mouseout function.
+function mouseout(d) {
+  d3.select("#tooltip")
+      .style("visibility", "hidden")
+      .html(function() {return "";});
+}

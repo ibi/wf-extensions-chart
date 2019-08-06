@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": 1.0,
+		"version": 1.1,
 		"implements_api_version": 1.0,
 		"author": "Information Builders (UK) Ltd",
 		"copyright": "Information Builders Inc.",
@@ -12,7 +12,10 @@
 	
 	"properties": {
         "useSeriesColours": true,
-        "colors": ["#c7001e", "#f6a580", "#cccccc", "#92c6db", "#086fad"]
+        "colors": ["#c7001e", "#f6a580", "#cccccc", "#92c6db", "#086fad"],
+        "showXAxis": true,
+        "showXAxisValues": true,
+        "enableTooltip": false
 	},
 	
 	"propertyAnnotations": {
@@ -20,7 +23,10 @@
         "colors": {
                     "typeAnnotation": "array",
                     "arrayTypes": "color"
-                  }
+                  },
+        "showXAxis": "bool",
+        "showXAxisValues": "bool",
+        "enableTooltip": "bool"
 	},
 	
 	"dataBuckets":  {

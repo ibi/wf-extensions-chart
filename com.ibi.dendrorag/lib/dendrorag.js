@@ -236,8 +236,8 @@ function update(source) {
              .attr("width", function(d) {var textElement = d3.select(this.parentNode).select("text").node();
                                          var parentElement = d3.select(this.parentNode).node();
                                          var bbox = textElement.getBBox();
-                                         var bbwidth = (bbox.width + 25 > boxWidth) ? bbox.width + 25 : boxWidth;
-                                             bbwidth = (d.depth == layers) ? bbox.width + 25 : bbwidth;
+                                         var bbwidth = (bbox.width + 30 > boxWidth) ? bbox.width + 30 : boxWidth;
+                                             bbwidth = (d.depth == layers) ? bbox.width + 12 : bbwidth;
                                          return bbwidth; });
 
   // Transition nodes to their new position.
@@ -265,7 +265,7 @@ function update(source) {
   link.enter().insert("path", "g")
       .attr("class", "link")
       .attr("d", function(d) {
-        var o = {x: (source.x0 + 100), y: source.y0};
+        var o = {x: (source.x0), y: source.y0};
         return diagonal({source: o, target: o});
       });
 
@@ -278,7 +278,7 @@ function update(source) {
   link.exit().transition()
       .duration(duration)
       .attr("d", function(d) {
-        var o = {x: (source.x + 150), y: source.y};
+        var o = {x: (source.x), y: source.y};
         return diagonal({source: o, target: o});
       })
       .remove();
