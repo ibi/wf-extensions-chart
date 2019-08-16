@@ -19,6 +19,7 @@ This is a custom table/data grid extension using the DataTables jQuery plug-in (
 To configure or customize your extension edit "properties" object in properties.json file.
 	
 	"properties": {
+		"api_version": "1.0", // Use "1.0" for Release 8202M and prior. Use "2.0" for later releases to support MIN and MAX aggregation.
 		"paging": true,
 		"pageLength": 10,
 		"lengthMenu": "[ 10, 25, 50, 100 ]",

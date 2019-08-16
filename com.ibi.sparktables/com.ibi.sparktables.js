@@ -34,11 +34,13 @@
     //  - preRenderConfig: the standard callback argument object
     function preRenderCallback(preRenderConfig) {
         var chart = preRenderConfig.moonbeamInstance;
+        /*
         chart.title.visible = false;
         chart.title.text = "";  // contrived example
         chart.footnote.visible = false;
         chart.footnote.text = "footnote";
         chart.footnote.align = 'right';
+        */
     }
 
     function noDataPreRenderCallback(preRenderConfig) {
@@ -488,8 +490,17 @@
         var row_levels = 1;
         if (dataBuckets.row !== undefined) {
 
-            var number_of_rows = dataBuckets.row.fieldName.constructor === Array ? dataBuckets.row.fieldName.length : 1;
-
+            var number_of_rows = 1;
+            if(renderConfig.properties.api_version == '1.0')
+            {
+                number_of_rows = dataBuckets.row.title.constructor === String ? 1 : dataBuckets.row.title.length ;
+            }
+            else
+            {
+                number_of_rows = dataBuckets.row.fieldName.constructor === Array ? dataBuckets.row.fieldName.length : 1;
+            }
+           
+            
             switch (number_of_rows) {
                 case 0:
                     break;
@@ -537,23 +548,45 @@
         //console.log(dataArray[0].measures.length);
 
         if (dataBuckets.measure !== undefined) {
-
-            var number_of_cols = dataBuckets.measure.fieldName.constructor === Array ? dataBuckets.measure.fieldName.length : 1;
-
+            var number_of_cols = 1;
+            if(renderConfig.properties.api_version == '1.0')
+            {
+                number_of_cols = dataBuckets.measure.title.constructor === String ? 1 : dataBuckets.measure.title.length ;
+            }
+            else
+            {
+                number_of_cols = dataBuckets.measure.fieldName.constructor === Array ? dataBuckets.measure.fieldName.length : 1;
+            }
+           
             switch (number_of_cols) {
                 case 0:
                     break;
                 case 1:
-                    var measure_field = dataBuckets.measure.fieldName;
-                    var function_syntax = measure_field.indexOf("MIN.") == 0 ? 'Min' : measure_field.indexOf("MAX.") == 0 ? 'Max' : measure_field.indexOf("AVE.") == 0 ? 'Average' : 'Sum';
+                    //var measure_field = dataBuckets.measure.fieldName;
+                    var function_syntax = 'Sum';
+                    if(renderConfig.properties.api_version != '1.0')
+                    {
+                        function_syntax = measure_field.indexOf("MIN.") == 0 ? 'Min' : measure_field.indexOf("MAX.") == 0 ? 'Max' : measure_field.indexOf("AVE.") == 0 ? 'Average' : 'Sum';
+                    }
+
+                    //var function_syntax = measure_field.indexOf("MIN.") == 0 ? 'Min' : measure_field.indexOf("MAX.") == 0 ? 'Max' : measure_field.indexOf("AVE.") == 0 ? 'Average' : 'Sum';
+                    //var function_syntax = 'Sum';
                     measures_syntax = "measure: $$." + function_syntax + "('$.measure'), ";
 
                     break;
                 default:
                     measures_syntax = 'measure:[';
                     for (var measures_index = 0; measures_index < dataArray[0].measure.length; measures_index++) {
-                        var measure_field = dataBuckets.measure.fieldName[measures_index];
-                        var function_syntax = measure_field.indexOf("MIN.") == 0 ? 'Min' : measure_field.indexOf("MAX.") == 0 ? 'Max' : 'Sum';
+
+                        var measure_field = '';
+                        var function_syntax = 'Sum';
+                        if(renderConfig.properties.api_version != '1.0')
+                        {
+                            measure_field = dataBuckets.measure.fieldName[measures_index];
+                            function_syntax = measure_field.indexOf("MIN.") == 0 ? 'Min' : measure_field.indexOf("MAX.") == 0 ? 'Max' : 'Sum';
+                        }
+
+                        //var function_syntax = measure_field.indexOf("MIN.") == 0 ? 'Min' : measure_field.indexOf("MAX.") == 0 ? 'Max' : 'Sum';
 
                         if (measures_index == dataArray[0].measure.length - 1) {
                             measures_syntax = measures_syntax + "$$." + function_syntax + "('$.measure[" + measures_index + "]') ], ";
