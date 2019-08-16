@@ -8,6 +8,8 @@ For installation instructions please visit this [link](https://github.com/ibi/wf
 
 This is a custom table/data grid extension using the DataTables jQuery plug-in (datatables.net), with a sparkline column added. It provides many common features associated with a grid such as sorting, filtering, and paging.
 
+**Note:** MIN. and MAX. aggregations are supported for WebFOCUS Release 8203 and higher.
+
 ## Screenshots
 
 ![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.sparktables/screenshots/1.png)
@@ -19,7 +21,6 @@ This is a custom table/data grid extension using the DataTables jQuery plug-in (
 To configure or customize your extension edit "properties" object in properties.json file.
 	
 	"properties": {
-		"api_version": "1.0", // Use "1.0" for Release 8202M and prior. Use "2.0" for later releases to support MIN and MAX aggregation.
 		"paging": true,
 		"pageLength": 10,
 		"lengthMenu": "[ 10, 25, 50, 100 ]",
@@ -67,8 +68,8 @@ To configure or customize your extension edit "properties" object in properties.
      
 		}
 	}
+		
 	
-
 ## Data Buckets
 
 ### Measures:

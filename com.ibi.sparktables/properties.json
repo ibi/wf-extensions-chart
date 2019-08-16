@@ -13,7 +13,6 @@
 	},
 	
 	"properties": {
-		"api_version": "1.0",
 		"paging": true,
 		"pageLength": 10,
 		"lengthMenu": "[ 10, 25, 50, 100 ]",

@@ -491,7 +491,7 @@
         if (dataBuckets.row !== undefined) {
 
             var number_of_rows = 1;
-            if(renderConfig.properties.api_version == '1.0')
+            if(dataBuckets.row.fieldName === undefined)
             {
                 number_of_rows = dataBuckets.row.title.constructor === String ? 1 : dataBuckets.row.title.length ;
             }
@@ -549,7 +549,7 @@
 
         if (dataBuckets.measure !== undefined) {
             var number_of_cols = 1;
-            if(renderConfig.properties.api_version == '1.0')
+            if(dataBuckets.measure.fieldName  ===undefined)
             {
                 number_of_cols = dataBuckets.measure.title.constructor === String ? 1 : dataBuckets.measure.title.length ;
             }
@@ -564,7 +564,7 @@
                 case 1:
                     //var measure_field = dataBuckets.measure.fieldName;
                     var function_syntax = 'Sum';
-                    if(renderConfig.properties.api_version != '1.0')
+                    if(dataBuckets.measure.fieldName  !==undefined)
                     {
                         function_syntax = measure_field.indexOf("MIN.") == 0 ? 'Min' : measure_field.indexOf("MAX.") == 0 ? 'Max' : measure_field.indexOf("AVE.") == 0 ? 'Average' : 'Sum';
                     }
@@ -580,7 +580,7 @@
 
                         var measure_field = '';
                         var function_syntax = 'Sum';
-                        if(renderConfig.properties.api_version != '1.0')
+                        if(dataBuckets.measure.fieldName  !==undefined)
                         {
                             measure_field = dataBuckets.measure.fieldName[measures_index];
                             function_syntax = measure_field.indexOf("MIN.") == 0 ? 'Min' : measure_field.indexOf("MAX.") == 0 ? 'Max' : 'Sum';
