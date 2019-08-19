@@ -39,7 +39,7 @@
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
 		var formatNumber = d3.format(",.0f");
-		var color = d3.scale.category20();
+		var color = d3.scaleOrdinal(d3.schemeCategory20);
 
 		var margin = {left: 10, right: 10, top: 10, bottom: 10};
 		var width = renderConfig.width - margin.left - margin.right;
@@ -88,8 +88,8 @@
 			
 		// End CHART-2117
 
-		data.nodes = data.nodes.map(function(el) {
-			return {name: el};
+		data.nodes = data.nodes.map(function(el, i) {
+			return {name: el, id: i};
 		});
 
 		for (var i = data.links.length - 1; i >= 0; i--) {
@@ -118,10 +118,12 @@
 			for (var i = 0; i < data.links.length; i++) {
 				var link = data.links[i];
 				if (!link.deleted && link.source === target) {
+/*
 					if (sourceList[link.target]) {
 						link.deleted = true;
 						continue;
 					}
+*/
 					sourceList[link.target] = true;
 					checkCycles(link.target, sourceList);
 				}
@@ -133,18 +135,34 @@
 				data.links.splice(i, 1);
 			}
 		}
+        
+// If colour array has been supplied then ensure that there are enough colours in the props.colors array to supply all the nodes.
+        var cntNodes = data.nodes.length;
+        var colors = props.colors;
+        if (props.colors) {
+            do {
+                colors = colors.concat(props.colors);
+            } while (colors.length < cntNodes);
+        }
 
-		var container = d3.select(renderConfig.container)
+		var nodeWidth = props.nodeWidth ? props.nodeWidth : 15;
+		var nodePadding = props.nodePadding ? props.nodePadding : 40;
+		var sankeyAlign = props.nodeAlign ? props.nodeAlign : "justify";
+        
+        var container = d3.select(renderConfig.container)
 			.attr('class', 'com_ibi_chart')
 		.append('g')
 			.attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+        var svgDefs = d3.selectAll("defs");
+
 		var sankey = d3.sankey()
-			.nodeWidth(15)
-			.nodePadding(10)
+			.nodeWidth(nodeWidth)
+			.nodePadding(nodePadding)
 			.size([width, height])
 			.nodes(data.nodes)
 			.links(data.links)
+            .align(sankeyAlign)
 			.layout(32);
 
 		var path = sankey.link();
@@ -155,8 +173,6 @@
 			.attr("class", "link")
 			.attr("d", path)
 			.attr("fill", "none")
-			.attr("stroke", "#000")
-			.attr("stroke-opacity", 0.2)
 			.attr("tdgtitle", function(d) {
 				if (!d || typeof d !== 'object') {
 					return 'No Data';
@@ -168,6 +184,21 @@
 					return d.source.name + ': ' + formatNumber(d.value);
 				}
 			})
+			.on("mouseover",  linkmouseover)
+			.on("mouseout",  mouseout)
+            .style("stroke", function(link) { var clrSource = props.colors ? colors[link.source.id] : color(link.source.name.replace(/ .*/, ""));
+                                              var clrTarget = props.colors ? colors[link.target.id] : color(link.target.name.replace(/ .*/, ""));
+                                              var gradient = svgDefs.append("linearGradient")
+                                                                      .attr("gradientUnits", "objectBoundingBox")
+//                                                                      .attr("gradientUnits", "userSpaceOnUse")
+                                                                      .attr("id", "grad_" + link.source.id + "_" + link.target.id);
+                                                  gradient.append("stop").attr("offset", "0.3").attr("stop-color", clrSource);
+                                                  gradient.append("stop").attr("offset", "0.7").attr("stop-color", clrTarget);
+                                              var fillColor1 = props.colorMode ? props.colors ? colors[link.source.id] : color(link.source.name.replace(/ .*/, "")) : null;
+                                              var fillColor2 = props.colorMode ? props.colors ? colors[link.target.id] : color(link.target.name.replace(/ .*/, "")) : null;
+                                              var fillColor3 = "url(#grad_" + link.source.id + "_" + link.target.id + ")";
+                                              return props.colorMode.toLowerCase() === "source" ? fillColor1 : props.colorMode.toLowerCase() === "target" ? fillColor2 : props.colorMode.toLowerCase() === "gradient" ? fillColor3 : null; })
+			.attr("stroke-opacity", 0.2)
 			.style("stroke-width", function(d) { return Math.max(1, d.dy); })
 			.sort(function(a, b) { return b.dy - a.dy; });
 
@@ -176,21 +207,24 @@
 		.enter().append("g")
 			.attr("class", "node")
 			.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
-		.call(d3.behavior.drag()
-			.origin(function(d) { return d; })
-			.on("dragstart", function() { this.parentNode.appendChild(this); })
+			.on("mouseover",  nodemouseover)
+			.on("mouseout",  mouseout)
+		.call(d3.drag()
+			.subject(function(d) { return d; })
+			.on("start", function() { this.parentNode.appendChild(this); })
 			.on("drag", dragmove));
 
 		node.append("rect")
 			.attr("height", function(d) { return d.dy; })
-			.attr("width", sankey.nodeWidth())
+			.attr("width", nodeWidth)
 			.attr("tdgtitle", function(d) { return d.name + ": " + formatNumber(d.value); })
 			.attr("shape-rendering", "crispEdges")
 			.attr("stroke-width", 1)
 			.attr("fill-opacity", 0.9)
-			.style("fill", function(d) { return d.color = color(d.name.replace(/ .*/, "")); })
+			.style("fill", function(d) { var fillColor = props.colors ? colors[d.id] : color(d.name.replace(/ .*/, ""));
+                                         return fillColor; })
 			.style("stroke", function(d) { return d3.rgb(d.color).darker(2); });
-
+        
 		if (!renderConfig.greyState) {
 			node.append("text")
 				.attr("x", -6)
@@ -206,6 +240,46 @@
 				.attr("x", 6 + sankey.nodeWidth())
 				.attr("text-anchor", "start");
 		}
+        
+        function nodemouseover(_) {
+            var objThis = _.name, objTarget = [], objSource = [];
+            if (_.sourceLinks.length) {
+                i = 0;
+                do {
+                    objTarget.push(_.sourceLinks[i].target.name);
+                    i++;
+                } while (i < _.sourceLinks.length);
+            };
+            if (_.targetLinks.length) {
+                i = 0;
+                do {
+                    objSource.push(_.targetLinks[i].source.name);
+                    i++;
+                } while (i < _.targetLinks.length);
+            };
+            var allNodes = d3.selectAll(".node")
+                               .attr("opacity", function(d) { var a = (objThis === d.name || objSource.indexOf(d.name) >= 0 || objTarget.indexOf(d.name) >= 0) ? "1" : props.fadeOpacity;
+                                                              return a;});
+            var allNodes = d3.selectAll(".link")
+                               .attr("stroke-opacity", function(d) { var a = (objThis === d.source.name || objThis === d.target.name) ? "0.5" : props.fadeOpacity;
+                                                              return a;});
+        }
+
+        function linkmouseover(_) {
+            var objTarget = _.source.name, objSource = _.target.name;
+            var allNodes = d3.selectAll(".node")
+                               .attr("opacity", function(d) { var a = (objSource === d.name || objTarget === d.name) ? "1" : props.fadeOpacity;
+                                                              return a;});
+            var allNodes = d3.selectAll(".link")
+                               .attr("stroke-opacity", function(d) { var a = (objTarget === d.source.name && objSource === d.target.name) ? "0.5" : props.fadeOpacity;
+//                                                              if (a === "1") { console.log(a + " : " + d.source.name + " : " + d.target.name); };
+                                                              return a;});
+        }
+
+        function mouseout(d) {
+            var allNodes = d3.selectAll(".node").attr("opacity", "1");
+            var allNodes = d3.selectAll(".link").attr("stroke-opacity", "0.2");
+        }
 
 		function dragmove(d) {
 			d3.select(this).attr("transform", "translate(" + d.x + "," + (d.y = Math.max(0, Math.min(height - d.dy, d3.event.y))) + ")");
@@ -218,12 +292,12 @@
 
 	function noDataRenderCallback(renderConfig) {
 		renderConfig.data = [
-			{source: 'A', target: 'E', value: 10},
-			{source: 'A', target: 'C', value: 10},
-			{source: 'B', target: 'C', value: 10},
-			{source: 'B', target: 'D', value: 10},
-			{source: 'C', target: 'G', value: 10},
-			{source: 'C', target: 'E', value: 10}
+			{source: 'Coal', target: 'Fossil Fuels', value: 25},
+			{source: 'Coal', target: 'Electricity', value: 25},
+			{source: 'Natural Gas', target: 'Fossil Fuels', value: 20},
+			{source: 'Oil', target: 'Fossil Fuels', value: 15},
+			{source: 'Fossil Fuels', target: 'Energy', value: 60},
+			{source: 'Electricity', target: 'Energy', value: 25}
 		];
 
 		var chart = renderConfig.moonbeamInstance;
@@ -244,7 +318,7 @@
 		resources:  {
 			script: window.d3
 				? ['lib/sankey.js']
-				: ['lib/d3.v3.min.js', 'lib/sankey.js'],
+				: ['lib/d3.v4.min.js', 'lib/d3-sankey.js'],
 			css: ['lib/sankey.css']
 		},
 		modules: {

@@ -1,24 +1,57 @@
 {
 	"info": {
-		"version": "1.0.1" ,
-		//1.0 Original Release
-		//1.0.1 CHART-3033 extension throws mixed content error, CHART-2117 Null Link Handling, CHART-3175 Invoking Sankey Chart from HTML5 extensions throws error, CHART-3191 Minimal Buckets
-		"implements_api_version": 1.0,
+		"version": 1.2,
+		"implements_api_version": 2.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
 		"license": "BSD 3-clause",
-		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.sankey",
+		"url": "",
 		"icons": {
 			"medium": "icons/medium.png"
 		}
 	},
 	
 	"properties": {
-		"chartHeadroom": 50
+		"chartHeadroom": 50,
+        "nodeWidth": 15,
+        "nodePadding": 18,
+        "colorMode": "none",
+        "colors": ["#5388be","#9ed675","#4fa03d","#fcce58","#e1542b"
+                  ,"#efcca2","#b0c08f","#2c85ed","#e735d3","#07d6a0"
+                  ,"#8167fe","#fcb769","#fede63","#b3cb11","#96a8d0"],
+        "fadeOpacity": 0.1,
+        "nodeAlign": "justify"
 	},
 	
 	"propertyAnnotations": {
-		"chartHeadroom": "number"
+		"chartHeadroom": "number",
+        "nodeWidth": {
+				"typeAnnotation": "number",
+				"numericRange": [5, 50],
+				"numericStep": 1
+        },
+        "nodePadding": {
+				"typeAnnotation": "number",
+				"numericRange": [5, 50],
+				"numericStep": 1
+        },
+        "colorMode": {
+                "typeAnnotation": "str",
+                "stringValues": ["none", "source", "target", "gradient"]
+        },
+        "colors": {
+                "typeAnnotation": "array",
+                "arrayTypes": "color"
+        },
+        "fadeOpacity": {
+				"typeAnnotation": "number",
+				"numericRange": [0.05, 0.2],
+				"numericStep": .01
+        },
+        "nodeAlign": {
+                "typeAnnotation": "str",
+                "stringValues": ["justify", "left", "right", "center"]
+        }
 	},
 	
 	"dataBuckets":  {
@@ -44,7 +77,7 @@
 				"id": "value",
 				"type": "measure",
 				"count": {
-					"min": 1,
+					"min": 0,
 					"max": 1
 				}
 			}
@@ -177,11 +210,11 @@
 			"description": "Sankey 흐름도",
 			"icon_tooltip": "Sankey 흐름도",
 			"source_name": "소스 노드",
-			"source_tooltip": "여기에 치수를 드롭(drop)",
+			"source_tooltip": "여기에 특성 항목 놓기",
 			"target_name": "대상 노드",
-			"target_tooltip": "여기에 치수를 드롭(drop)",
-			"value_name": "값 연결",
-			"value_tooltip": "여기에 측정을 드롭(drop)"
+			"target_tooltip": "여기에 특성 항목 놓기",
+			"value_name": "링크 값",
+			"value_tooltip": "여기에 측정 드롭"
 		},
 		
 		"tw": {

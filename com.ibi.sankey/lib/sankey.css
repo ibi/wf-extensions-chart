@@ -8,16 +8,14 @@
 .node text {
   fill: black;
   pointer-events: none;
-  text-shadow: 0 1px 0 #fff;
-  font: 10px sans-serif;
+  font: 12px sans-serif;
+  font-weight: 600;
 }
 
 .link {
   fill: none;
-  stroke: #000;
-  stroke-opacity: .2;
+  stroke: #666;
 }
 
 .link:hover {
-  stroke-opacity: .5;
 }
