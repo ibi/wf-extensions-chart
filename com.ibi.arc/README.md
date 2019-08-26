@@ -18,7 +18,7 @@ This extension shows comparisons among categories.
 
 To configure or customize your extension edit "properties" object in properties.json file.
 	
-	properties:{
+	"properties": {
 		"type": "regular",
 		"arc": {
 			"start": 1.5708,
@@ -35,20 +35,32 @@ To configure or customize your extension edit "properties" object in properties.
 			}
 		},
 		"axis": {
+			"base": {
+				"color": "black",
+				"width": 1
+			},
 			"labels": {
 				"format": "auto"
+			},
+			"ticks": {
+				"color": "black",
+				"width": 1,
+				"labels": {
+					"fontSize": "14px",
+					"color": "black"
+				}
 			}
 		},
 		"valueLabel": {
 			"fontFamily": "sans-serif",
 			"fontSize": "auto",
-			"color": "#000000",
-			"fontWeight": "bold", // "normal", "bolder" or "bold",
-                        "format": "auto"
+			"color": "#333333",
+			"fontWeight": "bold",
+			"format": "auto"
 		},
 		"labels": {
 			"text": {
-				"color": "black",
+				"color": "#333333",
 				"font": "Verdana",
 				"weight": "bold",
 				"size": "14px"
@@ -57,9 +69,14 @@ To configure or customize your extension edit "properties" object in properties.
 				"type": "circle"
 			}
 		},
-                "tooltip": {
-                    "enabled": true 
-                }
+		"tooltip": {
+			"enabled": true 
+		},
+		//Start CHART-3401
+		"showCenteredText":{
+			"enabled": true 			
+		}
+		//End CHART-3401
 	}
 
 ## Data Buckets
