@@ -63,7 +63,12 @@
 		},
 		"tooltip": {
 			"enabled": true 
+		},
+		//Start CHART-3401
+		"showCenteredText":{
+			"enabled": true 			
 		}
+		//End CHART-3401
 	},
 	
 	"propertyAnnotations": {
