@@ -66,6 +66,11 @@ var tdg_arc = (function() { // change name
 			//Start CHART-2438
 			chart: null,   //user-props will now propogate chart object for access to getSerDepProperty function/method used for dynamic color assignment
 			//End CHART-2438
+			//Start CHART-3401
+			showCenteredText: {
+						enabled: true 			
+					},
+			//End CHART-3401
             width: 300,  
             height: 400,
             data: null,
@@ -1161,14 +1166,35 @@ var tdg_arc = (function() { // change name
         }
         
         function getTextScaleFactorForRadius( radius, width, height ) {
+			/*Code prior to CHART-3401
             var widthToFit = Math.pow( Math.pow( radius, 2 ) - Math.pow( height, 2 ), 0.5), 
                 heightToFit = Math.pow( Math.pow( radius, 2 ) - Math.pow( width, 2 ), 0.5),
                 deltaWidth = width - widthToFit,
                 deltaHeight = height - heightToFit;
-        
+				
             return ( Math.abs(deltaWidth) > Math.abs(deltaHeight) ) 
                 ? widthToFit / width
-                : heightToFit / height; 
+                : heightToFit / height;				
+            */ 
+
+			//Start CHART-3401
+            var widthToFit = Math.pow( Math.pow( radius, 2 ) - Math.pow( Math.min(radius,height), 2 ), 0.5), 
+                heightToFit = Math.pow( Math.pow( radius, 2 ) - Math.pow( Math.min(radius,width), 2 ), 0.5),
+                deltaWidth = width - widthToFit,
+                deltaHeight = height - heightToFit;		
+
+
+           var scaleFactor = ( Math.abs(deltaWidth) > Math.abs(deltaHeight) ) 
+                ? widthToFit / width
+                : heightToFit / height;		
+
+			//Minimum scaleFactor of 1.5
+			return Math.max(1.5, scaleFactor);		
+			
+			//End CHART-3401
+        
+
+
         }
 
         function enableShowValueOnHiglight(group_arc, bg) {
@@ -1205,14 +1231,25 @@ var tdg_arc = (function() { // change name
                         'text-anchor': 'middle',
                         dy: '.35em'
                     })
-                    .text(format(d.value));
+					/*Code prior to CHART-3401
+                    .text(props.showCenteredText.enabled ?  format(d.value): " ");					
+					*/
+					//Start CHART-3401
+                    .text(props.showCenteredText.enabled ?  format(d.value): "");
+					//End CHART-3401
 
                 if ( lblProps.fontSize === 'auto' ) {
                   var bbox = text.node().getBBox();
                   var factor = getTextScaleFactorForRadius(
                       minRadius - innerProps.padding,
+					  /* Code before to CHART-3401
                       bbox.width,
-                      bbox.height
+                      bbox.height					  
+					  */
+					  //Start CHART-3401
+                      Math.max(1,bbox.width),
+                      Math.max(1,bbox.height)
+					  //End CHART-3401
                   );
 
                   text.attr('transform', 'scale('+ factor +')');
