@@ -140,7 +140,12 @@
 		},
 		"tooltip": {
 			"enabled": "bool"
+		},
+		//Start CHART-3401
+		"showCenteredText":{
+			"enabled": "bool" 			
 		}
+		//End CHART-3401
 	},
 	
 	"dataBuckets": {
