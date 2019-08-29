@@ -35,6 +35,10 @@
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_tdg_chord');
+			
+		//Start CHART-3146
+			props.renderConfig = renderConfig;  //Propagate renderConfig to com_tdg_chord object creation	
+		//End CHART-3146
 
 		var chordChart = com_tdg_chord(props);
 
