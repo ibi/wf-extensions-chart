@@ -110,7 +110,8 @@
 			"xaxis_name": "X-Axis", 
 			"xaxis_tooltip": "Drop a dimension here",
 			"compare_name": "Compare Group", 
-			"compare_tooltip": "Drop a dimension here"
+			"compare_tooltip": "Drop a dimension here",
+			"add_data": "Add more measures or dimensions" //CHART-3055
 		},
 		"pt_BR": {
 			"name": "KPI do minigráfico",
