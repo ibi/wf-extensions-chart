@@ -7,7 +7,7 @@ Based on the [Sankey d3 plugin]( https://github.com/d3/d3-sankey ).
 
 **Updated to use D3.V4.min.js.**
 
-For installation instructions please visit ["Installing a WebFocus Extension"] ( https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension ).
+For installation instructions please visit [Installing a WebFocus Extension]( https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension ).
 
 ## Description
 
