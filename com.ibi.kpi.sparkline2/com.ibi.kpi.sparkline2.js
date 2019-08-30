@@ -189,7 +189,18 @@
 		
 		//Begin CD-720
 			
+			/* Code Before CHART-3037
 			var msg = "Add more measures or dimensions"; 
+			*/
+			//Start CHART-3055
+			var msg;
+			 if (renderConfig.modules.translate) {
+				msg = renderConfig.modules.translate.getString('add_data');
+			 }
+			msg = msg || 'Add more measures or dimensions';
+			//End CHART-3055
+				
+			
 			fnShowNoDataMsg(container, renderConfig.properties, msg);
 			
 			//Instructional message is framework (D3/JQuery) independent
