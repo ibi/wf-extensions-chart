@@ -4,6 +4,7 @@
 var com_tdg_chord = (function () {
 	return function (user_props) {
 		var props = {
+			renderConfig: null, //Needed for CHART-3146
 			width: 300,
 			height: 400,
 			data: null,
@@ -120,7 +121,8 @@ var com_tdg_chord = (function () {
 			});
 			return function (d) {
 				var str = '<div style="padding:5px">';
-				str += '<b>name: </b>';
+				//str += '<b>name: </b>';   //Updated with CHART-3146
+ 				str += '<b>' + props.renderConfig.dataBuckets.buckets.source.title + ': </b>';
 				str += groupNames[d.index];
 				str += '</div>';
 				return str;
@@ -448,7 +450,27 @@ var com_tdg_chord = (function () {
 				}
 
 				if ( props.toolTipEnabled ) {
+					/* Code prior to CHART-3146
 					chords.attr('tdgtitle', buildChordToolTip(idToIndx, originalMatrix));
+					*/
+					//Start CHART-3146
+					
+					//Per design pattern at: https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.tutorial/com.ibi.tutorial_tooltips/com.ibi.tutorial_tooltips.js
+					chords.each(function(d){
+							var renderDataSource =  Object.keys(idToIndx).find(function(key){ return idToIndx[key] == d.source.index });
+							var renderDataTarget = 	Object.keys(idToIndx).find(function(key){ return idToIndx[key] == d.target.index });
+							var renderIndex = props.data[0].findIndex(function (row){return row.source == renderDataSource && row.target == renderDataTarget });
+							props.renderConfig.modules.tooltip.addDefaultToolTipContent(this, 0, renderIndex, props.data[0][renderIndex]);						
+												
+					});
+
+					
+
+					
+					//End CHART-3146
+					
+
+					
 				}
 		}
 
