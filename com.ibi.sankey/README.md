@@ -7,7 +7,7 @@ Based on the [Sankey d3 plugin]( https://github.com/d3/d3-sankey ).
 
 **Updated to use D3.V4.min.js.**
 
-For installation instructions please visit this [link] (https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension "Installing a WebFocus Extension").
+For installation instructions please visit ["Installing a WebFocus Extension"] ( https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension ).
 
 ## Description
 
@@ -36,9 +36,9 @@ Properties:
 
 ## Configurations
 To configure the default values for this extension, edit "properties" object in properties.json file.
-	
-	"properties": {
-		"chartHeadroom": 50,
+    
+    "properties": {
+        "chartHeadroom": 50,
         "nodeWidth": 15,
         "nodePadding": 18,
         "colorMode": "none",
@@ -48,15 +48,15 @@ To configure the default values for this extension, edit "properties" object in 
         "fadeOpacity": 0.05,
         "linkGradient": false,
         "nodeAlign": "justify"
-	},
-	
+    },
+    
 To configure a change to the extension defaults, add an "extensions" section to the "*GRAPH_JS_FINAL" section of your Focexec procedure. e.g.
 
 ```json
 *GRAPH_JS_FINAL
 "extensions": {
-	"com.ibi.divergent": {
-		"chartHeadroom": 50,
+    "com.ibi.divergent": {
+        "chartHeadroom": 50,
         "nodeWidth": 15,
         "nodePadding": 18,
         "colorMode": "source",
@@ -66,7 +66,7 @@ To configure a change to the extension defaults, add an "extensions" section to 
         "fadeOpacity": 0.05,
         "linkGradient": false,
         "nodeAlign": "justify"
-	}
+    }
 }
 *END
 ```
