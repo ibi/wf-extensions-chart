@@ -312,8 +312,21 @@
 									} // else row buckets included 
 									
 									var numberFormat = renderConfig.dataBuckets.getBucket(bucketType).fields[rowBucketIndex].numberFormat; //May or may not exist
+									
+									/*Code Before CHART-3319
 									return numberFormat ? chart.formatNumber(data, numberFormat ) : data; //Format the data if it has a numberFormat, else just return data			
-								
+									*/
+									
+									//Start CHART-3319
+									//Following pattern to only apply number formatting for type==='display' || type==='filter'
+									// https://datatables.net/manual/data/orthogonal-data
+									
+										//Format the data if it has a numberFormat && (type==='display' || type==='filter') , else just return data		
+									
+										return numberFormat ? ( (type==='display' || type==='filter') ? chart.formatNumber(data, numberFormat ) : data) : data;
+									
+									//End CHART-3319
+									
 								}; //function
 								
 				return fnRenderer;				
