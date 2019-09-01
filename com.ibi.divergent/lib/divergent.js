@@ -85,9 +85,20 @@ function drawChart(data,svgContainer,props,buckets,chart) {
     var x0 = -1*(d["Reply3"]/2+d["Reply2"]+d["Reply1"]);
     var idx = -1;
     d.boxes = color.domain().map(function(name) { idx += 1;
+												  /* Code prior to CHART-3411	
                                                   var nFormat = buckets.replies.numberFormat[idx];
+												  */
+												  //Start CHART-3411 
+												  var nFormat = buckets.replies.numberFormat ?        //Handles initial No Data Condition	
+																	buckets.replies.numberFormat[idx] : "#";  
+												  //End CHART-3411
                                                   var nValue = nFormat.includes("%") ? d.replies[idx] / 100 : d.replies[idx];
+												  /* Code prior to CHART-3411	
                                                   return {name: name, x0: x0, x1: x0 += +d[name], N: +d.N, n: + nValue, s:  d._s, g: d._g, title: buckets.replies.title[idx], format: buckets.replies.numberFormat[idx]}; });
+                                                  */
+												  //Start CHART-3411 
+												  return {name: name, x0: x0, x1: x0 += +d[name], N: +d.N, n: + nValue, s:  d._s, g: d._g, title: buckets.replies.title[idx], format: nFormat}; });
+												  //End CHART-3411
   });
 
   var min_val = d3.min(data, function(d) {
