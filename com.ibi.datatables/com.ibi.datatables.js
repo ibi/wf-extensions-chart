@@ -499,6 +499,10 @@
 			//$('.dataTables_scrollBody table').lasso();
 		}
 
+		//Start CHART-2935
+		$(container).on("touchend",function(e){ e.stopPropagation();});  //Stop event propagation assoicated with the touchend event set by tdgchart-min.js for the container's parent
+		//End CHART-2935
+		
 		renderConfig.renderComplete();
 	}
 	
