@@ -1,0 +1,384 @@
+{
+	"info": {
+		"version": "1.1.0",
+		"implements_api_version": 2.0,
+		"author": "Three D Graphics",
+		"copyright": "Three D Graphics Inc.",
+		"url": "https://threedgraphics.com",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	
+	"properties": {
+		"type": "regular",
+		"arc": {
+			"start": 1.5708,
+			"extent": 0.75,
+			"padding": 0.2,
+			"sortBy": "value",
+			"sort": {
+				"by": "value",
+				"ascending": true
+			},
+			"border": {
+				"width": 1,
+				"color": "white"
+			}
+		},
+		"axis": {
+			"base": {
+				"color": "black",
+				"width": 1
+			},
+			"labels": {
+				"format": "auto"
+			},
+			"ticks": {
+				"color": "black",
+				"width": 1,
+				"labels": {
+					"fontSize": "14px",
+					"color": "black"
+				}
+			}
+		},
+		"valueLabel": {
+			"fontFamily": "sans-serif",
+			"fontSize": "auto",
+			"color": "#333333",
+			"fontWeight": "bold",
+			"format": "auto"
+		},
+		"labels": {
+			"text": {
+				"color": "#333333",
+				"font": "Verdana",
+				"weight": "bold",
+				"size": "14px"
+			},
+			"marker": {
+				"type": "circle"
+			}
+		},
+		"tooltip": {
+			"enabled": true 
+		},
+		//Start CHART-3401
+		"showCenteredText":{
+			"enabled": true 			
+		}
+		//End CHART-3401
+	},
+	
+	"propertyAnnotations": {
+		"type": {
+			"typeAnnotation": "str",
+			"stringValues": ["regular", "stacked"]
+		},
+		"arc": {
+			"start": {
+				"typeAnnotation": "number",
+				"numericRange": [-3, 3],
+				"numericStep": 0.05
+			},
+			"extent": {
+				"typeAnnotation": "number",
+				"numericRange": [0, 0.8],
+				"numericStep": 0.05
+			},
+			"padding": {
+				"typeAnnotation": "number",
+				"numericRange": [0, 1],
+				"numericStep": 0.05,
+				"uiType": "spinner"
+			},
+			"sortBy": "str",
+			"sort": {
+				"by": "str",
+				"ascending": "bool"
+			},
+			"border": {
+				"width": "number",
+				"color": "color"
+			}
+		},
+		"axis": {
+			"base": {
+				"color": "color",
+				"width": "number"
+			},
+			"labels": {
+				"format": "str"
+			},
+			"ticks": {
+				"color": "color",
+				"width": "number",
+				"labels": {
+					"fontSize": "str",
+					"color": "color"
+				}
+			}
+		},
+		"valueLabel": {
+			"fontFamily": "str",
+			"fontSize": "str",
+			"fontWeight": "str",
+			"color": "color",
+			"format": "str"
+		},
+		"labels": {
+			"text": {
+				"color": "color",
+				"font": "str",
+				"weight": "str",
+				"size": "str"
+			},
+			"marker": {
+				"type": "str"
+			}
+		},
+		"tooltip": {
+			"enabled": "bool"
+		},
+		//Start CHART-3401
+		"showCenteredText":{
+			"enabled": "bool" 			
+		}
+		//End CHART-3401
+	},
+	
+	"dataBuckets": {
+	
+		"buckets": [
+			{
+				"id": "label",
+				"type": "dimension",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "value",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			}
+		]
+	},
+	
+	"translations": {
+		"en": {
+			"name": "Arc Chart",
+			"description": "Arc Chart",
+			"icon_tooltip": "Arc Chart", 
+			"value_name": "Value (MES)", 
+			"value_tooltip": "Drop a measure here",
+			"label_name": "Label (DIM)", 
+			"label_tooltip": "Drop a dimension here",
+			"add_data": "Add more measures or dimensions",
+			"properties": {
+				"type": {
+					"_translation": "Arc Type",
+					"_tooltip": "Choose whether arcs layout in a stack or side by side",
+					"_valueTooltip": "Regular or Stacked",
+					"_stringValues": ["Regular", "Stacked"]
+				},
+				"arc": {
+					"_translation": "Arc Properties",
+					"_tooltip": "Choose whether arcs layout in a stack or side by side",
+					"_valueTooltip": "Regular or Stacked",
+					"start": {
+						"_translation": "Start Angle",
+						"_tooltip": "Angle where the arc starts drawing",
+						"_valueTooltip": "A decimal value between 0 and 10"
+					},
+					"extent": "Angle Extent",
+					"padding": "Padding",
+					"sortBy": "Sort by",
+					"sort": {
+						"_translation": "Sort",
+						"by": "By",
+						"ascending": "Ascending"
+					},
+					"border": {
+						"_translation": "Border",
+						"width": "Width",
+						"color": "Color"
+					}
+				},
+				"axis": {
+					"_translation": "Arc Axis",
+					"base": {
+						"_translation": "Axis Base",
+						"color": "Color",
+						"width": "Width"
+					},
+					"labels": {
+						"_translation": "Labels",
+						"format": "Number Format"
+					},
+					"ticks": {
+						"_translation": "Axis Ticks",
+						"color": "Color",
+						"width": "Width",
+						"labels": {
+							"_translation": "Tick Labels",
+							"fontSize": "Font Size",
+							"color": "Font Color"
+						}
+					}
+				},
+				"valueLabel": {
+					"_translation": "Value Label",
+					"fontFamily": "Font Family",
+					"fontSize": "Font Size",
+					"fontWeight": "Font Weight",
+					"color": "Font Color",
+					"format": "Number Format"
+				},
+				"labels": {
+					"_translation": "Arc Labels",
+					"text": {
+						"_translation": "Text",
+						"color": "Font Color",
+						"font": "Font Family",
+						"weight": "Font Weight",
+						"size": "Font Size"
+					},
+					"marker": {
+						"_translation": "Label Marker",
+						"type": "Marker Type"
+					}
+				},
+				"tooltip": {
+					"_translation": "Tool Tip",
+					"enabled": "Enabled"
+				}
+			}
+		},
+		
+		"de": {
+			"name": "Bogendiagramm",
+			"description": "Bogendiagramm",
+			"icon_tooltip": "Bogendiagramm", 
+			"value_name": "Wert-Bucket", 
+			"value_tooltip": "Maßeinheit hier ablegen",
+			"label_name": "Label-Bucket", 
+			"label_tooltip": "Maßeinheit hier ablegen"
+		},
+		
+		"es": {
+			"name": "Diagrama de arco",
+			"description": "Diagrama de arco",
+			"icon_tooltip": "Diagrama de arco ", 
+			"value_name": "Depósito de valores", 
+			"value_tooltip": "Soltar aquí una medida",
+			"label_name": "Depósito de etiquetas", 
+			"label_tooltip": "Soltar aquí una medida"
+		},
+		
+		"fr": {
+			"name": "Diagramme d'arc",
+			"description": "Diagramme d'arc",
+			"icon_tooltip": "Diagramme d'arc", 
+			"value_name": "Compartiment de valeurs", 
+			"value_tooltip": "Déposer une mesure ici",
+			"label_name": "Compartiment d'étiquettes", 
+			"label_tooltip": "Déposer une mesure ici"
+		},
+		
+		"fc": {
+			"name": "Diagramme d'arc",
+			"description": "Diagramme d'arc",
+			"icon_tooltip": "Diagramme d'arc", 
+			"value_name": "Compartiment de valeurs", 
+			"value_tooltip": "Déposer une mesure ici",
+			"label_name": "Compartiment d'étiquettes", 
+			"label_tooltip": "Déposer une mesure ici"
+		},
+		
+		"it": {
+			"name": "Grafico ad Arco",
+			"description": "Grafico ad Arco",
+			"icon_tooltip": "Grafico ad Arco", 
+			"value_name": "Valore (MES)", 
+			"value_tooltip": "Rilascia qui una misura",
+			"label_name": "Etichetta (DIM)", 
+			"label_tooltip": "Rilascia qui una misura"
+		},
+		
+		"iw": {
+			"name": "Arc Chart",
+			"description": "Arc Chart",
+			"icon_tooltip": "Arc Chart", 
+			"value_name": "Value (MES)", 
+			"value_tooltip": "Drop a measure here",
+			"label_name": "Label (DIM)", 
+			"label_tooltip": "Drop a measure here"
+		},
+		
+		"ja": {
+			"name": "円弧グラフ",
+			"description": "円弧グラフです。",
+			"icon_tooltip": "円弧グラフ", 
+			"value_name": "値 (基軸)", 
+			"value_tooltip": "ここに基軸をドロップ",
+			"label_name": "ラベル (ディメンション)", 
+			"label_tooltip": "ここに基軸をドロップ"
+		},
+		
+		"pt_BR": {
+			"name": "Gráfico de Arco",
+			"description": "Gráfico de Arco",
+			"icon_tooltip": "Gráfico de Arco", 
+			"value_name": "Recipiente de Valor", 
+			"value_tooltip": "Solte uma medida aqui",
+			"label_name": "Recipiente do Rótulo", 
+			"label_tooltip": "Solte uma medida aqui"
+		},
+		
+		"ru": {
+			"name": "Arc Chart",
+			"description": "Arc Chart",
+			"icon_tooltip": "Arc Chart", 
+			"value_name": "Value (MES)", 
+			"value_tooltip": "Drop a measure here",
+			"label_name": "Label (DIM)", 
+			"label_tooltip": "Drop a measure here"
+		},
+		
+		"ko": {
+			"name": "원형 차트",
+			"description": "원형 차트",
+			"icon_tooltip": "원형 차트", 
+			"value_name": "값(MES)", 
+			"value_tooltip": "여기에 측정을 드롭(drop)",
+			"label_name": "레이블(DIM)", 
+			"label_tooltip": "여기에 측정을 드롭(drop)"
+		},
+		
+		"tw": {
+			"name": "弧圖表",
+			"description": "弧圖表",
+			"icon_tooltip": "弧圖表", 
+			"value_name": "值 (MES)", 
+			"value_tooltip": "拖曳測量到這裡",
+			"label_name": "標籤 (DIM)", 
+			"label_tooltip": "拖曳測量到這裡"
+		},
+		
+		"zh": {
+			"name": "弧图表",
+			"description": "弧图表",
+			"icon_tooltip": "弧图表", 
+			"value_name": "值 (MES)", 
+			"value_tooltip": "将度量拖到此处",
+			"label_name": "标签 (DIM)", 
+			"label_tooltip": "将度量拖到此处"
+		}
+	}
+}
