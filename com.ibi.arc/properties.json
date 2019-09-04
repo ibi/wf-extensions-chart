@@ -178,7 +178,7 @@
 			"value_name": "Value (MES)", 
 			"value_tooltip": "Drop a measure here",
 			"label_name": "Label (DIM)", 
-			"label_tooltip": "Drop a measure here",
+			"label_tooltip": "Drop a dimension here",
 			"add_data": "Add more measures or dimensions",
 			"properties": {
 				"type": {
