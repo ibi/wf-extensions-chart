@@ -25,6 +25,7 @@
 			h = ib3SLI.config.getChartHeight(),
 			hasComparevalue = true,
 			shortenNumbers = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.shorten_numbers'),
+			shortenLeyendDescription = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.shortenLeyendDescription'),
 			colorBands = ib3SLI.config.getProperty('colorScale.colorBands'),
 			setInfiniteToZero = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.setInfiniteToZero'),
 			hideWhenInfinite = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.hideWhenInfinite'),
@@ -207,8 +208,10 @@
 		var yAxis = d3.axisLeft()
 			.scale(y)
 			.tickSize(0)
-			.tickFormat(function(dataIndex) { 
-				return $(data).filter(function(i, d){return d.originalIndex == dataIndex})[0].dimension;
+			.tickFormat(function(dataIndex){
+				return $(data).filter(function(i, d){
+					return d.originalIndex == dataIndex;
+				})[0].dimension;
 			});
 			
 		var yAxisG = svg.append("g")
@@ -264,14 +267,44 @@
 				}
 				last_shorten = i;
 			});
+			
+			if (shortenLeyendDescription.enabled){
+				var shortenLegendG = svg.append("g")
+					.attr('id','prueba')
+					.attr("transform", "translate(0," + (h - margin.top - margin.bottom) + ")");
+				shortenLegendG.append("text")
+					.attr("x", "-10")
+					.attr("y", "5")
+					.style("text-anchor", "end")
+					.attr("alignment-baseline", "hanging")
+					.attr('fill', ib3SLI.config.getProperty('axisList.y1.labels.color'))
+					.text(function(){
+						// to incrementate with currency's
+						var currency = '',
+							numberFormat = ib3SLI.config.getFormatByBucketName('value', 0),
+							lastCharValueFormat = numberFormat.substring(numberFormat.length - 1);
+						if (lastCharValueFormat == '€'){
+							currency = lastCharValueFormat;
+						}
+						return '* (' + selected_shorten_letter + ') = ' + shortenLeyendDescription[selected_shorten_letter] + ' ' + currency;
+					});
+			}
+			
+			
 			xAxisG.selectAll("text").text(function(d) {
+				var formatNumber = ib3SLI.config.formatNumber,
+					valueFormat = ib3SLI.config.getFormatByBucketName('value', 0);
 				if(parseFloat(d) == 0) {
 					return 0;
 				}
 				if (selected_shorten_letter != ''){
-					return $ib3.utils.setShortenNumber(d, false, 0,selected_shorten_letter);
+					return $ib3.utils.setShortenNumber(d, false, 0,selected_shorten_letter, formatNumber, valueFormat);
 				}else{
-					return d;
+					if ((formatNumber) && (valueFormat)){
+						return $ib3.utils.getFormattedNumber(formatNumber, d, valueFormat, false);
+					}else{
+						return d;
+					}
 				}
 			});
 		}
