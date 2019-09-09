@@ -199,7 +199,7 @@
 				}).attr("d", function(d, i) {
 					if(d.percentaje != 'Infinity' && d.percentaje != '-Infinity') {
 						return d3.symbol()
-							.size([200])
+							.size([50])
 							.type(d3.symbolTriangle)();
 					}
 				});	
@@ -270,23 +270,27 @@
 			
 			if (shortenLeyendDescription.enabled){
 				var shortenLegendG = svg.append("g")
-					.attr('id','prueba')
-					.attr("transform", "translate(0," + (h - margin.top - margin.bottom) + ")");
+					.attr("transform", "translate(0," + (h - margin.top) + ")");
 				shortenLegendG.append("text")
 					.attr("x", "-10")
-					.attr("y", "5")
 					.style("text-anchor", "end")
-					.attr("alignment-baseline", "hanging")
+//					.attr("alignment-baseline", "hanging")
 					.attr('fill', ib3SLI.config.getProperty('axisList.y1.labels.color'))
 					.text(function(){
 						// to incrementate with currency's
 						var currency = '',
 							numberFormat = ib3SLI.config.getFormatByBucketName('value', 0),
-							lastCharValueFormat = numberFormat.substring(numberFormat.length - 1);
+							lastCharValueFormat = numberFormat.substring(numberFormat.length - 1),
+							shortenDecode = (selected_shorten_letter == '') ? 'U' : selected_shorten_letter,
+							aurReturn = '';
 						if (lastCharValueFormat == '€'){
 							currency = lastCharValueFormat;
 						}
-						return '* (' + selected_shorten_letter + ') = ' + shortenLeyendDescription[selected_shorten_letter] + ' ' + currency;
+						if (shortenDecode != 'U'){
+							aurReturn += '* (' + selected_shorten_letter + ') = '
+						}
+						aurReturn += shortenLeyendDescription[shortenDecode] + ' ' + currency;
+						return aurReturn;
 					});
 			}
 			
@@ -301,6 +305,7 @@
 					return $ib3.utils.setShortenNumber(d, false, 0,selected_shorten_letter, formatNumber, valueFormat);
 				}else{
 					if ((formatNumber) && (valueFormat)){
+						valueFormat = valueFormat.split('.')[0];
 						return $ib3.utils.getFormattedNumber(formatNumber, d, valueFormat, false);
 					}else{
 						return d;

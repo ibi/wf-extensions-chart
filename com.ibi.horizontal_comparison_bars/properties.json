@@ -18,6 +18,7 @@
 			"shorten_numbers": true,
 			"shortenLeyendDescription": {
 				"enabled": false,
+				"U": "",
 				"K": "Thousands",
 				"M": "Millions",
 				"B": "Billions",
