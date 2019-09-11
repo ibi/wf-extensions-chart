@@ -180,7 +180,7 @@
 				
 				var divMsg = document.createElement("div");
 				divMsg.textContent = msg;
-				divMsg.style.cssText = "font-family: sans-serfif; text-align: center; fill: black; opacity: 0.8; font-weight: bold; font-size: 14px;";			
+				divMsg.style.cssText = "font-family: sans-serif; text-align: center; fill: black; opacity: 0.8; font-weight: bold; font-size: 14px;";			
 				divMsg.width = properties.width;
 				divMsg.height = properties.height;
 				container.appendChild(divMsg);
