@@ -31,6 +31,9 @@ To configure or customize your extension edit "properties" object in properties.
 				"showPercentagesOfTheTotal": true,
 				"showValue": true,
 				"shortenValue": false,
+				"typeShortenNumber": null, // "long scale" (default)/ "short scale"
+										// "long scale": K: 10^3, M: 10^6, B: 10^9, T: 10^12
+										// "short scale": K: 10^3, M: 10^6, B: 10^12
 				"forceSortRows": true,
 				"showBarIcons": false
 			},

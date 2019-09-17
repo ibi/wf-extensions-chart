@@ -35,6 +35,7 @@
 			showPercentagesOfTheTotal = ib3SLI.config.getProperty('kpidistributionProperties.options.showPercentagesOfTheTotal'),
 			showValue = ib3SLI.config.getProperty('kpidistributionProperties.options.showValue'),
 			shortenValue = ib3SLI.config.getProperty('kpidistributionProperties.options.shortenValue'),
+			typeShortenNumber = ib3SLI.config.getProperty('kpidistributionProperties.options.typeShortenNumber'),
 			forceSortRows = ib3SLI.config.getProperty('kpidistributionProperties.options.forceSortRows'),
 			showBarIcons = ib3SLI.config.getProperty('kpidistributionProperties.options.showBarIcons'),
 			barIconWidth = ib3SLI.config.getProperty('kpidistributionProperties.sizes.barIconWidth'),
@@ -204,7 +205,7 @@
 						
 					} else {
 						
-						number = ' | ' + $ib3.utils.getFormattedNumber(ib3SLI.config.formatNumber, d.value, valueFormat, shortenValue);
+						number = ' | ' + $ib3.utils.getFormattedNumber(ib3SLI.config.formatNumber, d.value, valueFormat, shortenValue, typeShortenNumber);
 						
 					} 
 				

@@ -25,6 +25,7 @@
 			h = ib3SLI.config.getChartHeight(),
 			hasComparevalue = true,
 			shortenNumbers = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.shorten_numbers'),
+			typeShortenNumber = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.typeShortenNumber'),
 			shortenLeyendDescription = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.shortenLeyendDescription'),
 			colorBands = ib3SLI.config.getProperty('colorScale.colorBands'),
 			setInfiniteToZero = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.setInfiniteToZero'),
@@ -253,19 +254,23 @@
 		xAxisG.selectAll("text").attr("fill", ib3SLI.config.getProperty('axisList.y1.labels.color'));
 		
 		if (shortenNumbers) {
-			var arr_shorten = {'':0,'K':0,'M':0,'B':0,'T':0},
+			var arr_shorten = {},
 				max_shorten = 0,
-				selected_shorten_letter = '',
-				last_shorten = '';
+				selected_shorten_letter = '';
+			if (typeShortenNumber == 'short scale'){
+				arr_shorten = {'':0,'K':0,'M':0,'B':0};
+			}else{
+				arr_shorten = {'':0,'K':0,'M':0,'B':0,'T':0};
+			}
+			
 			xAxisG.selectAll("text").each(function(d) {
-				arr_shorten[$ib3.utils.getNumericAbbreviation(d)]++;
+				arr_shorten[$ib3.utils.getNumericAbbreviation(d, typeShortenNumber)]++;
 			});
 			$.each(arr_shorten,function(i,val){
 				if (val > max_shorten){
 					max_shorten = val;
-					selected_shorten_letter = last_shorten;
+					selected_shorten_letter = i;
 				}
-				last_shorten = i;
 			});
 			
 			if (shortenLeyendDescription.enabled){
@@ -302,11 +307,11 @@
 					return 0;
 				}
 				if (selected_shorten_letter != ''){
-					return $ib3.utils.setShortenNumber(d, false, 0,selected_shorten_letter, formatNumber, valueFormat);
+					return $ib3.utils.setShortenNumber(d, false, 0,selected_shorten_letter, formatNumber, valueFormat, typeShortenNumber);
 				}else{
 					if ((formatNumber) && (valueFormat)){
 						valueFormat = valueFormat.split('.')[0];
-						return $ib3.utils.getFormattedNumber(formatNumber, d, valueFormat, false);
+						return $ib3.utils.getFormattedNumber(formatNumber, d, valueFormat, false, typeShortenNumber);
 					}else{
 						return d;
 					}

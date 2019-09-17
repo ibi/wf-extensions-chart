@@ -16,6 +16,7 @@
 			"hideWhenInfinite": false,
 			"chartHeadroom": 50,
 			"shorten_numbers": true,
+			"typeShortenNumber": null,
 			"shortenLeyendDescription": {
 				"enabled": false,
 				"U": "",
