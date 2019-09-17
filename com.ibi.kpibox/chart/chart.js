@@ -107,7 +107,8 @@
 			imageHref = $ib3.utils.getWebFOCUSUriByResourcePath(kpiDataElem.image, wfPath);
 		}
 */
-		if(typeof kpiDataElem.image === 'undefined') {
+		var isImage = false;
+		if (typeof kpiDataElem.image != 'undefined') {
 			var imageContainer = d3.select(container)
 				.append('g')
 				.attr('width', imageWidth)
@@ -120,14 +121,16 @@
 				.attr('xlink:href', $ib3.utils.getWebFOCUSUriByResourcePath(kpiDataElem.image, wfPath))
 				.attr('x', 0)
 				.attr('y', imageY);
+			isImage = true;
 		}
-
+		
+		var gPosition = (isImage) ? imageWidth : 20 ;
 		var infoContainer = d3.select(container)
 			.append('g')
 			.attr('class', 'info-container')
 			.attr('width', infoWidth)
 			.attr('height', height)
-			.attr('transform', 'translate(' + imageWidth + ',0)');
+			.attr('transform', 'translate(' + gPosition + ',0)');
 			
 		var titleContainer = titleRow ? d3.select(container) : infoContainer;
 				
