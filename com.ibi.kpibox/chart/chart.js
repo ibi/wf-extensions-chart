@@ -107,14 +107,15 @@
 			imageHref = $ib3.utils.getWebFOCUSUriByResourcePath(kpiDataElem.image, wfPath);
 		}
 */
-		var isImage = false;
+		var isImage = false,
+			imageElem;
 		if (typeof kpiDataElem.image != 'undefined') {
 			var imageContainer = d3.select(container)
 				.append('g')
 				.attr('width', imageWidth)
 				.attr('height', imageHeight);
 	
-			var imageElem = imageContainer.append('svg:image')
+			imageElem = imageContainer.append('svg:image')
 				.attr('class', 'image-container')
 				.attr('width', imageWidth)
 				.attr('height', imageHeight)
@@ -401,12 +402,12 @@
 				}
 			}
 		}
-		
-		if((calculateFontSize) && (titleRow)){
-			imageElem
-				.attr('y', 20 + kpiTitleElem.node().getBBox().height);
+		if (isImage){
+			if((calculateFontSize) && (titleRow)){
+				imageElem
+					.attr('y', 20 + kpiTitleElem.node().getBBox().height);
+			}
 		}
-		
 		//Check if text over flow height
 		var availableHeight = height,
 			kpiTitleHeight = kpiTitleElem.node().getBBox().height,
@@ -468,8 +469,10 @@
 		}
 		
 		if(isDummyData) {
-			imageElem
-				.attr('filter', 'url(#grayscale);');
+			if (isImage){
+				imageElem
+					.attr('filter', 'url(#grayscale);');
+			}
 			kpiTitleElem
 				.attr('fill', '#d1d1d1');
 			kpiValueElem
