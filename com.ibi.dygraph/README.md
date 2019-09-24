@@ -78,7 +78,6 @@ These are reassigned within the JavaScript as necessary.
       "stepPlot": false,
       "displayAnnotations": false,
       "drawAxesAtZero": true,
-// When true, this shows the range selector at the lower edge of the chart
       "showRangeSelector": false,
       "rangeSelectorAlpha": 0.6,
       "rangeSelectorHeight": 40,
