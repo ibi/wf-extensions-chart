@@ -18,6 +18,7 @@
 				"showPercentagesOfTheTotal": false,
 				"showValue": true,
 				"shortenValue": false,
+				"typeShortenNumber": null,
 				"forceSortRows": false,
 				"showBarIcons": true
 			},

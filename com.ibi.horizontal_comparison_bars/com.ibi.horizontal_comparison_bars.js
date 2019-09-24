@@ -2,7 +2,7 @@
 /* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
 
 (function() {
-
+	var chartVersion = '1.0';
 	// Optional: if defined, is called exactly *once* during chart engine initialization
 	// Arguments:
 	//  - successCallback: a function that you must call when your extension is fully
@@ -81,16 +81,16 @@
 				}
 				
 				var customScripts = [
-					'lib/d3.v5.min.js',
-					'services/config-service.min.js',
-					'services/utils-service.min.js',
-					'chart/chart.js'
+					'lib/d3.v5.min.js?' + chartVersion,
+					'services/config-service.min.js?' + chartVersion,
+					'services/utils-service.min.js?' + chartVersion,
+					'chart/chart.js?' + chartVersion
 				];
 				
 				return scripts.concat(customScripts);
 			}()),
 			css: [
-				'css/horizontal_comparison_bars.css'
+				'css/horizontal_comparison_bars.css?' + chartVersion
 			]
 		},
 		modules: {

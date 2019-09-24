@@ -1,6 +1,6 @@
 /*global tdgchart: false, d3: false */
 (function() {
-
+	var chartVersion = '1.0';
 	// Optional: if defined, is called exactly *once* during chart engine initialization
 	// Arguments:
 	//  - successCallback: a function that you must call when your extension is fully
@@ -63,17 +63,17 @@
 				}
 				
 				var customScripts = [
-					'lib/d3.v5.min.js',
-					'services/config-service.min.js',
-					'services/utils-service.min.js',
-					'chart/chart.js'
+					'lib/d3.v5.min.js?' + chartVersion,
+					'services/config-service.min.js?' + chartVersion,
+					'services/utils-service.min.js?' + chartVersion,
+					'chart/chart.js?' + chartVersion
 				];
 				
 				return scripts.concat(customScripts);
 			}()),
 			css: [
-				'css/ib3.css',
-				'css/extension.css'
+				'css/ib3.css?' + chartVersion,
+				'css/extension.css?' + chartVersion
 			]
 		},
 		modules: {

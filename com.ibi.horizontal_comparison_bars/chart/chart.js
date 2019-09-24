@@ -25,6 +25,8 @@
 			h = ib3SLI.config.getChartHeight(),
 			hasComparevalue = true,
 			shortenNumbers = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.shorten_numbers'),
+			typeShortenNumber = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.typeShortenNumber'),
+			shortenLeyendDescription = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.shortenLeyendDescription'),
 			colorBands = ib3SLI.config.getProperty('colorScale.colorBands'),
 			setInfiniteToZero = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.setInfiniteToZero'),
 			hideWhenInfinite = ib3SLI.config.getProperty('horizontalcomparisonbarsProperties.hideWhenInfinite'),
@@ -198,7 +200,7 @@
 				}).attr("d", function(d, i) {
 					if(d.percentaje != 'Infinity' && d.percentaje != '-Infinity') {
 						return d3.symbol()
-							.size([200])
+							.size([50])
 							.type(d3.symbolTriangle)();
 					}
 				});	
@@ -207,8 +209,10 @@
 		var yAxis = d3.axisLeft()
 			.scale(y)
 			.tickSize(0)
-			.tickFormat(function(dataIndex) { 
-				return $(data).filter(function(i, d){return d.originalIndex == dataIndex})[0].dimension;
+			.tickFormat(function(dataIndex){
+				return $(data).filter(function(i, d){
+					return d.originalIndex == dataIndex;
+				})[0].dimension;
 			});
 			
 		var yAxisG = svg.append("g")
@@ -250,28 +254,67 @@
 		xAxisG.selectAll("text").attr("fill", ib3SLI.config.getProperty('axisList.y1.labels.color'));
 		
 		if (shortenNumbers) {
-			var arr_shorten = {'':0,'K':0,'M':0,'B':0,'T':0},
+			var arr_shorten = {},
 				max_shorten = 0,
-				selected_shorten_letter = '',
-				last_shorten = '';
+				selected_shorten_letter = '';
+			if (typeShortenNumber == 'short scale'){
+				arr_shorten = {'':0,'K':0,'M':0,'B':0};
+			}else{
+				arr_shorten = {'':0,'K':0,'M':0,'B':0,'T':0};
+			}
+			
 			xAxisG.selectAll("text").each(function(d) {
-				arr_shorten[$ib3.utils.getNumericAbbreviation(d)]++;
+				arr_shorten[$ib3.utils.getNumericAbbreviation(d, typeShortenNumber)]++;
 			});
 			$.each(arr_shorten,function(i,val){
 				if (val > max_shorten){
 					max_shorten = val;
-					selected_shorten_letter = last_shorten;
+					selected_shorten_letter = i;
 				}
-				last_shorten = i;
 			});
+			
+			if (shortenLeyendDescription.enabled){
+				var shortenLegendG = svg.append("g")
+					.attr("transform", "translate(0," + (h - margin.top) + ")");
+				shortenLegendG.append("text")
+					.attr("x", "-10")
+					.style("text-anchor", "end")
+//					.attr("alignment-baseline", "hanging")
+					.attr('fill', ib3SLI.config.getProperty('axisList.y1.labels.color'))
+					.text(function(){
+						// to incrementate with currency's
+						var currency = '',
+							numberFormat = ib3SLI.config.getFormatByBucketName('value', 0),
+							lastCharValueFormat = numberFormat.substring(numberFormat.length - 1),
+							shortenDecode = (selected_shorten_letter == '') ? 'U' : selected_shorten_letter,
+							aurReturn = '';
+						if (lastCharValueFormat == '€'){
+							currency = lastCharValueFormat;
+						}
+						if (shortenDecode != 'U'){
+							aurReturn += '* (' + selected_shorten_letter + ') = '
+						}
+						aurReturn += shortenLeyendDescription[shortenDecode] + ' ' + currency;
+						return aurReturn;
+					});
+			}
+			
+			
 			xAxisG.selectAll("text").text(function(d) {
+				var formatNumber = ib3SLI.config.formatNumber,
+					valueFormat = ib3SLI.config.getFormatByBucketName('value', 0);
 				if(parseFloat(d) == 0) {
 					return 0;
 				}
 				if (selected_shorten_letter != ''){
-					return $ib3.utils.setShortenNumber(d, false, 0,selected_shorten_letter);
+					return $ib3.utils.setShortenNumber(d, false, 0,selected_shorten_letter, formatNumber, valueFormat, typeShortenNumber);
 				}else{
-					return d;
+					if ((formatNumber) && (valueFormat)){
+						valueFormat = valueFormat.split('.')[0];
+						return $ib3.utils.getFormattedNumber(formatNumber, d, valueFormat, false, typeShortenNumber);
+					}else{
+						return d;
+					}
 				}
 			});
 		}

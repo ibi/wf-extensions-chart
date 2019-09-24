@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* globals _*/
 (function() {
 	// Optional: if defined, is invoked once at the very beginning of each Moonbeam draw cycle
@@ -66,6 +67,17 @@
 
 		var histogram = tdg_histogram(props);
 		container.call(histogram);
+
+		d3.selectAll('g.riser rect').attr('class', function(d, g) {
+			return chart.buildClassName('riser', 0, g, 'bar');
+		})
+		.each(function(d, g) {
+			var chart_datum = chart.getDataFromIds({series: 0, group: g});
+			if (chart_datum && chart_datum.d) {
+				chart_datum.d.value = ((d || {}).tooltip || {}).count;
+			}
+			renderConfig.modules.tooltip.addDefaultToolTipContent(this, 0, g, d);
+		});
 
 		// ---------------- END ( INIT YOUR EXTENSION HERE )
 

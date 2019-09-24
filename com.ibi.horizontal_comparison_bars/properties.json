@@ -16,6 +16,15 @@
 			"hideWhenInfinite": false,
 			"chartHeadroom": 50,
 			"shorten_numbers": true,
+			"typeShortenNumber": null,
+			"shortenLeyendDescription": {
+				"enabled": false,
+				"U": "",
+				"K": "Thousands",
+				"M": "Millions",
+				"B": "Billions",
+				"T": "trillions"
+			},
 			"calculeComparationFunction": {
 				"param1": "valueKpi", 
 				"param2": "compareValue", 

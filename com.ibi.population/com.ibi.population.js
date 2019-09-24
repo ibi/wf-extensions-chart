@@ -38,6 +38,17 @@
 	// Arguments:
 	//  - renderConfig: the standard callback argument object, including additional properties width, height, etc
 	function renderCallback(renderConfig) {
+		
+		//Start CHART-2641
+		//Documentation for d3.nest: https://github.com/d3/d3-collection/blob/v1.0.7/README.md#nest
+		//Use it to sort by 'type' and determine how many unique types are in the inboud data array
+		var numUniqueTypes = d3.nest().key(function(d) {return d.type}).entries(renderConfig.data).length;
+		if (numUniqueTypes > 2){
+			alert("'Type' bucket has " +  numUniqueTypes + " unique types assigned to it. No more that two types can be visualized with the population chart.")
+			return;
+		}//if
+		//End CHART-2641
+		
 		var chart = renderConfig.moonbeamInstance;
 		var props = JSON.parse(JSON.stringify(renderConfig.properties));
 

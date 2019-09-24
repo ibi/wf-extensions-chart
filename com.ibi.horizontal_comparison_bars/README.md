@@ -23,13 +23,23 @@ To configure or customize your extension edit "properties" object in properties.
 		"horizontalcomparisonbarsProperties": {
 			"setInfiniteToZero": false,
 			"chartHeadroom": 50,
-			"shorten_numbers": true,
+			"shorten_numbers": true, // true/false
+			"typeShortenNumber": null, // "long scale" (default)/ "short scale"
+										// "long scale": K: 10^3, M: 10^6, B: 10^9, T: 10^12
+										// "short scale": K: 10^3, M: 10^6, B: 10^12
+			"shortenLeyendDescription": { // legend to explain shorten letter
+				"enabled": false, // visualization true/false
+				"K": "Thousands", // descriptions of each letter
+				"M": "Millions",
+				"B": "Billions",
+				"T": "trillions"
+			},
 			"calculeComparationFunction": {
 				"param1": "valueKpi", 
 				"param2": "compareValue", 
 				"body": "if(valueKpi == 0 && compareValue == 0) { return 0; } var result = (valueKpi - compareValue) / Math.abs(compareValue);  return result;"
 			},
-			"formatComparation": "#,###.00%",
+			"formatComparation": "#,###.00%", // comparation result format
 			"bodyBackgroundColor": "transparent"
 		},
 		

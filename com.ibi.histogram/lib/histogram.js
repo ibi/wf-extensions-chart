@@ -1,4 +1,4 @@
-/* jshint eqnull:true*/
+/* eslint-disable */
 /* globals d3*/
 
 var tdg_histogram = (function() {
@@ -334,7 +334,7 @@ var tdg_histogram = (function() {
             .attr('transform', function (d) { return 'translate(' + [d.x, d.y] + ')'; });
 
         if (props.tooltips.enabled) {
-          rect_enter.attr('tdgtitle', buildToolTip);
+        //   rect_enter.attr('tdgtitle', buildToolTip);  // Tooltips drawn by chart engine in com.ibi.histogram now
         }
 
         rect_enter.append('rect')

@@ -147,7 +147,12 @@
 		var container = renderConfig.container;
 		var grey = renderConfig.baseColor;
 		renderConfig.data = [{"compare":"2017","xaxis":"1","measure":35861466.38,"_s":0,"_g":0},{"compare":"2017","xaxis":"2","measure":32447335.21,"_s":0,"_g":1},{"compare":"2017","xaxis":"3","measure":35431268.47,"_s":0,"_g":2},{"compare":"2017","xaxis":"4","measure":32401840.77,"_s":0,"_g":3},{"compare":"2017","xaxis":"5","measure":33927910.25,"_s":0,"_g":4},{"compare":"2017","xaxis":"6","measure":32732103.34,"_s":0,"_g":5},{"compare":"2017","xaxis":"7","measure":33867267.96,"_s":0,"_g":6},{"compare":"2017","xaxis":"8","measure":34030687.74,"_s":0,"_g":7},{"compare":"2017","xaxis":"9","measure":33129035.69,"_s":0,"_g":8},{"compare":"2017","xaxis":"10","measure":41468698.51,"_s":0,"_g":9},{"compare":"2017","xaxis":"11","measure":41330631.98,"_s":0,"_g":10},{"compare":"2017","xaxis":"12","measure":45063421.35,"_s":0,"_g":11},{"compare":"2016","xaxis":"1","measure":22177047.24,"_s":0,"_g":12},{"compare":"2016","xaxis":"2","measure":20713191.81,"_s":0,"_g":13},{"compare":"2016","xaxis":"3","measure":22452940.04,"_s":0,"_g":14},{"compare":"2016","xaxis":"4","measure":20640310.85,"_s":0,"_g":15},{"compare":"2016","xaxis":"5","measure":20959571.54,"_s":0,"_g":16},{"compare":"2016","xaxis":"6","measure":20936944.44,"_s":0,"_g":17},{"compare":"2016","xaxis":"7","measure":21603354.91,"_s":0,"_g":18},{"compare":"2016","xaxis":"8","measure":21851731.9,"_s":0,"_g":19},{"compare":"2016","xaxis":"9","measure":21194759.49,"_s":0,"_g":20},{"compare":"2016","xaxis":"10","measure":25734517.06,"_s":0,"_g":21},{"compare":"2016","xaxis":"11","measure":25549323.64,"_s":0,"_g":22},{"compare":"2016","xaxis":"12","measure":26292085.01,"_s":0,"_g":23},{"compare":"2015","xaxis":"1","measure":10194919.22,"_s":0,"_g":24},{"compare":"2015","xaxis":"2","measure":9271678.03,"_s":0,"_g":25},{"compare":"2015","xaxis":"3","measure":10166669.36,"_s":0,"_g":26},{"compare":"2015","xaxis":"4","measure":9176805.13,"_s":0,"_g":27},{"compare":"2015","xaxis":"5","measure":9644014.21,"_s":0,"_g":28},{"compare":"2015","xaxis":"6","measure":9270650.48,"_s":0,"_g":29},{"compare":"2015","xaxis":"7","measure":9823910.8,"_s":0,"_g":30},{"compare":"2015","xaxis":"8","measure":10039632.37,"_s":0,"_g":31},{"compare":"2015","xaxis":"9","measure":9763960.06,"_s":0,"_g":32},{"compare":"2015","xaxis":"10","measure":11932626.45,"_s":0,"_g":33},{"compare":"2015","xaxis":"11","measure":11606727.04,"_s":0,"_g":34},{"compare":"2015","xaxis":"12","measure":12572846.65,"_s":0,"_g":35},{"compare":"2014","xaxis":"1","measure":7298667.22,"_s":0,"_g":36},{"compare":"2014","xaxis":"2","measure":6801359.08,"_s":0,"_g":37},{"compare":"2014","xaxis":"3","measure":7263788.97,"_s":0,"_g":38},{"compare":"2014","xaxis":"4","measure":6611436.62,"_s":0,"_g":39},{"compare":"2014","xaxis":"5","measure":6795189.18,"_s":0,"_g":40},{"compare":"2014","xaxis":"6","measure":6618896,"_s":0,"_g":41},{"compare":"2014","xaxis":"7","measure":6987826.48,"_s":0,"_g":42},{"compare":"2014","xaxis":"8","measure":7024899.82,"_s":0,"_g":43},{"compare":"2014","xaxis":"9","measure":6679889.03,"_s":0,"_g":44},{"compare":"2014","xaxis":"10","measure":8281929.67,"_s":0,"_g":45},{"compare":"2014","xaxis":"11","measure":8037545.37,"_s":0,"_g":46},{"compare":"2014","xaxis":"12","measure":8427240.8,"_s":0,"_g":47},{"compare":"2013","xaxis":"1","measure":4666392.2,"_s":0,"_g":48},{"compare":"2013","xaxis":"2","measure":4400576.8,"_s":0,"_g":49},{"compare":"2013","xaxis":"3","measure":4726378.34,"_s":0,"_g":50},{"compare":"2013","xaxis":"4","measure":4254925.17,"_s":0,"_g":51},{"compare":"2013","xaxis":"5","measure":4412965.72,"_s":0,"_g":52},{"compare":"2013","xaxis":"6","measure":4656829.9,"_s":0,"_g":53},{"compare":"2013","xaxis":"7","measure":4884691.35,"_s":0,"_g":54},{"compare":"2013","xaxis":"8","measure":4957273.31,"_s":0,"_g":55},{"compare":"2013","xaxis":"9","measure":4856841.92,"_s":0,"_g":56},{"compare":"2013","xaxis":"10","measure":5597174.49,"_s":0,"_g":57},{"compare":"2013","xaxis":"11","measure":5583364.73,"_s":0,"_g":58},{"compare":"2013","xaxis":"12","measure":5815484.48,"_s":0,"_g":59},{"compare":"2012","xaxis":"1","measure":3874651.96,"_s":0,"_g":60},{"compare":"2012","xaxis":"2","measure":3592608.63,"_s":0,"_g":61},{"compare":"2012","xaxis":"3","measure":3977546.75,"_s":0,"_g":62},{"compare":"2012","xaxis":"4","measure":3648111.77,"_s":0,"_g":63},{"compare":"2012","xaxis":"5","measure":3704586.77,"_s":0,"_g":64},{"compare":"2012","xaxis":"6","measure":3694435.21,"_s":0,"_g":65},{"compare":"2012","xaxis":"7","measure":4020855.35,"_s":0,"_g":66},{"compare":"2012","xaxis":"8","measure":4126310.8,"_s":0,"_g":67},{"compare":"2012","xaxis":"9","measure":3688054.34,"_s":0,"_g":68},{"compare":"2012","xaxis":"10","measure":4794720.4,"_s":0,"_g":69},{"compare":"2012","xaxis":"11","measure":4574636.32,"_s":0,"_g":70},{"compare":"2012","xaxis":"12","measure":5001973.63,"_s":0,"_g":71}];
+		/*Code prior to CHART-3353
 		renderConfig.dataBuckets = {"buckets":{"compare":{"title":"LY","count":1},"xaxis":{"title":"Sale Month","count":1},"measure":{"title":"Revenue","count":1}},"depth":1};
+		*/
+		//Start CHART-3353
+		renderConfig.dataBuckets = {"buckets":{"compare":{"title":"","count":1},"xaxis":{"title":"","count":1},"measure":{"title":"","count":1}},"depth":1};
+		//End CHART-3353
 		renderCallback(renderConfig);
 		
 		// Begin Code prior to CD-720
@@ -157,7 +162,17 @@
 		
 		//Begin CD-720
 			
+			/* Code Before CHART-3037
 			var msg = "Add more measures or dimensions"; 
+			*/
+			//Start CHART-3055
+			var msg;
+			 if (renderConfig.modules.translate) {
+				msg = renderConfig.modules.translate.getString('add_data');
+			 }
+			msg = msg || 'Add more measures or dimensions';
+			//End CHART-3055
+			
 			fnShowNoDataMsg(container, renderConfig.properties, msg);
 			
 			//Instructional message is framework (D3/JQuery) independent
@@ -165,7 +180,7 @@
 				
 				var divMsg = document.createElement("div");
 				divMsg.textContent = msg;
-				divMsg.style.cssText = "text-align: center; fill: grey; opacity: 0.3; font-weight: bold; font-size: 14px;";			
+				divMsg.style.cssText = "font-family: sans-serif; text-align: center; fill: black; opacity: 0.8; font-weight: bold; font-size: 14px;";			
 				divMsg.width = properties.width;
 				divMsg.height = properties.height;
 				container.appendChild(divMsg);
