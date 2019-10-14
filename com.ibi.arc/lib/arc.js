@@ -69,7 +69,7 @@ return function(user_props) {
 	// here we put all the function that need to access props or innerProps objects
 	var props = {
 		//Start CHART-2438
-		chart: null,   //user-props will now propogate chart object for access to getSerDepProperty function/method used for dynamic color assignment
+		getChartColor: null,   // callback to chart engine's series color logic
 		//End CHART-2438
 		//Start CHART-3401
 		showCenteredText: {
@@ -167,17 +167,6 @@ return function(user_props) {
 					return 50 * i;
 				},
 				duration: 500
-			}
-		},
-		toolTip: {
-			stacked: {
-				elements: ['label', 'color', 'value']
-			},
-			regular: {
-				elements: ['label', 'color', 'value']
-			},
-			percent: {
-				elements: ['label', 'color', 'ratio']
 			}
 		},
 		axis: {
@@ -430,6 +419,7 @@ return function(user_props) {
 			result[idx] = series.map(function(d, i) {
 				res = {
 					label: d.label,
+					originalChartGroup: (d._g == null) ? i : d._g,
 					color: (d.color != null) ? d.color : innerProps.colors[i],
 					value: d.value,
 					class: d.elClassName
@@ -449,11 +439,12 @@ return function(user_props) {
 		return getData().map(function(d, i) {
 			return {
 				label: d.label,
+				originalChartGroup: (d._g == null) ? i : d._g,
 				/* CHART-2438 Comment out old color assignment logic
 				color: (d.color != null) ? d.color : innerProps.colors[i],
 				*/
 				//Start CHART-2438
-				color: (d.color != null) ? d.color : props.chart.getSerDepProperty('color', i),
+				color: (d.color != null) ? d.color : props.getChartColor('color', i),
 				//End CHART-2438
 				value: d.value,
 				class: d.elClassName
@@ -473,6 +464,7 @@ return function(user_props) {
 			result[idx] = series.map(function(d, i) {
 				res = {
 					label: d.label,
+					originalChartGroup: (d._g == null) ? i : d._g,
 					color: (d.color != null) ? d.color : innerProps.colors[i],
 					value: d.value,
 					ratio: (d.value / sum),
@@ -541,15 +533,6 @@ return function(user_props) {
 			});
 
 		arcs.enter().append('path');
-
-		if (props.tooltip.enabled) {
-			arcs.attr('tdgtitle', function(d) {
-				var str = '<div style="padding:5px">';
-				str += '<b>' + d.label + ': </b>';
-				str += '<span>' + d.value + '</span>';
-				return str + '</div>';
-			});
-		}
 
 		arcs.each(function(d) {
 			d3.select(this).classed(d.class, true);
@@ -633,15 +616,6 @@ return function(user_props) {
 		arcs.enter()
 			.append('path');
 
-		if (props.tooltip.enabled) {
-			arcs.attr('tdgtitle', function(d) {
-				var str = '<div style="padding:5px">';
-				str += '<b>' + d.label + ': </b>';
-				str += '<span>' + d.value + '</span>';
-				return str + '</div>';
-			});
-		}
-
 		arcs.each(function(d) {
 			d3.select(this).classed(d.class, true);
 		});
@@ -717,15 +691,6 @@ return function(user_props) {
 		});
 
 		var format = getFormater(props.formatNumber, props.valueLabel.format, extent);
-
-		if (props.tooltip.enabled) {
-			arcs.attr('tdgtitle', function(d) {
-				var str = '<div style="padding:5px">';
-				str += '<b>' + d.label + ': </b>';
-				str += '<span>' + format(d.value) + '</span>';
-				return str + '</div>';
-			});
-		}
 
 		arcs.each(function(d) {
 			d3.select(this).classed(d.class, true);
@@ -966,7 +931,7 @@ return function(user_props) {
 			return { label: d.label, color: d.color, idx: i };
 			*/
 			//START CHART-2438
-			return {label: d.label, color: props.chart.getSerDepProperty('color', i), idx: i};
+			return {label: d.label, color: props.getChartColor('color', i), idx: i};
 			//End CHART-2438
 		}).filter(function(d) {
 			return d.label != null;
@@ -1086,44 +1051,6 @@ return function(user_props) {
 		return !getData().some(function(d) {
 			return d && d.value < 0;
 		});
-	}
-
-	function buildArcTitles(d) {
-		var elements = innerProps.toolTip[props.type].elements;
-
-		//var elements = innerProps.toolTip.elements;
-
-		var str = '<div style="padding: 5px">';
-
-		var offset = false;
-
-		if (elements.indexOf('color') >= 0 && d.color != null) {
-			str += '<span style="display: inline-block; width: 10px; height: 10px; border: 1px solid black; background-color: ' + d.color + '"></span>';
-		}
-		if (elements.indexOf('label') >= 0 && d.label != null) {
-			str += '<b> label: </b>' + d.label;
-			offset = true;
-		}
-		if (elements.indexOf('value') >= 0 && d.value != null) {
-			if (offset) {
-				str += '<br/>';
-			}
-			str += '<b> value: </b>' + d.value;
-		}
-		if (elements.indexOf('ratio') >= 0 && d.ratio != null) {
-			if (offset) {
-				str += '<br/>';
-			}
-			str += '<b> ratio: </b>' + d3.format('%')(d.ratio);
-		}
-
-		str += '</div>';
-		return str;
-	}
-
-	function enableToolTips(group_arc) {
-		var arcs = group_arc.selectAll('path.arc');
-		arcs.attr('tdgtitle', buildArcTitles);
 	}
 
 	function fadeRegular(opacity, selection) {
@@ -1402,11 +1329,13 @@ return function(user_props) {
 			//END CHART-3188
 		} else {
 			enableHiglight(group_arc, bg);
-			enableToolTips(group_arc);
+			invokeAfterFour();
 		}
 
 		if (innerProps.rescale.enabled) {
 			rescaleGroupChart(group_chart, invokeAfterFour);
+		} else {
+			invokeAfterFour();
 		}
 	}
 
