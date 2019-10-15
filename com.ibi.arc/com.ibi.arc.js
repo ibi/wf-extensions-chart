@@ -33,38 +33,37 @@
         
         props.formatNumber = chart.formatNumber.bind(chart);
 
-        props.data = [(renderConfig.data || []).map(function(datum){
-    			var datumCpy = jsonCpy(datum);
-    			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'bar');
-    			return datumCpy;
-    		})];
-
-//        props.data = [
-//            [{ "label": "ENGLAND", "value": 123456789.123456, "_s": 0, "_g": 0 }, { "label": "ITALY", "value": 30200, "_s": 0, "_g": 2 }, { "label": "JAPAN", "value": 78030, "_s": 0, "_g": 3 }, { "label": "W GERMANY", "value": 88190, "_s": 0, "_g": 4 }]
-//        ];
+        props.data = [(renderConfig.data || []).map(function(datum) {
+			var datumCpy = jsonCpy(datum);
+			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'bar');
+			return datumCpy;
+		})];
 
         props.isInteractionDisabled = renderConfig.disableInteraction;
-
-        props.onRenderComplete = renderConfig.renderComplete.bind(renderConfig);
 
         var container = d3.select(renderConfig.container)
             .attr('class', 'tdg_marker_chart');
 			
+		props.onRenderComplete = function() {
+			if (props.tooltip.enabled) {
+				container.selectAll('path[class^=riser]')
+					.each(function(d, g) {
+						g = (d.originalChartGroup == null) ? g : d.originalChartGroup;
+						renderConfig.modules.tooltip.addDefaultToolTipContent(this, 0, g, d);
+					});
+			}
+			renderConfig.renderComplete();
+		};
+	
 		//Start CHART-3184
-		
-			var numFormatAPI20 = renderConfig.dataBuckets.getBucket("value").fields[0].numberFormat;  //Reference API 2.0 number format if it exists
-			props.valueLabel.format =  numFormatAPI20 ? numFormatAPI20 : props.valueLabel.format;  //If API 2.0 number format exists, use it, else use whatever's in the properties.json file
-			props.axis.labels.format = numFormatAPI20 ? numFormatAPI20 : props.axis.labels.format;  //If API 2.0 number format exists, use it, else use whatever's in the properties.json file
-		
+		var numFormatAPI20 = renderConfig.dataBuckets.getBucket("value").fields[0].numberFormat;  //Reference API 2.0 number format if it exists
+		props.valueLabel.format =  numFormatAPI20 ? numFormatAPI20 : props.valueLabel.format;  //If API 2.0 number format exists, use it, else use whatever's in the properties.json file
+		props.axis.labels.format = numFormatAPI20 ? numFormatAPI20 : props.axis.labels.format;  //If API 2.0 number format exists, use it, else use whatever's in the properties.json file
 		//End CHART-3184
 			
 		//Start CHART-2438
-			
-			props.chart = chart;     // Propogate access to the .getSerDepProperty function/method for dynamic color assignment
-			
+		props.getChartColor = chart.getSerDepProperty.bind(chart);     // Propogate access to the .getSerDepProperty function/method for dynamic color assignment
 		//End CHART-2438
-
-		
 
         var arc_chart = tdg_arc(props);
 		
@@ -77,10 +76,7 @@
 		//End Chart-2836
 		
         arc_chart(container);
-
-		
-		
-    }
+	}
 
     function getInvokeAfter (cb, count) {
         if (!count && typeof cb === 'function' ) cb();
@@ -112,20 +108,17 @@
         var container = d3.select(renderConfig.container)
             .attr('class', 'tdg_marker_chart');
 			
-			
 		//Start CHART-2438
-			
-			props.chart = chart;     // Propogate access to the .getSerDepProperty function/method for dynamic color assignment
-			
-		//End CHART-2438			
-			
+		props.getChartColor = chart.getSerDepProperty.bind(chart);     // Propogate access to the .getSerDepProperty function/method for dynamic color assignment
+		//End CHART-2438
 
         var arc_chart = tdg_arc(props);
 
         arc_chart(container);
 
         appendCoverScreen(renderConfig, container, props.width, props.height);
-        invokeAfterTwo();
+		invokeAfterTwo();
+		props.chart = null;
     }
 
     function appendCoverScreen(renderConfig, container, width, height) {
@@ -134,6 +127,7 @@
         if (renderConfig.modules.translate) {
             text = renderConfig.modules.translate.getString('add_data');
 		}
+
 		text = text || 'Add more measures or dimensions';
 
         container.append("rect")
