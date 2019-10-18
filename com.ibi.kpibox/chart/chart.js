@@ -41,7 +41,8 @@
 			fixedFontSizeProp = ib3SLI.config.getProperty('kpiboxProperties.fixedFontSizeProp') || '20px',
 			fixedPixelLinesMargin = ib3SLI.config.getProperty('kpiboxProperties.fixedPixelLinesMargin') || 0,
 			imagePercentageWidth = ib3SLI.config.getProperty('kpiboxProperties.imagePercentageWidth'),
-			wfPath = ib3SLI.config.getProperty('kpiboxProperties.ibiAppsPath');
+			wfPath = ib3SLI.config.getProperty('kpiboxProperties.ibiAppsPath'),
+			noImageTextCenter = ib3SLI.config.getProperty('kpiboxProperties.noImageTextCenter');
 			
 		//Advanced Function
 		var calculateComparisonValueFunctionBody = ib3SLI.config.getProperty('kpiboxProperties.calculateComparisonValueFunction'),
@@ -126,6 +127,7 @@
 		}
 		
 		var gPosition = (isImage) ? imageWidth : 20 ;
+		
 		var infoContainer = d3.select(container)
 			.append('g')
 			.attr('class', 'info-container')
@@ -134,7 +136,7 @@
 			.attr('transform', 'translate(' + gPosition + ',0)');
 			
 		var titleContainer = titleRow ? d3.select(container) : infoContainer;
-				
+
 		var kpiTitleElem = titleContainer.append('text')
 			.attr('class', 'kpi-title')
 			.attr('width', infoWidth)
@@ -423,7 +425,7 @@
 				elemHeight = availableHeight / 3;
 				
 			var titleScale = elemHeight / kpiTitleHeight;
-			if (titleScale < 1) {							
+			if (titleScale < 1) {
 				kpiTitleElem
 					.attr('transform', 'scale(' + titleScale + ')')
 					.attr('y', function() { 
@@ -433,7 +435,7 @@
 				
 			var valueScale = elemHeight / kpiValueHeight;
 						
-			if (valueScale < 1) {							
+			if (valueScale < 1) {
 				kpiValueElem
 					.attr('transform', 'scale(' + valueScale + ')')
 					.attr('y', function() { 
@@ -466,6 +468,11 @@
 			
 			}
 			
+		}
+		
+		if ((typeof kpiDataElem.image == 'undefined') && (noImageTextCenter)) {
+			var _left = (window.outerWidth / 2) - (infoContainer._groups[0][0].getBBox().width / 2);
+			$(infoContainer._groups[0][0]).attr('transform', 'translate(' + _left + ',0)');
 		}
 		
 		if(isDummyData) {

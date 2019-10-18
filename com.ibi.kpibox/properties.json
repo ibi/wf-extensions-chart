@@ -34,6 +34,7 @@
 			"fixedFontSizeProp": "18px",
 			"fixedPixelLinesMargin": 20,
 			"imagePercentageWidth": 40,
+			"noImageTextCenter": false,
 			"titleFont": {
 				"size": "18px",
 				"color": "black",

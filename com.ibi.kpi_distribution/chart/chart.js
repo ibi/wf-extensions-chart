@@ -270,7 +270,7 @@
 				}
 				
 			} else {
-				imagePath = wfPath + 'run.bip?BIP_REQUEST_TYPE=BIP_RUN' +
+				imagePath = wfPath + 'run.bip?BIP_REQUEST_TYPE=BIP_LAUNCH' +
 					'&BIP_folder=' + customImage.substring(0, customImage.lastIndexOf("/")) +
 					'&BIP_item=' + customImage.substring(customImage.lastIndexOf("/") + 1);
 			}
