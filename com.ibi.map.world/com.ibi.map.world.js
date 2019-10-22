@@ -66,7 +66,7 @@
 
           props.data = (renderConfig.data || []).map(function(datum){
             var datumCpy = jsonCpy(datum);
-            datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'bar');
+            datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'location');
             return datumCpy;
           });
 
@@ -81,6 +81,22 @@
 
           var container = d3.select(renderConfig.container)
                   .attr('class', 'com_ibi_map_world');
+				  
+				  
+				  
+			//Start VIZ-43
+			props.onRenderComplete = function() {
+				container.selectAll('[class^=riser]')
+					.each(function(d, g) {
+						renderConfig.modules.tooltip.addDefaultToolTipContent(this, 0, g, d);
+					});
+				renderConfig.renderComplete();
+			};
+
+			//End VIZ-43
+				  
+				  
+				  
 
           // ---------------- INIT YOUR EXTENSION HERE
           var map_word_chart = window.COM_IBI_MAP_WORLD.init(props);
@@ -89,7 +105,9 @@
           // ---------------- END ( INIT YOUR EXTENSION HERE )
 
           // ---------------- CALL updateToolTips IF YOU USE MOONBEAM TOOLTIP
+	  /* Code before VIZ-43	  
 	  renderConfig.renderComplete();
+	  */
 	}
 
 	function getInvokeAfter (cb, count) {
