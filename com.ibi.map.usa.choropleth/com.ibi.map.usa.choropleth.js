@@ -58,7 +58,7 @@
 
 		props.data = (renderConfig.data || []).map(function(datum){
 			var datumCpy = jsonCpy(datum);
-			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'bar');
+			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'state');
 			return datumCpy;
 		});
 
@@ -69,13 +69,19 @@
     props.formatNumber = chart.formatNumber;
 
 		props.isInteractionDisabled = renderConfig.disableInteraction;
-
+			
+		//Start VIZ-43
 		props.onRenderComplete = function() {
-                  renderConfig.renderComplete()
-                };
+			container.selectAll('path[class^=riser]')
+				.each(function(d, g) {
+					renderConfig.modules.tooltip.addDefaultToolTipContent(this, 0, g, d);
+				});
+			renderConfig.renderComplete();
+		};		
+		//End VIZ-43				
+				
 
-		var container = d3.select(renderConfig.container)
-			.attr('class', 'com_tdg_sunburst');
+		var container = d3.select(renderConfig.container);
 
 		// ---------------- INIT YOUR EXTENSION HERE
 
@@ -118,8 +124,7 @@
 		props.isInteractionDisabled = true;
 		//props.onRenderComplete = invokeAfterTwo;
 
-		var container = d3.select(renderConfig.container)
-			.attr('class', 'com_tdg_sunburst');
+		var container = d3.select(renderConfig.container);
 
 		// ---------------- INIT YOUR EXTENSION HERE
 

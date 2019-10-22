@@ -94,11 +94,10 @@
 	},
 	
 	"dataBuckets":  {
-		"tooltip": false,
 		"matrix": false,
 		"data_page": false,
 		"series_break": false,
-
+		"tooltip": true,
 		"buckets": [
 	      {
 	        "id": "state",
@@ -116,7 +115,7 @@
 	          "max": 1
 	        }
 	      }
-	    ]
+	    ],	
 	},
 
 	"translations": {
