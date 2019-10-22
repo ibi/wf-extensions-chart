@@ -301,14 +301,18 @@ var tdg_pack = (function() {
 
             var node = circles_group.selectAll('g.node')
                 .data(pack_data)
-                .enter().append('g').classed('node', true)
-                .attr({
-                    tdgtitle: buildToolTipStr( props.buckets ),
-                    transform: function(d) {
+                .enter()
+				.append('g')
+					.classed('node', true)
+					.attr({
+						/*Code prior to VIZ-43
+						tdgtitle: buildToolTipStr( props.buckets ),
+						*/
+						transform: function(d) {
                         return 'translate(' + [d.x, d.y] + ')';
-                    }
-                })
-                .style('opacity', 0);
+						}
+					})
+					.style('opacity', 0);
 
             var invokeAfterTwo = getInvokeAfter(onRenderComplete, 2);
 
