@@ -1,8 +1,8 @@
 #### Extension for WebFocus 8200
 
-# Choropleth USA map
+# World and Bubble Map
 
-For installation instructions please visit this [link] (https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension "Installing a WebFocus Extension").
+For installation instructions please visit this [link](https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension "Installing a WebFocus Extension").
 
 ## Description
 
@@ -110,18 +110,18 @@ To configure or customize your extension edit "properties" object in properties.
 
 ## You can:
 
-* exclude certain countires from the map by including them into `properties.countires.exclude` array.
+* Exclude certain countries from the map by including them into `properties.countries.exclude` array.
 
-* specify more than two heat map range colors in `properties.states.colorRange` array
+* Specify more than two heat map range colors in `properties.states.colorRange` array
 
-* configure countiries borders
+* Configure country borders
 
-* disable/enable or configure color legend (background, border, title, labels)
+* Disable/enable or configure color legend (background, border, title, labels)
 
 ## Data Buckets
 
 ### Measures:
-* **Value (MES)** - sets numerical values of countires or geographic coordinates.
+* **Value (MES)** - sets numerical values of countries or geographic coordinates.
 
 ### Dimensions:
 * **Name (DIM)** - official country names. Please use `data/countryName_to_id_map.js` file to look up names of the countires that you can use.
