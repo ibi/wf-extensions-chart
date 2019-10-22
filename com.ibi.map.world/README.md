@@ -1,6 +1,6 @@
 #### Extension for WebFocus 8200
 
-# World and Bubble Map
+# World Choropleth and Bubble Map
 
 For installation instructions please visit this [link](https://github.com/ibi/wf-extensions-chart/wiki/Installing-a-WebFocus-Extension "Installing a WebFocus Extension").
 
