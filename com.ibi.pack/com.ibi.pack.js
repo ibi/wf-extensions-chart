@@ -32,7 +32,7 @@
 
 		props.data = (renderConfig.data || []).map(function(datum){
 			var datumCpy = jsonCpy(datum);
-			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'bar');
+			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'circle');
 			return datumCpy;
 		});
 
@@ -66,6 +66,19 @@
 		}
 
 		// ---------------- INIT YOUR EXTENSION HERE
+		
+		//Start VIZ-43
+		props.onRenderComplete = function() {
+			if (props.toolTip.enabled) {
+				container.selectAll('circle[class^=riser]')
+					.each(function(d, g) {
+						renderConfig.modules.tooltip.addDefaultToolTipContent(this, 0, g, renderConfig.data[g],renderConfig.data);
+					});
+			}
+			renderConfig.renderComplete();
+		};		
+		//End VIZ-43
+		
 
 		var pack = tdg_pack(props);
 		pack(container);
