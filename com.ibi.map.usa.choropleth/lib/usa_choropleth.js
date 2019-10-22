@@ -357,7 +357,9 @@ var tdg_usa_choropleth = (function() {
             return {
                 class: d.elClassName,
                 state: d.state,
+				/* Code before VIZ-43
                 tdgtitle: getTDGTitle(toolTip(d), props.formatNumber.bind(props), extent, props.colorLegend.rows.labels.format),
+				*/
                 color: d.value != null ? color(d.value) : props.states.defaultColor,
                 path: path(states_geojson.features[idx])
             };
@@ -453,9 +455,11 @@ var tdg_usa_choropleth = (function() {
                 d : function (d) {
                     return d.path;
                 },
+				/* Code before VIZ-43
                 tdgtitle : function (d) {
                     return d.tdgtitle;
                 }
+				*/
             })
             .style({
                 stroke : props.states.borders.color,
