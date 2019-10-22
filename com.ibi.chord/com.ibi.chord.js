@@ -39,6 +39,10 @@
 		//Start CHART-3146
 			props.renderConfig = renderConfig;  //Propagate renderConfig to com_tdg_chord object creation	
 		//End CHART-3146
+		
+		//Start VIZ-43
+		props.tooltipStyle = chart.htmlToolTip.style;	
+		//End VIZ-43
 
 		var chordChart = com_tdg_chord(props);
 
