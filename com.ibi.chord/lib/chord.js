@@ -174,10 +174,12 @@ var com_tdg_chord = (function () {
 			}
 
 			//if ( props.toolTipEnabled && false) {                               //'false' boolean was keeping group_curves tooltip from being generated.
+			/* VIZ-43
 			if ( props.toolTipEnabled) {                                          //Fix for CHART-2949
 				group_curves.attr('tdgtitle', buildGroupCurveToolTip(idToIndx));
 			}
 
+			*/
 			return group_curves;
 		}
 
