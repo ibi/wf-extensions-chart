@@ -174,14 +174,17 @@
 			.attr("d", path)
 			.attr("fill", "none")
 			.attr("tdgtitle", function(d) {
+				
+				var toolTipSpan= "<span style='color: WhiteSmoke; background-color:rgba(0,0,0,.8);'>"
+				
 				if (!d || typeof d !== 'object') {
-					return 'No Data';
+					return  toolTipSpan+ 'No Data' + '</span>';
 				}
 				if (d.source) {
 					if (d.target) {
-						return d.source.name + ' -> ' + d.target.name + ': ' + formatNumber(d.value);
+						return  toolTipSpan+ d.source.name + ' -> ' + d.target.name + ': ' + formatNumber(d.value) + '</span>';
 					}
-					return d.source.name + ': ' + formatNumber(d.value);
+					return toolTipSpan+ d.source.name + ': ' + formatNumber(d.value) + '</span>';
 				}
 			})
 			.on("mouseover",  linkmouseover)
@@ -217,7 +220,7 @@
 		node.append("rect")
 			.attr("height", function(d) { return d.dy; })
 			.attr("width", nodeWidth)
-			.attr("tdgtitle", function(d) { return d.name + ": " + formatNumber(d.value); })
+			.attr("tdgtitle", function(d) { return  "<span style='color: WhiteSmoke; background-color:rgba(0,0,0,.8);'>" + d.name + ": " + formatNumber(d.value) + "</span>"; })
 			.attr("shape-rendering", "crispEdges")
 			.attr("stroke-width", 1)
 			.attr("fill-opacity", 0.9)
