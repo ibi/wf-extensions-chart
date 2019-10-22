@@ -124,7 +124,7 @@ To configure or customize your extension edit "properties" object in properties.
 * **Value (MES)** - sets numerical values of countries or geographic coordinates.
 
 ### Dimensions:
-* **Name (DIM)** - official country names. Please use `data/countryName_to_id_map.js` file to look up names of the countires that you can use.
+* **Name (DIM)** - official country names. Please use `data/countryName_to_id_map.js` file to look up names of the countries that you can use.
 
 * **Longitude (DIM)** - longitude value of the coordinate.
 
