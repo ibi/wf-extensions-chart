@@ -768,9 +768,11 @@ window.COM_IBI_MAP_WORLD.init = (function() {
               fill: function (datum) {
                 return datum.color;
               },
+			  /* Code prior to VIZ-43
               tdgtitle : function (datum) {
                 return datum.tooltip;
               }
+			  */
             })
             .styles({
               stroke: props.choropleth.border.color,
@@ -808,9 +810,11 @@ window.COM_IBI_MAP_WORLD.init = (function() {
               fill: function (datum) {
                 return datum.color;
               },
+			  /* Code prior to VIZ-43
               tdgtitle : function (datum) {
                 return datum.tooltip;
               }
+			  */
             })
             .styles({
               stroke: props.bubbles.border.color,
@@ -968,7 +972,12 @@ window.COM_IBI_MAP_WORLD.init = (function() {
           data: [],
           buckets: null,
           isInteractionDisabled: false,
+		  /* Code prior to VIZ-43
           onRenderComplete: function() { throw new Error('onRenderComplete is not implemented');},
+		  */
+		  //Start VIZ-43
+          onRenderComplete: function() {},
+		  //End VIZ-43
 
           countries: {
             exclude: [],
@@ -1102,6 +1111,13 @@ window.COM_IBI_MAP_WORLD.init = (function() {
             enableDataElsInteractions(
              renderedDataEls.bubbles ? renderedDataEls.bubbles : renderedDataEls.choropleths
             );
+			
+			//Start VIZ-43
+			
+			props.onRenderComplete();
+			
+			//End VIZ-43
+			
         }
 
         for (var attr in props) {
