@@ -4,7 +4,8 @@
 var com_tdg_chord = (function () {
 	return function (user_props) {
 		var props = {
-			renderConfig: null, //Needed for CHART-3146
+			// renderConfig: null, //Needed for CHART-3146 causing issue with RangeError VIZ-78
+			tooltip: function(){}, //Needed for CHART-3146 VIZ-78
 			width: 300,
 			height: 400,
 			data: null,
@@ -113,6 +114,7 @@ var com_tdg_chord = (function () {
 				.range(props.groupColors.slice(0, groupsCount));
 		}
 
+		/* VIZ-43	
 		function buildGroupCurveToolTip (idToIndx) {
 			//var groupNames = _.keys(idToIndx);
 			var groupNames = [];
@@ -128,6 +130,7 @@ var com_tdg_chord = (function () {
 				return str;
 			};
 		}
+		*/
 
 		function renderGroupCurves (containerGroup, groups, idToIndx, onRenderComplete) {
 			var group_curves = containerGroup.selectAll('path.group-curve')
@@ -462,13 +465,11 @@ var com_tdg_chord = (function () {
 							var renderDataSource =  Object.keys(idToIndx).find(function(key){ return idToIndx[key] == d.source.index });
 							var renderDataTarget = 	Object.keys(idToIndx).find(function(key){ return idToIndx[key] == d.target.index });
 							var renderIndex = props.data[0].findIndex(function (row){return row.source == renderDataSource && row.target == renderDataTarget });
-							props.renderConfig.modules.tooltip.addDefaultToolTipContent(this, 0, renderIndex, props.data[0][renderIndex]);						
+							// props.renderConfig.modules.tooltip.addDefaultToolTipContent(this, 0, renderIndex, props.data[0][renderIndex]);	VIZ-78 rework				
+							props.tooltip.addDefaultToolTipContent(this, 0, renderIndex, props.data[0][renderIndex], props.data[0]);						
 												
 					});
-
-					
-
-					
+				
 					//End CHART-3146
 					
 
