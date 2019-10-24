@@ -1,6 +1,8 @@
 {
 	"info": {
-		"version": "1.0.2",
+		"version": "1.0.3",
+		//1.0.2 VIZ-43
+		//1.0.3 VIZ-78
 		"implements_api_version": 1.0,
 		"author": "Three D Graphics",
 		"copyright": "Three D Graphics Inc.",

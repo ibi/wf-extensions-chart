@@ -37,7 +37,8 @@
 			.attr('class', 'com_tdg_chord');
 			
 		//Start CHART-3146
-			props.renderConfig = renderConfig;  //Propagate renderConfig to com_tdg_chord object creation	
+			// props.renderConfig = renderConfig;  //Propagate renderConfig to com_tdg_chord object creation	causing issue with RangeError VIZ-78
+			props.tooltip = renderConfig.modules.tooltip;  
 		//End CHART-3146
 		
 		//Start VIZ-43
