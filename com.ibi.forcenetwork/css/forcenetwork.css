@@ -1,0 +1,83 @@
+body {
+  overflow: hidden;
+}
+
+body, span {
+  font-family: sans-serif;
+}
+
+#node {
+  fill: #a5abb6;
+}
+
+.nodeHover {
+  stroke: #3f51b5;
+  stroke-width: 6;
+}
+
+circle {
+  stroke-width: 1.5px;
+  stroke-opacity: 0.6;
+}
+
+label {
+	position:relative;
+	top: 0px !important;
+	left: 0px !important;
+	z-index: 998;
+}
+
+.range {
+	width:150px;
+	position:relative;
+	top:8px;
+	cursor: pointer;
+}
+
+.menuShow {
+  transform: translate(0px, -166px);
+}
+
+.menuborder {
+    width: 300px;
+    position: relative;
+    height: 175px;
+    border: solid 1px black;
+    top: -175px;
+    left: -20px;
+	background-color:white;
+	z-index: 996;
+}
+
+.menuButton {
+	position: relative;
+	top: 11px;
+	left: -18px;
+	width: 40px;
+	height: 8px;
+	border-bottom: 1px solid black;
+	border-bottom-left-radius: 30px;
+	border-bottom-right-radius: 30px;
+	background-color: #35b8fe;
+}
+
+.nodetext {
+  visibility: visible;
+  stroke: none;
+  font: 9px sans-serif;
+  pointer-events: none;
+}
+
+.linkShow {
+  visibility: hidden;
+}
+
+.link.node {
+  opacity: 0.7;
+}
+
+.link.text {
+  fill: #666;
+  stroke: none;
+  font-size: 7px;
+}

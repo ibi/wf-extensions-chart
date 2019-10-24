@@ -1,0 +1,180 @@
+// Copyright 1996-2015 Information Builders, Inc. All rights reserved.
+// $Revision: 1.15 $
+
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 2.0,
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "",
+		"icons": {
+			"medium": "icons/icon.png"
+		}
+	},
+	
+	"properties": {
+		"chartHeadroom": 50,
+		"settings": false,
+		"colors": {
+			"pinhead": "#c00",
+			"nodeTypes": ["#f2d68a","#c990c0","#f79767","#57c7e3","#f37171","#d9c8ae","#8dcc93","#ecb5c9","#4c8eda","#ff4c54","#da7194","#569480"],
+			"textTypes": ["#604a0e","#ffffff","#ffffff","#ffffff","#ffffff","#604a0e","#604a0e","#604a0e","#ffffff","#604a0e","#ffffff","#ffffff"],
+			"links": "#a0a0a0"
+		},
+		"lockType": "pin",
+		"tooltips": false,
+		"linkDistance": 100,
+		"linkCharge": 400,
+		"linkStrength": 0.5,
+		"chargeDistance": 1000,
+		"gravity": 0.1,
+		"friction": 0.9
+	},
+	
+	"propertyAnnotations": {
+		"chartHeadroom": "number",
+		"settings": "bool",
+		"colors": {
+			"pinhead": "color",
+			"nodeTypes": {"typeAnnotation": "array",
+						  "arrayTypes": "color"},
+			"textTypes": {"typeAnnotation": "array",
+						  "arrayTypes": "color"},
+			"links": "color"
+		},
+		"lockType": {
+                "typeAnnotation": "str",
+                "stringValues": ["pin", "ring"]
+		},
+		"tooltips": "bool",
+		"linkDistance": {
+				"typeAnnotation": "number",
+				"numericRange": [50, 150],
+				"numericStep": 5
+		},
+		"linkCharge": {
+				"typeAnnotation": "number",
+				"numericRange": [150, 1200],
+				"numericStep": 50
+		},
+		"linkStrength": {
+				"typeAnnotation": "number",
+				"numericRange": [0, 1],
+				"numericStep": 0.01
+		},
+		"chargeDistance": {
+				"typeAnnotation": "number",
+				"numericRange": [0, 5000],
+				"numericStep": 50
+		},
+		"gravity": {
+				"typeAnnotation": "number",
+				"numericRange": [0, 1],
+				"numericStep": 0.01
+		},
+		"friction": {
+				"typeAnnotation": "number",
+				"numericRange": [0, 1],
+				"numericStep": 0.01
+		}
+	},
+	
+	"dataBuckets":  {
+	
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+			{
+				"id": "from",
+				"type": "dimension",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "to",
+				"type": "dimension",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "relationship",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "sourceType",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "targetType",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "size",
+				"type": "measure",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "thickness",
+				"type": "measure",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "tooltip",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 4
+				}
+			}			
+		]
+	},
+	"translations": {
+		"en": {
+			"name": "Force Network Chart",
+			"description": "Force Network Chart",
+			"icon_tooltip": "Force Network Chart", 
+			"from_name": "From", 
+			"from_tooltip": "Drop from nodes here", 
+			"to_name": "To", 
+			"to_tooltip": "Drop to nodes here",
+			"relationship_name": "Relationship", 
+			"relationship_tooltip": "Drop relationship value here",
+			"sourceType_name": "Source Type", 
+			"sourceType_tooltip": "Drop source type value here",
+			"targetType_name": "Target Type", 
+			"targetType_tooltip": "Drop source type value here",
+			"size_name": "Size",
+			"size_tooltip": "Drop node size value",
+			"thickness_name": "Thickness",
+			"thickness_tooltip": "Drop link thickness value",
+			"tooltip_name": "Tooltip field(s)",
+			"tooltip_tooltip": "Drop field(s) to add to tooltip"
+		},
+	}
+}

@@ -1,0 +1,126 @@
+-* File: IBFS:/localhost/WFC/Repository/Common/forcenetwork.fex Created by WebFOCUS AppStudio
+
+FILEDEF DBASE_GRAPH DISK sankey_data.ftm
+EXEC -LINES * EDAPUT MASTER,DBASE_GRAPH,CV,MEM
+FILENAME=DBASE_GRAPH,SUFFIX=COM,$
+  SEGNAME=SEG01,SEGTYPE=S0,$
+    FIELDNAME=SOURCE,FORMAT=A50,$
+    FIELDNAME=TARGET,FORMAT=A50,$
+    FIELDNAME=RELATIONSHIP,FORMAT=A50,$
+    FIELDNAME=SRCTYPE,FORMAT=A20,$
+    FIELDNAME=TGTTYPE,FORMAT=A20,$
+    FIELDNAME=VALUE,FORMAT=D12c,$
+    FIELDNAME=SIZE,FORMAT=D12.2c,$
+EDAPUT*
+-RUN
+
+-WRITE DBASE_GRAPH Tom Hanks,Cloud Atlas,Acted in,actor,film,1,16.25,$
+-WRITE DBASE_GRAPH Tom Hanks,The green mile,Acted in,actor,film,1,6.25,$
+-WRITE DBASE_GRAPH Tom Hanks,Joe v's the volcano,Acted in,actor,film,1,6.25,$
+-WRITE DBASE_GRAPH Tom Hanks,Sleepless,Acted in,actor,film,1,6.25,$
+-WRITE DBASE_GRAPH Tom Hanks,You've got mail,Acted in,actor,film,1,6.25,$
+-WRITE DBASE_GRAPH Tom Hanks,A league of their own,Acted in,actor,film,5,6.25,$
+-WRITE DBASE_GRAPH Tom Hanks,Charlie Wilson's war,Acted in,actor,film,1,6.25,$
+-WRITE DBASE_GRAPH Tom Hanks,Apollo 13,Acted in,actor,film,1,6.25,$
+-WRITE DBASE_GRAPH Tom Hanks,The Da Vinci code,Acted in,actor,film,1,6.25,$
+-WRITE DBASE_GRAPH Tom Hanks,Cast away,Acted in,actor,film,1,6.25,$
+-WRITE DBASE_GRAPH Tom Hanks,The polar express,Acted in,actor,film,1,16.25,$
+-WRITE DBASE_GRAPH Tom Hanks,That thing you do,Acted in,actor,film,10,6.25,$
+-WRITE DBASE_GRAPH Ron Howard,The Da Vinci code,Directed,director,film,1,6.25,$
+-WRITE DBASE_GRAPH Ron Howard,Apollo 13,Directed,director,film,1,6.25,$
+-WRITE DBASE_GRAPH Tom Hanks,That thing you do,Directed,director,film,10,6.25,$
+-WRITE DBASE_GRAPH Penny Marshall,A league of their own,Directed,director,film,5,36.25,$
+-WRITE DBASE_GRAPH Lilly Wachowski,Cloud Atlas,Wrote,writer,film,1,6.25,$
+-WRITE DBASE_GRAPH Lana Wackowski,Cloud Atlas,Wrote,writer,film,1,6.25,$
+-WRITE DBASE_GRAPH Tom Tykwer,Cloud Atlas,Wrote,writer,film,1,6.25,$
+-WRITE DBASE_GRAPH Lilly Wachowski,Cloud Atlas,Directed,director,film,1,6.25,$
+-WRITE DBASE_GRAPH Lana Wackowski,Cloud Atlas,Directed,director,film,1,6.25,$
+-WRITE DBASE_GRAPH Tom Tykwer,Cloud Atlas,Directed,director,film,1,6.25,$
+-WRITE DBASE_GRAPH Mike Nichols,Charlie Wilson's war,Directed,director,film,1,6.25,$
+-WRITE DBASE_GRAPH Frank Darabont,The green mile,Directed,director,film,1,6.25,$
+-WRITE DBASE_GRAPH John Patrick Stanley,Joe v's the volcano,Directed,director,film,1,6.25,$
+-WRITE DBASE_GRAPH Nora Ephron,Sleepless,Directed,director,film,1,6.25,$
+-WRITE DBASE_GRAPH Nora Ephron,You've got mail,Directed,director,film,1,6.25,$
+-WRITE DBASE_GRAPH Robert Zemeckis,Cast away,Directed,director,film,1,6.25,$
+-WRITE DBASE_GRAPH Robert Zemeckis,The polar express,Directed,director,film,1,6.25,$
+-*-WRITE DBASE_GRAPH Keanu Reeves,The Matrix,Acted in,actor,film,1,6.25,$
+-*-WRITE DBASE_GRAPH Keanu Reeves,The Matrix Reloaded,Acted in,actor,film,1,6.25,$
+-*-WRITE DBASE_GRAPH Keanu Reeves,The Matrix Revolutions,Acted in,actor,film,1,6.25,$
+-*-WRITE DBASE_GRAPH Lilly Wachowski,The Matrix,Wrote,writer,film,1,6.25,$
+-*-WRITE DBASE_GRAPH Lana Wackowski,The Matrix,Wrote,writer,film,1,6.25,$
+-*-WRITE DBASE_GRAPH Lilly Wachowski,The Matrix Reloaded,Wrote,writer,film,1,6.25,$
+-*-WRITE DBASE_GRAPH Lana Wackowski,The Matrix Reloaded,Wrote,writer,film,1,6.25,$
+-*-WRITE DBASE_GRAPH Lilly Wachowski,The Matrix Revolutions,Wrote,writer,film,1,6.25,$
+-*-WRITE DBASE_GRAPH Lana Wackowski,The Matrix Revolutions,Wrote,writer,film,1,6.25,$
+-*-WRITE DBASE_GRAPH Lilly Wachowski,The Matrix,Directed,director,film,1,6.25,$
+-*-WRITE DBASE_GRAPH Lana Wackowski,The Matrix,Directed,director,film,1,6.25,$
+-*-WRITE DBASE_GRAPH Lilly Wachowski,The Matrix Reloaded,Directed,director,film,1,6.25,$
+-*-WRITE DBASE_GRAPH Lana Wackowski,The Matrix Reloaded,Directed,director,film,1,6.25,$
+-*-WRITE DBASE_GRAPH Lilly Wachowski,The Matrix Revolutions,Directed,director,film,1,6.25,$
+-*-WRITE DBASE_GRAPH Lana Wackowski,The Matrix Revolutions,Directed,director,film,1,6.25,$
+
+SET PAGE-NUM=NOLEAD
+SET ARGRAPHENGINE=JSCHART
+SET EMBEDHEADING=ON
+SET GRAPHDEFAULT=OFF
+-DEFAULTH &WF_STYLE_UNITS='PIXELS';
+-DEFAULTH &WF_STYLE_HEIGHT='405.0';
+-DEFAULTH &WF_STYLE_WIDTH='770.0';
+-DEFAULTH &WF_TITLE='WebFOCUS Report';
+GRAPH FILE DBASE_GRAPH
+SUM
+    SIZE
+    VALUE
+    FST.RELATIONSHIP AS 'Relationship'
+    FST.TARGET AS 'Film'
+BY SOURCE
+BY TARGET
+BY HIGHEST RELATIONSHIP
+BY SRCTYPE
+BY TGTTYPE
+ON GRAPH PCHOLD FORMAT JSCHART
+ON GRAPH SET VZERO OFF
+ON GRAPH SET UNITS &WF_STYLE_UNITS
+ON GRAPH SET HAXIS &WF_STYLE_WIDTH
+ON GRAPH SET VAXIS &WF_STYLE_HEIGHT
+ON GRAPH SET LOOKGRAPH EXTENSION
+ON GRAPH SET AUTOFIT ON
+ON GRAPH SET STYLE *
+*GRAPH_SCRIPT
+setPieDepth(0);
+setPieTilt(0);
+setDepthRadius(0);
+setPlace(true);
+setCurveFitEquationDisplay(false);
+*END
+INCLUDE=IBFS:/FILE/IBI_HTML_DIR/ibi_themes/Warm.sty,$
+TYPE=REPORT, TITLETEXT=&WF_TITLE.QUOTEDSTRING, PAGESIZE=A4, $
+TYPE=DATA, COLUMN=N1, BUCKET= >from, $
+TYPE=DATA, COLUMN=N2, BUCKET= >to, $
+TYPE=DATA, COLUMN=N3, BUCKET= >relationship, $
+TYPE=DATA, COLUMN=N4, BUCKET= >sourceType, $
+TYPE=DATA, COLUMN=N5, BUCKET= >targetType, $
+-*TYPE=DATA, COLUMN=N6, BUCKET= >size, $
+-*TYPE=DATA, COLUMN=N7, BUCKET= >thickness, $
+-*TYPE=DATA, COLUMN=N8, BUCKET=tooltip, $
+-*TYPE=DATA, COLUMN=N9, BUCKET=tooltip, $
+*GRAPH_SCRIPT
+setReportParsingErrors(false);
+setSelectionEnableMove(false);
+*GRAPH_JS_FINAL
+"pieProperties": {
+    "holeSize": "0%"
+},
+"chartType": "com.ibi.forcenetwork",
+"extensions": {
+	"com.ibi.forcenetwork": {
+		"lockType": "pin"
+	},
+},
+"agnosticSettings": {
+    "chartTypeFullName": "com.ibi.forcenetwork"
+}
+*END
+ENDSTYLE
+END
+-RUN
