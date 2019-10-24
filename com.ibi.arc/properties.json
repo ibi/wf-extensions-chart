@@ -255,7 +255,11 @@
 				"tooltip": {
 					"_translation": "Tool Tip",
 					"enabled": "Enabled"
-				}
+				},
+				"showCenteredText":{
+					"_translation": "Show Centered Text",
+					"enabled": "Enabled"		
+				}				
 			}
 		},
 		
