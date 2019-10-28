@@ -27,7 +27,11 @@
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_tdg_sunburst');
-
+			
+		//Begin CHART-3304
+			props.chart = chart;  //Propagate chart object to tdg_sunburst module for use with new tooltip logic
+        //End CHART-3304				
+			
 		var tdg_sunburst_chart = tdg_sunburst(props);
 
 		tdg_sunburst_chart(container);
@@ -61,6 +65,10 @@
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_tdg_sunburst');
+			
+		//Begin CHART-3304
+			props.chart = chart;  //Propagate chart object to tdg_sunburst module for use with new tooltip logic
+        //End CHART-3304		
 
 		var tdg_sunburst_chart = tdg_sunburst(props);
 
