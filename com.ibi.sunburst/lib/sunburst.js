@@ -51,7 +51,7 @@ var tdg_sunburst = (function () {
 
   function getHierarchyObj (data) {
     var res = [], roots = [];
-    data.forEach(function (d) {
+    data.forEach(function (d, i) { //CHART-3304 adds i for offset
       var root,
         levels = Array.isArray(d.levels) ? d.levels : [d.levels],
         idx = roots.indexOf(levels[0]);
@@ -63,14 +63,14 @@ var tdg_sunburst = (function () {
         roots.push(levels[0]);
       }
 
-      (function iterate (obj, val, path, idx, len) {
+      (function iterate (obj, val, offset, path, idx, len) { 
         obj.name = path[idx];
         if ( idx < len ) {
           if ( !Array.isArray(obj.children) ) {
             obj.children = [];
           }
           var child = {};
-          iterate(child, val, path, idx + 1, len);
+          iterate(child, val, offset, path, idx + 1, len); //CHART-3304
           
           var existingChild = obj.children
             .filter(function(node){ return node.name === child.name; })[0];
@@ -82,9 +82,10 @@ var tdg_sunburst = (function () {
           }
         } else {
           obj.size = val;
+		  obj.offset = offset;  //CHART-3304
         }
       })(
-        root, d.value,
+        root, d.value, i,      //CHART-3304 adds i
         Array.isArray(d.levels) ? d.levels : [d.levels],
         0, levels.length - 1
       );
@@ -184,12 +185,15 @@ var tdg_sunburst = (function () {
     // functions declared here will have access to props and innerProps object
 		var props = {
 			width: 300,
-			height: 400,
+			height: 400, 
 			data: null,
       formatNumber: null,
       isInteractionDisabled: false,
+	  //Begin CHART-3304
+		chart: null,   //member referencing chart that will be used with new tooltip logic
+	  //End CHART-3304
       onRenderComplete: function(){},
-	  customColors: false,   //VIZ-70
+	  customColors: false,   //VIZ-70	
       node: {
         colors: ["#4087b8","#e31a1c","#9ebcda","#c994c7","#41b6c4","#49006a","#ec7014","#a6bddb","#67001f","#800026","#addd8e","#e0ecf4","#fcc5c0","#238b45","#081d58","#d4b9da","#2b8cbe","#74a9cf","#41ab5d","#fed976","#ce1256","#7f0000","#a6bddb","#ffffcc","#e7e1ef","#016c59","#f7fcfd","#99d8c9","#fff7fb","#ffffe5","#fdd49e","#ffffd9","#fe9929","#8c96c6","#810f7c","#993404","#c7e9b4","#bfd3e6","#e7298a","#7fcdbb","#3690c0","#ae017e","#d9f0a3","#ece2f0","#014636","#f7fcb9","#66c2a4","#fff7bc","#f7fcf0","#e5f5f9","#fdbb84","#fa9fb5","#4d004b","#fff7fb","#cc4c02","#78c679","#1d91c0","#ccebc5","#feb24c","#b30000","#8c6bb1","#fec44f","#d0d1e6","#084081","#0868ac","#f7fcfd","#0570b0","#ef6548","#fff7ec","#006837","#f768a1","#edf8b1","#fee391","#238443","#ffffe5","#023858","#7a0177","#67a9cf","#dd3497","#980043","#88419d","#d0d1e6","#fc8d59","#4eb3d3","#fd8d3c","#fff7f3","#fc4e2a","#ccece6","#ece7f2","#a8ddb5","#41ae76","#bd0026","#e0f3db","#045a8d","#ffeda0","#253494","#7bccc4","#fde0dd","#00441b","#225ea8","#006d2c","#02818a","#f7f4f9","#d7301f","#df65b0","#662506","#3690c0","#004529","#fee8c8"],
         colorBy: 'evenodd', // 'parent', 'node', 'evenodd'
@@ -371,6 +375,11 @@ var tdg_sunburst = (function () {
 
       return function (d) {
         var str = '<div style="padding:5px">';
+		
+		//Start CHART-3304
+		var toolTipContent = {};
+        toolTipContent.node = d; //Need to propagte node for drill downs that might reference levels as a parameter; also can determine raw unformatted value and ratio if needed
+		//End CHART-3304
 
         props.toolTip.elements.forEach(function (el, idx) {
           // if ( el.hideForRoot && d === findRoot(d)) {
@@ -384,6 +393,9 @@ var tdg_sunburst = (function () {
           if (el.name === 'ratio') {
             var ratio = d.value / d.parent.value;
             str += (formatMap.ratio) ? formatMap.ratio( ratio ) : ratio;
+			//Start CHART-3304
+				toolTipContent['ratio'] = (formatMap.ratio) ? formatMap.ratio( ratio ) : ratio;
+			//End CHART-3304
           } else if (el.name === 'value' && props.toolTip.valueFormat && props.formatNumber) {
             str += props.formatNumber(
                             d.value,
@@ -393,15 +405,40 @@ var tdg_sunburst = (function () {
                                 max: maxValue
                             }
                         );
+			//Start CHART-3304
+				toolTipContent[el.name] = props.formatNumber(
+                            d.value,
+                            props.toolTip.valueFormat,
+                            {
+                                min: minValue,
+                                max: maxValue
+                            }
+                        );
+			//End CHART-3304			
           } else {
             str += (formatMap[el.name]) ? formatMap[el.name](d[el.name]) : d[el.name];
+			//Start CHART-3304
+				toolTipContent[el.name] = (formatMap[el.name]) ? formatMap[el.name](d[el.name]) : d[el.name];
+			//End CHART-3304			
           }
         });
 		
 		// str += "<br> color: " + d.fillColor.toLocaleString();   //Remove line comment to see color in tooltip...for debugging
 
         str += '</div>';
-        return str;
+		
+		//Begin Code Prior to CHART-3304	
+			// return str;
+		//End Code Prior to CHART-3304
+	
+		//Start CHART-3304
+		
+		toolTipContent.str = str;
+		
+		return toolTipContent;  //{str: ..., [ratio: ..., elm.name: ... ]}
+		
+		//End CHART-3304
+		
       };
     }
 
@@ -449,7 +486,7 @@ var tdg_sunburst = (function () {
         ? getEvenOddDiscreteColorScale( sunburstData, innerProps.fakeRootName )
         : getDiscreteColorScale( sunburstData, innerProps.fakeRootName );
 	 */	
-	 
+	  
 	  //START VIZ-70	
 	  if (props.customColors){
 		  
@@ -499,6 +536,7 @@ var tdg_sunburst = (function () {
           return Math.max(0, y(d.y + d.dy));
         });
 
+	 
       var paths = group_chart.selectAll('path.node')
         .data(sunburstData)
         .enter().append('path').classed('node', true);
@@ -520,15 +558,263 @@ var tdg_sunburst = (function () {
         });
 
 
+		//Start CHART-3304
+
+		//The outerArc/outerPath will fire onmouse over events to hide the tooltip
+		var outerArc = d3.svg.arc()
+			.startAngle(0)
+			.endAngle(2 * Math.PI)			
+			.innerRadius(y(1))
+			.outerRadius(y(1) + 2)
+		
+		var outerPath = group_chart
+			.append('path')
+			.classed('node', true)
+			.attr({d:outerArc})
+			.attr('pointer-events', 'all')			
+			.style({ fill: 'none', opacity:0});
+
+		// Scenarios:
+		// (1) No drill and no developer supplied tooltip: show original tooltip using 'tdgtitle' attribute for path
+		// (2) No Drill with developer supplied tooltip: Show read only tooltip; overriding orginal tooltip 
+		// (3) Single Drill with no developer supplied tooltip: Enable the drill down and show original tooltip 
+		// (4) Single Drill with developer supplied tooltip: Enable the drill down and show read only tooltip; overriding original tooltip 
+		// (5) Multi Drill with no developer supplied tooltip: Enable the drill downs and show interactive tooltip; overriding original tooltip 
+		// (6) Multi Drill with developer supplied tooltip: Enable the drill downs and show interactive tooltip; overriding origial tooltip 
+	
+
+	
+		paths.filter(function (d) {return d.name !== innerProps.fakeRootName;
+          }).each(function(d){ d.orignalToolTipContent = getToolTipBuilder(d)(d)});  //Get Original ToolTip Content	and assign as a member to path data {str:..., name:..., value:..., ratio:...}
+	
+
+		var chart = props.chart;
+		
+		function findFirstOffset(obj){    //Traverse hierarchy and find first offset
+			if (obj.hasOwnProperty("offset")) return obj.offset;
+			return obj.children[0].hasOwnProperty("offset") ? obj.children[0].offset : findFirstOffset(obj.children[0]);		
+		} //function		
+		
+		
+		if (chart.eventDispatcher == undefined) { 				//IA development environment does not have access to drill downs
+
+			var scenario = 1;										//So display default/original tooltip in IA
+
+		} //if
+		
+		else {
+		
+			var bSingleDrill = (chart.eventDispatcher.events.length != 0); //Possibly scenarios (3) or (4)
+			
+			//Because moudules.tooltip is enabled, chart.series will always have at least one object with 'tooltip' sub-property.  
+			// If there's more than original data buckets, then developer added some tooltip fields.
+			aToolTips = chart.series.find(function (obj) { return "tooltip" in obj }).tooltip;
+			
+			var numFields = 0;
+			chart.dataBuckets.buckets.forEach(function (bucket) { numFields += bucket.fields.length; })
+			
+			// //Possibly scenarios (2), (4), (6) or (5)
+			var bNewTooltipColumns = aToolTips.filter(function (tipLine) { return tipLine.hasOwnProperty("value") })
+						.filter(function (tipLine){return tipLine.value.indexOf("{{tooltip") != -1}).length > 0
+			
+			//Check aToolTips.tooltip, this time looking for 'url' sub-property in the multi drill scenarios
+			var bMultiDrill = aToolTips.find( function (obj) { return ( obj.hasOwnProperty("entry") && obj.hasOwnProperty("url") ) }) != undefined // Possibly scenarios (5) or (6)
+			
+			var bNoDrills = !bSingleDrill && !bMultiDrill;  //Possibly scenarios (1) or (2)
+			
+			
+			var scenario = 
+				[ false,
+				 (bNoDrills && !bNewTooltipColumns),        //scenario = 1
+				 (bNoDrills && bNewTooltipColumns), 	    //scenario = 2
+				 (bSingleDrill && !bNewTooltipColumns),  	//scenario = 3
+				 (bSingleDrill && bNewTooltipColumns),		//scenario = 4				
+				 (bMultiDrill && !bNewTooltipColumns),		//scenario = 5 
+				 (bMultiDrill && bNewTooltipColumns)		//scenario = 6 
+				].findIndex( function (element) {return element == true});
+		
+		} //else	
+			
+		bNewToolTip = (scenario == 2 || scenario == 4 || scenario == 5 || scenario == 6); //Overrides original tooltip
+
+		function fnSingleDrillDown (chart, offset, data) {
+			var dispatcher = chart.eventDispatcher.events.find(function (obj) { return obj.series == 0});
+			var ids = {series: 0, group: offset};
+			var localURL = chart.parseTemplate(dispatcher.url, data[offset], data, ids);
+			return {url: localURL, target: dispatcher.target ? dispatcher.target : "_self"} ;
+		} // fnSingleDrillDown		
+		
+		//Create a generic base tooltip template for scenarios 1 and 3
+		var contentCopy = chart.dataBuckets.buckets[0].fields.map(
+							function(level, i){
+								return {type: "nameValue", name: level.title, value: '{{extension_bucket(\"levels\",' + i + ')}}' } 
+							});
+		contentCopy.push({type: "nameValue", name: chart.dataBuckets.buckets[1].fields[0].title, value:null });						
+		
+		var chart = props.chart;
+
+		switch (scenario) {
+			case 4: //Single drill, with developer supplied tooltip										
+			case 2: //No drill, with developer supplied tooltip
+			case 5: //Multidrill, no developer supplied tooltip 
+			case 6: //Multidrill with developer supplied tooltip
+			
+					//Use moonbeam tooltip layout as a template
+					var contentCopy = chart.getSeries(0).tooltip.slice(0);    //Make an exact copy of the base tootip content array.					
+	
+			case 3:	//Build tooltip and fnSingleDrillDown	
+					if (scenario == 3 || scenario == 4) {
+						contentCopy.push({ type: "separator" });
+						contentCopy.push({ entry: "Drill Down", url: null, target: null });
+					} //if
+			case 1: //Original tooltip, no drills, no added developer side tooltips	
+					
+					separatorIndex =  contentCopy.findIndex(function(elem){ return elem.type == "separator" })
+					
+					//Value for ratio will be replaced when tooltip is built.  It either before the separator or last entry of tooltip	
+					if (separatorIndex != -1) {
+						contentCopy.splice(separatorIndex,0,{type: "nameValue", name: "ratio", value: null}); //http://www.javascripttutorial.net/javascript-array-splice/
+					} //if
+					else {
+						contentCopy.push({type: "nameValue", name: "ratio", value: null});		
+					} //else
+						
+					if (d3.select("#sunburstTooltipId").node() == null) {    //re-sizing of window calls renderCallback; so only create tooltip once
+					
+						d3.select(".chart")   //Add a div to chart's container
+							.append("div")
+							.attr("id", "divSunburstTooltipId")
+					
+						var tooltip = tdgchart.createExternalToolTip("divSunburstTooltipId", "sunburstTooltipId"); 
+							
+						var tooltip_style = {
+							background: 'lightgrey',
+							borderWidth: '5px',
+							borderStyle: 'solid',
+							borderColor: 'grey',
+							borderRadius: '5px'
+						};
+
+						var tooltip_properties = {
+									 fill: 'lightgrey',
+									 border: {},
+									 cascadeMenuStyle: {
+									 hover: { labelColor: '#000000', fill: '#D8BFD8'}
+									 }
+						};								
+							
+						tooltip	
+								.style(tooltip_style)
+								.properties(tooltip_properties)
+								.autoHide(true);					
+
+					} // if ((d3.select("#sunburstTooltipId").node() == null) 		
+					
+					break;					
+		} //switch
+		
+	   //Hide tooltip when user hovers over innner or outer paths	
+       paths  
+		.filter(function (d) { return d.name == innerProps.fakeRootName;})
+		.on('mouseover', function (d){tooltip.hide()});		
+		
+	   outerPath
+		.on('mouseover', function (d){tooltip.hide()});		
+		
+
+	//End CHART-3304
+		
+		
+
       if ( !props.isInteractionDisabled ) {
         paths
+		
           .on('click', click)
+		  
           .filter(function (d) { // get all the nodes besides root
             return d.name !== innerProps.fakeRootName;
           })
-          .on('mouseover', fade(0.2))
-          .on('mouseout', fade(1));
-      }
+		  //Start Code Prior to CHART-3304
+			//.on('mouseover', fade(0.2))
+			//.on('mouseout',  fade(1));
+		  //End Code Prior to CHART-3304
+		  //Begin CHART-3304
+		  .on('mouseover', function (d){								
+								
+									fade(0.2)(d); 
+									
+							
+									//if (d3.select("#sunburstTooltipId").node().style.visibility == "visible") return;
+									
+									//The value field in databuckets is assigned the value calcualted for the appropriate level
+									contentCopy[contentCopy.findIndex(function(tipLine){
+																		return tipLine.type == "nameValue" && tipLine.name == chart.dataBuckets.buckets[1].fields[0].title;
+																		})].value = d.orignalToolTipContent.value;	
+									//Use original value for calculated ratio
+									contentCopy[contentCopy.findIndex(function(tipLine){
+																		return tipLine.type == "nameValue" && tipLine.name == "ratio";
+																		})].value = d.orignalToolTipContent.ratio;	
+
+									var offset = findFirstOffset(d);	//Find the original data associated with the outer ring or inner derived rings
+									
+									if (scenario == 3 || scenario == 4) { // Single Drill Down using oriignal tooltip 
+										var urlTarget = fnSingleDrillDown(chart,offset,chart.data[0]);	
+										var urlIndex = contentCopy.findIndex(function(tipLine){return tipLine.hasOwnProperty("url");});
+										contentCopy[urlIndex].url = urlTarget.url;
+										contentCopy[urlIndex].target = urlTarget.target;
+										
+									} //if											
+									
+									
+									if (!d.hasOwnProperty("offset")) { //user is on an innner ring
+									
+										//list of name values to remove based on the depth/level to user is mousing overriding
+										var removeLevels = chart.dataBuckets.buckets[0].fields.slice(d.depth);	
+										var filteredLevelsContent = contentCopy.filter(function(tipLine) { 
+																				 var bRemove = false;
+																				 if (tipLine.hasOwnProperty("name")) {
+																					bRemove = removeLevels.some(function (level) { return level.title == tipLine.name});
+																				 } //if
+																				  return !bRemove;
+																				});
+																				
+										var filteredUrlConternt = 	filteredLevelsContent.filter(function(tipLine){
+																				  return !tipLine.hasOwnProperty("url")
+																				});									
+																				
+										var filteredToolTipContent = filteredUrlConternt.filter(function(tipLine) { 
+																				  var bTooltip = false;
+																				  if (tipLine.hasOwnProperty("value")) {
+																					var bTooltip = tipLine.value.indexOf("{{tooltip") == 0;
+																					} //if	
+																				  return !bTooltip;
+																				});										
+									} //if
+									else {
+										filteredToolTipContent = contentCopy;
+									} //else
+																		
+									var ids = {series: 0, group: offset};
+									//if (tooltip.dom.style.visibility ==  "hidden") {	
+										tooltip
+											.content(filteredToolTipContent, props.data[offset], props.data, ids)	
+											.position(event.clientX, event.clientY)
+											.autoHide(false);
+											
+										tooltip.show();	
+									//}			
+
+							} //function			
+			 ) //on
+		  .on('mouseout', function (d) {
+							fade(1)(d);
+							if (!tooltip._autoHideEnabled){
+									//tooltip.hide(); //If not using moonbeam's autoHide
+							}		
+						 } //function
+            );	//carefull with ';' here
+		//End CHART-3304		
+      } //if 
 
       paths.filter(function (d) {
         return d.name === innerProps.fakeRootName;
@@ -548,19 +834,34 @@ var tdg_sunburst = (function () {
           .style('opacity', 1)
           .call(getOnAllTransitionComplete(invokeAfterTwo));
       }
-
-      if ( props.toolTip.enabled ) {
+		
+	  //Start Code Prior to CHART-3304 	
+	  /*
+	  if ( props.toolTip.enabled ) {	   
         paths
           .filter(function (d) { // get all the nodes besides root
             return d.name !== innerProps.fakeRootName;
           })
-          .attr('tdgtitle', getToolTipBuilder(data));
-      }
-
+		  .attr('tdgtitle', getToolTipBuilder(data));
+	  } //if
+	  */
+	  //End Code Prior to CHART-3304
+	  
       function click (d) {
-        paths.transition('zooming_in')
-          .duration(750)
-          .attrTween("d", arcTween(d));
+		
+		//Begin Code prior to CHART-3304
+		 //paths.transition('zooming_in')
+         // .duration(750)
+         // .attrTween("d", arcTween(d));
+		//End Code prior to CHART-3304
+		
+		//Start CHART-3304
+		if (!d.hasOwnProperty("offset") || scenario == 1 || scenario == 2 ) { //Always allow sunburst 'drill down' animation on inner rings, or scenarios with no developer drilldowns	
+			paths.transition('zooming_in')
+			  .duration(750)
+			  .attrTween("d", arcTween(d));
+		} //if	
+		//End CHART-3304 
       }
 
       function fade (opacity) {
@@ -596,7 +897,7 @@ var tdg_sunburst = (function () {
       invokeAfterTwo();
     }
 
-		function chart (selection) {
+	function chart (selection) {
 
       var group_main = selection.append('g').classed('group-main', true);
 
