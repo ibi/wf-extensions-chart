@@ -464,7 +464,24 @@ var com_tdg_chord = (function () {
 					chords.each(function(d){
 							var renderDataSource =  Object.keys(idToIndx).find(function(key){ return idToIndx[key] == d.source.index });
 							var renderDataTarget = 	Object.keys(idToIndx).find(function(key){ return idToIndx[key] == d.target.index });
+							/* Code prior to CHART-97
 							var renderIndex = props.data[0].findIndex(function (row){return row.source == renderDataSource && row.target == renderDataTarget });
+							*/
+							//Start VIZ-97
+							var renderIndex = -1;
+							for (var i = 0; i < props.data[0].length; ++i) {
+								
+								var row = props.data[0][i];
+																
+								if (row.source == renderDataSource && row.target == renderDataTarget){
+									
+									renderIndex = i;
+									break;
+																						
+								} //if	
+
+							} //for		
+							//End VIZ-97
 							// props.renderConfig.modules.tooltip.addDefaultToolTipContent(this, 0, renderIndex, props.data[0][renderIndex]);	VIZ-78 rework				
 							props.tooltip.addDefaultToolTipContent(this, 0, renderIndex, props.data[0][renderIndex], props.data[0]);						
 												
