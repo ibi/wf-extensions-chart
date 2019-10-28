@@ -78,6 +78,13 @@
 		var chart = renderConfig.moonbeamInstance,
 			props = renderConfig.properties;
 
+		// Internet Explorer 6-11
+		var isIE = /*@cc_on!@*/false || !!document.documentMode;
+		// Edge 20+
+		var isEdge = !isIE && !!window.StyleMedia;
+		var menuClass = isIE ? "menuShowIE" : "menuShow";
+		var mnubClass = isIE ? "menuBorderIE" : "menuBorder";
+
 		// Reset the tooltip property if the tooltip bucket has been populated
 		props.tooltips = renderConfig.dataBuckets.tooltip ? Array.isArray(renderConfig.dataBuckets.tooltip.fields) ? true : props.tooltips : props.tooltips;
 
@@ -146,13 +153,23 @@
 		links.forEach(function(link) {
 			link.toolTip = nodeTooltips(link.source, []);
 			// Array.from(new Set(link.toolTip.map(JSON.stringify))).map(JSON.parse) is a long handed method of deduplicating the tooltip array.
-			var srcTooltip = link.toolTip.length > 0 && renderConfig.dataBuckets.tooltip ? link.toolTip : link.toolTip.length > 0 ? Array.from(new Set(link.toolTip.map(JSON.stringify))).map(JSON.parse) : link.sourcetype >= 0 ? [lists.nodetypes[link.sourcetype].name + ": " + link.source] : [];
+			var srcTooltip = link.toolTip.length > 0 && renderConfig.dataBuckets.tooltip ? link.toolTip : link.toolTip.length > 0 ? removeDupls(link.toolTip) : link.sourcetype >= 0 ? [lists.nodetypes[link.sourcetype].name + ": " + link.source] : [];
 			var tgtTooltip = link.targettype >= 0 ? [lists.nodetypes[link.targettype].name + ": " + link.target] : [];
 			link.source = nodes[link.source] || (nodes[link.source] = {name: link.source, type: "source", nodeType: link.sourcetype, size: link.size, tooltip: srcTooltip});
 			link.target = nodes[link.target] || (nodes[link.target] = {name: link.target, type: "target", nodeType: link.targettype, size: link.size, tooltip: tgtTooltip});
 			var idx = lists.dblLinks.map(function(o) {return o.name;}).indexOf(link.source.name + "~" + link.target.name);
 			link.relCount = lists.dblLinks[idx].value;
 		});
+
+		function removeDupls(names) {
+			var unique = {};
+			names.forEach(function(i) {
+				if(!unique[i]) {
+					unique[i] = true;
+				}
+			});
+			return Object.keys(unique);
+		};
 
 		// To ensure we utilise maximum height, calculate the SVG viewBox dimensions from which
 		// all other objects are dervied.
@@ -315,14 +332,6 @@
 					.on("mouseover", focusNode)
 					.on("mouseout", blurNode);
 
-		function focusNode() {
-			d3.select(this).classed("nodeHover", true);
-		}
-
-		function blurNode() {
-			d3.select(this).classed("nodeHover", false);
-		}
-
 		if (props.lockType === "pin") {
 			circle.append("g")
 					.attr("id", function(d) { return "pin" + d.index; })
@@ -343,6 +352,14 @@
 					.attr("text-anchor", "middle")
 					.text(function(d) { return d.name; });
 
+		function focusNode() {
+			d3.select(this).classed("nodeHover", true);
+		}
+
+		function blurNode() {
+			d3.select(this).classed("nodeHover", false);
+		}
+
 		// Currently the node text is a single line, so call a function to wrap it to a certain length.
 		d3.selectAll(".nodetext")
 		    .call(wrap, 45);
@@ -355,7 +372,12 @@
 
 		function tick() {
 		  circle.attr("transform", transform);
+		  // -- start of IE fix
+		  // Internet Explorer does not deal with markers on lines or paths resulting in broken links
+		  // and poor rendering.
+		  // The following line re-adds all the links to the DOM causing IE to rerender them properly.
 		  d3.selectAll(".link").each(function() {this.parentNode.insertBefore(this, this)});
+		  // -- end of IE fix
 		  d3.selectAll(".link").filter(".path").attr("d", linkArc);
 		  d3.selectAll(".link").filter(".box")
 		                         .attr("x", function(d) {var x = d.source.x < d.target.x ? d.source.x + ((d.target.x - d.source.x- this.width.animVal.value) / 2) : d.target.x + ((d.source.x - d.target.x - this.width.animVal.value) / 2);
@@ -381,7 +403,6 @@
 									                             var x = d.source.x < d.target.x ? d.source.x + ((d.target.x - d.source.x) / 2) : d.target.x + ((d.source.x - d.target.x) / 2);
 									                             var y = d.source.y < d.target.y ? d.source.y + ((d.target.y - d.source.y) / 2) : d.target.y + ((d.source.y - d.target.y) / 2);
 								                                 return "rotate(" + angle + " " + x + " " + y + ")";});
-										
 		}
 
 		function linkArc(d) {
@@ -468,7 +489,7 @@
 		var menuDiv = d3.select(".chart")
 					.append("div")
 					.attr("id", "menu")
-					.classed("menuShow", true)
+					.classed(menuClass, true)
 					.attr("style","font-size:10px;position:absolute;top:0px;left:10px;width:320px;height:140px;padding-left:10px;padding-right:10px;");
 		var label = menuDiv.append("label")
 					.text("Link Strength");
@@ -480,7 +501,8 @@
 					.attr("max", 1)
 					.attr("step", 0.01)
 					.attr("value", linkStrength)
-					.on("input", setStrength);
+					.on("input", setStrength)
+					.on("change", setStrength);
 			label.append("text").attr("id","txt1").attr("class", "range").attr("style", "top:-1px;left:28px;width:40px;").text(linkStrength);
 			menuDiv.append("br");
 		var label = menuDiv.append("label")
@@ -493,7 +515,8 @@
 					.attr("max", 150)
 					.attr("step", 10)
 					.attr("value", linkDistance)
-					.on("input", setLength);
+					.on("input", setLength)
+					.on("change", setLength);
 			label.append("text").attr("id","txt2").attr("class", "range").attr("style", "top:-1px;left:25px;width:40px;").text(linkDistance);
 			menuDiv.append("br");
 		var label = menuDiv.append("label")
@@ -506,7 +529,8 @@
 					.attr("max", 1200)
 					.attr("step", 50)
 					.attr("value", 0 - linkCharge)
-					.on("input", setCharge);
+					.on("input", setCharge)
+					.on("change", setCharge);
 			label.append("text").attr("id","txt3").attr("class", "range").attr("style", "top:-1px;left:28px;width:40px;").text(linkCharge);
 			menuDiv.append("br");
 		var label = menuDiv.append("label")
@@ -519,7 +543,8 @@
 					.attr("max", 5000)
 					.attr("step", 50)
 					.attr("value", chargeDistance)
-					.on("input", setChgDist);
+					.on("input", setChgDist)
+					.on("change", setChgDist);
 			label.append("text").attr("id","txt4").attr("class", "range").attr("style", "top:-1px;left:12px;width:40px;").text(chargeDistance);
 			menuDiv.append("br");
 		var label = menuDiv.append("label")
@@ -532,7 +557,8 @@
 					.attr("max", 1)
 					.attr("step", 0.01)
 					.attr("value", linkGravity)
-					.on("input", setGravity);
+					.on("input", setGravity)
+					.on("change", setGravity);
 			label.append("text").attr("id","txt5").attr("class", "range").attr("style", "top:-1px;left:57px;width:40px;").text(linkGravity);
 			menuDiv.append("br");
 		var label = menuDiv.append("label")
@@ -545,7 +571,8 @@
 					.attr("max", 1)
 					.attr("step", 0.01)
 					.attr("value", linkFriction)
-					.on("input", setFriction);
+					.on("input", setFriction)
+					.on("change", setFriction);
 			label.append("text").attr("id","txt6").attr("class", "range").attr("style", "top:-1px;left:56px;width:40px;").text(linkFriction);
 			menuDiv.append("br");
 			menuDiv.append("div")
@@ -553,11 +580,11 @@
 					.on("click", function() { var t = d3.transition().duration(500);
 											 var objMenu = d3.select("#menu");
 												 objMenu.transition(t)
-														.attr("transform", function() { var transform = objMenu.classed("menuShow") ? "translate(0, -148)" : "translate(0, 0)";
-																						objMenu.classed("menuShow", !objMenu.classed("menuShow")); 
+														.attr("transform", function() { var transform = objMenu.classed(menuClass) ? "translate(0, -148)" : "translate(0, 0)";
+																						objMenu.classed(menuClass, !objMenu.classed(menuClass)); 
 																						return transform });
 											});
-			menuDiv.append("div").attr("class", "menuborder");
+			menuDiv.append("div").attr("class", mnubClass);
 
 			function setStrength() {
 				force.stop();
@@ -705,8 +732,6 @@
 
 	} //renderCallback
 	
-
-
 	// Extension Configuration
 	var config = {
 		id: 'com.ibi.forcenetwork',     // string that uniquely identifies this extension
