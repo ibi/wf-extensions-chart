@@ -36,7 +36,9 @@
 			"fontWeight": "700",
 			"color": "inherit",
 			"fontSize": "16px"
-		}
+		},
+		"negativeValueFontColor": null,
+		"bodyBackgroundColor": null
 	},
 	
 	"propertyAnnotations": {
@@ -63,7 +65,9 @@
 			"fontWeight": "str",
 			"color": "str",
 			"fontSize": "str"
-		}
+		},
+		"negativeValueFontColor": "str",
+		"bodyBackgroundColor": "str"
 	},
 	
 	"dataBuckets":  {

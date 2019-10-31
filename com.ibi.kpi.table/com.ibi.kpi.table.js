@@ -111,6 +111,10 @@
 		var data = renderConfig.data;
 		var dataBuckets = renderConfig.dataBuckets.buckets;	
 		
+		
+		var bodyBackgroundColor = props.bodyBackgroundColor || "transparent";
+		$('body').css('background-color', bodyBackgroundColor)
+		
 		/* Set Background Color */
 		//$(renderConfig.rootContainer).parent().css('backgroundColor',props.backgroundColor);
 		
@@ -134,7 +138,11 @@
 					formattedKeyMeasure = getFormattedNumber(row.keymeasure, keymeasureFormat, makeShortenNumbers, renderConfig);
 
 				var drillMeasureClass = chart.buildClassName('riser', row._s, row._g, 'mbar');
-					
+				
+				var headingDataColor = props.headingData.color;
+				if (props.negativeValueFontColor){
+					 headingDataColor = (row.keymeasure < 0) ? props.negativeValueFontColor : headingDataColor;
+				}
 				var slide = '<div class="kpi-table-slide"><table>'
 					+ '<thead>'
 						+ '<tr><th class="' + drillMeasureClass + ' kpi-table-heading-title" colspan="' + numOfMeasures
@@ -145,7 +153,7 @@
 						+ '<tr><th class="' + drillMeasureClass + ' kpi-table-heading-nbr" colspan="' + numOfMeasures
 							+ '" style="font-weight:' + props.headingData.fontWeight
 							+ ';font-size:' + props.headingData.fontSize
-							+ ';color:' + props.headingData.color + '">'
+							+ ';color:' + headingDataColor + '">'
 						+ formattedKeyMeasure + '</th></tr>'
 					+ '</thead>'
 					+ '<tbody><tr></tr><tr></tr></tbody></table></div>'
@@ -172,11 +180,15 @@
 								+ ';color:' + props.columnTitle.color
 							+ '">' + dataBuckets.measure.title[i] + '</td>')
 
+					var kpiTableDataColor = props.columnData.color;
+					if (props.negativeValueFontColor){
+						kpiTableDataColor = (measure < 0) ? props.negativeValueFontColor : kpiTableDataColor;
+					}
 					$(container)
 						.find('.kpi-table-container>.kpi-table-slide:last tbody>tr:last')
 						.append('<td class="kpi-table-data" style="font-weight:' + props.columnData.fontWeight
 							+ ';font-size:' + props.columnData.fontSize
-							+ ';color:' + props.columnData.color
+							+ ';color:' + kpiTableDataColor
 							+ '">' + formattedMeasure + '</td>')
 				}
 			});

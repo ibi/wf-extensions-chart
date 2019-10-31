@@ -61,7 +61,10 @@ To configure or customize your extension, edit the "properties" object in proper
 			"color": "inherit",
 			
 			"fontSize": "16px"
-	} },
+	},
+	"negativeValueFontColor": null, // If negativeValueFontColor have a color, the negative numbers will display with that color
+	"bodyBackgroundColor": null // If bodyBackgroundColor have a color, the body will display in that color
+},
 
 ## Data Buckets
 
