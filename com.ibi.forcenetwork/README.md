@@ -12,7 +12,7 @@ This extension shows the relationship(s) between items, which are displayed as t
 
 * The extension requires that the minimum of the "From" and "To" buckets are populated.
 * All buckets (with the exception of "Tooltip") accept only 1 field.
-* The chart will cope with up to and including 3 different relationship values.
+* The chart will cope with up to and including 3 different relationship values between 2 nodes.
 * Dragging a node to a new location in the chart will make that node inactive from the "force" and it will be annotated with a "pin" or outer "ring" to show that it is in a "locked" condition. The type of lock can be set in properties (default: pin).
 * Double-clicking a "locked" node will release the lock and the node will, once again, be affected by the "force".
 * Tooltips can be disabled in properties. If the Tooltip bucket is populated, this property is overridden to true.

@@ -486,11 +486,12 @@
 		}
 
 		function showMenu() {
+		var inputEvent = isIE ? "change" : "input";
 		var menuDiv = d3.select(".chart")
 					.append("div")
 					.attr("id", "menu")
 					.classed(menuClass, true)
-					.attr("style","font-size:10px;position:absolute;top:0px;left:10px;width:320px;height:140px;padding-left:10px;padding-right:10px;");
+					.attr("style","font-size:10px;position:absolute;top:0px;left:10px;width:260px;height:10px;padding-left:10px;padding-right:10px;");
 		var label = menuDiv.append("label")
 					.text("Link Strength");
 			label.append("input")
@@ -501,8 +502,7 @@
 					.attr("max", 1)
 					.attr("step", 0.01)
 					.attr("value", linkStrength)
-					.on("input", setStrength)
-					.on("change", setStrength);
+					.on(inputEvent, setStrength);
 			label.append("text").attr("id","txt1").attr("class", "range").attr("style", "top:-1px;left:28px;width:40px;").text(linkStrength);
 			menuDiv.append("br");
 		var label = menuDiv.append("label")
@@ -515,8 +515,7 @@
 					.attr("max", 150)
 					.attr("step", 10)
 					.attr("value", linkDistance)
-					.on("input", setLength)
-					.on("change", setLength);
+					.on(inputEvent, setLength);
 			label.append("text").attr("id","txt2").attr("class", "range").attr("style", "top:-1px;left:25px;width:40px;").text(linkDistance);
 			menuDiv.append("br");
 		var label = menuDiv.append("label")
@@ -529,8 +528,7 @@
 					.attr("max", 1200)
 					.attr("step", 50)
 					.attr("value", 0 - linkCharge)
-					.on("input", setCharge)
-					.on("change", setCharge);
+					.on(inputEvent, setCharge);
 			label.append("text").attr("id","txt3").attr("class", "range").attr("style", "top:-1px;left:28px;width:40px;").text(linkCharge);
 			menuDiv.append("br");
 		var label = menuDiv.append("label")
@@ -543,8 +541,7 @@
 					.attr("max", 5000)
 					.attr("step", 50)
 					.attr("value", chargeDistance)
-					.on("input", setChgDist)
-					.on("change", setChgDist);
+					.on(inputEvent, setChgDist);
 			label.append("text").attr("id","txt4").attr("class", "range").attr("style", "top:-1px;left:12px;width:40px;").text(chargeDistance);
 			menuDiv.append("br");
 		var label = menuDiv.append("label")
@@ -557,8 +554,7 @@
 					.attr("max", 1)
 					.attr("step", 0.01)
 					.attr("value", linkGravity)
-					.on("input", setGravity)
-					.on("change", setGravity);
+					.on(inputEvent, setGravity);
 			label.append("text").attr("id","txt5").attr("class", "range").attr("style", "top:-1px;left:57px;width:40px;").text(linkGravity);
 			menuDiv.append("br");
 		var label = menuDiv.append("label")
@@ -571,8 +567,7 @@
 					.attr("max", 1)
 					.attr("step", 0.01)
 					.attr("value", linkFriction)
-					.on("input", setFriction)
-					.on("change", setFriction);
+					.on(inputEvent, setFriction);
 			label.append("text").attr("id","txt6").attr("class", "range").attr("style", "top:-1px;left:56px;width:40px;").text(linkFriction);
 			menuDiv.append("br");
 			menuDiv.append("div")
