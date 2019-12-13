@@ -18,13 +18,30 @@ function drawChart(data,Container,width,height,arrBuckets,props,chart) {
 // so we need to test and adjust accordingly
   if (Array.isArray(arrBuckets)) {
       var csvfile = arrBuckets[0].fields[0].title;
-      for (x=0;x<arrBuckets[1].fields.length;x++) {csvfile += ", " + arrBuckets[1].fields[x].title};
-      csvfile += "\n";
+	  // for this extension, customBars cannot be true without errorBars also being true.
+	  props.errorBars = props.customBars ? props.customBars : props.errorBars;
+	  // when errorBars is set to true, the labels passed into the csvfile need to be
+	  // manipulated to allow for unlabelled error ranges to be arrayed.
+	  // otherwise errors are returned.
+      for (x = 0; x < arrBuckets[1].fields.length; x++) {
+		  csvfile += ", " + arrBuckets[1].fields[x].title;
+		  if (props.errorBars && props.customBars) {
+			  x = x + 2
+		  } else {
+			  if (props.errorBars) {
+				  x = x + 1;
+			  } else {
+				  if (props.customBars) {
+				      x = arrBuckets[1].fields.length + 1;
+				  }
+			  }
+		  };
+      }
   } else {
-      var csvfile = arrBuckets.timeline.title + "," + arrBuckets.value.title + '\n';
+      var csvfile = arrBuckets.timeline.title + "," + arrBuckets.value.title;
   }
   
-  var dataValues = d3.map(data, function(d,i) {csvfile += d.timeline+ "," + d.value + '\n';
+  var dataValues = d3.map(data, function(d,i) {csvfile += '\n' + d.timeline + "," + d.value;
                                                return d.timeline + "," + d.value;});
 
   var chartDiv = document.getElementById(Container[0][0].id);
