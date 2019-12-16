@@ -69,6 +69,21 @@
 		//Begin CHART-3304
 			props.chart = chart;  //Propagate chart object to tdg_sunburst module for use with new tooltip logic
         //End CHART-3304		
+		
+		//Begin VIZ-131
+		
+			props.chart.dataBuckets = {};
+			props.chart.dataBuckets.buckets = [];
+			props.chart.dataBuckets.buckets[0] = {id: "levels", fields:[]};
+			props.chart.dataBuckets.buckets[0].fields[0] = { title: "COUNTRY", fieldName: "COUNTRY" };
+			props.chart.dataBuckets.buckets[0].fields[1] = { title: "CAR", fieldName: "CAR" };
+			props.chart.dataBuckets.buckets[0].fields[2] = { title: "BODYTYPE", fieldName: "BODYTYPE" };
+			props.chart.dataBuckets.buckets[0].fields[3] = { title: "MODEL", fieldName: "MODEL" };
+			
+			props.chart.dataBuckets.buckets[1] = {id: "value", fields:[]};
+			props.chart.dataBuckets.buckets[1].fields[0] = { title: "SALES", fieldName: "SALES", numberFormat: "#" };
+			
+		//End VIZ-131
 
 		var tdg_sunburst_chart = tdg_sunburst(props);
 
