@@ -1,11 +1,12 @@
 {
 	"info": {
-		"version": "1.0.4",
+		"version": "1.0.5",
 		//1.0 Original Release
 		//1.0.1 CHART-2425 chart gives error message for single Dimension value
 		//1.0.2 VIZ-70 Re-enable custom coloring with 'properties.customColors'
 		//1.0.3 CHART-3304 VIZ-43 VIZ-27 Tooltips with drill downs
-        //1.0.4 VIZ-131		
+        //1.0.4 VIZ-131	
+        //1.0.5 VIZ-131 fix #2		
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
