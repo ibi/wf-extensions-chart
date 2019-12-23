@@ -679,7 +679,11 @@ var tdg_sunburst = (function () {
 						contentCopy.push({type: "nameValue", name: "ratio", value: null});		
 					} //else
 						
-					if (d3.select("#sunburstTooltipId").node() == null) {    //re-sizing of window calls renderCallback; so only create tooltip once
+					// Code fix VIZ-131: if (d3.select("#sunburstTooltipId").node() == null) {    //re-sizing of window calls renderCallback; so only create tooltip once
+					
+						//Start VIZ-131		
+						d3.select("#divSunburstTooltipId").remove();  //Removes Tooltip div if it already exists
+						//End VIZ-131
 					
 						d3.select(".chart")   //Add a div to chart's container
 							.append("div")
@@ -708,7 +712,7 @@ var tdg_sunburst = (function () {
 								.properties(tooltip_properties)
 								.autoHide(true);					
 
-					} // if ((d3.select("#sunburstTooltipId").node() == null) 		
+					// Code Fix VIZ-131: } // if ((d3.select("#sunburstTooltipId").node() == null) 		
 					
 					break;					
 		} //switch
@@ -798,7 +802,8 @@ var tdg_sunburst = (function () {
 									//if (tooltip.dom.style.visibility ==  "hidden") {	
 										tooltip
 											.content(filteredToolTipContent, props.data[offset], props.data, ids)	
-											.position(event.clientX, event.clientY)
+											// Code prior to VIZ-131: .position(event.clientX, event.clientY)
+											.position(d3.event.clientX, d3.event.clientY)
 											.autoHide(false);
 											
 										tooltip.show();	
