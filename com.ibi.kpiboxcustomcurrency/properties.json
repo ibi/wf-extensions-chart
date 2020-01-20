@@ -1,0 +1,138 @@
+{
+	"info": {
+		"version": "2.3.2",
+		"implements_api_version": "1.0, 2.0",
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.kpiboxcustomcurrency",
+		"license": "BSD 3-clause",
+		"icons": {
+			"medium": "icons/kpibox_icon_medium.png"
+		}
+	},
+
+	"properties": {
+	
+		"kpiboxProperties": {   
+			"ibiAppsPath": "/ibi_apps/",	
+			"calculateComparationFunction": {
+				"param1": "valueKpi", 
+				"param2": "compareValue", 
+				"body": "if(valueKpi == 0 && compareValue == 0) { return 0; } var result = (valueKpi - compareValue) / Math.abs(compareValue);  return result;"
+			},	
+			"formatComparation": "#,###.00%",
+			"customCompareIcon": {
+				"active": false,	
+				"iconUp": "",
+				"iconDown": "",
+			},
+			"shortenNumber": true,
+			"typeShortenNumber": null,
+			"setInfiniteToZero": false,
+			"titleRow": false,
+			"calculateFontSize": false, 
+			"fixedFontSizeProp": "18px",
+			"fixedPixelLinesMargin": 20,
+			"imagePercentageWidth": 40,
+			"noImageTextCenter": false,
+			"currencyPosition": "right",
+			"titleFont": {
+				"size": "18px",
+				"color": "black",
+				"family": "Arial, sans-serif"
+			},
+			"measureFont": {
+				"size": "18px",
+				"color": "black",
+				"family": "Arial, sans-serif"
+			},
+			"variationFont": {
+				"size": "18px",
+				"family": "Arial, sans-serif"
+			},
+			"bodyBackgroundColor": "transparent"
+		},
+		"colorScale": {
+			"colorMode":"discrete",
+			"colorBands": [
+				{"start": -1000000000000, "stop": 0, "color":"red"},
+				{"start": 0, "stop": 1000000000000, "color":"green"}
+			]
+		}
+		
+	},
+	 
+	"propertyAnnotations": {
+	
+		"kpiboxProperties": "json",		
+		"colorScale": "json"
+		
+	},
+	
+	"dataBuckets":  {
+		"tooltip": true,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+		"buckets": [
+			{
+				"id": "value",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "comparevalue",
+				"type": "measure",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "image",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "kpisign",
+				"type": "measure",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "currency",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			}
+		]
+	},
+	
+	"translations": {
+		"en": {
+			"name": "KPI Box currency",
+			"description": "Fancy KPI Box currency",
+			"icon_tooltip": "KPI Box currency", 
+			"value_name": "Value Bucket (1, required)", 
+			"value_tooltip": "Drop a measusre here",
+			"comparevalue_name": "Compare Value Bucket (1, non required)", 
+			"comparevalue_tooltip": "Drop a measusre here",
+			"kpisign_name": "Sign Comparision Bucket (1, non required)", 
+			"kpisign_tooltip": "Drop a measusre here",
+			"currency_name": "currency sign (1, non required)", 
+			"currency_tooltip": "Drop a dimension here",
+			"image_name": "Image Bucket (1, non required)", 
+			"image_tooltip": "Drop a field with path to image"
+		}
+	}
+}

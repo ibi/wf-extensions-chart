@@ -997,6 +997,7 @@ return function(user_props) {
 			.style({
 				opacity: 0,
 				fill: function(d) {
+					debugger
 					if (d.color != null) {
 						return d.color;
 					} else {

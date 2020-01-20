@@ -264,9 +264,9 @@
 				
 				var percentageFormattedValue;
 				if(setInfiniteToZero){
-					percentageFormattedValue = ((percentageCalcValue == 'Infinity')||(isNaN(percentageCalcValue))) ? 0 : ib3SLI.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
+					percentageFormattedValue = ((percentageCalcValue == 'Infinity') || (percentageCalcValue == '-Infinity') || (isNaN(percentageCalcValue))) ? 0 : ib3SLI.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
 				} else {
-					percentageFormattedValue = (percentageCalcValue == 'Infinity') ? String.fromCharCode(8734) : ib3SLI.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
+					percentageFormattedValue = (percentageCalcValue == 'Infinity') ? String.fromCharCode(8734) : ((percentageCalcValue == '-Infinity')) ? '-' + String.fromCharCode(8734) : ib3SLI.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
 				}
 				
 				if(calculateFontSize) {

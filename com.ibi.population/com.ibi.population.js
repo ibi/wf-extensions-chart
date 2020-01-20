@@ -42,7 +42,68 @@
 		//Start CHART-2641
 		//Documentation for d3.nest: https://github.com/d3/d3-collection/blob/v1.0.7/README.md#nest
 		//Use it to sort by 'type' and determine how many unique types are in the inboud data array
-		var numUniqueTypes = d3.nest().key(function(d) {return d.type}).entries(renderConfig.data).length;
+		
+		var _arrType = new Array(),
+			_arrX = new Array(),
+			_arrTypeExist = false,
+			_arrXExist = false;
+		for (var i = 0; i < renderConfig.data.length; i++){
+			_arrTypeExist = false;
+			_arrXExist = false;
+			
+			for (var a = 0; a < _arrX.length; a++){
+				if (_arrX[a] == renderConfig.data[i].x){
+					_arrXExist = true;
+					break;
+				}
+			}
+			if (!_arrXExist) _arrX.push( renderConfig.data[i].x );
+			
+			for (var b = 0; b < _arrType.length; b++){
+				if (_arrType[b] == renderConfig.data[i].type){
+					_arrTypeExist = true;
+					break;
+				}
+			}
+			if (!_arrTypeExist) _arrType.push( renderConfig.data[i].type );
+		}
+		
+		var _numFirstData = 0;
+		for (var i = 0; i < renderConfig.data.length; i++){
+			if (renderConfig.data[i].x == _arrX[0]){
+				_numFirstData
+			}
+		}
+		
+		if (_arrType[0].toUpperCase() > _arrType[1].toUpperCase()) _arrType = _arrType.reverse();
+		
+		var _newData = new Array(),
+			_dataExist = false,
+			_existingData,
+			_g = 0;
+		for (var a = 0; a < _arrX.length; a++){
+			for (var b = 0; b < _arrType.length; b++){
+				_dataExist = false;
+				for (var i = 0; i < renderConfig.data.length; i++){
+					if ((renderConfig.data[i].x ==_arrX[a]) && (renderConfig.data[i].type == _arrType[b])){
+						_existingData = renderConfig.data[i];
+						_dataExist = true;
+						break;
+					}
+				}
+				_g++;
+				if (_dataExist){
+					_newData.push( _existingData );
+				}else{
+					_newData.push( {x: _arrX[a], type: _arrType[b], y: 0, _s: 0, _g: 0} );
+				}
+				_newData[_newData.length-1]._g = _g;
+			}
+		}
+		
+		
+		//var numUniqueTypes = d3.nest().key(function(d) {return d.type}).entries(renderConfig.data).length;
+		var numUniqueTypes = d3.nest().key(function(d) {return d.type}).entries(_newData).length;
 		if (numUniqueTypes > 2){
 			alert("'Type' bucket has " +  numUniqueTypes + " unique types assigned to it. No more that two types can be visualized with the population chart.")
 			return;
@@ -55,7 +116,8 @@
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
 
-		props.data = (renderConfig.data || []).map(function(datum){
+//		props.data = (renderConfig.data || []).map(function(datum){
+		props.data = (_newData || []).map(function(datum){
 			var datumCpy = jsonCpy(datum);
 			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'bar');
 			return datumCpy;
