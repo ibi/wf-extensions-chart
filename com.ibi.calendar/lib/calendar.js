@@ -128,7 +128,8 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
 	function getMonthNames(language){
 		var month_names = {
 			en: ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],
-			es: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
+			es: ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'],
+			de: ['Jan','Feb','Mrz','Apr','Mai','Jun','Jul','Aug','Sep','Okt','Nov','Dez'] // VIZ-173
 		};
 		return month_names[language];
 	}
@@ -138,7 +139,8 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
 	function getWeekDaysNames(language){
 		var week_days_names = {
 			en: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-			es: [ 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab','Dom']
+			es: [ 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab','Dom'],
+			de: ['Mo','Di','Mi','Do','Fr','Sa','So']
 		};
 		return week_days_names[language];
 	}
@@ -191,7 +193,7 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
     }
 
     function buildSingleChartLayout ( width, height, titleDims, year, dateToDatumMap, language ) {
-		if (language == 'es'){
+		if (language == 'es' || 'de'){
 			day = function(d) { return (d.getDay() + 6) % 7; };
 			week = d3.time.format("%W");
 		}else{
