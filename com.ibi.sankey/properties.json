@@ -194,16 +194,28 @@
 		},
 		
 		"ru": {
-			"name": "Sankey Flow Chart",
-			"description": "Sankey Flow Chart",
-			"icon_tooltip": "Sankey Flow Chart",
-			"source_name": "Source Nodes",
-			"source_tooltip": "Drop a dimension here",
-			"target_name": "Target Nodes",
-			"target_tooltip": "Drop a dimension here",
-			"value_name": "Link Value",
-			"value_tooltip": "Drop a measure here"
-		},
+			"name": "Блок-схема Sankey",
+			"description": "Блок-схема Sankey",
+			"icon_tooltip": "Блок-схема Sankey",
+			"source_name": "Исходные узлы",
+			"source_tooltip": "Оставьте измерение здесь",
+			"target_name": "Целевые узлы",
+			"target_tooltip": "Оставьте измерение здесь",
+			"value_name": "Значение ссылки",
+			"value_tooltip": "Оставьте меру здесь"
+		},	
+
+		"hu": {
+			"name": "Sankey folyamatábra",
+			"description": "Sankey folyamatábra",
+			"icon_tooltip": "Sankey folyamatábra",
+			"source_name": "Forrás csomópontok",
+			"source_tooltip": "Dobd el a dimenzió itt",
+			"target_name": "Cél csomópontok",
+			"target_tooltip": "Dobd el a dimenzió itt",
+			"value_name": "Link értéke",
+			"value_tooltip": "Hagyj egy intézkedést itt"
+		},	
 		
 		"ko": {
 			"name": "Sankey 흐름도",
