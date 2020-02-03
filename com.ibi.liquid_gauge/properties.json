@@ -151,13 +151,19 @@
 		},
 		
 		"ru": {
-			"name": "Liquid Gauge Chart",
-			"description": "Fancy animated gauge chart with a liquid interior",
-			"icon_tooltip": "Liquid Gauge Chart", 
-			"value_name": "Value Bucket", 
-			"value_tooltip": "Drop a measure here"
+			"name": "Жидкость Диаграмма Калибровочной",
+			"description": "Необычные анимированная калибровочная диаграмма с жидким внутренним",
+			"icon_tooltip": "Жидкость Диаграмма Калибровочной", 
+			"value_name": "Значение ковша", 
+			"value_tooltip": "Оставьте меру здесь"
 		},
-
+		"hu": {
+			"name": "Folyékony Gauge diagram",
+			"description": "Fancy animált gauge diagram egy folyékony belső",
+			"icon_tooltip": "Folyékony Gauge diagram", 
+			"value_name": "Érték vödör", 
+			"value_tooltip": "Hagyj egy intézkedést itt"
+		},
 		"ko": {
 			"name": "액체 게이지 차트",
 			"description": "내부에 액체가 있는 멋진 동영향 게이지 도표",
