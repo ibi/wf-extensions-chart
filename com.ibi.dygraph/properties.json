@@ -44,7 +44,7 @@
           "independentTicks": true
         }
       },
-      "colors": {
+      "colours": {
         "color0": "rgb(102,128,0)",
         "color1": "rgb(102,0,128)",
         "color2": "rgb(0,51,128)",
@@ -143,33 +143,33 @@
 //                    "typeAnnotation": "array",
 //                    "arrayTypes": "color"
 //                },
-      "colors": {
-        "color0": "color",
-        "color1": "color",
-        "color2": "color",
-        "color3": "color",
-        "color4": "color",
-        "color5": "color",
-        "color6": "color",
-        "color7": "color",
-        "color8": "color",
-        "color9": "color"
+      "colours": {
+			"color0": "color",
+			"color1": "color",
+			"color2": "color",
+			"color3": "color",
+			"color4": "color",
+			"color5": "color",
+			"color6": "color",
+			"color7": "color",
+			"color8": "color",
+			"color9": "color"
       },
       "titleHeight": "number",
       "labelsKMB": "bool",
       "labelsSeparateLines": "bool",
       "legend": {
-                "typeAnnotation": "str",
-                "stringValues": ["onmouseover", "never", "always", "follow"]
+            "typeAnnotation": "str",
+            "stringValues": ["onmouseover", "never", "always", "follow"]
       },
       "title": "str",
       "errorBars": "bool",
       "showRoller": "bool",
       "rollPeriod": "number",
       "panEdgeFraction": {
-				"typeAnnotation": "number",
-				"numericRange": [0.00, 0.5],
-				"numericStep": 0.05
+			"typeAnnotation": "number",
+			"numericRange": [0.00, 0.5],
+			"numericStep": 0.05
       },
       "includeZero": "bool",
       "maxNumberWidth": "number",
@@ -183,33 +183,33 @@
       "drawAxesAtZero": "bool",
       "showRangeSelector": "bool",
       "rangeSelectorAlpha": {
-				"typeAnnotation": "number",
-				"numericRange": [0.1, 1],
-				"numericStep": 0.1
+			"typeAnnotation": "number",
+			"numericRange": [0.1, 1],
+			"numericStep": 0.1
       },
       "rangeSelectorHeight": {
-				"typeAnnotation": "number",
-				"numericRange": [15, 70],
-				"numericStep": 5
+			"typeAnnotation": "number",
+			"numericRange": [15, 70],
+			"numericStep": 5
       },
       "rangeSelectorPlotFillColor": "color",
       "rangeSelectorPlotFillGradientColor": "color",
       "rangeSelectorPlotLineWidth": {
-				"typeAnnotation": "number",
-				"numericRange": [0.05, 3],
-				"numericStep": 0.05
+			"typeAnnotation": "number",
+			"numericRange": [0.05, 3],
+			"numericStep": 0.05
       },
       "rangeSelectorPlotStrokeColor": "color",
       "rangeSelectorForegroundLineWidth": {
-				"typeAnnotation": "number",
-				"numericRange": [0.05, 3],
-				"numericStep": 0.05
+			"typeAnnotation": "number",
+			"numericRange": [0.05, 3],
+			"numericStep": 0.05
       },
       "rangeSelectorForegroundStrokeColor": "color",
       "rangeSelectorBackgroundLineWidth": {
-				"typeAnnotation": "number",
-				"numericRange": [0.05, 3],
-				"numericStep": 0.05
+			"typeAnnotation": "number",
+			"numericRange": [0.05, 3],
+			"numericStep": 0.05
       },
       "rangeSelectorBackgroundStrokeColor": "color"
     },
@@ -237,6 +237,14 @@
                     "min": 1,
                     "max": 1
                 }
+            },
+            {
+                "id": "color",
+                "type": "dimension",
+                "count": {
+                    "min": 0,
+                    "max": 1
+                }
             }
         ]
     },
@@ -249,7 +257,9 @@
             "value_name": "Value Bucket", 
             "value_tooltip": "Drop a measure here", 
             "timeline_name": "Time Line Bucket", 
-            "timeline_tooltip": "Drop a measure here", 
+            "timeline_tooltip": "Drop a dimension here", 
+            "color_name": "Color Bucket", 
+            "color_tooltip": "Drop a dimension here", 
             "properties": {
               "axes": {
                 "x": {

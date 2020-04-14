@@ -83,7 +83,7 @@
 
         appendCoverScreen(container, width, height);
 
-		renderConfig.renderComplete();
+//		renderConfig.renderComplete();
 	}
 
     function appendCoverScreen(container, width, height) {
@@ -95,6 +95,7 @@
                 'width': width + 'px',
                 'height': height + 'px',
                 'background-color': 'rgba(80,80,80,0.4)',
+				'overflow': 'hidden'
             });
 
         container.append('span')
@@ -154,7 +155,39 @@
 		var data = renderConfig.data;
 		var props = renderConfig.properties;
         
-        var arrBuckets = renderConfig.dataBuckets.buckets;
+        if (Array.isArray(renderConfig.dataBuckets.buckets)) {
+            var arrBuckets = renderConfig.dataBuckets.buckets;
+        } else {
+            var arrBuckets = [];
+            if (renderConfig.dataBuckets.buckets.timeline) {
+                var arrTimeline = []
+                arrTimeline.push({
+                    title: renderConfig.dataBuckets.buckets.timeline.title
+                })
+                arrBuckets.push({
+                    id: "timeline",
+                    fields: arrTimeline
+                })
+            }
+            if (renderConfig.dataBuckets.buckets.color) {
+                arrBuckets.push({
+                    id: "color",
+                    fields: renderConfig.dataBuckets.buckets.color
+                })
+            }
+            if (renderConfig.dataBuckets.buckets.value) {
+                var arrValues = []
+                for (x = 0; x < renderConfig.dataBuckets.buckets.value.title.length; x++) {
+                    arrValues.push({
+                        title: renderConfig.dataBuckets.buckets.value.title[x]
+                    })
+                }
+                arrBuckets.push({
+                    id: "value",
+                    fields: arrValues
+                })
+            }
+        }
   
         var width = renderConfig.width;
         var height = renderConfig.height;

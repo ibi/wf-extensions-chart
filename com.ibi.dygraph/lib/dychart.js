@@ -20,29 +20,63 @@ function drawChart(data,Container,width,height,arrBuckets,props,chart) {
       var csvfile = arrBuckets[0].fields[0].title;
 	  // for this extension, customBars cannot be true without errorBars also being true.
 	  props.errorBars = props.customBars ? props.customBars : props.errorBars;
+// If the new color bucket is set then the data needs to be rearranged into one row per color bucket value
+// This section writes all the color bucket values into the csv file header 
+	  if (arrBuckets[1].id === "color") {
+		  console.log("Color bucket exists so rearrange the data");
+		  var colorArray = d3.map(data, function(d,i) {return d.color}).keys();
+		  if (arrBuckets[2].fields.length > 1) {
+			for (x = 0; x < colorArray.length; x++) {
+			  for (y=0 ; y < arrBuckets[2].fields.length; y++) {
+				csvfile += ", " + colorArray[x] + " (" + arrBuckets[2].fields[y].title + ")";
+			  }
+			}
+		  } else {
+			csvfile += ", " + colorArray;
+		  }
+	  } else {
 	  // when errorBars is set to true, the labels passed into the csvfile need to be
 	  // manipulated to allow for unlabelled error ranges to be arrayed.
 	  // otherwise errors are returned.
-      for (x = 0; x < arrBuckets[1].fields.length; x++) {
-		  csvfile += ", " + arrBuckets[1].fields[x].title;
-		  if (props.errorBars && props.customBars) {
-			  x = x + 2
-		  } else {
-			  if (props.errorBars) {
-				  x = x + 1;
-			  } else {
-				  if (props.customBars) {
-				      x = arrBuckets[1].fields.length + 1;
-				  }
-			  }
-		  };
-      }
+		  for (x = 0; x < arrBuckets[1].fields.length; x++) {
+			csvfile += ", " + arrBuckets[1].fields[x].title;
+			if (props.errorBars && props.customBars) {
+				x = x + 2
+			} else {
+				if (props.errorBars) {
+					x = x + 1;
+				} else {
+					if (props.customBars) {
+						x = arrBuckets[1].fields.length + 1;
+					}
+				}
+			};
+		}
+    }
   } else {
       var csvfile = arrBuckets.timeline.title + "," + arrBuckets.value.title;
   }
-  
-  var dataValues = d3.map(data, function(d,i) {csvfile += '\n' + d.timeline + "," + d.value;
-                                               return d.timeline + "," + d.value;});
+
+// If the new color bucket is set then the data needs to be rearranged into one row per color bucket value
+// This section wraps the data into the correct orientation when this is true 
+  if (arrBuckets[1].id === "color") {
+	  var dataValues = d3.map(data, function(d,i) {
+		  // For each unique value, write the data onto the next line of csv file
+		  // If d.value is an Array the concatenation will work using the same method
+		  if ((i / colorArray.length) == parseInt(i / colorArray.length)) {
+			  csvfile += "\n" + d.timeline + "," + d.value;
+		  } else {
+			  csvfile += "," + d.value;
+		  }
+		  return d.timeline + "," + d.value;
+		});
+  } else {
+	// If the color bucket isn't used then write out csv file as before
+	  var dataValues = d3.map(data, function(d,i) {
+			csvfile += '\n' + d.timeline + "," + d.value;
+            return d.timeline + "," + d.value;
+		});
+  }
 
   var chartDiv = document.getElementById(Container[0][0].id);
   var win = window
@@ -63,7 +97,7 @@ function drawChart(data,Container,width,height,arrBuckets,props,chart) {
   props.ylabel = props.axes.y.axisLabel;
 // To allow selection of colors, the array is split into separate attributes so we need to
 // merge them back into an array.
-  props.colors = [props.colors.color0, props.colors.color1, props.colors.color2, props.colors.color3, props.colors.color4, props.colors.color5, props.colors.color6, props.colors.color7, props.colors.color8, props.colors.color9];
+  props.colors = [props.colours.color0, props.colours.color1, props.colours.color2, props.colours.color3, props.colours.color4, props.colours.color5, props.colours.color6, props.colours.color7, props.colours.color8, props.colours.color9];
 
   var main_margin = {top: 15, right: 15, bottom: 15, left: 15};
 
