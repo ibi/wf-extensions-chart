@@ -15,9 +15,9 @@
 		renderConfig.testData = true;
 
 		var grey = renderConfig.baseColor;
-		renderConfig.data = JSON.parse('[{"value":123456789,"comparevalue":1234567.01,"_s":0,"_g":0}]');
-		renderConfig.moonbeamInstance.dataBuckets = JSON.parse('{"buckets":{"value":{"title":"Testing data","count":1},"comparevalue":{"title":"Testing data Comp","count":1}},"depth":1}');
-		//renderConfig.dataBuckets = renderConfig.moonbeamInstance.dataBuckets;
+		renderConfig.data = JSON.parse('[{"dimension":"Accessories","value":8975389800,"url1":8975389800,"_s":0,"_g":0},{"dimension":"Camcorder","value":10486685700,"url1":10486685700,"_s":0,"_g":1},{"dimension":"Computers","value":6980766400,"url1":6980766400,"_s":0,"_g":2},{"dimension":"Media Player","value":19024048100,"url1":19024048100,"_s":0,"_g":3},{"dimension":"Stereo Systems","value":20511386300,"url1":20511386300,"_s":0,"_g":4},{"dimension":"Televisions","value":6155110900,"url1":6155110900,"_s":0,"_g":5},{"dimension":"Video Production","value":4010565700,"url1":4010565700,"_s":0,"_g":6}]');
+		renderConfig.moonbeamInstance.dataBuckets = JSON.parse('{"internal_api_version":2,"buckets":[{"id":"dimension","fields":[{"title":"Categoría de Producto","fieldName":"WF_RETAIL.WF_RETAIL_PRODUCT.PRODUCT_CATEGORY"}]},{"id":"value","fields":[{"title":"Costo de los bienes","fieldName":"WF_RETAIL.WF_RETAIL_SALES.COGS_US","numberFormat":"$#,###.00"}]}]}');
+		renderConfig.moonbeamInstance.dataBuckets.getBucket = function() {};
 		renderConfig.moonbeamInstance.getSeries(0).color = grey;
 		renderConfig.moonbeamInstance.getSeries(1).color = pv.color(grey).lighter(0.18).color;
 		renderCallback(renderConfig);
@@ -35,18 +35,19 @@
 		//IMPORTANT: Setup the renderConfig to custom $ib3
 		var ib3SLI = $ib3(renderConfig, {
 			tooltip: {
-				hiddenBuckets: ['kpisign', 'image']
+				hiddenBuckets: ['image']
 			}
 		});
 		
-		window.comIbiKpiboxChartExtension.draw(ib3SLI, isDummyData);
+		window.comIbiLinearRealTimeChartExtension.draw(ib3SLI, isDummyData);	
+		ib3SLI.config.finishRender();
 
 	}
 
 	var config = {
-		id: 'com.ibi.kpibox',
+		id: 'com.ibi.linear_real_time',
 		containerType: 'svg',
-		name: 'KPI Box',
+		name: 'Linear real time',
 		initCallback: initCallback,
 		preRenderCallback: preRenderCallback,
 		noDataRenderCallback: noDataRenderCallback,
@@ -63,6 +64,7 @@
 				
 				var customScripts = [
 					'lib/d3.v5.min.js?' + chartVersion,
+					'lib/moment-with-locales.js?' + chartVersion,
 					'services/config-service.min.js?' + chartVersion,
 					'services/utils-service.min.js?' + chartVersion,
 					'chart/chart.js?' + chartVersion
@@ -72,7 +74,7 @@
 			}()),
 			css: [
 				'css/ib3.css?' + chartVersion,
-				'css/kpibox.css?' + chartVersion
+				'css/extension.css?' + chartVersion
 			]
 		},
 		modules: {
@@ -93,7 +95,7 @@
 					//title: of tooltip content
 					//data_array: data names and values
 					//title + ':' + format_number(numberFormat, value) + '\n' + comparetitle + ':' + format_number(numberFormat, comparevalue) + '\nΔ:' + parseFloat(percvalue).toFixed(2) + '% ')
-					
+					debugger
 					var tooltip_html = ''
 					
 					for(var propertyName in dataObject) {
@@ -103,20 +105,6 @@
 					}
 					
 					return tooltip_html;
-				}
-			},
-			colorScale: {
-				supported: true,  // This must be true to enable color scale support
-				minMax: function(renderConfig) {
-					// Return a {min, max} object that defines the axis min and max values for this color scale
-					return {
-						min: d3.min(renderConfig.data, function(d){
-							return d.value;
-						}),
-						max: d3.max(renderConfig.data, function(d){
-							return d.value;
-						})
-					};
 				}
 			},
 			// Not used in this extension; here for documentation purposes.
@@ -134,6 +122,7 @@
 //			}
 		}
 	};
+
 
 	tdgchart.extensionManager.register(config);
 

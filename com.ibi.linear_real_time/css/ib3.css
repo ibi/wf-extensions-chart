@@ -1,0 +1,78 @@
+/* ###################### GENERALS IB3 PROPERTIES ###################### */
+
+*{
+	font-family: 'LatoWebLight', Arial, sans-serif;
+}
+
+html,body{
+	padding:0px;
+	margin:0px;
+	width:100%;
+	height:100%;
+}
+
+.ib3-variation-icon.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 5vw solid transparent;
+  border-right: 5vw solid transparent;
+  border-bottom: 5vw solid;
+}
+
+.ib3-variation-icon.arrow-down {
+  width: 0; 
+  height: 0; 
+  border-left: 5vw solid transparent;
+  border-right: 5vw solid transparent;
+  border-top: 5vw solid;
+}
+
+.ib3-variation-icon.arrow-right {
+  width: 0; 
+  height: 0; 
+  border-top: 5vw solid transparent;
+  border-bottom: 5vw solid transparent;
+  border-left: 5vw solid;
+}
+
+.ib3-variation-icon.arrow-left {
+  width: 0; 
+  height: 0; 
+  border-top: 5vw solid transparent;
+  border-bottom: 5vw solid transparent; 
+  border-right:5vw solid; 
+}
+
+.ib3-tooltip:hover > .ib3-tooltip-text {
+    display: block;
+}
+
+.ib3-tooltip-text {
+    display: none;
+    background: #ffffff;
+    padding: 5px;
+    border: 1px #a8a8a8 solid;
+    font-size: 8px;
+    position: absolute;
+    z-index: 1000;
+}
+
+.ib3-tooltip {
+    margin:0px;
+}
+
+.ib3-tooltip > .ib3-tooltip-text > .ib3-tooltip-text-row {
+	
+	padding: 2px;
+	
+}
+
+.ib3-tooltip > .ib3-tooltip-text > .ib3-tooltip-text-row > .ib3-tooltip-text-row-title {
+	
+	font-weight: bold;
+	
+}
+
+.ib3-tooltip > .ib3-tooltip-text > .ib3-tooltip-text-row > .ib3-tooltip-text-row-value {
+	
+}

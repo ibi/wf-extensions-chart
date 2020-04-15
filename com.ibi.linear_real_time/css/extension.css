@@ -1,0 +1,13 @@
+/* ###################### SPECIFIC PROPERTIES ###################### */
+.tooltip{
+	border: 1px solid black;
+	padding: 5px;
+}
+.legend{
+	fill: black;
+}
+.titles{
+	fill: black;
+}
+.dtuataLabel{
+}

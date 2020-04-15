@@ -1,0 +1,195 @@
+{
+	"info": {
+		"version":  "1.0.0",
+		"implements_api_version": "1.0/2.0",
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.linear_real_time",
+		"license": "BSD 3-clause",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+
+	"properties": {
+		"ajax":{
+			"folderItem": null
+		},
+		"times":{
+			"timeInterval": "30",
+			"timeRange": "300",
+			"timeEffect": "1"
+		},
+		"bodyBackgroundColor": "transparent",
+		"shorten": {
+			"shortenNumber": true,
+			"typeShortenNumber": "short scale"
+		},
+		"markers": {
+			"showMarkers": false,
+			"radius": "3"
+		},
+		"dataLabels": {
+			"show": false
+		},
+		"yaxisOptions": {
+			"y1axis": {
+				"Max": null,
+				"showTitle": false,
+				"title": null
+			},
+			"y2axis": {
+				"Max": null,
+				"showTitle": false,
+				"title": null
+			}
+		},
+		"xaxisOptions": {
+			"showTitle": false,
+			"title": null
+		}
+	},
+	
+	"propertyAnnotations": {
+		"ajax":{
+			"folderItem": "str"
+		},
+		"times": {
+			"timeInterval": "number",
+			"timeRange": "number",
+			"timeEffect": "number"
+		},
+		"bodyBackgroundColor": "color",
+		"shorten": {
+			"shortenNumber": "bool",
+			"typeShortenNumber": "str"
+		},
+		"markers": {
+			"showMarkers": "bool",
+			"radius": "number"
+		},
+		"dataLabels": {
+			"show": "bool"
+		},
+		"yaxisOptions": {
+			"y1axis": {
+				"Max": "number",
+				"showTitle": "bool",
+				"title": "str"
+			},
+			"y2axis": {
+				"Max": "number",
+				"showTitle": "bool",
+				"title": "str"
+			}
+		},
+		"xaxisOptions": {
+			"showTitle": "bool",
+			"title": "str"
+		}
+	},
+	
+	"dataBuckets":  {
+		"tooltip": true,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+		"buckets": [
+			{
+				"id": "y1axis",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 10
+				}
+			},
+			{
+				"id": "y2axis",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 10
+				}
+			},
+			{
+				"id": "xaxis",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "color",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			}
+		]
+	},
+	
+	"translations": {
+		"en": {
+			"name": "Linear real time",
+			"description": "Linear real time Description",
+			"icon_tooltip": "New Extension Tooltip", 
+			"y1axis_name": "Y axis left (1, 10)", 
+			"y1axis_tooltip": "Drop a measusre here",
+			"y2axis_name": "Y axis right (1, 10)", 
+			"y2axis_tooltip": "Drop a measusre here",
+			"xaxis_name": "Time Line (1, non required)", 
+			"xaxis_tooltip": "Drop a Date",
+			"color_name": "Color (1, non required)", 
+			"color_tooltip": "Drop a dimension here",
+			"properties": {
+				"ajax":{
+					"_translation": "Asynchronous Query",
+					"folderItem": "Folder & Query Item"
+				},
+				"times": {
+					"_translation": "Real Time Options",
+					"timeInterval": "Interval of call (Segs)",
+					"timeRange": "Range of time showed (Segs)",
+					"timeEffect": "Time of transition effect (segs)"
+				},
+				"bodyBackgroundColor": "background color",
+				"shorten": {
+					"_translation": "Shorten Options",
+					"shortenNumber": "Shorten",
+					"typeShortenNumber": "Type Shorten (long scale / short scale)"
+				},
+				"markers": {
+					"_translation": "Marker Options",
+					"showMarkers": "Show markers",
+					"radius": "Radius"
+				},
+				"dataLabels": {
+					"_translation": "Data Label Options",
+					"show": "Show"
+				},
+				"yaxisOptions": {
+					"_translation": "y axis Options",
+					"y1axis": {
+						"_translation": "Left axis",
+						"Max": "Maximun data",
+						"showTitle": "Show Title",
+						"title": "Title"
+					},
+					"y2axis": {
+						"_translation": "Right axis",
+						"Max": "Maximun data",
+						"showTitle": "Show Title",
+						"title": "Title"
+					}
+				},
+				"xaxisOptions": {
+					"_translation": "Date axis",
+					"showTitle": "Show Title",
+					"title": "Title"
+				}
+			}
+		}
+	}
+}

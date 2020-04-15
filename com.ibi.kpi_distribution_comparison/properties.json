@@ -1,0 +1,228 @@
+{
+	"info": {
+		"version":  "1.0.0",
+		"implements_api_version": "1.0/2.0",
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.kpi_distribution_comparison",
+		"license": "BSD 3-clause",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+
+	"properties": {
+		"ibiAppsPath": "/ibi_apps/",
+		"valueispercentage": false,
+		"titlesColor": "#415D6B",
+		"bodyBackgroundColor": "transparent",
+		"options": {
+			"showPercentagesOfTheTotal": false,
+			"showValue": true,
+			"shortenValue": false,
+			"typeShortenNumber": null,
+			"forceSortRows": false,
+			"showBarIcons": true
+		},
+		"sizes": {
+			"titlesFont": "15",
+			"marginTop": "10",
+			"rowHeight": "50",
+			"barHeight": "10",
+			"barIconWidth": "40"
+		},
+		"value_colors": {
+			"minColor": "#912BA7",
+			"maxColor": "#036DB2"
+		},
+		"comparison_colors": {
+			"minColor": "yellow",
+			"maxColor": "Blue"
+		},
+		"ticks": {
+			"minvalue": {
+				"value": null,
+				"color": "green",
+				"weight": "4"
+			},
+			"maxvalue": {
+				"value": null,
+				"color": "red",
+				"weight": "4"
+			}
+		}
+	},
+	
+	"propertyAnnotations": {
+		"ibiAppsPath": "str",
+		"valueispercentage": "bool",
+		"titlesColor": "color",
+		"bodyBackgroundColor": "color",
+		"options": {
+			"showPercentagesOfTheTotal": "bool",
+			"showValue": "bool",
+			"shortenValue": "bool",
+			"typeShortenNumber": "str",
+			"forceSortRows": "bool",
+			"showBarIcons": "bool"
+		},
+		"sizes": {
+			"titlesFont": "number",
+			"marginTop": "number",
+			"rowHeight": "number",
+			"barHeight": "number",
+			"barIconWidth": "number"
+		},
+		"value_colors": {
+			"minColor": "color",
+			"maxColor": "color"
+		},
+		"comparison_colors": {
+			"minColor": "color",
+			"maxColor": "color"
+		},
+		"ticks": {
+			"minvalue": {
+				"value": "number",
+				"color": "color",
+				"weight": "number"
+			},
+			"maxvalue": {
+				"value": "number",
+				"color": "color",
+				"weight": "number"
+			}
+		}
+	},
+	
+	"dataBuckets":  {
+		"tooltip": true,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+		"buckets": [
+			{
+				"id": "value",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "comparison",
+				"type": "measure",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "minpoint",
+				"type": "measure",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "maxpoint",
+				"type": "measure",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "dimension",
+				"type": "dimension",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "image",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			}
+		]
+	},
+	
+	"translations": {
+		"en": {
+			"name": "KPI Distribution Comparsion Name",
+			"description": "KPI Distribution Comparison Description",
+			"icon_tooltip": "New Extension Tooltip", 
+			"value_name": "Value Bucket (1, required)", 
+			"value_tooltip": "Drop a measusre here",
+			"comparison_name": "Comparison Bucket (1, non required)", 
+			"comparison_tooltip": "Drop a measusre here",
+			"minpoint_name": "Min point Bucket (1, non required)", 
+			"minpoint_tooltip": "Drop a measusre here",
+			"maxpoint_name": "Max point Bucket (1, non required)", 
+			"maxpoint_tooltip": "Drop a measusre here",
+			"dimension_name": "Dimension Bucket (1, required)", 
+			"dimension_tooltip": "Drop a dimension here",
+			"image_name": "Image Bucket (1, non required)", 
+			"image_tooltip": "Drop a field with path to image",
+			"properties": {
+				"ibiAppsPath": {
+					"_translation": "IBI apps path",
+					"_tooltip": "Select IBI apps path if is not default apps"
+				},
+				"valueispercentage": {
+					"_translation": "percentaje",
+					"_tooltip": "is percentaje?"
+				},
+				"titlesColor": "Title font color",
+				"bodyBackgroundColor": "background color",
+				"options": {
+					"_translation": "Special options",
+					"showPercentagesOfTheTotal": "show total percentaje",
+					"showValue": "show value",
+					"shortenValue": "sorten",
+					"typeShortenNumber": "type shorten",
+					"forceSortRows": "force sort rows",
+					"showBarIcons": "show bar icons"
+				},
+				"sizes": {
+					"_translation": "Sizes",
+					"titlesFont": "font titles",
+					"marginTop": "margin top",
+					"rowHeight": "row height",
+					"barHeight": "bar height",
+					"barIconWidth": "bar icon weight"
+				},
+				"value_colors": {
+					"_translation": "field value colors",
+					"minColor": "Minimum color",
+					"maxColor": "Maximum color"
+				},
+				"comparison_colors": {
+					"_translation": "field comparison colors",
+					"minColor": "Minimum color",
+					"maxColor": "Maximum color"
+				},
+				"ticks": {
+					"_translation": "Ticks",
+					"minvalue": {
+						"_translation": "Minimum tick",
+						"value": "Value",
+						"color": "Color",
+						"weight": "Weight"
+					},
+					"maxvalue": {
+						"_translation": "Maximum tick",
+						"value": "Value",
+						"color": "Color",
+						"weight": "Weight"
+					}
+				}
+			}
+		}
+	}
+}
