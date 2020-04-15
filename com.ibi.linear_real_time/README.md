@@ -10,11 +10,11 @@ This extension exposes the Linear Real Time chart which shows multiple series of
 
 ## Screenshots
 
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.linear_real_time/screenshots/1.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.linear_real_time/screenshots/screenshot1.png)
 
-![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.linear_real_time/screenshots/2.png)
+![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.linear_real_time/screenshots/screenshot2.png)
 
-![screenshot_3](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.linear_real_time/screenshots/3.png)
+![screenshot_3](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.linear_real_time/screenshots/screenshot3.png)
 
 ## Configurations
 

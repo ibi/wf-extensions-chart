@@ -10,7 +10,7 @@ Draw in animated bars the distribution of measures by one dimensions
 
 ## Screenshots
 
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpi_distribution_comparison/screenshots/1.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpi_distribution_comparison/screenshots/screenshot1.png)
 
 ## Configurations
 
