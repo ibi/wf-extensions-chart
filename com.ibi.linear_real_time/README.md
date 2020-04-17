@@ -73,10 +73,9 @@ To configure or customize your extension edit "properties" object in properties.
 
 
 ## Example
-The linear real time chart loads a new data from ajax call to add the last data in the chart each interval<br>
-The ajax is called under an interval to visualize the real time (the interval is one of the parameters that recieve the chart)<br>
-The linear real time chart needs a real time data, so data that is loaded under interval with ProcessFlow to provide to the chart ajax calls new dates<br>
-In the example folder we have an cm import<br>
+As this extension requires a real time datasource, you can find here a complete example simulating this kind of datsource by using a flow aims to insert data periodically in a FOC file which is used as data source by the extension.<br>
+As previously mentioned, the linear real time chart loads new data from an ajax request in each time interval. This ajax request must target a procedure having a very similar structure in terms of data extraction as the one used in the extension procedure. This examples also provides this procedure in order to show a complete case of use.
+
 
 ### Data load process:
 To have a real time data we have a Process Flow that insert rows in master/foc each minute to provide a real time data
@@ -110,7 +109,7 @@ Visualization have the components configurated like:
 
 ## notes for use
 
-### Construction
+### Construction **(WARNING)**
 * **The visualization need the parameter properties.ajax.folderItem pointing to the ajax fex with the same structure of data as the own visualization**
 * **The visualization will not working if isn't under Page Designer because it haven't the token to access to ajax calls correctly**
 * **time properties are parameters in properties.ajax.times**<br>

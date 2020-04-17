@@ -14,7 +14,7 @@ This extension is an enhanced type of horizontal bar chart. Its main features ar
 
 ## Screenshots
 
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpi_distribution_comparison/screenshots/kpi_distribution_comparison.jpg)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpi_distribution_comparison/screenshots/kpi_distribution_comparison.png)
 
 ## Configurations
 
