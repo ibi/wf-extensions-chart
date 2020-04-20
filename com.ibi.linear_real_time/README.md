@@ -107,15 +107,15 @@ The visualization and page have components configured in the following manner:
 * **The Designer page page_real_time shows the Linear real time visualization real_time_chart.fex, providing us the token to allow AJAX calls**<br>
 	The token is needed because the AJAX call doesn't work without it. It needs the token to validate the correct login.
 
-## notes for use
+## Notes for use
 
 ### Construction **(WARNING)**
 * **The visualization needs the parameter properties.ajax.folderItem pointing to the AJAX fex with the same structure of data as the actual visualization.**
 * **The visualization will not work if isn't in a Designer page because otherwise it doesn't have the token to access to AJAX calls correctly.**
 * **time properties are parameters in properties.ajax.times**<br>
-	**timeInterval**: Set the time interval of AJAX calling in seconds.<br>
-	**timeRange**: Set the range of the time or date axis showed in seconds.<br>
-	**timeEffect**: Set the effect duration time in seconds.
+	* **timeInterval**: Set the time interval of AJAX calling in seconds.<br>
+	* **timeRange**: Set the range of the time or date axis showed in seconds.<br>
+	* **timeEffect**: Set the effect duration time in seconds.
 
 ### Executing
 * **You have to execute the page containing the visualization. The visualization will not work on its own.**
