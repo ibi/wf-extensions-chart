@@ -49,7 +49,9 @@ To apply changes to these properties in a chart, add the "extensions": {"com.ibi
 
 * **Gauge Value (actual)** - Defines the value displayed by the gauge.
 
-* **Min Gauge Value (min)** - Assigns the starting value for the gauge.
+* **Min Gauge Value (min)** - Assigns the starting value for the gauge. Optional with default of 0.
 
-* **Max Gauge Value (max)** - Assigns the the end value for the gauge. 
+* **Max Gauge Value (max)** - Assigns the the end value for the gauge. Optional with default of 100. 
+
+* **Target Gauge Value (tgt)** - Assigns a target line on the gauge. Optional
 
