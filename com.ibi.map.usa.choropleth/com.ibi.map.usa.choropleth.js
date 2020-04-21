@@ -74,7 +74,14 @@
 		props.onRenderComplete = function() {
 			container.selectAll('path[class^=riser]')
 				.each(function(d, g) {
-					renderConfig.modules.tooltip.addDefaultToolTipContent(this, 0, g, d);
+					//Start VIZ-145 - issue with dataset that does not contain exactly 50 states 
+					//format string of riser: riser!s0!g0!mstate!
+					var gStartIndex = d.class.indexOf('!g');
+					var gEndIndex =  d.class.indexOf('!mstate');
+					var gIndex = parseInt(d.class.substring(gStartIndex+2,gEndIndex));
+					renderConfig.modules.tooltip.addDefaultToolTipContent(this, 0, gIndex, d);
+					
+					//End VIZ-145
 				});
 			renderConfig.renderComplete();
 		};		
