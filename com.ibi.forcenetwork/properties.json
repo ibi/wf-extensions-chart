@@ -3,7 +3,7 @@
 
 {
 	"info": {
-		"version": 1.1,
+		"version": 1.2,
 		"implements_api_version": 2.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
@@ -16,6 +16,7 @@
 	"properties": {
 		"chartHeadroom": 50,
 		"settings": false,
+		"colorLinks": false,
 		"colors": {
 			"pinhead": "#c00",
 			"nodeTypes": ["#f2d68a","#c990c0","#f79767","#57c7e3","#f37171","#d9c8ae","#8dcc93","#ecb5c9","#4c8eda","#ff4c54","#da7194","#569480"],
@@ -35,6 +36,7 @@
 	"propertyAnnotations": {
 		"chartHeadroom": "number",
 		"settings": "bool",
+		"colorLinks": "bool",
 		"colors": {
 			"pinhead": "color",
 			"nodeTypes": {"typeAnnotation": "array",
@@ -44,39 +46,39 @@
 			"links": "color"
 		},
 		"lockType": {
-                "typeAnnotation": "str",
-                "stringValues": ["pin", "ring"]
+            "typeAnnotation": "str",
+            "stringValues": ["pin", "ring"]
 		},
 		"tooltips": "bool",
 		"linkDistance": {
-				"typeAnnotation": "number",
-				"numericRange": [50, 150],
-				"numericStep": 5
+			"typeAnnotation": "number",
+			"numericRange": [50, 150],
+			"numericStep": 5
 		},
 		"linkCharge": {
-				"typeAnnotation": "number",
-				"numericRange": [150, 1200],
-				"numericStep": 50
+			"typeAnnotation": "number",
+			"numericRange": [150, 1200],
+			"numericStep": 50
 		},
 		"linkStrength": {
-				"typeAnnotation": "number",
-				"numericRange": [0, 1],
-				"numericStep": 0.01
+			"typeAnnotation": "number",
+			"numericRange": [0, 1],
+			"numericStep": 0.01
 		},
 		"chargeDistance": {
-				"typeAnnotation": "number",
-				"numericRange": [0, 5000],
-				"numericStep": 50
+			"typeAnnotation": "number",
+			"numericRange": [0, 5000],
+			"numericStep": 50
 		},
 		"gravity": {
-				"typeAnnotation": "number",
-				"numericRange": [0, 1],
-				"numericStep": 0.01
+			"typeAnnotation": "number",
+			"numericRange": [0, 1],
+			"numericStep": 0.01
 		},
 		"friction": {
-				"typeAnnotation": "number",
-				"numericRange": [0, 1],
-				"numericStep": 0.01
+			"typeAnnotation": "number",
+			"numericRange": [0, 1],
+			"numericStep": 0.01
 		}
 	},
 	

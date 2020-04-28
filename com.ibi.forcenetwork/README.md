@@ -38,6 +38,7 @@ Some properties, such as "nodeTypes" are arrays of colors. Please note that, in 
 
 	"properties": {
 		"chartHeadroom": 50,
+		"colorLinks": false,
 		"colors": {
 			"pinhead": "#c00",
 			"nodeTypes": ["#f2d68a","#c990c0","#f79767","#57c7e3","#f37171","#d9c8ae","#8dcc93","#ecb5c9","#4c8eda","#ff4c54","#da7194","#569480"],
@@ -60,6 +61,7 @@ To configure a change to the extension defaults, add an "extensions" section to 
 "extensions": {
 	"com.ibi.forcenetwork": {
 		"chartHeadroom": 50,
+		"colorLinks": true,
 		"colors": {
 			"pinhead": "#c00",
 			"nodeTypes": ["#f2d68a","#c990c0","#f79767","#57c7e3","#f37171","#d9c8ae","#8dcc93","#ecb5c9","#4c8eda","#ff4c54","#da7194","#569480"],

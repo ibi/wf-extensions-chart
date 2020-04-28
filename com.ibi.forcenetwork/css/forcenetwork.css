@@ -89,7 +89,8 @@ label {
 }
 
 .link.node {
-  opacity: 0.7;
+  opacity: 0.8;
+  stroke-width: 1.5;
 }
 
 .link.text {

@@ -37,7 +37,7 @@
 	
 		var chart = preRenderConfig.moonbeamInstance;
 		chart.title.visible = true;
-		chart.title.text = "Force-directed Chart"; 		
+		chart.title.text = "ForceNetwork Chart"; 		
 		chart.legend.visible = false;
 		chart.dataArrayMap = undefined;
 		chart.dataSelection.enabled = false;
@@ -117,6 +117,28 @@
 					links.push(link);
 				});
 
+    links.forEach(function (link) {
+        var i = 0;
+        // Don't count multiple times the same source-target combination
+        if (isNaN(link.multiLinkCount)) {
+            var sameLinks = [];
+
+            // Search all links with the source and target
+            links.forEach(function (otherLink) {
+                if ((link.source === otherLink.source && link.target === otherLink.target) ||
+                    (link.target === otherLink.source && link.source === otherLink.target)) {
+                    sameLinks.push(otherLink);
+                }
+            });
+
+            // Set the total amount and its index for every node
+            for (i = 0; i < sameLinks.length; i++) {
+                sameLinks[i].multiLinkCount = sameLinks.length;
+                sameLinks[i].multiLinkIndex = i;
+            }
+        }
+	});
+
 		//Using d3 min/max method to determine minimum/maximum thickness and size for low/high linear range	
 		var minThickness = 	d3.min(links,function(d) { return d.thickness});
 		var maxThickness = 	d3.max(links,function(d) { return d.thickness});
@@ -186,7 +208,23 @@
 		var linkGravity = props.gravity ? props.gravity : 0.1;
 		var linkFriction = props.friction ? props.friction : 0.9;
 		
-		// Now begin building the chart
+		var curveFunction = d3.svg.line()
+			.x(function (d) {
+				return d.x;
+			})
+			.y(function (d) {
+				return d.y;
+			}).interpolate("bundle")
+		, loopFunction = d3.svg.line()
+			.x(function (d) {
+				return d.x;
+			})
+			.y(function (d) {
+				return d.y;
+			}).interpolate("bundle")
+			.tension(-1);
+
+// Now begin building the chart
 		var svg = d3.select("svg")
 //		              .attr("width", null)
 //		              .attr("height", null)
@@ -242,14 +280,14 @@
 				.enter()
 				.append("marker")
 				.attr("id", function(d) { return d; })
-				.attr("viewBox", "0 -3 6 6")
-				.attr("refX", 6)
+				.attr("viewBox", "0 -2.5 5 5")
+				.attr("refX", 5)
 				.attr("refY", 0)
-				.attr("markerWidth", 6)
-				.attr("markerHeight", 6)
+				.attr("markerWidth", 5)
+				.attr("markerHeight", 5)
 				.attr("orient", "auto")
 			  .append("path")
-				.attr("d", "M0,-3L6,0L0,3")
+				.attr("d", "M0,-2.5L5,0L0,2.5")
 				.attr("fill", props.colors.links);
 
 			defs.append("marker")
@@ -278,26 +316,24 @@
 		                .enter().append("g");
 
 			path.append("path")
+		        .attr("id", function(d,i) { return "id" + i; })
 				.attr("class", function(d) { return "link node path " + d.relGroup; })
 				.attr("stroke", props.colors.links)
 				.attr("marker-end", function(d) { return "url(#node)"; })
 				.attr("stroke-width", function(d) { return scaleWidth(d.thickness);});
 
-			path.append("rect")
-				.attr("class", function(d,i) { return "link box " + d.relGroup; })
-				.attr("fill", function(d,i) { var fillColor = d.relationship === null ? "none" : d.relCount === 1 ? "#fff" : d.relCount === 3 && d.relIndex === 3 ? "#fff" : "";
-												return fillColor;})
-				.attr("width", 40)
-				.attr("height", 7);
-
 			path.append("text")
 				.attr("class", function(d,i) { return "link text " + d.relGroup; })
-				.attr("x", function(d) { return d.source.x; })
-				.attr("y", function(d) { return d.source.y; })
-				.attr("text-anchor", "middle")
-				.attr("font-size", "8px")
-				.text(function(d) { var strSlice = d.relationship ? d.relationship.length > 8 ? d.relationship.slice(0,8) + "..." : d.relationship : null;
-									return strSlice; });
+				.attr("dy", "-0.3em")
+				.append("textPath")
+				  .attr("xlink:href", function(d,i) { return "#id" + i; })
+				  .attr("x", function(d) { return d.source.x; })
+				  .attr("y", function(d) { return d.source.y; })
+				  .attr("text-anchor", "middle")
+				  .attr("startOffset", "50%")
+				  .attr("font-size", "8px")
+				  .text(function(d) { var strSlice = d.relationship ? d.relationship.length > 8 ? d.relationship.slice(0,8) + "..." : d.relationship : null;
+									  return strSlice; }) ;
 
 		var circle = svg.append("g")
 		                  .attr("id","nodes")
@@ -336,6 +372,7 @@
 			circle.append("g")
 					.attr("id", function(d) { return "pin" + d.index; })
 					.attr("visibility", "hidden")
+					.on("click", releaseNode)
 				  .append("path")
 					.attr("d", "M 5 -18 l 5 -15")
 					.attr("stroke", "#000")
@@ -371,15 +408,19 @@
 		force.on("tick", tick);
 
 		function tick() {
-		  circle.attr("transform", transform);
-		  // -- start of IE fix
-		  // Internet Explorer does not deal with markers on lines or paths resulting in broken links
-		  // and poor rendering.
-		  // The following line re-adds all the links to the DOM causing IE to rerender them properly.
-		  d3.selectAll(".link").each(function() {this.parentNode.insertBefore(this, this)});
-		  // -- end of IE fix
-		  d3.selectAll(".link").filter(".path").attr("d", linkArc);
-		  d3.selectAll(".link").filter(".box")
+			circle.attr("transform", transform);
+			// -- start of IE fix
+			if (isIE) {
+			// Internet Explorer does not deal with markers on lines or paths resulting in broken links
+			// and poor rendering.
+			// The following line re-adds all the links to the DOM causing IE to rerender them properly.
+				d3.selectAll(".link").each(function() {this.parentNode.insertBefore(this, this)});
+			}
+			// -- end of IE fix
+			d3.selectAll(".link").filter(".path").attr("d", linkArc)
+								 .attr("stroke", function(d,i) {var linkColor = props.colorLinks ? props.colors.nodeTypes[d.sourcetype + 1] : props.colors.links;
+																return linkColor;});
+			d3.selectAll(".link").filter(".box")
 		                         .attr("x", function(d) {var x = d.source.x < d.target.x ? d.source.x + ((d.target.x - d.source.x- this.width.animVal.value) / 2) : d.target.x + ((d.source.x - d.target.x - this.width.animVal.value) / 2);
 								                         return x;})
 								 .attr("y", function(d) {var y = d.source.y < d.target.y ? d.source.y + ((d.target.y - d.source.y - this.height.animVal.value) / 2) : d.target.y + ((d.source.y - d.target.y - this.height.animVal.value) / 2);
@@ -390,42 +431,100 @@
 									                             var x = d.source.x < d.target.x ? d.source.x + ((d.target.x - d.source.x) / 2) : d.target.x + ((d.source.x - d.target.x) / 2);
 									                             var y = d.source.y < d.target.y ? d.source.y + ((d.target.y - d.source.y) / 2) : d.target.y + ((d.source.y - d.target.y) / 2);
 								                                 return "rotate(" + angle + " " + x + " " + y + ")";});
-		  d3.selectAll(".link").filter(".text")
-		                         .attr("x", function(d) {var x = d.source.x < d.target.x ? d.source.x + ((d.target.x - d.source.x) / 2) : d.target.x + ((d.source.x - d.target.x) / 2);
-								                         return x;})
-								 .attr("y", function(d) {var y = d.source.y < d.target.y ? d.source.y + ((d.target.y - d.source.y) / 2) : d.target.y + ((d.source.y - d.target.y) / 2);
-								                         return y;})
-							     .attr("dy", function(d) {var adj = d.relCount === 1 ? ".3em" : d.relCount === 2 && d.relIndex === 1 ? "1.0em" : d.relCount === 3 && d.relIndex === 1 ? "1.2em" : d.relCount === 3 && d.relIndex === 2 ? "-.6em" : d.relCount === 3 && d.relIndex === 3 ? ".3em" : "-.4em";
-								                          return adj;})
-								 .attr("transform", function(d) {var dx = d.source.x - d.target.x;
-								                                 var dy = d.source.y - d.target.y;
-																 var angle = d.source.x > d.target.x ? Math.atan2(dy,dx) * 180 / Math.PI : ( Math.atan2(dy,dx) * 180 / Math.PI) - 180;
-									                             var x = d.source.x < d.target.x ? d.source.x + ((d.target.x - d.source.x) / 2) : d.target.x + ((d.source.x - d.target.x) / 2);
-									                             var y = d.source.y < d.target.y ? d.source.y + ((d.target.y - d.source.y) / 2) : d.target.y + ((d.source.y - d.target.y) / 2);
-								                                 return "rotate(" + angle + " " + x + " " + y + ")";});
 		}
 
 		function linkArc(d) {
-			var dx = d.target.x - d.source.x,
-				dy = d.target.y - d.source.y,
-				x1 = scaleSize(d.size) * Math.cos(Math.atan2(dy, dx));
-				x2 = scaleSize(d.size) * Math.cos(Math.atan2(dy, dx));
-				y1 = scaleSize(d.size) * Math.sin(Math.atan2(dy, dx));
-				y2 = scaleSize(d.size) * Math.sin(Math.atan2(dy, dx));			  
-			return "M" + (d.source.x + x1) + "," + (d.source.y + y1) + "L" + (d.target.x - x2) + "," + (d.target.y - y2);
+        // Calculate these every time to get nicer curved arrows
+			var   pathStart = calculateIntersection(d.target, d.source, 1)
+				, pathEnd = calculateIntersection(d.source, d.target, 1)
+				, curvePoint = calculateCurvePoint(pathStart, pathEnd, d);
+			d.curvePoint = curvePoint;
+
+			return curveFunction([calculateIntersection(d.curvePoint, d.source, 1),
+					curvePoint, calculateIntersection(d.curvePoint, d.target, 1)]);
+		}
+
+/* Calculates the point where the link between the source and target node
+ * intersects the border of the target node */
+		function calculateIntersection(source, target, additionalDistance) {
+			var   dx = target.x - source.x
+				, dy = target.y - source.y
+				, innerDistance = scaleSize(target.size);
+
+			var   length = Math.sqrt(dx * dx + dy * dy)
+				, ratio = (length - (innerDistance + additionalDistance)) / length
+				, x = dx * ratio + source.x
+				, y = dy * ratio + source.y;
+
+			return {x: x, y: y};
+		}
+
+/* Calculates a point between two points for curves */
+		function calculateCurvePoint(source, target, l) {
+			var distance = calculateMultiLinkDistance(l)
+			// Find the center of the two points
+			  , dx = target.x - source.x
+			  , dy = target.y - source.y
+
+			  , cx = source.x + dx / 2
+			  , cy = source.y + dy / 2
+
+			  , n = calculateNormalVector(source, target, distance);
+
+			if (l.source.index < l.target.index) {
+				n.x = -n.x;
+				n.y = -n.y;
+			}
+
+			if (l.multiLinkIndex % 2 !== 0) {
+				n.x = -n.x;
+				n.y = -n.y;
+			}
+
+			return {"x": cx + n.x, "y": cy + n.y};
+		}
+
+/* Calculate the optimal Multi Link distance */
+		function calculateMultiLinkDistance(l) {
+			var level = Math.floor((l.multiLinkIndex - l.multiLinkCount % 2) / 2) + 1
+			  , oddConstant = (l.multiLinkCount % 2) * 15
+			  , distance = 0;
+			switch (level) {
+				case 1:
+					distance = 20 + oddConstant;
+							break;
+				case 2:
+					distance = 45 + oddConstant;
+					break;
+			}
+			return distance * (linkDistance / linkDistance);
+		}
+
+/* Calculates the normal vector between two points */
+		function calculateNormalVector(source, target, length) {
+			var   dx = target.x - source.x
+				, dy = target.y - source.y
+
+				, nx = -dy
+				, ny = dx
+
+				, vlength = Math.sqrt(nx * nx + ny * ny)
+				, ratio = length / vlength;
+
+			return {"x": nx * ratio, "y": ny * ratio};
 		}
 
 		function createLegend() {
-		if (lists.nodetypes.length === 0) {return false;};
-		var legend = svg.insert("g", ":first-child")
-		                  .attr("id","legend")
-						  .classed("legendin", true)
-						  .attr("transform", "translate(140,0)");
-		var innerLegend = legend.insert("g")
-		                  .attr("id", "innerLegend")
+			if (lists.nodetypes.length === 0) {return false;};
+			var legend = svg.insert("g", ":first-child")
+							.attr("id","legend")
+							.classed("legendin", true)
+							.attr("transform", "translate(140,0)");
+			var innerLegend = legend.insert("g")
+							.attr("id", "innerLegend")
 // If you want the legend section mid-point
 //						  .attr("style", "transform:translate(0px," + ((height / 2) - (lists.nodetypes.length / 2 * 20) + 10) + "px);")
-		                  .selectAll("circle")
+							.selectAll("circle")
 						    .data(lists.nodetypes)
 						    .enter();
 			innerLegend.append("circle")
