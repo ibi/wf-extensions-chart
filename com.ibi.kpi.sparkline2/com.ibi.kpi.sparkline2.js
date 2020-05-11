@@ -1,4 +1,5 @@
 /* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
+/* $Revision: 1.4 $ */
 
 (function() {
 
@@ -45,12 +46,7 @@
 	// Arguments: 
 	//  - preRenderConfig: the standard callback argument object
 	function preRenderCallback(preRenderConfig) {
-		var chart = preRenderConfig.moonbeamInstance;
-		chart.title.visible = false;
-		chart.title.text = "My DataGrid";  // contrived example
-		chart.footnote.visible = false;
-		chart.footnote.text = "footnote";
-		chart.footnote.align = 'right';
+
 	}
 	
 	function noDataPreRenderCallback(preRenderConfig) {
@@ -75,7 +71,7 @@
 		
 		/* Set Background Color */
 		//$(renderConfig.rootContainer).parent().css('backgroundColor',props.backgroundColor);
-
+		
 		/* Format JSON Data */
 		if (typeof data[0].measure !== 'undefined' && typeof data[0].xaxis !== 'undefined') {
 			var total = 0;
@@ -101,9 +97,13 @@
 					lastGroup = row.group;
 				}
 			});
+
+			var titleElement = $('foreignObject[class="title"]');
+
+			var titleHeight =  titleElement.length == 1 ? titleElement.height() + 5 : 0;
 		
 			$(container).closest('body').css('overflow', 'hidden');
-			$(container).css('top','0px').append('<div class="kpi-table-container" style="font-size:'+props.fontSize+';color:'+props.color+'"></div>');
+			$(container).css('top',titleHeight+'px').append('<div class="kpi-table-container" style="font-size:'+props.fontSize+';color:'+props.color+'"></div>');
 
 			if (groups.length>1)
 				$(container).find('.kpi-table-container').addClass('multi').append('<div class="kpi-table-nav"></div>');
@@ -148,25 +148,11 @@
 				var $container = $(this).closest('.kpi-table-container');
 					if (activeIndex<index) {
 						$container.find('.kpi-table-slide:eq('+activeIndex+')').animate({ left: '-200%' }, function(){ $(this).removeClass('active') });
-						
-						//Begin Code Prior to CD-321
-						//$container.find('.kpi-table-slide:eq('+index+')').css('left', '200%').addClass('active').animate({ left: '0' });
-						//End Code Prior to CD-321						
-						
-						//Begin CD-321: invoke .addClass method within .animate method	
-							$container.find('.kpi-table-slide:eq('+index+')').css('left', '200%').animate({ left: '0' }, function(){$(this).addClass('active') });	
-						//End CD-321		
+						$container.find('.kpi-table-slide:eq('+index+')').css('left', '200%').addClass('active').animate({ left: '0' });				
 					}
 					else if (activeIndex>index) {
 						$container.find('.kpi-table-slide:eq('+activeIndex+')').animate({ left: '200%' }, function(){ $(this).removeClass('active') });
-						
-						//Begin Code Prior to CD-321
-						//$container.find('.kpi-table-slide:eq('+index+')').css('left', '-200%').addClass('active').animate({ left: '0' });
-						//End Code Prior to CD-321							
-						
-						//Begin CD-321: invoke .addClass method within .animate method
-							$container.find('.kpi-table-slide:eq('+index+')').css('left', '-200%').animate({ left: '0' }, function(){$(this).addClass('active') });										
-						//End CD-321
+						$container.find('.kpi-table-slide:eq('+index+')').css('left', '-200%').addClass('active').animate({ left: '0' });										
 					}				
 			})
 			
@@ -179,57 +165,13 @@
 		var container = renderConfig.container;
 		var grey = renderConfig.baseColor;
 		renderConfig.data = [{"group":"2017","xaxis":"1","measure":35861466.38,"_s":0,"_g":0},{"group":"2017","xaxis":"2","measure":32447335.21,"_s":0,"_g":1},{"group":"2017","xaxis":"3","measure":35431268.47,"_s":0,"_g":2},{"group":"2017","xaxis":"4","measure":32401840.77,"_s":0,"_g":3},{"group":"2017","xaxis":"5","measure":33927910.25,"_s":0,"_g":4},{"group":"2017","xaxis":"6","measure":32732103.34,"_s":0,"_g":5},{"group":"2017","xaxis":"7","measure":33867267.96,"_s":0,"_g":6},{"group":"2017","xaxis":"8","measure":34030687.74,"_s":0,"_g":7},{"group":"2017","xaxis":"9","measure":33129035.69,"_s":0,"_g":8},{"group":"2017","xaxis":"10","measure":41468698.51,"_s":0,"_g":9},{"group":"2017","xaxis":"11","measure":41330631.98,"_s":0,"_g":10},{"group":"2017","xaxis":"12","measure":45063421.35,"_s":0,"_g":11},{"group":"2016","xaxis":"1","measure":22177047.24,"_s":0,"_g":12},{"group":"2016","xaxis":"2","measure":20713191.81,"_s":0,"_g":13},{"group":"2016","xaxis":"3","measure":22452940.04,"_s":0,"_g":14},{"group":"2016","xaxis":"4","measure":20640310.85,"_s":0,"_g":15},{"group":"2016","xaxis":"5","measure":20959571.54,"_s":0,"_g":16},{"group":"2016","xaxis":"6","measure":20936944.44,"_s":0,"_g":17},{"group":"2016","xaxis":"7","measure":21603354.91,"_s":0,"_g":18},{"group":"2016","xaxis":"8","measure":21851731.9,"_s":0,"_g":19},{"group":"2016","xaxis":"9","measure":21194759.49,"_s":0,"_g":20},{"group":"2016","xaxis":"10","measure":25734517.06,"_s":0,"_g":21},{"group":"2016","xaxis":"11","measure":25549323.64,"_s":0,"_g":22},{"group":"2016","xaxis":"12","measure":26292085.01,"_s":0,"_g":23},{"group":"2015","xaxis":"1","measure":10194919.22,"_s":0,"_g":24},{"group":"2015","xaxis":"2","measure":9271678.03,"_s":0,"_g":25},{"group":"2015","xaxis":"3","measure":10166669.36,"_s":0,"_g":26},{"group":"2015","xaxis":"4","measure":9176805.13,"_s":0,"_g":27},{"group":"2015","xaxis":"5","measure":9644014.21,"_s":0,"_g":28},{"group":"2015","xaxis":"6","measure":9270650.48,"_s":0,"_g":29},{"group":"2015","xaxis":"7","measure":9823910.8,"_s":0,"_g":30},{"group":"2015","xaxis":"8","measure":10039632.37,"_s":0,"_g":31},{"group":"2015","xaxis":"9","measure":9763960.06,"_s":0,"_g":32},{"group":"2015","xaxis":"10","measure":11932626.45,"_s":0,"_g":33},{"group":"2015","xaxis":"11","measure":11606727.04,"_s":0,"_g":34},{"group":"2015","xaxis":"12","measure":12572846.65,"_s":0,"_g":35},{"group":"2014","xaxis":"1","measure":7298667.22,"_s":0,"_g":36},{"group":"2014","xaxis":"2","measure":6801359.08,"_s":0,"_g":37},{"group":"2014","xaxis":"3","measure":7263788.97,"_s":0,"_g":38},{"group":"2014","xaxis":"4","measure":6611436.62,"_s":0,"_g":39},{"group":"2014","xaxis":"5","measure":6795189.18,"_s":0,"_g":40},{"group":"2014","xaxis":"6","measure":6618896,"_s":0,"_g":41},{"group":"2014","xaxis":"7","measure":6987826.48,"_s":0,"_g":42},{"group":"2014","xaxis":"8","measure":7024899.82,"_s":0,"_g":43},{"group":"2014","xaxis":"9","measure":6679889.03,"_s":0,"_g":44},{"group":"2014","xaxis":"10","measure":8281929.67,"_s":0,"_g":45},{"group":"2014","xaxis":"11","measure":8037545.37,"_s":0,"_g":46},{"group":"2014","xaxis":"12","measure":8427240.8,"_s":0,"_g":47},{"group":"2013","xaxis":"1","measure":4666392.2,"_s":0,"_g":48},{"group":"2013","xaxis":"2","measure":4400576.8,"_s":0,"_g":49},{"group":"2013","xaxis":"3","measure":4726378.34,"_s":0,"_g":50},{"group":"2013","xaxis":"4","measure":4254925.17,"_s":0,"_g":51},{"group":"2013","xaxis":"5","measure":4412965.72,"_s":0,"_g":52},{"group":"2013","xaxis":"6","measure":4656829.9,"_s":0,"_g":53},{"group":"2013","xaxis":"7","measure":4884691.35,"_s":0,"_g":54},{"group":"2013","xaxis":"8","measure":4957273.31,"_s":0,"_g":55},{"group":"2013","xaxis":"9","measure":4856841.92,"_s":0,"_g":56},{"group":"2013","xaxis":"10","measure":5597174.49,"_s":0,"_g":57},{"group":"2013","xaxis":"11","measure":5583364.73,"_s":0,"_g":58},{"group":"2013","xaxis":"12","measure":5815484.48,"_s":0,"_g":59},{"group":"2012","xaxis":"1","measure":3874651.96,"_s":0,"_g":60},{"group":"2012","xaxis":"2","measure":3592608.63,"_s":0,"_g":61},{"group":"2012","xaxis":"3","measure":3977546.75,"_s":0,"_g":62},{"group":"2012","xaxis":"4","measure":3648111.77,"_s":0,"_g":63},{"group":"2012","xaxis":"5","measure":3704586.77,"_s":0,"_g":64},{"group":"2012","xaxis":"6","measure":3694435.21,"_s":0,"_g":65},{"group":"2012","xaxis":"7","measure":4020855.35,"_s":0,"_g":66},{"group":"2012","xaxis":"8","measure":4126310.8,"_s":0,"_g":67},{"group":"2012","xaxis":"9","measure":3688054.34,"_s":0,"_g":68},{"group":"2012","xaxis":"10","measure":4794720.4,"_s":0,"_g":69},{"group":"2012","xaxis":"11","measure":4574636.32,"_s":0,"_g":70},{"group":"2012","xaxis":"12","measure":5001973.63,"_s":0,"_g":71}];
-		/* Code prior to CHART-3353
 		renderConfig.dataBuckets = {"buckets":{"group":{"title":"Sale Year","count":1},"xaxis":{"title":"Sale Month","count":1},"measure":{"title":"Revenue","count":1}},"depth":1};
-		*/
-		//Start CHART-3353
-		renderConfig.dataBuckets = {"buckets":{"compare":{"title":"","count":1},"xaxis":{"title":"","count":1},"measure":{"title":"","count":1}},"depth":1};
-		//End CHART-3353
 		renderCallback(renderConfig);
 		
-		/* Code prior to CD-720
-		if ($('.drop-label.ibx-widget').length==0)
-			$(container).append('<div class="placeholder">Add measures or dimensions</div>');
-		*/
-		
-		//Begin CD-720
-			
-			/* Code Before CHART-3037
-			var msg = "Add more measures or dimensions"; 
-			*/
-			//Start CHART-3055
-			var msg;
-			 if (renderConfig.modules.translate) {
-				msg = renderConfig.modules.translate.getString('add_data');
-			 }
-			msg = msg || 'Add more measures or dimensions';
-			//End CHART-3055
-				
-			
-			fnShowNoDataMsg(container, renderConfig.properties, msg);
-			
-			//Instructional message is framework (D3/JQuery) independent
-			function fnShowNoDataMsg(container,properties) {
-				
-				var divMsg = document.createElement("div");
-				divMsg.textContent = msg;
-				divMsg.style.cssText = "margin-top:100px; font-family: sans-serif;  text-align: center; fill: black; opacity: 0.8; font-weight: bold; font-size: 14px;";			
-				divMsg.width = properties.width;
-				divMsg.height = properties.height;
-				container.appendChild(divMsg);
-				
-			} // fnShowNoDataMsg
-			
-		//End CD-720
-		
+		$(container).append('<div class="placeholder">Add measures or dimensions</div>');
 	}
 
 	// Your extension's configuration
-	var jqueryPath;
-	if (!window.jQuery) {
-		var path = tdgchart.getScriptPath();
-		jqueryPath = path.substr(0, path.indexOf('tdg')) + 'jquery/js/jquery.js';
-	}
 	var config = {
 		id: 'com.ibi.kpi.sparkline2',     // string that uniquely identifies this extension
 		containerType: 'html',  // either 'html' or 'svg' (default)
@@ -242,7 +184,10 @@
 			script:
 				window.jQuery
 					? ['lib/jquery.sparkline.min.js']
-					: [jqueryPath, 'lib/jquery.sparkline.min.js'],
+					: [
+						['', tdgchart.getScriptPath().split('/')[1], 'jquery/js/jquery.js'].join('/'),
+						'lib/jquery.sparkline.min.js'
+					],
 			css: ['css/open-sans.css', 'css/sparkline.css']
 		},
 		modules: {
