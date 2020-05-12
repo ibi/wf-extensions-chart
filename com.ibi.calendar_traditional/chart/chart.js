@@ -241,10 +241,17 @@ var es_MX = {
 		
 ///////////////////////////////
 // Crear combo anios
-	
-	var allGroup = d3.timeYears(d3.min(data, function(d) { return parseDate(d.dimension); }), d3.max(data, function(d) { return parseDate(d.dimension); }) ,1);
+// falla habeces, por ejemplo: d3.utcYears(new Date(2015, 01, 01), new Date(2015, 12, 12), 1);  devuelve 2016
+//	var allGroup = d3.timeYears(d3.min(data, function(d) { return parseDate(d.dimension); }), d3.max(data, function(d) { return parseDate(d.dimension); }) ,1);
+	var allGroup = new Array(),
+		maxYear = f_year(d3.max(data, function(d) { return parseDate(d.dimension); })) * 1,
+		minYear = f_year(d3.min(data, function(d) { return parseDate(d.dimension); })) * 1;
+	for (var i = minYear; i <= maxYear; i++){
+		allGroup.push(i);
+	}
 	if (!selectedYear){
-		selectedYear = f_year(d3.max(allGroup));
+//		selectedYear = f_year(d3.max(allGroup));
+		selectedYear = d3.max(allGroup);
 	}
 	if (showSelectYears){
 		d3.select(".chart").append("select").lower()
@@ -260,8 +267,10 @@ var es_MX = {
 			.data(allGroup)
 			.enter()
 			.append('option')
-			.text(function (d) { return f_year(d); }) // text showed in the menu
-			.attr("value", function (d) { return f_year(d); }); // corresponding value returned by the button
+//			.text(function (d) { return f_year(d); }) // text showed in the menu
+			.text(function (d) { return d; }) // text showed in the menu
+//			.attr("value", function (d) { return f_year(d); }); // corresponding value returned by the button
+			.attr("value", function (d) { return d; }); // corresponding value returned by the button
 		d3.select("#selectYears").property("value",selectedYear);
 	}
 	
