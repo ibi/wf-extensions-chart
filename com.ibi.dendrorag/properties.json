@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": 1.1,
+		"version": 1.3,
 		"implements_api_version": 2.0,
 		"author": "Information Builders (UK) Ltd",
 		"copyright": "Information Builders Inc.",
@@ -14,6 +14,8 @@
         "RootName": "",
         "indRed": 50,
         "indAmber": 70,
+		"valsInNode": false,
+		"abbrValues": false,
         "useParentRAG": false,
         "showSuccess": true,
         "drilldown": "",
@@ -23,21 +25,32 @@
 	},
 	
 	"propertyAnnotations": {
-        "RootName": "str",
+        "RootName": {
+			"typeAnnotation": "str",
+			"displayOrder": 1
+		},
         "indRed": {
-				"typeAnnotation": "number",
-				"numericRange": [1, 99],
-				"numericStep": 1
+			"typeAnnotation": "number",
+			"numericRange": [1, 99],
+			"numericStep": 1,
+			"displayOrder": 2
         },
         "indAmber": {
-				"typeAnnotation": "number",
-				"numericRange": [1, 99],
-				"numericStep": 1
+			"typeAnnotation": "number",
+			"numericRange": [1, 99],
+			"numericStep": 1,
+			"displayOrder": 3
         },
+		"valsInNode": "bool",
+		"abbrValues": "bool",
         "useParentRAG": "bool",
         "showSuccess": "bool",
-        "drilldown": "str",
-        "ddtarget": "str"
+        "drilldown": {
+			"typeAnnotation": "str"
+        },
+        "ddtarget": {
+			"typeAnnotation": "str"
+        },
 	},
 	
 	"dataBuckets":  {
@@ -79,12 +92,59 @@
 			"name": "Dendro RAG Chart",
 			"description": "This extension displays a collapsible hierarchy showing RAG for each level based on accumulated values.",
 			"icon_tooltip": "Dendro RAG Chart", 
-			"value_name": "Total Bucket", 
-			"value_tooltip": "Drop a measure here", 
-			"radial_name": "Fail Bucket", 
-			"radial_tooltip": "Drop a measure here", 
-			"series_name": "Levels Bucket", 
-			"series_tooltip": "Drop up to three dimensions here"
+			"total_name": "Total Bucket", 
+			"total_tooltip": "Drop a measure here", 
+			"fail_name": "Fail Bucket", 
+			"fail_tooltip": "Drop a measure here", 
+			"levels_name": "Levels Bucket", 
+			"levels_tooltip": "Drop up to three dimensions here",
+            "properties": {
+				"RootName": {
+					"_translation": "Root Node Label.",
+					"_tooltip": "Value to be used or empty string for default.",
+                    "_valueTooltip": "Default empty string"
+				},
+				"indRed": {
+					"_translation": "Percentage for Red Cutoff.",
+					"_tooltip": "Percentage Value below which Red is the colour applied to the nodes.",
+                    "_valueTooltip": "Default 50"
+				},
+				"indAmber": {
+					"_translation": "Percentage for Amber Cutoff.",
+					"_tooltip": "Percentage Value below which Amber is the colour applied to the nodes.",
+                    "_valueTooltip": "Default 70"
+				},
+				"valsInNode": {
+					"_translation": "Show Values in Node?",
+					"_tooltip": "Show the Total and Fail values within the Node labels.",
+					"_valueTooltip": "Default False"
+				},
+				"abbrValues": {
+					"_translation": "KMB (abbreviated) Values in Node?",
+					"_tooltip": "Show Abbreviated Total and Fail (KMB) values within the Node labels.\nRequires showing Values in Node.",
+					"_valueTooltip": "Default False"
+				},
+				"useParentRAG": {
+					"_translation": "Use Parent RAG?",
+					"_tooltip": "Show colouring by Parent or Child RAG calculation.",
+                    "_valueTooltip": "Default False"
+				},
+				"showSuccess": {
+					"_translation": "Show Success?",
+					"_tooltip": "Show Success or Failure colouring.",
+                    "_valueTooltip": "Default True"
+				},
+				"drilldown": {
+					"_translation": "Drilldown Procedure.",
+					"_tooltip": "String to be used for Drilldown procedure.\nUse IBFS: syntax without initial IBFS:\ne.g. /EDA/EDASERVE/ibisamp/carinst.fex\nor /WFC/Repository/Public/carinst.fex",
+                    "_valueTooltip": "Default empty strng"
+				},
+				"ddtarget": {
+					"_translation": "Target window for Drilldown.",
+					"_tooltip": "Standard HTML coding values only.",
+                    "_valueTooltip": "Default _blank"
+				}
+			}
 		}
 	}
 }

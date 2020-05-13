@@ -21,15 +21,23 @@
   var RootName = "",
       indRed = 100,
       indAmber = 100,
+      valsInNode = false,
+      abbrValues = false,
       useParentRAG = false,
       showSuccess = true,
-      tree = ""
+      tree = "",
       diagonal = "",
       drilldown = "",
       ddtarget = "blank";
+	  
+  var nodeHeight = 18,
+	  nodeRadius = 9,
+	  nodeTitle = "0.85em",
+	  nodeExpand = "0.85em";
 
   var layers = 0
-    , layerField = [];
+    , layerField = []
+	, arrTitles = [];
 
   var win = window
     , doc = document
@@ -54,9 +62,11 @@ function checkData(data,container,width,height,arrBuckets,props) {
 //  console.log(JSON.stringify(arrBuckets));
   
 // Assign values to global variables from the properties and buckets
-  RootName = !(props.RootName == "") ? props.RootName : Array.isArray(arrBuckets[0].fields) ? arrBuckets[0].fields[0].title : "Root";
+  RootName = !(props.RootName == "") ? props.RootName : Array.isArray(arrBuckets) ? Array.isArray(arrBuckets[0].fields) ? arrBuckets[0].fields[0].title : "Root" : arrBuckets.levels.title[0];
   indRed = props.indRed;
   indAmber = props.indAmber;
+  valsInNode = props.valsInNode;
+  abbrValues = props.abbrValues;
   useParentRAG = props.useParentRAG;
   showSuccess = props.showSuccess;
   drilldown = props.drilldown;
@@ -64,11 +74,60 @@ function checkData(data,container,width,height,arrBuckets,props) {
   svg = container;
   height = height;
   width =  boxWidth * ((arrBuckets.length * 2) + 1);
-  var layerFields = arrBuckets[0].fields;
+  var layerFields = Array.isArray(arrBuckets) ? arrBuckets[0].fields : arrBuckets.levels.title;
   layerFields.forEach(function(d,i) {
-      var arrField = d.fieldName.split(".");
-      layerField[i] = arrField[arrField.length - 1];
+      if (d.fieldName) {
+          var arrField = d.fieldName.split(".");
+          layerField[i] = arrField[arrField.length - 1];
+      } else {
+          layerField[i] = d;
+      }
   });
+//  arrBuckets.forEach(function(d,i) {
+//	  console.log(d.fields[0].title);
+//	  arrTitles[i]= d.fields[0].title;
+//  });
+    if (Array.isArray(arrBuckets)) {
+        arrTitles = arrBuckets;
+        for (i=1; i<arrTitles.length; i++) {
+            if (!arrTitles[i].fields[0].numberFormat) {
+                arrTitles[i].fields[0].numberFormat = "#,###.00;-#,###.00"
+            }
+        }
+    } else {
+        var arrFields = [];
+            arrBuckets.levels.title.forEach(function(d,i) {
+                arrFields.push({
+                    "title": arrBuckets.levels.title[i],
+                    "fieldName": arrBuckets.levels.title[i].replace(/ /g,"_")
+                });
+            });
+        arrTitles.push({
+            "id": "levels",
+            "fields": arrFields
+        });
+        var arrFields = [];
+            arrFields.push({
+                "title": arrBuckets.total.title,
+                "fieldName": arrBuckets.total.title.replace(/ /g,"_"),
+                "numberFormat": "#,###.00;-#,###.00"
+            });
+        arrTitles.push({
+            "id": "total",
+            "fields": arrFields
+        });
+        var arrFields = [];
+            arrFields.push({
+                "title": arrBuckets.fail.title,
+                "fieldName": arrBuckets.fail.title.replace(/ /g,"_"),
+                "numberFormat": "#,###.00;-#,###.00"
+            });
+        arrTitles.push({
+            "id": "fail",
+            "fields": arrFields
+        });
+    }
+  
   d3.select("body.tooltip").remove();
   
   var divTooltip = d3.select(".chart").append("div")
@@ -86,7 +145,7 @@ function drawChart(data,svgContainer,arrBuckets,props) {
 
   clientWidth = svgContainer[0].parentNode.clientWidth;
 
-  width = 180 * ((layers * 2) + 1);
+  width = boxWidth * ((layers * 2.25) + 1);
 
   tree = d3.layout.tree()
       .size([height, width])
@@ -131,7 +190,20 @@ function drawChart(data,svgContainer,arrBuckets,props) {
 }
 
 function update(source) {
-  var newHeight = tree.nodes(root).reverse().length * 22;
+  // Reset node positioning vars when displaying values in nodeSize
+  if (valsInNode) {
+	  nodeHeight = 45;
+	  nodeRadius = 22.5;
+	  nodeTitle = "0.0em";
+	  nodeExpand = "0.85em";
+  } else {
+      nodeHeight = 18,
+	  nodeRadius = 9,
+	  nodeTitle = "0.85em",
+	  nodeExpand = "0.85em";
+  }
+
+  var newHeight = tree.nodes(root).reverse().length * (nodeHeight + 4);
 
   d3.select("svg")
       .attr("width", width + margin.right + margin.left)
@@ -154,8 +226,10 @@ function update(source) {
       links = tree.links(nodes);
 
   // Normalize for fixed-depth.
-  nodes.forEach(function(d) { d.y = d.depth * boxWidth * 2; });
-
+  nodes.forEach(function(d) {
+	  d.y = d.depth * boxWidth * 2;
+  });
+  
   // Update the nodes
   var node = svg.selectAll("g.node")
       .data(nodes, function(d) {
@@ -172,9 +246,9 @@ function update(source) {
 
   nodeEnter.append("rect")
       .attr("width", boxWidth)
-      .attr("height", 18)
-      .attr("transform", function(d) { return d.children || d._children ? "translate(0,-9)" : "translate(0,-9)"; })
-      .attr("rx", 9).attr("ry", 9)
+      .attr("height", nodeHeight)
+      .attr("transform", function(d) { return d.children || d._children ? "translate(0,-" + nodeRadius + ")" : "translate(0,-" + nodeRadius + ")"; })
+      .attr("rx", nodeRadius).attr("ry", nodeRadius)
       .attr("id", function(d,i) { var id = "";
                                   var pparent = (d.parent) ? d.parent : false;
                                   var ppparent = (pparent) ? pparent.parent : false;
@@ -189,9 +263,9 @@ function update(source) {
       ;
 
   nodeEnter.append("text")
-      .attr("x", function(d) { return d.children || d._children ? 18 : 5; })
-      .attr("dy", ".35em")
-      .attr("transform", function(d) { return d.children || d._children ? "translate(0,0)" : "translate(0,0)"; })
+      .attr("x", function(d) { return d.children || d._children ? 25 : 20; })
+      .attr("dy", nodeTitle)
+      .attr("transform", function(d) { return d.children || d._children ? "translate(0,-7)" : "translate(0,-7)"; })
       .attr("text-anchor", function(d) { return d.children || d._children ? "start" : "start"; })
       .text(function(d) { return d.name; })
       .attr("id", function(d,i) { var id = "";
@@ -206,11 +280,12 @@ function update(source) {
       .attr("class", function(d) { return "RAG_" + d.colour; })
       .style("fill-opacity", 1e-6)
 //      .on("click", click)
-      ;                         
+      ;
+
   nodeEnter.append("text")
-      .attr("x", function(d) { return d.children || d._children ? 5 : 5; })
-      .attr("dy", ".35em")
-      .attr("transform", function(d) { return d.children || d._children ? "translate(0,0)" : "translate(0,0)"; })
+      .attr("x", function(d) { return d.children || d._children ? 10 : 10; })
+      .attr("dy", nodeExpand)
+      .attr("transform", function(d) { return d.children || d._children ? "translate(0,-7)" : "translate(0,-7)"; })
       .attr("text-anchor", function(d) { return d.children || d._children ? "start" : "start"; })
       .text(function(d) { var txtChar = d.children || d._children ? (d.children ? "-" : "+") : "";
 //                          console.log(txtChar);
@@ -229,15 +304,74 @@ function update(source) {
 //      .on("click", click)
       ;
 
-  // Resize the rectangle labels to boxWidth or as wide as the text requires
+if (valsInNode) {
+// Second row of text in node
+  nodeEnter.append("text")
+      .attr("x", function(d) { return d.children || d._children ? 25 : 20; })
+      .attr("dy", "1.1em")
+      .attr("transform", function(d) { return d.children || d._children ? "translate(0,-7)" : "translate(0,-7)"; })
+      .attr("text-anchor", function(d) { return d.children || d._children ? "start" : "start"; })
+      .text(function(d) { var currSym = d.totalFormat.substring(0,1);
+						  currSym = currSym !== "#" ? currSym : "";
+						  var fmtNumber = abbrValues ? d3.format(".2s")(d.total) : d3.format(",.2f")(d.total);
+						  return d.totalTitle + ": "+ currSym + fmtNumber; })
+      .attr("id", function(d,i) { var id = "";
+                                  var pparent = (d.parent) ? d.parent : false;
+                                  var ppparent = (pparent) ? pparent.parent : false;
+                                  var pppparent = (ppparent) ? ppparent.parent : false;
+                                  id += (pppparent) ? pppparent.name + " " : "";
+                                  id += (ppparent) ? ppparent.name + " " : "";
+                                  id += (pparent) ? pparent.name + " " : "";
+                                  id += d.name + " ";
+                                  return id.replace(/[^A-Z0-9]/ig, "_");})
+	  .style({"font-weight":"100","font-size":"9pt"})
+      .attr("class", function(d) { return "RAG_" + d.colour; })
+//      .style("fill-opacity", 1e-6)
+//      .on("click", click)
+      ;                         
+					
+// Third row of text in node
+  nodeEnter.append("text")
+      .attr("x", function(d) { return d.children || d._children ? 25 : 20; })
+      .attr("dy", "2.2em")
+      .attr("transform", function(d) { return d.children || d._children ? "translate(0,-7)" : "translate(0,-7)"; })
+      .attr("text-anchor", function(d) { return d.children || d._children ? "start" : "start"; })
+      .text(function(d) { var currSym = d.failFormat.substring(0,1);
+						  currSym = currSym !== "#" ? currSym : "";
+						  var fmtNumber = abbrValues ? d3.format(".2s")(d.fail) : d3.format(",.2f")(d.fail);
+						  return d.failTitle + ": "+ currSym + fmtNumber; })
+      .attr("id", function(d,i) { var id = "";
+                                  var pparent = (d.parent) ? d.parent : false;
+                                  var ppparent = (pparent) ? pparent.parent : false;
+                                  var pppparent = (ppparent) ? ppparent.parent : false;
+                                  id += (pppparent) ? pppparent.name + " " : "";
+                                  id += (ppparent) ? ppparent.name + " " : "";
+                                  id += (pparent) ? pparent.name + " " : "";
+                                  id += d.name + " ";
+                                  return id.replace(/[^A-Z0-9]/ig, "_");})
+	  .style({"font-weight":"100","font-size":"9pt"})
+      .attr("class", function(d) { return "RAG_" + d.colour; })
+//      .style("fill-opacity", 1e-6)
+//      .on("click", click)
+      ;                         
+}
+				
+  // Resize the rectangles to boxWidth or as wide as the text requires
   // unless the depth level is the lowest one - then set it to label text width
   // This gives the user a visual guide when the lowest level is reached
   nodeEnter.selectAll("rect")
-             .attr("width", function(d) {var textElement = d3.select(this.parentNode).select("text").node();
+             .attr("width", function(d) {var textElement = d3.select(this.parentNode).selectAll("text").node();
                                          var parentElement = d3.select(this.parentNode).node();
+										 var nodeLen = 0, nlen = 0;
+										 d3.select(this.parentNode).selectAll("text").each(function(d,i) {
+											 nlen = this.getBBox().width;
+											 nodeLen = nlen > nodeLen ? nlen : nodeLen;
+										//	 console.log(i + ": " + this.innerHTML + ": " + nlen + ": " + nodeLen);
+										 });
+										// console.log(nodeLen);
                                          var bbox = textElement.getBBox();
-                                         var bbwidth = (bbox.width + 30 > boxWidth) ? bbox.width + 30 : boxWidth;
-                                             bbwidth = (d.depth == layers) ? bbox.width + 12 : bbwidth;
+                                         var bbwidth = (nodeLen + 40 > boxWidth) ? nodeLen + 40 : boxWidth;
+                                             bbwidth = (d.depth == layers) ? nodeLen + 40 : bbwidth;
                                          return bbwidth; });
 
   // Transition nodes to their new position.
@@ -265,7 +399,7 @@ function update(source) {
   link.enter().insert("path", "g")
       .attr("class", "link")
       .attr("d", function(d) {
-        var o = {x: (source.x0), y: source.y0};
+        var o = {x: (source.x0 + 100), y: source.y0};
         return diagonal({source: o, target: o});
       });
 
@@ -278,7 +412,7 @@ function update(source) {
   link.exit().transition()
       .duration(duration)
       .attr("d", function(d) {
-        var o = {x: (source.x), y: source.y};
+        var o = {x: (source.x + 150), y: source.y};
         return diagonal({source: o, target: o});
       })
       .remove();
@@ -310,7 +444,7 @@ function mouseover(d) {
                         list += (ppparent) ? ppparent.name + "<br>" : "";
                         list += (pparent) ? pparent.name + "<br>" : "";
 //                        list +=  d.name + "<br>";
-                        return "<span style='font-weight:700;text-decoration:underline;'>"+d.name+"</span><br>"+list+"Node Value: "+d.value;
+                        return "<span style='font-weight:700;text-decoration:underline;'>"+d.name+"</span><br>"+list+"Node Value: "+Number(d.value).toFixed(2);
                        })
       .style("top", function() {var objTooltip = d3.select("#tooltip");
                                 var objHeight = objTooltip[0][0].offsetHeight;
@@ -431,7 +565,11 @@ function fade(opacity,id) {
           value = 100,
           childvalue = 100,
           curvalue = 0,
-          colour = "red";
+          colour = "red",
+		  failTitle = arrTitles[2].fields[0].title,
+		  totalTitle = arrTitles[1].fields[0].title,
+		  failFormat = arrTitles[2].fields[0].numberFormat,
+		  totalFormat = arrTitles[1].fields[0].numberFormat;
       for (iter=0; iter < hierarchy.length; iter++) {
           fail += hierarchy[iter].fail;
           total += hierarchy[iter].total;
@@ -448,7 +586,11 @@ function fade(opacity,id) {
         total: total,
         value: value.toFixed(2),
         childvaluevalue: childvalue.toFixed(2),
-        colour: colour
+        colour: colour,
+		failTitle: arrTitles[2].fields[0].title,
+		totalTitle: arrTitles[1].fields[0].title,
+		failFormat: arrTitles[2].fields[0].numberFormat,
+		totalFormat: arrTitles[1].fields[0].numberFormat
       };
     } else {
       return hierarchy[0];
@@ -481,6 +623,10 @@ function fade(opacity,id) {
             obj.childvalue = 100;
             obj.showchildren = (idx <= (layers - 3)) ? true : false;
             obj.children = [];
+		    obj.failTitle = arrTitles[2].fields[0].title,
+		    obj.totalTitle = arrTitles[1].fields[0].title,
+			obj.failFormat = arrTitles[2].fields[0].numberFormat,
+			obj.totalFormat = arrTitles[1].fields[0].numberFormat;
           }
           obj.fail  += fail;  // At this point the initialisation should have been actioned
           obj.total += total; // so adding the childrens value to the parent.
@@ -491,6 +637,10 @@ function fade(opacity,id) {
           obj.colour = (obj.value > indAmber) ? "green" : "amber";
           obj.colour = (obj.value < indRed) ? "red" : obj.colour;
           obj.showchildren = (idx <= (layers - 3)) ? true : false;
+		  obj.failTitle = arrTitles[2].fields[0].title,
+		  obj.totalTitle = arrTitles[1].fields[0].title,
+		  obj.failFormat = arrTitles[2].fields[0].numberFormat,
+		  obj.totalFormat = arrTitles[1].fields[0].numberFormat;
           var child = {};
           iterate(child, fail, total, path, idx + 1, len);
 
@@ -508,6 +658,10 @@ function fade(opacity,id) {
             existingChild.colour = (existingChild.value > indAmber) ? "green" : "amber";
             existingChild.colour = (existingChild.value <= indRed) ? "red" : existingChild.colour;
             existingChild.showchildren = false;
+		    existingChild.failTitle = arrTitles[2].fields[0].title,
+		    existingChild.totalTitle = arrTitles[1].fields[0].title,
+			existingChild.failFormat = arrTitles[2].fields[0].numberFormat,
+			existingChild.totalFormat = arrTitles[1].fields[0].numberFormat;
           } else if ( !existingChild ) { // new child
             obj.children.push(child);
           }
@@ -519,6 +673,10 @@ function fade(opacity,id) {
           obj.colour = (obj.value > indAmber) ? "green" : "amber";
           obj.colour = (obj.value < indRed) ? "red" : obj.colour;
           obj.showchildren = false;
+		  obj.failTitle = arrTitles[2].fields[0].title,
+		  obj.totalTitle = arrTitles[1].fields[0].title,
+		  obj.failFormat = arrTitles[2].fields[0].numberFormat,
+		  obj.totalFormat = arrTitles[1].fields[0].numberFormat;
         }
       })(
         root, d.fail, d.total,

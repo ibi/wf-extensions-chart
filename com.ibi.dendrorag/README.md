@@ -16,6 +16,7 @@ The drilldown variables are also enhanced with additional variables of the field
 ## Screenshots
 ![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.dendrorag/screenshots/1.png)
 ![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.dendrorag/screenshots/2.png)
+![screenshot_3](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.dendrorag/screenshots/3.png)
 ## Configurations
 To configure the default values for this extension, edit "properties" object in properties.json file.
 	
@@ -23,6 +24,8 @@ To configure the default values for this extension, edit "properties" object in 
         "RootName": "",
         "indRed": 50, // The threshold at which red status changes to amber
         "indAmber": 70, // The threshold at which amber status changes to green
+		"valsInNode": false, // This determines whether the Total and Fail values will be displayed within the node with their titles.
+		"abbrValues": false, // If the of Total and Fail values are lengthy, set this to abbreviate to KMB values
         "useParentRAG": false,  // Each node has 2 values from which a percentage is calculated
 		                    // Standard method is that each parent node would be assigned the
 		                    // percentage from the worse child.
@@ -44,6 +47,8 @@ To configure a change to the extension defaults, add an "extensions" section to 
         "RootName": "",
         "indRed": 50,
         "indAmber": 70,
+		"valsInNode": true,
+		"abbrValues": true,
         "drilldown": "/EDA/EDASERVE/ibisamp/carinst.fex",
         "ddtarget": "_blank"
 	}
