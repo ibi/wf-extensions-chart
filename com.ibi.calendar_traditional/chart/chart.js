@@ -29,11 +29,15 @@
 			typeShortenNumber = ib3SLI.config.getProperty('scales.typeShortenNumber'),
 			shortenLeyendDescription = ib3SLI.config.getProperty('shortenLeyendDescription'),
 			bodyBackgroundColor = ib3SLI.config.getProperty('chartConfig.bodyBackgroundColor') || "transparent",	
-			chartHeadroom = ib3SLI.config.getProperty('chartConfig.chartHeadroom'),
+//
 			initialDOW = ib3SLI.config.getProperty('calendarConfig.initialDOW'),
 			dateFormat = ib3SLI.config.getProperty('calendarConfig.dateFormat'),			
 			language_var = ib3SLI.config.getProperty('calendarConfig.language_var'),			
-			showSelectYears = ib3SLI.config.getProperty('chartConfig.showSelectYears');
+			showSelectYears = ib3SLI.config.getProperty('chartConfig.showSelectYears'),
+//
+			monthsColor = ib3SLI.config.getProperty('colors.months') || 'black',
+			weeksColor = ib3SLI.config.getProperty('colors.weeks') || 'grey',
+			daysColor = ib3SLI.config.getProperty('colors.days') || 'black';
 	
 		var originalData = ib3SLI.config.getData(),
 		    data = $(originalData).map(function(i, d) {
@@ -49,7 +53,7 @@
 		
 		var margin = {
 //			top: Math.round(CELL_SIZE*3.5),
-			top: 35,
+			top: 40,
 			right: 25,
 			bottom: 5,
 			left: 25
@@ -324,7 +328,7 @@ var es_MX = {
         .data(months)
         .enter()
 		.append("text")
-		.attr('fill', 'black')
+		.attr('fill', monthsColor)
 		.style("font-weight", "bold")
 		.attr("text-anchor", "left")
 		.attr("y", function (d,i) {
@@ -335,7 +339,7 @@ var es_MX = {
 			var auxIndex = i % 4;
 			return Math.round(  CELL_SIZE.width * (8 * auxIndex));
 		})
-		.style("font-size", Math.round(  CELL_SIZE.height/2   )+"px")
+		.style("font-size", Math.round(  CELL_SIZE.height*2/3   )+"px")
 		.text(f_monthname);		
 	
 ///////////////////////////////			
@@ -353,7 +357,7 @@ var es_MX = {
 			ib3SLI.config.setUpTooltip(this, 0, d.originalIndex,d);
 		})
 */
-		.style("font-size", Math.round(  CELL_SIZE.height/3   )+"px")
+		.style("font-size", Math.round(  CELL_SIZE.height/2   )+"px")
 		.attr("x", function(d,i) {
 			var monthNumber = f_month(d),
 			resto4 = monthNumber % 4,
@@ -366,7 +370,7 @@ var es_MX = {
 				auxIndex = (monthNumber < 5) ? 1 : (monthNumber < 9) ? 9 : 17;
 			return  Math.round( functionToApply.count(d3.timeMonth(d), d) * CELL_SIZE.height + auxIndex * CELL_SIZE.height + (CELL_SIZE.height/2));
 		})				
-		.attr('fill', 'black')
+		.attr('fill', daysColor)
 		.attr("text-anchor", "middle")
 		.attr("dominant-baseline",  "central")
 		.text(f_dia);	
@@ -381,7 +385,7 @@ var es_MX = {
         .data(days)
         .enter()
 		.append("text")
-		.style("font-size", Math.round(  CELL_SIZE.height/3   )+"px")
+		.style("font-size", Math.round(  CELL_SIZE.height/2   )+"px")
 		.attr("x", function(d,i) { 
 			var monthNumber = f_month(d),
 				resto4 = monthNumber % 4,
@@ -393,7 +397,7 @@ var es_MX = {
 				auxIndex = (monthNumber < 5) ? 1 : (monthNumber < 9) ? 9 : 17;
 			return  auxIndex * CELL_SIZE.height - (CELL_SIZE.height/2);
 		})						
-		.attr('fill', 'grey')
+		.attr('fill', weeksColor)
 		.attr("text-anchor", "middle")
 		.attr("dominant-baseline",  "central")
 		.text(f_wday);

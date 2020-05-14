@@ -11,13 +11,17 @@
 	},
 	
 	"properties": {
-	
+		"colors": {
+			"months": null,
+			"weeks": null,
+			"days": null
+		},
 		"scales":{
 			"shorten_numbers": false,
 			"typeShortenNumber": "U"		
 		},		
 		"calendarConfig":{
-			"initialDOW": "Sunday",
+			"initialDOW": "Monday",
 			"language_var": "es_ES",
 			"dateFormat": "%d/%m/%Y"
 		},	
@@ -29,7 +33,11 @@
 	},
 	
 	"propertyAnnotations": {
-	
+		"colors": {
+			"months": "color",
+			"weeks": "color",
+			"days": "color"
+		},
 		"scales":{
 			"shorten_numbers": "bool",
 			"typeShortenNumber":  {
@@ -94,24 +102,30 @@
 			"value_tooltip": "Drop a measure here", 
 			"dimension_name": "Date Bucket (dd/mm/yyyy)", 
 			"dimension_tooltip": "Drop a dimension here",
-			"properties": {				
-					"scales":{
-						"_translation": "Scales",
-						"shorten_numbers": "Shorten Numbers",
-						"typeShortenNumber": "Shorten Number Type"	
-					},		
-					"calendarConfig":{
-						"_translation": "Calendar options",
-						"initialDOW": "First day of the Week",
-						"language_var": "Language",
-						"dateFormat": "Date format"		
-					},	
-					"chartConfig":{
-						"_translation": "Chart options",
-						"chartHeadroom": "Chart headroom",
-						"bodyBackgroundColor": "Body background color",
-						"showSelectYears": "Show years select"
-					}
+			"properties": {
+				"colors": {
+					"_translation": "Text colors",
+					"months": "Months color",
+					"weeks": "Weeks color",
+					"days": "Days color"
+				},
+				"scales":{
+					"_translation": "Scales",
+					"shorten_numbers": "Shorten Numbers",
+					"typeShortenNumber": "Shorten Number Type"	
+				},		
+				"calendarConfig":{
+					"_translation": "Calendar options",
+					"initialDOW": "First day of the Week",
+					"language_var": "Language",
+					"dateFormat": "Date format"		
+				},	
+				"chartConfig":{
+					"_translation": "Chart options",
+					"chartHeadroom": "Chart headroom",
+					"bodyBackgroundColor": "Body background color",
+					"showSelectYears": "Show years select"
+				}
 			}
 		},
 		
@@ -124,23 +138,29 @@
 			"dimension_name": "Fecha (dd/mm/yyyy)", 
 			"dimension_tooltip": "Arrastra una dimensión",
 			"properties": {
-					"scales":{
-						"_translation": "Escalas",
-						"shorten_numbers": "Acortar Números",
-						"typeShortenNumber": "Tipo de acortado de número"	
-					},		
-					"calendarConfig":{
-						"_translation": "Opciones del calendario",
-						"initialDOW": "Primer día de la Semana",
-						"language_var": "Idioma",
-						"dateFormat": "Formato de la fecha"				
-					},	
-					"chartConfig":{
-						"_translation": "Opciones del Gráfico",
-						"chartHeadroom": "Espacio de encabezado",
-						"bodyBackgroundColor": "Color de fondo",
-						"showSelectYears": "Mostrar combo de años"
-					}						
+				"colors": {
+					"_translation": "Colores de textos",
+					"months": "Color de meses",
+					"weeks": "Color de semanas",
+					"days": "Color de días"
+				},
+				"scales":{
+					"_translation": "Escalas",
+					"shorten_numbers": "Acortar Números",
+					"typeShortenNumber": "Tipo de acortado de número"	
+				},		
+				"calendarConfig":{
+					"_translation": "Opciones del calendario",
+					"initialDOW": "Primer día de la Semana",
+					"language_var": "Idioma",
+					"dateFormat": "Formato de la fecha"				
+				},	
+				"chartConfig":{
+					"_translation": "Opciones del Gráfico",
+					"chartHeadroom": "Espacio de encabezado",
+					"bodyBackgroundColor": "Color de fondo",
+					"showSelectYears": "Mostrar combo de años"
+				}						
 			}
 		}
 	}
