@@ -36,14 +36,17 @@ To configure or customize your extension edit "properties" object in properties.
 			}
 		},
 		"axis": {
+			"color": "black",
 			"preciseCount": false,
 			"label": {
+				"color": "black",
 				"fontFamily": "sans-serif",
 				"fontSize": "10px",
 				"format": ".2s",
 				"count": 20
 			},
 			"ticks": {
+				"color": "black",
 				"count": 90
 			}
 		}

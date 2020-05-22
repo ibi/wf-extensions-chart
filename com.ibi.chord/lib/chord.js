@@ -26,14 +26,17 @@ var com_tdg_chord = (function () {
 				}
 			},
 			axis: {
+				color: 'black',
 				preciseCount: false, // if true then axis.lable.count and axis.ticks.count are required, otherwise - advisory
 				label: {
+					color: 'black',
 					fontFamily: 'sans-serif',
 					fontSize: 10,
 					format: '.2s', // format string that will be passed to d3.format function. https://github.com/mbostock/d3/wiki/Formatting
 					count: 20 // number of labels on every axis
 				},
 				ticks: {
+					color: 'black',
 					count: 90 // number that will be passed to axis.tics function to draw axis tics. https://github.com/mbostock/d3/wiki/Quantitative-Scales#linear_ticks
 				}
 			},
@@ -280,7 +283,7 @@ var com_tdg_chord = (function () {
 				.classed('.axis-curve', true)
 				.attr('d', d3.svg.arc().innerRadius(radiusObj.outer + 5).outerRadius(radiusObj.outer + 5)) // add intercations
 				.style({
-					stroke: 'black',
+					stroke: props.axis.color,
 					opacity: 0
 				});
 				// .transition()
@@ -322,7 +325,7 @@ var com_tdg_chord = (function () {
 				.attr("x2", 5)
 				.attr("y2", 0)
 				.style({
-					stroke: "#000",
+					stroke: props.axis.ticks.color,
 					opacity: 0
 				})
 				.transition()
@@ -347,7 +350,7 @@ var com_tdg_chord = (function () {
 					},
 					'font-family': props.axis.label.fontFamily,
 					'font-size': props.axis.label.fontSize,
-					fill: "#000",
+					fill: props.axis.label.color,
 					opacity: 0
 				})
 				.text(function(d) { return d.label; });

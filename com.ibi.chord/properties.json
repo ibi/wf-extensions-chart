@@ -1,9 +1,10 @@
 {
 	"info": {
-		"version": "1.0.4",
+		"version": "1.0.5",
 		//1.0.2 VIZ-43
 		//1.0.3 VIZ-78
 		//1.0.4 VIZ-97
+		//1.0.5 New properties for colors
 		"implements_api_version": 1.0,
 		"author": "Three D Graphics",
 		"copyright": "Three D Graphics Inc.",
@@ -30,14 +31,17 @@
 			}
 		},
 		"axis": {
+			"color": "black",
 			"preciseCount": false,
 			"label": {
+				"color": "black",
 				"fontFamily": "sans-serif",
 				"fontSize": "10px",
 				"format": ".2s",
 				"count": 20
 			},
 			"ticks": {
+				"color": "black",
 				"count": 90
 			}
 		}
@@ -58,14 +62,17 @@
 			}
 		},
 		"axis": {
+			"color": "color",
 			"preciseCount": "bool",
 			"label": {
+				"color": "color",
 				"fontFamily": "str",
 				"fontSize": "str",
 				"format": "str",
 				"count": "number"
 			},
 			"ticks": {
+				"color": "color",
 				"count": "number"
 			}
 		}
