@@ -302,8 +302,12 @@ var es_MX = {
 		.attr('stroke-width', '1px')
 		.attr('width', CELL_SIZE.width)
 		.attr('height', CELL_SIZE.height)
-		.attr("class", function(d, i){ return ib3SLI.config.getDrillClass('riser', 0, d.originalIndex); })
-		.each(function(d, g) {ib3SLI.config.setUpTooltip(this, 0, d.originalIndex,d); })
+		.attr("class", function(d, i){
+			return ib3SLI.config.getDrillClass('riser', 0, d.originalIndex); 
+		})
+		.each(function(d, g) {
+			ib3SLI.config.setUpTooltip(this, 0, d.originalIndex,d); 
+		})
 		.attr("x", function(d,i) {
 			var monthNumber = f_month(parseDate(d.dimension)),
 				resto4 = monthNumber % 4,
@@ -344,36 +348,63 @@ var es_MX = {
 	
 ///////////////////////////////			
 // Create text for each day
-     var days = d3.timeDays(new Date(year, 0), new Date(year + 1, 0),1);
+     var days = d3.timeDays(new Date(year, 0), new Date(year + 1, 0),1),
+		auxIndex = filteredData.length-1,
+		auxDate = new Date(filteredData[auxIndex].dimension),
+		daysWidthData = new Array(),
+		newJson;
+	 for (var i = 0; i < days.length; i++){
+		 newJson = {};
+		 
+		 if ((f_year(days[i]) == f_year(auxDate)) &&
+			(f_month(days[i]) == f_month(auxDate)) &&
+			(f_dia(days[i]) == f_dia(auxDate))){
+			newJson = filteredData[auxIndex];
+			auxIndex--;
+			if (auxIndex >= 0) auxDate = new Date(filteredData[auxIndex].dimension);
+		}
+		newJson['day'] = days[i];
+		daysWidthData.push(newJson);
+	 }
+//	 filteredData
+	 
+	 
      var daystext = svg.selectAll(".text_days")
-        .data(days)
+//        .data(days)
+		.data(daysWidthData)
         .enter()
 		.append("text")
-/*
+
 		.attr("class", function(d, i){
-			return ib3SLI.config.getDrillClass('riser', 0, d.originalIndex);
+			if (d.dimension){
+				return ib3SLI.config.getDrillClass('riser', 0, d.originalIndex);
+			}
 		})
 		.each(function(d, g){
-			ib3SLI.config.setUpTooltip(this, 0, d.originalIndex,d);
+			if (d.dimension){
+				ib3SLI.config.setUpTooltip(this, 0, d.originalIndex,d);
+			}
 		})
-*/
+
 		.style("font-size", Math.round(  CELL_SIZE.height/2   )+"px")
 		.attr("x", function(d,i) {
-			var monthNumber = f_month(d),
+			var monthNumber = f_month(d.day),
 			resto4 = monthNumber % 4,
 			auxIndex = ((resto4 == 0) ? 4 : resto4) - 1;
-			return Math.round( (f_daynumber(d)*CELL_SIZE.width) + (auxIndex * 8 * CELL_SIZE.width) - (CELL_SIZE.width/2) );
+			return Math.round( (f_daynumber(d.day)*CELL_SIZE.width) + (auxIndex * 8 * CELL_SIZE.width) - (CELL_SIZE.width/2) );
 		})
 		.attr("y", function(d,i) {
-			var monthNumber = f_month(d),
+			var monthNumber = f_month(d.day),
 				functionToApply = (initialDOW == "Sunday" ) ? d3.timeSunday : d3.timeMonday,
 				auxIndex = (monthNumber < 5) ? 1 : (monthNumber < 9) ? 9 : 17;
-			return  Math.round( functionToApply.count(d3.timeMonth(d), d) * CELL_SIZE.height + auxIndex * CELL_SIZE.height + (CELL_SIZE.height/2));
+			return  Math.round( functionToApply.count(d3.timeMonth(d.day), d.day) * CELL_SIZE.height + auxIndex * CELL_SIZE.height + (CELL_SIZE.height/2));
 		})				
 		.attr('fill', daysColor)
 		.attr("text-anchor", "middle")
 		.attr("dominant-baseline",  "central")
-		.text(f_dia);	
+		.text(function(d,i){
+			return f_dia(d.day);
+		});	
 ///////////////////////////////		  
 
 
