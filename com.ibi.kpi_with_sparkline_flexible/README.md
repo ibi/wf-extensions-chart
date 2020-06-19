@@ -12,22 +12,24 @@ It is completely flexible, so you can show/hide the deviation, show/hide the bar
 ## Screenshots
 
 Rectangle design
-![screenshot1](https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.kpi_with_sparkline_flexible/screenshots/Screenshot1.png)
+
+![Screenshot1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpi_with_sparkline_flexible/screenshots/Screenshot1.PNG)
 
 Square design
-![screenshot2](https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.kpi_with_sparkline_flexible/screenshots/Screenshot2.png)
+
+![Screenshot2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpi_with_sparkline_flexible/screenshots/Screenshot2.PNG)
 
 ## Configurations
 
 To configure or customize your extension use the Extension properties panel in the Designer or edit "properties" object in properties.json file.
 
-![properties](https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.kpi_with_sparkline_flexible/screenshots/Properties.png)
+![Properties](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpi_with_sparkline_flexible/screenshots/Properties.png)
 
 
 ## Data Buckets
 
-### Measures:
+### Measure:
 * **Value (MES)** - quantitative representations for values in your date series ( ex. sales ).
 
-### Dimensions
+### X-Axis
 * **Date (DIM)** - a series of date values. (day, month, year or any time frame you have).
