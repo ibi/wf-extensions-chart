@@ -7,7 +7,7 @@ For installation instructions please visit this [link] (https://github.com/ibi/w
 ## Description
 
 This extension is a small KPI widget, that shows the current value of a measure, the deviation against the previous value of this measure and all measure values as bars.
-It is completely flexible, so you can show/hide the deviation, show/hide the bars, choose between two layouts (rectangle/square), switch the deviation between percent/total value, switch between aggregated or non aggregated values and switch between us/europe number format.
+It is completely flexible, so you can show/hide the deviation, show/hide the bars, choose between two layouts (rectangle/square), switch the deviation between percent/total value, switch between aggregated or non aggregated values and switch between US/Europe number format.
 
 ## Screenshots
 
