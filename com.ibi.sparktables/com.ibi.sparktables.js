@@ -562,10 +562,13 @@
                 case 0:
                     break;
                 case 1:
-                    //var measure_field = dataBuckets.measure.fieldName;
+                    //
                     var function_syntax = 'Sum';
                     if(dataBuckets.measure.fieldName  !==undefined)
                     {
+                        //BEGIN VIZ-309 fix
+                        var measure_field = dataBuckets.measure.fieldName;
+                        //END VIZ-309 fix
                         function_syntax = measure_field.indexOf("MIN.") == 0 ? 'Min' : measure_field.indexOf("MAX.") == 0 ? 'Max' : measure_field.indexOf("AVE.") == 0 ? 'Average' : 'Sum';
                     }
 

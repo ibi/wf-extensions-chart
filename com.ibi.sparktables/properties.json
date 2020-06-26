@@ -2,7 +2,8 @@
 
 {
 	"info": {
-		"version": 1.1,
+		"version": 1.2,
+		//version 1.2 - VIZ-309 fix
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
