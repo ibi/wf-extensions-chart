@@ -1,0 +1,62 @@
+/* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
+
+/* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
+
+.top10-container {
+	font-family: 'Open Sans';
+	display: block;
+	margin: auto;
+	text-align: center;
+	min-width: 300px;
+	max-width: 400px;
+	padding: 10px;
+ 	overflow: hidden;
+}
+.top10-container-wo-measure {
+	font-family: 'Open Sans';
+	display: block;
+	margin: auto;
+	text-align: center;
+	min-width: 260px;
+	max-width: 400px;
+	padding: 10px;
+ 	overflow: hidden;
+}
+.top10-headline {
+	display: block;
+	text-align: center;
+	font-size: 12px;
+	font-weight: 700;
+	padding: 0 0 5px 0;
+	width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    vertical-align: top;
+}
+.top10-dimension-wo-measure {
+	display: block;
+	font-size: 16px;
+	font-weight: 700;
+	width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    vertical-align: top;
+}
+.top10-dimension {
+	display: inline-block;
+	font-size: 16px;
+	font-weight: 700;
+	width: 60%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    vertical-align: top;
+	}
+.top10-measure {
+	display: inline-block;
+	text-align: right;
+	font-size: 16px;
+	width: 40%;
+}	
+	
+.placeholder{position:absolute;left:0;top:0;width:100%;height:100%;text-align:center;font-size:18px;padding:30px 20px;background-color:rgba(255,255,255,.8);box-sizing:border-box}

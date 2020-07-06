@@ -1,0 +1,157 @@
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 2.0,
+		"author": "Information Builders (Marc Julian Daniels)",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.top_10_with_kpi_flexible",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	
+	"properties": {
+		"color": "#666",
+		"fontFamily": "'Open Sans'",
+		"fontSize": "18px",
+		"setCDN": "false",
+		"numberOfTopEntries": "10",
+		"headline": {
+			"fontWeight": "inherit",
+			"color": "#666",
+			"fontSize": "12px",
+			"disableHeadline": "false",
+			"overwriteHeadline": "false",
+			"overwriteHeadlineText": "enter text here"
+		},		
+		"dimensionText": {
+			"fontWeight": "bold",
+			"color": "#666",
+			"fontSize": "16px",
+			"textAlign": "left",
+			"disableRankingText": "false",
+			"switchRankingNumbersFormat": "false"
+		},
+		"measureNumber": {
+			"fontWeight": "inherit",
+			"color": "#666",
+			"fontSize": "16px",
+			"decimalPlaces": "0",
+			"hideMeasureNumber": "false",
+			"percentValue": "false"
+		},
+	},
+	
+	"propertyAnnotations": {
+		"color": "color",
+		"fontFamily": "str",
+		"fontSize": "str",
+		"setCDN": "bool",
+		"numberOfTopEntries": {
+				"typeAnnotation": "number",
+				"numericRange": [1, 10],
+				"numericStep": 1
+        },
+		"headline": {
+			"fontWeight": "str",
+			"color": "color",
+			"fontSize": "str",
+			"disableHeadline": "bool",
+			"overwriteHeadline": "bool",
+			"overwriteHeadlineText": "str"
+		},		
+		"dimensionText": {
+			"fontWeight": "str",
+			"color": "color",
+			"fontSize": "str",
+			"textAlign": {
+				"typeAnnotation": "str",
+				"stringValues": ["left", "center", "right"]
+			},
+			"disableRankingText": "bool",
+			"switchRankingNumbersFormat": "bool"
+		},
+		"measureNumber": {
+			"fontWeight": "str",
+			"color": "color",
+			"fontSize": "str",
+			"decimalPlaces": "number",
+			"hideMeasureNumber": "bool",
+			"percentValue": "bool"
+		},
+	},
+	
+	"dataBuckets":  {
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+			{
+				"id": "measure",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "dimension",
+				"type": "dimension",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			}
+		]
+	},
+
+	"translations": {
+		"en": {
+			"name": "Top 10 with KPI (flexible)",
+			"description": "Top 10 with KPI and flexible layout.",
+			"icon_tooltip": "Top 10 with KPI and flexible layout.", 
+			"measure_name": "Measure", 
+			"measure_tooltip": "Drop a measure here", 
+			"dimension_name": "Dimension", 
+			"dimension_tooltip": "Drop a dimension here"
+		},
+		"de": {
+			"name": "Top 10 mit KPI (flexibel)",
+			"description": "Top 10 mit KPI und flexiblem Layout.",
+			"icon_tooltip": "Top 10 mit KPI und flexiblem Layout.", 
+			"measure_name": "Kennzahl", 
+			"measure_tooltip": "Kennzahl hier ablegen", 
+			"dimension_name": "Dimension", 
+			"dimension_tooltip": "Dimension hier ablegen"
+		},
+		"pt_BR": {
+			"name": "Os 10 principais com KPI (flexível)",
+			"description": "Os 10 principais com KPI e layout flexível.",
+			"icon_tooltip": "Os 10 principais com KPI e layout flexível.", 
+			"measure_name": "Medida", 
+			"measure_tooltip": "Solte uma medida aqui", 
+			"dimension_name": "Dimensão", 
+			"dimension_tooltip": "Solte uma dimensão aqui"
+		},
+		"es": {
+			"name": "Top 10 con KPI (flexible)",
+			"description": "Top 10 con KPI y diseño flexible.",
+			"icon_tooltip": "Top 10 con KPI y diseño flexible.", 
+			"measure_name": "Medida", 
+			"measure_tooltip": "Soltar aquí una medida", 
+			"dimension_name": "Dimensión", 
+			"dimension_tooltip": "Soltar aquí una dimensión"
+		},
+		"fr": {
+			"name": "Top 10 avec KPI (flexible)",
+			"description": "Top 10 avec KPI et mise en page flexible.",
+			"icon_tooltip": "Top 10 avec KPI et mise en page flexible.", 
+			"measure_name": "Mesure", 
+			"measure_tooltip": "Déposer une mesure ici", 
+			"dimension_name": "Dimension", 
+			"dimension_tooltip": "Déposer une dimension ici"
+		}
+	}
+}
