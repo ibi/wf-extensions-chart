@@ -1,0 +1,179 @@
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 2.0,
+		"author": "Information Builders (Marc Julian Daniels)",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.dimension_counter_by_kpi",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	
+	"properties": {
+		"color": "#666",
+		"fontFamily": "'Open Sans'",
+		"fontSize": "18px",
+		"fontStyle": "normal",
+		"setCDN": "false",
+		"hideTopDimension": "false",
+		"firstLine": {
+			"fontStyle": "inherit",
+			"fontWeight": "inherit",
+			"color": "#666",
+			"fontSize": "12px",
+			"overwriteFirstLine": "false",
+			"overwriteFirstLineText": "enter text here"
+		},	
+		"counter": {
+			"fontStyle": "inherit",
+			"fontWeight": "bold",
+			"color": "#666",
+			"fontSize": "16px"
+		},	
+		"thirdLine": {
+			"fontStyle": "inherit",
+			"fontWeight": "inherit",
+			"color": "#666",
+			"fontSize": "12px",
+			"overwriteThirdLine": "false",
+			"overwriteThirdLineText": "enter text here"
+		},	
+		"topDimension": {
+			"fontStyle": "inherit",
+			"fontWeight": "bold",
+			"color": "#666",
+			"fontSize": "16px"
+		}
+	},
+	
+	"propertyAnnotations": {
+		"color": "color",
+		"fontFamily": "str",
+		"fontSize": "str",
+		"fontStyle": "str",
+		"setCDN": "bool",
+		"hideTopDimension": "bool",
+		"firstLine": {
+			"fontWeight": "str",
+			"color": "color",
+			"fontSize": "str",
+			"fontStyle": "str",
+			"overwriteFirstLine": "bool",
+			"overwriteFirstLineText": "str"
+		},	
+		"counter": {
+			"fontStyle": "str",
+			"fontWeight": "str",
+			"color": "color",
+			"fontSize": "str"
+		},	
+		"thirdLine": {
+			"fontStyle": "str",
+			"fontWeight": "str",
+			"color": "color",
+			"fontSize": "str",
+			"overwriteThirdLine": "bool",
+			"overwriteThirdLineText": "str"
+		},			
+		"topDimension": {
+			"fontStyle": "str",
+			"fontWeight": "str",
+			"color": "color",
+			"fontSize": "str"
+		}	
+
+	},
+	
+	"dataBuckets":  {
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+			{
+				"id": "measure",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "dimension",
+				"type": "dimension",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "dimensionText",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+		]
+	},
+
+	"translations": {
+		"en": {
+			"name": "Dimension counter by KPI",
+			"description": "Dimension counter by KPI.",
+			"icon_tooltip": "Dimension counter by KPI.", 
+			"measure_name": "Measure", 
+			"measure_tooltip": "Drop a measure here", 
+			"dimension_name": "Dimension", 
+			"dimension_tooltip": "Drop a dimension here",
+			"dimensionText_name": "Dimension text (optional)",
+			"dimensionText_tooltip": "Drop a dimension here (optional)"
+		},
+		"de": {
+			"name": "Dimension-Ausprägungszähler nach KPI",
+			"description": "Dimension-Ausprägungszähler nach KPI.",
+			"icon_tooltip": "Dimension-Ausprägungszähler nach KPI.", 
+			"measure_name": "Kennzahl", 
+			"measure_tooltip": "Kennzahl hier ablegen", 
+			"dimension_name": "Dimension", 
+			"dimension_tooltip": "Dimension hier ablegen",
+			"dimensionText_name": "Dimension Text (optional)",
+			"dimensionText_tooltip": "Dimension hier ablegen (optional)"
+		},
+		"pt_BR": {
+			"name": "Contador de dimensões por KPI",
+			"description": "Contador de dimensões por KPI.",
+			"icon_tooltip": "Contador de dimensões por KPI.", 
+			"measure_name": "Medida", 
+			"measure_tooltip": "Solte uma medida aqui", 
+			"dimension_name": "Dimensão", 
+			"dimension_tooltip": "Solte uma dimensão aqui",
+			"dimensionText_name": "Dimensão texto (opcional)",
+			"dimensionText_tooltip": "Solte uma dimensão aqui (opcional)"
+		},
+		"es": {
+			"name": "Contador de dimensiones por KPI",
+			"description": "Contador de dimensiones por KPI.",
+			"icon_tooltip": "Contador de dimensiones por KPI.", 
+			"measure_name": "Medida", 
+			"measure_tooltip": "Soltar aquí una medida", 
+			"dimension_name": "Dimensión", 
+			"dimension_tooltip": "Soltar aquí una dimensión",
+			"dimensionText_name": "Dimensión texto (opcional)",
+			"dimensionText_tooltip": "Soltar aquí una dimensión (opcional)"
+		},
+		"fr": {
+			"name": "Compteur de dimensions par KPI",
+			"description": "Compteur de dimensions par KPI.",
+			"icon_tooltip": "Compteur de dimensions par KPI.", 
+			"measure_name": "Mesure", 
+			"measure_tooltip": "Déposer une mesure ici", 
+			"dimension_name": "Dimension", 
+			"dimension_tooltip": "Déposer une dimension ici",
+			"dimensionText_name": "Dimension texte (optionnelle)",
+			"dimensionText_tooltip": "Déposer une dimension ici (optionnelle)"
+		}
+	}
+}
