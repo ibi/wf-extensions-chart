@@ -31,5 +31,5 @@ To configure or customize your extension use the Extension properties panel in t
 ### Measure:
 * **Value (MES)** - quantitative representations for values in your date series ( ex. sales ).
 
-### X-Axis
+### Dimension (Time)
 * **Date (DIM)** - a series of date values. (day, month, year or any time frame you have).
