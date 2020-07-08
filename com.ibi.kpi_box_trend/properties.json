@@ -1,0 +1,263 @@
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 2.0,
+		"author": "Information Builders (Marc Julian Daniels)",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.kpi_box_trend",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	
+	"properties": {
+		"dynamicColorMode": {
+			"applyDynamicColorOn": "nothing",
+			"risingColor": "#37BF54",
+			"fallingColor": "#F53554"
+		},
+		"fontFamily": "'Open Sans'",
+		"fontSize": "12px",
+		"fontStyle": "normal",
+		"widgetWidth": {
+			"minimumWidgetWidth": "300",
+			"maximumWidgetWidth": "400"
+		},
+		"setCDN": "false",
+		"currentValue": {
+			"measureName": {
+				"color": "#666",
+				"fontSize": "12px",
+				"fontStyle": "inherit",
+				"fontWeight": "bold"
+			},
+			"total": {
+				"color": "#666",
+				"fontSize": "20px",
+				"fontStyle": "inherit",
+				"fontWeight": "normal",
+				"decimalPlaces": "0",
+				"percentValue": "false"
+			}
+		},
+		"previousValue": {
+			"previousText": {
+				"color": "#666",
+				"fontSize": "12px",
+				"fontStyle": "inherit",
+				"fontWeight": "bold",
+				"previousText": "Previous"
+			},
+			"previousTotal": {
+				"color": "#666",
+				"fontSize": "20px",
+				"fontStyle": "inherit",
+				"fontWeight": "normal",
+				"decimalPlaces": "0",
+				"percentValue": "false"
+			},
+			"disablePreviousValue": "false"
+		},
+		"changeValue":{
+			"changeValueText": {
+				"color": "#666",
+				"fontSize": "12px",
+				"fontStyle": "inherit",
+				"fontWeight": "bold",
+				"changeText": "Change vs. previous"
+			},
+			"changeValue": {
+				"color": "#666",
+				"fontSize": "20px",
+				"fontStyle": "inherit",
+				"fontWeight": "normal",
+				"decimalPlaces": "2",
+				"deviationInPercent": "false"
+			},
+			"disableChangeValue": "false"
+		},			
+		"trendIcon":{
+			"trendIconText": {
+				"color": "#666",
+				"fontSize": "12px",
+				"fontStyle": "inherit",
+				"fontWeight": "bold",
+				"trendText": "Trend"
+			},
+			"trendIcon": {
+				"color": "#666",
+				"fontSize": "20px",
+				"fontWeight": "normal"
+			},
+			"disableTrendIcon": "false"
+		},			
+	},
+	
+	"propertyAnnotations": {
+		"dynamicColorMode": {
+			"applyDynamicColorOn": {
+				"typeAnnotation": "str",
+				"stringValues": ["nothing", "change only", "trend only", "change and trend", "full widget background"]
+			},
+			"risingColor": "color",
+			"fallingColor": "color"
+		},
+		"fontFamily": "str", 
+		"fontSize": "str", 
+		"fontStyle": "str",
+		"widgetWidth":{
+			"minimumWidgetWidth": {
+				"typeAnnotation": "number",
+				"numericRange": [200, 400],
+				"numericStep": 10
+			},
+			"maximumWidgetWidth": {
+				"typeAnnotation": "number",
+				"numericRange": [200, 500],
+				"numericStep": 10
+			},
+        },
+		"setCDN": "bool",
+		"currentValue": {
+			"measureName": {
+				"color": "color",
+				"fontSize": "str",
+				"fontStyle": "str",
+				"fontWeight": "str"
+			},
+			"total": {
+				"color": "color",
+				"fontSize": "str",
+				"fontStyle": "str",
+				"fontWeight": "str",
+				"decimalPlaces": "number",
+				"percentValue": "bool"
+			}
+		},
+		"previousValue": {
+			"previousText": {
+				"color": "color",
+				"fontSize": "str",
+				"fontStyle": "str",
+				"fontWeight": "str",
+				"previousText": "str"
+			},
+			"previousTotal": {
+				"color": "color",
+				"fontSize": "str",
+				"fontStyle": "str",
+				"fontWeight": "str",
+				"decimalPlaces": "number",
+				"percentValue": "bool"
+			},
+			"disablePreviousValue": "bool"
+		},		
+		"changeValue":{
+			"changeValueText": {
+				"color": "color",
+				"fontSize": "str",
+				"fontStyle": "str",
+				"fontWeight": "str",
+				"changeText": "str"
+			},
+			"changeValue": {
+				"color": "color",
+				"fontSize": "str",
+				"fontStyle": "str",
+				"fontWeight": "str",
+				"decimalPlaces": "number",
+				"deviationInPercent": "bool"
+			},
+			"disableChangeValue": "bool"
+		},			
+		"trendIcon":{
+			"trendIconText": {
+				"color": "color",
+				"fontSize": "str",
+				"fontStyle": "str",
+				"fontWeight": "str",
+				"trendText": "str"
+			},
+			"trendIcon": {
+				"color": "color",
+				"fontSize": "str",
+				"fontWeight": "str"
+			},
+			"disableTrendIcon": "bool"
+		},			
+	},		
+	
+	"dataBuckets":  {
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+			{
+				"id": "measure",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "time",
+				"type": "dimension",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			}
+		]
+	},
+
+	"translations": {
+		"en": {
+			"name": "KPI box with trend indicator",
+			"description": "KPI box with trend indicator.",
+			"icon_tooltip": "KPI box with trend indicator.", 
+			"measure_name": "Measure", 
+			"measure_tooltip": "Drop a measure here", 
+			"time_name": "Dimension (Time)", 
+			"time_tooltip": "Drop a dimension here"
+		},
+		"de": {
+			"name": "KPI Box mit Trendindikator",
+			"description": "KPI Box mit Trendindikator",
+			"icon_tooltip": "KPI Box mit Trendindikator", 
+			"measure_name": "Kennzahl", 
+			"measure_tooltip": "Kennzahl hier ablegen", 
+			"time_name": "Dimension (Zeit)", 
+			"time_tooltip": "Dimension hier ablegen"
+		},
+		"pt_BR": {
+			"name": "Caixa KPI com indicador de tendência",
+			"description": "Caixa KPI com indicador de tendência.",
+			"icon_tooltip": "Caixa KPI com indicador de tendência.", 
+			"measure_name": "Medida", 
+			"measure_tooltip": "Solte uma medida aqui", 
+			"time_name": "Dimensão (tempo)", 
+			"time_tooltip": "Solte uma dimensão aqui"
+		},
+		"es": {
+			"name": "Cuadro KPI con indicador de tendencia",
+			"description": "Cuadro KPI con indicador de tendencia.",
+			"icon_tooltip": "Cuadro KPI con indicador de tendencia.", 
+			"measure_name": "Medida", 
+			"measure_tooltip": "Soltar aquí una medida", 
+			"time_name": "Dimensión (tiempo)", 
+			"time_tooltip": "Soltar aquí una dimensión"
+		},
+		"fr": {
+			"name": "Boîte KPI avec indicateur de tendance",
+			"description": "Boîte KPI avec indicateur de tendance.",
+			"icon_tooltip": "Boîte KPI avec indicateur de tendance.", 
+			"measure_name": "Mesure", 
+			"measure_tooltip": "Déposer une mesure ici", 
+			"time_name": "Dimension (temps)", 
+			"time_tooltip": "Déposer une dimension ici"
+		}
+	}
+}
