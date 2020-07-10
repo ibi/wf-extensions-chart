@@ -7,13 +7,11 @@ For installation instructions please visit this [link] (https://github.com/ibi/w
 
 ## Description
 
-This extension displays the value of the KPI, a related icon and if variation is required with respect to a comparison value.
+This extension displays the value of the KPI and comparations, a related icons and percentajes of changes to a comparison values.
 
 ## Screenshots
 
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpibox/screenshots/1.png)
-
-![screenshot_2](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpibox/screenshots/2.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.kpibox/screenshots/image.png)
 
 ## Configurations
 
@@ -24,58 +22,62 @@ To configure or customize your extension edit "properties" object in properties.
 	"properties": {
 	
 		"kpiboxProperties": {   
-			"ibiAppsPath": "/ibi_apps/",	
-			"calculateComparationFunction": {
-				"param1": "valueKpi", 
-				"param2": "compareValue", 
-				"body": "if(valueKpi == 0 && compareValue == 0) { return 0; } var result = (valueKpi - compareValue) / Math.abs(compareValue);  return result;"
+			"ibiAppsPath": "/ibi_apps/",	// Ibi path context
+			"calculateComparationFunction": { // personalization of first compare function
+				"param1": "valueKpi", // comparation first parameter
+				"param2": "compareValue", // comparation second parameter
+				"body": "if(valueKpi == 0 && compareValue == 0) { return 0; } var result = (valueKpi - compareValue) / Math.abs(compareValue);  return result;" // function of comparation
 			},	
-			"formatComparation": "#,###.00%",
-			"customCompareIcon": {
-				"active": false,	
-				"iconUp": "",
-				"iconDown": "",
+			"calculateComparationFunction2": { // personalization of second compare function
+				"param1": "valueKpi", // comparation first parameter
+				"param2": "compareValue2", // comparation second parameter
+				"body": "if(valueKpi == 0 && compareValue2 == 0) { return 0; } var result = (valueKpi - compareValue2) / Math.abs(compareValue2);  return result;" // function of comparation
 			},
-			"shortenNumber": true, 
-			"typeShortenNumber": null, // "long scale" (default)/ "short scale"
-										// "long scale": K: 10^3, M: 10^6, B: 10^9, T: 10^12
-										// "short scale": K: 10^3, M: 10^6, B: 10^12
-			"setInfiniteToZero": false,
-			"titleRow": false,
-			"calculateFontSize": false, 
-			"fixedFontSizeProp": "18px",
-			"fixedPixelLinesMargin": 20,
-			"imagePercentageWidth": 40,
-			"titleFont": {
-				"size": "18px",
-				"color": "black",
-				"family": "Arial, sans-serif"
+			"formatComparation": "#,###.00%", // comparation result show format
+			"customCompareIcon": { // custom comparation icons
+				"active": false, // true/false
+				"iconUp": " ", // path of image for positive result
+				"iconDown": " " // path of image for negative result
 			},
-			"measureFont": {
-				"size": "18px",
-				"color": "black",
-				"family": "Arial, sans-serif"
+			"shortenNumber": false, // shorten number apply true/false
+			"typeShortenNumber": null, // long scale/short scale "type of shorten to show"
+			"setInfiniteToZero": false, // true/false "change infinte to 0"
+			"titleRow": false, // true/false "show title as a independent row up to the image"
+			"calculateFontSize": false,  // true/false "auto calculate font sizes"
+			"fixedFontSizeProp": "18px", // font size for all text if they havent specified any one
+			"fixedPixelLinesMargin": 20, // margin betwen lines
+			"imagePercentageWidth": 30, // image width in percentaje
+			"comparationTitle":false, // true/false "show title of comparation"
+			"comparationValue":false, // true/false "show value of comparation"
+			"textAlign":false, // true/false "alignt to center"
+			"titleFont":{ // title customization options
+			    "size":"14px", // title font size
+			    "color":"grey", // title font color
+			    "family":"Arial" // title fon family
 			},
-			"variationFont": {
-				"size": "18px",
-				"family": "Arial, sans-serif"
+			"measureFont":{ // measure customization options
+			    "size":"22px", // measure font size
+			    "color":"grey", // measure font color
+			    "family":"Arial" // measure fon family
 			},
-			"bodyBackgroundColor": "transparent"
+			"variationFont":{ // comparation value customization options
+			    "size":"14px", // comparation value font size
+			    "color":"grey", // comparation value font color
+			    "family":"Arial" // comparation value fon family
+			},
+			"variationTitle":{ // comparation title customization options
+			    "size":"14px", // comparation title font size
+			    "color":"grey", // comparation title font color
+			    "family":"Arial" // comparation title fon family
+			},
+			"bodyBackgroundColor": "#f4f4f4" // background-color
 		},
-		"colorScale": {
-			"colorMode":"discrete",
-			"colorBands": [
-				{"start": -1000000000000, "stop": 0, "color":"red"},
-				{"start": 0, "stop": 1000000000000, "color":"green"}
+		"colorScale": { // customization of color
+			"colorBands": [ // range of value for colors as array
+				{"start": -1000000000000, "stop": 0, "color":"#c00000"},
+				{"start": 0, "stop": 1000000000000, "color":"#409c87"}
 			]
 		}
-		
-	},
-	 
-	"propertyAnnotations": {
-	
-		"kpiboxProperties": "json",		
-		"colorScale": "json"
 		
 	}
 
@@ -83,9 +85,10 @@ To configure or customize your extension edit "properties" object in properties.
 ## Data Buckets
 
 ### Measures:
-* **Value Bucket (1, required)** - Required. KPI value
-* **Compare Value Bucket (1, non required)** - Not required. KPI for comparison.
-* **Sign Comparision Bucket (1, non required)** - Not required. Positive or negative value to set comparision direction.
+* **value - Value Bucket (1, required)** - Required. KPI value
+* **comparevalue - Compare Value Bucket (1, non required)** - Not required. KPI for comparison.
+* **comparevalue2 - Compare Value 2 Bucket (1, non required)** - Not required. KPI for comparison.
+* **kpisign - Sign Comparision Bucket (1, non required)** - Not required. Positive or negative value to set comparision direction.
 
 ### Dimensions
-* **Image Bucket (1, non required)** - Not required. Reference the IBFS path of an image.
+* **image - Image Bucket (1, non required)** - Not required. Reference the IBFS path of an image.

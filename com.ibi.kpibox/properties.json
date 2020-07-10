@@ -20,42 +20,54 @@
 				"param2": "compareValue", 
 				"body": "if(valueKpi == 0 && compareValue == 0) { return 0; } var result = (valueKpi - compareValue) / Math.abs(compareValue);  return result;"
 			},	
+			"calculateComparationFunction2": {
+				"param1": "valueKpi", 
+				"param2": "compareValue2", 
+				"body": "if(valueKpi == 0 && compareValue2 == 0) { return 0; } var result = (valueKpi - compareValue2) / Math.abs(compareValue2);  return result;"
+			},
 			"formatComparation": "#,###.00%",
 			"customCompareIcon": {
 				"active": false,	
-				"iconUp": "",
-				"iconDown": "",
+				"iconUp": " ",
+				"iconDown": " "
 			},
-			"shortenNumber": true,
+			"shortenNumber": false,
 			"typeShortenNumber": null,
 			"setInfiniteToZero": false,
 			"titleRow": false,
 			"calculateFontSize": false, 
 			"fixedFontSizeProp": "18px",
 			"fixedPixelLinesMargin": 20,
-			"imagePercentageWidth": 40,
-			"noImageTextCenter": false,
-			"titleFont": {
-				"size": "18px",
-				"color": "black",
-				"family": "Arial, sans-serif"
+			"imagePercentageWidth": 30,
+			"comparationTitle":false,
+			"comparationValue":false,
+			"textAlign":false,
+			"titleFont":{
+			    "size":"14px",
+			    "color":"grey",
+			    "family":"Arial"
 			},
-			"measureFont": {
-				"size": "18px",
-				"color": "black",
-				"family": "Arial, sans-serif"
+			"measureFont":{
+			    "size":"22px",
+			    "color":"grey",
+			    "family":"Arial"
 			},
-			"variationFont": {
-				"size": "18px",
-				"family": "Arial, sans-serif"
+			"variationFont":{
+			    "size":"14px",
+			    "color":"grey",
+			    "family":"Arial"
 			},
-			"bodyBackgroundColor": "transparent"
+			"variationTitle":{
+			    "size":"14px",
+			    "color":"grey",
+			    "family":"Arial"
+			},
+			"bodyBackgroundColor": "#f4f4f4"
 		},
 		"colorScale": {
-			"colorMode":"discrete",
 			"colorBands": [
-				{"start": -1000000000000, "stop": 0, "color":"red"},
-				{"start": 0, "stop": 1000000000000, "color":"green"}
+				{"start": -1000000000000, "stop": 0, "color":"#c00000"},
+				{"start": 0, "stop": 1000000000000, "color":"#409c87"}
 			]
 		}
 		
@@ -63,7 +75,60 @@
 	 
 	"propertyAnnotations": {
 	
-		"kpiboxProperties": "json",		
+		"kpiboxProperties": {
+			"ibiAppsPath": "str",	
+			"calculateComparationFunction": {
+				"param1": "str", 
+				"param2": "str", 
+				"body": "str"
+			},	
+			"calculateComparationFunction2": {
+				"param1": "str", 
+				"param2": "str", 
+				"body": "str"
+			},
+			"formatComparation": {
+				"typeAnnotation": "str",
+                "stringValues": ["#,###.00%", "#,###.0%"]
+			},
+			"customCompareIcon": {
+				"active": "bool",	
+				"iconUp": "str",
+				"iconDown": "str"
+			},
+			"shortenNumber": "bool",
+			"typeShortenNumber": "str",
+			"setInfiniteToZero": "bool",
+			"titleRow": "bool",
+			"calculateFontSize": "bool", 
+			"fixedFontSizeProp": "str",
+			"fixedPixelLinesMargin": "number",
+			"imagePercentageWidth": "number",
+			"comparationTitle":"bool",
+			"comparationValue":"bool",
+			"textAlign":"bool",
+			"titleFont":{
+			    "size":"str",
+			    "color":"color",
+			    "family":"str"
+			},
+			"measureFont":{
+			    "size":"str",
+			    "color":"color",
+			    "family":"str"
+			},
+			"variationFont":{
+			    "size":"str",
+			    "color":"color",
+			    "family":"str"
+			},
+			"variationTitle":{
+			    "size":"str",
+			    "color":"color",
+			    "family":"str"
+			},
+			"bodyBackgroundColor": "color"
+		},
 		"colorScale": "json"
 		
 	},
@@ -91,6 +156,14 @@
 				}
 			},
 			{
+				"id": "comparevalue2",
+				"type": "measure",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
 				"id": "image",
 				"type": "dimension",
 				"count": {
@@ -111,17 +184,154 @@
 	
 	"translations": {
 		"en": {
-			"name": "KPI Box",
-			"description": "Fancy KPI Box",
+			"name": "KPI Box HTML",
+			"description": "Fancy KPI Box HTML",
 			"icon_tooltip": "KPI Box", 
 			"value_name": "Value Bucket (1, required)", 
 			"value_tooltip": "Drop a measusre here",
 			"comparevalue_name": "Compare Value Bucket (1, non required)", 
 			"comparevalue_tooltip": "Drop a measusre here",
+			"comparevalue2_name": "Compare Value 2 Bucket (1, non required)", 
+			"comparevalue2_tooltip": "Drop a measure here",
 			"kpisign_name": "Sign Comparision Bucket (1, non required)", 
 			"kpisign_tooltip": "Drop a measusre here",
 			"image_name": "Image Bucket (1, non required)", 
-			"image_tooltip": "Drop a field with path to image"
+			"image_tooltip": "Drop a field with path to image",
+			"properties": {
+				"kpiboxProperties": {
+					"_translation": "KPI Box properties",
+					"ibiAppsPath": "Ibi path context",	
+					"calculateComparationFunction": {
+						"_translation": "Comparation 1",
+						"param1": "Value", 
+						"param2": "compare value", 
+						"body": "js comparation"
+					},	
+					"calculateComparationFunction2": {
+						"_translation": "Comparation 2",
+						"param1": "Value", 
+						"param2": "compare value", 
+						"body": "js comparation"
+					},
+					"formatComparation": "Format of comparation",
+					"customCompareIcon": {
+						"_translation": "Custom compare icon",
+						"active": "Active",	
+						"iconUp": "Incon up path",
+						"iconDown": "Icon down path"
+					},
+					"shortenNumber": "Shorten number",
+					"typeShortenNumber": "Type shorten number",
+					"setInfiniteToZero": "Infinite to zero",
+					"titleRow": "Title as row",
+					"calculateFontSize": "Font size automatic", 
+					"fixedFontSizeProp": "Font size",
+					"fixedPixelLinesMargin": "Line margins",
+					"imagePercentageWidth": "Image percentaje width",
+					"comparationTitle": "Comparation title",
+					"textAlign": "text align",
+					"titleFont":{
+						"_translation": "Title font",
+						"size": "font size",
+						"color": "font color",
+						"family": "font family"
+					},
+					"measureFont":{
+						"_translation": "Measure font",
+						"size": "font size",
+						"color": "font color",
+						"family": "font family"
+					},
+					"variationFont":{
+						"_translation": "Variation font",
+						"size": "font size",
+						"color": "font color",
+						"family": "font family"
+					},
+					"variationTitle":{
+						"_translation": "Title title",
+						"size": "font size",
+						"color": "font color",
+						"family": "font family"
+					},
+					"bodyBackgroundColor": "Back ground color"
+				}
+			}
+		},
+		"es": {
+			"name": "KPI Box HTML",
+			"description": "Fancy KPI Box HTML",
+			"icon_tooltip": "KPI Box", 
+			"value_name": "Value Bucket (1, required)", 
+			"value_tooltip": "Drop a measusre here",
+			"comparevalue_name": "Compare Value Bucket (1, non required)", 
+			"comparevalue_tooltip": "Drop a measusre here",
+			"comparevalue2_name": "Compare Value 2 Bucket (1, non required)", 
+			"comparevalue2_tooltip": "Drop a measure here",
+			"kpisign_name": "Sign Comparision Bucket (1, non required)", 
+			"kpisign_tooltip": "Drop a measusre here",
+			"image_name": "Image Bucket (1, non required)", 
+			"image_tooltip": "Drop a field with path to image",
+			"properties": {
+				"kpiboxProperties": {
+					"_translation": "KPI Box properties",
+					"ibiAppsPath": "Ibi path context",	
+					"calculateComparationFunction": {
+						"_translation": "Comparation 1",
+						"param1": "Value", 
+						"param2": "compare value", 
+						"body": "js comparation"
+					},	
+					"calculateComparationFunction2": {
+						"_translation": "Comparation 2",
+						"param1": "Value", 
+						"param2": "compare value", 
+						"body": "js comparation"
+					},
+					"formatComparation": "Format of comparation",
+					"customCompareIcon": {
+						"_translation": "Custom compare icon",
+						"active": "Active",	
+						"iconUp": "Incon up path",
+						"iconDown": "Icon down path"
+					},
+					"shortenNumber": "Shorten number",
+					"typeShortenNumber": "Type shorten number",
+					"setInfiniteToZero": "Infinite to zero",
+					"titleRow": "Title as row",
+					"calculateFontSize": "Font size automatic", 
+					"fixedFontSizeProp": "Font size",
+					"fixedPixelLinesMargin": "Line margins",
+					"imagePercentageWidth": "Image percentaje width",
+					"comparationTitle": "Comparation title",
+					"textAlign": "text align",
+					"titleFont":{
+						"_translation": "Title font",
+						"size": "font size",
+						"color": "font color",
+						"family": "font family"
+					},
+					"measureFont":{
+						"_translation": "Measure font",
+						"size": "font size",
+						"color": "font color",
+						"family": "font family"
+					},
+					"variationFont":{
+						"_translation": "Variation font",
+						"size": "font size",
+						"color": "font color",
+						"family": "font family"
+					},
+					"variationTitle":{
+						"_translation": "Title title",
+						"size": "font size",
+						"color": "font color",
+						"family": "font family"
+					},
+					"bodyBackgroundColor": "Back ground color"
+				}
+			}
 		}
 	}
 }

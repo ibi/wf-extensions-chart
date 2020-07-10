@@ -11,12 +11,37 @@
 	}
 	
 	function noDataRenderCallback(renderConfig) {
-
+ 
 		renderConfig.testData = true;
-
+ 
 		var grey = renderConfig.baseColor;
-		renderConfig.data = JSON.parse('[{"value":123456789,"comparevalue":1234567.01,"_s":0,"_g":0}]');
-		renderConfig.moonbeamInstance.dataBuckets = JSON.parse('{"buckets":{"value":{"title":"Testing data","count":1},"comparevalue":{"title":"Testing data Comp","count":1}},"depth":1}');
+
+		renderConfig.data = JSON.parse('[{"value":123456789,"comparevalue":1234567.01,"comparevalue2":1234567.01,"_s":0,"_g":0}]');
+		//renderConfig.data = [	[  [143794,143794 ,70 ]	]  ];
+		renderConfig.moonbeamInstance.dataBuckets = JSON.parse('{"buckets":{"value":{"title":"Testing data","count":1},"comparevalue":{"title":"Testing data Comp","count":1},"comparevalue2":{"title":"Testing data Comp2","count":1}},"depth":1}');
+		/*renderConfig.moonbeamInstance.dataBuckets={
+			internal_api_version: 2.0
+		   ,buckets: [
+			  {
+				id: 'value'
+			   ,fields: [
+				  { title: 'Prestamos (Fact.Acum)' ,fieldName: 'CAR.BODY.DEALER_COST' ,numberFormat: '#,###' }
+				]
+			  }
+			 ,{
+				id: 'comparevalue'
+			   ,fields: [
+				  { title: 'DEALER_COST' ,fieldName: 'CAR.BODY.DEALER_COST' ,numberFormat: '#,###' }
+				]
+			  }
+			 ,{
+				id: 'comparevalue2'
+			   ,fields: [
+				  { title: 'SEATS' ,fieldName: 'CAR.BODY.SEATS' ,numberFormat: '#' }
+				]
+			  }
+			]
+		  };*/
 		//renderConfig.dataBuckets = renderConfig.moonbeamInstance.dataBuckets;
 		renderConfig.moonbeamInstance.getSeries(0).color = grey;
 		renderConfig.moonbeamInstance.getSeries(1).color = pv.color(grey).lighter(0.18).color;
@@ -37,15 +62,16 @@
 			tooltip: {
 				hiddenBuckets: ['kpisign', 'image']
 			}
-		});
+		});				
 		
 		window.comIbiKpiboxChartExtension.draw(ib3SLI, isDummyData);
+		
 
 	}
 
 	var config = {
 		id: 'com.ibi.kpibox',
-		containerType: 'svg',
+		containerType: 'html',
 		name: 'KPI Box',
 		initCallback: initCallback,
 		preRenderCallback: preRenderCallback,
@@ -90,6 +116,7 @@
 				// Use this to define 'nice' default tooltips for the given target, ids & data.
 				// Return value can be a string (including HTML), or HTML nodes, or any Moonbeam tooltip API object.
 				autoContent: function(dataObject) {
+					 
 					//title: of tooltip content
 					//data_array: data names and values
 					//title + ':' + format_number(numberFormat, value) + '\n' + comparetitle + ':' + format_number(numberFormat, comparevalue) + '\nΔ:' + parseFloat(percvalue).toFixed(2) + '% ')
