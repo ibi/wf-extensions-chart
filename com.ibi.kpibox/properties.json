@@ -62,6 +62,12 @@
 			    "color":"grey",
 			    "family":"Arial"
 			},
+			"footing":{
+				"type":"External"
+			},
+			"heading":{
+				"type":"External"
+			},
 			"bodyBackgroundColor": "#f4f4f4"
 		},
 		"colorScale": {
@@ -126,6 +132,19 @@
 			    "size":"str",
 			    "color":"color",
 			    "family":"str"
+			},
+			"footing":{
+				"type":{
+					"typeAnnotation": "str",
+					"stringValues": ["External", "Internal"]
+				} 
+				
+			},
+			"heading":{
+				"type":{
+					"typeAnnotation": "str",
+					"stringValues": ["External", "Internal"]
+				} 
 			},
 			"bodyBackgroundColor": "color"
 		},
@@ -254,6 +273,14 @@
 						"color": "font color",
 						"family": "font family"
 					},
+					"footing":{
+						"_translation": "Footing Properties ",
+						"type": "Footing position"
+					},
+					"heading":{
+						"_translation": "Heading Properties ",
+						"type": "Heading position"
+					},
 					"bodyBackgroundColor": "Back ground color"
 				}
 			}
@@ -328,6 +355,10 @@
 						"size": "font size",
 						"color": "font color",
 						"family": "font family"
+					},
+					"footing":{
+						"_translation": "footing Properties ",
+						"type": "Footing position"
 					},
 					"bodyBackgroundColor": "Back ground color"
 				}

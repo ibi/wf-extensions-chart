@@ -72,6 +72,12 @@ To configure or customize your extension edit "properties" object in properties.
 			},
 			"bodyBackgroundColor": "#f4f4f4" // background-color
 		},
+		"footing":{ // footing properties
+				"type":"External" // internal / external (position in KPIBOX)
+		},
+		"heading":{ // heading properties
+			"type":"External" // internal / external (position in KPIBOX)
+		},
 		"colorScale": { // customization of color
 			"colorBands": [ // range of value for colors as array
 				{"start": -1000000000000, "stop": 0, "color":"#c00000"},
@@ -85,7 +91,7 @@ To configure or customize your extension edit "properties" object in properties.
 ## Data Buckets
 
 ### Measures:
-* **value - Value Bucket (1, required)** - Required. KPI value
+* **value - Value Bucket (1, required)** - Required. KPI value **To show title in diferents line we can add \n for each line**
 * **comparevalue - Compare Value Bucket (1, non required)** - Not required. KPI for comparison.
 * **comparevalue2 - Compare Value 2 Bucket (1, non required)** - Not required. KPI for comparison.
 * **kpisign - Sign Comparision Bucket (1, non required)** - Not required. Positive or negative value to set comparision direction.

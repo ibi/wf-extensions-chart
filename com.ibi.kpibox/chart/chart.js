@@ -21,38 +21,54 @@
 			height = ib3SLI.config.getChartHeight(),
 			properties = ib3SLI.config.getCustomProperties();
 
+ 
+
 		var template1 = 
-		   	'<div class="template1 kpiBoxContainer" style="display: flex">' +
-				'<div class="kpiBoximage">' +
-					'<div  class="kpiBoximageIcon" ></div>' +				 
-				'</div>' +
-				'<div class="kpiBoxRow">' +
-					'<div class="kpiBoxTitle"></div>' +
-					'<div class="kpiBoxValueRow">' +
-						'<div class="kpiBoxValue"></div>' +
-						'<div class="kpiBoxValueCompareRow"></div>' +
-					'</div>' +
-					'<div class="kpiBoxComparativeRow"></div>' +
-				'</div>' +
+			'<div class="template1 kpiBoxContainer" style="display: flex">' +
+			'	<div class="kpiBoxHeadingExternal"></div>' +
+			'	<div class=kpiBoxContent>' +
+			'		<div class="kpiBoximage"> ' +
+			'			<div  class="kpiBoximageIcon" ></div>' +			 
+			'		</div>' +
+			'		<div class="kpiBoxRow">' +
+			'			<div class="kpiBoxHeadingInternal"></div>' +
+			'			<div class=KpiBoxData>' +
+			'				<div class="kpiBoxTitle"></div>' +
+			'				<div class="kpiBoxValueRow">' +
+			'					<div class="kpiBoxValue"> </div>' +
+			'					<div class="kpiBoxValueCompareRow"></div>' +
+			'				</div>' +
+			'				<div class="kpiBoxComparativeRow"></div>' +
+			'			</div>' +
+			'			<div class="kpiBoxFootingInternal"></div>' +
+			'		</div>' +
+			'	</div>' +
+			'	<div class="kpiBoxFootingExternal"></div>' +
 			'</div>';
 
 		var template2 = 
 				'<div class="template2 kpiBoxContainer" style="display: flex">' +
+				    '<div class="kpiBoxHeadingExternal"></div>' +
 					'<div style="display:flex;flex-direction:column;height: 100%;justify-content: center;">' +
+					
 						'<div class=kpiBoxTitle></div>' +
 						'<div style=display:flex;flex-direction:row;flex:1>' +
 							'<div class=kpiBoximage>' +
 								'<div  class=kpiBoximageIcon ></div>' +
 							'</div>' +
 							'<div class=kpiBoxRow>' +
+							'<div class="kpiBoxHeadingInternal"></div>' +
 								'<div class="kpiBoxValueRow">' +
 									'<div class="kpiBoxValue"></div>' +
 									'<div class="kpiBoxValueCompareRow"></div>' +														
 								'</div>' +
 								'<div class=kpiBoxComparativeRow></div>' +
+								'<div class="kpiBoxFootingInternal"></div>' +
 							'</div>' +
-						'<div>' +
+						'</div>' +
+					
 					'</div>	' +
+					'<div class="kpiBoxFootingExternal"></div>' +
 				'</div>';
 
 		var numberFormat = ib3SLI.config.getFormatByBucketName('value', 0),
@@ -102,6 +118,11 @@
 			variationTitleFontSize = ib3SLI.config.getProperty('kpiboxProperties.variationTitle.size') || fixedFontSizeProp,
 			variationTitleFontFamily = ib3SLI.config.getProperty('kpiboxProperties.variationTitle.family') || 'Arial, sans-serif',
 			variationTitleColor = ib3SLI.config.getProperty('kpiboxProperties.variationTitle.color') || 'black';
+		//footing - heading
+		var	footing=ib3SLI.config.getProperty('footnote.renderedText'),
+			heading=ib3SLI.config.getProperty('title.renderedText'),
+			typeFooting=ib3SLI.config.getProperty('kpiboxProperties.footing.type') ,
+			typeHeading=ib3SLI.config.getProperty('kpiboxProperties.heading.type') ;
 		//datas
 		var kpiDataElem = data[0],
 			kpiValue = kpiDataElem.value,
@@ -430,10 +451,17 @@
 		function alignContent() {
 			if (textAlign) {
 				$('.kpiBoxRow').css('margin', '0px');
-				$('.kpiBoxRow').css('flex', 'inherit');
-				$('.kpiBoxRow > div').addClass('centerContent');
+				$('.kpiBoxRow').css('flex', 'initial'); 
+				$('.kpiBoxContent').addClass('centerContent')
+				$('.kpiBoxContainer').css('align-items','center')
+				$('.kpiBoxContainer,.KpiBoxData').css('align-items','center')
+
+			//	$('.kpiBoxRow > div').addClass('centerContent');
 			} else {
+				$('.kpiBoxContainer').css('align-items','normal')
 				$('.kpiBoxComparative:first').css('padding-right', '4vw');
+				$('.kpiBoxContainer').css('align-items','normal')
+				$('.kpiBoxContainer,.KpiBoxData').css('align-items','normal')
 			}
 		}
 
@@ -534,6 +562,34 @@
 
 			return _template;
 		}
+		function  setFooting(){
+			if (ib3SLI.config.getProperty('footnote.visible')){
+				_$footing= (typeFooting == 'Internal') ? $('.kpiBoxFootingInternal') : $('.kpiBoxFootingExternal') ;
+				_$footing.html(footing).css({
+					'padding-bottom':'1vh',
+					'padding-top':'1vh',
+					'padding-right': '1vw'
+				});
+				if(calculateFontSize){
+					_$footing.children().css('font-size','inherit')
+				}
+				$ib3.utils.hideNativeFooting();
+			}
+		}
+		function  setHeading(){
+			if (ib3SLI.config.getProperty('title.visible')){
+				_$heading= (typeHeading == 'Internal') ? $('.kpiBoxHeadingInternal') : $('.kpiBoxHeadingExternal') ;
+				_$heading.html(heading).css({
+					'padding-bottom':'1vh',
+					'padding-top':'1vh',
+					'padding-right': '1vw'
+				});
+				if(calculateFontSize){
+					_$heading.children().css('font-size','inherit')
+				}
+				$ib3.utils.hideNativeHeading();
+			}
+		}
 
 		 
 		$(container).css('top', '0px').append(getTemplate());
@@ -542,6 +598,9 @@
 		setValue();
 		setTitle();
 		setImage();
+		setFooting();
+		setHeading();
+
 
 		if (hasCompareValue) {
 			var attrComparation = {
@@ -570,6 +629,7 @@
 
 		applyStyleFonts();
 		setMargin();
+
 		if (!calculateFontSize) {
 			setIconWidth();
 			fixedSizes();
