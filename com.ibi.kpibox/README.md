@@ -7,7 +7,7 @@ For installation instructions please visit this [link] (https://github.com/ibi/w
 
 ## Description
 
-This extension displays the value of the KPI and comparations, a related icons and percentajes of changes to a comparison values.
+This extension displays the value of the KPI and comparisons, a related icons and percentajes of changes to a comparison values.
 
 ## Screenshots
 
@@ -24,17 +24,17 @@ To configure or customize your extension edit "properties" object in properties.
 		"kpiboxProperties": {   
 			"ibiAppsPath": "/ibi_apps/",	// Ibi path context
 			"calculateComparationFunction": { // personalization of first compare function
-				"param1": "valueKpi", // comparation first parameter
-				"param2": "compareValue", // comparation second parameter
-				"body": "if(valueKpi == 0 && compareValue == 0) { return 0; } var result = (valueKpi - compareValue) / Math.abs(compareValue);  return result;" // function of comparation
+				"param1": "valueKpi", // comparison first parameter
+				"param2": "compareValue", // comparison second parameter
+				"body": "if(valueKpi == 0 && compareValue == 0) { return 0; } var result = (valueKpi - compareValue) / Math.abs(compareValue);  return result;" // function of comparison
 			},	
 			"calculateComparationFunction2": { // personalization of second compare function
-				"param1": "valueKpi", // comparation first parameter
-				"param2": "compareValue2", // comparation second parameter
-				"body": "if(valueKpi == 0 && compareValue2 == 0) { return 0; } var result = (valueKpi - compareValue2) / Math.abs(compareValue2);  return result;" // function of comparation
+				"param1": "valueKpi", // comparison first parameter
+				"param2": "compareValue2", // comparison second parameter
+				"body": "if(valueKpi == 0 && compareValue2 == 0) { return 0; } var result = (valueKpi - compareValue2) / Math.abs(compareValue2);  return result;" // function of comparison
 			},
-			"formatComparation": "#,###.00%", // comparation result show format
-			"customCompareIcon": { // custom comparation icons
+			"formatComparation": "#,###.00%", // comparison result show format
+			"customCompareIcon": { // custom comparison icons
 				"active": false, // true/false
 				"iconUp": " ", // path of image for positive result
 				"iconDown": " " // path of image for negative result
@@ -47,8 +47,8 @@ To configure or customize your extension edit "properties" object in properties.
 			"fixedFontSizeProp": "18px", // font size for all text if they havent specified any one
 			"fixedPixelLinesMargin": 20, // margin betwen lines
 			"imagePercentageWidth": 30, // image width in percentaje
-			"comparationTitle":false, // true/false "show title of comparation"
-			"comparationValue":false, // true/false "show value of comparation"
+			"comparationTitle":false, // true/false "show title of comparison"
+			"comparationValue":false, // true/false "show value of comparison"
 			"textAlign":false, // true/false "alignt to center"
 			"titleFont":{ // title customization options
 			    "size":"14px", // title font size
@@ -60,23 +60,23 @@ To configure or customize your extension edit "properties" object in properties.
 			    "color":"grey", // measure font color
 			    "family":"Arial" // measure fon family
 			},
-			"variationFont":{ // comparation value customization options
-			    "size":"14px", // comparation value font size
-			    "color":"grey", // comparation value font color
-			    "family":"Arial" // comparation value fon family
+			"variationFont":{ // comparison value customization options
+			    "size":"14px", // comparison value font size
+			    "color":"grey", // comparison value font color
+			    "family":"Arial" // comparison value fon family
 			},
-			"variationTitle":{ // comparation title customization options
-			    "size":"14px", // comparation title font size
-			    "color":"grey", // comparation title font color
-			    "family":"Arial" // comparation title fon family
+			"variationTitle":{ // comparison title customization options
+			    "size":"14px", // comparison title font size
+			    "color":"grey", // comparison title font color
+			    "family":"Arial" // comparison title fon family
 			},
-			"bodyBackgroundColor": "#f4f4f4" // background-color
-		},
-		"footing":{ // footing properties
-				"type":"External" // internal / external (position in KPIBOX)
-		},
-		"heading":{ // heading properties
-			"type":"External" // internal / external (position in KPIBOX)
+			"bodyBackgroundColor": "#f4f4f4", // background-color
+			"footing":{ // footing properties
+				"type":"External" // Internal / External (position in KPIBOX)
+			},
+			"heading":{ // heading properties
+				"type":"External" // Internal / External (position in KPIBOX)
+			}
 		},
 		"colorScale": { // customization of color
 			"colorBands": [ // range of value for colors as array
