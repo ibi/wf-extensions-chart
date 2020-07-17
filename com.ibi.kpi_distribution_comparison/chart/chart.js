@@ -170,7 +170,6 @@
 			.enter()
 				.append('g')
 				.each(function(d, i) {
-					debugger
 					ib3SLI.config.setUpTooltip(this, 0, d.originalIndex, d);
 				})
 				.attr("class", function(d, i) {

@@ -95,7 +95,6 @@
 					//title: of tooltip content
 					//data_array: data names and values
 					//title + ':' + format_number(numberFormat, value) + '\n' + comparetitle + ':' + format_number(numberFormat, comparevalue) + '\nΔ:' + parseFloat(percvalue).toFixed(2) + '% ')
-					debugger
 					var tooltip_html = ''
 					
 					for(var propertyName in dataObject) {
