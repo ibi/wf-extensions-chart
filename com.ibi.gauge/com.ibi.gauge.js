@@ -133,10 +133,13 @@
                 
                 for(var tcIndex=0;tcIndex<tooltip_content.length;tcIndex++)
                 {
+// IBI Spain: we are getting error in WF8207.08 becouse is getting tooltip_content[tcIndex].value like undefined in the last iteration, we set this if to control this error:
+					if (tooltip_content[tcIndex].value !== undefined){
                   if(tooltip_content[tcIndex].value.indexOf("actual") >= 0)
                   {
                     formatting = tooltip_content[tcIndex].value;
                   }
+					}
                 }
 
                 var formatted_string = renderConfig.moonbeamInstance.parseTemplate(
@@ -182,7 +185,7 @@
         },
       },
       size: {
-        height: h - 40,
+        height: (renderConfig.properties.show_legend) ? h - 40 : h,
         //,width: w
       },
       onrendered: function () {
