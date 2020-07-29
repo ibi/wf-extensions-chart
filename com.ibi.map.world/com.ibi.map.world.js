@@ -108,6 +108,10 @@
 	  /* Code before VIZ-43	  
 	  renderConfig.renderComplete();
 	  */
+   
+		//Begin VIZ-300 using the assumption that the last svg element is the errant element that causes the scroll bar
+		document.querySelectorAll('svg')[document.querySelectorAll('svg').length-1].style.display = "none";
+		//End VIZ-300 
 	}
 
 	function getInvokeAfter (cb, count) {
@@ -189,10 +193,15 @@
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
 		noDataRenderCallback: noDataRenderCallback,
 		resources:  {  // Additional external resources (CSS & JS) required by this extension
-			script: [
-				'lib/d3.v4.min.js',
-				'lib/d3-selection-multi.min.js',
-				'lib/d3-geo-projection.min.js',
+			script: window.d3 ? [
+        'lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js',
+        'lib/d3-geo-projection.min.js',
+				'data/id_to_countryName_map.js',
+				'data/countryName_to_id_map.js',
+				'data/topojson_countries.js'
+			] : [
+        'lib/d3.v5.16.min.js','lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js',
+        'lib/d3-geo-projection.min.js',
 				'lib/map.world.js',
 				'data/id_to_countryName_map.js',
 				'data/countryName_to_id_map.js',

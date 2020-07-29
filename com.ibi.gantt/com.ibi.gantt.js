@@ -1170,7 +1170,8 @@ var config = {
 	containerType: 'svg',
 	noDataRenderCallback: noDataRenderCallback,
 	renderCallback: renderCallback,
-	resources: {script: ['lib/d3.js']},
+	resources: {script: window.d3 ? ['lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js'] : 
+	['lib/d3.v5.16.min.js','lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js']},
 	modules: {
 		dataLabels: {
 			supported: true,

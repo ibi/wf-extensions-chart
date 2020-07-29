@@ -89,23 +89,23 @@
     function appendCoverScreen(container, width, height) {
         var dimSquare = (width < height) ? width : height;
         container.append("rect")
-            .attr({
+            .attrs({
                 width: dimSquare,
                 height: dimSquare
             })
-            .style({
+            .styles({
                 fill: 'white',
                 opacity: 0.4
             });
 
         container.append('text')
             .text('Currently, there are insufficient buckets completed.')
-            .attr({
+            .attrs({
                 'text-anchor': 'middle',
                 y: (dimSquare / 2) - 30,
                 x: dimSquare / 2
             })
-            .style({
+            .styles({
                 'font-weight': 'bold',
                 'font-size': '14px',
                 dy: '0.35em',
@@ -113,12 +113,12 @@
             });
         container.append('text')
             .text('Please add more measures or dimensions')
-            .attr({
+            .attrs({
                 'text-anchor': 'middle',
                 y: (dimSquare / 2) + 30,
                 x: dimSquare / 2
             })
-            .style({
+            .styles({
                 'font-weight': 'bold',
                 'font-size': '14px',
                 dy: '0.35em',
@@ -182,7 +182,8 @@
 		noDataPreRenderCallback: noDataPreRenderCallback,
 		noDataRenderCallback: noDataRenderCallback,
 		resources: {  // Additional external resources (CSS & JS) required by this extension
-			script: ['lib/d3.min.js','lib/corona.js'],
+			script: window.d3  ? ['lib/corona.js','lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js']: 
+			['lib/corona.js','lib/d3.v5.16.min.js','lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js'],
 			css: ['css/extension.css']
 		},
 		modules: {

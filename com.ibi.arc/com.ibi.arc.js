@@ -131,23 +131,23 @@
 		text = text || 'Add more measures or dimensions';
 
         container.append("rect")
-            .attr({
+            .attrs({
                 width: width,
                 height: height
             })
-            .style({
+            .styles({
                 fill: 'white',
                 opacity: 0.3
             });
 
         container.append('text')
             .text(text)
-            .attr({
+            .attrs({
                 'text-anchor': 'middle',
                 y: height / 2,
                 x: width / 2
             })
-            .style({
+            .styles({
                 'font-weight': 'bold',
                 'font-size': '14px',
                 dy: '0.35em',
@@ -165,8 +165,8 @@
         noDataRenderCallback: noDataRenderCallback,
         resources: { // Additional external resources (CSS & JS) required by this extension
 			script: window.d3
-				? ['lib/arc.js']
-				: ['lib/d3.min.js', 'lib/arc.js']
+				? ['lib/arc.js','lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js']
+				: ['lib/d3.v5.16.min.js','lib/arc.js','lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js']
         },
         modules: {
             /*dataSelection: {

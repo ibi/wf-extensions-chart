@@ -193,12 +193,18 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
     }
 
     function buildSingleChartLayout ( width, height, titleDims, year, dateToDatumMap, language ) {
-		if (language == 'es' || 'de'){
-			day = function(d) { return (d.getDay() + 6) % 7; };
-			week = d3.time.format("%W");
+		if (language == 'es' || language == 'de'){
+            day = function(d) { return (d.getDay() + 6) % 7; };
+            //BEGIN Update to d3 V5.x
+            //week = d3.time.format("%W");
+            week = d3.timeFormat("%W");
+            //END Update to d3 V5.x
 		}else{
-			day = function(d) { return d.getDay(); },
-			week = d3.time.format("%U");
+            day = function(d) { return d.getDay(); },
+            //BEGIN Update to d3 V5.x
+            //week = d3.time.format("%U");
+            week = d3.timeFormat("%U");
+            //END Update to d3 V5.x
 		}
         var layout = {
             labels: {
@@ -220,7 +226,10 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
 
         var cellSize = getCellSideLength(canvasWidth, canvasHeight);
 
-        var days = d3.time.days( year, d3.time.year.offset(year, 1) ); // get all days of the year
+        //BEGIN Update to d3 V5.x
+        //var days = d3.time.days( year, d3.time.year.offset(year, 1) ); // get all days of the year
+        var days = d3.timeDays( year, d3.timeYear.offset(year, 1) )
+        //END Update to d3 V5.x
 
         layout.cells = days.map(function (d) {
             var dId = getDateIdentifier(d);
@@ -287,8 +296,10 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
                 y: 0
             };
         });
-
-        var months = d3.time.months(days[0], days[days.length - 1]);
+        //BEGIN Update to d3 V5.x
+        //var months = d3.time.months(days[0], days[days.length - 1]);
+        var months = d3.timeMonths(days[0], days[days.length - 1]);
+        //END Update to d3 V5.x
 
         layout.monthLines = months.map(function (date) {
             return monthPath(date, cellSize);
@@ -310,8 +321,10 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
 
         var date_extent = d3.extent(data, function(d){ return d.date; });
 
-        var years = d3.time.years(d3.time.year(date_extent[0]), date_extent[1]);
-
+        //BEGIN Update to d3 V5.x 
+        //var years = d3.time.years(d3.time.year(date_extent[0]), date_extent[1]);
+        var years = d3.timeYears(d3.timeYear(date_extent[0]),date_extent[1]);
+        //END  Update to d3 V5.x 
         var height = ( years.length > 1 ) ? props.height / years.length - chartOffset : props.height;
 
         var titleDims = getTitlesDims(props.measureLabel, props.titles);
@@ -356,13 +369,21 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
                 return 'translate(0,' + d.cellsOffset[1] + ')';
             });
 
-        var week_labels = week_lbls_group.selectAll('text')
-            .data(function (d) {
-               return d.labels.weekDays;
-            });
 
-        week_labels.enter().append('text')
-            .attr({
+
+        //BEGIN Update to d3 V5.x
+        //used mostly chaining to simplify the update
+        //any objects used in attr or style has to the function attrs and styles respectively
+
+        week_lbls_group.selectAll('text')
+        .data(function (d) {
+           return d.labels.weekDays;
+        }).enter().append('text');
+
+        var week_labels = week_lbls_group.selectAll('text');
+
+        week_labels
+            .attrs({
                 x: function (d) {
                     return d.x;
                 },
@@ -371,9 +392,9 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
                 },
                 dy: '.35em'
             })
-            .style({
-                font: lblProps.weekdays.font,
-                fill: lblProps.weekdays.color,
+            .styles({
+                'font': lblProps.weekdays.font,
+                'fill': lblProps.weekdays.color,
                 'font-weight': lblProps.weekdays['font-weight'],
                 'text-anchor': 'end'
             })
@@ -381,20 +402,18 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
                 return d.text;
             });
 
-        var year_title = chart_group.selectAll('text.year')
+        chart_group.selectAll('text.year')
             .data(function (d) {
                 return [d.labels.year];
-            });
-
-        year_title.enter()
+            }).enter()
             .append('text').classed('year', true)
-            .attr({
+            .attrs({
                 dy: '1em',
                 transform: function (d) {
                     return 'translate(' + [d.x, d.y] + ') rotate(-90)';
                 }
             })
-            .style({
+            .styles({
                 font: lblProps.year.font,
                 fill: lblProps.year.color,
                 'font-weight': lblProps.year['font-weight'],
@@ -404,16 +423,11 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
                 return d.text;
             });
 
-        var months_lbls_group = chart_group.append('g')
-            .classed('months-labels', true);
-
-        var months_labels = months_lbls_group.selectAll('text')
+        chart_group.append('g')
+            .classed('months-labels', true).selectAll('text')
             .data(function (d) {
                return d.labels.months;
-            });
-
-        months_labels.enter().append('text')
-            .attr({
+            }).enter().append('text').attrs({
                 x: function (d) {
                     return d.x;
                 },
@@ -422,7 +436,7 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
                 },
                 dy: '1em'
             })
-            .style({
+            .styles({
                 font: lblProps.months.font,
                 fill: lblProps.months.color,
                 'font-weight': lblProps.months['font-weight'],
@@ -431,6 +445,8 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
             .text(function (d) {
                 return d.text;
             });
+    
+        //END Update to d3 V5.x
     }
 
     function isColoredSquare (d) {
@@ -449,21 +465,24 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
 	
 	//Begin CHART-3033 
     function renderCells (chart_group, toolTipFunctions) {
-	//End CHART-3033
-        var cell_group = chart_group.append('g')
-            .classed('cells', true)
+    //End CHART-3033
+    
+    
+        var cell_group = chart_group.append('g');
+
+            cell_group.classed('cells', true)
             .attr('transform', function (d) {
                 return 'translate(' + d.cellsOffset + ')';
             });
 
-        var cells = cell_group.selectAll('rect')
-            .data(function (d) {
+        cell_group.selectAll('rect').data(function (d) {
                return d.cells;
-            });
+            }).enter().append('rect');
 
-        var enter_cells = cells.enter().append('rect')
-            .each(function (cell,s,g) {
-                d3.select(this).attr(cell);
+            var cells = cell_group.selectAll('rect');
+            
+            cells.each(function (cell,s,g) {
+                d3.select(this).attrs(cell);
 				//Begin CHART-3033
 					//Follow design pattern in https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.simple_bar/com.ibi.simple_bar.js
 					//'cell' object already has class built with chart.buildClassName(...) method by this point
@@ -471,7 +490,7 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
 				//End CHART-3033	
             });
 
-        enter_cells.filter(isColoredSquare)
+        cells.filter(isColoredSquare)
             .on('mouseover', fade(0.6))
             .on('mouseout', fade(1));
 
@@ -497,10 +516,10 @@ var tdg_calendar = (function() { // <---------------------------------------- CH
 
     function render ( main_group, chartLayouts, props ) {
 
+     
+        
         var charts = main_group.selectAll('g.chart')
-            .data(chartLayouts);
-
-        charts.enter().append('g')
+            .data(chartLayouts).enter().append('g')
             .classed('chart', true)
             .attr('transform', function (d) {
                 return 'translate(0,' + d.topOffset + ')';

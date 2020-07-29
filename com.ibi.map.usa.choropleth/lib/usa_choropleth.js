@@ -67,7 +67,7 @@ var tdg_usa_choropleth = (function() {
     function getOnAllTransitionComplete ( cb ) {
         return function ( transition ) {
             var count = transition.size();
-            transition.each('end', function () {
+            transition.on('end', function () {
                 if ( !(--count && typeof cb === 'function') ) cb();
             });
         };
@@ -113,12 +113,12 @@ var tdg_usa_choropleth = (function() {
     // --------------------------------- PUT HERE ALL THE GLOBAL VARIABLES AND FUNCTIONS THAT DON'T NEED TO ACCESS PROPS AND INNERPROPS THROUGH SCOPE (Z1)
 
     function getProjection(states, width, height) {
-        var projection = d3.geo.albersUsa();
+        var projection = d3.geoAlbersUsa();
 
         projection.scale(1)
             .translate([0, 0]);
 
-        var path = d3.geo.path().projection(projection);
+        var path = d3.geoPath().projection(projection);
 
         var b = path.bounds(states),
             s = 0.95 / Math.max((b[1][0] - b[0][0]) / width, (b[1][1] - b[0][1]) / height),
@@ -190,13 +190,13 @@ var tdg_usa_choropleth = (function() {
     function getColorScale (data, colorRange) {
         var extent = d3.extent(data, function (d) { return d.value;});
 
-        var ratio = d3.scale.ordinal().domain(colorRange).rangePoints(extent, 0);
+        var ratio = d3.scalePoint().domain(colorRange).range(extent, 0);
 
         var domain = colorRange.map(function (color) {
             return ratio(color);
         });
 
-        return d3.scale.linear().domain(domain).range(colorRange);
+        return d3.scaleLinear().domain(domain).range(colorRange);
     }
 
     function getToolTipFn (buckets) {
@@ -255,7 +255,7 @@ var tdg_usa_choropleth = (function() {
 
         var extent = d3.extent(data, function(d){ return d.value; });
 
-        var values = d3.scale.linear()
+        var values = d3.scaleLinear()
             .domain(extent)
             .nice()
             .ticks(ticksCount);
@@ -275,11 +275,11 @@ var tdg_usa_choropleth = (function() {
 
         var rowsVertSpace = lgndVertSpace - rowsTopOffset - pad;
 
-        var rowsPosScale = d3.scale.ordinal()
+        var rowsPosScale = d3.scaleBand()
             .domain(values)
-            .rangeBands([rowsVertSpace, 0], 0);
+            .range([rowsVertSpace, 0], 0);
 
-        var band = rowsPosScale.rangeBand();
+        var band = rowsPosScale.bandwidth();
 
         var rows = values.map(function (value) {
 
@@ -346,7 +346,7 @@ var tdg_usa_choropleth = (function() {
 
         var projection = getProjection(states_geojson, mapDim.width, mapDim.height);
 
-        var path = d3.geo.path()
+        var path = d3.geoPath()
             .projection(projection);
 
         var toolTip = getToolTipFn(props.buckets);
@@ -372,13 +372,13 @@ var tdg_usa_choropleth = (function() {
 
         var bg = group_legend
             .append('rect')
-            .attr({
+            .attrs({
                 width: legendLayout.width,
                 height: legendLayout.height,
                 rx: props.colorLegend.border.round,
                 ry: props.colorLegend.border.round
             })
-            .style({
+            .styles({
                 fill: props.colorLegend.background.color,
                 stroke: props.colorLegend.border.color,
                 'stroke-width': props.colorLegend.border.width
@@ -390,7 +390,7 @@ var tdg_usa_choropleth = (function() {
             .attr('transform', 'translate(' + legendLayout.title.translate + ')')
             .append('text')
             .attr('dy', '.35em')
-            .style({
+            .styles({
                 font: props.colorLegend.title.font,
                 fill: props.colorLegend.title.color,
                 'text-anchor': 'middle'
@@ -415,7 +415,7 @@ var tdg_usa_choropleth = (function() {
                 return d.marker;
             })
             .each(function (d) {
-                d3.select(this).attr({
+                d3.select(this).attrs({
                     width: d.width,
                     height: d.height,
                     fill: d.color
@@ -427,12 +427,12 @@ var tdg_usa_choropleth = (function() {
                 return d.label;
             })
             .each(function (d) {
-                d3.select(this).attr({
+                d3.select(this).attrs({
                     x: d.x,
                     y: d.y,
                     dy: '.35em'
                 })
-                .style({
+                .styles({
                     font: props.colorLegend.rows.labels.font,
                     fill: props.colorLegend.rows.labels.color
                 })
@@ -448,7 +448,7 @@ var tdg_usa_choropleth = (function() {
         var states_enter = group_states.selectAll("path")
             .data(layout.states)
             .enter().append("path")
-            .attr({
+            .attrs({
                 class : function (d) {
                   return d.class;
                 },
@@ -461,7 +461,7 @@ var tdg_usa_choropleth = (function() {
                 }
 				*/
             })
-            .style({
+            .styles({
                 stroke : props.states.borders.color,
                 'stroke-width' : props.states.borders.width,
                 fill: function (d) {

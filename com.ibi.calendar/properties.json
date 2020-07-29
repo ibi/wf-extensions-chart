@@ -1,7 +1,8 @@
 
 {
 	"info": {
-		"version": 1.1,
+		"version": 1.2,
+		//"version": 1.2, upgrade to d3 v5.3 and fixed unnecessary scroll bar and issue with date alignment
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",

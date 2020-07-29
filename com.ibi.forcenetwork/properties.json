@@ -3,7 +3,8 @@
 
 {
 	"info": {
-		"version": 1.2,
+		"version": 1.3,
+		//"version": 1.3 - upgraded to d3 v5x
 		"implements_api_version": 2.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
@@ -30,7 +31,7 @@
 		"linkStrength": 0.5,
 		"chargeDistance": 1000,
 		"gravity": 0.1,
-		"friction": 0.9
+		"friction": 0.5
 	},
 	
 	"propertyAnnotations": {

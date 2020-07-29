@@ -78,7 +78,8 @@ function drawChart(data,Container,width,height,arrBuckets,props,chart) {
 		});
   }
 
-  var chartDiv = document.getElementById(Container[0][0].id);
+  var chartDiv = document.getElementById(Container.node(0).id)
+  //var chartDiv = document.getElementById(Container[0][0].id);
   var win = window
     , doc = document
     , ele = doc.documentElement

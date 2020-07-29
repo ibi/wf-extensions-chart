@@ -101,6 +101,11 @@
 //		if ( !renderConfig.disableInteraction ) {
 //			renderConfig.renderComplete();
 //		}
+
+
+		//Begin VIZ-300 using the assumption that the last svg element is the errant element that causes the scroll bar
+		document.querySelectorAll('svg')[document.querySelectorAll('svg').length-1].style.display = "none";
+		//End VIZ-300 
 	}
 
 	function getInvokeAfter (cb, count) {
@@ -146,11 +151,11 @@
 		// ADD TRANSPARENT SCREEN
 
 		container.append("rect")
-			.attr({
+			.attrs({
 				width: props.width,
 				height: props.height
 			})
-			.style({
+			.styles({
 				fill: 'white',
 				opacity: 0.3
 			});
@@ -159,12 +164,12 @@
 
 		container.append('text')
 			.text('Add more measures or dimensions')
-			.attr({
+			.attrs({
 				'text-anchor': 'middle',
 				y: props.height / 2,
 				x: props.width / 2
 			})
-			.style({
+			.styles({
 				'font-weight' : 'bold',
 				'font-size' : '14',
 				dy: '0.35em',
@@ -181,7 +186,7 @@
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
 		noDataRenderCallback: noDataRenderCallback,
 		resources:  {  // Additional external resources (CSS & JS) required by this extension
-			script: ['lib/d3.min.js', 'lib/usa_choropleth.js'],
+			script: window.d3 ?['lib/usa_choropleth.js', 'lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js'] : ['lib/d3.v5.16.min.js','lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js', 'lib/usa_choropleth.js'],
 			css: []
 		},
 		modules: {

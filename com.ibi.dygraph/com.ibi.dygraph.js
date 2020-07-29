@@ -88,7 +88,7 @@
 
     function appendCoverScreen(container, width, height) {
         container.append("span")
-            .style({
+            .styles({
                 'position': 'absolute',
                 'top': '0px',
                 'left': '0px',
@@ -100,7 +100,7 @@
 
         container.append('span')
             .html('Currently, there are insufficient buckets completed.')
-            .style({
+            .styles({
                 'position': 'absolute',
                 'top': ((height / 2) - 30) + 'px',
                 'left': '0px',
@@ -111,7 +111,7 @@
             });
         container.append('text')
             .html('Please add more measures or dimensions')
-            .style({
+            .styles({
                 'position': 'absolute',
                 'top': ((height / 2) + 30) + 'px',
                 'left': '0px',
@@ -210,7 +210,8 @@
 		noDataPreRenderCallback: noDataPreRenderCallback,
 		noDataRenderCallback: noDataRenderCallback,
 		resources: {  // Additional external resources (CSS & JS) required by this extension
-			script: ['lib/d3.min.js','lib/dygraph.min.js','lib/dychart.js'],
+			script: window.d3 ? ['lib/dygraph.min.js','lib/dychart.js','lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js'] : 
+			['lib/dygraph.min.js','lib/d3.v5.16.min.js','lib/dychart.js','lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js'],
 			css: ['css/dygraph.css']
 		},
 		modules: {

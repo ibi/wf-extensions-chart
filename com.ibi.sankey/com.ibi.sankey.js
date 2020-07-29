@@ -39,7 +39,7 @@
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
 		var formatNumber = d3.format(",.0f");
-		var color = d3.scaleOrdinal(d3.schemeCategory20);
+		var color = d3.scaleOrdinal({ "name" : "schemeCategory20", "n" : 20 });
 
 		var margin = {left: 10, right: 10, top: 10, bottom: 10};
 		var width = renderConfig.width - margin.left - margin.right;
@@ -320,8 +320,8 @@
 		noDataRenderCallback: noDataRenderCallback,
 		resources:  {
 			script: window.d3
-				? ['lib/sankey.js']
-				: ['lib/d3.v4.min.js', 'lib/d3-sankey.js'],
+				? ['lib/sankey.js', 'lib/d3-sankey.js','lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js']
+				: ['lib/d3.v5.16.min.js', 'lib/d3-sankey.js','lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js'],
 			css: ['lib/sankey.css']
 		},
 		modules: {

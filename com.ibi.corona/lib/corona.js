@@ -81,28 +81,31 @@ function drawChart(data,svgContainer,width,height,arrBuckets,props) {
 // resizing of the chart to be achieved.
 // Resizing is "potentially" better achieved using the SVG "viewBox" attribute
 // but WebFOCUS D3 extensions appear to use a change to width and height attributes instead!
-  var linearScale = d3.scale.linear()
+  var linearScale = d3.scaleLinear()
                             .domain([x_min,x_max])
                             .range([250,plotMax]);
-  var linearXScale = d3.scale.linear()
+  var linearXScale = d3.scaleLinear()
                              .domain([0,2000])
                              .range([leftMargin,plotWidth + leftMargin]);
-  var linearYScale = d3.scale.linear()
+  var linearYScale = d3.scaleLinear()
                              .domain([0,2000])
                              .range([topMargin,plotHeight + topMargin]);
-  var fontScale1 = d3.scale.linear()
+  var fontScale1 = d3.scaleLinear()
                            .domain([plotMin,plotMax])
                            .range([6,12]);
-  var fontScale2 = d3.scale.linear()
+  var fontScale2 = d3.scaleLinear()
                            .domain([plotMin,plotMax])
                            .range([6,16]);
-  var fontScale3 = d3.scale.linear()
+  var fontScale3 = d3.scaleLinear()
                            .domain([plotMin,plotMax])
                            .range([6,14]);
 
 // From the data, obtain the number and values of distinct ordinals (radial) to allow ordinal "axis" plots
-  var plotPoints = d3.map(data, function(d) {return d.radial;}).size();
-  var lblPoints  = d3.map(data, function(d) {return d.radial;});
+  //var plotPoints = d3.map(data, function(d) {return d.radial;}).size();
+ 
+  //var lblPoints  = d3.map(data, function(d) {return d.radial;});
+  var lblPoints = d3.nest().key(function (d) { return d.radial }).map(data, d3.map);
+  var plotPoints = lblPoints.size();
   var sizeSeries = d3.map(data, function(d) {return d.series;}).size();
   var lblSeries  = d3.map(data, function(d) {return d.series;});
 
@@ -133,8 +136,8 @@ function drawChart(data,svgContainer,width,height,arrBuckets,props) {
   var arrSeries = [];
 // We need to build an array that just holds the radial and series values that require plotting
 // so that it can be utilised later to get the angle and class(es) to which it relates
-  lblPoints.forEach(function(d,i) {arrRadials.push(d);});
-  lblSeries.forEach(function(d,i) {arrSeries.push(d);});
+  lblPoints.each(function(d,i) {arrRadials.push('$'+i);});
+  lblSeries.each(function(d,i) {arrSeries.push(d);});
   
 // Add a background rectangle and colour it using the "svg_fill" definition already added
   var rect = svgContainer.append("rect")
@@ -205,16 +208,18 @@ function drawChart(data,svgContainer,width,height,arrBuckets,props) {
 // Declare a function to which we pass a data array of all points within a series
 // to provide a closed path "d" attribute.
 // Note that this is NOT available in V4 of D3.js  
-  var lineFunction = d3.svg.line()
-                           .x(function(d,i) {var angle = (360 / plotPoints) * arrRadials.indexOf(d.values[0].values.radial);
+  var lineFunction = d3.line()
+                           .x(function(d,i) {
+                             var angle = (360 / plotPoints) * arrRadials.indexOf('$'+d.values[0].value.radial);
                                              var cos = Math.cos((angle - 90) * Math.PI / 180);
                                              var xpos = MinCentre + (linearScale(d.values[0].key) * cos) * MinCentre / centreX;
                                              return xpos;})
-                           .y(function(d,i) {var angle = (360 / plotPoints) * arrRadials.indexOf(d.values[0].values.radial);
+                           .y(function(d,i) {
+                             var angle = (360 / plotPoints) * arrRadials.indexOf('$'+d.values[0].value.radial);
                                              var sin = Math.sin((angle - 90) * Math.PI / 180);
                                              var ypos = MinCentre + (linearScale(d.values[0].key) * sin) * MinCentre / centreY;
                                              return ypos;})
-                           .interpolate(strokeType);
+                           .curve(d3.curveCardinalClosed);
 
   var plot       = svgContainer.append("g")
                                  .attr("id","plot");
@@ -252,7 +257,7 @@ function drawChart(data,svgContainer,width,height,arrBuckets,props) {
                          .data(data)
                          .enter()
                          .append("circle")
-                           .attr("angle",function(d,i) {return (360 / plotPoints) * arrRadials.indexOf(d.radial);})
+                           .attr("angle",function(d,i) {return (360 / plotPoints) * arrRadials.indexOf('$'+d.radial);})
                            .attr("radialval",function(d,i) {if (d.radial) {
                                                               return d.radial;
                                                             } else {
@@ -279,11 +284,11 @@ function drawChart(data,svgContainer,width,height,arrBuckets,props) {
                                                  var y_val = linearYScale(12);
                                                  var useVal = (x_val < y_val) ? x_val : y_val;
                                                  return useVal;})
-                           .attr("cx",function(d,i) {var angle = (360 / plotPoints) * arrRadials.indexOf(d.radial);
+                           .attr("cx",function(d,i) {var angle = (360 / plotPoints) * arrRadials.indexOf('$'+d.radial);
                                                      var cos = Math.cos((angle - 90) * Math.PI / 180);
                                                      var xpos = MinCentre + (linearScale(d.value) * cos * MinCentre / centreX);
                                                      return xpos;})
-                           .attr("cy",function(d,i) {var angle = (360 / plotPoints) * arrRadials.indexOf(d.radial);
+                           .attr("cy",function(d,i) {var angle = (360 / plotPoints) * arrRadials.indexOf('$'+d.radial);
                                                      var sin = Math.sin((angle - 90) * Math.PI / 180);
                                                      var ypos = MinCentre + (linearScale(d.value) * sin * MinCentre / centreY);
                                                      return ypos;})
@@ -369,12 +374,12 @@ function drawChart(data,svgContainer,width,height,arrBuckets,props) {
                                                  });
 
 // Now add the "textpath" definitions for the ordinal (radial) "axis"  
-  lblPoints.forEach(function(d,i) {
+  lblPoints.each(function(d,i) {
                                defs.append("path")
-                                     .attr("id", "text" + arrRadials.indexOf(d))
+                                     .attr("id", "text" + arrRadials.indexOf('$'+i))
                                      .attr("style", "fill:none;stroke:none;")
-                                     .attr("d", function() {var angleBeg = ((360 / plotPoints) * arrRadials.indexOf(d)) - (360 / plotPoints / 2);
-                                                            var angleEnd = ((360 / plotPoints) * arrRadials.indexOf(d)) + (360 / plotPoints / 2);
+                                     .attr("d", function() {var angleBeg = ((360 / plotPoints) * arrRadials.indexOf('$'+i)) - (360 / plotPoints / 2);
+                                                            var angleEnd = ((360 / plotPoints) * arrRadials.indexOf('$'+i)) + (360 / plotPoints / 2);
                                                             var rOffset  = (linearXScale(plotMax + 40) < linearYScale(plotMax + 40)) ? linearXScale(plotMax + 40) : linearYScale(plotMax + 40);
                                                             var x1 = MinCentre + (rOffset * Math.cos((angleBeg - 90) * Math.PI / 180));
                                                             var x2 = MinCentre + (rOffset * Math.cos((angleEnd - 90) * Math.PI / 180));
@@ -384,15 +389,15 @@ function drawChart(data,svgContainer,width,height,arrBuckets,props) {
                                                             return "M "+x1+" "+y1+" A "+r+" "+r+" 0 0 1 "+x2+" "+y2;}); 
   });
   
-  lblPoints.forEach(function(d,i) {plot.append("text")
+  lblPoints.each(function(d,i) {plot.append("text")
                                          .classed("lblAxis",true)
                                          .append("textPath")
-                                           .attr("xlink:href", "#text"+arrRadials.indexOf(d))
+                                           .attr("xlink:href", "#text"+ + arrRadials.indexOf('$'+i))
                                            .style("text-anchor", "middle")
                                            .attr("style", "font-size:"+parseInt(fontScale1(MinPlot))+"pt;")
                                            .style("fill",props.labels.radial.color)
                                            .attr("startOffset", "50%")
-                                           .text(d);
+                                           .text(i);
                                   });
 /*
 */

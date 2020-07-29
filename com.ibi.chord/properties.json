@@ -1,11 +1,12 @@
 {
 	"info": {
-		"version": "1.0.6",
+		"version": "1.1",
 		//1.0.2 VIZ-43
 		//1.0.3 VIZ-78
 		//1.0.4 VIZ-97
 		//1.0.5 New properties for colors
 		//1.0.6 VIZ-284
+		//1.1 updated to d3 V5
 		"implements_api_version": 1.0,
 		"author": "Three D Graphics",
 		"copyright": "Three D Graphics Inc.",

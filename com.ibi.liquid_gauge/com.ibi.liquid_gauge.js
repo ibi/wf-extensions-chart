@@ -61,7 +61,7 @@
 		resources:  {
 			script: window.d3
 				? ['lib/liquid_gauge.js']
-				: ['lib/d3.min.js', 'lib/liquid_gauge.js']
+				: ['lib/d3.v5.16.min.js', 'lib/liquid_gauge.js']
 		},
 		//Start CHART-2971 new feature code
 		modules: {
