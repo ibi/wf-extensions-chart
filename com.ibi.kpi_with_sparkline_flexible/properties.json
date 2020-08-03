@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": 1.1,
+		"version": 1.2,
 		"implements_api_version": 2.0,
 		"author": "Information Builders (Marc Julian Daniels)",
 		"copyright": "Information Builders Inc.",
@@ -54,7 +54,10 @@
 	},
 	
 	"propertyAnnotations": {
-		"type": "str", 
+		"type": {
+			"typeAnnotation": "str",
+			"stringValues": ["bar", "line", "pie"]
+		},  
 		"color": "color", 
 		"fontFamily": "str", 
 		"fontSize": "str",
