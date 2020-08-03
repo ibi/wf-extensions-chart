@@ -4,13 +4,28 @@
 (function() {
 
 	var noDataCallback = '';
-
+	
 	function NumberWithComma(number) {
-		return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+		var temp_number_comma = number;
+		if (temp_number_comma <= -100  && temp_number_comma > -1000) {
+			temp_number_comma = temp_number_comma;
+		}
+		else {
+			temp_number_comma = temp_number_comma.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+		}
+		return temp_number_comma;
 	}
 	function NumberWithDot(number) {
-		return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
+		var temp_number_dot = number;
+		if (temp_number_dot <= -100  && temp_number_dot > -1000) {
+			temp_number_dot = temp_number_dot;
+		}
+		else {
+			temp_number_dot = temp_number_dot.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
+		}
+		return temp_number_dot;
 	}
+	
 	function changeBackground(color) {
 		document.body.style.background = color;
 	}
@@ -207,7 +222,7 @@
 			// chart properties
 			var chartProperties;
 			if (props.type=='bar')
-				chartProperties = {	type: props.type , barWidth: props.barProperties.width, height: props.barProperties.height, barColor: seriesColor };
+				chartProperties = {	type: props.type , barWidth: props.barProperties.width, height: props.barProperties.height, barColor: seriesColor, negBarColor: seriesColor };
 			else
 				chartProperties = {	type: props.type , width: props.barProperties.width * (bars.length-1), height: props.barProperties.height, lineColor: seriesColor, lineWidth: 2, fillColor: 'rgba(0,0,0,0)', spotColor: 'rgba(0,0,0,0)', minSpotColor: 'rgba(0,0,0,0)', maxSpotColor: 'rgba(0,0,0,0)', highlightLineColor: 'rgba(0,0,0,0)' };
 			
