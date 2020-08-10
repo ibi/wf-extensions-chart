@@ -37,6 +37,43 @@
 		return JSON.parse(JSON.stringify(el));
 	}
 
+	//BEGIN FIX VIZ-171 - 
+	var DATE_FORMAT = 'YMD';
+	var DATE_FORMATS = {
+		YMD: 'YMD'
+		,MDY: 'MDY'
+		,DMY: 'DMY'
+	};
+
+	function transformDateString(dateStr) {
+        var transformedDate = dateStr.toString();
+
+        switch (DATE_FORMAT) {
+
+
+            case DATE_FORMATS.DMY:
+                var dateParts = transformedDate.split('/');
+
+                var newDateString = dateParts[2] + '/' + dateParts[1] + '/' + dateParts[0];
+                transformedDate = newDateString;
+                break;
+            case DATE_FORMATS.MDY:
+                var dateParts = transformedDate.split('/');
+
+                var newDateString = dateParts[2] + '/' + dateParts[0] + '/' + dateParts[1];
+                transformedDate = newDateString;
+                break;
+            case DATE_FORMATS.YMD:
+            default:
+                transformedDate = dateStr;
+                break
+        }
+
+        return transformedDate;
+    }
+    //END Fix for VIZ-171
+
+
 	function isDatumConvertableToDate(datum) {
 		return !isNaN((new Date(datum)).getTime());
 	}
@@ -49,6 +86,8 @@
 		return isDatumConvertableToDate(datum.date) && isNumber(datum.value);
 	}
 
+	
+
 	// Required: Is invoked in the middle of each Moonbeam draw cycle
 	// This is where your extension should be rendered
 	// Arguments:
@@ -60,8 +99,12 @@
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
 
+		//BEGIN FIX VIZ-171
+		DATE_FORMAT = props.dateFormat;
+		//END FIX VIZ-171
 		props.data = (renderConfig.data || []).map(function (datum) {
 			var datumCpy = jsonCpy(datum);
+			datumCpy.date = transformDateString(datum.date);
 			datumCpy.elClassName = chart.buildClassName('riser', datum._s, datum._g, 'bar');
 			return datumCpy;
 		}).filter(isValidDatum);

@@ -1,8 +1,9 @@
 
 {
 	"info": {
-		"version": 1.2,
+		"version": 1.3,
 		//"version": 1.2, upgrade to d3 v5.3 and fixed unnecessary scroll bar and issue with date alignment
+		//1.3 - fixed VIZ-171
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
@@ -36,7 +37,10 @@
 	      "value": {
 	      	"format": "auto"
 	      }
-	    }
+		},
+		//VIZ-171 - format of the date to expect
+		//YMD, DMY, MDY
+		"dateFormat": "YMD"
 	},
 	
 	"propertyAnnotations": {
@@ -63,7 +67,12 @@
 	      "value": {
 	      	"format": "str"
 	      }
-	    }
+		},
+		"dateFormat": 
+		{
+			"typeAnnotation": "str"
+			,"stringValues": ["YMD","MDY", "DMY"]
+		}
 	},
 	
 	"dataBuckets":  {
