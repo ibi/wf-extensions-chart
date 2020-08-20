@@ -63,7 +63,11 @@
 				}
 				
 				var customScripts = [
-					'lib/d3.v5.min.js?' + chartVersion,
+					'lib/d3.v5.16.min.js?' + chartVersion,
+					'lib/d3-selection-multi.min.js?' + chartVersion,
+					'lib/d3-time.min.js?' + chartVersion,
+					'lib/d3-time-format.min.js?' + chartVersion,
+					'lib/d3-transition.min.js?' + chartVersion,
 					'services/config-service.min.js?' + chartVersion,
 					'services/utils-service.min.js?' + chartVersion,
 					'chart/chart.js?' + chartVersion
