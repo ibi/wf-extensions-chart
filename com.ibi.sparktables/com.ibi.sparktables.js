@@ -62,6 +62,34 @@
         //var container = renderConfig.container;
         var container = $('#' + renderConfig.rootContainer.id + ' .chartHolder_relative_container');
 
+        //VIZ-309
+        //check to make sure all mandatory buckets exist
+
+        if(renderConfig.data.length == 0)
+        {
+            container.html('No data to show.').css('text-align','center').css('margin-top','20px');
+            return;
+        }
+        var firstRecord = renderConfig.data[0];
+
+        if(firstRecord.row == undefined)
+        {
+            container.html('Please add a field to Row bucket.').css('text-align','center').css('margin-top','20px');
+            return;    
+        }
+
+        if(firstRecord.sparkline_value == undefined)
+        {
+            container.html('Please add a field to Sparkline Value bucket.').css('text-align','center').css('margin-top','20px');
+            return;    
+        }
+
+        if(firstRecord.sparkline_date == undefined)
+        {
+            container.html('Please add a field to Sparkline Dates bucket.').css('text-align','center').css('margin-top','20px');
+            return;    
+        }
+
         var data = prep_data(renderConfig);
         var dataBuckets = renderConfig.dataBuckets.buckets;
         var titleJSON = [];
@@ -71,6 +99,8 @@
         var numberOfAcross = 0;
         var groupIds = [];
         var dataJSON = [];
+
+
 
         /* Format JSON Data */
         if (typeof data[0].measure !== 'undefined' || typeof data[0].row !== 'undefined') {
