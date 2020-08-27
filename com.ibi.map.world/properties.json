@@ -1,9 +1,10 @@
 {
   "info": {
-    "version": "1.1",
+    "version": "1.2",
 	//1.0 Original Release
   //1.0.1 Fix: CHART-3191 Error Messages
   //1.1 upgrade to d3 v5
+    //1.2 FIX: VIZ-359
     "implements_api_version": 1.0,
     "author": "Information Builders",
     "copyright": "Information Builders Inc.",
