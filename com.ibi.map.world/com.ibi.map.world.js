@@ -109,9 +109,13 @@
 	  renderConfig.renderComplete();
 	  */
    
-		//Begin VIZ-300 using the assumption that the last svg element is the errant element that causes the scroll bar
-		document.querySelectorAll('svg')[document.querySelectorAll('svg').length-1].style.display = "none";
-		//End VIZ-300 
+		//BEGIN VIZ-358
+		if (renderConfig.properties.colorLegend.enabled) {
+			//Begin VIZ-300 using the assumption that the last svg element is the errant element that causes the scroll bar
+			document.querySelectorAll('svg')[document.querySelectorAll('svg').length - 1].style.display = "none";
+			//End VIZ-300 
+		}
+		//END VIZ-358
 	}
 
 	function getInvokeAfter (cb, count) {
