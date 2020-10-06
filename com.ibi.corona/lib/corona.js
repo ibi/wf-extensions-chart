@@ -12,13 +12,13 @@
 //      can be added to central labels on mouseover events.
 // --------------------------------------------------------------------------------
 
-function checkData(data,container,width,height,arrBuckets,props) {
+function com_ibi_corona_checkData(data,container,width,height,arrBuckets,props) {
 
-  drawChart(data,container,width,height,arrBuckets,props);
+  com_ibi_corona_drawChart(data,container,width,height,arrBuckets,props);
 
 }
   
-function drawChart(data,svgContainer,width,height,arrBuckets,props) {
+function com_ibi_corona_drawChart(data,svgContainer,width,height,arrBuckets,props) {
 
 //  alert("Drawing chart");
 

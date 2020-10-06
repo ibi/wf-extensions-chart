@@ -1,7 +1,8 @@
 {
 	"info": {
-		"version": 1.2,
+		"version": 1.3,
 		//"version": 1.2, upgrade to d3
+		//1.3 - fixed VIZ-389
 		"implements_api_version": 2.0,
 		"author": "Anthony Alsford Information Builders (UK) Ltd",
 		"copyright": "Information Builders Inc.",

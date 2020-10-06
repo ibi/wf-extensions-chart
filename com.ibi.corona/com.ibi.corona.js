@@ -79,8 +79,9 @@
            
         var arrBuckets = {"radial":{"title":"Ordinal"},"series":{"title":"Year"},"value":{"title":"Value"}};
   
-        checkData(data,container,width,height,arrBuckets,props);
-
+		//BEGIN VIZ-398 - append extension prefix to global function
+        com_ibi_corona_checkData(data,container,width,height,arrBuckets,props);
+		//END - VIZ-398
         appendCoverScreen(container, width, height);
 
 		renderConfig.renderComplete();
@@ -167,7 +168,7 @@
             
         var arrBuckets = chart.dataBuckets.buckets;
   
-        checkData(data,container,width,height,arrBuckets,props);
+        com_ibi_corona_checkData(data,container,width,height,arrBuckets,props);
 
 		renderConfig.renderComplete();
 	}
