@@ -21,7 +21,7 @@
 			height = ib3SLI.config.getChartHeight(),
 			properties = ib3SLI.config.getCustomProperties();
 
- 
+ d3.select(container).attr('class', ib3SLI.config.getDrillClass('riser', 0, 0));
 
 		var template1 = 
 			'<div class="template1 kpiBoxContainer" style="display: flex">' +
