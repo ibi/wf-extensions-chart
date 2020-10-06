@@ -12,7 +12,8 @@
 //   API 2.0 required changes to the build of CSV headers.
 // --------------------------------------------------------------------------------
 
-function drawChart(data,Container,width,height,arrBuckets,props,chart) {
+var com_ibi_dygraph_mygraph = null;
+function com_ibi_dygraph_drawChart(data,Container,width,height,arrBuckets,props,chart) {
 
 // Older versions (8.2.01 for one) do not pass the newer array style of arrBuckets,
 // so we need to test and adjust accordingly
@@ -107,11 +108,23 @@ function drawChart(data,Container,width,height,arrBuckets,props,chart) {
   chartDiv.style.width = width - main_margin.left - main_margin.right + "px";
   chartDiv.style.height = height - main_margin.top - main_margin.bottom + "px";
 
-  mygraph = new Dygraph(
-    chartDiv,
-    csvfile, // CSV file
-    props
-  );
-
+//BEGIN VIZ-378
+if(com_ibi_dygraph_mygraph == null)
+{
+  com_ibi_dygraph_mygraph = new Dygraph(
+	  chartDiv,
+	  csvfile, // CSV file
+	  props
+	);
 }
-
+else
+{
+  com_ibi_dygraph_mygraph.destroy();
+  com_ibi_dygraph_mygraph = new Dygraph(
+	  chartDiv,
+	  csvfile, // CSV file
+	  props
+	);
+}
+//END VIZ-378
+}

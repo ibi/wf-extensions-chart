@@ -79,7 +79,7 @@
            
         var arrBuckets = [{"id":"timeline","fields":[{"title":"Date"}]},{"id":"value","fields":[{"title":["Sales","Budget"]}]}];
   
-        drawChart(data,container,width,height,arrBuckets,props,chart);
+        com_ibi_dygraph_drawChart(data,container,width,height,arrBuckets,props,chart);
 
         appendCoverScreen(container, width, height);
 
@@ -195,7 +195,7 @@
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_ibi_dygraph');
             
-        drawChart(data,container,width,height,arrBuckets,props,chart);
+		com_ibi_dygraph_drawChart(data,container,width,height,arrBuckets,props,chart);
 
 		renderConfig.renderComplete();
 	}
