@@ -42,14 +42,8 @@ To configure or customize your extension edit "properties" object in properties.
 			"barHeight": "10", // bar height
 			"barIconWidth": "40" // bar icon width
 		},
-		"value_colors": {
-			"minColor": "#912BA7", // value min color (if both are diferents we apply degraded)
-			"maxColor": "#036DB2" // value max color (if both are diferents we apply degraded)
-		},
-		"comparison_colors": {
-			"minColor": "yellow", // comparison min color (if both are diferents we apply degraded)
-			"maxColor": "Blue" // comparison max color (if both are diferents we apply degraded)
-		},
+		"value_color": "blue", // value color
+		"comparison_color": "yellow", // comparison color
 		"ticks": {
 			"minvalue": {
 				"value": null, // value for min marker if we want to apply a static value
