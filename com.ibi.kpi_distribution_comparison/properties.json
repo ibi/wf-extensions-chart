@@ -31,14 +31,8 @@
 			"barHeight": "10",
 			"barIconWidth": "40"
 		},
-		"value_colors": {
-			"minColor": "#912BA7",
-			"maxColor": "#036DB2"
-		},
-		"comparison_colors": {
-			"minColor": "yellow",
-			"maxColor": "Blue"
-		},
+		"value_color": "blue",
+		"comparison_color": "yellow",
 		"ticks": {
 			"minvalue": {
 				"value": null,
@@ -73,14 +67,8 @@
 			"barHeight": "number",
 			"barIconWidth": "number"
 		},
-		"value_colors": {
-			"minColor": "color",
-			"maxColor": "color"
-		},
-		"comparison_colors": {
-			"minColor": "color",
-			"maxColor": "color"
-		},
+		"value_color": "color",
+		"comparison_color": "color",
 		"ticks": {
 			"minvalue": {
 				"value": "number",
@@ -197,16 +185,8 @@
 					"barHeight": "bar height",
 					"barIconWidth": "bar icon weight"
 				},
-				"value_colors": {
-					"_translation": "field value colors",
-					"minColor": "Minimum color",
-					"maxColor": "Maximum color"
-				},
-				"comparison_colors": {
-					"_translation": "field comparison colors",
-					"minColor": "Minimum color",
-					"maxColor": "Maximum color"
-				},
+				"value_color": "Value color",
+				"comparison_color": "Comparison color",
 				"ticks": {
 					"_translation": "Ticks",
 					"minvalue": {
