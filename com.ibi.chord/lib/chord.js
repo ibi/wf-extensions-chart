@@ -45,6 +45,7 @@ var com_tdg_chord = (function () {
 			//VIZ-399
 			groupColors: user_props.chordColors
 			,showTwoWayInfoTooltip: user_props.showTwoWayInfoTooltip //VIZ-406
+			,tooltipLabels: user_props.tooltipLabels //VIZ-420
 		};
 
 		function getOnAllTransitionComplete(cb) {
@@ -408,11 +409,18 @@ var com_tdg_chord = (function () {
 						str += '<br/><br/>';
 					}
 					keys.forEach(function (key, idx) {
+
+
 						if (idx > 0) {
 							str += '<br/>';
 						}
 
-						str += '<b>' + map[key] + ':</b> ';
+						
+						//BEGIN VIZ-420 - adding user defined labels
+						//str += '<b>' + map[key] + ':</b> ';
+						var label = map[key]== 'source' ? props.tooltipLabels.sourceLabel : key == 'value' ? props.tooltipLabels.valueLabel : props.tooltipLabels.targetLabel;
+						str += '<b>' + label + ':</b> ';
+						//END VIZ-420
 						if (key !== 'value') {
 							str += ids[d[name][key]];
 						} else {
