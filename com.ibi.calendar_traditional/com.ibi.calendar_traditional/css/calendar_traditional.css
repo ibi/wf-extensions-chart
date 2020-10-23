@@ -1,0 +1,49 @@
+/* Copyright 1996-2014 Information Builders, Inc. All rights reserved. */
+/* $Revision: 1.2 $ */
+
+/*.com_ibi_chart text {*/
+
+html,body {
+    font-family: "Arial", sans-serif;
+	padding: 0px;
+	margin:0px;
+	width:100%;
+	height:100%;
+}
+
+.axis {
+    font-size: 13px;
+}
+
+.selectYears{
+    font-size: 14px;
+    position: absolute;
+	top:10px;
+	left:10px;
+	font-weight:bold;
+}
+
+.axis line {
+    fill: none;
+    display: none;
+}
+
+.label {
+    font-size: 16px;
+}
+.tick{
+	text-anchor: start;
+}
+.div_widths {
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        position: absolute;
+		top:0px;
+		left:0px;
+		display: inline-block;
+        visibility: hidden;
+        width: auto;
+        height: auto;
+        font: 14px sans-serif;
+        padding: 5px;
+        text-align: left;
+}

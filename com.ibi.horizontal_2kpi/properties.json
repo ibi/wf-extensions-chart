@@ -1,0 +1,122 @@
+{
+	"info": {
+		"version": "2.2.3",
+		"implements_api_version": "1.0/2.0",
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/horizontal_comparison_bars_2kpi",
+		"icons": {
+			"medium": "icons/ibi_horizontal_2kpi.png" 
+		}
+	},
+	
+	"properties": {
+		"horizontal2kpiProperties": {
+			"ibiAppsPath": "/ibi_apps/",
+			"setInfiniteToZero": false,
+			"hideWhenInfinite": false,
+			"chartHeadroom": 50,
+			"shorten_numbers": true,
+			"typeShortenNumber": null,
+			"imageSize":125,
+			"shortenLeyendDescription": {
+				"enabled": false,
+				"U": "",
+				"K": "Thousands",
+				"M": "Millions",
+				"B": "Billions",
+				"T": "trillions"
+			},
+			"calculeComparationFunction": {
+				"param1": "valueKpi", 
+				"param2": "compareValue", 
+				"body": "if(compareValue == 0) { return 0; } var result = compareValue;   return result;"
+			},
+			"formatComparation": "#,###.00`%",
+			"bodyBackgroundColor": "transparent",
+			"negativeBarColor": "#9f1f1f"
+		},
+		
+		"external_library": "lib/d3.min.js",
+		"colorScale": {
+			"colorMode":"discrete",
+			"colorBands": [
+				{"start": -1000000000000, "stop": 0,"color":"red"},
+				{"start": 0, "stop": 1000000000000,"color":"green"}
+			]
+		}
+	},
+	
+	"propertyAnnotations": {
+		"horizontal2kpiProperties": "json",		
+		"external_library": "str",
+		"colorScale": "json"
+	},
+	
+	"dataBuckets":  {
+		"tooltip": true,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false, 
+		"buckets": [
+			{
+				"id": "value",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "comparevalue",
+				"type": "measure",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "dimension",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "kpisign",
+				"type": "measure",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "image",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			}
+		]
+	},
+
+	"translations": {
+		"en": {
+			"name": "bars horizontal 2 kpi",
+			"description": "bars horizontal 2 kpi",
+			"icon_tooltip": "This extension", 
+			"value_name": "Main KPI (1)",  
+			"value_tooltip": "Drop a measure here", 
+			"comparevalue_name": "Sec KPI (1, non required)", 
+			"comparevalue_tooltip": "Drop a measure here", 
+			"dimension_name": "Dimension (1, non required))", 
+			"dimension_tooltip": "Drop a dimension here",
+			"kpisign_name": "KPI Type: Pos. / Neg (1, non required)", 
+			"kpisign_tooltip": "Drop a measure here",
+			"image_name": "Image Bucket (1, non required)", 
+			"image_tooltip": "Drop a field with path to image"
+		}
+	}
+}

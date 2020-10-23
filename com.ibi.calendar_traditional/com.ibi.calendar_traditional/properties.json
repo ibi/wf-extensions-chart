@@ -1,0 +1,167 @@
+{
+	"info": {
+		"version": "0.0.1",
+		"implements_api_version": "1.0/2.0",
+		"author": "Information Builders MX",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/calendar_traditional",
+		"icons": {
+			"medium": "icons/calendar_traditional.png"
+		}
+	},
+	
+	"properties": {
+		"colors": {
+			"months": null,
+			"weeks": null,
+			"days": null
+		},
+		"scales":{
+			"shorten_numbers": false,
+			"typeShortenNumber": "U"		
+		},		
+		"calendarConfig":{
+			"initialDOW": "Monday",
+			"language_var": "es_ES",
+			"dateFormat": "%d/%m/%Y"
+		},	
+		"chartConfig":{
+			"chartHeadroom": "50",
+			"bodyBackgroundColor": "transparent",
+			"showSelectYears": true
+		}
+	},
+	
+	"propertyAnnotations": {
+		"colors": {
+			"months": "color",
+			"weeks": "color",
+			"days": "color"
+		},
+		"scales":{
+			"shorten_numbers": "bool",
+			"typeShortenNumber":  {
+                "typeAnnotation": "str",
+                "stringValues": ["U", "K", "M", "B", "T"]
+            }
+		},		
+		"calendarConfig":{
+			"initialDOW": {
+                "typeAnnotation": "str",
+                "stringValues": ["Sunday", "Monday"]
+            },
+			"language_var": {
+                "typeAnnotation": "str",
+                "stringValues": ["es_ES", "en_US", "fr_FR", "ru_RU", "ja_JP", "pt_BR", "es_MX"]
+            },
+			"dateFormat": {
+                "typeAnnotation": "str",
+                "stringValues": ["%d/%m/%Y", "%Y/%m/%d", "%m/%d/%Y", "%d-%m-%Y", "%Y-%m-%d", "%m-%d-%Y", "%d.%m.%Y", "%Y.%m.%d", "%m.%d.%Y", "%d/%m/%y", "%y/%m/%d", "%m/%d/%y", "%d-%m-%y", "%y-%m-%d", "%m-%d-%y", "%d.%m.%y", "%y.%m.%d", "%m.%d.%y"]
+            }
+		},	
+		"chartConfig":{
+			"chartHeadroom": "number",
+			"bodyBackgroundColor": "color",
+			"showSelectYears": "bool"
+		}	
+	},
+	
+	"dataBuckets":  {
+	
+		"tooltip": true,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+
+		"buckets": [
+			{
+				"id": "value",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "dimension",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			}
+		]
+	},
+
+	"translations": {
+		"en": {
+			"name": "calendar_traditional",
+			"description": "Traditional Calendar",
+			"icon_tooltip": "This extension", 
+			"value_name": "Value Bucket (1)", 
+			"value_tooltip": "Drop a measure here", 
+			"dimension_name": "Date Bucket (dd/mm/yyyy)", 
+			"dimension_tooltip": "Drop a dimension here",
+			"properties": {
+				"colors": {
+					"_translation": "Text colors",
+					"months": "Months color",
+					"weeks": "Weeks color",
+					"days": "Days color"
+				},
+				"scales":{
+					"_translation": "Scales",
+					"shorten_numbers": "Shorten Numbers",
+					"typeShortenNumber": "Shorten Number Type"	
+				},		
+				"calendarConfig":{
+					"_translation": "Calendar options",
+					"initialDOW": "First day of the Week",
+					"language_var": "Language",
+					"dateFormat": "Date format"		
+				},	
+				"chartConfig":{
+					"_translation": "Chart options",
+					"chartHeadroom": "Chart headroom",
+					"bodyBackgroundColor": "Body background color",
+					"showSelectYears": "Show years select"
+				}
+			}
+		},
+		
+		"es": {
+			"name": "calendar_traditional",
+			"description": "Calendario Tradicional",
+			"icon_tooltip": "Esta extensión", 
+			"value_name": "Valor (1)", 
+			"value_tooltip": "Arrastra una medida", 
+			"dimension_name": "Fecha (dd/mm/yyyy)", 
+			"dimension_tooltip": "Arrastra una dimensión",
+			"properties": {
+				"colors": {
+					"_translation": "Colores de textos",
+					"months": "Color de meses",
+					"weeks": "Color de semanas",
+					"days": "Color de días"
+				},
+				"scales":{
+					"_translation": "Escalas",
+					"shorten_numbers": "Acortar Números",
+					"typeShortenNumber": "Tipo de acortado de número"	
+				},		
+				"calendarConfig":{
+					"_translation": "Opciones del calendario",
+					"initialDOW": "Primer día de la Semana",
+					"language_var": "Idioma",
+					"dateFormat": "Formato de la fecha"				
+				},	
+				"chartConfig":{
+					"_translation": "Opciones del Gráfico",
+					"chartHeadroom": "Espacio de encabezado",
+					"bodyBackgroundColor": "Color de fondo",
+					"showSelectYears": "Mostrar combo de años"
+				}						
+			}
+		}
+	}
+}
