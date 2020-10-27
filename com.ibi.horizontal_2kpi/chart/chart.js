@@ -14,12 +14,19 @@
 		$ib3.checkObject(ib3SLI);
 		
 		ib3SLI.config.checkServiceIsInitinalized();
-		
-		var originalData = ib3SLI.config.getData(),	
-			data = $(originalData).map(function(i, d) {
+		/*ordenar datos por bucket*/
+		function sortAlphanumetic(a,b){
+			return a.order.localeCompare(b.order, 'en', { numeric: true }) 
+		}
+		var originalData = ib3SLI.config.getData();
+		if (ib3SLI.config.getBucket('order') != null) originalData=originalData.sort(sortAlphanumetic)
+		/* */
+
+
+		var data = $(originalData).map(function(i, d) {
 				d.originalIndex = i;
 				return d;
-			}).get().reverse();
+		}).get().reverse();
 			
 		var w = ib3SLI.config.getChartWidth(),
 			h = ib3SLI.config.getChartHeight(), 
@@ -67,7 +74,9 @@
 		var everyDataIsNegative = $(data).filter(function(i, d) { 
 			return parseFloat(d.value) > 0;
 		}).get().length == 0;
-			
+		
+	
+	
 		//set up svg using margin conventions - we'll need plenty of room on the left for labels
 		var margin = {
 			top: 15,		

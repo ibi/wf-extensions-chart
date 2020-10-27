@@ -76,6 +76,14 @@
 				}
 			},
 			{
+				"id": "order",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
 				"id": "dimension",
 				"type": "dimension",
 				"count": {
@@ -83,6 +91,7 @@
 					"max": 1
 				}
 			},
+			
 			{
 				"id": "kpisign",
 				"type": "measure",
@@ -113,6 +122,8 @@
 			"comparevalue_tooltip": "Drop a measure here", 
 			"dimension_name": "Dimension (1, non required))", 
 			"dimension_tooltip": "Drop a dimension here",
+			"order_name": "Order field (1, non required))", 
+			"order_tooltip": "Drop a dimension here",
 			"kpisign_name": "KPI Type: Pos. / Neg (1, non required)", 
 			"kpisign_tooltip": "Drop a measure here",
 			"image_name": "Image Bucket (1, non required)", 
