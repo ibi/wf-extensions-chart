@@ -68,6 +68,4 @@ To configure or customize your extension edit "properties" object in properties.
 * **Sign Comparision Bucket (0-1)** - Not required. Positive or negative value to set comparision direction.
 
 ### Dimensions
-* **Order Bucket (0-1)** - Not required. BY element.
-* **Dimension Bucket (0-1)** - Not required. BY element.
-* **Image Bucket (0-1)** - Not required. BY element.
+* **Label Bucket (0-1)** - Not required. BY element.

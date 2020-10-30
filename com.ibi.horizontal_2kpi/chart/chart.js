@@ -43,7 +43,10 @@
 			calculeComparationFunctionParam2 = ib3SLI.config.getProperty('horizontal2kpiProperties.calculeComparationFunction.param2'),
 			calculeComparationFunctionBody = ib3SLI.config.getProperty('horizontal2kpiProperties.calculeComparationFunction.body'),
 			bodyBackgroundColor = ib3SLI.config.getProperty('horizontal2kpiProperties.bodyBackgroundColor') || "transparent",
+			numberTicks = ib3SLI.config.getProperty('horizontal2kpiProperties.numberTicks') || 2,
+			showXaxis = ib3SLI.config.getProperty('horizontal2kpiProperties.showXaxis') ,
 			negativeBarColor = ib3SLI.config.getProperty('horizontal2kpiProperties.negativeBarColor') || "#eb0f0f";
+
 			
 		d3.select('body')
 			.style('background-color', bodyBackgroundColor)
@@ -71,9 +74,9 @@
 			}
 		}
 		
-		var everyDataIsNegative = $(data).filter(function(i, d) { 
-			return parseFloat(d.value) > 0;
-		}).get().length == 0;
+		var anyDataIsNegative = $(data).filter(function(i, d) { 
+			return parseFloat(d.value) < 0;
+		}).get().length != 0;
 		
 	
 	
@@ -91,9 +94,10 @@
 			.domain(data.map(function(d, i) {
 				return d.originalIndex;
 			}));
-		margin['right']= everyDataIsNegative ? calculateWidth('dimension') : calculateWidth('percentaje',formatComparation) + y.bandwidth()*0.9;
-		margin['left']= everyDataIsNegative ? calculateWidth('percentaje',formatComparation) + y.bandwidth()*0.9 : calculateWidth('dimension')
-		 
+		//margin['right']= everyDataIsNegative ? calculateWidth('dimension') : calculateWidth('percentaje',formatComparation) + y.bandwidth()*0.9;
+		margin['left']=calculateWidth('dimension')
+		//margin['left']= everyDataIsNegative ? calculateWidth('percentaje',formatComparation) + y.bandwidth()*0.9 : calculateWidth('dimension')
+		margin['right']=calculateWidth('percentaje',formatComparation) + y.bandwidth()*0.9;
 		var width = w - margin.left - margin.right
 		/****************************************************************************************/
 			
@@ -102,7 +106,7 @@
 			.attr("width", width + margin.left + margin.right)
 			.attr("height", height + margin.top + margin.bottom)
 				.append("g")
-					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+					.attr("transform", "translate(" + 0 + "," + margin.top + ")");
 		
 		var max = d3.max(data, function(d) { return d.value; }),
 			min = d3.min(data, function(d) { return d.value; });
@@ -117,12 +121,22 @@
 			.range([0, width])
 			.domain([min, max]).nice();
 		
-
-		
+		if (anyDataIsNegative == true){
+			svg.append('line')
+				.attr('y1',0)
+				.attr('y2',height)
+				.attr('x1',x(0)+margin.left)
+				.attr('x2',x(0)+margin.left)
+				.style('stroke-width',1)
+				.style('stroke','#BABABA');
+		}
+			 
+			
 		var barGroups = svg.selectAll(".bar")
 			.data(data)
 			.enter()
 				.append("g")
+				.attr("transform", "translate(" +margin.left + "," + 0 + ")")
 				.classed('group-bar', true)
 				.on("mousemove", function(d, i) {
 					d3.select(this).selectAll("rect").style("fill-opacity", 0.5);
@@ -176,16 +190,17 @@
 				})
 				.attr("x", function(d) {
 					var x = (w - margin.left - margin.right + y.bandwidth() * 0.9);
-					if(everyDataIsNegative) {
-						x = -y.bandwidth() * 0.9;
-					} 
+				//	if(everyDataIsNegative) {
+				//		x = -y.bandwidth() * 0.9;
+				//	} 
+					 
 					return x;
 				})
 				.style('text-anchor', function(d) {
 					var x = 'start';
-					if(everyDataIsNegative) {
-						x = 'end';
-					} 
+				//	if(everyDataIsNegative) {
+				//		x = 'end';
+				//	} 
 					return x;
 				})
 				.text(function(d) {
@@ -237,9 +252,9 @@
 				})*/
 				barGroups.append("image").attr("transform", function(d, dataIndex) {
 					var translateX = (w - margin.left - margin.right + (y.bandwidth() * 0.9)/2)
-					if(everyDataIsNegative) {
-						translateX = -(y.bandwidth() * 0.9)/2;
-					} 
+				//	if(everyDataIsNegative) {
+				//		translateX = -(y.bandwidth() * 0.9)/2;
+				//	} 
 					
 					var rotate = '';
 					if(d.percentaje == 0) {
@@ -274,7 +289,7 @@
 			
 		var yAxisG = svg.append("g")
 			.attr("fill", ib3SLI.config.getProperty('axisList.y1.labels.color'))
-			.attr("transform", "translate(" + x(0) + ",0)")
+			.attr("transform", "translate(" + margin.left + ",0)")
 			.call(yAxis);
 					
 		yAxisG.selectAll("text")
@@ -286,6 +301,7 @@
 				}else{
 					return 'end'
 				}*/
+				return 'end';
 				if ((parseFloat(dataElem.value) <= 0)  )   {
 					return 'start';
 				} else {
@@ -295,26 +311,29 @@
 			.attr("x", function(dataIndex) { 
 				var dataElem = $(data).filter(function(i, d){return d.originalIndex == dataIndex})[0],
 					currentX = parseFloat(d3.select(this).attr('x')),
-					sign = ((parseFloat(dataElem.value) <= 0)) ? -1 : 1;
-					
-				return sign * currentX;
+					 sign = ((parseFloat(dataElem.value) <= 0)) ? -1 : 1;
+					 currentX=-5;
+					return currentX
+				//return sign * currentX;
 			});
 		
 		var xAxisGWidth = d3.select('.group-bar').node().getBBox().width,
 			xAxisMinLabelSpace = 100,
 			xAxisNumLabels = parseInt(xAxisGWidth / xAxisMinLabelSpace);
-			
-		var xAxis = d3.axisBottom()
-			.scale(x)
-			.ticks(xAxisNumLabels);
+		if (showXaxis){	
+			var xAxis = d3.axisBottom()
+				.scale(x)
+				.ticks(numberTicks*1);
 
-		var xAxisG = svg.append("g")
-			.attr("class", "x axis")
-			.attr("transform", "translate(0," + (h - margin.top - margin.bottom) + ")")
-			.call(xAxis);
+			var xAxisG = svg.append("g")
+				.attr("class", "x axis")
+				.attr("transform", "translate("+ margin.left +"," + (h - margin.top - margin.bottom) + ")")
+				.call(xAxis);
+			xAxisG.selectAll("text").attr("fill", ib3SLI.config.getProperty('axisList.y1.labels.color'));
+		} 
+	
 		
-		xAxisG.selectAll("text").attr("fill", ib3SLI.config.getProperty('axisList.y1.labels.color'));
-		
+		 	
 		if (shortenNumbers) {
 			var arr_shorten = {},
 				max_shorten = 0,
@@ -324,10 +343,11 @@
 			}else{
 				arr_shorten = {'':0,'K':0,'M':0,'B':0,'T':0};
 			}
-			
-			xAxisG.selectAll("text").each(function(d) {
-				arr_shorten[$ib3.utils.getNumericAbbreviation(d, typeShortenNumber)]++;
-			});
+			if (showXaxis){	
+				xAxisG.selectAll("text").each(function(d) {
+					arr_shorten[$ib3.utils.getNumericAbbreviation(d, typeShortenNumber)]++;
+				});
+			}	
 			$.each(arr_shorten,function(i,val){
 				if (val > max_shorten){
 					max_shorten = val;
@@ -361,24 +381,25 @@
 					});
 			}
 			
-			
-			xAxisG.selectAll("text").text(function(d) {
-				var formatNumber = ib3SLI.config.formatNumber,
-					valueFormat = ib3SLI.config.getFormatByBucketName('value', 0);
-				if(parseFloat(d) == 0) {
-					return 0;
-				}
-				if (selected_shorten_letter != ''){
-					return $ib3.utils.setShortenNumber(d, false, 0,selected_shorten_letter, formatNumber, valueFormat, typeShortenNumber);
-				}else{
-					if ((formatNumber) && (valueFormat)){
-						valueFormat = valueFormat.split('.')[0];
-						return $ib3.utils.getFormattedNumber(formatNumber, d, valueFormat, false, typeShortenNumber);
-					}else{
-						return d;
+			if (showXaxis){	
+				xAxisG.selectAll("text").text(function(d) {
+					var formatNumber = ib3SLI.config.formatNumber,
+						valueFormat = ib3SLI.config.getFormatByBucketName('value', 0);
+					if(parseFloat(d) == 0) {
+						return 0;
 					}
-				}
-			});
+					if (selected_shorten_letter != ''){
+						return $ib3.utils.setShortenNumber(d, false, 0,selected_shorten_letter, formatNumber, valueFormat, typeShortenNumber);
+					}else{
+						if ((formatNumber) && (valueFormat)){
+							valueFormat = valueFormat.split('.')[0];
+							return $ib3.utils.getFormattedNumber(formatNumber, d, valueFormat, false, typeShortenNumber);
+						}else{
+							return d;
+						}
+					}
+				});
+			}
 		}
 		
 		svg.selectAll("path.domain")

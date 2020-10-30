@@ -34,7 +34,9 @@
 			},
 			"formatComparation": "#,###.00`%",
 			"bodyBackgroundColor": "transparent",
-			"negativeBarColor": "#9f1f1f"
+			"negativeBarColor": "#9f1f1f",
+			"numberTicks": 5,
+			"showXaxis":true
 		},
 		
 		"external_library": "lib/d3.min.js",
