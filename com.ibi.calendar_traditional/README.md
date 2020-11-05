@@ -11,7 +11,7 @@ This extension generates a simple calendar view by month and days, just as any o
 
 ## Screenshots
 
-![screenshot_1](/screenshots/1.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.calendar_traditional/screenshots/1.png)
 
 ## Configurations
 
