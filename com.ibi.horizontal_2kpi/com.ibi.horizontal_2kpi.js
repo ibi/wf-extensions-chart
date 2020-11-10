@@ -61,7 +61,7 @@
 		
 		var ib3SLI = $ib3(renderConfig, {
 			tooltip: {
-				hiddenBuckets: ['kpisign','image','drillCondition']
+				hiddenBuckets: ['kpisign','image','drillCondition','order']
 			}
 		});
 		

@@ -19,7 +19,8 @@
 			return a.order.localeCompare(b.order, 'en', { numeric: true }) 
 		}
 		var originalData = ib3SLI.config.getData();
-		if (ib3SLI.config.getBucket('order') != null) originalData=originalData.sort(sortAlphanumetic)
+
+		//if (ib3SLI.config.getBucket('order') != null) originalData=originalData.sort(sortAlphanumetic)
 		/* */
 
 
