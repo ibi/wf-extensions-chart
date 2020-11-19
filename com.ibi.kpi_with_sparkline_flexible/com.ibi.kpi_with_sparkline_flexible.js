@@ -25,6 +25,18 @@
 		}
 		return temp_number_dot;
 	}
+
+	function abbreviateNumber(number, decimals) {
+		var SI_POSTFIXES = ["", "K", "M", "B", "T", "P", "E"];
+		var tier = Math.log10(Math.abs(number)) / 3 | 0;
+		if (tier == 0) 
+			return number;
+		var postfix = SI_POSTFIXES[tier];
+		var scale = Math.pow(10, tier * 3);
+		var scaled = number / scale;
+		var formatted = scaled.toFixed(decimals) + '';
+		return formatted + postfix;
+	}
 	
 	function changeBackground(color) {
 		document.body.style.background = color;
@@ -185,6 +197,11 @@
 					seriesColor = goodIs? seriesColor: props.barProperties.badColor;
 					dynamicColorBackground = goodIs? dynamicColorBackground: props.barProperties.badColor;
 				
+					if (props.deviationVsPrevious.abbreviateNumber == true) {
+						percentChange = abbreviateNumber(percentChange, props.deviationVsPrevious.decimalPlaces);
+					}
+					else { 
+					}	
 					if (props.setCDN == true) {
 						percentChange = percentChange.replace(".", ",");
 						percentChange = goodIs? '+' + NumberWithDot(percentChange) + ' ' + deviationTimeframe : NumberWithDot(percentChange) + ' ' + deviationTimeframe;
@@ -195,6 +212,12 @@
 					}
 				}
 			}
+			// abbreviate Number for total1 value
+			if (props.total.abbreviateNumber == true) {
+				total1 = abbreviateNumber(total1, props.total.decimalPlaces);
+			}
+			else { 
+			}			
 			// number format for total1 value
 			if (props.setCDN == true) {
 				total1 = total1.replace(".", ",");
