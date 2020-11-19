@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": 1.0,
+		"version": 1.1,
 		"implements_api_version": 2.0,
 		"author": "Information Builders (Marc Julian Daniels)",
 		"copyright": "Information Builders Inc.",
@@ -37,8 +37,10 @@
 				"fontStyle": "inherit",
 				"fontWeight": "normal",
 				"decimalPlaces": "0",
-				"percentValue": "false"
-			}
+				"percentValue": "false",
+				"abbreviateNumber": "false"
+			},
+			"disableCurrentValue": "false"			
 		},
 		"previousValue": {
 			"previousText": {
@@ -54,7 +56,8 @@
 				"fontStyle": "inherit",
 				"fontWeight": "normal",
 				"decimalPlaces": "0",
-				"percentValue": "false"
+				"percentValue": "false",
+				"abbreviateNumber": "false"
 			},
 			"disablePreviousValue": "false"
 		},
@@ -72,7 +75,8 @@
 				"fontStyle": "inherit",
 				"fontWeight": "normal",
 				"decimalPlaces": "2",
-				"deviationInPercent": "false"
+				"deviationInPercent": "false",
+				"abbreviateNumber": "false"
 			},
 			"disableChangeValue": "false"
 		},			
@@ -131,8 +135,10 @@
 				"fontStyle": "str",
 				"fontWeight": "str",
 				"decimalPlaces": "number",
-				"percentValue": "bool"
-			}
+				"percentValue": "bool",
+				"abbreviateNumber": "bool"
+			},
+			"disableCurrentValue": "bool"
 		},
 		"previousValue": {
 			"previousText": {
@@ -148,7 +154,8 @@
 				"fontStyle": "str",
 				"fontWeight": "str",
 				"decimalPlaces": "number",
-				"percentValue": "bool"
+				"percentValue": "bool",
+				"abbreviateNumber": "bool"
 			},
 			"disablePreviousValue": "bool"
 		},		
@@ -166,7 +173,8 @@
 				"fontStyle": "str",
 				"fontWeight": "str",
 				"decimalPlaces": "number",
-				"deviationInPercent": "bool"
+				"deviationInPercent": "bool",
+				"abbreviateNumber": "bool"
 			},
 			"disableChangeValue": "bool"
 		},			
