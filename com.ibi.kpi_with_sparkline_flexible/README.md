@@ -1,4 +1,4 @@
-#### Extension for WebFocus 8200
+#### Extension for WebFocus 8200 
 
 # Small KPI Widget with deviation and bars
 
