@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": 1.1,
+		"version": 1.2,
 		"implements_api_version": 2.0,
 		"author": "Information Builders (Marc Julian Daniels)",
 		"copyright": "Information Builders Inc.",
@@ -46,7 +46,8 @@
 			"fontStyle": "inherit",			
 			"decimalPlaces": "0",
 			"hideMeasureNumber": "false",
-			"percentValue": "false"
+			"percentValue": "false",
+			"abbreviateNumber": "false"
 		},
 	},
 	
@@ -101,7 +102,8 @@
 			"fontStyle": "str",
 			"decimalPlaces": "number",
 			"hideMeasureNumber": "bool",
-			"percentValue": "bool"
+			"percentValue": "bool",
+			"abbreviateNumber": "bool"
 		},
 	},
 	
