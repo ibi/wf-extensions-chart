@@ -307,7 +307,7 @@
 						percentageCalcValue == 'Infinity' ||
 						percentageCalcValue == '-Infinity' ||
 						isNaN(percentageCalcValue)
-							? 0
+							? ib3SLI.config.formatNumber(0, formatComparation)
 							: ib3SLI.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
 				} else {
 					percentageFormattedValue =
@@ -516,7 +516,7 @@
 							var _valueFormatted = formatValueTooltip(attribute, kpiDataElem[attribute][index]);
 							_$divRow.append([
 								$('<div>')
-									.text(ib3SLI.config.getBucketTitle(attribute, index).replace('\\n','') + ':')
+									.text(ib3SLI.config.getBucketTitle(attribute, index).replace(/\\n/g,'') + ':')
 									.addClass('kpiBoxTooltipLabel'),
 								$('<div>').text(_valueFormatted).addClass('kpiBoxTooltipValue'),
 							]);
@@ -527,7 +527,7 @@
 						var _valueFormatted = formatValueTooltip(attribute, kpiDataElem[attribute]);
 						_$divRow.append([
 							$('<div>')
-								.text(ib3SLI.config.getBucketTitle(attribute, 0).replace('\\n','') + ':')
+								.text(ib3SLI.config.getBucketTitle(attribute, 0).replace(/\\n/g,'') + ':')
 								.addClass('kpiBoxTooltipLabel'),
 							$('<div>').text(_valueFormatted).addClass('kpiBoxTooltipValue'),
 						]);
