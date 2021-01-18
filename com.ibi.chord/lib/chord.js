@@ -4,7 +4,21 @@
 var com_tdg_chord = (function () {
 	return function (user_props) {
 		var props = {
-			// renderConfig: null, //Needed for CHART-3146 causing issue with RangeError VIZ-78
+			//renderConfig: null, //Needed for CHART-3146 causing issue with RangeError VIZ-78
+
+			tdg_tooltip_utils: //this object was added for VIZ-427
+			{
+				chart: null
+				,formatString: ''
+				,dummyDataNode: {
+					source: 'dummy'
+					,target: 'dummy'
+					,value: 0
+					,_s: 0
+					,_g: 0
+				},
+				dummyDataArray: []
+			},
 			tooltip: function () { }, //Needed for CHART-3146 VIZ-78
 			width: 300,
 			height: 400,
@@ -424,7 +438,19 @@ var com_tdg_chord = (function () {
 						if (key !== 'value') {
 							str += ids[d[name][key]];
 						} else {
-							str += d[name][key];
+							/*BEGIN VIZ-427 */
+							props.tdg_tooltip_utils.dummyDataNode.value = d[name][key];
+
+							//use the moonbeam helper function set in the com.ibi.chord initialization
+							var formattedString = props.tdg_tooltip_utils.chart.parseTemplate(
+								props.tdg_tooltip_utils.formatString.value,
+								props.tdg_tooltip_utils.dummyDataNode,
+								props.tdg_tooltip_utils.dummyDataArray,
+								null);
+
+							str += formattedString;
+							//str += d[name][key]; //removed for VIZ-427
+							
 						}
 					});
 				});

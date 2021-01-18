@@ -30,6 +30,8 @@
 		props.data = [renderConfig.data];
 		props.toolTipEnabled = chart.htmlToolTip && chart.htmlToolTip.enabled;
 
+
+
 		props.isInteractionDisabled = renderConfig.disableInteraction;
 		props.onRenderComplete = chart.processRenderComplete.bind(chart);
 
@@ -45,6 +47,32 @@
 		props.tooltipStyle = chart.htmlToolTip.style;	
 		//End VIZ-43
 
+		//Start VIZ-427
+		props.tdg_tooltip_utils = {};
+
+		//create a dummy data object that follows the structure of the
+		//data object supplied by renderConfig
+		//use browser dev tools to check out renderConfig.data and the first element of that array
+		//for the structure
+		props.tdg_tooltip_utils.dummyDataNode = {
+			source: 'dummy'
+			,target: 'dummy'
+			,value: 0
+			,_s: 0
+			,_g: 0
+		},
+
+		//need the entire object vs. just getting parseTemplate
+		//there was some dependency that parseTemplate needed so referencing the whole chart object
+		props.tdg_tooltip_utils.chart = renderConfig.moonbeamInstance;
+
+		//get the tooltip metadata object for the value bucket
+		props.tdg_tooltip_utils.formatString = renderConfig.moonbeamInstance.getSeries(0).tooltip[2];
+
+		//create a dummy array that just has the dummy data node. 
+		//this is required to call the parseTemplate function
+		props.tdg_tooltip_utils.dummyDataArray = [props.tdg_tooltip_utils.dummyDataNode];
+		//End VIZ-427 
 		var chordChart = com_tdg_chord(props);
 
 		chordChart(container);
