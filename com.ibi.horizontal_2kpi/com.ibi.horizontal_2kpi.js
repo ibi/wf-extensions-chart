@@ -21,7 +21,7 @@
 		chart.dataArrayMap = undefined;
 		chart.dataSelection.enabled = false;
 	}
-
+ 
 	// Optional: if defined, is called whenever this extension must be drawn but doesn't yet have any data.
 	// Use this to define the extensions' initial 'grey state' appearance.
 	// Arguments:
@@ -42,6 +42,7 @@
 		renderConfig.moonbeamInstance.dataBuckets = JSON.parse('{"buckets":{"dimension":{"title":"Categoría de Producto","count":1},"value":{"title":"Costo de los bienes","count":1},"comparevalue":{"title":"Beneficio Bruto","count":1}},"depth":1}');
 		renderConfig.moonbeamInstance.getSeries(0).color = grey;
 		renderConfig.moonbeamInstance.getSeries(1).color = pv.color(grey).lighter(0.18).color;
+ 
 		renderCallback(renderConfig);
 	}
 
@@ -54,13 +55,13 @@
 	//  - one dimension entry in a generic 'labels' bucket.  This bucket defines the set of labels on the ordinal axis.
 	//  - one dimension entry in the built-in 'series_break' bucket.  This will split each value entry into multiple similar colors.
 	function renderCallback(renderConfig) {
-		
+		 
 		var isDummyData = renderConfig.testData;
 		//IMPORTANT: Setup the renderConfig to custom $ib3
 		
 		var ib3SLI = $ib3(renderConfig, {
 			tooltip: {
-				hiddenBuckets: ['kpisign','image']
+				hiddenBuckets: ['kpisign','image','drillCondition','order']
 			}
 		});
 		
@@ -76,6 +77,7 @@
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
 		noDataPreRenderCallback: noDataPreRenderCallback,
 		noDataRenderCallback: noDataRenderCallback,
+
 		resources: {  // Additional external resources (CSS & JS) required by this extension
 			script: (function() {
 				var scripts = [];
@@ -100,6 +102,7 @@
 			]
 		},
 		modules: {
+ 
 			dataSelection: {
 				supported: false,  // Set this true if your extension wants to enable data selection
 				needSVGEventPanel: false, // if you're using an HTML container or altering the SVG container, set this to true and the chart engine will insert the necessary SVG elements to capture user interactions
@@ -114,6 +117,7 @@
 				// Use this to define 'nice' default tooltips for the given target, ids & data.
 				// Return value can be a string (including HTML), or HTML nodes, or any Moonbeam tooltip API object.
 				autoContent: function(target, s, g, d) {
+					debugger;
 					if (d.hasOwnProperty('color')) {
 						return 'Bar Size: ' + d.value + '<br />Bar Color: ' + d.color;
 					}

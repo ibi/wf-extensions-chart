@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": 1.2,
+		"version": 1.3,
 		"implements_api_version": 2.0,
 		"author": "Information Builders (Marc Julian Daniels)",
 		"copyright": "Information Builders Inc.",
@@ -32,7 +32,8 @@
 			"decimalPlaces": "1",
 			"deviationInPercent": "false",
 			"deviationTimeframe": "vs prev month",
-			"disableDeviation": "false"
+			"disableDeviation": "false",
+			"abbreviateNumber": "false"
 		},
 		"total": {
 			"fontWeight": "inherit",
@@ -40,7 +41,8 @@
 			"fontSize": "20px",
 			"fontStyle": "inherit",
 			"decimalPlaces": "0",
-			"percentValue": "false"
+			"percentValue": "false",
+			"abbreviateNumber": "false"
 		},
 		"barProperties": {
 			"height": 20,
@@ -78,7 +80,8 @@
 			"decimalPlaces": "number",
 			"deviationInPercent": "bool",
 			"deviationTimeframe": "str",
-			"disableDeviation": "bool"
+			"disableDeviation": "bool",
+			"abbreviateNumber": "bool"
 		},
 		"total": {
 			"fontWeight": "str",
@@ -86,7 +89,8 @@
 			"fontSize": "str",
 			"fontStyle": "str",
 			"decimalPlaces": "number",
-			"percentValue": "bool"
+			"percentValue": "bool",
+			"abbreviateNumber": "bool"
 		},
 		"barProperties": {
 			"height": "number",

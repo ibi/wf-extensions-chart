@@ -14,12 +14,20 @@
 		$ib3.checkObject(ib3SLI);
 		
 		ib3SLI.config.checkServiceIsInitinalized();
-		
-		var originalData = ib3SLI.config.getData(),	
-			data = $(originalData).map(function(i, d) {
+		/*ordenar datos por bucket*/
+		function sortAlphanumetic(a,b){
+			return a.order.localeCompare(b.order, 'en', { numeric: true }) 
+		}
+		var originalData = ib3SLI.config.getData();
+
+		//if (ib3SLI.config.getBucket('order') != null) originalData=originalData.sort(sortAlphanumetic)
+		/* */
+
+
+		var data = $(originalData).map(function(i, d) {
 				d.originalIndex = i;
 				return d;
-			}).get().reverse();
+		}).get().reverse();
 			
 		var w = ib3SLI.config.getChartWidth(),
 			h = ib3SLI.config.getChartHeight(), 
@@ -31,23 +39,38 @@
 			colorBands = ib3SLI.config.getProperty('colorScale.colorBands'),
 			setInfiniteToZero = ib3SLI.config.getProperty('horizontal2kpiProperties.setInfiniteToZero'),
 			hideWhenInfinite = ib3SLI.config.getProperty('horizontal2kpiProperties.hideWhenInfinite'),
-			formatComparation = ib3SLI.config.getProperty('horizontal2kpiProperties.formatComparation'),
+			valueComparation = ib3SLI.config.getProperty('horizontal2kpiProperties.valueComparation'),
+		//	formatComparation = ib3SLI.config.getProperty('horizontal2kpiProperties.formatComparation'),
+		//	dataLabel = ib3SLI.config.getProperty('horizontal2kpiProperties.dataLabel'),
+			dataLabels = ib3SLI.config.getChart().dataLabels,
 			calculeComparationFunctionParam1 = ib3SLI.config.getProperty('horizontal2kpiProperties.calculeComparationFunction.param1'),
 			calculeComparationFunctionParam2 = ib3SLI.config.getProperty('horizontal2kpiProperties.calculeComparationFunction.param2'),
 			calculeComparationFunctionBody = ib3SLI.config.getProperty('horizontal2kpiProperties.calculeComparationFunction.body'),
 			bodyBackgroundColor = ib3SLI.config.getProperty('horizontal2kpiProperties.bodyBackgroundColor') || "transparent",
+			numberTicks = ib3SLI.config.getProperty('horizontal2kpiProperties.numberTicks') || 2,
+			showXaxis = ib3SLI.config.getProperty('horizontal2kpiProperties.showXaxis') ,
+			yAxisProperties=ib3SLI.config.getProperty('horizontal2kpiProperties.yAxis') ,
+			xAxisProperties=ib3SLI.config.getProperty('horizontal2kpiProperties.xAxis') ,
+			drillBarColor=ib3SLI.config.getProperty('horizontal2kpiProperties.drillBarColor') ,
 			negativeBarColor = ib3SLI.config.getProperty('horizontal2kpiProperties.negativeBarColor') || "#eb0f0f";
-			
+
+			//ib3SLI.config.getChart().fill
+			//$0.chart.dataLabels
+
+		
 		d3.select('body')
-			.style('background-color', bodyBackgroundColor)
+			.style('background-color', ib3SLI.config.getChart().fill)
 		
 		d3.select('rect.eventCatcher')
-			.style('fill', bodyBackgroundColor)
+			.style('fill', ib3SLI.config.getChart().fill)
 			
 		// calculate percentajes
 		for (var i = 0; i < data.length; i++) {
 			if (data[i].kpisign === undefined) {
 				data[i].kpisign = 1;
+			}
+			if (data[i].drillCondition === undefined) {
+				data[i].drillCondition = '0';
 			}
 			if (data[i].comparevalue === undefined) {
 				hasComparevalue = false;
@@ -64,10 +87,25 @@
 			}
 		}
 		
-		var everyDataIsNegative = $(data).filter(function(i, d) { 
-			return parseFloat(d.value) > 0;
-		}).get().length == 0;
-			
+		var anyDataIsNegative = $(data).filter(function(i, d) { 
+			return parseFloat(d.value) < 0;
+		}).get().length != 0;
+
+		var anyDataDrill = $(data).filter(function(i, d) { 
+			return (d.drillCondition) == "1";
+		}).get().length != 0;
+
+	
+		var _copyEvent=[];
+		if (ib3SLI.config.getChartProperty('eventDispatcher') != undefined){
+			if ((ib3SLI.config.getChartProperty('eventDispatcher').events.length != 0)){
+				_copyEvent=	JSON.parse(JSON.stringify(ib3SLI.config.getChartProperty('eventDispatcher'))).events;
+				ib3SLI.config.getChartProperty('eventDispatcher.events').shift();
+			}
+		}
+		
+	
+	
 		//set up svg using margin conventions - we'll need plenty of room on the left for labels
 		var margin = {
 			top: 15,		
@@ -82,9 +120,10 @@
 			.domain(data.map(function(d, i) {
 				return d.originalIndex;
 			}));
-		margin['right']= everyDataIsNegative ? calculateWidth('dimension') : calculateWidth('percentaje',formatComparation) + y.bandwidth()*0.9;
-		margin['left']= everyDataIsNegative ? calculateWidth('percentaje',formatComparation) + y.bandwidth()*0.9 : calculateWidth('dimension')
-		 
+		//margin['right']= everyDataIsNegative ? calculateWidth('dimension') : calculateWidth('percentaje',formatComparation) + y.bandwidth()*0.9;
+		margin['left']=calculateWidth('dimension','',yAxisProperties.font)
+		//margin['left']= everyDataIsNegative ? calculateWidth('percentaje',formatComparation) + y.bandwidth()*0.9 : calculateWidth('dimension')
+		margin['right']=calculateWidth('percentaje',valueComparation.formatComparation,'') + y.bandwidth()*0.9;
 		var width = w - margin.left - margin.right
 		/****************************************************************************************/
 			
@@ -93,7 +132,7 @@
 			.attr("width", width + margin.left + margin.right)
 			.attr("height", height + margin.top + margin.bottom)
 				.append("g")
-					.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+					.attr("transform", "translate(" + 0 + "," + margin.top + ")");
 		
 		var max = d3.max(data, function(d) { return d.value; }),
 			min = d3.min(data, function(d) { return d.value; });
@@ -103,17 +142,37 @@
 		} else if (max < 0 && min < 0) {
 			max = 0;
 		}
-		
+
+	//	var absMas=Math.max(Math.abs(min), Math.abs(max));
+		var difMaxMin=max-(min);
+		newMin= (min >= 0 ) ? 0 : min-(difMaxMin/(numberTicks  ));
+		newMax= (max <= 0 ) ? 0 : max+(difMaxMin/(numberTicks ));
+		if (xAxisProperties.min != 'auto'){
+			newMin=xAxisProperties.min;
+		}
+		if (xAxisProperties.max != 'auto'){
+			newMax=xAxisProperties.max;
+		}
 		var x = d3.scaleLinear()
 			.range([0, width])
-			.domain([min, max]).nice();
+			.domain([newMin,newMax]);
 		
-
-		
+		if (anyDataIsNegative == true){
+			svg.append('line')
+				.attr('y1',0)
+				.attr('y2',height)
+				.attr('x1',x(0)+margin.left)
+				.attr('x2',x(0)+margin.left)
+				.style('stroke-width',1)
+				.style('stroke','#BABABA');
+		}
+			 
+			
 		var barGroups = svg.selectAll(".bar")
 			.data(data)
 			.enter()
 				.append("g")
+				.attr("transform", "translate(" +margin.left + "," + 0 + ")")
 				.classed('group-bar', true)
 				.on("mousemove", function(d, i) {
 					d3.select(this).selectAll("rect").style("fill-opacity", 0.5);
@@ -123,14 +182,25 @@
 						
 		barGroups.append("rect")
 			.attr('class', function(d, g) {
-				return ib3SLI.config.getDrillClass('riser', 0, g, 'bar');
+				return ib3SLI.config.getDrillClass('riser', 0, d._g, 'bar');
 			})
-			.attr('fill',function(d){
-				
-				if ((d.value >= 0)  && (d.kpisign == 1)) return ib3SLI.config.getChart().getSeriesAndGroupProperty(0, null, 'color')
+			.attr('fill',function(d,i){
+		
+				if ((d.drillCondition=='1') && (_copyEvent.length !=0)) {
+				 
+					var _drill1=JSON.parse(JSON.stringify(_copyEvent[0]));
+					_drill1.group=d._g
+					var arr_events=ib3SLI.config.getChartProperty('eventDispatcher.events')
+					arr_events.push(_drill1)
+				}
+				if ((d.value >= 0)  && (d.kpisign == 1) && (d.drillCondition==1)) return drillBarColor;
+				if ((d.value >= 0)  && (d.kpisign == 0) && (d.drillCondition==1)) return negativeBarColor;
+				if ((d.value <= 0)  && (d.kpisign == 0) && (d.drillCondition==1)) return drillBarColor;
+				if ((d.value <= 0)  && (d.kpisign == 1) && (d.drillCondition==1)) return negativeBarColor;
+				if ((d.value >= 0)  && (d.kpisign == 1)) return ib3SLI.config.getChart().getSeriesAndGroupProperty(d._s, d._g, 'color')
 				if ((d.value >= 0)  && (d.kpisign == 0)) return negativeBarColor
 				if ((d.value < 0)  && (d.kpisign == 1)) return negativeBarColor
-				if ((d.value < 0)  && (d.kpisign == 0)) return ib3SLI.config.getChart().getSeriesAndGroupProperty(0, null, 'color')
+				if ((d.value < 0)  && (d.kpisign == 0)) return ib3SLI.config.getChart().getSeriesAndGroupProperty(d._s, d._g, 'color')
 
 				else return 'grey';
 				
@@ -148,6 +218,72 @@
 			.each(function(d, g) {
 				ib3SLI.config.setUpTooltip(this, 0, d.originalIndex, d);
 			});
+
+			//if (dataLabels.visible){
+					barGroups.append("text")
+					.text(function(d,index) { 
+						var _dataLabel=dataLabels ;
+						if ((_dataLabel.visible == false)  || (_dataLabel.visible == undefined )) return ''
+						if ((_dataLabel.displayZero == false ) && (d.value==0)) return ''
+						return ib3SLI.config.formatNumber( d.value, _dataLabel.numberFormat); 
+					})
+					.attr('fill',function(d,index){
+						var _dataLabel=dataLabels ;
+						var _color = ( typeof _dataLabel.color != 'string') ? 'black' : _dataLabel.color ;
+						if ((_dataLabel.useNegativeColor == true) && (d.value < 0) ) _color =  _dataLabel.negativeColor
+
+						return _color
+						if ((d.value >= 0)  && (d.kpisign == 1)) return ib3SLI.config.getChart().getSeriesAndGroupProperty(0, null, 'color')
+						if ((d.value >= 0)  && (d.kpisign == 0)) return negativeBarColor
+						if ((d.value < 0)  && (d.kpisign == 1)) return negativeBarColor
+						if ((d.value < 0)  && (d.kpisign == 0)) return ib3SLI.config.getChart().getSeriesAndGroupProperty(0, null, 'color')
+
+						else return 'grey';
+						
+					}) 
+					.attr("x", function(d,index) { 
+						var _dataLabel=dataLabels;
+						console.log(_dataLabel.position)
+						var addSubt=1;
+						if (d.value < 0) addSubt=-1;
+
+						if ((_dataLabel.position=='top')){
+							return x(d.value)+5*addSubt; 
+						}else if (_dataLabel.position=="insideBottom"){
+							return  x(0)+2*addSubt;
+						}else if (_dataLabel.position=="center"){
+							return   x(d.value/2)
+						}else if (_dataLabel.position=="insideTop"){
+							return   x(d.value)+5*addSubt*-1;
+						}
+					})
+					.attr("y", function(d, i) {
+						return y(d.originalIndex) + y.bandwidth() / 2 + 4;
+					})
+					.style('font',function(d,index){
+						var _dataLabel=dataLabels;
+						return _dataLabel.font
+					})
+					.style('text-anchor', function(d,index) {
+						var _dataLabel=dataLabels;
+
+						var defaultAnchor='start';
+						if (_dataLabel.position=="center") return 'middle'
+						if ((_dataLabel.position=="insideTop")  && ( d.value < 0)) return 'start'
+						if ((_dataLabel.position=="insideTop")  && ( d.value > 0)) return 'end'
+						if ((_dataLabel.position=="top")  && ( d.value > 0)) return 'start'
+						if ((_dataLabel.position=="top")  && ( d.value < 0)) return 'end'
+						if ((_dataLabel.position=="insideBottom")  && ( d.value > 0)) return 'start'
+						if ((_dataLabel.position=="insideBottom")  && ( d.value < 0)) return 'end'
+						if( d.value < 0){
+							defaultAnchor= 'end';
+						}
+					//	return 'middle'
+						return defaultAnchor
+						
+					})
+			//	}
+			//.style('font-size', y.bandwidth()/2 +'px')
 			 	
 		if (hasComparevalue) {
 			
@@ -162,27 +298,31 @@
 				.attr("fill", function(d, i) {
 					return calculateColor(d, 'percentaje', colorBands, isDummyData);
 				})
+				.style('font',function(d,index){				 
+					return valueComparation.font
+				})
 				.attr("y", function(d, i) {
 					return y(d.originalIndex) + y.bandwidth() / 2 + 4;
 				})
 				.attr("x", function(d) {
 					var x = (w - margin.left - margin.right + y.bandwidth() * 0.9);
-					if(everyDataIsNegative) {
-						x = -y.bandwidth() * 0.9;
-					} 
+				//	if(everyDataIsNegative) {
+				//		x = -y.bandwidth() * 0.9;
+				//	} 
+					 
 					return x;
 				})
 				.style('text-anchor', function(d) {
 					var x = 'start';
-					if(everyDataIsNegative) {
-						x = 'end';
-					} 
+				//	if(everyDataIsNegative) {
+				//		x = 'end';
+				//	} 
 					return x;
 				})
 				.text(function(d) {
 					if(d.percentaje == 'Infinity' || d.percentaje == '-Infinity'){
 						if(setInfiniteToZero) {
-							return ib3SLI.config.formatNumber(0, formatComparation); 
+							return ib3SLI.config.formatNumber(0, valueComparation.formatComparation); 
 						} else {
 							if(d.percentaje == '-Infinity') {
 								return '-' + String.fromCharCode(8734);
@@ -191,7 +331,7 @@
 							}
 						}
 					}else{
-						return ib3SLI.config.formatNumber(d.percentaje, formatComparation);
+						return ib3SLI.config.formatNumber(d.percentaje, valueComparation.formatComparation);
 					} 
 				});
 				
@@ -228,9 +368,9 @@
 				})*/
 				barGroups.append("image").attr("transform", function(d, dataIndex) {
 					var translateX = (w - margin.left - margin.right + (y.bandwidth() * 0.9)/2)
-					if(everyDataIsNegative) {
-						translateX = -(y.bandwidth() * 0.9)/2;
-					} 
+				//	if(everyDataIsNegative) {
+				//		translateX = -(y.bandwidth() * 0.9)/2;
+				//	} 
 					
 					var rotate = '';
 					if(d.percentaje == 0) {
@@ -262,14 +402,21 @@
 					return d.originalIndex == dataIndex;
 				})[0].dimension;
 			});
-			
-		var yAxisG = svg.append("g")
-			.attr("fill", ib3SLI.config.getProperty('axisList.y1.labels.color'))
-			.attr("transform", "translate(" + x(0) + ",0)")
-			.call(yAxis);
+		
+		var rectBackGroundYaxis=svg.append("rect")
+				.attr('height',height)
+				.attr('width',margin.left)
+				.attr('fill',ib3SLI.config.getChart().fill);	
 					
+		var yAxisG = svg.append("g")	
+			.attr("fill", ib3SLI.config.getProperty('axisList.y1.labels.color'))
+			.attr("transform", "translate(" + margin.left + ",0)")
+			.call(yAxis)
+			
+				 
 		yAxisG.selectAll("text")
-			.attr("fill", ib3SLI.config.getChart().getSeriesAndGroupProperty(0, null, 'color'))
+			.attr("fill", yAxisProperties.color)
+			.style('font',yAxisProperties.font)
 			.style("text-anchor", function(dataIndex) { 
 				var dataElem = $(data).filter(function(i, d){return d.originalIndex == dataIndex})[0];
 			/*	if(everyDataIsNegative) {
@@ -277,6 +424,7 @@
 				}else{
 					return 'end'
 				}*/
+				return 'end';
 				if ((parseFloat(dataElem.value) <= 0)  )   {
 					return 'start';
 				} else {
@@ -286,26 +434,32 @@
 			.attr("x", function(dataIndex) { 
 				var dataElem = $(data).filter(function(i, d){return d.originalIndex == dataIndex})[0],
 					currentX = parseFloat(d3.select(this).attr('x')),
-					sign = ((parseFloat(dataElem.value) <= 0)) ? -1 : 1;
-					
-				return sign * currentX;
+					 sign = ((parseFloat(dataElem.value) <= 0)) ? -1 : 1;
+					 currentX=-5;
+					return currentX
+				//return sign * currentX;
 			});
 		
 		var xAxisGWidth = d3.select('.group-bar').node().getBBox().width,
 			xAxisMinLabelSpace = 100,
 			xAxisNumLabels = parseInt(xAxisGWidth / xAxisMinLabelSpace);
-			
-		var xAxis = d3.axisBottom()
-			.scale(x)
-			.ticks(xAxisNumLabels);
+		if (xAxisProperties.showXaxis){	
+			var xAxis = d3.axisBottom()
+				.scale(x)
+				.ticks(numberTicks*1);
 
-		var xAxisG = svg.append("g")
-			.attr("class", "x axis")
-			.attr("transform", "translate(0," + (h - margin.top - margin.bottom) + ")")
-			.call(xAxis);
+			var xAxisG = svg.append("g")
+				.attr("class", "x axis")
+				.attr("transform", "translate("+ margin.left +"," + (h - margin.top - margin.bottom) + ")")
+				.call(xAxis);
+		//	xAxisG.selectAll("text").attr("fill", ib3SLI.config.getProperty('axisList.y1.labels.color'));
+			xAxisG.selectAll("text")
+				.attr("fill",xAxisProperties.color)
+				.style("font",xAxisProperties.font);
+		} 
+	
 		
-		xAxisG.selectAll("text").attr("fill", ib3SLI.config.getProperty('axisList.y1.labels.color'));
-		
+		 	
 		if (shortenNumbers) {
 			var arr_shorten = {},
 				max_shorten = 0,
@@ -315,10 +469,11 @@
 			}else{
 				arr_shorten = {'':0,'K':0,'M':0,'B':0,'T':0};
 			}
-			
-			xAxisG.selectAll("text").each(function(d) {
-				arr_shorten[$ib3.utils.getNumericAbbreviation(d, typeShortenNumber)]++;
-			});
+			if (xAxisProperties.showXaxis){	
+				xAxisG.selectAll("text").each(function(d) {
+					arr_shorten[$ib3.utils.getNumericAbbreviation(d, typeShortenNumber)]++;
+				});
+			}	
 			$.each(arr_shorten,function(i,val){
 				if (val > max_shorten){
 					max_shorten = val;
@@ -352,24 +507,25 @@
 					});
 			}
 			
-			
-			xAxisG.selectAll("text").text(function(d) {
-				var formatNumber = ib3SLI.config.formatNumber,
-					valueFormat = ib3SLI.config.getFormatByBucketName('value', 0);
-				if(parseFloat(d) == 0) {
-					return 0;
-				}
-				if (selected_shorten_letter != ''){
-					return $ib3.utils.setShortenNumber(d, false, 0,selected_shorten_letter, formatNumber, valueFormat, typeShortenNumber);
-				}else{
-					if ((formatNumber) && (valueFormat)){
-						valueFormat = valueFormat.split('.')[0];
-						return $ib3.utils.getFormattedNumber(formatNumber, d, valueFormat, false, typeShortenNumber);
-					}else{
-						return d;
+			if (xAxisProperties.showXaxis){	
+				xAxisG.selectAll("text").text(function(d) {
+					var formatNumber = ib3SLI.config.formatNumber,
+						valueFormat = ib3SLI.config.getFormatByBucketName('value', 0);
+					if(parseFloat(d) == 0) {
+						return 0;
 					}
-				}
-			});
+					if (selected_shorten_letter != ''){
+						return $ib3.utils.setShortenNumber(d, false, 0,selected_shorten_letter, formatNumber, valueFormat, typeShortenNumber);
+					}else{
+						if ((formatNumber) && (valueFormat)){
+							valueFormat = valueFormat.split('.')[0];
+							return $ib3.utils.getFormattedNumber(formatNumber, d, valueFormat, false, typeShortenNumber);
+						}else{
+							return d;
+						}
+					}
+				});
+			}
 		}
 		
 		svg.selectAll("path.domain")
@@ -378,6 +534,8 @@
 		svg.selectAll(".tick line")
 			.attr("stroke", ib3SLI.config.getProperty('xaxis.bodyLineStyle.color'));
 			
+		 
+
 		ib3SLI.config.finishRender();
 
 		function calculatePercentaje(value, comparevalue, kpisign) {
@@ -394,12 +552,14 @@
 			return calculateValue;
 		}
 
-		function calculateWidth(field, numberFormat) {
+		function calculateWidth(field, numberFormat,style) {
 			var div_widths = d3.select("svg g")
 					.append("text"),
 				max_width = 0,
 				my_width = 0;
-				
+				if (style != ''){
+					div_widths.style('font',style)
+				}	
 			for (var i = 0; i < data.length; i++) {
 				var elem = data[i][field];
 				if(numberFormat) {
@@ -424,11 +584,15 @@
 		 
 				var my_value = d[field];
 				my_value = (d['kpisign'] == 0) ? (d[field] * (-1)) : d[field];
-				if ((d[field] >= 0)  && (d.kpisign*1 == 1)) the_fill = ib3SLI.config.getChart().getSeriesAndGroupProperty(0, null, 'color')
+			/*	if ((d[field] >= 0)  && (d.kpisign*1 == 1)) the_fill = ib3SLI.config.getChart().getSeriesAndGroupProperty(0, null, 'color')
 				if ((d[field] >= 0)  && (d.kpisign*1 == 0)) the_fill = negativeBarColor
 				if ((d[field] < 0)  && (d.kpisign*1 == 1)) the_fill = negativeBarColor
-				if ((d[field] < 0)  && (d.kpisign*1 == 0)) the_fill = ib3SLI.config.getChart().getSeriesAndGroupProperty(0, null, 'color')
+				if ((d[field] < 0)  && (d.kpisign*1 == 0)) the_fill = ib3SLI.config.getChart().getSeriesAndGroupProperty(0, null, 'color')*/
 
+				if ((d[field] >= 0)  && (d.kpisign*1 == 1)) the_fill = valueComparation.positiveColor;
+				if ((d[field] >= 0)  && (d.kpisign*1 == 0)) the_fill = valueComparation.negativeColor
+				if ((d[field] < 0)  && (d.kpisign*1 == 1)) the_fill = valueComparation.negativeColor;
+				if ((d[field] < 0)  && (d.kpisign*1 == 0)) the_fill = valueComparation.positiveColor;
 			 
 			 
 			return the_fill;

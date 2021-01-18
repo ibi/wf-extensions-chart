@@ -14,6 +14,17 @@
 	function changeBackground(color) {
 		document.body.style.background = color;
 	}
+	function abbreviateNumber(number, decimals) {
+		var SI_POSTFIXES = ["", "K", "M", "B", "T", "P", "E"];
+		var tier = Math.log10(Math.abs(number)) / 3 | 0;
+		if (tier == 0) 
+			return number;
+		var postfix = SI_POSTFIXES[tier];
+		var scale = Math.pow(10, tier * 3);
+		var scaled = number / scale;
+		var formatted = scaled.toFixed(decimals) + '';
+		return formatted + postfix;
+	}
 	
 	// All extension callback functions are passed a standard 'renderConfig' argument:
 	//
@@ -156,12 +167,18 @@
 			var fallingColor = props.dynamicColorMode.fallingColor;
 			
 			//number format for currentTotal value
+			currentTotal = total1;
+			if (props.currentValue.total.abbreviateNumber == true) {
+				currentTotal = abbreviateNumber(currentTotal, props.currentValue.total.decimalPlaces);
+			}
+			else {
+			}
 			if (props.setCDN == true) {
-				currentTotal = total1.replace(".", ",");
+				currentTotal = currentTotal.replace(".", ",");
 				currentTotal = NumberWithDot(currentTotal);
 			}
 			else {
-				currentTotal = total1.replace(",", ".");
+				currentTotal = currentTotal.replace(",", ".");
 				currentTotal = NumberWithComma(currentTotal);			
 			}
 			//check if current total is percent value
@@ -193,12 +210,18 @@
 					cssPrevTotal = '';
 				}
 				else {
+					prevTotal = total2;
+					if (props.previousValue.previousTotal.abbreviateNumber == true) {
+						prevTotal = abbreviateNumber(prevTotal, props.previousValue.previousTotal.decimalPlaces);
+					}
+					else {
+					}
 					if (props.setCDN == true) {
-						prevTotal = total2.replace(".", ",");
+						prevTotal = prevTotal.replace(".", ",");
 						prevTotal = NumberWithDot(prevTotal);
 					}
 					else {
-						prevTotal = total2.replace(",", ".");
+						prevTotal = prevTotal.replace(",", ".");
 						prevTotal = NumberWithComma(prevTotal);					
 					}
 					if (props.previousValue.previousTotal.percentValue == true) 
@@ -237,7 +260,13 @@
 					else {
 						percentChange = total1-total2;
 						percentChange = percentChange.toFixed(props.changeValue.changeValue.decimalPlaces);
-				
+						
+						if (props.changeValue.changeValue.abbreviateNumber == true) {
+							percentChange = abbreviateNumber(percentChange, props.changeValue.changeValue.decimalPlaces);
+						}
+						else {
+						}
+					
 						if (props.setCDN == true) {
 							percentChange = percentChange.replace(".", ",");
 							percentChange = NumberWithDot(percentChange);
@@ -334,10 +363,15 @@
 			//final css for widget
 			//create kpi-box-container				
 			$(container).css('top',titleHeight+'px').append('<div class="kpi-box-container" style="font-family:'+props.fontFamily+';font-size:'+props.fontSize+';color:'+props.color+';font-style:'+props.fontStyle+';min-width:'+props.widgetWidth.minimumWidgetWidth+'px;max-width:'+props.widgetWidth.maximumWidgetWidth+'px'+dynamicColorBackground+'"></div>');
+			
+			if (props.currentValue.disableCurrentValue == true) {
+			}
+			else {
 			// fill containers on html page - 1st line			
 			$(container).find('.kpi-box-container').append('<div><div class="kpi-box-title" style="font-weight:'+props.currentValue.measureName.fontWeight+';font-size:'+props.currentValue.measureName.fontSize+';color:'+props.currentValue.measureName.color+';font-style:'+props.currentValue.measureName.fontStyle+'">' + title + '</div></div>');
 			// fill containers on html page - 2nd line
 			$(container).find('.kpi-box-container').append('<div><div class="kpi-box-total" style="font-weight:'+props.currentValue.total.fontWeight+';font-size:'+props.currentValue.total.fontSize+';color:'+props.currentValue.total.color+';font-style:'+props.currentValue.total.fontStyle+'">' + currentTotal + '</div></div>');				
+			}
 
 			if (props.previousValue.disablePreviousValue == true && props.changeValue.disableChangeValue == true && props.trendIcon.disableTrendIcon == true) {
 			}

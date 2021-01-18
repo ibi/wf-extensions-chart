@@ -307,7 +307,7 @@
 						percentageCalcValue == 'Infinity' ||
 						percentageCalcValue == '-Infinity' ||
 						isNaN(percentageCalcValue)
-							? 0
+							? ib3SLI.config.formatNumber(0, formatComparation)
 							: ib3SLI.config.formatNumber(parseFloat(percentageCalcValue).toFixed(4), formatComparation);
 				} else {
 					percentageFormattedValue =
@@ -469,8 +469,9 @@
 			var attrTooltip = ['value', 'comparevalue', 'comparevalue2', 'tooltip'];
 			var $div = $('<div>').addClass('kpiBoxTooltip');
 
-			function formatValueTootip(value) {
-				return $ib3.utils.getFormattedNumber(ib3SLI.config.formatNumber, value, '#,##.00', false);
+			function formatValueTooltip(bucketName, value) {
+//				return $ib3.utils.getFormattedNumber(ib3SLI.config.formatNumber, value, '#,##.00', false);
+				return $ib3.utils.getFormattedNumber(ib3SLI.config.formatNumber, value, ib3SLI.config.getFormatByBucketName(bucketName), false)
 			}
 
 			function _evenTooltip() {
@@ -512,10 +513,10 @@
 					if (typeof kpiDataElem[attribute] === 'object') {
 						for (var index = 0; index < kpiDataElem[attribute].length; index++) {
 							var _$divRow = $('<div>').addClass('kpiBoxTooltipRow');
-							var _valueFormatted = formatValueTootip(kpiDataElem[attribute][index]);
+							var _valueFormatted = formatValueTooltip(attribute, kpiDataElem[attribute][index]);
 							_$divRow.append([
 								$('<div>')
-									.text(ib3SLI.config.getBucketTitle(attribute, index).replace('\\n','') + ':')
+									.text(ib3SLI.config.getBucketTitle(attribute, index).replace(/\\n/g,'') + ':')
 									.addClass('kpiBoxTooltipLabel'),
 								$('<div>').text(_valueFormatted).addClass('kpiBoxTooltipValue'),
 							]);
@@ -523,10 +524,10 @@
 						}
 					} else {
 						var _$divRow = $('<div>').addClass('kpiBoxTooltipRow');
-						var _valueFormatted = formatValueTootip(kpiDataElem[attribute]);
+						var _valueFormatted = formatValueTooltip(attribute, kpiDataElem[attribute]);
 						_$divRow.append([
 							$('<div>')
-								.text(ib3SLI.config.getBucketTitle(attribute, 0).replace('\\n','') + ':')
+								.text(ib3SLI.config.getBucketTitle(attribute, 0).replace(/\\n/g,'') + ':')
 								.addClass('kpiBoxTooltipLabel'),
 							$('<div>').text(_valueFormatted).addClass('kpiBoxTooltipValue'),
 						]);

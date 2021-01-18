@@ -37,6 +37,17 @@
 		}
 		return comparisonD;
 	}
+		function abbreviateNumber(number, decimals) {
+		var SI_POSTFIXES = ["", "K", "M", "B", "T", "P", "E"];
+		var tier = Math.log10(Math.abs(number)) / 3 | 0;
+		if (tier == 0) 
+			return number;
+		var postfix = SI_POSTFIXES[tier];
+		var scale = Math.pow(10, tier * 3);
+		var scaled = number / scale;
+		var formatted = scaled.toFixed(decimals) + '';
+		return formatted + postfix;
+	}
 
 	// All extension callback functions are passed a standard 'renderConfig' argument:
 	//
@@ -116,7 +127,11 @@
 					dim_text[i] 	= data[i].dimension;
 					msr_value[i]	= data[i].measure;
 					msr_value[i]	= msr_value[i].toFixed(props.measureNumber.decimalPlaces);
-					
+					if (props.measureNumber.abbreviateNumber == true) {
+						msr_value[i] = abbreviateNumber(msr_value[i], props.measureNumber.decimalPlaces);
+					}
+					else {
+					}
 					if (props.setCDN == true) {
 						msr_value[i] = msr_value[i].replace(".", ",");
 						msr_value[i] = NumberWithDot(msr_value[i]);

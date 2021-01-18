@@ -1,7 +1,7 @@
 {
 	"info": {
 		"version": "2.2.3",
-		"implements_api_version": "1.0/2.0",
+		"implements_api_version": "2.0",
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/horizontal_comparison_bars_2kpi",
@@ -32,9 +32,27 @@
 				"param2": "compareValue", 
 				"body": "if(compareValue == 0) { return 0; } var result = compareValue;   return result;"
 			},
-			"formatComparation": "#,###.00`%",
-			"bodyBackgroundColor": "transparent",
-			"negativeBarColor": "#9f1f1f"
+			
+			"valueComparation":{
+				"formatComparation": "#,###.00",
+				"negativeColor":"red",
+				"positiveColor":"black",
+				"font":"12px sans-serif"
+			},
+			"yAxis":{
+				"color":"#828282",
+				"font":"12px Arial"
+			},
+			"xAxis":{
+				"showXaxis":true,
+				"color":"#828282",
+				"font":"15px Arial",
+				"min":"auto",
+				"max":"auto"
+			},
+			"negativeBarColor": "#9f1f1f",
+			"drillBarColor":"#d6d6d6",
+			"numberTicks": 5
 		},
 		
 		"external_library": "lib/d3.min.js",
@@ -76,7 +94,7 @@
 				}
 			},
 			{
-				"id": "dimension",
+				"id": "order",
 				"type": "dimension",
 				"count": {
 					"min": 0,
@@ -84,8 +102,18 @@
 				}
 			},
 			{
+				"id": "dimension",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			
+			
+			{
 				"id": "kpisign",
-				"type": "measure",
+				"type": "dimension",
 				"count": {
 					"min": 0,
 					"max": 1
@@ -93,6 +121,14 @@
 			},
 			{
 				"id": "image",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "drillCondition",
 				"type": "dimension",
 				"count": {
 					"min": 0,
@@ -111,12 +147,16 @@
 			"value_tooltip": "Drop a measure here", 
 			"comparevalue_name": "Sec KPI (1, non required)", 
 			"comparevalue_tooltip": "Drop a measure here", 
+			"order_name": "Order field (1, non required))", 
+			"order_tooltip": "Drop a dimension here",
 			"dimension_name": "Dimension (1, non required))", 
-			"dimension_tooltip": "Drop a dimension here",
+			"dimension_tooltip": "Drop a dimension here",	
 			"kpisign_name": "KPI Type: Pos. / Neg (1, non required)", 
 			"kpisign_tooltip": "Drop a measure here",
 			"image_name": "Image Bucket (1, non required)", 
-			"image_tooltip": "Drop a field with path to image"
+			"image_tooltip": "Drop a field with path to image",
+			"drillCondition_name": "Drill Condition(1, non required)", 
+			"drillCondition_tooltip":  "Drop a dimension here"
 		}
 	}
 }
