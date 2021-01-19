@@ -1,5 +1,8 @@
 /* globals _*/
 (function () {
+
+
+
 	// Optional: if defined, is invoked once at the very beginning of each Moonbeam draw cycle
 	// Use this to configure a specific Moonbeam instance before rendering.
 	// Arguments:
@@ -55,6 +58,7 @@
 
 		props.width = renderConfig.width;
 		props.height = renderConfig.height;
+		props.rootContainerID = renderConfig.rootContainer.id; //VIZ-245
 
 		props.data = (renderConfig.data || []).map(function (datum) {
 			var datumCpy = jsonCpy(datum);
@@ -87,6 +91,7 @@
 		};
 		//End VIZ-43				
 
+		
 
 		var container = d3.select(renderConfig.container);
 
@@ -107,12 +112,17 @@
 		//BEGIN VIZ-358
 		if (renderConfig.properties.colorLegend.enabled) {
 			//Begin VIZ-300 using the assumption that the last svg element is the errant element that causes the scroll bar
-			document.querySelectorAll('svg')[document.querySelectorAll('svg').length - 1].style.display = "none";
+
+			var svgElement = document.querySelectorAll('svg')[document.querySelectorAll('svg').length - 1];
+
+			if(svgElement != null)
+				document.querySelectorAll('svg')[document.querySelectorAll('svg').length - 1].style.display = "none";
 			//End VIZ-300 
 		}
 		//END VIZ-358
-
 	}
+
+
 
 	function getInvokeAfter(cb, count) {
 		if (!count && typeof cb === 'function') cb();
