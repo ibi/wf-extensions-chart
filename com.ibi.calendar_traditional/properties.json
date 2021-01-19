@@ -1,6 +1,8 @@
 {
 	"info": {
-		"version": "0.0.1",
+		"version": "1.0",
+		//1.0 fix VIZ-391
+
 		"implements_api_version": "1.0/2.0",
 		"author": "Information Builders MX",
 		"copyright": "Information Builders Inc.",
