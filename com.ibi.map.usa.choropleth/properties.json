@@ -1,10 +1,11 @@
 
 {
 	"info": {
-        "version": "1.1",
+        "version": "1.2",
 		//1.0 Original Release
         //1.0.1 Fix: CHART-2727 Insight HTML5 Ext US Choropleth - gives error when run with insight and state is removed
         //1.1 - upgrade to d3 v5
+        //1.2 - VIZ-245
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
