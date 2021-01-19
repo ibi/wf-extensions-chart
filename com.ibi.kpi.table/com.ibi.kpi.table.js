@@ -53,12 +53,13 @@
 	// Arguments: 
 	//  - preRenderConfig: the standard callback argument object
 	function preRenderCallback(preRenderConfig) {
-		var chart = preRenderConfig.moonbeamInstance;
-		chart.title.visible = false;
-		chart.title.text = "My DataGrid";  // contrived example
-		chart.footnote.visible = false;
-		chart.footnote.text = "footnote";
-		chart.footnote.align = 'right';
+		//commented all of this out for VIZ-404
+		// var chart = preRenderConfig.moonbeamInstance;
+		// chart.title.visible = false;
+		// chart.title.text = "My DataGrid";  // contrived example
+		// chart.footnote.visible = false;
+		// chart.footnote.text = "footnote";
+		// chart.footnote.align = 'right';
 	}
 	
 	function noDataPreRenderCallback(preRenderConfig) {
@@ -120,7 +121,9 @@
 		
 		/* Format JSON Data */
 		if (typeof data[0].keymeasure !== 'undefined' && typeof data[0].measure !== 'undefined') {
-			$(container).css('top','0px').append('<div class="kpi-table-container" style="font-size:'+props.fontSize+';color:'+props.color+'"></div>');
+			$(container)
+			//.css('top','0px') removed for  VIZ-404
+			.append('<div class="kpi-table-container" style="font-size:'+props.fontSize+';color:'+props.color+'"></div>');
 			var numOfMeasures = typeof data[0].measure == 'object'? data[0].measure.length : 1;
 
 			if (typeof data[0].group !== 'undefined')
