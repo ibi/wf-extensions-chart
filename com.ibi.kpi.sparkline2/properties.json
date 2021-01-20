@@ -191,10 +191,10 @@
 		"ja": {
 			"name": "スパークライン KPI (大)",
 			"description": "jQuery スパークラインプラグインを使用した KPI ウィジェット (大) です。",
-			"icon_tooltip": "jQuery スパークラインプラグインを使用した KPI ウィジェット (大) です。",
-			"measure_name": "KPI",
-			"measure_tooltip": "ここに基軸をドロップ",
-			"xaxis_name": "X 軸",
+			"icon_tooltip": "jQuery スパークラインプラグインを使用した KPI ウィジェット (大) です。", 
+			"measure_name": "KPI", 
+			"measure_tooltip": "ここにメジャーをドロップ", 
+			"xaxis_name": "X 軸", 
 			"xaxis_tooltip": "ここにディメンションをドロップ",
 			"group_name": "グループ",
 			"group_tooltip": "ここにディメンションをドロップ"

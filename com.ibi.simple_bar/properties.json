@@ -121,10 +121,10 @@
 		"ja": {
 			"name": "単純棒グラフ",
 			"description": "さまざまなグラフ拡張機能を例示する単純な棒グラフです。",
-			"icon_tooltip": "この拡張グラフは...",
-			"value_name": "値バケット",
-			"value_tooltip": "ここに基軸をドロップ",
-			"labels_name": "ラベルバケット",
+			"icon_tooltip": "この拡張グラフは...", 
+			"value_name": "値バケット", 
+			"value_tooltip": "ここにメジャーをドロップ", 
+			"labels_name": "ラベルバケット", 
 			"labels_tooltip": "ここにディメンションをドロップ"
 		},
 

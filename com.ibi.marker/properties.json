@@ -107,7 +107,7 @@
             "description": "単純なマーカーグラフです。",
             "icon_tooltip": "単純マーカーグラフ",
             "count_name": "マーカー数",
-            "count_tooltip": "ここに基軸をドロップ",
+            "count_tooltip": "ここにメジャーをドロップ",
             "label_name": "ラベル",
             "label_tooltip": "ここにディメンションをドロップ"
         },

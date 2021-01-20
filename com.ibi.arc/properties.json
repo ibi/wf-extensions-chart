@@ -802,12 +802,12 @@
 		"ja": {
 			"name": "円弧グラフ",
 			"description": "円弧グラフ",
-			"icon_tooltip": "円弧グラフ",
-			"value_name": "値 (基軸)",
-			"value_tooltip": "ここに基軸をドロップ",
-			"label_name": "ラベル (ディメンション)",
+			"icon_tooltip": "円弧グラフ", 
+			"value_name": "値 (メジャー)", 
+			"value_tooltip": "ここにメジャーをドロップ",
+			"label_name": "ラベル (ディメンション)", 
 			"label_tooltip": "ここにディメンションをドロップ",
-			"add_data": "基軸またはディメンションをさらに追加",
+			"add_data": "メジャーまたはディメンションをさらに追加",
 			"properties": {
 				"type": {
 					"_translation": "円弧タイプ",

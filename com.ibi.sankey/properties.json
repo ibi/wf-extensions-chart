@@ -186,7 +186,7 @@
 			"target_name": "ターゲットノード",
 			"target_tooltip": "ここにディメンションをドロップ",
 			"value_name": "リンク値",
-			"value_tooltip": "ここに基軸をドロップ"
+			"value_tooltip": "ここにメジャーをドロップ"
 		},
 
 		"pt": {

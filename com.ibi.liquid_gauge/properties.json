@@ -135,9 +135,9 @@
 		"ja": {
 			"name": "液体メータグラフ",
 			"description": "内部の液体をアニメーション化した高度なメータグラフです。",
-			"icon_tooltip": "液体メータグラフ",
-			"value_name": "値バケット",
-			"value_tooltip": "ここに基軸をドロップ"
+			"icon_tooltip": "液体メータグラフ", 
+			"value_name": "値バケット", 
+			"value_tooltip": "ここにメジャーをドロップ"
 		},
 
 		"pt": {

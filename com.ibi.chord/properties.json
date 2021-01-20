@@ -213,8 +213,8 @@
 			"source_tooltip": "ここにディメンションをドロップ",
 			"target_name": "ターゲットノード(ディメンション)",
 			"target_tooltip": "ここにディメンションをドロップ",
-			"value_name": "ノードリンク値 (基軸)",
-			"value_tooltip": "ここに基軸をドロップ"
+			"value_name": "ノードリンク値 (メジャー)",
+			"value_tooltip": "ここにメジャーをドロップ"
 		},
 
 		"pt": {
