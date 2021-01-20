@@ -3,15 +3,26 @@
 
 (function() {
 
+	var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
 	var noDataCallback = '';
-	
+
+	//start VIZ-427
+	//regex workaround for IE11
+	//if the 'lookbehind' character is present, IE11 balks.
+	//so using a token to replace dynamically to work around that.
+	var notIE11Expression = '\\B(?LESS_THAN!\\.\\d*)(?=(\\d{3})+(?!\\d))';
+	notIE11Expression = notIE11Expression.replace('LESS_THAN', '<' );
+
+	var numberFormatRegex = isIE11 ? new RegExp('\\B(?=(\\d{3})+(?!\\d))','g') : new RegExp(notIE11Expression,'g');
+	//end VIZ-427
 	function NumberWithComma(number) {
 		var temp_number_comma = number;
 		if (temp_number_comma <= -100  && temp_number_comma > -1000) {
 			temp_number_comma = temp_number_comma;
 		}
 		else {
-			temp_number_comma = temp_number_comma.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+			//VIZ-427
+			temp_number_comma = temp_number_comma.toString().replace(numberFormatRegex, ",");
 		}
 		return temp_number_comma;
 	}
@@ -21,7 +32,8 @@
 			temp_number_dot = temp_number_dot;
 		}
 		else {
-			temp_number_dot = temp_number_dot.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
+			//VIZ-427
+			temp_number_dot = temp_number_dot.toString().replace(numberFormatRegex , ".");
 		}
 		return temp_number_dot;
 	}
@@ -37,7 +49,7 @@
 		var formatted = scaled.toFixed(decimals) + '';
 		return formatted + postfix;
 	}
-	
+
 	function changeBackground(color) {
 		document.body.style.background = color;
 	}
@@ -196,12 +208,12 @@
 					var goodIs = eval(percentChange+props.barProperties.goodIs);
 					seriesColor = goodIs? seriesColor: props.barProperties.badColor;
 					dynamicColorBackground = goodIs? dynamicColorBackground: props.barProperties.badColor;
-				
+					
 					if (props.deviationVsPrevious.abbreviateNumber == true) {
 						percentChange = abbreviateNumber(percentChange, props.deviationVsPrevious.decimalPlaces);
 					}
 					else { 
-					}	
+					}							
 					if (props.setCDN == true) {
 						percentChange = percentChange.replace(".", ",");
 						percentChange = goodIs? '+' + NumberWithDot(percentChange) + ' ' + deviationTimeframe : NumberWithDot(percentChange) + ' ' + deviationTimeframe;
@@ -217,7 +229,7 @@
 				total1 = abbreviateNumber(total1, props.total.decimalPlaces);
 			}
 			else { 
-			}			
+			}
 			// number format for total1 value
 			if (props.setCDN == true) {
 				total1 = total1.replace(".", ",");
@@ -245,7 +257,7 @@
 			// chart properties
 			var chartProperties;
 			if (props.type=='bar')
-				chartProperties = {	type: props.type , barWidth: props.barProperties.width, height: props.barProperties.height, barColor: seriesColor, negBarColor: seriesColor };
+				chartProperties = {	type: props.type , barWidth: props.barProperties.width, height: props.barProperties.height, barColor: seriesColor, negBarColor: seriesColor};
 			else
 				chartProperties = {	type: props.type , width: props.barProperties.width * (bars.length-1), height: props.barProperties.height, lineColor: seriesColor, lineWidth: 2, fillColor: 'rgba(0,0,0,0)', spotColor: 'rgba(0,0,0,0)', minSpotColor: 'rgba(0,0,0,0)', maxSpotColor: 'rgba(0,0,0,0)', highlightLineColor: 'rgba(0,0,0,0)' };
 			
@@ -319,10 +331,10 @@
 		resources: {
 			script:
 				window.jQuery
-					? ['lib/jquery.sparkline.min.js']
+					? ['lib/jquery.sparkline.min.js', 'lib/regexp-polyfill.min.js']
 					: [
 						['', tdgchart.getScriptPath().split('/')[1], 'jquery/js/jquery.js'].join('/'),
-						'lib/jquery.sparkline.min.js'
+						'lib/jquery.sparkline.min.js', 'lib/regexp-polyfill.min.js'
 					],
 			css: ['css/open-sans.css', 'css/sparkline.css']
 		},
