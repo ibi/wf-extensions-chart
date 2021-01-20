@@ -446,6 +446,7 @@
 				"pageLength": props.pageLength,
 				"lengthMenu": JSON.parse(props.lengthMenu),
 				"ordering": props.ordering,
+				"aaSorting": [], //VIZ-100
 				"info": props.info,
 				"searching": props.searching,
 				"lengthChange": props.lengthChange,
