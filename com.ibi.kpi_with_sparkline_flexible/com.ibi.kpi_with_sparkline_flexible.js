@@ -6,7 +6,7 @@
 	var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
 	var noDataCallback = '';
 
-	//start VIZ-427
+	//start VIZ-457
 	//regex workaround for IE11
 	//if the 'lookbehind' character is present, IE11 balks.
 	//so using a token to replace dynamically to work around that.
@@ -14,14 +14,14 @@
 	notIE11Expression = notIE11Expression.replace('LESS_THAN', '<' );
 
 	var numberFormatRegex = isIE11 ? new RegExp('\\B(?=(\\d{3})+(?!\\d))','g') : new RegExp(notIE11Expression,'g');
-	//end VIZ-427
+	//end VIZ-457
 	function NumberWithComma(number) {
 		var temp_number_comma = number;
 		if (temp_number_comma <= -100  && temp_number_comma > -1000) {
 			temp_number_comma = temp_number_comma;
 		}
 		else {
-			//VIZ-427
+			//VIZ-457
 			temp_number_comma = temp_number_comma.toString().replace(numberFormatRegex, ",");
 		}
 		return temp_number_comma;
@@ -32,7 +32,7 @@
 			temp_number_dot = temp_number_dot;
 		}
 		else {
-			//VIZ-427
+			//VIZ-457
 			temp_number_dot = temp_number_dot.toString().replace(numberFormatRegex , ".");
 		}
 		return temp_number_dot;

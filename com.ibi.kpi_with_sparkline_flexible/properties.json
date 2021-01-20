@@ -1,7 +1,7 @@
 {
 	"info": {
 		"version": 1.4,
-		//version 1.4 - VIZ-427 - fixed regex issue for IE11
+		//version 1.4 - VIZ-457 - fixed regex issue for IE11
 		"implements_api_version": 2.0,
 		"author": "Information Builders (Marc Julian Daniels)",
 		"copyright": "Information Builders Inc.",
