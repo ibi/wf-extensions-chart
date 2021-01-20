@@ -331,10 +331,10 @@
 		resources: {
 			script:
 				window.jQuery
-					? ['lib/jquery.sparkline.min.js', 'lib/regexp-polyfill.min.js']
+					? ['lib/jquery.sparkline.min.js']
 					: [
 						['', tdgchart.getScriptPath().split('/')[1], 'jquery/js/jquery.js'].join('/'),
-						'lib/jquery.sparkline.min.js', 'lib/regexp-polyfill.min.js'
+						'lib/jquery.sparkline.min.js'
 					],
 			css: ['css/open-sans.css', 'css/sparkline.css']
 		},
