@@ -1,7 +1,8 @@
 {
 	"info": {
-		"version": "1.3",
+		"version": "1.4",
 		//1.3 upgrade to d3 v5
+		//1.4 added property for link and font color
 		"implements_api_version": 2.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
@@ -16,7 +17,9 @@
 		"chartHeadroom": 50,
         "nodeWidth": 15,
         "nodePadding": 18,
-        "colorMode": "none",
+		"colorMode": "none",
+		"linkColor": "#505050",
+		"fontColor": "#000000",
         "colors": ["#5388be","#9ed675","#4fa03d","#fcce58","#e1542b"
                   ,"#efcca2","#b0c08f","#2c85ed","#e735d3","#07d6a0"
                   ,"#8167fe","#fcb769","#fede63","#b3cb11","#96a8d0"],
@@ -39,7 +42,13 @@
         "colorMode": {
                 "typeAnnotation": "str",
                 "stringValues": ["none", "source", "target", "gradient"]
-        },
+		},
+		"linkColor": {
+			"typeAnnotation": "color"
+		},
+		"fontColor": {
+			"typeAnnotation": "color"
+		},
         "colors": {
                 "typeAnnotation": "array",
                 "arrayTypes": "color"
@@ -47,7 +56,7 @@
         "fadeOpacity": {
 				"typeAnnotation": "number",
 				"numericRange": [0.05, 0.2],
-				"numericStep": .01
+				"numericStep": 0.01
         },
         "nodeAlign": {
                 "typeAnnotation": "str",
