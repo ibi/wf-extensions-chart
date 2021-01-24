@@ -1,0 +1,83 @@
+﻿/* .chartPanel{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+} */
+
+.chartPanel g {
+    cursor: pointer;
+}
+
+.chartPanel g polygon {
+    stroke: white;
+    stroke-width: 4;
+    transform: scale(1);
+    
+    transition: opacity 200ms ease-in;
+}
+
+.chartPanel g text {
+    text-anchor: middle;
+    alignment-baseline: middle;
+    transition: opacity 200ms ease-in;
+}
+
+.chartPanel g text.data {
+    font-weight: 100;
+}
+
+.chartPanel g text.data.title {
+    font-size: 20px;
+}
+
+.chartPanel g .state-name, svg g .data {
+    opacity: 1;
+}
+
+.chartPanel g .state-abbr {
+    opacity: 1;
+}
+
+@keyframes scale-polygon {
+    from {
+        transform: scale(1);
+        stroke-width: 4;
+    }
+    to {
+        transform: scale(2);
+        stroke-width: 2;
+    }
+}
+
+@keyframes fade-in {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    to {
+        opacity: 0;
+    }
+}
+
+.chartPanel h1 {
+    color: #999;
+    font-weight: 100;
+    text-align: center;
+    font-size: 1em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.8);
+    padding: 0.6em 0;
+}
+
+.chartPanel h1 a {
+    color: #85e0e0;
+    text-decoration: none;
+    font-size: 0.7em;
+}
