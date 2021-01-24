@@ -252,7 +252,7 @@
 		noDataPreRenderCallback: noDataPreRenderCallback,
 		noDataRenderCallback: noDataRenderCallback,
 		resources: {  // Additional external resources (CSS & JS) required by this extension
-			script: [window.jQuery ? '' : 'lib/jquery-latest.js', 'lib/ibi_hex_map.js'],
+			script: window.jQuery ? ['lib/ibi_hex_map.js'] : [ 'lib/jquery-latest.js', 'lib/ibi_hex_map.js'],
 			css: ['css/hexmap.css']
 		},
 		modules: {
