@@ -10,6 +10,19 @@ This extension displays US State data using hexagons instead of standard geograp
 
 * font_color - color of the font that shows the 2 letter state code in the polygon - default is "#000000"
 
+## Other Configuration Options:
+
+* Color Scale - you can use the standard WebFOCUS chart configuration to set the color scale. See the following for more [details](https://webfocusinfocenter.informationbuilders.com/wfappent/TL4s/TL_js/source/special131.htm). 
+
+Example (need to open FEX text editor to add):
+*GRAPH_JS_FINAL
+"colorScale": {
+    "colors": ["limegreen", "cyan", "teal", "green"]
+    ,"labels":{
+        "color": "#505050"
+    }
+},
+*END
 ## Data Buckets
 
 * state - field that contains the 2 letter ISO code of the US State
