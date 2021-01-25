@@ -1,6 +1,7 @@
 {
 	"info": {
-		"version": 1.0,
+		"version": "1.1",
+		//version: 1.1 - added highlighting of polygon selected
 		"implements_api_version": 1.0,
 		"author": "Sandy Chiang",
 		"copyright": "Information Builders Inc.",

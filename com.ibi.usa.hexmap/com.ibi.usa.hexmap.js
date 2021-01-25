@@ -19,6 +19,7 @@
 	//   rootContainer: DOM node containing the specific chart engine instance being rendered.
 
 	var tooltip;
+	var selectedHexGroup = null;
 
 	var tooltip_x = 0;
 	var tooltip_y = 0;
@@ -82,6 +83,10 @@
 				.autoHide(false);
 			$("#HexMapTooltipId").on('mouseleave', function (e) {
 				tooltip.hide();
+				if(selectedHexGroup != null)
+				{
+					selectedHexGroup.removeClass('hover')
+				};
 			});
 		} // if ($("#spkTooltipId").length == 0)
 
@@ -99,7 +104,8 @@
 			// s_end_color: props.end_color,
 			o_color_scale: colorScale,
 			s_font_color:  props.font_color,
-			f_tooltip_callback: function (dataIndex, x, y, showTooltip) {
+			f_tooltip_callback: function (dataIndex, x, y, hexGroupSelector) {
+				selectedHexGroup = hexGroupSelector;
 				if (showTooltip) {
 					fn_showTooltip(renderConfig, tooltip, x, y, dataIndex);
 				}

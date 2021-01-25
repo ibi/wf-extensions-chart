@@ -262,9 +262,13 @@ useful when wanting a more compact, geographic visualization of US state data.
                             var self = this;
                             
                             var stateIndex = self.getAttribute("_g");
+
+                            var polygon = $('polygon',$(this).parent());
                             if (settings.f_tooltip_callback) {
-                                settings.f_tooltip_callback(stateIndex, e.offsetX, e.offsetY, true);
+                                settings.f_tooltip_callback(stateIndex, e.offsetX, e.offsetY, polygon);
                             }
+
+                            polygon.addClass('hover');
                         });
 
                         // append the hex to our svg

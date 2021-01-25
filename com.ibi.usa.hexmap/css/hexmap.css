@@ -17,6 +17,11 @@
     transition: opacity 200ms ease-in;
 }
 
+.chartPanel g .hover{
+opacity: 0.5;
+fill: #999;
+}
+
 .chartPanel g text {
     text-anchor: middle;
     alignment-baseline: middle;
