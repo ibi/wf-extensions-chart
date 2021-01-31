@@ -259,7 +259,8 @@
 				}).curve(d3.curveBundle.beta(-1));
 
 		// Now begin building the chart
-		var svg = d3.select("svg")
+		//CD-3197
+		var svg = d3.select(renderConfig.rootContainer).select("svg")
 			//		              .attr("width", null)
 			//		              .attr("height", null)
 			.attr("preserveAspectRatio", "xMidYMid meet")
