@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": "1.1",
+		"version": "1.2",
 		//1.0 Original Release
 		//1.0.1 CHART-2425 chart gives error message for single Dimension value
 		//1.0.2 VIZ-70 Re-enable custom coloring with 'properties.customColors'
@@ -8,6 +8,7 @@
         //1.0.4 VIZ-131	
 		//1.0.5 VIZ-131 fix #2		
 		//1.1 upgrade to d3 v5
+		//1.2 added hard coded tooltip style to match default black theme tooltip
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",

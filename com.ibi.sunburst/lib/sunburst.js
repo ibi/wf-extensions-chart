@@ -463,6 +463,41 @@ var tdg_sunburst = (function () {
       return root;
     }
 
+  //VIZ-517 - added a hard coded style as not sure how the moonbeam Tooltip API works
+  function hardCodedTooltipStyle(tooltipID)
+  {
+    var tooltipHTML = [];
+
+    tooltipHTML.push('.'+tooltipID+'.tdgchart-tooltip {');
+    tooltipHTML.push('font: 10pt Sans-Serif !important;');
+    tooltipHTML.push('color: white !important;');
+    tooltipHTML.push('background: #000000 !important;');
+    tooltipHTML.push('border: 1px solid #000000 !important;');
+    tooltipHTML.push('border-radius: 4px !important;');
+    tooltipHTML.push('cursor: default !important;');
+    tooltipHTML.push('box-shadow: 0px 3px 4px 0px rgba(50, 50, 50, 0.66) !important;');
+    tooltipHTML.push("	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#D2D2D2',GradientType=0) !important;");
+    tooltipHTML.push('}');
+    tooltipHTML.push('.tdgchart-tooltip-pad {');
+    tooltipHTML.push('	padding: 3px .4em 3px .4em;');
+    tooltipHTML.push('}');
+    tooltipHTML.push('.tdgchart-tooltip-submenu-pad {');
+    tooltipHTML.push('padding-right: 1em;');
+    tooltipHTML.push('}');
+    tooltipHTML.push('.'+tooltipID+'.tdgchart-tooltip-name { color: white !important; }');
+    tooltipHTML.push('.'+tooltipID+'.tdgchart-tooltip-value { color: white !important; }');
+    // tooltipHTML.push('');
+    // tooltipHTML.push('');
+    // tooltipHTML.push('');
+    // tooltipHTML.push('');
+    // tooltipHTML.push('');
+    // tooltipHTML.push('');
+    // tooltipHTML.push('');
+    // tooltipHTML.push('');
+
+    return tooltipHTML.join(' ');
+  }
+
     function renderSunburst(group_main, onRenderComplete) {
 
       var data = getFixedDataSet(getData(), innerProps.fakeRootName);
@@ -747,6 +782,12 @@ var tdg_sunburst = (function () {
             .style(tooltip_style)
             .properties(tooltip_properties)
             .autoHide(true);
+          //Begin VIZ-517 - added a hard coded style as not sure how the moonbeam Tooltip API works
+          //need to use hard coded style now because unclear how API for tooltip works
+          var hardCodedStyle = hardCodedTooltipStyle('divSunburstTooltipId');
+
+          document.querySelector('#divSunburstTooltipId style').innerHTML += ' '+hardCodedStyle;
+          //End VIZ-517
 
           // Code Fix VIZ-131: } // if ((d3.select("#sunburstTooltipId").node() == null) 		
 
