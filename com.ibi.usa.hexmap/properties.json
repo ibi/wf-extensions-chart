@@ -1,7 +1,8 @@
 {
 	"info": {
-		"version": "1.1",
+		"version": "1.2",
 		//version: 1.1 - added highlighting of polygon selected
+		//version: 1.2 - no data check for color scale
 		"implements_api_version": 1.0,
 		"author": "Sandy Chiang",
 		"copyright": "Information Builders Inc.",

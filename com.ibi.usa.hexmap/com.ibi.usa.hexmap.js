@@ -281,6 +281,16 @@
 				supported: true,  // This must be true to enable color scale support
 				minMax: function (renderConfig) {
 					// Return a {min, max} object that defines the axis min and max values for this color scale
+
+					//check to see if real data or fake data
+					if(renderConfig.dataBuckets.buckets.length == 0)
+					{
+						return {
+							min: 0,
+							max: 100
+						};
+					}
+
 					var lowest = Number.POSITIVE_INFINITY;
 					var highest = Number.NEGATIVE_INFINITY;
 					var tmp;
