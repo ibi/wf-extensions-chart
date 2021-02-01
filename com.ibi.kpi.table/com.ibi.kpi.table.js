@@ -90,7 +90,20 @@
 			} else if (lastCharValueFormat == '€') {
 				valueFormatApplied = valueFormatApplied.substring(0, valueFormatApplied.length - 2) + shortenLetter + lastCharValueFormat;
 			} else {
-				valueFormatApplied += shortenLetter;
+				//Begin VIZ-514
+				if(valueFormatApplied.indexOf('$') >=0)
+				{
+					//global regex change
+					//dollar formats in WebFOCUS have both a negative and positive format so there's
+					//a semi-colon character splitting them. 
+					valueFormatApplied = valueFormatApplied.replace(/;/g,shortenLetter+';')
+					valueFormatApplied += shortenLetter;
+				}
+				else
+				{
+					valueFormatApplied += shortenLetter;
+				}
+				///End VIZ-514
 			}
 
 			return renderConfig.moonbeamInstance.formatNumber(shortenNumber, valueFormatApplied);			
