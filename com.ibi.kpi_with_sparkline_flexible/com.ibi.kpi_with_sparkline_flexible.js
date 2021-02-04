@@ -142,14 +142,8 @@
 				if (groupingSeparator == "[") {
 						groupingSeparator	=	"'";
 				}
-			}
-			
-					console.log(innerHTML);		
+			}	
 		}
-		
-
-		console.log("DECIMAL = "+decimalSeparator);
-		console.log("GROUPING = "+groupingSeparator);
 			
 		/* Format JSON Data */
 		if (typeof data[0].measure !== 'undefined'||typeof data[0].xaxis !== 'undefined') {
