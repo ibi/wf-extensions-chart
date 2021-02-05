@@ -1,6 +1,7 @@
 {
 	"info": {
-		"version": 1.0,
+		"version": "1.1",
+		//version 1.1 - description for properties + support for regional number format + IE11 support		
 		"implements_api_version": 2.0,
 		"author": "Information Builders (Marc Julian Daniels)",
 		"copyright": "Information Builders Inc.",
@@ -129,7 +130,160 @@
 			"dimension_name": "Dimension", 
 			"dimension_tooltip": "Drop a dimension here",
 			"dimensionText_name": "Dimension text (optional)",
-			"dimensionText_tooltip": "Drop a dimension here (optional)"
+			"dimensionText_tooltip": "Drop a dimension here (optional)",
+			
+			"properties": {
+				"color": {
+					"_translation": "Set font color - NOT IN USE",
+					"_tooltip": "NOT IN USE - Change the color on every element separately",
+                    "_valueTooltip": "Default #666666"
+				},	
+				"fontFamily": {
+					"_translation": "Set font family",
+					"_tooltip": "Set font family",
+                    "_valueTooltip": "Default 'Open Sans'"
+				},					
+				"fontSize": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default 18px"
+				},
+				"fontStyle": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default normal"
+				},
+				"setCDN": {
+					"_translation": "Enable regional number format - not visible in Designer",
+					"_tooltip": "Changes the thousand and decimal separator to the WebFOCUS system setting - not visible in Designer",
+                    "_valueTooltip": "Default false"
+				},
+				"hideTopDimension": {
+					"_translation": "Hide Top Dimension entry",
+					"_tooltip": "Hide Top Dimension entry",
+                    "_valueTooltip": "Default false"
+				},
+				"firstLine": {
+					"_translation": "First line of widget",
+					"_tooltip": "Settings for first line of widget",
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the first line",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},	
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the first line",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the first line",
+						"_valueTooltip": "Default #666666"
+					}, 	
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the first line",
+						"_valueTooltip": "Default 12px"
+					},
+					"overwriteFirstLine":{
+						"_translation": "Overwrite text in first line",
+						"_tooltip": "Overwrite text in first line with custom text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteFirstLineText":{
+						"_translation": "Enter custom text for first line",
+						"_tooltip": "Enter custom text here",
+						"_valueTooltip": "Default false"
+					},
+				},
+				"counter": {
+					"_translation": "Counter number",
+					"_tooltip": "Settings for second line of widget",				
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the counter number",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the counter number",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},				
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the counter number",
+						"_valueTooltip": "Default #666666"
+					}, 					
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the counter number",
+						"_valueTooltip": "Default 16px"
+					},
+				},
+				"thirdLine": {
+					"_translation": "Third line of widget",
+					"_tooltip": "Settings for third line of widget",
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the third line",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},	
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the third line",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the third line",
+						"_valueTooltip": "Default #666666"
+					}, 	
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the third line",
+						"_valueTooltip": "Default 12px"
+					},
+					"overwriteThirdLine":{
+						"_translation": "Overwrite text in third line",
+						"_tooltip": "Overwrite text in third line with custom text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteThirdLineText":{
+						"_translation": "Enter custom text for third line",
+						"_tooltip": "Enter custom text here",
+						"_valueTooltip": "Default false"
+					},
+				},				
+				"topDimension": {
+					"_translation": "Top dimension",
+					"_tooltip": "Settings for fourth line of widget",				
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the top dimension",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the top dimension",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},				
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the top dimension",
+						"_valueTooltip": "Default #666666"
+					}, 					
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the top dimension",
+						"_valueTooltip": "Default 16px"
+					},
+				},
+			}			
 		},
 		"de": {
 			"name": "Dimension-Ausprägungszähler nach KPI",
@@ -140,7 +294,160 @@
 			"dimension_name": "Dimension", 
 			"dimension_tooltip": "Dimension hier ablegen",
 			"dimensionText_name": "Dimension Text (optional)",
-			"dimensionText_tooltip": "Dimension hier ablegen (optional)"
+			"dimensionText_tooltip": "Dimension hier ablegen (optional)",
+			
+			"properties": {
+				"color": {
+					"_translation": "Set font color - NOT IN USE",
+					"_tooltip": "NOT IN USE - Change the color on every element separately",
+                    "_valueTooltip": "Default #666666"
+				},	
+				"fontFamily": {
+					"_translation": "Set font family",
+					"_tooltip": "Set font family",
+                    "_valueTooltip": "Default 'Open Sans'"
+				},					
+				"fontSize": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default 18px"
+				},
+				"fontStyle": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default normal"
+				},
+				"setCDN": {
+					"_translation": "Enable regional number format - not visible in Designer",
+					"_tooltip": "Changes the thousand and decimal separator to the WebFOCUS system setting - not visible in Designer",
+                    "_valueTooltip": "Default false"
+				},
+				"hideTopDimension": {
+					"_translation": "Hide Top Dimension entry",
+					"_tooltip": "Hide Top Dimension entry",
+                    "_valueTooltip": "Default false"
+				},
+				"firstLine": {
+					"_translation": "First line of widget",
+					"_tooltip": "Settings for first line of widget",
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the first line",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},	
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the first line",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the first line",
+						"_valueTooltip": "Default #666666"
+					}, 	
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the first line",
+						"_valueTooltip": "Default 12px"
+					},
+					"overwriteFirstLine":{
+						"_translation": "Overwrite text in first line",
+						"_tooltip": "Overwrite text in first line with custom text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteFirstLineText":{
+						"_translation": "Enter custom text for first line",
+						"_tooltip": "Enter custom text here",
+						"_valueTooltip": "Default false"
+					},
+				},
+				"counter": {
+					"_translation": "Counter number",
+					"_tooltip": "Settings for second line of widget",				
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the counter number",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the counter number",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},				
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the counter number",
+						"_valueTooltip": "Default #666666"
+					}, 					
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the counter number",
+						"_valueTooltip": "Default 16px"
+					},
+				},
+				"thirdLine": {
+					"_translation": "Third line of widget",
+					"_tooltip": "Settings for third line of widget",
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the third line",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},	
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the third line",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the third line",
+						"_valueTooltip": "Default #666666"
+					}, 	
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the third line",
+						"_valueTooltip": "Default 12px"
+					},
+					"overwriteThirdLine":{
+						"_translation": "Overwrite text in third line",
+						"_tooltip": "Overwrite text in third line with custom text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteThirdLineText":{
+						"_translation": "Enter custom text for third line",
+						"_tooltip": "Enter custom text here",
+						"_valueTooltip": "Default false"
+					},
+				},				
+				"topDimension": {
+					"_translation": "Top dimension",
+					"_tooltip": "Settings for fourth line of widget",				
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the top dimension",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the top dimension",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},				
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the top dimension",
+						"_valueTooltip": "Default #666666"
+					}, 					
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the top dimension",
+						"_valueTooltip": "Default 16px"
+					},
+				},
+			}			
 		},
 		"pt_BR": {
 			"name": "Contador de dimensões por KPI",
@@ -151,7 +458,160 @@
 			"dimension_name": "Dimensão", 
 			"dimension_tooltip": "Solte uma dimensão aqui",
 			"dimensionText_name": "Dimensão texto (opcional)",
-			"dimensionText_tooltip": "Solte uma dimensão aqui (opcional)"
+			"dimensionText_tooltip": "Solte uma dimensão aqui (opcional)",
+			
+			"properties": {
+				"color": {
+					"_translation": "Set font color - NOT IN USE",
+					"_tooltip": "NOT IN USE - Change the color on every element separately",
+                    "_valueTooltip": "Default #666666"
+				},	
+				"fontFamily": {
+					"_translation": "Set font family",
+					"_tooltip": "Set font family",
+                    "_valueTooltip": "Default 'Open Sans'"
+				},					
+				"fontSize": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default 18px"
+				},
+				"fontStyle": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default normal"
+				},
+				"setCDN": {
+					"_translation": "Enable regional number format - not visible in Designer",
+					"_tooltip": "Changes the thousand and decimal separator to the WebFOCUS system setting - not visible in Designer",
+                    "_valueTooltip": "Default false"
+				},
+				"hideTopDimension": {
+					"_translation": "Hide Top Dimension entry",
+					"_tooltip": "Hide Top Dimension entry",
+                    "_valueTooltip": "Default false"
+				},
+				"firstLine": {
+					"_translation": "First line of widget",
+					"_tooltip": "Settings for first line of widget",
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the first line",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},	
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the first line",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the first line",
+						"_valueTooltip": "Default #666666"
+					}, 	
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the first line",
+						"_valueTooltip": "Default 12px"
+					},
+					"overwriteFirstLine":{
+						"_translation": "Overwrite text in first line",
+						"_tooltip": "Overwrite text in first line with custom text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteFirstLineText":{
+						"_translation": "Enter custom text for first line",
+						"_tooltip": "Enter custom text here",
+						"_valueTooltip": "Default false"
+					},
+				},
+				"counter": {
+					"_translation": "Counter number",
+					"_tooltip": "Settings for second line of widget",				
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the counter number",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the counter number",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},				
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the counter number",
+						"_valueTooltip": "Default #666666"
+					}, 					
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the counter number",
+						"_valueTooltip": "Default 16px"
+					},
+				},
+				"thirdLine": {
+					"_translation": "Third line of widget",
+					"_tooltip": "Settings for third line of widget",
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the third line",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},	
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the third line",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the third line",
+						"_valueTooltip": "Default #666666"
+					}, 	
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the third line",
+						"_valueTooltip": "Default 12px"
+					},
+					"overwriteThirdLine":{
+						"_translation": "Overwrite text in third line",
+						"_tooltip": "Overwrite text in third line with custom text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteThirdLineText":{
+						"_translation": "Enter custom text for third line",
+						"_tooltip": "Enter custom text here",
+						"_valueTooltip": "Default false"
+					},
+				},				
+				"topDimension": {
+					"_translation": "Top dimension",
+					"_tooltip": "Settings for fourth line of widget",				
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the top dimension",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the top dimension",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},				
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the top dimension",
+						"_valueTooltip": "Default #666666"
+					}, 					
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the top dimension",
+						"_valueTooltip": "Default 16px"
+					},
+				},
+			}			
 		},
 		"es": {
 			"name": "Contador de dimensiones por KPI",
@@ -162,7 +622,160 @@
 			"dimension_name": "Dimensión", 
 			"dimension_tooltip": "Soltar aquí una dimensión",
 			"dimensionText_name": "Dimensión texto (opcional)",
-			"dimensionText_tooltip": "Soltar aquí una dimensión (opcional)"
+			"dimensionText_tooltip": "Soltar aquí una dimensión (opcional)",
+			
+			"properties": {
+				"color": {
+					"_translation": "Set font color - NOT IN USE",
+					"_tooltip": "NOT IN USE - Change the color on every element separately",
+                    "_valueTooltip": "Default #666666"
+				},	
+				"fontFamily": {
+					"_translation": "Set font family",
+					"_tooltip": "Set font family",
+                    "_valueTooltip": "Default 'Open Sans'"
+				},					
+				"fontSize": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default 18px"
+				},
+				"fontStyle": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default normal"
+				},
+				"setCDN": {
+					"_translation": "Enable regional number format - not visible in Designer",
+					"_tooltip": "Changes the thousand and decimal separator to the WebFOCUS system setting - not visible in Designer",
+                    "_valueTooltip": "Default false"
+				},
+				"hideTopDimension": {
+					"_translation": "Hide Top Dimension entry",
+					"_tooltip": "Hide Top Dimension entry",
+                    "_valueTooltip": "Default false"
+				},
+				"firstLine": {
+					"_translation": "First line of widget",
+					"_tooltip": "Settings for first line of widget",
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the first line",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},	
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the first line",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the first line",
+						"_valueTooltip": "Default #666666"
+					}, 	
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the first line",
+						"_valueTooltip": "Default 12px"
+					},
+					"overwriteFirstLine":{
+						"_translation": "Overwrite text in first line",
+						"_tooltip": "Overwrite text in first line with custom text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteFirstLineText":{
+						"_translation": "Enter custom text for first line",
+						"_tooltip": "Enter custom text here",
+						"_valueTooltip": "Default false"
+					},
+				},
+				"counter": {
+					"_translation": "Counter number",
+					"_tooltip": "Settings for second line of widget",				
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the counter number",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the counter number",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},				
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the counter number",
+						"_valueTooltip": "Default #666666"
+					}, 					
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the counter number",
+						"_valueTooltip": "Default 16px"
+					},
+				},
+				"thirdLine": {
+					"_translation": "Third line of widget",
+					"_tooltip": "Settings for third line of widget",
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the third line",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},	
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the third line",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the third line",
+						"_valueTooltip": "Default #666666"
+					}, 	
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the third line",
+						"_valueTooltip": "Default 12px"
+					},
+					"overwriteThirdLine":{
+						"_translation": "Overwrite text in third line",
+						"_tooltip": "Overwrite text in third line with custom text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteThirdLineText":{
+						"_translation": "Enter custom text for third line",
+						"_tooltip": "Enter custom text here",
+						"_valueTooltip": "Default false"
+					},
+				},				
+				"topDimension": {
+					"_translation": "Top dimension",
+					"_tooltip": "Settings for fourth line of widget",				
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the top dimension",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the top dimension",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},				
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the top dimension",
+						"_valueTooltip": "Default #666666"
+					}, 					
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the top dimension",
+						"_valueTooltip": "Default 16px"
+					},
+				},
+			}					
 		},
 		"fr": {
 			"name": "Compteur de dimensions par KPI",
@@ -173,7 +786,160 @@
 			"dimension_name": "Dimension", 
 			"dimension_tooltip": "Déposer une dimension ici",
 			"dimensionText_name": "Dimension texte (optionnelle)",
-			"dimensionText_tooltip": "Déposer une dimension ici (optionnelle)"
+			"dimensionText_tooltip": "Déposer une dimension ici (optionnelle)",
+			
+			"properties": {
+				"color": {
+					"_translation": "Set font color - NOT IN USE",
+					"_tooltip": "NOT IN USE - Change the color on every element separately",
+                    "_valueTooltip": "Default #666666"
+				},	
+				"fontFamily": {
+					"_translation": "Set font family",
+					"_tooltip": "Set font family",
+                    "_valueTooltip": "Default 'Open Sans'"
+				},					
+				"fontSize": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default 18px"
+				},
+				"fontStyle": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default normal"
+				},
+				"setCDN": {
+					"_translation": "Enable regional number format - not visible in Designer",
+					"_tooltip": "Changes the thousand and decimal separator to the WebFOCUS system setting - not visible in Designer",
+                    "_valueTooltip": "Default false"
+				},
+				"hideTopDimension": {
+					"_translation": "Hide Top Dimension entry",
+					"_tooltip": "Hide Top Dimension entry",
+                    "_valueTooltip": "Default false"
+				},
+				"firstLine": {
+					"_translation": "First line of widget",
+					"_tooltip": "Settings for first line of widget",
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the first line",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},	
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the first line",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the first line",
+						"_valueTooltip": "Default #666666"
+					}, 	
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the first line",
+						"_valueTooltip": "Default 12px"
+					},
+					"overwriteFirstLine":{
+						"_translation": "Overwrite text in first line",
+						"_tooltip": "Overwrite text in first line with custom text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteFirstLineText":{
+						"_translation": "Enter custom text for first line",
+						"_tooltip": "Enter custom text here",
+						"_valueTooltip": "Default false"
+					},
+				},
+				"counter": {
+					"_translation": "Counter number",
+					"_tooltip": "Settings for second line of widget",				
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the counter number",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the counter number",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},				
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the counter number",
+						"_valueTooltip": "Default #666666"
+					}, 					
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the counter number",
+						"_valueTooltip": "Default 16px"
+					},
+				},
+				"thirdLine": {
+					"_translation": "Third line of widget",
+					"_tooltip": "Settings for third line of widget",
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the third line",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},	
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the third line",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the third line",
+						"_valueTooltip": "Default #666666"
+					}, 	
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the third line",
+						"_valueTooltip": "Default 12px"
+					},
+					"overwriteThirdLine":{
+						"_translation": "Overwrite text in third line",
+						"_tooltip": "Overwrite text in third line with custom text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteThirdLineText":{
+						"_translation": "Enter custom text for third line",
+						"_tooltip": "Enter custom text here",
+						"_valueTooltip": "Default false"
+					},
+				},				
+				"topDimension": {
+					"_translation": "Top dimension",
+					"_tooltip": "Settings for fourth line of widget",				
+
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the top dimension",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the top dimension",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},				
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the top dimension",
+						"_valueTooltip": "Default #666666"
+					}, 					
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the top dimension",
+						"_valueTooltip": "Default 16px"
+					},
+				},
+			}
 		}
 	}
 }
