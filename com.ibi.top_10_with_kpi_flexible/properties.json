@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": 1.2,
+		"version": "1.3",
 		"implements_api_version": 2.0,
 		"author": "Information Builders (Marc Julian Daniels)",
 		"copyright": "Information Builders Inc.",
@@ -141,7 +141,181 @@
 			"measure_name": "Measure", 
 			"measure_tooltip": "Drop a measure here", 
 			"dimension_name": "Dimension", 
-			"dimension_tooltip": "Drop a dimension here"
+			"dimension_tooltip": "Drop a dimension here",
+			
+			"properties": {
+				"color": {
+					"_translation": "Set font color - NOT IN USE",
+					"_tooltip": "NOT IN USE - Change the color on every element separately",
+                    "_valueTooltip": "Default #666666"
+				},	
+				"fontFamily": {
+					"_translation": "Set font family",
+					"_tooltip": "Set font family",
+                    "_valueTooltip": "Default 'Open Sans'"
+				},	
+				"fontSize": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default 18px"
+				},
+				"fontStyle": {
+					"_translation": "Set font style",
+					"_tooltip": "Set font style",
+                    "_valueTooltip": "Default normal"
+				},
+				"setCDN": {
+					"_translation": "Enable regional number format (not visible in Designer)",
+					"_tooltip": "Changes the thousand and decimal separator to the WebFOCUS system setting - not visible in Designer",
+                    "_valueTooltip": "Default false"
+				},
+				"numberOfTopEntries": {
+					"_translation": "Number of top entries to be shown",
+					"_tooltip": "1 to 10 top entries could be shown",
+                    "_valueTooltip": "Default 10"
+				},
+				"widgetWidth": {
+					"_translation": "Define widget width",
+					"_tooltip": "Define the minimum and maximum width used by the widget",
+					
+					"minimumWidgetWidth": {
+						"_translation": "Minimum widget width",
+						"_tooltip": "Define the minimum width used by the widget",
+						"_valueTooltip": "Default 300"
+					},
+						
+					"maximumWidgetWidth": {
+						"_translation": "Maximum widget width",
+						"_tooltip": "Define the maximum width used by the widget",
+						"_valueTooltip": "Default 400"
+					},						
+				},
+				"headline": {
+					"_translation": "Headline text",
+					"_tooltip": "Settings for headline text",
+					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the headline text",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					}, 					
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the headline text",
+						"_valueTooltip": "Default #666666"
+					},
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the headline text",
+						"_valueTooltip": "Default 12px"
+					},
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the headline text",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},
+					"disableHeadline":{
+						"_translation": "Disable headline text",
+						"_tooltip": "Disable and remove the headline text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteHeadline":{
+						"_translation": "Overwrite headline text",
+						"_tooltip": "Overwrite text in headline with custom text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteHeadlineText":{
+						"_translation": "Enter custom text for headline",
+						"_tooltip": "Enter custom text here",
+						"_valueTooltip": "Default false"
+					},
+				},
+				"dimensionText": {
+					"_translation": "Dimension text",
+					"_tooltip": "Settings for dimension text",	
+					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the dimension text",
+						"_valueTooltip": "Default bold"
+					},				
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the dimension text",
+						"_valueTooltip": "Default #666666"
+					},
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the dimension text",
+						"_valueTooltip": "Default 16px"
+					},
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the dimension text",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},				
+					"textAlign":{
+						"_translation": "Align text",
+						"_tooltip": "Set text alignment for the dimension text",
+						"_valueTooltip": "Default left"
+					},						
+					"disableRankingText":{
+						"_translation": "Disable ranking elements",
+						"_tooltip": "Disable and remove the ranking",
+						"_valueTooltip": "Default false"
+					},
+					"switchRankingNumbersFormat":{
+						"_translation": "Switch the ranking number format",
+						"_tooltip": "Switch from #1, #2, #3 to 1st, 2nd, 3rd",
+						"_valueTooltip": "Default false"
+					},
+				},
+				"measureNumber": {
+					"_translation": "Measure number",
+					"_tooltip": "Settings for measure number",	
+					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the measure number",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},					
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the measure number",
+						"_valueTooltip": "Default #666666"	
+					},						
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the measure number",
+						"_valueTooltip": "Default 16px"
+					},
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the measure number",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},
+					"decimalPlaces":{
+						"_translation": "Number of decimal places",
+						"_tooltip": "Set decimal places for the measure number",
+						"_valueTooltip": "Default 0"
+					},				
+					"hideMeasureNumber":{
+						"_translation": "Disable measure number",
+						"_tooltip": "Disable and remove the measure number",
+						"_valueTooltip": "Default false"
+					},
+					"percentValue":{
+						"_translation": "Measure number is percent value",
+						"_tooltip": "Show a percent sign for the measure number",
+						"_valueTooltip": "Default false"
+					},		
+					"abbreviateNumber":{
+						"_translation": "Abbreviate measure number",
+						"_tooltip": "Abbreviate the measure number",
+						"_valueTooltip": "Default false"
+					},
+				}
+			}			
 		},
 		"de": {
 			"name": "Top 10 mit KPI (flexibel)",
@@ -150,7 +324,181 @@
 			"measure_name": "Kennzahl", 
 			"measure_tooltip": "Kennzahl hier ablegen", 
 			"dimension_name": "Dimension", 
-			"dimension_tooltip": "Dimension hier ablegen"
+			"dimension_tooltip": "Dimension hier ablegen",
+			
+			"properties": {
+				"color": {
+					"_translation": "Set font color - NOT IN USE",
+					"_tooltip": "NOT IN USE - Change the color on every element separately",
+                    "_valueTooltip": "Default #666666"
+				},	
+				"fontFamily": {
+					"_translation": "Set font family",
+					"_tooltip": "Set font family",
+                    "_valueTooltip": "Default 'Open Sans'"
+				},	
+				"fontSize": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default 18px"
+				},
+				"fontStyle": {
+					"_translation": "Set font style",
+					"_tooltip": "Set font style",
+                    "_valueTooltip": "Default normal"
+				},
+				"setCDN": {
+					"_translation": "Enable regional number format (not visible in Designer)",
+					"_tooltip": "Changes the thousand and decimal separator to the WebFOCUS system setting - not visible in Designer",
+                    "_valueTooltip": "Default false"
+				},
+				"numberOfTopEntries": {
+					"_translation": "Number of top entries to be shown",
+					"_tooltip": "1 to 10 top entries could be shown",
+                    "_valueTooltip": "Default 10"
+				},
+				"widgetWidth": {
+					"_translation": "Define widget width",
+					"_tooltip": "Define the minimum and maximum width used by the widget",
+					
+					"minimumWidgetWidth": {
+						"_translation": "Minimum widget width",
+						"_tooltip": "Define the minimum width used by the widget",
+						"_valueTooltip": "Default 300"
+					},
+						
+					"maximumWidgetWidth": {
+						"_translation": "Maximum widget width",
+						"_tooltip": "Define the maximum width used by the widget",
+						"_valueTooltip": "Default 400"
+					},						
+				},
+				"headline": {
+					"_translation": "Headline text",
+					"_tooltip": "Settings for headline text",
+					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the headline text",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					}, 					
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the headline text",
+						"_valueTooltip": "Default #666666"
+					},
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the headline text",
+						"_valueTooltip": "Default 12px"
+					},
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the headline text",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},
+					"disableHeadline":{
+						"_translation": "Disable headline text",
+						"_tooltip": "Disable and remove the headline text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteHeadline":{
+						"_translation": "Overwrite headline text",
+						"_tooltip": "Overwrite text in headline with custom text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteHeadlineText":{
+						"_translation": "Enter custom text for headline",
+						"_tooltip": "Enter custom text here",
+						"_valueTooltip": "Default false"
+					},
+				},
+				"dimensionText": {
+					"_translation": "Dimension text",
+					"_tooltip": "Settings for dimension text",	
+					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the dimension text",
+						"_valueTooltip": "Default bold"
+					},				
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the dimension text",
+						"_valueTooltip": "Default #666666"
+					},
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the dimension text",
+						"_valueTooltip": "Default 16px"
+					},
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the dimension text",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},				
+					"textAlign":{
+						"_translation": "Align text",
+						"_tooltip": "Set text alignment for the dimension text",
+						"_valueTooltip": "Default left"
+					},						
+					"disableRankingText":{
+						"_translation": "Disable ranking elements",
+						"_tooltip": "Disable and remove the ranking",
+						"_valueTooltip": "Default false"
+					},
+					"switchRankingNumbersFormat":{
+						"_translation": "Switch the ranking number format",
+						"_tooltip": "Switch from #1, #2, #3 to 1st, 2nd, 3rd",
+						"_valueTooltip": "Default false"
+					},
+				},
+				"measureNumber": {
+					"_translation": "Measure number",
+					"_tooltip": "Settings for measure number",	
+					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the measure number",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},					
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the measure number",
+						"_valueTooltip": "Default #666666"	
+					},						
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the measure number",
+						"_valueTooltip": "Default 16px"
+					},
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the measure number",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},
+					"decimalPlaces":{
+						"_translation": "Number of decimal places",
+						"_tooltip": "Set decimal places for the measure number",
+						"_valueTooltip": "Default 0"
+					},				
+					"hideMeasureNumber":{
+						"_translation": "Disable measure number",
+						"_tooltip": "Disable and remove the measure number",
+						"_valueTooltip": "Default false"
+					},
+					"percentValue":{
+						"_translation": "Measure number is percent value",
+						"_tooltip": "Show a percent sign for the measure number",
+						"_valueTooltip": "Default false"
+					},		
+					"abbreviateNumber":{
+						"_translation": "Abbreviate measure number",
+						"_tooltip": "Abbreviate the measure number",
+						"_valueTooltip": "Default false"
+					},
+				}
+			}			
 		},
 		"pt_BR": {
 			"name": "Os 10 principais com KPI (flexível)",
@@ -159,7 +507,181 @@
 			"measure_name": "Medida", 
 			"measure_tooltip": "Solte uma medida aqui", 
 			"dimension_name": "Dimensão", 
-			"dimension_tooltip": "Solte uma dimensão aqui"
+			"dimension_tooltip": "Solte uma dimensão aqui",
+			
+			"properties": {
+				"color": {
+					"_translation": "Set font color - NOT IN USE",
+					"_tooltip": "NOT IN USE - Change the color on every element separately",
+                    "_valueTooltip": "Default #666666"
+				},	
+				"fontFamily": {
+					"_translation": "Set font family",
+					"_tooltip": "Set font family",
+                    "_valueTooltip": "Default 'Open Sans'"
+				},	
+				"fontSize": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default 18px"
+				},
+				"fontStyle": {
+					"_translation": "Set font style",
+					"_tooltip": "Set font style",
+                    "_valueTooltip": "Default normal"
+				},
+				"setCDN": {
+					"_translation": "Enable regional number format (not visible in Designer)",
+					"_tooltip": "Changes the thousand and decimal separator to the WebFOCUS system setting - not visible in Designer",
+                    "_valueTooltip": "Default false"
+				},
+				"numberOfTopEntries": {
+					"_translation": "Number of top entries to be shown",
+					"_tooltip": "1 to 10 top entries could be shown",
+                    "_valueTooltip": "Default 10"
+				},
+				"widgetWidth": {
+					"_translation": "Define widget width",
+					"_tooltip": "Define the minimum and maximum width used by the widget",
+					
+					"minimumWidgetWidth": {
+						"_translation": "Minimum widget width",
+						"_tooltip": "Define the minimum width used by the widget",
+						"_valueTooltip": "Default 300"
+					},
+						
+					"maximumWidgetWidth": {
+						"_translation": "Maximum widget width",
+						"_tooltip": "Define the maximum width used by the widget",
+						"_valueTooltip": "Default 400"
+					},						
+				},
+				"headline": {
+					"_translation": "Headline text",
+					"_tooltip": "Settings for headline text",
+					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the headline text",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					}, 					
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the headline text",
+						"_valueTooltip": "Default #666666"
+					},
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the headline text",
+						"_valueTooltip": "Default 12px"
+					},
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the headline text",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},
+					"disableHeadline":{
+						"_translation": "Disable headline text",
+						"_tooltip": "Disable and remove the headline text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteHeadline":{
+						"_translation": "Overwrite headline text",
+						"_tooltip": "Overwrite text in headline with custom text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteHeadlineText":{
+						"_translation": "Enter custom text for headline",
+						"_tooltip": "Enter custom text here",
+						"_valueTooltip": "Default false"
+					},
+				},
+				"dimensionText": {
+					"_translation": "Dimension text",
+					"_tooltip": "Settings for dimension text",	
+					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the dimension text",
+						"_valueTooltip": "Default bold"
+					},				
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the dimension text",
+						"_valueTooltip": "Default #666666"
+					},
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the dimension text",
+						"_valueTooltip": "Default 16px"
+					},
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the dimension text",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},				
+					"textAlign":{
+						"_translation": "Align text",
+						"_tooltip": "Set text alignment for the dimension text",
+						"_valueTooltip": "Default left"
+					},						
+					"disableRankingText":{
+						"_translation": "Disable ranking elements",
+						"_tooltip": "Disable and remove the ranking",
+						"_valueTooltip": "Default false"
+					},
+					"switchRankingNumbersFormat":{
+						"_translation": "Switch the ranking number format",
+						"_tooltip": "Switch from #1, #2, #3 to 1st, 2nd, 3rd",
+						"_valueTooltip": "Default false"
+					},
+				},
+				"measureNumber": {
+					"_translation": "Measure number",
+					"_tooltip": "Settings for measure number",	
+					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the measure number",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},					
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the measure number",
+						"_valueTooltip": "Default #666666"	
+					},						
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the measure number",
+						"_valueTooltip": "Default 16px"
+					},
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the measure number",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},
+					"decimalPlaces":{
+						"_translation": "Number of decimal places",
+						"_tooltip": "Set decimal places for the measure number",
+						"_valueTooltip": "Default 0"
+					},				
+					"hideMeasureNumber":{
+						"_translation": "Disable measure number",
+						"_tooltip": "Disable and remove the measure number",
+						"_valueTooltip": "Default false"
+					},
+					"percentValue":{
+						"_translation": "Measure number is percent value",
+						"_tooltip": "Show a percent sign for the measure number",
+						"_valueTooltip": "Default false"
+					},		
+					"abbreviateNumber":{
+						"_translation": "Abbreviate measure number",
+						"_tooltip": "Abbreviate the measure number",
+						"_valueTooltip": "Default false"
+					},
+				}
+			}			
 		},
 		"es": {
 			"name": "Top 10 con KPI (flexible)",
@@ -168,7 +690,181 @@
 			"measure_name": "Medida", 
 			"measure_tooltip": "Soltar aquí una medida", 
 			"dimension_name": "Dimensión", 
-			"dimension_tooltip": "Soltar aquí una dimensión"
+			"dimension_tooltip": "Soltar aquí una dimensión",
+			
+			"properties": {
+				"color": {
+					"_translation": "Set font color - NOT IN USE",
+					"_tooltip": "NOT IN USE - Change the color on every element separately",
+                    "_valueTooltip": "Default #666666"
+				},	
+				"fontFamily": {
+					"_translation": "Set font family",
+					"_tooltip": "Set font family",
+                    "_valueTooltip": "Default 'Open Sans'"
+				},	
+				"fontSize": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default 18px"
+				},
+				"fontStyle": {
+					"_translation": "Set font style",
+					"_tooltip": "Set font style",
+                    "_valueTooltip": "Default normal"
+				},
+				"setCDN": {
+					"_translation": "Enable regional number format (not visible in Designer)",
+					"_tooltip": "Changes the thousand and decimal separator to the WebFOCUS system setting - not visible in Designer",
+                    "_valueTooltip": "Default false"
+				},
+				"numberOfTopEntries": {
+					"_translation": "Number of top entries to be shown",
+					"_tooltip": "1 to 10 top entries could be shown",
+                    "_valueTooltip": "Default 10"
+				},
+				"widgetWidth": {
+					"_translation": "Define widget width",
+					"_tooltip": "Define the minimum and maximum width used by the widget",
+					
+					"minimumWidgetWidth": {
+						"_translation": "Minimum widget width",
+						"_tooltip": "Define the minimum width used by the widget",
+						"_valueTooltip": "Default 300"
+					},
+						
+					"maximumWidgetWidth": {
+						"_translation": "Maximum widget width",
+						"_tooltip": "Define the maximum width used by the widget",
+						"_valueTooltip": "Default 400"
+					},						
+				},
+				"headline": {
+					"_translation": "Headline text",
+					"_tooltip": "Settings for headline text",
+					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the headline text",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					}, 					
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the headline text",
+						"_valueTooltip": "Default #666666"
+					},
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the headline text",
+						"_valueTooltip": "Default 12px"
+					},
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the headline text",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},
+					"disableHeadline":{
+						"_translation": "Disable headline text",
+						"_tooltip": "Disable and remove the headline text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteHeadline":{
+						"_translation": "Overwrite headline text",
+						"_tooltip": "Overwrite text in headline with custom text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteHeadlineText":{
+						"_translation": "Enter custom text for headline",
+						"_tooltip": "Enter custom text here",
+						"_valueTooltip": "Default false"
+					},
+				},
+				"dimensionText": {
+					"_translation": "Dimension text",
+					"_tooltip": "Settings for dimension text",	
+					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the dimension text",
+						"_valueTooltip": "Default bold"
+					},				
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the dimension text",
+						"_valueTooltip": "Default #666666"
+					},
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the dimension text",
+						"_valueTooltip": "Default 16px"
+					},
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the dimension text",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},				
+					"textAlign":{
+						"_translation": "Align text",
+						"_tooltip": "Set text alignment for the dimension text",
+						"_valueTooltip": "Default left"
+					},						
+					"disableRankingText":{
+						"_translation": "Disable ranking elements",
+						"_tooltip": "Disable and remove the ranking",
+						"_valueTooltip": "Default false"
+					},
+					"switchRankingNumbersFormat":{
+						"_translation": "Switch the ranking number format",
+						"_tooltip": "Switch from #1, #2, #3 to 1st, 2nd, 3rd",
+						"_valueTooltip": "Default false"
+					},
+				},
+				"measureNumber": {
+					"_translation": "Measure number",
+					"_tooltip": "Settings for measure number",	
+					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the measure number",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},					
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the measure number",
+						"_valueTooltip": "Default #666666"	
+					},						
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the measure number",
+						"_valueTooltip": "Default 16px"
+					},
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the measure number",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},
+					"decimalPlaces":{
+						"_translation": "Number of decimal places",
+						"_tooltip": "Set decimal places for the measure number",
+						"_valueTooltip": "Default 0"
+					},				
+					"hideMeasureNumber":{
+						"_translation": "Disable measure number",
+						"_tooltip": "Disable and remove the measure number",
+						"_valueTooltip": "Default false"
+					},
+					"percentValue":{
+						"_translation": "Measure number is percent value",
+						"_tooltip": "Show a percent sign for the measure number",
+						"_valueTooltip": "Default false"
+					},		
+					"abbreviateNumber":{
+						"_translation": "Abbreviate measure number",
+						"_tooltip": "Abbreviate the measure number",
+						"_valueTooltip": "Default false"
+					},
+				}
+			}			
 		},
 		"fr": {
 			"name": "Top 10 avec KPI (flexible)",
@@ -177,7 +873,181 @@
 			"measure_name": "Mesure", 
 			"measure_tooltip": "Déposer une mesure ici", 
 			"dimension_name": "Dimension", 
-			"dimension_tooltip": "Déposer une dimension ici"
+			"dimension_tooltip": "Déposer une dimension ici",
+			
+			"properties": {
+				"color": {
+					"_translation": "Set font color - NOT IN USE",
+					"_tooltip": "NOT IN USE - Change the color on every element separately",
+                    "_valueTooltip": "Default #666666"
+				},	
+				"fontFamily": {
+					"_translation": "Set font family",
+					"_tooltip": "Set font family",
+                    "_valueTooltip": "Default 'Open Sans'"
+				},	
+				"fontSize": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default 18px"
+				},
+				"fontStyle": {
+					"_translation": "Set font style",
+					"_tooltip": "Set font style",
+                    "_valueTooltip": "Default normal"
+				},
+				"setCDN": {
+					"_translation": "Enable regional number format (not visible in Designer)",
+					"_tooltip": "Changes the thousand and decimal separator to the WebFOCUS system setting - not visible in Designer",
+                    "_valueTooltip": "Default false"
+				},
+				"numberOfTopEntries": {
+					"_translation": "Number of top entries to be shown",
+					"_tooltip": "1 to 10 top entries could be shown",
+                    "_valueTooltip": "Default 10"
+				},
+				"widgetWidth": {
+					"_translation": "Define widget width",
+					"_tooltip": "Define the minimum and maximum width used by the widget",
+					
+					"minimumWidgetWidth": {
+						"_translation": "Minimum widget width",
+						"_tooltip": "Define the minimum width used by the widget",
+						"_valueTooltip": "Default 300"
+					},
+						
+					"maximumWidgetWidth": {
+						"_translation": "Maximum widget width",
+						"_tooltip": "Define the maximum width used by the widget",
+						"_valueTooltip": "Default 400"
+					},						
+				},
+				"headline": {
+					"_translation": "Headline text",
+					"_tooltip": "Settings for headline text",
+					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the headline text",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					}, 					
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the headline text",
+						"_valueTooltip": "Default #666666"
+					},
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the headline text",
+						"_valueTooltip": "Default 12px"
+					},
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the headline text",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},
+					"disableHeadline":{
+						"_translation": "Disable headline text",
+						"_tooltip": "Disable and remove the headline text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteHeadline":{
+						"_translation": "Overwrite headline text",
+						"_tooltip": "Overwrite text in headline with custom text",
+						"_valueTooltip": "Default false"
+					},
+					"overwriteHeadlineText":{
+						"_translation": "Enter custom text for headline",
+						"_tooltip": "Enter custom text here",
+						"_valueTooltip": "Default false"
+					},
+				},
+				"dimensionText": {
+					"_translation": "Dimension text",
+					"_tooltip": "Settings for dimension text",	
+					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the dimension text",
+						"_valueTooltip": "Default bold"
+					},				
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the dimension text",
+						"_valueTooltip": "Default #666666"
+					},
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the dimension text",
+						"_valueTooltip": "Default 16px"
+					},
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the dimension text",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},				
+					"textAlign":{
+						"_translation": "Align text",
+						"_tooltip": "Set text alignment for the dimension text",
+						"_valueTooltip": "Default left"
+					},						
+					"disableRankingText":{
+						"_translation": "Disable ranking elements",
+						"_tooltip": "Disable and remove the ranking",
+						"_valueTooltip": "Default false"
+					},
+					"switchRankingNumbersFormat":{
+						"_translation": "Switch the ranking number format",
+						"_tooltip": "Switch from #1, #2, #3 to 1st, 2nd, 3rd",
+						"_valueTooltip": "Default false"
+					},
+				},
+				"measureNumber": {
+					"_translation": "Measure number",
+					"_tooltip": "Settings for measure number",	
+					
+					"fontWeight":{
+						"_translation": "Set font weight",
+						"_tooltip": "Set font weight for the measure number",
+						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
+					},					
+					"color":{
+						"_translation": "Set font color",
+						"_tooltip": "Set font color for the measure number",
+						"_valueTooltip": "Default #666666"	
+					},						
+					"fontSize":{
+						"_translation": "Set font size",
+						"_tooltip": "Set font size for the measure number",
+						"_valueTooltip": "Default 16px"
+					},
+					"fontStyle":{
+						"_translation": "Set font style",
+						"_tooltip": "Set font style for the measure number",
+						"_valueTooltip": "Default inherit (inherit from upper level font style)"
+					},
+					"decimalPlaces":{
+						"_translation": "Number of decimal places",
+						"_tooltip": "Set decimal places for the measure number",
+						"_valueTooltip": "Default 0"
+					},				
+					"hideMeasureNumber":{
+						"_translation": "Disable measure number",
+						"_tooltip": "Disable and remove the measure number",
+						"_valueTooltip": "Default false"
+					},
+					"percentValue":{
+						"_translation": "Measure number is percent value",
+						"_tooltip": "Show a percent sign for the measure number",
+						"_valueTooltip": "Default false"
+					},		
+					"abbreviateNumber":{
+						"_translation": "Abbreviate measure number",
+						"_tooltip": "Abbreviate the measure number",
+						"_valueTooltip": "Default false"
+					},
+				}
+			}
 		}
 	}
 }
