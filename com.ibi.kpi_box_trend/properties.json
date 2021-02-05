@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": 1.1,
+		"version": "1.2",
 		"implements_api_version": 2.0,
 		"author": "Information Builders (Marc Julian Daniels)",
 		"copyright": "Information Builders Inc.",
@@ -229,7 +229,360 @@
 			"measure_name": "Measure", 
 			"measure_tooltip": "Drop a measure here", 
 			"time_name": "Dimension (Time)", 
-			"time_tooltip": "Drop a dimension here"
+			"time_tooltip": "Drop a dimension here",
+			"properties": {
+				"dynamicColorMode": {
+					"_translation": "Dynamic color mode",
+					"_tooltip": "Settings for dynamic color mode",
+
+					"applyDynamicColorOn":{
+						"_translation": "Apply dynamic color mode on selected element",
+						"_tooltip": "Select element for dynamic color mode",
+						"_valueTooltip": "Default nothing"
+					}, 
+					"risingColor":{
+						"_translation": "Set rising color",
+						"_tooltip": "Set color for good values",
+						"_valueTooltip": "Default #37BF54"
+					},
+					"fallingColor":{
+						"_translation": "Set falling color",
+						"_tooltip": "Set color for bad values",
+						"_valueTooltip": "Default #F53554"
+					},
+				},				
+				"fontFamily": {
+					"_translation": "Set font family",
+					"_tooltip": "Set font family",
+                    "_valueTooltip": "Default 'Open Sans'"
+				},
+				"fontSize": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default 12px"
+				},
+				"fontStyle": {
+					"_translation": "Set font style",
+					"_tooltip": "Set font style",
+                    "_valueTooltip": "Default normal"
+				},
+				"widgetWidth": {
+					"_translation": "Define widget width",
+					"_tooltip": "Define the minimum and maximum width used by the widget",
+					
+					"minimumWidgetWidth": {
+						"_translation": "Minimum widget width",
+						"_tooltip": "Define the minimum width used by the widget",
+						"_valueTooltip": "Default 300"
+					},
+						
+					"maximumWidgetWidth": {
+						"_translation": "Maximum widget width",
+						"_tooltip": "Define the maximum width used by the widget",
+						"_valueTooltip": "Default 400"
+					},						
+				},				
+				"setCDN": {
+					"_translation": "Enable regional number format - not visible in Designer",
+					"_tooltip": "Changes the thousand and decimal separator to the WebFOCUS system setting - not visible in Designer",
+                    "_valueTooltip": "Default false"
+				},				
+				"currentValue": {
+					"_translation": "Current value elements",
+					"_tooltip": "Elements for current value",
+
+					"measureName": {
+						"_translation": "Measure name",
+						"_tooltip": "Settings for measure name",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the measure name",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the measure name",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the measure name",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the measure name",
+							"_valueTooltip": "Default bold"
+						},
+					},
+					"total": {
+						"_translation": "Current value",
+						"_tooltip": "Settings for current value",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the current value",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the current value",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the current value",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the current value",
+							"_valueTooltip": "Default normal"
+						},
+						"decimalPlaces":{
+							"_translation": "Decimal places shown",
+							"_tooltip": "Set decimal places for the current value",
+							"_valueTooltip": "Default 0"
+						}, 
+						"percentValue":{
+							"_translation": "Show percent sign",
+							"_tooltip": "Show percent sign if current value is in percent",
+							"_valueTooltip": "Default false"
+						},
+						"abbreviateNumber":{
+							"_translation": "Abbreviate current value",
+							"_tooltip": "Abbreviate current value",
+							"_valueTooltip": "Default false"
+						},
+					},
+					"disableCurrentValue":{
+						"_translation": "Hide current value element",
+						"_tooltip": "Completely hide the current value element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+				"previousValue": {
+					"_translation": "Previous value elements",
+					"_tooltip": "Elements for previous value",
+
+					"previousText": {
+						"_translation": "Previous value headline",
+						"_tooltip": "Settings for previous value headline",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the previous value headline",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the previous value headline",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the previous value headline",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the previous value headline",
+							"_valueTooltip": "Default bold"
+						},
+						"previousText":{
+							"_translation": "Enter previous value headline",
+							"_tooltip": "Enter text to be shown as previous value headline",
+							"_valueTooltip": "Default Previous"
+						},						
+					},
+					"previousTotal": {
+						"_translation": "Previous value",
+						"_tooltip": "Settings for previous value",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the previous value",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the previous value",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the previous value",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the previous value",
+							"_valueTooltip": "Default normal"
+						},
+						"decimalPlaces":{
+							"_translation": "Decimal places shown",
+							"_tooltip": "Set decimal places for the previous value",
+							"_valueTooltip": "Default 0"
+						}, 
+						"percentValue":{
+							"_translation": "Show percent sign",
+							"_tooltip": "Show percent sign if previous value is in percent",
+							"_valueTooltip": "Default false"
+						},
+						"abbreviateNumber":{
+							"_translation": "Abbreviate previous value",
+							"_tooltip": "Abbreviate previous value",
+							"_valueTooltip": "Default false"
+						},
+					},
+					"disablePreviousValue":{
+						"_translation": "Hide previous value element",
+						"_tooltip": "Completely hide the previous value element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+				"changeValue": {
+					"_translation": "Change value elements",
+					"_tooltip": "Elements for change value",
+
+					"changeValueText": {
+						"_translation": "Change value headline",
+						"_tooltip": "Settings for change value headline",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the change value headline",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the change value headline",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the change value headline",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the change value headline",
+							"_valueTooltip": "Default bold"
+						},
+						"previousText":{
+							"_translation": "Enter change value headline",
+							"_tooltip": "Enter text to be shown as change value headline",
+							"_valueTooltip": "Default Change vs. previous"
+						},						
+					},
+					"changeValue": {
+						"_translation": "Change value",
+						"_tooltip": "Settings for change value",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the change value",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the change value",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the change value",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the change value",
+							"_valueTooltip": "Default normal"
+						},
+						"decimalPlaces":{
+							"_translation": "Decimal places shown",
+							"_tooltip": "Set decimal places for the change value",
+							"_valueTooltip": "Default 2"
+						}, 
+						"deviationInPercent":{
+							"_translation": "Deviation in percent",
+							"_tooltip": "Show deviation vs previous as percent value",
+							"_valueTooltip": "Default false"
+						},
+						"abbreviateNumber":{
+							"_translation": "Abbreviate change value",
+							"_tooltip": "Abbreviate change value",
+							"_valueTooltip": "Default false"
+						},
+					},
+					"disableChangeValue":{
+						"_translation": "Hide change value element",
+						"_tooltip": "Completely hide the change value element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+				"trendIcon": {
+					"_translation": "Trend icon elements",
+					"_tooltip": "Elements for trend icon",
+
+					"trendIconText": {
+						"_translation": "Trend icon headline",
+						"_tooltip": "Settings for trend icon headline",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the trend icon headline",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the trend icon headline",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the trend icon headline",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the trend icon headline",
+							"_valueTooltip": "Default bold"
+						},
+						"trendText":{
+							"_translation": "Enter trend icon headline",
+							"_tooltip": "Enter text to be shown as trend icon headline",
+							"_valueTooltip": "Default Trend"
+						},						
+					},
+					"trendIcon": {
+						"_translation": "Trend icon",
+						"_tooltip": "Settings for trend icon",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the trend icon",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the trend icon",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the trend icon",
+							"_valueTooltip": "Default normal"
+						},
+					},
+					"disableTrendIcon":{
+						"_translation": "Hide trend icon element",
+						"_tooltip": "Completely hide the trend icon element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+			}			
 		},
 		"de": {
 			"name": "KPI Box mit Trendindikator",
@@ -238,7 +591,360 @@
 			"measure_name": "Kennzahl", 
 			"measure_tooltip": "Kennzahl hier ablegen", 
 			"time_name": "Dimension (Zeit)", 
-			"time_tooltip": "Dimension hier ablegen"
+			"time_tooltip": "Dimension hier ablegen",
+			"properties": {
+				"dynamicColorMode": {
+					"_translation": "Dynamic color mode",
+					"_tooltip": "Settings for dynamic color mode",
+
+					"applyDynamicColorOn":{
+						"_translation": "Apply dynamic color mode on selected element",
+						"_tooltip": "Select element for dynamic color mode",
+						"_valueTooltip": "Default nothing"
+					}, 
+					"risingColor":{
+						"_translation": "Set rising color",
+						"_tooltip": "Set color for good values",
+						"_valueTooltip": "Default #37BF54"
+					},
+					"fallingColor":{
+						"_translation": "Set falling color",
+						"_tooltip": "Set color for bad values",
+						"_valueTooltip": "Default #F53554"
+					},
+				},				
+				"fontFamily": {
+					"_translation": "Set font family",
+					"_tooltip": "Set font family",
+                    "_valueTooltip": "Default 'Open Sans'"
+				},
+				"fontSize": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default 12px"
+				},
+				"fontStyle": {
+					"_translation": "Set font style",
+					"_tooltip": "Set font style",
+                    "_valueTooltip": "Default normal"
+				},
+				"widgetWidth": {
+					"_translation": "Define widget width",
+					"_tooltip": "Define the minimum and maximum width used by the widget",
+					
+					"minimumWidgetWidth": {
+						"_translation": "Minimum widget width",
+						"_tooltip": "Define the minimum width used by the widget",
+						"_valueTooltip": "Default 300"
+					},
+						
+					"maximumWidgetWidth": {
+						"_translation": "Maximum widget width",
+						"_tooltip": "Define the maximum width used by the widget",
+						"_valueTooltip": "Default 400"
+					},						
+				},				
+				"setCDN": {
+					"_translation": "Enable regional number format - not visible in Designer",
+					"_tooltip": "Changes the thousand and decimal separator to the WebFOCUS system setting - not visible in Designer",
+                    "_valueTooltip": "Default false"
+				},				
+				"currentValue": {
+					"_translation": "Current value elements",
+					"_tooltip": "Elements for current value",
+
+					"measureName": {
+						"_translation": "Measure name",
+						"_tooltip": "Settings for measure name",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the measure name",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the measure name",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the measure name",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the measure name",
+							"_valueTooltip": "Default bold"
+						},
+					},
+					"total": {
+						"_translation": "Current value",
+						"_tooltip": "Settings for current value",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the current value",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the current value",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the current value",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the current value",
+							"_valueTooltip": "Default normal"
+						},
+						"decimalPlaces":{
+							"_translation": "Decimal places shown",
+							"_tooltip": "Set decimal places for the current value",
+							"_valueTooltip": "Default 0"
+						}, 
+						"percentValue":{
+							"_translation": "Show percent sign",
+							"_tooltip": "Show percent sign if current value is in percent",
+							"_valueTooltip": "Default false"
+						},
+						"abbreviateNumber":{
+							"_translation": "Abbreviate current value",
+							"_tooltip": "Abbreviate current value",
+							"_valueTooltip": "Default false"
+						},
+					},
+					"disableCurrentValue":{
+						"_translation": "Hide current value element",
+						"_tooltip": "Completely hide the current value element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+				"previousValue": {
+					"_translation": "Previous value elements",
+					"_tooltip": "Elements for previous value",
+
+					"previousText": {
+						"_translation": "Previous value headline",
+						"_tooltip": "Settings for previous value headline",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the previous value headline",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the previous value headline",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the previous value headline",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the previous value headline",
+							"_valueTooltip": "Default bold"
+						},
+						"previousText":{
+							"_translation": "Enter previous value headline",
+							"_tooltip": "Enter text to be shown as previous value headline",
+							"_valueTooltip": "Default Previous"
+						},						
+					},
+					"previousTotal": {
+						"_translation": "Previous value",
+						"_tooltip": "Settings for previous value",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the previous value",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the previous value",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the previous value",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the previous value",
+							"_valueTooltip": "Default normal"
+						},
+						"decimalPlaces":{
+							"_translation": "Decimal places shown",
+							"_tooltip": "Set decimal places for the previous value",
+							"_valueTooltip": "Default 0"
+						}, 
+						"percentValue":{
+							"_translation": "Show percent sign",
+							"_tooltip": "Show percent sign if previous value is in percent",
+							"_valueTooltip": "Default false"
+						},
+						"abbreviateNumber":{
+							"_translation": "Abbreviate previous value",
+							"_tooltip": "Abbreviate previous value",
+							"_valueTooltip": "Default false"
+						},
+					},
+					"disablePreviousValue":{
+						"_translation": "Hide previous value element",
+						"_tooltip": "Completely hide the previous value element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+				"changeValue": {
+					"_translation": "Change value elements",
+					"_tooltip": "Elements for change value",
+
+					"changeValueText": {
+						"_translation": "Change value headline",
+						"_tooltip": "Settings for change value headline",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the change value headline",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the change value headline",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the change value headline",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the change value headline",
+							"_valueTooltip": "Default bold"
+						},
+						"previousText":{
+							"_translation": "Enter change value headline",
+							"_tooltip": "Enter text to be shown as change value headline",
+							"_valueTooltip": "Default Change vs. previous"
+						},						
+					},
+					"changeValue": {
+						"_translation": "Change value",
+						"_tooltip": "Settings for change value",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the change value",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the change value",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the change value",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the change value",
+							"_valueTooltip": "Default normal"
+						},
+						"decimalPlaces":{
+							"_translation": "Decimal places shown",
+							"_tooltip": "Set decimal places for the change value",
+							"_valueTooltip": "Default 2"
+						}, 
+						"deviationInPercent":{
+							"_translation": "Deviation in percent",
+							"_tooltip": "Show deviation vs previous as percent value",
+							"_valueTooltip": "Default false"
+						},
+						"abbreviateNumber":{
+							"_translation": "Abbreviate change value",
+							"_tooltip": "Abbreviate change value",
+							"_valueTooltip": "Default false"
+						},
+					},
+					"disableChangeValue":{
+						"_translation": "Hide change value element",
+						"_tooltip": "Completely hide the change value element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+				"trendIcon": {
+					"_translation": "Trend icon elements",
+					"_tooltip": "Elements for trend icon",
+
+					"trendIconText": {
+						"_translation": "Trend icon headline",
+						"_tooltip": "Settings for trend icon headline",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the trend icon headline",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the trend icon headline",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the trend icon headline",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the trend icon headline",
+							"_valueTooltip": "Default bold"
+						},
+						"trendText":{
+							"_translation": "Enter trend icon headline",
+							"_tooltip": "Enter text to be shown as trend icon headline",
+							"_valueTooltip": "Default Trend"
+						},						
+					},
+					"trendIcon": {
+						"_translation": "Trend icon",
+						"_tooltip": "Settings for trend icon",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the trend icon",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the trend icon",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the trend icon",
+							"_valueTooltip": "Default normal"
+						},
+					},
+					"disableTrendIcon":{
+						"_translation": "Hide trend icon element",
+						"_tooltip": "Completely hide the trend icon element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+			}			
 		},
 		"pt_BR": {
 			"name": "Caixa KPI com indicador de tendência",
@@ -247,7 +953,360 @@
 			"measure_name": "Medida", 
 			"measure_tooltip": "Solte uma medida aqui", 
 			"time_name": "Dimensão (tempo)", 
-			"time_tooltip": "Solte uma dimensão aqui"
+			"time_tooltip": "Solte uma dimensão aqui",
+			"properties": {
+				"dynamicColorMode": {
+					"_translation": "Dynamic color mode",
+					"_tooltip": "Settings for dynamic color mode",
+
+					"applyDynamicColorOn":{
+						"_translation": "Apply dynamic color mode on selected element",
+						"_tooltip": "Select element for dynamic color mode",
+						"_valueTooltip": "Default nothing"
+					}, 
+					"risingColor":{
+						"_translation": "Set rising color",
+						"_tooltip": "Set color for good values",
+						"_valueTooltip": "Default #37BF54"
+					},
+					"fallingColor":{
+						"_translation": "Set falling color",
+						"_tooltip": "Set color for bad values",
+						"_valueTooltip": "Default #F53554"
+					},
+				},				
+				"fontFamily": {
+					"_translation": "Set font family",
+					"_tooltip": "Set font family",
+                    "_valueTooltip": "Default 'Open Sans'"
+				},
+				"fontSize": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default 12px"
+				},
+				"fontStyle": {
+					"_translation": "Set font style",
+					"_tooltip": "Set font style",
+                    "_valueTooltip": "Default normal"
+				},
+				"widgetWidth": {
+					"_translation": "Define widget width",
+					"_tooltip": "Define the minimum and maximum width used by the widget",
+					
+					"minimumWidgetWidth": {
+						"_translation": "Minimum widget width",
+						"_tooltip": "Define the minimum width used by the widget",
+						"_valueTooltip": "Default 300"
+					},
+						
+					"maximumWidgetWidth": {
+						"_translation": "Maximum widget width",
+						"_tooltip": "Define the maximum width used by the widget",
+						"_valueTooltip": "Default 400"
+					},						
+				},				
+				"setCDN": {
+					"_translation": "Enable regional number format - not visible in Designer",
+					"_tooltip": "Changes the thousand and decimal separator to the WebFOCUS system setting - not visible in Designer",
+                    "_valueTooltip": "Default false"
+				},				
+				"currentValue": {
+					"_translation": "Current value elements",
+					"_tooltip": "Elements for current value",
+
+					"measureName": {
+						"_translation": "Measure name",
+						"_tooltip": "Settings for measure name",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the measure name",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the measure name",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the measure name",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the measure name",
+							"_valueTooltip": "Default bold"
+						},
+					},
+					"total": {
+						"_translation": "Current value",
+						"_tooltip": "Settings for current value",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the current value",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the current value",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the current value",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the current value",
+							"_valueTooltip": "Default normal"
+						},
+						"decimalPlaces":{
+							"_translation": "Decimal places shown",
+							"_tooltip": "Set decimal places for the current value",
+							"_valueTooltip": "Default 0"
+						}, 
+						"percentValue":{
+							"_translation": "Show percent sign",
+							"_tooltip": "Show percent sign if current value is in percent",
+							"_valueTooltip": "Default false"
+						},
+						"abbreviateNumber":{
+							"_translation": "Abbreviate current value",
+							"_tooltip": "Abbreviate current value",
+							"_valueTooltip": "Default false"
+						},
+					},
+					"disableCurrentValue":{
+						"_translation": "Hide current value element",
+						"_tooltip": "Completely hide the current value element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+				"previousValue": {
+					"_translation": "Previous value elements",
+					"_tooltip": "Elements for previous value",
+
+					"previousText": {
+						"_translation": "Previous value headline",
+						"_tooltip": "Settings for previous value headline",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the previous value headline",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the previous value headline",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the previous value headline",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the previous value headline",
+							"_valueTooltip": "Default bold"
+						},
+						"previousText":{
+							"_translation": "Enter previous value headline",
+							"_tooltip": "Enter text to be shown as previous value headline",
+							"_valueTooltip": "Default Previous"
+						},						
+					},
+					"previousTotal": {
+						"_translation": "Previous value",
+						"_tooltip": "Settings for previous value",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the previous value",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the previous value",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the previous value",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the previous value",
+							"_valueTooltip": "Default normal"
+						},
+						"decimalPlaces":{
+							"_translation": "Decimal places shown",
+							"_tooltip": "Set decimal places for the previous value",
+							"_valueTooltip": "Default 0"
+						}, 
+						"percentValue":{
+							"_translation": "Show percent sign",
+							"_tooltip": "Show percent sign if previous value is in percent",
+							"_valueTooltip": "Default false"
+						},
+						"abbreviateNumber":{
+							"_translation": "Abbreviate previous value",
+							"_tooltip": "Abbreviate previous value",
+							"_valueTooltip": "Default false"
+						},
+					},
+					"disablePreviousValue":{
+						"_translation": "Hide previous value element",
+						"_tooltip": "Completely hide the previous value element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+				"changeValue": {
+					"_translation": "Change value elements",
+					"_tooltip": "Elements for change value",
+
+					"changeValueText": {
+						"_translation": "Change value headline",
+						"_tooltip": "Settings for change value headline",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the change value headline",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the change value headline",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the change value headline",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the change value headline",
+							"_valueTooltip": "Default bold"
+						},
+						"previousText":{
+							"_translation": "Enter change value headline",
+							"_tooltip": "Enter text to be shown as change value headline",
+							"_valueTooltip": "Default Change vs. previous"
+						},						
+					},
+					"changeValue": {
+						"_translation": "Change value",
+						"_tooltip": "Settings for change value",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the change value",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the change value",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the change value",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the change value",
+							"_valueTooltip": "Default normal"
+						},
+						"decimalPlaces":{
+							"_translation": "Decimal places shown",
+							"_tooltip": "Set decimal places for the change value",
+							"_valueTooltip": "Default 2"
+						}, 
+						"deviationInPercent":{
+							"_translation": "Deviation in percent",
+							"_tooltip": "Show deviation vs previous as percent value",
+							"_valueTooltip": "Default false"
+						},
+						"abbreviateNumber":{
+							"_translation": "Abbreviate change value",
+							"_tooltip": "Abbreviate change value",
+							"_valueTooltip": "Default false"
+						},
+					},
+					"disableChangeValue":{
+						"_translation": "Hide change value element",
+						"_tooltip": "Completely hide the change value element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+				"trendIcon": {
+					"_translation": "Trend icon elements",
+					"_tooltip": "Elements for trend icon",
+
+					"trendIconText": {
+						"_translation": "Trend icon headline",
+						"_tooltip": "Settings for trend icon headline",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the trend icon headline",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the trend icon headline",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the trend icon headline",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the trend icon headline",
+							"_valueTooltip": "Default bold"
+						},
+						"trendText":{
+							"_translation": "Enter trend icon headline",
+							"_tooltip": "Enter text to be shown as trend icon headline",
+							"_valueTooltip": "Default Trend"
+						},						
+					},
+					"trendIcon": {
+						"_translation": "Trend icon",
+						"_tooltip": "Settings for trend icon",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the trend icon",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the trend icon",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the trend icon",
+							"_valueTooltip": "Default normal"
+						},
+					},
+					"disableTrendIcon":{
+						"_translation": "Hide trend icon element",
+						"_tooltip": "Completely hide the trend icon element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+			}			
 		},
 		"es": {
 			"name": "Cuadro KPI con indicador de tendencia",
@@ -256,7 +1315,360 @@
 			"measure_name": "Medida", 
 			"measure_tooltip": "Soltar aquí una medida", 
 			"time_name": "Dimensión (tiempo)", 
-			"time_tooltip": "Soltar aquí una dimensión"
+			"time_tooltip": "Soltar aquí una dimensión",
+			"properties": {
+				"dynamicColorMode": {
+					"_translation": "Dynamic color mode",
+					"_tooltip": "Settings for dynamic color mode",
+
+					"applyDynamicColorOn":{
+						"_translation": "Apply dynamic color mode on selected element",
+						"_tooltip": "Select element for dynamic color mode",
+						"_valueTooltip": "Default nothing"
+					}, 
+					"risingColor":{
+						"_translation": "Set rising color",
+						"_tooltip": "Set color for good values",
+						"_valueTooltip": "Default #37BF54"
+					},
+					"fallingColor":{
+						"_translation": "Set falling color",
+						"_tooltip": "Set color for bad values",
+						"_valueTooltip": "Default #F53554"
+					},
+				},				
+				"fontFamily": {
+					"_translation": "Set font family",
+					"_tooltip": "Set font family",
+                    "_valueTooltip": "Default 'Open Sans'"
+				},
+				"fontSize": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default 12px"
+				},
+				"fontStyle": {
+					"_translation": "Set font style",
+					"_tooltip": "Set font style",
+                    "_valueTooltip": "Default normal"
+				},
+				"widgetWidth": {
+					"_translation": "Define widget width",
+					"_tooltip": "Define the minimum and maximum width used by the widget",
+					
+					"minimumWidgetWidth": {
+						"_translation": "Minimum widget width",
+						"_tooltip": "Define the minimum width used by the widget",
+						"_valueTooltip": "Default 300"
+					},
+						
+					"maximumWidgetWidth": {
+						"_translation": "Maximum widget width",
+						"_tooltip": "Define the maximum width used by the widget",
+						"_valueTooltip": "Default 400"
+					},						
+				},				
+				"setCDN": {
+					"_translation": "Enable regional number format - not visible in Designer",
+					"_tooltip": "Changes the thousand and decimal separator to the WebFOCUS system setting - not visible in Designer",
+                    "_valueTooltip": "Default false"
+				},				
+				"currentValue": {
+					"_translation": "Current value elements",
+					"_tooltip": "Elements for current value",
+
+					"measureName": {
+						"_translation": "Measure name",
+						"_tooltip": "Settings for measure name",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the measure name",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the measure name",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the measure name",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the measure name",
+							"_valueTooltip": "Default bold"
+						},
+					},
+					"total": {
+						"_translation": "Current value",
+						"_tooltip": "Settings for current value",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the current value",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the current value",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the current value",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the current value",
+							"_valueTooltip": "Default normal"
+						},
+						"decimalPlaces":{
+							"_translation": "Decimal places shown",
+							"_tooltip": "Set decimal places for the current value",
+							"_valueTooltip": "Default 0"
+						}, 
+						"percentValue":{
+							"_translation": "Show percent sign",
+							"_tooltip": "Show percent sign if current value is in percent",
+							"_valueTooltip": "Default false"
+						},
+						"abbreviateNumber":{
+							"_translation": "Abbreviate current value",
+							"_tooltip": "Abbreviate current value",
+							"_valueTooltip": "Default false"
+						},
+					},
+					"disableCurrentValue":{
+						"_translation": "Hide current value element",
+						"_tooltip": "Completely hide the current value element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+				"previousValue": {
+					"_translation": "Previous value elements",
+					"_tooltip": "Elements for previous value",
+
+					"previousText": {
+						"_translation": "Previous value headline",
+						"_tooltip": "Settings for previous value headline",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the previous value headline",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the previous value headline",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the previous value headline",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the previous value headline",
+							"_valueTooltip": "Default bold"
+						},
+						"previousText":{
+							"_translation": "Enter previous value headline",
+							"_tooltip": "Enter text to be shown as previous value headline",
+							"_valueTooltip": "Default Previous"
+						},						
+					},
+					"previousTotal": {
+						"_translation": "Previous value",
+						"_tooltip": "Settings for previous value",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the previous value",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the previous value",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the previous value",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the previous value",
+							"_valueTooltip": "Default normal"
+						},
+						"decimalPlaces":{
+							"_translation": "Decimal places shown",
+							"_tooltip": "Set decimal places for the previous value",
+							"_valueTooltip": "Default 0"
+						}, 
+						"percentValue":{
+							"_translation": "Show percent sign",
+							"_tooltip": "Show percent sign if previous value is in percent",
+							"_valueTooltip": "Default false"
+						},
+						"abbreviateNumber":{
+							"_translation": "Abbreviate previous value",
+							"_tooltip": "Abbreviate previous value",
+							"_valueTooltip": "Default false"
+						},
+					},
+					"disablePreviousValue":{
+						"_translation": "Hide previous value element",
+						"_tooltip": "Completely hide the previous value element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+				"changeValue": {
+					"_translation": "Change value elements",
+					"_tooltip": "Elements for change value",
+
+					"changeValueText": {
+						"_translation": "Change value headline",
+						"_tooltip": "Settings for change value headline",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the change value headline",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the change value headline",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the change value headline",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the change value headline",
+							"_valueTooltip": "Default bold"
+						},
+						"previousText":{
+							"_translation": "Enter change value headline",
+							"_tooltip": "Enter text to be shown as change value headline",
+							"_valueTooltip": "Default Change vs. previous"
+						},						
+					},
+					"changeValue": {
+						"_translation": "Change value",
+						"_tooltip": "Settings for change value",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the change value",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the change value",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the change value",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the change value",
+							"_valueTooltip": "Default normal"
+						},
+						"decimalPlaces":{
+							"_translation": "Decimal places shown",
+							"_tooltip": "Set decimal places for the change value",
+							"_valueTooltip": "Default 2"
+						}, 
+						"deviationInPercent":{
+							"_translation": "Deviation in percent",
+							"_tooltip": "Show deviation vs previous as percent value",
+							"_valueTooltip": "Default false"
+						},
+						"abbreviateNumber":{
+							"_translation": "Abbreviate change value",
+							"_tooltip": "Abbreviate change value",
+							"_valueTooltip": "Default false"
+						},
+					},
+					"disableChangeValue":{
+						"_translation": "Hide change value element",
+						"_tooltip": "Completely hide the change value element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+				"trendIcon": {
+					"_translation": "Trend icon elements",
+					"_tooltip": "Elements for trend icon",
+
+					"trendIconText": {
+						"_translation": "Trend icon headline",
+						"_tooltip": "Settings for trend icon headline",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the trend icon headline",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the trend icon headline",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the trend icon headline",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the trend icon headline",
+							"_valueTooltip": "Default bold"
+						},
+						"trendText":{
+							"_translation": "Enter trend icon headline",
+							"_tooltip": "Enter text to be shown as trend icon headline",
+							"_valueTooltip": "Default Trend"
+						},						
+					},
+					"trendIcon": {
+						"_translation": "Trend icon",
+						"_tooltip": "Settings for trend icon",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the trend icon",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the trend icon",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the trend icon",
+							"_valueTooltip": "Default normal"
+						},
+					},
+					"disableTrendIcon":{
+						"_translation": "Hide trend icon element",
+						"_tooltip": "Completely hide the trend icon element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+			}			
 		},
 		"fr": {
 			"name": "Boîte KPI avec indicateur de tendance",
@@ -265,7 +1677,360 @@
 			"measure_name": "Mesure", 
 			"measure_tooltip": "Déposer une mesure ici", 
 			"time_name": "Dimension (temps)", 
-			"time_tooltip": "Déposer une dimension ici"
+			"time_tooltip": "Déposer une dimension ici",
+			"properties": {
+				"dynamicColorMode": {
+					"_translation": "Dynamic color mode",
+					"_tooltip": "Settings for dynamic color mode",
+
+					"applyDynamicColorOn":{
+						"_translation": "Apply dynamic color mode on selected element",
+						"_tooltip": "Select element for dynamic color mode",
+						"_valueTooltip": "Default nothing"
+					}, 
+					"risingColor":{
+						"_translation": "Set rising color",
+						"_tooltip": "Set color for good values",
+						"_valueTooltip": "Default #37BF54"
+					},
+					"fallingColor":{
+						"_translation": "Set falling color",
+						"_tooltip": "Set color for bad values",
+						"_valueTooltip": "Default #F53554"
+					},
+				},				
+				"fontFamily": {
+					"_translation": "Set font family",
+					"_tooltip": "Set font family",
+                    "_valueTooltip": "Default 'Open Sans'"
+				},
+				"fontSize": {
+					"_translation": "Set font size",
+					"_tooltip": "Set font size",
+                    "_valueTooltip": "Default 12px"
+				},
+				"fontStyle": {
+					"_translation": "Set font style",
+					"_tooltip": "Set font style",
+                    "_valueTooltip": "Default normal"
+				},
+				"widgetWidth": {
+					"_translation": "Define widget width",
+					"_tooltip": "Define the minimum and maximum width used by the widget",
+					
+					"minimumWidgetWidth": {
+						"_translation": "Minimum widget width",
+						"_tooltip": "Define the minimum width used by the widget",
+						"_valueTooltip": "Default 300"
+					},
+						
+					"maximumWidgetWidth": {
+						"_translation": "Maximum widget width",
+						"_tooltip": "Define the maximum width used by the widget",
+						"_valueTooltip": "Default 400"
+					},						
+				},				
+				"setCDN": {
+					"_translation": "Enable regional number format - not visible in Designer",
+					"_tooltip": "Changes the thousand and decimal separator to the WebFOCUS system setting - not visible in Designer",
+                    "_valueTooltip": "Default false"
+				},				
+				"currentValue": {
+					"_translation": "Current value elements",
+					"_tooltip": "Elements for current value",
+
+					"measureName": {
+						"_translation": "Measure name",
+						"_tooltip": "Settings for measure name",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the measure name",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the measure name",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the measure name",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the measure name",
+							"_valueTooltip": "Default bold"
+						},
+					},
+					"total": {
+						"_translation": "Current value",
+						"_tooltip": "Settings for current value",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the current value",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the current value",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the current value",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the current value",
+							"_valueTooltip": "Default normal"
+						},
+						"decimalPlaces":{
+							"_translation": "Decimal places shown",
+							"_tooltip": "Set decimal places for the current value",
+							"_valueTooltip": "Default 0"
+						}, 
+						"percentValue":{
+							"_translation": "Show percent sign",
+							"_tooltip": "Show percent sign if current value is in percent",
+							"_valueTooltip": "Default false"
+						},
+						"abbreviateNumber":{
+							"_translation": "Abbreviate current value",
+							"_tooltip": "Abbreviate current value",
+							"_valueTooltip": "Default false"
+						},
+					},
+					"disableCurrentValue":{
+						"_translation": "Hide current value element",
+						"_tooltip": "Completely hide the current value element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+				"previousValue": {
+					"_translation": "Previous value elements",
+					"_tooltip": "Elements for previous value",
+
+					"previousText": {
+						"_translation": "Previous value headline",
+						"_tooltip": "Settings for previous value headline",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the previous value headline",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the previous value headline",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the previous value headline",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the previous value headline",
+							"_valueTooltip": "Default bold"
+						},
+						"previousText":{
+							"_translation": "Enter previous value headline",
+							"_tooltip": "Enter text to be shown as previous value headline",
+							"_valueTooltip": "Default Previous"
+						},						
+					},
+					"previousTotal": {
+						"_translation": "Previous value",
+						"_tooltip": "Settings for previous value",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the previous value",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the previous value",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the previous value",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the previous value",
+							"_valueTooltip": "Default normal"
+						},
+						"decimalPlaces":{
+							"_translation": "Decimal places shown",
+							"_tooltip": "Set decimal places for the previous value",
+							"_valueTooltip": "Default 0"
+						}, 
+						"percentValue":{
+							"_translation": "Show percent sign",
+							"_tooltip": "Show percent sign if previous value is in percent",
+							"_valueTooltip": "Default false"
+						},
+						"abbreviateNumber":{
+							"_translation": "Abbreviate previous value",
+							"_tooltip": "Abbreviate previous value",
+							"_valueTooltip": "Default false"
+						},
+					},
+					"disablePreviousValue":{
+						"_translation": "Hide previous value element",
+						"_tooltip": "Completely hide the previous value element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+				"changeValue": {
+					"_translation": "Change value elements",
+					"_tooltip": "Elements for change value",
+
+					"changeValueText": {
+						"_translation": "Change value headline",
+						"_tooltip": "Settings for change value headline",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the change value headline",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the change value headline",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the change value headline",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the change value headline",
+							"_valueTooltip": "Default bold"
+						},
+						"previousText":{
+							"_translation": "Enter change value headline",
+							"_tooltip": "Enter text to be shown as change value headline",
+							"_valueTooltip": "Default Change vs. previous"
+						},						
+					},
+					"changeValue": {
+						"_translation": "Change value",
+						"_tooltip": "Settings for change value",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the change value",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the change value",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the change value",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the change value",
+							"_valueTooltip": "Default normal"
+						},
+						"decimalPlaces":{
+							"_translation": "Decimal places shown",
+							"_tooltip": "Set decimal places for the change value",
+							"_valueTooltip": "Default 2"
+						}, 
+						"deviationInPercent":{
+							"_translation": "Deviation in percent",
+							"_tooltip": "Show deviation vs previous as percent value",
+							"_valueTooltip": "Default false"
+						},
+						"abbreviateNumber":{
+							"_translation": "Abbreviate change value",
+							"_tooltip": "Abbreviate change value",
+							"_valueTooltip": "Default false"
+						},
+					},
+					"disableChangeValue":{
+						"_translation": "Hide change value element",
+						"_tooltip": "Completely hide the change value element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+				"trendIcon": {
+					"_translation": "Trend icon elements",
+					"_tooltip": "Elements for trend icon",
+
+					"trendIconText": {
+						"_translation": "Trend icon headline",
+						"_tooltip": "Settings for trend icon headline",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the trend icon headline",
+							"_valueTooltip": "Default #666666"
+						},
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the trend icon headline",
+							"_valueTooltip": "Default 12px"
+						},
+						"fontStyle":{
+							"_translation": "Set font style",
+							"_tooltip": "Set font style for the trend icon headline",
+							"_valueTooltip": "Default inherit (inherit from upper level font style)"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the trend icon headline",
+							"_valueTooltip": "Default bold"
+						},
+						"trendText":{
+							"_translation": "Enter trend icon headline",
+							"_tooltip": "Enter text to be shown as trend icon headline",
+							"_valueTooltip": "Default Trend"
+						},						
+					},
+					"trendIcon": {
+						"_translation": "Trend icon",
+						"_tooltip": "Settings for trend icon",
+
+						"color":{
+							"_translation": "Set font color",
+							"_tooltip": "Set font color for the trend icon",
+							"_valueTooltip": "Default #666666"
+						},					
+						"fontSize":{
+							"_translation": "Set font size",
+							"_tooltip": "Set font size for the trend icon",
+							"_valueTooltip": "Default 20px"
+						},
+						"fontWeight":{
+							"_translation": "Set font weight",
+							"_tooltip": "Set font weight for the trend icon",
+							"_valueTooltip": "Default normal"
+						},
+					},
+					"disableTrendIcon":{
+						"_translation": "Hide trend icon element",
+						"_tooltip": "Completely hide the trend icon element",
+						"_valueTooltip": "Default false"
+					}, 					
+				},
+			}			
 		}
 	}
 }
