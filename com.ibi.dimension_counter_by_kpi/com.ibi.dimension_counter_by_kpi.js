@@ -1,19 +1,43 @@
-/* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
-/* $Revision: 1.4 $ */
+/* Copyright 1996-2021 Information Builders, Inc. All rights reserved. */
+/* $Revision: 1.1 $ */
 
 (function() {
+	
+	var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
 	
 	//variable that is used, if no data render callback is being used
 	var noDataCallback = '';
 	
-	//function to add comma as thousands separator
-	function NumberWithComma(number) {
-		return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	//regex workaround for IE11
+	//if the 'lookbehind' character is present, IE11 balks.
+	//so using a token to replace dynamically to work around that.
+	var notIE11Expression = '\\B(?LESS_THAN!\\.\\d*)(?=(\\d{3})+(?!\\d))';
+	notIE11Expression = notIE11Expression.replace('LESS_THAN', '<' );	
+
+	var numberFormatRegex = isIE11 ? new RegExp('\\B(?=(\\d{3})+(?!\\d))','g') : new RegExp(notIE11Expression,'g');
+
+	// Decimal and grouping separator (will be checked in render callback)
+	var decimalSeparator 			=	".";
+	var groupingSeparator 			=	",";
+
+	//function to add grouping separator as thousands separator
+	function numberWithGroupingSeparator(number, groupingSeparator) {
+		var temp_number_with_grouping = number;
+
+		temp_number_with_grouping = temp_number_with_grouping.toString().replace(numberFormatRegex, groupingSeparator);
+		
+		return temp_number_with_grouping;
 	}
-	//function to add dot as thousands separator
-	function NumberWithDot(number) {
-		return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
-	}
+
+	////function to add comma as thousands separator
+	//function NumberWithComma(number) {
+	//	return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	//}
+	////function to add dot as thousands separator
+	//function NumberWithDot(number) {
+	//	return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
+	//}
+	
 	//function to sort array based on measure
 	function measure_sort(a, b) {
 		const measureA = a.measure;
@@ -103,7 +127,39 @@
 		var data = renderConfig.data;
 		var dataBuckets = renderConfig.dataBuckets;	
 		
+	//	var userLang = navigator.language || navigator.userLanguage;  	// This gets the browser language
+		var userLang = document.documentElement.lang;					// This gets the webfocus language		
+		
 		//$(renderConfig.rootContainer).parent().css('backgroundColor',props.backgroundColor);
+
+		// Check the CDN setting of the webfocus system
+		if (props.setCDN == true) {
+			var innerHTML = document.documentElement.innerHTML;
+		
+			var decimalSeparatorText		=	"setDecimalSeparator";
+			var groupingSeparatorText		=	"setGroupingSeparator";
+			var decimalSeparatorPosition	=	0;
+			var groupingSeparatorPosition	=	0;
+
+			// Determine the position of the decimal and grouping text
+			decimalSeparatorPosition		=	innerHTML.search(decimalSeparatorText)
+			groupingSeparatorPosition		= 	innerHTML.search(groupingSeparatorText);
+		
+			// Change position to the decimal and grouping separator
+			decimalSeparatorPosition		=	decimalSeparatorPosition + 21;
+			groupingSeparatorPosition		=	groupingSeparatorPosition + 22;
+
+			// Determine the decimal and grouping separator
+			if (decimalSeparatorPosition !== 20) {
+				decimalSeparator			=	innerHTML.substr(decimalSeparatorPosition,1);
+			}
+			if (groupingSeparatorPosition !== 21) {
+				groupingSeparator			=	innerHTML.substr(groupingSeparatorPosition,1);
+				if (groupingSeparator == "[") {
+						groupingSeparator	=	"'";
+				}
+			}	
+		}
 	
 		/* Format JSON Data */
 		if (typeof data[0].measure !== 'undefined'||typeof data[0].dimension !== 'undefined') {
@@ -128,14 +184,7 @@
 			}
 			
 			//number format with thousand separator
-			if (props.setCDN == true) {
-				//counter = counter.replace(".", ",");
-				counter = NumberWithDot(counter);
-			}
-			else {
-				//msr_value[i] = msr_value[i].replace(",", ".");
-				counter = NumberWithComma(counter);
-			}	
+			counter = numberWithGroupingSeparator(counter, groupingSeparator);
 			
 			var titleElement = $('foreignObject[class="title"]');
 
@@ -182,7 +231,7 @@
 		var grey = renderConfig.baseColor;
 		renderConfig.data = [{"dimension":"Computer","measure":250000,"_s":0,"_g":0},{"dimension":"B","measure":225000,"_s":0,"_g":1},{"dimension":"C","measure":200000,"_s":0,"_g":2},{"dimension":"D","measure":175000,"_s":0,"_g":3},{"dimension":"E","measure":150000,"_s":0,"_g":4},{"dimension":"F","measure":125000,"_s":0,"_g":5},{"dimension":"G","measure":100000,"_s":0,"_g":6},{"dimension":"H","measure":75000,"_s":0,"_g":7},{"dimension":"I","measure":50000,"_s":0,"_g":8},{"dimension":"J","measure":25000,"_s":0,"_g":9}];
 		
-		noDataCallback = 'no_Data'
+		noDataCallback = 'no_Data';
 		
 		renderCallback(renderConfig);
 		
