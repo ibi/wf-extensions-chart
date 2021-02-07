@@ -786,7 +786,8 @@ var tdg_sunburst = (function () {
           //need to use hard coded style now because unclear how API for tooltip works
           var hardCodedStyle = hardCodedTooltipStyle('divSunburstTooltipId');
 
-          document.querySelector('#divSunburstTooltipId style').innerHTML += ' '+hardCodedStyle;
+          if(document.querySelector('#divSunburstTooltipId style') != null)
+            document.querySelector('#divSunburstTooltipId style').innerHTML += ' '+hardCodedStyle;
           //End VIZ-517
 
           // Code Fix VIZ-131: } // if ((d3.select("#sunburstTooltipId").node() == null) 		
