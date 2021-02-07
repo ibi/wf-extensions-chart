@@ -519,14 +519,24 @@ var com_tdg_chord = (function () {
 					for (var i = 0; i < props.data[0].length; ++i) {
 
 						var row = props.data[0][i];
+						//BEGIN VIZ-432 handle inverseData logic
+						if (props.inverseData) {
+							if (row.source == renderDataTarget && row.target == renderDataSource) {
 
-						if (row.source == renderDataSource && row.target == renderDataTarget) {
+								renderIndex = i;
+								break;
 
-							renderIndex = i;
-							break;
+							} //if	
+						}
+						else {
+							if (row.source == renderDataSource && row.target == renderDataTarget) {
 
-						} //if	
+								renderIndex = i;
+								break;
 
+							} //if	
+						}
+						//END VIZ-432
 					} //for		
 					//End VIZ-97
 					var datum  =props.data[0][renderIndex];
