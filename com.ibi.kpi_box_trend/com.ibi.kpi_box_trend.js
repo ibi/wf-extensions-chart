@@ -1,21 +1,46 @@
-/* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
-/* $Revision: 1.4 $ */
+/* Copyright 1996-2021 Information Builders, Inc. All rights reserved. */
+/* $Revision: 1.2 $ */
 
 (function() {
 
+	var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
 	var noDataCallback = '';
 
-	function NumberWithComma(number) {
-		return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	//regex workaround for IE11
+	//if the 'lookbehind' character is present, IE11 balks.
+	//so using a token to replace dynamically to work around that.
+	var notIE11Expression = '\\B(?LESS_THAN!\\.\\d*)(?=(\\d{3})+(?!\\d))';
+	notIE11Expression = notIE11Expression.replace('LESS_THAN', '<' );
+
+	var numberFormatRegex = isIE11 ? new RegExp('\\B(?=(\\d{3})+(?!\\d))','g') : new RegExp(notIE11Expression,'g');
+
+	// Decimal and grouping separator (will be checked in render callback)
+	var decimalSeparator 			=	".";
+	var groupingSeparator 			=	",";
+
+	//function to add grouping separator as thousands separator
+	function numberWithGroupingSeparator(number, groupingSeparator) {
+		var temp_number_with_grouping = number;
+
+		temp_number_with_grouping = temp_number_with_grouping.toString().replace(numberFormatRegex, groupingSeparator);
+		
+		return temp_number_with_grouping;
 	}
-	function NumberWithDot(number) {
-		return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
-	}
+
+	//function NumberWithComma(number) {
+	//	return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+	//}
+	//function NumberWithDot(number) {
+	//	return number.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ".");
+	//}
 	function changeBackground(color) {
 		document.body.style.background = color;
 	}
-	function abbreviateNumber(number, decimals) {
+	function abbreviateNumber(number, decimals, userLang) {
 		var SI_POSTFIXES = ["", "K", "M", "B", "T", "P", "E"];
+		if (userLang == 'de-DE') {
+			SI_POSTFIXES = ["", "Tsd.", "Mio.", "Mrd.", "Bio.", "Brd.", "Trio."];
+		}
 		var tier = Math.log10(Math.abs(number)) / 3 | 0;
 		if (tier == 0) 
 			return number;
@@ -85,8 +110,40 @@
 		var container = renderConfig.container;
 		var data = renderConfig.data;
 		var dataBuckets = renderConfig.dataBuckets;	
+
+	//	var userLang = navigator.language || navigator.userLanguage;  	// This gets the browser language
+		var userLang = document.documentElement.lang;					// This gets the webfocus language
 		
 		//$(renderConfig.rootContainer).parent().css('backgroundColor',props.backgroundColor);
+
+		// Check the CDN setting of the webfocus system
+		if (props.setCDN == true) {
+			var innerHTML = document.documentElement.innerHTML;
+		
+			var decimalSeparatorText		=	"setDecimalSeparator";
+			var groupingSeparatorText		=	"setGroupingSeparator";
+			var decimalSeparatorPosition	=	0;
+			var groupingSeparatorPosition	=	0;
+
+			// Determine the position of the decimal and grouping text
+			decimalSeparatorPosition		=	innerHTML.search(decimalSeparatorText)
+			groupingSeparatorPosition		= 	innerHTML.search(groupingSeparatorText);
+		
+			// Change position to the decimal and grouping separator
+			decimalSeparatorPosition		=	decimalSeparatorPosition + 21;
+			groupingSeparatorPosition		=	groupingSeparatorPosition + 22;
+
+			// Determine the decimal and grouping separator
+			if (decimalSeparatorPosition !== 20) {
+				decimalSeparator			=	innerHTML.substr(decimalSeparatorPosition,1);
+			}
+			if (groupingSeparatorPosition !== 21) {
+				groupingSeparator			=	innerHTML.substr(groupingSeparatorPosition,1);
+				if (groupingSeparator == "[") {
+						groupingSeparator	=	"'";
+				}
+			}	
+		}
 	
 		/* Format JSON Data */
 		if (typeof data[0].measure !== 'undefined'||typeof data[0].time !== 'undefined') {
@@ -169,18 +226,13 @@
 			//number format for currentTotal value
 			currentTotal = total1;
 			if (props.currentValue.total.abbreviateNumber == true) {
-				currentTotal = abbreviateNumber(currentTotal, props.currentValue.total.decimalPlaces);
+				currentTotal = abbreviateNumber(currentTotal, props.currentValue.total.decimalPlaces, userLang);
 			}
 			else {
 			}
-			if (props.setCDN == true) {
-				currentTotal = currentTotal.replace(".", ",");
-				currentTotal = NumberWithDot(currentTotal);
-			}
-			else {
-				currentTotal = currentTotal.replace(",", ".");
-				currentTotal = NumberWithComma(currentTotal);			
-			}
+			currentTotal = currentTotal.replace(".", decimalSeparator);
+			currentTotal = numberWithGroupingSeparator(currentTotal, groupingSeparator);
+		
 			//check if current total is percent value
 			if  (props.currentValue.total.percentValue == true)
 				currentTotal = currentTotal + '%' ;
@@ -212,18 +264,13 @@
 				else {
 					prevTotal = total2;
 					if (props.previousValue.previousTotal.abbreviateNumber == true) {
-						prevTotal = abbreviateNumber(prevTotal, props.previousValue.previousTotal.decimalPlaces);
+						prevTotal = abbreviateNumber(prevTotal, props.previousValue.previousTotal.decimalPlaces, userLang);
 					}
 					else {
 					}
-					if (props.setCDN == true) {
-						prevTotal = prevTotal.replace(".", ",");
-						prevTotal = NumberWithDot(prevTotal);
-					}
-					else {
-						prevTotal = prevTotal.replace(",", ".");
-						prevTotal = NumberWithComma(prevTotal);					
-					}
+					prevTotal = prevTotal.replace(".", decimalSeparator);
+					prevTotal = numberWithGroupingSeparator(prevTotal, groupingSeparator);					
+
 					if (props.previousValue.previousTotal.percentValue == true) 
 						prevTotal = prevTotal + '%';
 					
@@ -242,19 +289,18 @@
 				else {
 					//block for change value in percent
 					if (props.changeValue.changeValue.deviationInPercent == true) {
-						percentChange = Math.round(((total1/total2)-1)*100000)/1000;
-						percentChange = percentChange.toFixed(props.changeValue.changeValue.decimalPlaces);
-
-						if (props.setCDN == true) {
-							percentChange = percentChange.replace(".", ",");
-							percentChange = NumberWithDot(percentChange);
-							percentChange = percentChange + '%';
+						if (total2 < 0){
+							percentChange = Math.round(((total1/total2)-1)*100000)/1000*(-1);
 						}
 						else {
-							percentChange = percentChange.replace(",", ".");
-							percentChange = NumberWithComma(percentChange);
-							percentChange = percentChange + '%';							
+							percentChange = Math.round(((total1/total2)-1)*100000)/1000;
 						}
+						percentChange = percentChange.toFixed(props.changeValue.changeValue.decimalPlaces);
+
+						percentChange = percentChange.replace(".", decimalSeparator);
+						percentChange = numberWithGroupingSeparator(percentChange, groupingSeparator);	
+						percentChange = percentChange + '%';
+
 					}
 					//block for change value as absolute number
 					else {
@@ -262,19 +308,13 @@
 						percentChange = percentChange.toFixed(props.changeValue.changeValue.decimalPlaces);
 						
 						if (props.changeValue.changeValue.abbreviateNumber == true) {
-							percentChange = abbreviateNumber(percentChange, props.changeValue.changeValue.decimalPlaces);
+							percentChange = abbreviateNumber(percentChange, props.changeValue.changeValue.decimalPlaces, userLang);
 						}
 						else {
 						}
-					
-						if (props.setCDN == true) {
-							percentChange = percentChange.replace(".", ",");
-							percentChange = NumberWithDot(percentChange);
-						}						
-						else {
-							percentChange = percentChange.replace(",", ".");
-							percentChange = NumberWithComma(percentChange);
-						}
+						percentChange = percentChange.replace(".", decimalSeparator);
+						percentChange = numberWithGroupingSeparator(percentChange, groupingSeparator);
+						
 					}
 					//check if dynamic color should be applied on change
 					if ((total1-total2) < 0) {

@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": "1.5",
+		"version": "1.6",
 		//1.0.2 VIZ-43
 		//1.0.3 VIZ-78
 		//1.0.4 VIZ-97
@@ -11,6 +11,7 @@
 		//1.3 VIZ-406
 		//1.4 VIZ-420
 		//1.5 VIZ-427
+		//1.6 VIZ-432 - fix inverseData = true issue
 		"implements_api_version": 1.0,
 		"author": "Three D Graphics",
 		"copyright": "Three D Graphics Inc.",

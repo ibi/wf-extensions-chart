@@ -1,5 +1,5 @@
-/* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
-/* $Revision: 1.4 $ */
+/* Copyright 1996-2021 Information Builders, Inc. All rights reserved. */
+/* $Revision: 1.5 $ */
 
 (function() {
 
@@ -15,31 +15,28 @@
 
 	var numberFormatRegex = isIE11 ? new RegExp('\\B(?=(\\d{3})+(?!\\d))','g') : new RegExp(notIE11Expression,'g');
 	//end VIZ-457
-	function NumberWithComma(number) {
-		var temp_number_comma = number;
-		if (temp_number_comma <= -100  && temp_number_comma > -1000) {
-			temp_number_comma = temp_number_comma;
+	
+	// Decimal and grouping separator (will be checked in render callback)
+	var decimalSeparator 			=	".";
+	var groupingSeparator 			=	",";
+
+	function numberWithGroupingSeparator(number, groupingSeparator) {
+		var temp_number_with_grouping = number;
+		if (temp_number_with_grouping <= -100  && temp_number_with_grouping > -1000) {
+			temp_number_with_grouping = temp_number_with_grouping;
 		}
 		else {
 			//VIZ-457
-			temp_number_comma = temp_number_comma.toString().replace(numberFormatRegex, ",");
+			temp_number_with_grouping = temp_number_with_grouping.toString().replace(numberFormatRegex, groupingSeparator);
 		}
-		return temp_number_comma;
-	}
-	function NumberWithDot(number) {
-		var temp_number_dot = number;
-		if (temp_number_dot <= -100  && temp_number_dot > -1000) {
-			temp_number_dot = temp_number_dot;
-		}
-		else {
-			//VIZ-457
-			temp_number_dot = temp_number_dot.toString().replace(numberFormatRegex , ".");
-		}
-		return temp_number_dot;
+		return temp_number_with_grouping;
 	}
 
-	function abbreviateNumber(number, decimals) {
+	function abbreviateNumber(number, decimals, userLang) {
 		var SI_POSTFIXES = ["", "K", "M", "B", "T", "P", "E"];
+		if (userLang == 'de-DE') {
+			SI_POSTFIXES = ["", "Tsd.", "Mio.", "Mrd.", "Bio.", "Brd.", "Trio."];
+		}
 		var tier = Math.log10(Math.abs(number)) / 3 | 0;
 		if (tier == 0) 
 			return number;
@@ -106,16 +103,48 @@
 	// Arguments:
 	//  - renderConfig: the standard callback argument object, including additional properties width, height, etc
 	function renderCallback(renderConfig) {
-
+		
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
 		
 		var container = renderConfig.container;
 		var data = renderConfig.data;
 		var dataBuckets = renderConfig.dataBuckets;	
+				
+	//	var userLang = navigator.language || navigator.userLanguage;  	// This gets the browser language
+		var userLang = document.documentElement.lang;					// This gets the webfocus language
 		
 		//$(renderConfig.rootContainer).parent().css('backgroundColor',props.backgroundColor);
-	
+		
+		// Check the CDN setting of the webfocus system
+		if (props.setCDN == true) {
+			var innerHTML = document.documentElement.innerHTML;
+		
+			var decimalSeparatorText		=	"setDecimalSeparator";
+			var groupingSeparatorText		=	"setGroupingSeparator";
+			var decimalSeparatorPosition	=	0;
+			var groupingSeparatorPosition	=	0;
+
+			// Determine the position of the decimal and grouping text
+			decimalSeparatorPosition		=	innerHTML.search(decimalSeparatorText)
+			groupingSeparatorPosition		= 	innerHTML.search(groupingSeparatorText);
+		
+			// Change position to the decimal and grouping separator
+			decimalSeparatorPosition		=	decimalSeparatorPosition + 21;
+			groupingSeparatorPosition		=	groupingSeparatorPosition + 22;
+
+			// Determine the decimal and grouping separator
+			if (decimalSeparatorPosition !== 20) {
+				decimalSeparator			=	innerHTML.substr(decimalSeparatorPosition,1);
+			}
+			if (groupingSeparatorPosition !== 21) {
+				groupingSeparator			=	innerHTML.substr(groupingSeparatorPosition,1);
+				if (groupingSeparator == "[") {
+						groupingSeparator	=	"'";
+				}
+			}	
+		}
+			
 		/* Format JSON Data */
 		if (typeof data[0].measure !== 'undefined'||typeof data[0].xaxis !== 'undefined') {
 			var total1 = 0;
@@ -125,7 +154,7 @@
 			var previous = 0;
 			var temp_value = 0;
 			var bars = [];
-
+			
 			for (var i=0; i<data.length; i++) {
 				/* Process Data */
 				if (typeof data[i].xaxis !== 'undefined') {
@@ -156,6 +185,7 @@
 					}
 				}
 			}
+			
 			total1 = total1.toFixed(props.total.decimalPlaces);
 			total2 = total2.toFixed(props.total.decimalPlaces);			
 	
@@ -186,20 +216,19 @@
 				var deviationTimeframe = props.deviationVsPrevious.deviationTimeframe;
 				
 				if (props.deviationVsPrevious.deviationInPercent == true) {
-					percentChange = Math.round(((total1/total2)-1)*100000)/1000;
+					if (total2 < 0){
+						percentChange = Math.round(((total1/total2)-1)*100000)/1000*(-1);
+					}
+					else {
+						percentChange = Math.round(((total1/total2)-1)*100000)/1000;
+					}
 					percentChange = percentChange.toFixed(props.deviationVsPrevious.decimalPlaces);
 					var goodIs = eval(percentChange+props.barProperties.goodIs);
 					seriesColor = goodIs? seriesColor: props.barProperties.badColor;
 					dynamicColorBackground = goodIs? dynamicColorBackground: props.barProperties.badColor;
 
-					if (props.setCDN == true) {
-						percentChange = percentChange.replace(".", ",");
-						percentChange = goodIs? '+' + NumberWithDot(percentChange) + '% ' + deviationTimeframe : NumberWithDot(percentChange) + '% ' + deviationTimeframe;
-					}
-					else {
-						percentChange = percentChange.replace(",", ".");
-						percentChange = goodIs? '+' + NumberWithComma(percentChange) + '% ' + deviationTimeframe : NumberWithComma(percentChange) + '% ' + deviationTimeframe;
-					}
+					percentChange = percentChange.replace(".", decimalSeparator);
+					percentChange = goodIs? '+' + numberWithGroupingSeparator(percentChange, groupingSeparator) + '% ' + deviationTimeframe : numberWithGroupingSeparator(percentChange, groupingSeparator) + '% ' + deviationTimeframe;
 				}
 				// if deviation should be shown as absolute number
 				else {
@@ -210,35 +239,25 @@
 					dynamicColorBackground = goodIs? dynamicColorBackground: props.barProperties.badColor;
 					
 					if (props.deviationVsPrevious.abbreviateNumber == true) {
-						percentChange = abbreviateNumber(percentChange, props.deviationVsPrevious.decimalPlaces);
+						percentChange = abbreviateNumber(percentChange, props.deviationVsPrevious.decimalPlaces, userLang);
 					}
 					else { 
 					}							
-					if (props.setCDN == true) {
-						percentChange = percentChange.replace(".", ",");
-						percentChange = goodIs? '+' + NumberWithDot(percentChange) + ' ' + deviationTimeframe : NumberWithDot(percentChange) + ' ' + deviationTimeframe;
-					}						
-					else {
-						percentChange = percentChange.replace(",", ".");
-						percentChange = goodIs? '+' + NumberWithComma(percentChange) + ' ' + deviationTimeframe : NumberWithComma(percentChange) + ' ' + deviationTimeframe;
-					}
+					percentChange = percentChange.replace(".", decimalSeparator);
+					percentChange = goodIs? '+' + numberWithGroupingSeparator(percentChange, groupingSeparator) + ' ' + deviationTimeframe : numberWithGroupingSeparator(percentChange, groupingSeparator) + ' ' + deviationTimeframe;
 				}
 			}
 			// abbreviate Number for total1 value
 			if (props.total.abbreviateNumber == true) {
-				total1 = abbreviateNumber(total1, props.total.decimalPlaces);
+				total1 = abbreviateNumber(total1, props.total.decimalPlaces, userLang);
 			}
 			else { 
 			}
 			// number format for total1 value
-			if (props.setCDN == true) {
-				total1 = total1.replace(".", ",");
-				total1 = NumberWithDot(total1);
-			}
-			else {
-				total1 = total1.replace(",", ".");
-				total1 = NumberWithComma(total1);			
-			}
+
+			total1 = total1.replace(".", decimalSeparator);
+			total1 = numberWithGroupingSeparator(total1, groupingSeparator);
+
 			// total1 value with or without % sign
 			if  (props.total.percentValue == true)
 				total1 = total1 + '%' ;
@@ -329,7 +348,7 @@
 		noDataPreRenderCallback: noDataPreRenderCallback, 
 		noDataRenderCallback: noDataRenderCallback,
 		resources: {
-			script:
+			script: 
 				window.jQuery
 					? ['lib/jquery.sparkline.min.js']
 					: [
