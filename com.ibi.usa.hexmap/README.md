@@ -6,7 +6,7 @@ For installation instructions please see the [Installing a WebFocus Extension](h
 
 This extension displays US State data using hexagons instead of standard geographic State boundaries. By doing this, small states like Maine, Connecticut, and Rhode Island are easier to locate and place a mouse pointer over to interact with.
 
-![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.usa.hexmap/screenshots/hexmap.png)
+![screenshot_1](https://github.com/ibi/wf-extensions-chart/blob/master/com.ibi.usa.hexmap/screenshots/hexmap.PNG)
 
 ## Extension Properities
 
