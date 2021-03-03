@@ -12,7 +12,22 @@
 	var notIE11Expression = '\\B(?LESS_THAN!\\.\\d*)(?=(\\d{3})+(?!\\d))';
 	notIE11Expression = notIE11Expression.replace('LESS_THAN', '<' );
 
-	var numberFormatRegex = isIE11 ? new RegExp('\\B(?=(\\d{3})+(?!\\d))','g') : new RegExp(notIE11Expression,'g');
+	var IE11Expression = '\\B(?=(\\d{3})+(?!\\d))';
+
+	function iOS() {
+		return [
+		  'iPad Simulator',
+		  'iPhone Simulator',
+		  'iPod Simulator',
+		  'iPad',
+		  'iPhone',
+		  'iPod'
+		].includes(navigator.platform)
+		// iPad on iOS 13 detection
+		|| (navigator.userAgent.includes("Mac") && "ontouchend" in document)
+	  }
+
+	var numberFormatRegex = isIE11 || iOS() ? new RegExp(IE11Expression,'g') : new RegExp(notIE11Expression,'g');
 
 	// Decimal and grouping separator (will be checked in render callback)
 	var decimalSeparator 			=	".";
