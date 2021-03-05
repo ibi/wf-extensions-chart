@@ -360,14 +360,16 @@
 				}	
 				else {
 					if ((total1-total2) < 0) {
-						trendChange = '\u23F7';
+						//trendChange = '\u23F7';
+						trendChange = '&#x25BC;';
 						if (props.dynamicColorMode.applyDynamicColorOn == 'trend only' || props.dynamicColorMode.applyDynamicColorOn == 'change and trend')
 							dynamicColorTrend = fallingColor;
 						else
 							dynamicColorTrend = props.trendIcon.trendIcon.color;
 					}
 					else if ((total1-total2) > 0) {
-						trendChange = '\u23F6';
+						//trendChange = '\u23F6';
+						trendChange = '&#x25B2;';
 						if (props.dynamicColorMode.applyDynamicColorOn == 'trend only' || props.dynamicColorMode.applyDynamicColorOn == 'change and trend')
 							dynamicColorTrend = risingColor;
 						else
