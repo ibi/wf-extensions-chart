@@ -122,12 +122,12 @@
 
 				var chartProperties;
 				var seriesColor = props.barProperties.goodColor;
-
+				//BEGIN VIZ-493 - new extension property autoFit 
 				if (props.type=='bar')
-					chartProperties = {	type: props.type , barWidth: props.barProperties.width, height: props.barProperties.height, barColor: seriesColor, barSpacing: 3 };
+					chartProperties = {	type: props.type , barWidth: props.autoFit ? undefined : props.barProperties.width, height: props.barProperties.height, barColor: seriesColor, barSpacing: 3 };
 				else
-					chartProperties = {	type: props.type , width: props.barProperties.width * (group.points.length-1), height: props.barProperties.height, lineColor: seriesColor, lineWidth: 2, fillColor: 'rgba(0,0,0,0)', spotColor: 'rgba(0,0,0,0)', minSpotColor: 'rgba(0,0,0,0)', maxSpotColor: 'rgba(0,0,0,0)', highlightLineColor: 'rgba(0,0,0,0)' };
-
+					chartProperties = {	type: props.type , width: props.autoFit ? undefined : props.barProperties.width * (group.points.length-1), height: props.barProperties.height, lineColor: seriesColor, lineWidth: 2, fillColor: 'rgba(0,0,0,0)', spotColor: 'rgba(0,0,0,0)', minSpotColor: 'rgba(0,0,0,0)', maxSpotColor: 'rgba(0,0,0,0)', highlightLineColor: 'rgba(0,0,0,0)' };
+				//END VIZ-493
 				$(container).find('.kpi-table-slide:last .kpi-table-sparkline').sparkline(group.points, chartProperties);
 			});
 			

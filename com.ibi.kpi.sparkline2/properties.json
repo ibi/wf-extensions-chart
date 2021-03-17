@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": 1.0,
+		"version": 1.1,
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
@@ -35,7 +35,8 @@
 			"width": 8,
 			"goodColor": "#37BF54",
 			"badColor": "#F53554"
-		}
+		},
+		"autoFit": true
 	},
 	
 	"propertyAnnotations": {
@@ -63,7 +64,8 @@
 			"width": "number",
 			"goodColor": "str",
 			"badColor": "str"
-		}
+		},
+		"autoFit": "bool"
 	},
 	
 	"dataBuckets":  {
