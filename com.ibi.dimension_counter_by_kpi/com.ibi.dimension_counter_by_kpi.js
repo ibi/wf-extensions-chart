@@ -4,6 +4,7 @@
 (function() {
 	
 	var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
+	var isPhantomJS = /PhantomJS/.test(window.navigator.userAgent);
 	
 	//variable that is used, if no data render callback is being used
 	var noDataCallback = '';
@@ -14,7 +15,7 @@
 	var notIE11Expression = '\\B(?LESS_THAN!\\.\\d*)(?=(\\d{3})+(?!\\d))';
 	notIE11Expression = notIE11Expression.replace('LESS_THAN', '<' );	
 
-	var numberFormatRegex = isIE11 ? new RegExp('\\B(?=(\\d{3})+(?!\\d))','g') : new RegExp(notIE11Expression,'g');
+	var numberFormatRegex = isIE11 || isPhantomJS ? new RegExp('\\B(?=(\\d{3})+(?!\\d))','g') : new RegExp(notIE11Expression,'g');
 
 	// Decimal and grouping separator (will be checked in render callback)
 	var decimalSeparator 			=	".";
@@ -43,7 +44,7 @@
 		const measureA = a.measure;
 		const measureB = b.measure;
 
-		let comparisonM = 0;
+		var comparisonM = 0;
 		//highest value at top
 		if (measureA > measureB) {
 			comparisonM = -1;
@@ -58,7 +59,7 @@
 		const dimensionA = a.dimension.toUpperCase();
 		const dimensionB = b.dimension.toUpperCase();
 
-		let comparisonD = 0;
+		var comparisonD = 0;
 		//sort alphabetical from a to z
 		if (dimensionA > dimensionB) {
 			comparisonD = 1;
