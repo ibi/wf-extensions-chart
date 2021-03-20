@@ -662,6 +662,12 @@ var tdg_sunburst = (function () {
       var chart = props.chart;
 
       function findFirstOffset(obj) {    //Traverse hierarchy and find first offset
+        //VIZ-565 - BEGIN
+        if(obj.data == undefined)
+        {
+          return obj.children == undefined? obj.offset : findFirstOffset(obj.children[0]);
+        }
+      //VIZ-565 - END
         if (obj.data.hasOwnProperty("offset")) return obj.data.offset;
         return obj.data.children[0].hasOwnProperty("offset") ? obj.data.children[0].offset : findFirstOffset(obj.data.children[0]);
       } //function		
