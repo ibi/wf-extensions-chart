@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": 1.1,
+		"version": 1.2,
 		"implements_api_version": 1.0,
 		"author": "Information Builders",
 		"copyright": "Information Builders Inc.",
@@ -36,7 +36,9 @@
 			"goodColor": "#37BF54",
 			"badColor": "#F53554"
 		},
-		"autoFit": true
+		"autoFit": true,
+		"aggregationType": "First",
+		"maxWidth": 280
 	},
 	
 	"propertyAnnotations": {
@@ -65,7 +67,12 @@
 			"goodColor": "str",
 			"badColor": "str"
 		},
-		"autoFit": "bool"
+		"autoFit": "bool",
+		"aggregationType": {
+			"typeAnnotation": "str"
+			,"stringValues":["First", "Last", "Sum", "Avg", "Min", "Max"]
+		},
+		"maxWidth": "number"
 	},
 	
 	"dataBuckets":  {
