@@ -6,6 +6,7 @@
 
 	window.comIbiKpiboxChartExtension = {
 		draw: _draw,
+		container: null
 	};
 
 	function _draw(ib3SLI, isDummyData) {
@@ -20,6 +21,7 @@
 			width = ib3SLI.config.getChartWidth(),
 			height = ib3SLI.config.getChartHeight(),
 			properties = ib3SLI.config.getCustomProperties();
+		this.container = container;
 
  d3.select(container).attr('class', ib3SLI.config.getDrillClass('riser', 0, 0));
 
@@ -147,7 +149,7 @@
 		}
 
 		function bodyColor() {
-			$('.chart').css('height', '100%');
+			$('.chart', window.comIbiKpiboxChartExtension.container).css('height', '100%');
 			$(container).css('height', '100%').css('width', '100%');
 			$(container).parent().css('height', '100%').css('width', '100%');
 			//habria que preguntar por ie si ponen colores con opacity o generar el filter-opacicty
@@ -166,7 +168,7 @@
 			if (isPercentaje) {
 				kpiFormattedValue += '%';
 			}
-			$('.kpiBoxValue').text(kpiFormattedValue);
+			$('.kpiBoxValue', window.comIbiKpiboxChartExtension.container).text(kpiFormattedValue);
 		}
 
 		function setTitle() {
@@ -176,20 +178,20 @@
 				_kpiBoxTitle[index] = $.trim(_kpiBoxTitle[index]);	
 			}
 			_kpiBoxTitle=_kpiBoxTitle.join('\n');
-			$('.kpiBoxTitle').html(_kpiBoxTitle);
+			$('.kpiBoxTitle', window.comIbiKpiboxChartExtension.container).html(_kpiBoxTitle);
 		}
 
 		function setImage() {
 			if (hasImage) {
 				var _imageURL = $ib3.utils.getWebFOCUSUriByResourcePath(kpiDataElem.image, wfPath);
-				$('.kpiBoximageIcon').css('background-image', 'url(' + _imageURL + ')');
+				$('.kpiBoximageIcon', window.comIbiKpiboxChartExtension.container).css('background-image', 'url(' + _imageURL + ')');
 			} else {
-				$('.kpiBoximage').remove();
+				$('.kpiBoximage', window.comIbiKpiboxChartExtension.container).remove();
 			}
 		}
 
 		function setIconWidth() {
-			$('.kpiBoximage').css({
+			$('.kpiBoximage', window.comIbiKpiboxChartExtension.container).css({
 				width: imagePercentageWidth + 'vw',
 			});
 		}
@@ -239,7 +241,7 @@
 			}
 			function _setValueReal() {
 				if (!comparationValue){
-					$('.kpiBoxValueCompareRow').remove();
+					$('.kpiBoxValueCompareRow', window.comIbiKpiboxChartExtension.container).remove();
 					return;
 				};
 				var _compareValue = (kpiFormattedValue = $ib3.utils.getFormattedNumber(
@@ -253,15 +255,15 @@
 					'margin-left':'1vw',
 					'margin-right':'1vw'
 				});
-				if ($('.kpiBoxValueCompareRow > div').length != 0) {
-					$('.kpiBoxValueCompareRow').append(_$separator);
+				if ($('.kpiBoxValueCompareRow > div', window.comIbiKpiboxChartExtension.container).length != 0) {
+					$('.kpiBoxValueCompareRow', window.comIbiKpiboxChartExtension.container).append(_$separator);
 				}
 				 
-				$('.kpiBoxValueCompareRow').css({
-					'font-size':$('.kpiBoxValue').css('font-size').replace(/[^-\d\.]/g, '')/1.5 + 'px'
+				$('.kpiBoxValueCompareRow', window.comIbiKpiboxChartExtension.container).css({
+					'font-size':$('.kpiBoxValue', window.comIbiKpiboxChartExtension.container).css('font-size').replace(/[^-\d\.]/g, '')/1.5 + 'px'
 					
 				}).append(
-					$('<div>').text(_compareValue)
+					$('<div>', window.comIbiKpiboxChartExtension.container).text(_compareValue)
 				);
 				//$templateComparation2.find('.kpiBoxCompareImport').text(_compareValue);
 			}
@@ -283,7 +285,7 @@
 			function _setCustomIcon() {
 				var _customIcon = customCompareIconUp;
 				if (percentValue < 0) _customIcon = customCompareIconDown;
-				$templateComparation2.find('.kpiBoxCompareImage').css({
+				$templateComparation2.find('.kpiBoxCompareImage', window.comIbiKpiboxChartExtension.container).css({
 					'background-image': 'url(' + $ib3.utils.getWebFOCUSUriByResourcePath(_customIcon, wfPath) + ')',
 					width: 'calc(15px + 3vmin)',
 					height: 'calc(15px + 3vmin)',
@@ -339,50 +341,50 @@
 				return percentageCalcValue;
 			}
 
-			$('.kpiBoxComparativeRow').append($templateComparation2);
+			$('.kpiBoxComparativeRow', window.comIbiKpiboxChartExtension.container).append($templateComparation2);
 		}
 
 		function fixedSizes() {
 			var _sizeTriangle = variationFontSize.replace('px', '') - 6 + 'px';
-			$('.kpiBoxContainer,.kpiBoxRow').css({
+			$('.kpiBoxContainer,.kpiBoxRow', window.comIbiKpiboxChartExtension.container).css({
 				'align-items': 'inherit',
 				'justify-content': 'center',
 			});
 
-			$('.kpiBoxTitle').css({
+			$('.kpiBoxTitle', window.comIbiKpiboxChartExtension.container).css({
 				'font-size': titleFontSize,
 				height: 'auto',
 				//	'margin-bottom': fixedPixelLinesMargin +'px',
 			});
 
-			$('.kpiBoxValue').css({
+			$('.kpiBoxValue', window.comIbiKpiboxChartExtension.container).css({
 				'font-size': measureFontSize,
 				height: 'auto',
 				//	'margin-bottom': fixedPixelLinesMargin +'px',
 			});
-			$('.kpiBoxValueCompareRow').css({
+			$('.kpiBoxValueCompareRow', window.comIbiKpiboxChartExtension.container).css({
 				'font-size': measureFontSize.replace(/[^-\d\.]/g, '')/1.5,
 				height: 'auto',
 				//	'margin-bottom': fixedPixelLinesMargin +'px',
 			});
 			
-			$('.kpiBoxComparativeRow').css({
+			$('.kpiBoxComparativeRow', window.comIbiKpiboxChartExtension.container).css({
 				'font-size': variationFontSize,
 				height: 'auto',
 				//'margin-bottom': fixedPixelLinesMargin +'px',
 				'font-family': measureFontFamily,
 			});
 
-			$('.kpiBoxTitleCompare').css({
+			$('.kpiBoxTitleCompare', window.comIbiKpiboxChartExtension.container).css({
 				'font-size': variationTitleFontSize,
 				height: 'auto',
 			});
 
-			$('.triangleUp').css({
+			$('.triangleUp', window.comIbiKpiboxChartExtension.container).css({
 				'border-width': ' 0 ' + _sizeTriangle + ' ' + variationFontSize + ' ' + _sizeTriangle,
 			});
 
-			$('.triangleDown').css({
+			$('.triangleDown', window.comIbiKpiboxChartExtension.container).css({
 				'border-width': variationFontSize + ' ' + _sizeTriangle + ' 0 ' + _sizeTriangle,
 			});
 		}
@@ -427,22 +429,22 @@
 		}
 
 		function applyStyleFonts() {
-			$('.kpiBoxTitle').css({
+			$('.kpiBoxTitle', window.comIbiKpiboxChartExtension.container).css({
 				'color': titleFontColor,
 				'font-family': titleFontFamily,
 				'align-self': (titleRow == false ) ?  'auto' : 'center'	 
 			});
 
-			$('.kpiBoxValue,.kpiBoxValueCompareRow').css({
+			$('.kpiBoxValue,.kpiBoxValueCompareRow', window.comIbiKpiboxChartExtension.container).css({
 				'color': measureFontColor,
 				'font-family': measureFontFamily,
 			});
 
-			$('.kpiBoxComparativeRow').css({
+			$('.kpiBoxComparativeRow', window.comIbiKpiboxChartExtension.container).css({
 				'font-family': variationFontFamily,
 			});
 
-			$('.kpiBoxTitleCompare').css({
+			$('.kpiBoxTitleCompare', window.comIbiKpiboxChartExtension.container).css({
 				'color': variationTitleColor,
 				'font-family': variationTitleFontFamily,
 			});
@@ -450,24 +452,24 @@
 
 		function alignContent() {
 			if (textAlign) {
-				$('.kpiBoxRow').css('margin', '0px');
-				$('.kpiBoxRow').css('flex', 'initial'); 
-				$('.kpiBoxContent').addClass('centerContent')
-				$('.kpiBoxContainer').css('align-items','center')
-				$('.kpiBoxContainer,.KpiBoxData').css('align-items','center')
+				$('.kpiBoxRow', window.comIbiKpiboxChartExtension.container).css('margin', '0px');
+				$('.kpiBoxRow', window.comIbiKpiboxChartExtension.container).css('flex', 'initial'); 
+				$('.kpiBoxContent', window.comIbiKpiboxChartExtension.container).addClass('centerContent')
+				$('.kpiBoxContainer', window.comIbiKpiboxChartExtension.container).css('align-items','center')
+				$('.kpiBoxContainer,.KpiBoxData', window.comIbiKpiboxChartExtension.container).css('align-items','center')
 
 			//	$('.kpiBoxRow > div').addClass('centerContent');
 			} else {
-				$('.kpiBoxContainer').css('align-items','normal')
-				$('.kpiBoxComparative:first').css('padding-right', '4vw');
-				$('.kpiBoxContainer').css('align-items','normal')
-				$('.kpiBoxContainer,.KpiBoxData').css('align-items','normal')
+				$('.kpiBoxContainer', window.comIbiKpiboxChartExtension.container).css('align-items','normal')
+				$('.kpiBoxComparative:first', window.comIbiKpiboxChartExtension.container).css('padding-right', '4vw');
+				$('.kpiBoxContainer', window.comIbiKpiboxChartExtension.container).css('align-items','normal')
+				$('.kpiBoxContainer,.KpiBoxData', window.comIbiKpiboxChartExtension.container).css('align-items','normal')
 			}
 		}
 
 		function tooltip() {
 			var attrTooltip = ['value', 'comparevalue', 'comparevalue2', 'tooltip'];
-			var $div = $('<div>').addClass('kpiBoxTooltip');
+			var $div = $('<div>', window.comIbiKpiboxChartExtension.container).addClass('kpiBoxTooltip');
 
 			function formatValueTooltip(bucketName, value) {
 //				return $ib3.utils.getFormattedNumber(ib3SLI.config.formatNumber, value, '#,##.00', false);
@@ -476,14 +478,14 @@
 
 			function _evenTooltip() {
 				$(container).on('mouseover', function () {
-					$('.kpiBoxTooltip').css('visibility', 'visible');
+					$('.kpiBoxTooltip', window.comIbiKpiboxChartExtension.container).css('visibility', 'visible');
 				});
 				$(container).on('mouseout', function () {
-					$('.kpiBoxTooltip').css('visibility', 'hidden');
+					$('.kpiBoxTooltip', window.comIbiKpiboxChartExtension.container).css('visibility', 'hidden');
 				});
 				$(container).on('mousemove', function (event) {
-					var tooltipWidth = $('.kpiBoxTooltip').outerWidth(true),
-						tooltipHeight = $('.kpiBoxTooltip').outerHeight(true),
+					var tooltipWidth = $('.kpiBoxTooltip', window.comIbiKpiboxChartExtension.container).outerWidth(true),
+						tooltipHeight = $('.kpiBoxTooltip', window.comIbiKpiboxChartExtension.container).outerHeight(true),
 						paddingMouse = 5,
 						positionX = 0,
 						positionY = 0,
@@ -500,7 +502,7 @@
 					} else {
 						positionY = event.pageY + paddingMouse;
 					}
-					$('.kpiBoxTooltip').css({
+					$('.kpiBoxTooltip', window.comIbiKpiboxChartExtension.container).css({
 						top: positionY + 'px',
 						left: positionX + 'px',
 					});
@@ -512,24 +514,24 @@
 					if (typeof kpiDataElem[attribute] === 'undefined') return;
 					if (typeof kpiDataElem[attribute] === 'object') {
 						for (var index = 0; index < kpiDataElem[attribute].length; index++) {
-							var _$divRow = $('<div>').addClass('kpiBoxTooltipRow');
+							var _$divRow = $('<div>', window.comIbiKpiboxChartExtension.container).addClass('kpiBoxTooltipRow');
 							var _valueFormatted = formatValueTooltip(attribute, kpiDataElem[attribute][index]);
 							_$divRow.append([
-								$('<div>')
+								$('<div>', window.comIbiKpiboxChartExtension.container)
 									.text(ib3SLI.config.getBucketTitle(attribute, index).replace(/\\n/g,'') + ':')
 									.addClass('kpiBoxTooltipLabel'),
-								$('<div>').text(_valueFormatted).addClass('kpiBoxTooltipValue'),
+								$('<div>', window.comIbiKpiboxChartExtension.container).text(_valueFormatted).addClass('kpiBoxTooltipValue'),
 							]);
 							$div.append(_$divRow);
 						}
 					} else {
-						var _$divRow = $('<div>').addClass('kpiBoxTooltipRow');
+						var _$divRow = $('<div>', window.comIbiKpiboxChartExtension.container).addClass('kpiBoxTooltipRow');
 						var _valueFormatted = formatValueTooltip(attribute, kpiDataElem[attribute]);
 						_$divRow.append([
-							$('<div>')
+							$('<div>', window.comIbiKpiboxChartExtension.container)
 								.text(ib3SLI.config.getBucketTitle(attribute, 0).replace(/\\n/g,'') + ':')
 								.addClass('kpiBoxTooltipLabel'),
-							$('<div>').text(_valueFormatted).addClass('kpiBoxTooltipValue'),
+							$('<div>', window.comIbiKpiboxChartExtension.container).text(_valueFormatted).addClass('kpiBoxTooltipValue'),
 						]);
 						$div.append(_$divRow);
 					}
@@ -546,7 +548,7 @@
 		}
 		function setMargin(){
 			if (!hasImage) {
-				$('.kpiBoxRow').css('margin-left','5px');
+				$('.kpiBoxRow', window.comIbiKpiboxChartExtension.container).css('margin-left','5px');
 				//$('.kpiBoxContainer').css('margin','5px');
 			}else{
 
@@ -565,7 +567,7 @@
 		}
 		function  setFooting(){
 			if (ib3SLI.config.getProperty('footnote.visible')){
-				_$footing= (typeFooting == 'Internal') ? $('.kpiBoxFootingInternal') : $('.kpiBoxFootingExternal') ;
+				_$footing= (typeFooting == 'Internal') ? $('.kpiBoxFootingInternal', window.comIbiKpiboxChartExtension.container) : $('.kpiBoxFootingExternal', window.comIbiKpiboxChartExtension.container) ;
 				_$footing.html(footing).css({
 					'padding-bottom':'1vh',
 					'padding-top':'1vh',
@@ -579,7 +581,7 @@
 		}
 		function  setHeading(){
 			if (ib3SLI.config.getProperty('title.visible')){
-				_$heading= (typeHeading == 'Internal') ? $('.kpiBoxHeadingInternal') : $('.kpiBoxHeadingExternal') ;
+				_$heading= (typeHeading == 'Internal') ? $('.kpiBoxHeadingInternal', window.comIbiKpiboxChartExtension.container) : $('.kpiBoxHeadingExternal', window.comIbiKpiboxChartExtension.container) ;
 				_$heading.html(heading).css({
 					'padding-bottom':'1vh',
 					'padding-top':'1vh',
@@ -636,13 +638,13 @@
 			fixedSizes();
 		} else {
 			recalculateFont([
-				$('.kpiBoxTitle'),
-				$('.kpiBoxValue'),
-				$('.kpiBoxComparativeRow'),
-				$('.kpiBoxTitleCompare'),
+				$('.kpiBoxTitle', window.comIbiKpiboxChartExtension.container),
+				$('.kpiBoxValue', window.comIbiKpiboxChartExtension.container),
+				$('.kpiBoxComparativeRow', window.comIbiKpiboxChartExtension.container),
+				$('.kpiBoxTitleCompare', window.comIbiKpiboxChartExtension.container),
 			]);
-			recalculateBorder([$('.triangleUp'), $('.triangleDown')]);
-			recalculateIconCustom($('.kpiBoxCompareImage'));
+			recalculateBorder([$('.triangleUp', window.comIbiKpiboxChartExtension.container), $('.triangleDown', window.comIbiKpiboxChartExtension.container)]);
+			recalculateIconCustom($('.kpiBoxCompareImage', window.comIbiKpiboxChartExtension.container));
 		}
 		alignContent();
 		tooltip();
