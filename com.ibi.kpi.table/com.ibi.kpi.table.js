@@ -23,7 +23,7 @@
 	
 	function getShortenNumber(number) {
 		var tier = getTierNumber(number);
-		if (tier == 0) 
+		if (tier <= 0) 
 			return number;
 		
 		var scale = Math.pow(10, tier * 3);
@@ -34,7 +34,7 @@
 	function getShortenLetter(number) {
 		var SI_POSTFIXES = ["", "k", "M", "B", "T", "P", "E"];
 		var tier = getTierNumber(number);
-		if (tier == 0) 
+		if (tier <= 0) 
 			return '';
 		return SI_POSTFIXES[tier];
 	}
