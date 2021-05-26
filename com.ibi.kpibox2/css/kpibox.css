@@ -1,0 +1,264 @@
+/* ###################### SPECIFIC PROPERTIES ###################### */
+
+.kpiBoxContainer {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	/*padding: 5px;*/
+}
+
+.kpiBoxContent {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.kpiBoxRow {
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+	/*margin-left: 5px;*/
+	/*flex-grow: 1;*/	
+    margin-left: 2vw;
+
+}
+.kpiBoxFootingInternal,.kpiBoxFootingExternal,.kpiBoxHeadingExternal,.kpiBoxHeadingInternal{
+	--display: flex;
+	font-size: calc(7px + 3vmin);
+	font-family: arial;
+	--flex-direction: column;
+}
+.kpiBoxFootingExternal,.kpiBoxHeadingExternal{
+	padding-left:2vw
+}
+.KpiBoxData {
+	flex-direction: column;
+	display: flex;
+	justify-content: center;
+ 
+	flex-grow: 1;	
+ 
+
+}
+
+.kpiBoxTitle {
+	font-size: calc(10px + 3.5vmin);
+	 
+	color: #00b297;
+	display: flex;
+	align-items: center;
+	margin-bottom: 5px;
+	white-space: pre-wrap;
+	text-align: center;
+}
+
+.kpiBoximageIcon {
+	text-align: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAACXBIWXMAAAsTAAALEwEAmpwYAAAE3klEQVRYhc3XXYxVVxUH8N++984AHaWogbYjhGrSiI6kbdRU0FRrNKFoZRJbadVGojZGmxRjiBYD9LTRklZ9sCbV1JTSqmAgAgWDbS1hQpAU5sFSgrUp0gcyUyNDC/IxMB9n+7DP3F64505HjKnr5ey99tr/9V/7Y+11eIslXMykjPdiJjrRjn709/PyIwz/TwhkfBy3RhYVzsvATkT+GNiMTRkj/zWBlVxb5YHIZxomvR55RYp8CJ2BWZF3N9i8lLP8vkTm4gisYmWFe2OyOxX4FTZhT0a8m2kV2l9mYCOjGXNyFlX4VmR24WDzKW7/CacnTCBjMtZGFgciHhninnam5Hw50B2YG5lUgIxGXglsw+/wAu7CqkhHYP8wN/2IIxMlsC5yW+B0zlcr7Ehq3460jbdqhWwdZVmNKdgSeU/g4BnmPcjJcQmsYnngfpwJfAKnsDVy1QQcNwKfxJfwHPZEripWqDsjLyWwgvfXOBCpBhbjeTwXeUej3WWzZ7txyRIRMc/FGP2tt1fv009fSCLiZvy1wLk08rX7eGzMptY4ocbqSBVP4Cnsu9A5TOnocGVX13m6gb6+plUoDu+vc+ZX+S4erXBvxvqMs1AZM17JtcUdPzvCisjyyPuaUBFC89GJMZaZwiVVftHDE4GDkVn4xthgpaHxxaL5m5gSyHdaIfrPCIjMu57P5vy4UI35eoMAukn3tpb2bXJr/yUE8rzEsmEOXxnmD4FRzF/O9DqBu9M+z8HQMXZU0la0BqtUmnTjrUAhCyZxMrI3Um3jo3UCk99Iof0/5xw+MC6BkhXw5gTeNsKskFI46SGr34LOMQK3UI1cVobQfeedPjh/fimB6xYudM0NN/jXsWMeXbHCyHDzoxiSn/6Gdv0MjH3zrnTESjNkz4YNoFqrNY3V2tp0TJ1q7/btpc6hmoIbLQhUGx33F9/OjJHI0TKA40eP2rNtWyk49B06ZP+uXS3HR+hTRJ6ndiJwrugUBGqBl1qB7N6yxanjx0vHtq9Z0/IwBgZrHAnFK6kIugKrORb4u3T1rsfWVgSGzp61Y/36Jv1fdu7Ud+hQq2kif0J7ZF4gjrCvTqAweLJodg+z0TjVzPM9PfoPH673zw0OenbdupbOIbAeC6QSbt/9vHoegcDvi+aSNgbxy5bRxOiptWvr/Z4NG5w+cWI85/sPpqCWFapNY2PVOghHPpmWf45URGSB23BpGeiJgQHTZ85UqVQ8+fDD4+39MBbP4LrI0sDRM9z+51TKnX/dMj4svYAx8rnIPyrsxiVl4NOmT/fOyy93+MCB8aL/Op6N9GJGYGnGQw3j58s96cFYhuOBeZgqVTVXtPRSLkOBO6Tl3h25Grte5dONpXtTUg98H9sxDbtzOob5iFTrTUgCe/NUxu+SqqGrQ6oZv3Dhf0MTgYx8kFvxTORdgWfa+Gbgjjxt0UMN+bzR6euB30Y+f5CPVemK9EbmFld8QcZAybxyuYVqFz+NLC1U/wz8bITNP+TF7/H2djprTDpH32pe+wEz2rkJd0XmFg524uaM11qs1viS8Sk8GPlQg/pwEVU/hiJXFD8mczWk90j2Ims2Fvn/ogiM2WUsiqlQXSgdzDKwYfTkbK7weMaZNwWeIIG6ZCmTXZOnGqL+cxrpH+KFB2idkf4f5d8kpJ6Mm5ehZQAAAABJRU5ErkJggg==');
+	height: 100vmin;
+	width: 100vmin;
+	background-size: contain;
+
+	/*height: 90%;
+	width: 90%;*/
+	height: 90%;
+	width: 90%;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+.kpiBoxValueRow{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	position: relative;
+}
+.kpiBoxValueCompareRow{
+	display: flex;
+    align-items: center;
+    justify-content: flex-start;
+	opacity: 0.8;
+	margin-left: 2vw;
+	flex-grow: 1;
+}
+
+.kpiBoxValue {
+	font-size: calc(17px + 4vmin);
+	font-weight: normal;
+	display: flex;
+	align-items: center;
+	margin-bottom: 1.5vmin;
+}
+
+.kpiBoxComparativeRow {
+	font-size: calc(10px + 3vmin);
+	color: #a2ef5e99;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+}
+
+.compareImage {
+	align-items: center;
+	justify-content: center;
+	display: flex;
+}
+
+.kpiBoxComparative {
+	display: flex;
+	flex-direction: column;
+
+}
+
+.kpiBoxTitleCompare {
+	font-size: calc(7px + 3vmin);
+	align-self: center;
+	color: #ffffff99;
+	margin-bottom: 3px;
+}
+
+.kpiBoxCompareElement {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.kpiBoximage {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 30vw;
+
+	height: 100%;
+	flex-shrink: 0;
+}
+
+.triangleDown {
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: calc(10px + 3vmin) calc(4px + 3vmin) 0 calc(4px + 3vmin);
+    border-color: black transparent transparent transparent;
+    margin-right: 1px;
+}
+
+.triangleUp {
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 0 calc(4px + 3vmin) calc(10px + 3vmin) calc(4px + 3vmin);
+    border-color: transparent transparent black transparent;
+    margin-right: 1px;
+}
+
+.centerContent {
+	justify-content: center;
+}
+.centerSpace {
+	justify-content: center;
+}
+.kpiBoxCompareValue {
+	justify-content: inherit;
+	display: flex;
+	align-items: flex-end;
+}
+.kpiBoxTooltip{
+    position: absolute;
+ 
+  visibility: hidden;
+  font: 11px Sans-Serif;
+  color: black;
+  background: linear-gradient(to bottom, rgba(250,250,250,0.98) 8%,rgba(230,230,230,0.98) 95%);
+  border: 1px solid rgba(150,150,150,0.95);
+  border-radius: 0px;
+  cursor: default;
+  box-shadow: 0px 3px 4px 0px rgba(50, 50, 50, 0.66);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#D2D2D2',GradientType=0);
+  padding: 3px .4em 3px .4em;
+}
+ 
+.kpiBoxTooltipRow{
+    display: flex;
+}
+.kpiBoxTooltipLabel{
+    font-weight: bold;
+    flex-grow: 1;
+}
+.kpiBoxTooltipValue{
+    
+}
+@media (max-width: 275px) {
+	.kpiBoxContainer {
+		__justify-content: start;
+	}
+
+/*	.kpiBoxTitle {
+		font-size: calc(8px + 3vmin);
+	}
+
+	.kpiBoxValue {
+		font-size: calc(14px + 3vmin);
+	}
+
+	.kpiBoxComparativeRow {
+		font-size: calc(8px + 3vmin);
+	}
+
+	.kpiBoxTitleCompare {
+		font-size: calc(7px + 3vmin);
+	}*/
+
+/*	.triangleDown {
+		border-width: 7vw 4vw 0 4vw;
+	}
+
+	.triangleUp {
+		border-width: 0 4vw 7vw 4vw;
+	}*/
+
+	.kpiBoximageIcon {
+		__max-width: 25vw;
+		__max-height: 25vw;
+	}
+}
+@media (max-height: 99px) {
+	.kpiBoxTitle {
+		font-size: 10px;
+	}
+
+	.kpiBoxValue {
+		font-size: 10px;
+	}
+
+	.kpiBoxComparativeRow {
+		font-size: 10px;
+	}
+
+	.kpiBoxTitleCompare {
+		font-size: 7px;
+	}
+
+	.triangleDown {
+		border-width: 10px 10px 0 10px;
+	}
+
+	.triangleUp {
+		border-width: 0 10px 10px 10px;
+	}
+
+	.kpiBoximageIcon {
+		__max-width: 25vw;
+		__max-height: 25vw;
+	}
+}
+
+.template3 .kpiBoxRow {
+	background-color: #00000014;
+	padding: 1vw 0vw 1vw 2vw;
+}
