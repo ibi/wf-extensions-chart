@@ -286,9 +286,9 @@
 			}
 		},
 		"es": {
-			"name": "KPI Box HTML",
-			"description": "Fancy KPI Box HTML",
-			"icon_tooltip": "KPI Box", 
+			"name": "KPI Box HTML 2",
+			"description": "KPI Box HTML using API 2.0",
+			"icon_tooltip": "KPI Box HTML using API 2.0", 
 			"value_name": "Value Bucket (1, required)", 
 			"value_tooltip": "Drop a measusre here",
 			"comparevalue_name": "Compare Value Bucket (1, non required)", 
