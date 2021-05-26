@@ -19,6 +19,11 @@
 		renderConfig.data = JSON.parse('[{"value":123456789,"comparevalue":1234567.01,"comparevalue2":1234567.01,"_s":0,"_g":0}]');
 		//renderConfig.data = [	[  [143794,143794 ,70 ]	]  ];
 		renderConfig.moonbeamInstance.dataBuckets = JSON.parse('{"buckets":{"value":{"title":"Testing data","count":1, "numberFormat":"#"},"comparevalue":{"title":"Testing data Comp","count":1, "numberFormat":"#"},"comparevalue2":{"title":"Testing data Comp2","count":1, "numberFormat":"#"}},"depth":1}');
+
+		if(renderConfig.dataBuckets.buckets.length == 0)
+		{
+			renderConfig.dataBuckets.buckets = JSON.parse("[{\"id\":\"value\",\"fields\":[{\"title\":\"Testing data\",\"count\":1,\"numberFormat\":\"#\"}]},{\"id\":\"comparevalue\",\"fields\":[{\"title\":\"Testing data Comp\",\"count\":1,\"numberFormat\":\"#\"}]},{\"id\":\"comparevalue2\",\"fields\":[{\"title\":\"Testing data Comp2\",\"count\":1,\"numberFormat\":\"#\"}]}]");
+		}		
 		/*renderConfig.moonbeamInstance.dataBuckets={
 			internal_api_version: 2.0
 		   ,buckets: [
