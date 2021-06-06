@@ -313,6 +313,11 @@
   }
 
   // Your extension's configuration
+	var jqueryPath;
+	if (!window.jQuery) {
+		var path = tdgchart.getScriptPath();
+		jqueryPath = path.substr(0, path.indexOf('tdg')) + 'jquery/js/jquery.js';
+	}
   var config = {
     id: "com.ibi.gauge", // string that uniquely identifies this extension
     containerType: "html", // either 'html' or 'svg' (default)
@@ -325,7 +330,7 @@
       // Additional external resources (CSS & JS) required by this extension
       script: window.jQuery
         ? ["lib/d3.js", "lib/c3.js"]
-        : ["lib/jquery-latest.js", "lib/d3.js", "lib/c3.js"],
+        : [jqueryPath, "lib/d3.js", "lib/c3.js"],
 
       css: ["css/extension.css", "css/c3.css"],
     },
