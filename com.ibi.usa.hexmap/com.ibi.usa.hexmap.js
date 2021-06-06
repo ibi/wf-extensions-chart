@@ -249,6 +249,11 @@
 	}
 
 	// Your extension's configuration
+	var jqueryPath;
+	if (!window.jQuery) {
+		var path = tdgchart.getScriptPath();
+		jqueryPath = path.substr(0, path.indexOf('tdg')) + 'jquery/js/jquery.js';
+	}
 	var config = {
 		id: 'com.ibi.usa.hexmap',     // string that uniquely identifies this extension
 		containerType: 'svg',  // either 'html' or 'svg' (default)
@@ -258,7 +263,7 @@
 		noDataPreRenderCallback: noDataPreRenderCallback,
 		noDataRenderCallback: noDataRenderCallback,
 		resources: {  // Additional external resources (CSS & JS) required by this extension
-			script: window.jQuery ? ['lib/ibi_hex_map.js'] : [ 'lib/jquery-latest.js', 'lib/ibi_hex_map.js'],
+			script: window.jQuery ? ['lib/ibi_hex_map.js'] : [ jqueryPath, 'lib/ibi_hex_map.js'],
 			css: ['css/hexmap.css']
 		},
 		modules: {
