@@ -738,6 +738,11 @@
     }
 
     // Your extension's configuration
+	var jqueryPath;
+	if (!window.jQuery) {
+		var path = tdgchart.getScriptPath();
+		jqueryPath = path.substr(0, path.indexOf('tdg')) + 'jquery/js/jquery.js';
+	}
     var config = {
         id: 'com.ibi.sparktables',     // string that uniquely identifies this extension
         containerType: 'html',  // either 'html' or 'svg' (default)
@@ -747,7 +752,7 @@
         noDataPreRenderCallback: noDataPreRenderCallback,
         noDataRenderCallback: noDataRenderCallback,
         resources: {
-            script: window.jQuery ? ['lib/jquery.sparkline.js', 'lib/datatables.min.js', 'lib/lasso.js', 'lib/linq.js'] : ['lib/jquery-latest.js', 'lib/jquery.sparkline.js', 'lib/datatables.min.js', 'lib/lasso.js', 'lib/linq.js'],
+            script: window.jQuery ? ['lib/jquery.sparkline.js', 'lib/datatables.min.js', 'lib/lasso.js', 'lib/linq.js'] : [jqueryPath, 'lib/jquery.sparkline.js', 'lib/datatables.min.js', 'lib/lasso.js', 'lib/linq.js'],
             
             css: ['css/datatables.min.css', 'css/symbol.css']
         },
