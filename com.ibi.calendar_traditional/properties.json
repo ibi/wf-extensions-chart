@@ -4,8 +4,8 @@
 		//1.0 fix VIZ-391
 
 		"implements_api_version": "1.0/2.0",
-		"author": "Information Builders MX",
-		"copyright": "Information Builders Inc.",
+		"author": "TIBCO Software",
+		"copyright": "TIBCO Software Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/calendar_traditional",
 		"icons": {
 			"medium": "icons/calendar_traditional.png"

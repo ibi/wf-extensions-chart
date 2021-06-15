@@ -1,5 +1,5 @@
 /* globals _*/
-// Copyright 1996-2016 Information Builders, Inc. All rights reserved.
+// Copyright (c) 1996-2021 TIBCO Software Inc. All Rights Reserved.
 
 (function() {
     // Required: Is invoked in the middle of each Moonbeam draw cycle
