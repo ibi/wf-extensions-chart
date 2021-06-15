@@ -1,5 +1,5 @@
 /*global tdgchart: false, d3: false, tdgscatter: false */
-/* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
+/* Copyright (c) 1996-2021 TIBCO Software Inc. All Rights Reserved. */
 /* $Revision: 1.8 $ */
 
 (function() {
