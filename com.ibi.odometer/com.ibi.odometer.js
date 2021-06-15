@@ -1,6 +1,6 @@
 /*global tdgchart: false, document: false, setTimeout: false, Odometer: false */
 /* eslint-disable indent */
-/* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
+/* Copyright (c) 1996-2021 TIBCO Software Inc. All Rights Reserved. */
 
 (function() {
 

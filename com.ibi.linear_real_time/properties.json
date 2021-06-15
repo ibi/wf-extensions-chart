@@ -2,8 +2,8 @@
 	"info": {
 		"version":  "1.0.0",
 		"implements_api_version": "1.0/2.0",
-		"author": "Information Builders",
-		"copyright": "Information Builders Inc.",
+		"author": "TIBCO Software",
+		"copyright": "TIBCO Software Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.linear_real_time",
 		"license": "BSD 3-clause",
 		"icons": {

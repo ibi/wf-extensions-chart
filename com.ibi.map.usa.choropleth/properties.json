@@ -7,8 +7,8 @@
         //1.1 - upgrade to d3 v5
         //1.2 - VIZ-245
 		"implements_api_version": 1.0,
-		"author": "Information Builders",
-		"copyright": "Information Builders Inc.",
+		"author": "TIBCO Software",
+		"copyright": "TIBCO Software Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.map.usa.choropleth",
 		"icons": {
 			"medium": "icons/medium.png"

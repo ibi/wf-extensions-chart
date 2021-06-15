@@ -1,5 +1,5 @@
 /* globals _*/
-// Copyright 1996-2015 Information Builders, Inc. All rights reserved.
+// Copyright (c) 1996-2021 TIBCO Software Inc. All Rights Reserved.
 
 (function() {
 	// All extension callback functions are passed a standard 'renderConfig' argument:
