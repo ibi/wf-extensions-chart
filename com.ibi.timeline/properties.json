@@ -3,8 +3,8 @@
 	"info": {
 		"version": 1.0,
 		"implements_api_version": 1.0,
-		"author": "Information Builders",
-		"copyright": "Information Builders Inc.",
+		"author": "TIBCO Software",
+		"copyright": "TIBCO Software",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.timeline",
 		"icons": {
 			"medium": "icons/medium.png"

@@ -7,7 +7,7 @@ http://learn.jquery.com/plugins/advanced-plugin-concepts/
 Name: ibi_hex_map
 File: ibi_hex_map.js
 Dependencies: jquery library 1.8+, chroma.js
-Author: Sandy Chiang - Information Builders
+Author: Sandy Chiang - TIBCO Software
 Date: Nov 8, 2018
 Description: This jquery plugin is used to generate a hex representation of the US states. This is
 useful when wanting a more compact, geographic visualization of US state data. 

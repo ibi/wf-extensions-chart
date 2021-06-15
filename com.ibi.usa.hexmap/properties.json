@@ -5,7 +5,7 @@
 		//version: 1.2 - no data check for color scale
 		"implements_api_version": 1.0,
 		"author": "Sandy Chiang",
-		"copyright": "Information Builders Inc.",
+		"copyright": "TIBCO Software Inc.",
 		"url": "",
 		"icons": {
 			"medium": "icons/medium.png"

@@ -2,8 +2,8 @@
 	"info": {
 		"version": 1.0,
 		"implements_api_version": 2.0,
-		"author": "Information Builders Inc.",
-		"copyright": "Information Builders Inc.",
+		"author": "TIBCO Software Inc.",
+		"copyright": "TIBCO Software Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.tutorial",
 		"icons": {
 			"medium": "icons/icon.svg"
