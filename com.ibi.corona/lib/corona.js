@@ -1,4 +1,4 @@
-// Copyright 1996-2018 Information Builders, Inc. All rights reserved.
+// Copyright (c) 1996-2021 TIBCO Software Inc. All Rights Reserved.
 // Corona Chart HTML 5 Extension JavaScript
 // Written by   : Anthony Alsford
 // Date Created : 20th November 2017

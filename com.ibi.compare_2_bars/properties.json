@@ -3,8 +3,8 @@
 	"info": {
 		"version": 1.0,
 		"implements_api_version": 1.0,
-		"author": "Information Builders Inc",
-		"copyright": "Information Builders Inc.",
+		"author": "TIBCO Software Inc",
+		"copyright": "TIBCO Software Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/simple_bar%20example",
 		"icons": {
 			"small": "icons/small.png",
