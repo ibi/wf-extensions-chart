@@ -5,8 +5,8 @@
 		//version 1.5 - bugfixing + description for properties + support for regional number format
 		//version 1.5.1 - bugfix in properties names
 		"implements_api_version": 2.0,
-		"author": "Information Builders (Marc Julian Daniels)",
-		"copyright": "Information Builders Inc.",
+		"author": "TIBCO Software",
+		"copyright": "TIBCO Software Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.kpi_with_sparkline_flexible",
 		"icons": {
 			"medium": "icons/medium.png"
