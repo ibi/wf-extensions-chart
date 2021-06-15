@@ -5,8 +5,8 @@
 		//version 1.1.1 - bugfix in properties names		
 		//version 1.1.2 - fix to VIZ-560
 		"implements_api_version": 2.0,
-		"author": "Information Builders (Marc Julian Daniels)",
-		"copyright": "Information Builders Inc.",
+		"author": "TIBCO Software",
+		"copyright": "TIBCO Software Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.dimension_counter_by_kpi",
 		"icons": {
 			"medium": "icons/medium.png"

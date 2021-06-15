@@ -1,4 +1,4 @@
-// Copyright 1996-2018 Information Builders, Inc. All rights reserved.
+// Copyright (c) 2021 TIBCO Software Inc. All Rights Reserved.
 // DyGraph Chart HTML 5 Extension JavaScript
 // Written by   : Anthony Alsford
 // Date Created : 19th February 2018
