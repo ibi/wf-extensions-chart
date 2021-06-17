@@ -3,7 +3,7 @@
 
 {
 	"info": {
-		"version": 1.4,
+		"version": "1.4.1",
 		//"version": 1.3 - upgraded to d3 v5x
 		//"version": 1.4 - CD-3197
 		"implements_api_version": 2.0,
@@ -179,6 +179,6 @@
 			"thickness_tooltip": "Drop link thickness value",
 			"tooltip_name": "Tooltip field(s)",
 			"tooltip_tooltip": "Drop field(s) to add to tooltip"
-		},
+		}
 	}
 }
