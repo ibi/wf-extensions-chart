@@ -222,6 +222,11 @@
 					else {
 						percentChange = Math.round(((total1/total2)-1)*100000)/1000;
 					}
+
+					
+					//VIZ-642 store the number as not a string;
+					var percentChangeNumber = percentChange;
+
 					percentChange = percentChange.toFixed(props.deviationVsPrevious.decimalPlaces);
 					var goodIs = eval(percentChange+props.barProperties.goodIs);
 					seriesColor = goodIs? seriesColor: props.barProperties.badColor;
@@ -229,6 +234,10 @@
 
 					percentChange = percentChange.replace(".", decimalSeparator);
 					percentChange = goodIs? '+' + numberWithGroupingSeparator(percentChange, groupingSeparator) + '% ' + deviationTimeframe : numberWithGroupingSeparator(percentChange, groupingSeparator) + '% ' + deviationTimeframe;
+				
+				//VIZ-642 remove plus sign if a negative number
+
+				percentChange = percentChangeNumber < 0 ? percentChange.replace('+','') : percentChange;
 				}
 				// if deviation should be shown as absolute number
 				else {
