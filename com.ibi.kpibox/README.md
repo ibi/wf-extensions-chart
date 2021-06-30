@@ -50,25 +50,33 @@ To configure or customize your extension edit "properties" object in properties.
 			"comparationTitle":false, // true/false "show title of comparison"
 			"comparationValue":false, // true/false "show value of comparison"
 			"textAlign":false, // true/false "alignt to center"
+			"borderCompareColor": {
+				"border": "none", // border of comparation color for iframe (top, bottom, left, right) [All may be selected]
+				"size": "0px" // size of border of frame
+			},
 			"titleFont":{ // title customization options
 			    "size":"14px", // title font size
 			    "color":"grey", // title font color
-			    "family":"Arial" // title fon family
+			    "family":"Arial", // title font family
+				"weight": "normal" // title font weight
 			},
 			"measureFont":{ // measure customization options
 			    "size":"22px", // measure font size
 			    "color":"grey", // measure font color
-			    "family":"Arial" // measure fon family
+			    "family":"Arial", // measure font family
+				"weight": "normal" // measure font weight
 			},
 			"variationFont":{ // comparison value customization options
 			    "size":"14px", // comparison value font size
 			    "color":"grey", // comparison value font color
-			    "family":"Arial" // comparison value fon family
+			    "family":"Arial", // comparison value font family
+				"weight": "normal" // comparison value font weight
 			},
 			"variationTitle":{ // comparison title customization options
 			    "size":"14px", // comparison title font size
 			    "color":"grey", // comparison title font color
-			    "family":"Arial" // comparison title fon family
+			    "family":"Arial", // comparison title font family
+				"weight": "normal" // comparison title font weight
 			},
 			"bodyBackgroundColor": "#f4f4f4", // background-color
 			"footing":{ // footing properties

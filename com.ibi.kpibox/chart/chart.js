@@ -101,7 +101,9 @@
 			wfPath = ib3SLI.config.getProperty('kpiboxProperties.ibiAppsPath'),
 			comparationTitle = ib3SLI.config.getProperty('kpiboxProperties.comparationTitle'),
 			comparationValue = ib3SLI.config.getProperty('kpiboxProperties.comparationValue'),
-			textAlign = ib3SLI.config.getProperty('kpiboxProperties.textAlign');
+			textAlign = ib3SLI.config.getProperty('kpiboxProperties.textAlign'),
+			borderCompareColor = ib3SLI.config.getProperty('kpiboxProperties.borderCompareColor.border') || 'none',
+			borderCompareColorSize = ib3SLI.config.getProperty('kpiboxProperties.borderCompareColor.size') || '3px';
 		/*devuelve undefined*/
 		//Advanced Function
 		var calculateComparisonValueFunctionBody = ib3SLI.config.getProperty('kpiboxProperties.calculateComparisonValueFunction'),
@@ -112,13 +114,17 @@
 		var titleFontSize = ib3SLI.config.getProperty('kpiboxProperties.titleFont.size') || fixedFontSizeProp,
 			titleFontColor = ib3SLI.config.getProperty('kpiboxProperties.titleFont.color') || 'black',
 			titleFontFamily = ib3SLI.config.getProperty('kpiboxProperties.titleFont.family') || 'Arial, sans-serif',
+			titleFontWeight = ib3SLI.config.getProperty('kpiboxProperties.titleFont.weight') || 'normal',
 			measureFontSize = ib3SLI.config.getProperty('kpiboxProperties.measureFont.size') || fixedFontSizeProp,
 			measureFontColor = ib3SLI.config.getProperty('kpiboxProperties.measureFont.color') || 'black',
 			measureFontFamily = ib3SLI.config.getProperty('kpiboxProperties.measureFont.family') || 'Arial, sans-serif',
+			measureFontWeight = ib3SLI.config.getProperty('kpiboxProperties.measureFont.weight') || 'normal',
 			variationFontSize = ib3SLI.config.getProperty('kpiboxProperties.variationFont.size') || fixedFontSizeProp,
 			variationFontFamily = ib3SLI.config.getProperty('kpiboxProperties.variationFont.family') || 'Arial, sans-serif',
+			variationFontWeight = ib3SLI.config.getProperty('kpiboxProperties.variationFont.weight') || 'normal',
 			variationTitleFontSize = ib3SLI.config.getProperty('kpiboxProperties.variationTitle.size') || fixedFontSizeProp,
 			variationTitleFontFamily = ib3SLI.config.getProperty('kpiboxProperties.variationTitle.family') || 'Arial, sans-serif',
+			variationTitleFontWeight = ib3SLI.config.getProperty('kpiboxProperties.variationTitle.weight') || 'normal',
 			variationTitleColor = ib3SLI.config.getProperty('kpiboxProperties.variationTitle.color') || 'black';
 		//footing - heading
 		var	footing=ib3SLI.config.getProperty('footnote.renderedText'),
@@ -150,11 +156,14 @@
 
 		function bodyColor() {
 			$('.chart', window.comIbiKpiboxChartExtension.container).css('height', '100%');
-			$(container).css('height', '100%').css('width', '100%');
+			$(container).css({
+				'height': '100%',
+				'width': '100%'
+			});
 			$(container).parent().css('height', '100%').css('width', '100%');
 			//habria que preguntar por ie si ponen colores con opacity o generar el filter-opacicty
 			if (bodyBackgroundColor.indexOf('#') != 1) bodyBackgroundColor = bodyBackgroundColor.substring(0, 7);
-			$('body').css('background-color', bodyBackgroundColor);
+			$(container).closest('body').css('background-color', bodyBackgroundColor);
 		}
 
 		function setValue() {
@@ -238,6 +247,12 @@
 					.find('.kpiBoxCompareValue')
 					.text(percentValueFormater)
 					.css('color', _colorComparation);
+				$(container).closest('body').css({
+					'border-top': (borderCompareColor.indexOf('top') > -1) ? borderCompareColorSize + ' solid ' + _colorComparation : '0px',
+					'border-bottom': (borderCompareColor.indexOf('bottom') > -1) ? borderCompareColorSize + ' solid ' + _colorComparation : '0px',
+					'border-left': (borderCompareColor.indexOf('left') > -1) ? borderCompareColorSize + ' solid ' + _colorComparation : '0px',
+					'border-right': (borderCompareColor.indexOf('right') > -1) ? borderCompareColorSize + ' solid ' + _colorComparation : '0px'
+				});
 			}
 			function _setValueReal() {
 				if (!comparationValue){
@@ -373,6 +388,7 @@
 				height: 'auto',
 				//'margin-bottom': fixedPixelLinesMargin +'px',
 				'font-family': measureFontFamily,
+				'font-weight': measureFontWeight,
 			});
 
 			$('.kpiBoxTitleCompare', window.comIbiKpiboxChartExtension.container).css({
@@ -432,21 +448,25 @@
 			$('.kpiBoxTitle', window.comIbiKpiboxChartExtension.container).css({
 				'color': titleFontColor,
 				'font-family': titleFontFamily,
+				'font-weight': titleFontWeight,
 				'align-self': (titleRow == false ) ?  'auto' : 'center'	 
 			});
 
 			$('.kpiBoxValue,.kpiBoxValueCompareRow', window.comIbiKpiboxChartExtension.container).css({
 				'color': measureFontColor,
 				'font-family': measureFontFamily,
+				'font-weight': measureFontWeight,
 			});
 
 			$('.kpiBoxComparativeRow', window.comIbiKpiboxChartExtension.container).css({
 				'font-family': variationFontFamily,
+				'font-weight': variationFontWeight,
 			});
 
 			$('.kpiBoxTitleCompare', window.comIbiKpiboxChartExtension.container).css({
 				'color': variationTitleColor,
 				'font-family': variationTitleFontFamily,
+				'font-weight': variationTitleFontWeight,
 			});
 		}
 

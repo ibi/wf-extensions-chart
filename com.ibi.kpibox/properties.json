@@ -42,25 +42,33 @@
 			"comparationTitle":false,
 			"comparationValue":false,
 			"textAlign":false,
+			"borderCompareColor": {
+				"border": "none",
+				"size": "0px"
+			},
 			"titleFont":{
 			    "size":"14px",
 			    "color":"grey",
-			    "family":"Arial"
+			    "family":"Arial",
+				"weight": "normal"
 			},
 			"measureFont":{
 			    "size":"22px",
 			    "color":"grey",
-			    "family":"Arial"
+			    "family":"Arial",
+				"weight": "normal"
 			},
 			"variationFont":{
 			    "size":"14px",
 			    "color":"grey",
-			    "family":"Arial"
+			    "family":"Arial",
+				"weight": "normal"
 			},
 			"variationTitle":{
 			    "size":"14px",
 			    "color":"grey",
-			    "family":"Arial"
+			    "family":"Arial",
+				"weight": "normal"
 			},
 			"footing":{
 				"type":"External"
@@ -113,25 +121,33 @@
 			"comparationTitle":"bool",
 			"comparationValue":"bool",
 			"textAlign":"bool",
+			"borderCompareColor":{
+				"border": "str",
+				"size": "str"
+			},
 			"titleFont":{
 			    "size":"str",
 			    "color":"color",
-			    "family":"str"
+			    "family":"str",
+				"weight": "str"
 			},
 			"measureFont":{
 			    "size":"str",
 			    "color":"color",
-			    "family":"str"
+			    "family":"str",
+				"weight": "str"
 			},
 			"variationFont":{
 			    "size":"str",
 			    "color":"color",
-			    "family":"str"
+			    "family":"str",
+				"weight": "str"
 			},
 			"variationTitle":{
 			    "size":"str",
 			    "color":"color",
-			    "family":"str"
+			    "family":"str",
+				"weight": "str"
 			},
 			"footing":{
 				"type":{
@@ -249,29 +265,38 @@
 					"imagePercentageWidth": "Image percentaje width",
 					"comparationTitle": "Comparation title",
 					"textAlign": "text align",
+					"borderCompareColor":{
+						"_translation": "borders with comparation color",
+						"border": "location of borders (top, bottom, left, right)",
+						"size": "size of borders"
+					},
 					"titleFont":{
 						"_translation": "Title font",
 						"size": "font size",
 						"color": "font color",
-						"family": "font family"
+						"family": "font family",
+						"weight": "font weight"
 					},
 					"measureFont":{
 						"_translation": "Measure font",
 						"size": "font size",
 						"color": "font color",
-						"family": "font family"
+						"family": "font family",
+						"weight": "font weight"
 					},
 					"variationFont":{
 						"_translation": "Variation font",
 						"size": "font size",
 						"color": "font color",
-						"family": "font family"
+						"family": "font family",
+						"weight": "font weight"
 					},
 					"variationTitle":{
 						"_translation": "Title title",
 						"size": "font size",
 						"color": "font color",
-						"family": "font family"
+						"family": "font family",
+						"weight": "font weight"
 					},
 					"footing":{
 						"_translation": "Footing Properties ",
@@ -332,29 +357,38 @@
 					"imagePercentageWidth": "Image percentaje width",
 					"comparationTitle": "Comparation title",
 					"textAlign": "text align",
+					"borderCompareColor":{
+						"_translation": "bordes de color de la comparación",
+						"border": "location of borders (top, bottom, left, right)",
+						"size": "size of borders"
+					},
 					"titleFont":{
 						"_translation": "Title font",
 						"size": "font size",
 						"color": "font color",
-						"family": "font family"
+						"family": "font family",
+						"weight": "font weight"
 					},
 					"measureFont":{
 						"_translation": "Measure font",
 						"size": "font size",
 						"color": "font color",
-						"family": "font family"
+						"family": "font family",
+						"weight": "font weight"
 					},
 					"variationFont":{
 						"_translation": "Variation font",
 						"size": "font size",
 						"color": "font color",
-						"family": "font family"
+						"family": "font family",
+						"weight": "font weight"
 					},
 					"variationTitle":{
 						"_translation": "Title title",
 						"size": "font size",
 						"color": "font color",
-						"family": "font family"
+						"family": "font family",
+						"weight": "font weight"
 					},
 					"footing":{
 						"_translation": "footing Properties ",
