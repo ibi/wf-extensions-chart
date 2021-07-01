@@ -1,0 +1,439 @@
+{
+	"info": {
+		"version": 1.0,
+		"implements_api_version": 2.0,
+		"author": "Information Builders",
+		"copyright": "Information Builders Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.kpi.sparkline_responsive",
+		"icons": {
+			"medium": "icons/medium.png"
+		}
+	},
+	"properties": {
+		"aggregationType": "Last",
+		"generalStyle": {
+			"fontFamily": "'Arial'",
+			"color": "#505050",
+			"textAlign": "left",
+			"fontSize": 12,
+
+			"extraCSS": "display: block; margin: auto; text-align: center; padding: 10px;",
+			"margin": 10,
+			"navCSS": "font-family: 'Arial'; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; text-align: center;"
+		},
+		"indicatorConfiguration":{
+			"greaterThanImageUrl": "defaultGreenUp"
+			,"lessThanImageUrl":  "defaultRedDown"
+			,"equalImageUrl":  "defaultLine"
+			,"size": 10
+			,"pointsToCompare": 3
+			,"extraCSS": "padding-left: 10px;"
+			,"show":true
+		},
+		"sparklineConfiguration": {
+			"chartType": "bar",
+			"bar": {
+				"barSpacing": 1,
+				"goodColor": "#37BF54",
+				"badColor": "#F53554"
+			},
+			"line": {
+				"lineColor": "#505050",
+				"fillColor": "#FFFFFF"
+			},"show":true
+		},
+		"headingTitle": {
+			"fontFamily": "'Arial'",
+			"color": "#505050",
+			"textAlign": "left",
+			"fontSize": 16,
+			"extraCSS": "font-weight:400;"
+			,"show":true
+		},
+		"kpiTitle": {
+			"fontFamily": "'Arial'",
+			"color": "#505050",
+			"textAlign": "left",
+			"fontSize": 12,
+			"extraCSS": "font-weight:700;"
+			,"show":true
+		},
+		"xAxisTitle": {
+			"fontFamily": "'Arial'",
+			"color": "#505050",
+			"textAlign": "center",
+			"fontSize": 11,
+			"extraCSS": "font-weight:400; text-align: center; padding-top: 5px;"
+			,"show":true
+		},
+		"unitLabelTitle": {
+			"fontFamily": "'Arial'",
+			"color": "#505050",
+			"textAlign": "left",
+			"fontSize": 12,
+			"extraCSS": "font-weight:400; padding-top: 5px;"
+			,"show": true
+		}
+	},
+	"propertyAnnotations": {
+		"aggregationType": {
+			"typeAnnotation": "str",
+			"stringValues": [
+				"First",
+				"Last",
+				"Sum",
+				"Avg",
+				"Min",
+				"Max"
+			]
+		},
+		"generalStyle": {
+			"fontFamily": "str",
+			"color": "color",
+			"textAlign": {
+				"typeAnnotation": "str",
+				"stringValues": [
+					"left",
+					"right",
+					"center"
+				]
+			},
+			"fontSize": "number",
+			"extraCSS": "str",
+			"margin": "number",
+			"navCSS": {
+				"typeAnnotation": "str",
+				"private": true
+			}
+		},
+		"indicatorConfiguration":{
+			"greaterThanImageUrl": "str"
+			,"lessThanImageUrl":  "str"
+			,"equalImageUrl":  "str"
+			,"size": "number"
+			,"pointsToCompare": "number"
+			,"extraCSS": "str"
+			,"show":"bool"
+		},
+		"sparklineConfiguration": {
+			"chartType": {
+				"typeAnnotation": "str",
+				"stringValues": [
+					"bar",
+					"line"
+				]
+			},
+			"bar": {
+				"barSpacing": "number",
+				"goodColor": "color",
+				"badColor": "color"
+			},
+			"line": {
+				"lineColor": "color",
+				"fillColor": "color"
+			},"show":"bool"
+		},
+		"headingTitle": {
+			"fontFamily": "str",
+			"color": "color",
+			"textAlign": {
+				"typeAnnotation": "str",
+				"stringValues": [
+					"left",
+					"right",
+					"center"
+				]
+			},
+			"fontSize": "number",
+			"extraCSS": "str"
+			,"show":"bool"
+		},
+		"kpiTitle": {
+			"fontFamily": "str",
+			"color": "color",
+			"textAlign": {
+				"typeAnnotation": "str",
+				"stringValues": [
+					"left",
+					"right",
+					"center"
+				]
+			},
+			"fontSize": "number",
+			"extraCSS": "str","show":"bool"
+		},
+		"xAxisTitle": {
+			"fontFamily": "str",
+			"color": "str",
+			"textAlign": {
+				"typeAnnotation": "str",
+				"stringValues": [
+					"left",
+					"right",
+					"center"
+				]
+			},
+			"fontSize": "number",
+			"extraCSS": "str","show":"bool"
+		},
+		"unitLabelTitle": {
+			"fontFamily": "str",
+			"color": "str",
+			"textAlign": {
+				"typeAnnotation": "str",
+				"stringValues": [
+					"left",
+					"right",
+					"center"
+				]
+			},
+			"fontSize": "number",
+			"extraCSS": "str","show":"bool"
+		}
+	},
+	"dataBuckets": {
+		"tooltip": false,
+		"matrix": false,
+		"data_page": false,
+		"series_break": false,
+		"buckets": [
+			{
+				"id": "measure",
+				"type": "measure",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "group",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			},
+			{
+				"id": "xaxis",
+				"type": "dimension",
+				"count": {
+					"min": 1,
+					"max": 1
+				}
+			},
+			{
+				"id": "unitLabel",
+				"type": "dimension",
+				"count": {
+					"min": 0,
+					"max": 1
+				}
+			}
+		]
+	},
+	"translations": {
+		"en": {
+			"name": "Responsive Sparkline",
+			"description": "Responsive Sparkline.",
+			"icon_tooltip": "Responsive Sparkline.",
+			"measure_name": "Key Measure",
+			"measure_tooltip": "Drop a measure here",
+			"xaxis_name": "X-Axis",
+			"xaxis_tooltip": "Drop a dimension here",
+			"unitLabel_name": "Unit Label",
+			"unitLabel_tooltip": "Drop a dimension here",
+			"group_name": "Group",
+			"group_tooltip": "Drop a dimension here",
+			"properties": {
+				"aggregationType": {
+					"_translation": "Aggregation Type",
+					"_tooltip": "First=left most value, Last=right most value, Sum=sum of all values, Avg=sum of all values / number of values, Min=smallest value, Max=largest value."
+				},
+				"generalStyle": {
+					"fontFamily": {
+						"_translation": "Font Family",
+						"_tooltip": "Container font family."
+					},
+					"textAlign": {
+						"_translation": "Text Alignment",
+						"_tooltip": "Container text alignment."
+					},
+					"fontSize": {
+						"_translation": "Font Family",
+						"_tooltip": "Container font family."
+					},
+					"extraCSS": {
+						"_translation": "Extra CSS",
+						"_tooltip": "Additional CSS to add to the container. Needs to be semi-colon delimited."
+					},
+					"margin": {
+						"_translation": "Margin",
+						"_tooltip": "Container margin."
+					},
+					"navCSS": {
+						"_translation": "Navigation CSS",
+						"_tooltip": " CSS to add to Top Navigation. Needs to be semi-colon delimited."
+					},
+					"_translation": "Container Properties",
+					"_tooltip": "Properties at the container level."
+				},
+				"indicatorConfiguration":{
+					"greaterThanImageUrl": {
+						"_translation": "Greater Than Indicator",
+						"_tooltip": "Valid Values: defaultGreenUp, defaultRedUp, or a custom url to an image."
+					}
+					,"lessThanImageUrl":  {
+						"_translation": "Less Than Indicator",
+						"_tooltip": "Valid Values: defaultGreenDown, defaultRedDown, or a custom url to an image."
+					}
+					,"equalImageUrl":  {
+						"_translation": "Equals to Indicator",
+						"_tooltip": "Valid Values: defaultLine or a custom url to an image."
+					}
+					,"size": {
+						"_translation": "Indicator Size",
+						"_tooltip": "Indicator size (in pixels)."
+					}
+					,"pointsToCompare": {
+						"_translation": "# of Points to Compare",
+						"_tooltip": "The number of points to calculate the mean to compare the KPI to."
+					},
+					"extraCSS": {
+						"_translation": "Extra CSS",
+						"_tooltip": "Additional CSS to add to the indicator image. Needs to be semi-colon delimited."
+					},
+					"show": {
+						"_translation": "Show Indicator",
+						"_tooltip": "Show the indicator image or not."
+					}
+				},
+				"sparklineConfiguration": {
+					"chartType": {
+						"_translation": "Chart type",
+						"_tooltip": "Chart type."
+					},
+					"bar": {
+						"barSpacing": {
+							"_translation": "Bar spacing",
+							"_tooltip": "Space between bars. Valid only when Chart type = bar."
+						},
+						"goodColor": {
+							"_translation": "Positive Value Color",
+							"_tooltip": "Color to use when bar is positive value. Valid only when Chart type = bar."
+						},
+						"badColor": {
+							"_translation": "Negative Value Color",
+							"_tooltip": "Color to use when bar is negative value. Valid only when Chart type = bar."
+						},
+						"_translation": "Bar Settings",
+						"_tooltip": "Bar Settings."
+					},
+					"line": {
+						"lineColor": {
+							"_translation": "Line color",
+							"_tooltip": "Line color. Valid only when Chart type = line."
+						},
+						"fillColor": {
+							"_translation": "Fill color",
+							"_tooltip": "Fill color below line. Valid only when Chart type = line."
+						},
+						"_translation": "Line Settings",
+						"_tooltip": "Line Settings."
+					},
+					"show": {
+						"_translation": "Show Sparkline",
+						"_tooltip": "Show the sparkline below the KPI Number."
+					}
+				},
+				"headingTitle": {
+					"fontFamily": {
+						"_translation": "Font Family",
+						"_tooltip": "Heading font family."
+					},
+					"textAlign": {
+						"_translation": "Text Alignment",
+						"_tooltip": "Container text alignment."
+					},
+					"fontSize": {
+						"_translation": "Font Size",
+						"_tooltip": "Heading font Size (in pixels)."
+					},
+					"extraCSS": {
+						"_translation": "Extra CSS",
+						"_tooltip": "Additional CSS to add to the Heading. Needs to be semi-colon delimited."
+					},
+					"show": {
+						"_translation": "Show Heading",
+						"_tooltip": "Show heading title."
+					}
+				},
+				"kpiTitle": {
+					"fontFamily": {
+						"_translation": "Font Family",
+						"_tooltip": "KPI Number font family."
+					},
+					"textAlign": {
+						"_translation": "Text Alignment",
+						"_tooltip": "Container text alignment."
+					},
+					"fontSize": {
+						"_translation": "Font Size",
+						"_tooltip": "KPI Number font size (in pixels)."
+					},
+					"extraCSS": {
+						"_translation": "Extra CSS",
+						"_tooltip": "Additional CSS to add to the KPI Number. Needs to be semi-colon delimited."
+					},
+					"show": {
+						"_translation": "Show KPI Number",
+						"_tooltip": "Show KPI number."
+					}
+				},
+				"xAxisTitle": {
+					"fontFamily": {
+						"_translation": "Font Family",
+						"_tooltip": "X Axis title font family."
+					},
+					"textAlign": {
+						"_translation": "Text Alignment",
+						"_tooltip": "Container text alignment."
+					},
+					"fontSize": {
+						"_translation": "Font Size",
+						"_tooltip": "X Axis title font size (in pixels)."
+					},
+					"extraCSS": {
+						"_translation": "Extra CSS",
+						"_tooltip": "Additional CSS to add to the X Axis title. Needs to be semi-colon delimited."
+					},
+					"show": {
+						"_translation": "Show Axis Title",
+						"_tooltip":  "Show X axis title"
+					}
+				},
+				"unitLabelTitle": {
+					"fontFamily": {
+						"_translation": "Font Family",
+						"_tooltip": "Unit label font family."
+					},
+					"textAlign": {
+						"_translation": "Text Alignment",
+						"_tooltip": "Unit label text alignment."
+					},
+					"fontSize": {
+						"_translation": "Font Size",
+						"_tooltip": "Unit label font size (in pixels)."
+					},
+					"extraCSS": {
+						"_translation": "Extra CSS",
+						"_tooltip": "Additional CSS to add to the unit label. Needs to be semi-colon delimited."
+					},
+					"show": {
+						"_translation": "Show Unit Label",
+						"_tooltip":  "Show unit label"
+					}
+				}
+			}
+		}
+	}
+}
