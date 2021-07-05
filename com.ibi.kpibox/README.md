@@ -49,7 +49,8 @@ To configure or customize your extension edit "properties" object in properties.
 			"imagePercentageWidth": 30, // image width in percentaje
 			"comparationTitle":false, // true/false "show title of comparison"
 			"comparationValue":false, // true/false "show value of comparison"
-			"textAlign":false, // true/false "alignt to center"
+			"textAlign":false, // deprecated use contenCenter true/false "alignt to center"
+			"contentCenter": false, // true/false "alignt to center all kpibox"
 			"borderCompareColor": {
 				"border": "none", // border of comparation color for iframe (top, bottom, left, right) [All may be selected]
 				"size": "0px" // size of border of frame
@@ -58,25 +59,33 @@ To configure or customize your extension edit "properties" object in properties.
 			    "size":"14px", // title font size
 			    "color":"grey", // title font color
 			    "family":"Arial", // title font family
-				"weight": "normal" // title font weight
+				"weight": "normal", // title font weight
+				"text-align": "left",// align the content if concent center is false, else aling the content to max width
+				"padding": "0 0 0 0" //padding top-right-bottom-left in px
 			},
 			"measureFont":{ // measure customization options
 			    "size":"22px", // measure font size
 			    "color":"grey", // measure font color
 			    "family":"Arial", // measure font family
 				"weight": "normal" // measure font weight
+				"text-align": "left",// align the content if concent center is false, else aling the content to max width
+				"padding": "0 0 0 0" //padding top-right-bottom-left in px
 			},
 			"variationFont":{ // comparison value customization options
 			    "size":"14px", // comparison value font size
 			    "color":"grey", // comparison value font color
 			    "family":"Arial", // comparison value font family
 				"weight": "normal" // comparison value font weight
+				"text-align": "left",// align the content if concent center is false, else aling the content to max width
+				"padding": "0 0 0 0" //padding top-right-bottom-left in px
 			},
 			"variationTitle":{ // comparison title customization options
 			    "size":"14px", // comparison title font size
 			    "color":"grey", // comparison title font color
 			    "family":"Arial", // comparison title font family
 				"weight": "normal" // comparison title font weight
+				"text-align": "left",// align the content if concent center is false, else aling the content to max width
+				"padding": "0 0 0 0" //padding top-right-bottom-left in px
 			},
 			"bodyBackgroundColor": "#f4f4f4", // background-color
 			"footing":{ // footing properties

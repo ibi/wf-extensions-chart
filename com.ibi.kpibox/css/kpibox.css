@@ -5,9 +5,7 @@
  
 	box-sizing: border-box;
 }
-body,
-html {
-}
+ 
 
 .kpiBoxContainer {
 	display: flex;
@@ -15,6 +13,7 @@ html {
 	justify-content: center;
 	align-items: center;
 	height: 100%;
+	padding: 1vw;
 	/*padding: 5px;*/
 }
 
@@ -29,8 +28,9 @@ html {
 	display: flex;
 	justify-content: center;
 	/*margin-left: 5px;*/
-	/*flex-grow: 1;*/	
+	flex-grow: 1;
     margin-left: 2vw;
+ 
 
 }
 .kpiBoxFootingInternal,.kpiBoxFootingExternal,.kpiBoxHeadingExternal,.kpiBoxHeadingInternal{
@@ -53,14 +53,14 @@ html {
 }
 
 .kpiBoxTitle {
-	font-size: calc(10px + 3.5vmin);
-	 
-	color: #00b297;
-	display: flex;
+	font-size: calc(10px + 3.5vmin); 
+	color: #00b297;	
+	padding:2px; 
 	align-items: center;
 	margin-bottom: 5px;
 	white-space: pre-wrap;
 	text-align: center;
+	width: 100%;
 }
 
 .kpiBoximageIcon {
@@ -84,6 +84,7 @@ html {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
+	width: 100%;
 }
 .kpiBoxValueCompareRow{
 	display: flex;
@@ -97,9 +98,9 @@ html {
 .kpiBoxValue {
 	font-size: calc(17px + 4vmin);
 	font-weight: normal;
-	display: flex;
 	align-items: center;
 	margin-bottom: 1.5vmin;
+	 
 }
 
 .kpiBoxComparativeRow {
@@ -108,6 +109,7 @@ html {
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
+	width:100%;
 }
 
 .compareImage {
@@ -124,6 +126,7 @@ html {
 
 .kpiBoxTitleCompare {
 	font-size: calc(7px + 3vmin);
+	width:100%;
 	align-self: center;
 	color: #ffffff99;
 	margin-bottom: 3px;
@@ -198,9 +201,7 @@ html {
     font-weight: bold;
     flex-grow: 1;
 }
-.kpiBoxTooltipValue{
-    
-}
+ 
 @media (max-width: 275px) {
 	.kpiBoxContainer {
 		__justify-content: start;

@@ -51,10 +51,10 @@
 		var template2 = 
 				'<div class="template2 kpiBoxContainer" style="display: flex">' +
 				    '<div class="kpiBoxHeadingExternal"></div>' +
-					'<div style="display:flex;flex-direction:column;height: 100%;justify-content: center;">' +
+					'<div style="display:flex;flex-direction:column;height: 100%;justify-content:center; width:100%">' +
 					
 						'<div class=kpiBoxTitle></div>' +
-						'<div style=display:flex;flex-direction:row;flex:1>' +
+						'<div class="kpiBoxBody" style="display:flex;flex-direction:row;flex:1">' +
 							'<div class=kpiBoximage>' +
 								'<div  class=kpiBoximageIcon ></div>' +
 							'</div>' +
@@ -101,9 +101,12 @@
 			wfPath = ib3SLI.config.getProperty('kpiboxProperties.ibiAppsPath'),
 			comparationTitle = ib3SLI.config.getProperty('kpiboxProperties.comparationTitle'),
 			comparationValue = ib3SLI.config.getProperty('kpiboxProperties.comparationValue'),
-			textAlign = ib3SLI.config.getProperty('kpiboxProperties.textAlign'),
+			textAlign = ib3SLI.config.getProperty('kpiboxProperties.textAlign'), // deprecated use titleCenter and contentCenter
+			contentCenter =ib3SLI.config.getProperty('kpiboxProperties.contentCenter'), 
 			borderCompareColor = ib3SLI.config.getProperty('kpiboxProperties.borderCompareColor.border') || 'none',
 			borderCompareColorSize = ib3SLI.config.getProperty('kpiboxProperties.borderCompareColor.size') || '3px';
+
+		 
 		/*devuelve undefined*/
 		//Advanced Function
 		var calculateComparisonValueFunctionBody = ib3SLI.config.getProperty('kpiboxProperties.calculateComparisonValueFunction'),
@@ -115,17 +118,30 @@
 			titleFontColor = ib3SLI.config.getProperty('kpiboxProperties.titleFont.color') || 'black',
 			titleFontFamily = ib3SLI.config.getProperty('kpiboxProperties.titleFont.family') || 'Arial, sans-serif',
 			titleFontWeight = ib3SLI.config.getProperty('kpiboxProperties.titleFont.weight') || 'normal',
+			titleTextAlign =  ib3SLI.config.getProperty('kpiboxProperties.titleFont.text-align') || 'left',
+			titlePadding = ib3SLI.config.getProperty('kpiboxProperties.titleFont.padding') || '0 0 0 0',
+		 
 			measureFontSize = ib3SLI.config.getProperty('kpiboxProperties.measureFont.size') || fixedFontSizeProp,
 			measureFontColor = ib3SLI.config.getProperty('kpiboxProperties.measureFont.color') || 'black',
 			measureFontFamily = ib3SLI.config.getProperty('kpiboxProperties.measureFont.family') || 'Arial, sans-serif',
 			measureFontWeight = ib3SLI.config.getProperty('kpiboxProperties.measureFont.weight') || 'normal',
+			measureTextAlign =  ib3SLI.config.getProperty('kpiboxProperties.measureFont.text-align') || 'left',
+			measurePadding =  ib3SLI.config.getProperty('kpiboxProperties.measureFont.padding') || '0 0 0 0',
+
 			variationFontSize = ib3SLI.config.getProperty('kpiboxProperties.variationFont.size') || fixedFontSizeProp,
 			variationFontFamily = ib3SLI.config.getProperty('kpiboxProperties.variationFont.family') || 'Arial, sans-serif',
 			variationFontWeight = ib3SLI.config.getProperty('kpiboxProperties.variationFont.weight') || 'normal',
+			variationTextAlign =  ib3SLI.config.getProperty('kpiboxProperties.variationFont.text-align') || 'left',
+			variationPadding=  ib3SLI.config.getProperty('kpiboxProperties.variationFont.padding') || '10px 0 0 0',
+
 			variationTitleFontSize = ib3SLI.config.getProperty('kpiboxProperties.variationTitle.size') || fixedFontSizeProp,
 			variationTitleFontFamily = ib3SLI.config.getProperty('kpiboxProperties.variationTitle.family') || 'Arial, sans-serif',
 			variationTitleFontWeight = ib3SLI.config.getProperty('kpiboxProperties.variationTitle.weight') || 'normal',
-			variationTitleColor = ib3SLI.config.getProperty('kpiboxProperties.variationTitle.color') || 'black';
+			variationTitleColor = ib3SLI.config.getProperty('kpiboxProperties.variationTitle.color') || 'black',
+			variationTitleTextAlign =  ib3SLI.config.getProperty('kpiboxProperties.variationTitle.text-align') || 'left',
+			variationTitlePadding=  ib3SLI.config.getProperty('kpiboxProperties.variationTitle.padding') || '0 0 0 0';
+
+
 		//footing - heading
 		var	footing=ib3SLI.config.getProperty('footnote.renderedText'),
 			heading=ib3SLI.config.getProperty('title.renderedText'),
@@ -449,34 +465,50 @@
 				'color': titleFontColor,
 				'font-family': titleFontFamily,
 				'font-weight': titleFontWeight,
-				'align-self': (titleRow == false ) ?  'auto' : 'center'	 
+				'text-align' : titleTextAlign,
+				'padding': titlePadding,
+				//'align-self': (titleRow == false ) ?  'auto' : 'center'	 
 			});
 
 			$('.kpiBoxValue,.kpiBoxValueCompareRow', window.comIbiKpiboxChartExtension.container).css({
 				'color': measureFontColor,
 				'font-family': measureFontFamily,
 				'font-weight': measureFontWeight,
-			});
 
+				 
+			});
+			
+			$('.kpiBoxValueRow', window.comIbiKpiboxChartExtension.container).css({
+				'justify-content' : (measureTextAlign == 'left') ? 'flex-start' : (measureTextAlign == 'right') ? 'flex-end' :'center',
+				'padding':measurePadding, 
+			});
+			 
 			$('.kpiBoxComparativeRow', window.comIbiKpiboxChartExtension.container).css({
 				'font-family': variationFontFamily,
-				'font-weight': variationFontWeight,
+				'font-weight': variationFontWeight, 
+				'padding':variationPadding, 
+				'justify-content' : (variationTextAlign == 'left') ? 'flex-start' : (variationTextAlign == 'right') ? 'flex-end' :'center',
 			});
 
 			$('.kpiBoxTitleCompare', window.comIbiKpiboxChartExtension.container).css({
 				'color': variationTitleColor,
 				'font-family': variationTitleFontFamily,
 				'font-weight': variationTitleFontWeight,
+				'text-align' : variationTitleTextAlign,
+				'padding':variationTitlePadding, 
 			});
 		}
 
 		function alignContent() {
-			if (textAlign) {
+			 
+	 		if (textAlign || contentCenter)  {	
 				$('.kpiBoxRow', window.comIbiKpiboxChartExtension.container).css('margin', '0px');
 				$('.kpiBoxRow', window.comIbiKpiboxChartExtension.container).css('flex', 'initial'); 
-				$('.kpiBoxContent', window.comIbiKpiboxChartExtension.container).addClass('centerContent')
-				$('.kpiBoxContainer', window.comIbiKpiboxChartExtension.container).css('align-items','center')
-				$('.kpiBoxContainer,.KpiBoxData', window.comIbiKpiboxChartExtension.container).css('align-items','center')
+				$('.kpiBoxContent,.kpiBoxBody', window.comIbiKpiboxChartExtension.container).addClass('centerContent');
+				
+				$('.kpiBoxContainer', window.comIbiKpiboxChartExtension.container).css('align-items','center');
+				$('.kpiBoxContainer,.KpiBoxData', window.comIbiKpiboxChartExtension.container).css('align-items','center');
+				
 
 			//	$('.kpiBoxRow > div').addClass('centerContent');
 			} else {
@@ -484,7 +516,27 @@
 				$('.kpiBoxComparative:first', window.comIbiKpiboxChartExtension.container).css('padding-right', '4vw');
 				$('.kpiBoxContainer', window.comIbiKpiboxChartExtension.container).css('align-items','normal')
 				$('.kpiBoxContainer,.KpiBoxData', window.comIbiKpiboxChartExtension.container).css('align-items','normal')
+			 
 			}
+ 
+		 
+		/*	if (!titleCenter){
+				$('.kpiBoxTitle', window.comIbiKpiboxChartExtension.container).css({'text-align':'left',
+																					'padding' :'1vw'});
+			} 
+			if (contentCenter){
+				$('.kpiBoxRow', window.comIbiKpiboxChartExtension.container).css('margin', '0px');
+				$('.kpiBoxRow', window.comIbiKpiboxChartExtension.container).css('flex', 'initial'); 
+				$('.kpiBoxContent', window.comIbiKpiboxChartExtension.container).addClass('centerContent');
+				$('.kpiBoxContainer', window.comIbiKpiboxChartExtension.container).css('align-items','center');
+				$('.kpiBoxContainer,.KpiBoxData', window.comIbiKpiboxChartExtension.container).css('align-items','center');
+			}else{
+				$('.kpiBoxContainer', window.comIbiKpiboxChartExtension.container).css('align-items','normal')
+				$('.kpiBoxComparative:first', window.comIbiKpiboxChartExtension.container).css('padding-right', '4vw');
+				$('.kpiBoxContainer', window.comIbiKpiboxChartExtension.container).css('align-items','normal')
+				$('.kpiBoxContainer,.KpiBoxData', window.comIbiKpiboxChartExtension.container).css('align-items','normal')
+
+			}*/
 		}
 
 		function tooltip() {
