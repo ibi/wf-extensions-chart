@@ -145,25 +145,33 @@
 				"size": "str",
 				"color": "color",
 				"family": "str",
-				"weight": "str"
+				"weight": "str",
+				"text-align": "str",
+				"padding": "str"
 			},
 			"measureFont": {
 				"size": "str",
 				"color": "color",
 				"family": "str",
-				"weight": "str"
+				"weight": "str",
+				"text-align": "str",
+				"padding": "str"
 			},
 			"variationFont": {
 				"size": "str",
 				"color": "color",
 				"family": "str",
-				"weight": "str"
+				"weight": "str",
+				"text-align": "str",
+				"padding": "str"
 			},
 			"variationTitle": {
 				"size": "str",
 				"color": "color",
 				"family": "str",
-				"weight": "str"
+				"weight": "str",
+				"text-align": "str",
+				"padding": "str"
 			},
 			"footing": {
 				"type": {
@@ -282,7 +290,7 @@
 					"fixedPixelLinesMargin": "Line margins",
 					"imagePercentageWidth": "Image percentaje width",
 					"comparationTitle": "Comparation title",
-					"textAlign": "text align (deprecated)",
+					"textAlign": "text align (deprecated1)",
 					"contentCenter": "Center all Content",
 					"borderCompareColor": {
 						"_translation": "borders with comparation color",
@@ -405,8 +413,6 @@
 						"color": "font color",
 						"family": "font family",
 						"weight": "font weight",
-						"text-align": "text align",
-						"padding": "padding",
 						"text-align": "text align",
 						"padding": "padding"
 					},
