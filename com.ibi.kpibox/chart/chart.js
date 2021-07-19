@@ -232,7 +232,9 @@
 				kpiSign = parameters.kpiSign,
 				percentValue = _calculeFormatComparation(),
 				percentValueFormater = _formattedPercentage(percentValue),
-				_colorComparation = _getColorComparation(),
+				_infoComparation= _getColorIconComparation(),
+				_colorComparation = _infoComparation.colorComparation;
+				_iconComparation = _infoComparation.iconComparation;
 				_templateComparation2 =
 					'\n\t\t\t\t<div  class="kpiBoxComparative">\n\t\t\t\t\t<div class=kpiBoxTitleCompare></div>\n\t\t\t\t\t\t<div class=kpiBoxCompareElement>\n\t\t\t\t\t\t\t<div class="kpiBoxCompareImage"></div>\n\t\t\t\t\t\t\t<div class="kpiBoxCompareValue"></div>\n\t\t\t\t\t\t</div>\t\t\t\t\t \n\t\t\t\t</div>',
 				/*	_templateComparation2 = `
@@ -325,8 +327,32 @@
 				});
 			}
 
+			function _setCustomBandsIcon(){
+				$templateComparation2.find('.kpiBoxCompareImage', window.comIbiKpiboxChartExtension.container).css({
+					'background-image': 'url(' + $ib3.utils.getWebFOCUSUriByResourcePath(_iconComparation, wfPath) + ')',
+					width: 'calc(15px + 3vmin)',
+					height: 'calc(15px + 3vmin)',
+					'background-size': 'contain',
+					'background-repeat': 'no-repeat',
+				});
+			}
+
 			function _setCompareIcon() {
-				if (customCompareIconActive) {
+				function checkColorBands(){
+					var iconNumber=0,
+						check=false;
+
+					for (var a = 0; a < colorBands.length; a++) {
+						if (typeof colorBands[a].icon !== 'undefined'){
+							if  (colorBands[a].icon != '')	iconNumber++;
+						}						 
+					}
+					check=(iconNumber == colorBands.length ) ? true : false;
+					return check
+				}
+				if (checkColorBands()){
+					_setCustomBandsIcon();
+				}else if (customCompareIconActive) {
 					_setCustomIcon();
 				} else {
 					_setDefaultIcon();
@@ -353,17 +379,22 @@
 				return percentageFormattedValue;
 			}
 
-			function _getColorComparation() {
+			function _getColorIconComparation() {
 				var fillColor = 'black';
+					iconComparation = null;
 				for (var a = 0; a < colorBands.length; a++) {
 					var aux = kpiSign == 0 ? percentValue * -1 : percentValue;
 					if (aux > colorBands[a].start && aux < colorBands[a].stop) {
 						fillColor = colorBands[a].color;
+						iconComparation = (typeof colorBands[a].icon != 'undefined') ? colorBands[a].icon  : null;
 						break;
 					}
 				}
-
-				return fillColor;
+			 
+				return {
+					colorComparation: fillColor,
+					iconComparation: iconComparation
+				}
 			}
 
 			function _calculeFormatComparation() {

@@ -97,8 +97,8 @@ To configure or customize your extension edit "properties" object in properties.
 		},
 		"colorScale": { // customization of color
 			"colorBands": [ // range of value for colors as array
-				{"start": -1000000000000, "stop": 0, "color":"#c00000"},
-				{"start": 0, "stop": 1000000000000, "color":"#409c87"}
+				{"start": -1000000000000, "stop": 0, "color":"#c00000","icon": " " // icon path when comparevalue is into range},
+				{"start": 0, "stop": 1000000000000, "color":"#409c87","icon": " "}
 			]
 		}
 		
