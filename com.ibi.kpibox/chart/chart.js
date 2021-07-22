@@ -104,7 +104,8 @@
 			textAlign = ib3SLI.config.getProperty('kpiboxProperties.textAlign'), // deprecated use titleCenter and contentCenter
 			contentCenter =ib3SLI.config.getProperty('kpiboxProperties.contentCenter'), 
 			borderCompareColor = ib3SLI.config.getProperty('kpiboxProperties.borderCompareColor.border') || 'none',
-			borderCompareColorSize = ib3SLI.config.getProperty('kpiboxProperties.borderCompareColor.size') || '3px';
+			borderCompareColorSize = ib3SLI.config.getProperty('kpiboxProperties.borderCompareColor.size') || '3px',
+			zoomIcon=ib3SLI.config.getProperty('kpiboxProperties.zoomIcon') || 1;
 
 		 
 		/*devuelve undefined*/
@@ -312,7 +313,8 @@
 				$templateComparation2
 					.find('.kpiBoxCompareImage')
 					.addClass(_iconDefault)
-					.css('border-color', _borderColor);
+					.css('border-color', _borderColor)
+					.css('zoom',zoomIcon);
 			}
 
 			function _setCustomIcon() {
@@ -324,6 +326,7 @@
 					height: 'calc(15px + 3vmin)',
 					'background-size': 'contain',
 					'background-repeat': 'no-repeat',
+					'zoom':zoomIcon
 				});
 			}
 
@@ -334,6 +337,7 @@
 					height: 'calc(15px + 3vmin)',
 					'background-size': 'contain',
 					'background-repeat': 'no-repeat',
+					'zoom':zoomIcon
 				});
 			}
 

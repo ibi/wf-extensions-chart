@@ -29,6 +29,7 @@
 				"iconUp": " ",
 				"iconDown": " "
 			},
+			"zoomIcon": 1,
 			"shortenNumber": false,
 			"typeShortenNumber": null,
 			"setInfiniteToZero": false,
@@ -124,6 +125,15 @@
 				"active": "bool",
 				"iconUp": "str",
 				"iconDown": "str"
+			},
+			"zoomIcon": {
+				"typeAnnotation": "number",
+				"numericRange": [
+					0,
+					10
+				],
+				"numericStep": 0.1,
+				"uiType": "spinner"
 			},
 			"shortenNumber": "bool",
 			"typeShortenNumber": "str",
@@ -281,6 +291,7 @@
 						"iconUp": "Incon up path",
 						"iconDown": "Icon down path"
 					},
+					"zoomIcon": "zoom Compare icons (0.0 - 1.0)",
 					"shortenNumber": "Shorten number",
 					"typeShortenNumber": "Type shorten number",
 					"setInfiniteToZero": "Infinite to zero",
@@ -382,6 +393,7 @@
 						"iconUp": "Incon up path",
 						"iconDown": "Icon down path"
 					},
+					"zoomIcon": "zoom Compare icons (0.0 - 1.0)",
 					"shortenNumber": "Shorten number",
 					"typeShortenNumber": "Type shorten number",
 					"setInfiniteToZero": "Infinite to zero",

@@ -39,6 +39,7 @@ To configure or customize your extension edit "properties" object in properties.
 				"iconUp": " ", // path of image for positive result
 				"iconDown": " " // path of image for negative result
 			},
+			"zoomIcon": 1, //"zoom Compare icons value beteween 0 and 1",
 			"shortenNumber": false, // shorten number apply true/false
 			"typeShortenNumber": null, // long scale/short scale "type of shorten to show"
 			"setInfiniteToZero": false, // true/false "change infinte to 0"
