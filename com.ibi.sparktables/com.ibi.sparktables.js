@@ -334,6 +334,11 @@
                         });
                     },
                     "createdRow": function (row, data, dataIndex) {
+
+                        //VIZ-672 - added key to row to avoid issues with HTML encoding in text
+                        var colId = 'col'+ (numberOfBys - 2);
+                        $(row).attr('data-key',data[colId] )
+                        //END VIZ-672
                         for (var i = 0; i < titleJSON.length; i++) {
                             if (i >= numberOfBys) {
                                 if (typeof data[titleJSON[i].mData] !== 'undefined') {
@@ -348,7 +353,9 @@
 
 
                         $('.dataTables_scrollBody tbody td:last-child', container).each(function (index) {
-                            var row_id = $('td:nth-child(' + (numberOfBys - 1) + ')', $(this).parent()).html();
+                            //VIZ-672 use data-key attribute value instead of text in cell
+                            var row_id = $(this).parent().attr('data-key');
+                            //END VIZ-672
                             var data_row = Enumerable.From(data).Select(
                                 function (x) {
                                     if (numberOfBys <= 2) {
