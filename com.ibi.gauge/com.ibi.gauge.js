@@ -58,13 +58,11 @@
     var chart = renderConfig.moonbeamInstance;
     var props = renderConfig.properties;
     var root_container = $("#" + renderConfig.rootContainer.id);
-    var container = $(
-      "#" + renderConfig.rootContainer.id + " .chartHolder_relative_container"
-    );
+    var container = $(renderConfig.container);
     var data = renderConfig.data;
 
     var w = renderConfig.width;
-    var h = root_container.height();
+    var h = container.height();
 
     /*BEGIN VIZ-235 - fixed handling no min / max set */
     var min_value = data[0].min == undefined ? 0 : data[0].min;
@@ -78,13 +76,12 @@
 
     root_container.css("background-color", chart.fill.color);
 
-    container.css("display", "block").css("height", renderConfig.height + "px");
+    container.css("display", "block").css("height", h + "px");
 
     var chart = c3.generate({
       bindto:
         "#" +
-        renderConfig.rootContainer.id +
-        " .chartHolder_relative_container",
+        $(container).attr('id'),
       data: {
         columns: [["data", data[0].actual]],
         type: "gauge",
@@ -202,7 +199,7 @@
 
           //set the width of the containg box for the arc
           var bounding_box = d3
-            .select("#" + renderConfig.rootContainer.id + " svg")
+            .select("#" + renderConfig.container.id + " svg")
             .select(".c3-chart-arcs-background path")
             .node()
             .getBBox();
@@ -221,7 +218,7 @@
           var target_x = radius * Math.cos(target_radians);
           var target_y = radius * Math.sin(target_radians);
 
-          d3.select("#" + renderConfig.rootContainer.id + " svg")
+          d3.select("#" + renderConfig.container.id + " svg")
             .select(".c3-chart-arcs")
             .append("line")
             .attr("x1", 0)
@@ -296,7 +293,7 @@
     container.css("max-height", "");
 
     container.css("height", h + "px");
-
+    container.css("position", "absolute");
     renderConfig.renderComplete();
   }
 
