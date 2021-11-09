@@ -57,7 +57,7 @@ var tdg_ratio = (function() {
         var xaxisLbls = extractUniqueValues(data, 'x');
 
         return d3.max(xaxisLbls, function (lbl) {
-            return measureLabel(font).width;
+            return measureLabel(lbl, font).width;
         });
     }
     

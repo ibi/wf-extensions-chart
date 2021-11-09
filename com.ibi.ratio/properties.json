@@ -16,7 +16,7 @@
       "color": "lightblue",
       "useMoonbeamColorSeries": false,
       "label": {
-        "font": "12px sans-serif",
+        "font": "20px sans-serif",
         "format": "auto"
       }
     },
@@ -24,7 +24,7 @@
       "category": {
         "labels": {
           "align": "left",
-          "font": "12px sans-serif",
+          "font": "20px sans-serif",
           "color": "black"
         },
         "grid": {
@@ -35,7 +35,7 @@
       },
       "ratio": {
         "labels": {
-          "font": "14px sans-serif",
+          "font": "20px sans-serif",
           "color": "black"
         },
         "base": {
