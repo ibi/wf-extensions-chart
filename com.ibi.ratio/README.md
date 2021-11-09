@@ -23,7 +23,8 @@ To configure or customize your extension edit "properties" object in properties.
             "useMoonbeamColorSeries": false,
             "label": {
               "font": "12px sans-serif",
-              "format": "auto"
+              "format": "auto",
+			  "color": "null" // color to force in labels if we set it with a color
             }
           },
           "axes": {

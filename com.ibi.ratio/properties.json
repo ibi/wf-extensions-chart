@@ -17,7 +17,8 @@
       "useMoonbeamColorSeries": false,
       "label": {
         "font": "20px sans-serif",
-        "format": "auto"
+        "format": "auto",
+		"color": "null"
       }
     },
     "axes": {
@@ -54,7 +55,8 @@
       "useMoonbeamColorSeries": "bool",
       "label": {
         "font": "str",
-        "format": "str"
+        "format": "str",
+		"color": "str"
       }
     },
     "axes": {

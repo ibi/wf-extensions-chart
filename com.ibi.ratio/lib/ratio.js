@@ -662,7 +662,9 @@ var tdg_ratio = (function() {
                 'text-anchor' : 'middle',
                 font: props.risers.label.font,
                 fill: function (d) {
-                    return d.label.color;
+					var _color = d.label.color;
+					if (props.risers.label.color != 'null') _color = props.risers.label.color;
+                    return _color;
                 }
             })
             .text(function (d) {
@@ -709,7 +711,8 @@ var tdg_ratio = (function() {
             colorSeries: null,
             label: {
               font: '12px sans-serif',
-              format: 'auto'
+              format: 'auto',
+			  color: 'null'
             }
           },
           axes: {
