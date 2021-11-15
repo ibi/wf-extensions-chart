@@ -42,10 +42,12 @@ To configure or customize your extension edit "properties" object in properties.
             },
             "ratio": {
               "labels": {
+				"visible": true,
                 "font": "14px sans-serif",
                 "color": "black"
               },
               "base": {
+				"visible": true,
                 "color": "black"
               }
             }

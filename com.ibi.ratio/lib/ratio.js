@@ -88,7 +88,8 @@ var tdg_ratio = (function() {
         margins.left = Math.max(margins.left, xaxisHorizSize);
 
         // top/bottom axis starts
-        margins.top = margins.bottom = props.measureLabel('L', props.axes.ratio.labels.font).height + innerProps.whiskersSize  + 3 * pad;
+		var axesRatioLabelsFontHeight = (props.axes.ratio.labels.visible === true) ? props.measureLabel('L', props.axes.ratio.labels.font).height : 0;
+        margins.top = margins.bottom = axesRatioLabelsFontHeight + innerProps.whiskersSize  + 3 * pad;
         // top/bottom axis ends
 
         return margins;
@@ -585,35 +586,38 @@ var tdg_ratio = (function() {
             var axis = group_main.append('g').classed('y-axis-' + type, true)
                 .attr('transform', 'translate(' + [axisLayout.x, axisLayout.y] + ')');
 
-            var lbl = axis.append('text')
-                .style({
-                    fill: props.axes.ratio.labels.color,
-                    'text-anchor': 'middle',
-                    font: props.axes.ratio.labels.font
-                })
-                .attr('y', axisLayout.label.y)
-                .text(axisLayout.label.text);
-
-            axis.selectAll('line')
-                .data(axisLayout.lines)
-                .enter()
-                .append('line')
-                .attr({
-                    x1: function (d) {
-                        return d.x1;
-                    },
-                    y1: function (d) {
-                        return d.y1;
-                    },
-                    x2: function (d) {
-                        return d.x2;
-                    },
-                    y2: function (d) {
-                        return d.y2;
-                    }
-                })
-                .style('stroke', props.axes.ratio.base.color);
-
+            var lbl;
+			if (props.axes.ratio.labels.visible === true){
+				lbl = axis.append('text')
+					.style({
+						fill: props.axes.ratio.labels.color,
+						'text-anchor': 'middle',
+						font: props.axes.ratio.labels.font
+					})
+					.attr('y', axisLayout.label.y)
+					.text(axisLayout.label.text);
+			}
+			if (props.axes.ratio.base.visible === true){
+				axis.selectAll('line')
+					.data(axisLayout.lines)
+					.enter()
+					.append('line')
+					.attr({
+						x1: function (d) {
+							return d.x1;
+						},
+						y1: function (d) {
+							return d.y1;
+						},
+						x2: function (d) {
+							return d.x2;
+						},
+						y2: function (d) {
+							return d.y2;
+						}
+					})
+					.style('stroke', props.axes.ratio.base.color);
+			}
         });
 
         var canvas = group_main.append('g').classed('canvas', true)
@@ -730,10 +734,12 @@ var tdg_ratio = (function() {
             },
             ratio: {
               labels: {
+				visible: true,
                 font: '14px sans-serif',
                 color: 'black'
               },
               base: {
+				visible: true,
                 color: 'black'
               }
             }

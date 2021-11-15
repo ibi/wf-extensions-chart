@@ -36,10 +36,12 @@
       },
       "ratio": {
         "labels": {
+		  "visible": false,
           "font": "20px sans-serif",
           "color": "black"
         },
         "base": {
+		  "visible": false,
           "color": "black"
         }
       }
@@ -74,10 +76,12 @@
       },
       "ratio": {
         "labels": {
+		  "visible": "bool",
           "font": "str",
           "color": "color"
         },
         "base": {
+		  "visible": "bool",
           "color": "color"
         }
       }
