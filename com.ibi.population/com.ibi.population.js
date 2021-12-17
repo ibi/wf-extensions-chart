@@ -91,13 +91,15 @@
 						break;
 					}
 				}
-				_g++;
+				
 				if (_dataExist){
 					_newData.push( _existingData );
 				}else{
 					_newData.push( {x: _arrX[a], type: _arrType[b], y: 0, _s: 0, _g: 0} );
 				}
 				_newData[_newData.length-1]._g = _g;
+				//VIZ-720 increment the group index
+				_g++;
 			}
 		}
 		
