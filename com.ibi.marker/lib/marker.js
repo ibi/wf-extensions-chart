@@ -96,6 +96,8 @@ var tdg_marker = (function () {
       onRenderComplete: function(){},
       mode: "proportion", // "proportion" or "count"
       marker: {
+        minNumberOfNodes: 0,
+        maxNumberOfNodes: 1000,
         type: 'circle', // 'square', 'star'
         cellRatio: 0.8,
         countRange : [100, 625],
@@ -308,7 +310,9 @@ var tdg_marker = (function () {
           groupSequence = [];
 
           counts = counts.map(function ( count ) {
-            return count - trim;
+            var newCount = count - trim;
+            if (props.marker.minNumberOfNodes > 0) if (newCount < props.marker.minNumberOfNodes) newCount = props.marker.minNumberOfNodes
+            return newCount;
           }).filter(function (count, idx) {
             if ( count < 0 ) {
               return false;
@@ -316,6 +320,11 @@ var tdg_marker = (function () {
               groupSequence.push(idx);
               return true;
             }
+          });
+
+          
+          counts = counts.map(function (count) {
+            return count > props.marker.maxNumberOfNodes ? props.marker.maxNumberOfNodes : count;
           });
 
           actualTotalCount = d3.sum(counts);

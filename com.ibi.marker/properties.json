@@ -14,6 +14,8 @@
         "extraMarkersColor": "#898989",
         "mode": "proportion",
         "marker": {
+            "minNumberOfNodes": 0,
+            "maxNumberOfNodes": 1000,
             "type": "circle",
             "cellRatio": 0.8,
             "countRange" : [100, 625]
@@ -35,6 +37,8 @@
         "extraMarkersColor": "color",
         "mode": "str",
         "marker": {
+            "minNumberOfNodes": "number",
+            "maxNumberOfNodes": "number",
             "type": "str",
             "cellRatio": "number",
             "countRange": {

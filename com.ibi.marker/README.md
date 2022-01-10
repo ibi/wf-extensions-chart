@@ -22,6 +22,8 @@ To configure or customize your extension edit "properties" object in properties.
         "extraMarkersColor": '#898989',
         "mode": "proportion",
         "marker": {
+            "minNumberOfNodes": 0, // Number of minimun nodes to show when value is too small
+            "maxNumberOfNodes": 1000, // Number of maximun nodes to show when value is too large
             "type": 'circle',
             "cellRatio": 0.8,
             "countRange" : [100, 625]
