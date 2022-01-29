@@ -61,6 +61,7 @@
 			return datumCpy;
 		});
 
+		props.buckets = renderConfig.dataBuckets.buckets;
 		props.formatNumber = renderConfig.moonbeamInstance.formatNumber;
 
 		props.isInteractionDisabled = renderConfig.disableInteraction;
@@ -73,7 +74,6 @@
                   renderConfig.modules.tooltip.updateToolTips();
                   renderConfig.renderComplete();
                 }
-
 		var marker_chart = tdg_marker(props);
 
 
