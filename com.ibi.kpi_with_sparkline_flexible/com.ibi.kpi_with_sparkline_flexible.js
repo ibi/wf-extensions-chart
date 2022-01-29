@@ -5,15 +5,26 @@
 
 	var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
 	var noDataCallback = '';
+	var numberFormatRegex;
 
 	//start VIZ-457
 	//regex workaround for IE11
 	//if the 'lookbehind' character is present, IE11 balks.
 	//so using a token to replace dynamically to work around that.
-	var notIE11Expression = '\\B(?LESS_THAN!\\.\\d*)(?=(\\d{3})+(?!\\d))';
-	notIE11Expression = notIE11Expression.replace('LESS_THAN', '<' );
+	try { 
+		if (!isIE11) {
+			var notIE11Expression = '\\B(?LESS_THAN!\\.\\d*)(?=(\\d{3})+(?!\\d))';
+			notIE11Expression = notIE11Expression.replace('LESS_THAN', '<' );
+			numberFormatRegex = new RegExp(notIE11Expression,'g');
+		}
+	} catch(e) {
+		//VIZ-696 this is to catch exception thrown by iPad/Chrome and iPad/Safari and possibly others that also cannot 'lookbehind'
+	}
 
-	var numberFormatRegex = isIE11 ? new RegExp('\\B(?=(\\d{3})+(?!\\d))','g') : new RegExp(notIE11Expression,'g');
+	if (numberFormatRegex == undefined) {
+		//safe version
+		numberFormatRegex = new RegExp('\\B(?=(\\d{3})+(?!\\d))','g');
+	}
 	//end VIZ-457
 	
 	// Decimal and grouping separator (will be checked in render callback)

@@ -1,10 +1,11 @@
 {
 	"info": {
-		"version": "1.5.2",
+		"version": "1.5.3",
 		//version 1.4 - VIZ-457 - fixed regex issue for IE11
 		//version 1.5 - bugfixing + description for properties + support for regional number format
 		//version 1.5.1 - bugfix in properties names
 		//version 1.5.2 - VIZ-642 fixed bug with + sign attached to -ve number
+		//version 1.5.3 - VIZ-696 fix for ipad chrome
 		"implements_api_version": 2.0,
 		"author": "TIBCO Software",
 		"copyright": "TIBCO Software Inc.",
