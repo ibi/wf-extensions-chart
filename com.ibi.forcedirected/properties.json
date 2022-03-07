@@ -5,7 +5,7 @@
 		"implements_api_version": 1.0,
 		"author": "TIBCO Software",
 		"copyright": "TIBCO Software Inc.",
-		"url": "",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.forcedirected",
 		"icons": {
 			"medium": "icons/force_icon.png"
 		}

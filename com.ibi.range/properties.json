@@ -1,9 +1,7 @@
 
 {
 	"info": {
-		"version": "1.0.1",
-		//1.0 Original Release
-		//1.0.1 Fix: IA-9152 Designer: default charts are too faint for most of the extension charts		
+		"version": "1.0.1",		
 		"implements_api_version": 1.0,
 		"author": "TIBCO Software",
 		"copyright": "TIBCO Software Inc.",

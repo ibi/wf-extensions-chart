@@ -5,7 +5,7 @@
 		"implements_api_version": 1.0,
 		"author": "TIBCO Software Inc",
 		"copyright": "TIBCO Software Inc.",
-		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/simple_bar%20example",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.compare_2_bars",
 		"icons": {
 			"small": "icons/small.png",
 			"medium": "icons/medium.png"

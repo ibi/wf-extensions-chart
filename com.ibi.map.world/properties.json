@@ -1,10 +1,6 @@
 {
   "info": {
     "version": "1.2",
-	//1.0 Original Release
-  //1.0.1 Fix: CHART-3191 Error Messages
-  //1.1 upgrade to d3 v5
-    //1.2 FIX: VIZ-359
     "implements_api_version": 1.0,
     "author": "TIBCO Software",
     "copyright": "TIBCO Software Inc.",
@@ -24,7 +20,7 @@
       }
     },
     "colorScale": {
-      "range": ['#d7ebef', '#4a89db']
+      "range": ["#d7ebef", "#4a89db"]
     },
     "choropleth": {
       "border": {
@@ -51,46 +47,46 @@
     "colorLegend": {
       "enabled": true,
       "background": {
-        "color": 'none'
+        "color": "none"
       },
       "border": {
-        "color": 'black',
+        "color": "black",
         "width": 1,
         "round": 2
       },
       "title": {
-        "font": '16px serif',
-        "color": 'black'
+        "font": "16px serif",
+        "color": "black"
       },
       "rows": {
-        "count": 'auto',
+        "count": "auto",
         "labels": {
-          "font": '10px serif',
-          "color": 'black',
-          "format": 'auto'
+          "font": "10px serif",
+          "color": "black",
+          "format": "auto"
         }
       }
     },
     "sizeLegend": {
       "enabled": true,
       "background": {
-        "color": 'none'
+        "color": "none"
       },
       "border": {
-        "color": 'black',
+        "color": "black",
         "width": 1,
         "round": 2
       },
       "title": {
-        "font": '16px serif',
-        "color": 'black'
+        "font": "16px serif",
+        "color": "black"
       },
       "rows": {
-        "count": 'auto',
+        "count": "auto",
         "labels": {
-          "font": '10px serif',
-          "color": 'black',
-          "format": 'auto'
+          "font": "10px serif",
+          "color": "black",
+          "format": "auto"
         }
       }
     }

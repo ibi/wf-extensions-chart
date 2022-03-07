@@ -4,7 +4,7 @@
 		"implements_api_version": "1.0/2.0",
 		"author": "TIBCO Software",
 		"copyright": "TIBCO Software Inc.",
-		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/horizontal_comparison_bars",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.horizontal_comparison_bars",
 		"icons": {
 			"medium": "icons/horizontal_comparison_bars.png"
 		}

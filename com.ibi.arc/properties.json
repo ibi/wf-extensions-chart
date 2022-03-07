@@ -1,7 +1,6 @@
 {
 	"info": {
 		"version": "1.2.0",
-		//"version": "1.2.0", upgrade to d3 v5.3
 		"implements_api_version": 2.0,
 		"author": "Three D Graphics",
 		"copyright": "Three D Graphics Inc.",
