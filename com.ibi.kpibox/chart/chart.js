@@ -23,8 +23,6 @@
 			properties = ib3SLI.config.getCustomProperties();
 		this.container = container;
 
- d3.select(container).attr('class', ib3SLI.config.getDrillClass('riser', 0, 0));
-
 		var template1 = 
 			'<div class="template1 kpiBoxContainer" style="display: flex">' +
 			'	<div class="kpiBoxHeadingExternal"></div>' +
@@ -754,7 +752,10 @@
 			recalculateIconCustom($('.kpiBoxCompareImage', window.comIbiKpiboxChartExtension.container));
 		}
 		alignContent();
-		tooltip();
+//		tooltip();
+		$(container).css('z-index',-1);
+		d3.select('.eventCatcher').attr('class', 'eventCatcher '+ ib3SLI.config.getDrillClass('riser', 0, 0));
+		ib3SLI.config.setUpTooltip(d3.select('.eventCatcher').node(), 0, 0, kpiDataElem);
 
 		ib3SLI.config.finishRender();
 		//Defaults
