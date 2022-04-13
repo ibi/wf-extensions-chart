@@ -3,9 +3,6 @@
 {
 	"info": {
 		"version": 1.6,
-		//version 1.2 - VIZ-309 fix
-		//version 1.3 - VIZ-309 reopened fix
-		//version 1.6 - VIZ-672
 		"implements_api_version": 1.0,
 		"author": "TIBCO Software",
 		"copyright": "TIBCO Software Inc.",
@@ -31,7 +28,7 @@
 		"color": "#555",
 		"padding": "8px",
 		"border": "1px solid #ddd",
-		"fontFamily": '"Helvetica Neue",Helvetica,Arial,sans-serif',
+		"fontFamily": "'Helvetica Neue',Helvetica,Arial,sans-serif",
 		"fontSize": "14px",
 		"title": {
 			"fontWeight": "bold",

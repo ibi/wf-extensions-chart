@@ -1,11 +1,10 @@
 {
 	"info": {
 		"version": "1.1",
-		//version: 1.1 - upgrade to d3 v5
 		"implements_api_version": 1.0,
 		"author": "TIBCO Software",
 		"copyright": "TIBCO Software Inc.",
-		"url": "",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.gantt",
 		"icons": {
 			"medium": "icons/icon.png"
 		}

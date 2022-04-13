@@ -1,11 +1,9 @@
 {
 	"info": {
 		"version": "1.0.1",
-		//1.0 Original Version
-		//1.0.1 CHART-3094 JSON Syntax Errors
 		"implements_api_version": 1.0,
 		"author": "TIBCO Software",
-		"copyright": TIBCO Software Inc.",
+		"copyright": "TIBCO Software Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.simple_bar",
 		"icons": {
 			"medium": "icons/icon.png"

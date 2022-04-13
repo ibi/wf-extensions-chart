@@ -289,7 +289,8 @@
 		   sankey.relayout();
 		   link.attr("d", path);
 	   }
-
+	   
+	   renderConfig.modules.eventHandler.activate();
 	   renderConfig.modules.tooltip.updateToolTips();
    }
 
@@ -326,6 +327,7 @@
 	   },
 	   modules: {
 		   tooltip: {supported: true}
+		   ,eventHandler: { supported: true }
 	   }
    };
 
