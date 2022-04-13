@@ -753,7 +753,10 @@
 		}
 		alignContent();
 //		tooltip();
-		$(container).css('z-index',-1);
+		$(window.comIbiKpiboxChartExtension.container).css('z-index',-1);
+		$(window.comIbiKpiboxChartExtension.container).parent().css('z-index',1);
+		$('div.kpiBoxContainer:first', window.comIbiKpiboxChartExtension.container).css('background-color', $('rect.background:first', $(window.comIbiKpiboxChartExtension.container).parent()).attr('fill'));
+		$('rect.background:first', $(window.comIbiKpiboxChartExtension.container).parent()).remove();
 		d3.select('.eventCatcher').attr('class', 'eventCatcher '+ ib3SLI.config.getDrillClass('riser', 0, 0));
 		ib3SLI.config.setUpTooltip(d3.select('.eventCatcher').node(), 0, 0, kpiDataElem);
 
