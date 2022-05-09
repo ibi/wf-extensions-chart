@@ -758,8 +758,12 @@
 		$('div.kpiBoxContainer:first', window.comIbiKpiboxChartExtension.container).css('background-color', $('rect.background:first', $(window.comIbiKpiboxChartExtension.container).parent()).attr('fill'));
 		$('rect.background:first', $(window.comIbiKpiboxChartExtension.container).parent()).remove();
 		d3.select('.eventCatcher').attr('class', 'eventCatcher '+ ib3SLI.config.getDrillClass('riser', 0, 0));
+		d3.select('.chartPanel').attr('class',  ib3SLI.config.getDrillClass('riser', 0, 0))
+			.append('rect').attr('class','drill')
+			.attr('width',d3.select('.eventCatcher').attr('width'))
+			.attr('height',d3.select('.eventCatcher').attr('height'));
 		ib3SLI.config.setUpTooltip(d3.select('.eventCatcher').node(), 0, 0, kpiDataElem);
-
+		ib3SLI.config.setUpTooltip(d3.select('.drill').node(), 0, 0, kpiDataElem);
 		ib3SLI.config.finishRender();
 		//Defaults
 	}
