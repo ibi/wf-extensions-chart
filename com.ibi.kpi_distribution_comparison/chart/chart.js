@@ -49,6 +49,7 @@
 			fontSize = ib3SLI.config.getProperty('sizes.titlesFont') + 'px',
 			showPercentagesOfTheTotal = ib3SLI.config.getProperty('options.showPercentagesOfTheTotal'),
 			showValue = ib3SLI.config.getProperty('options.showValue'),
+			showBucket = ib3SLI.config.getProperty('options.showBucket'),
 			shortenValue = ib3SLI.config.getProperty('options.shortenValue'),
 			typeShortenNumber = ib3SLI.config.getProperty('options.typeShortenNumber'),
 			forceSortRows = ib3SLI.config.getProperty('options.forceSortRows'),
@@ -190,7 +191,7 @@
 				.map(function(i, d) { return d.value; })
 				.get().reduce(function(a,b) { return a + b }, 0);
 		
-		var xOrigin = 0;
+		var xOrigin = 25;
 		
 		if(showBarIcons) {
 			xOrigin = parseInt(barIconWidth) + 3;
@@ -247,17 +248,19 @@
 			})
 			.attr('x', (showPercentagesOfTheTotal ? 68 : 0) + xOrigin)
 			.text(function(d) { 
-				var number = '';
+				var number = '',
+					bucket = (showBucket == null ) ? 'value': showBucket;
 				
 				if(showValue) {
+
 					
 					if(valueispercentage) {
 						
-						number = ' | ' +  d.value.toFixed(2) + '%';
+						number = ' | ' +  d[bucket].toFixed(2) + '%';
 						
 					} else {
 						
-						number = ' | ' + $ib3.utils.getFormattedNumber(ib3SLI.config.formatNumber, d.value, valueFormat, shortenValue, typeShortenNumber);
+						number = ' | ' + $ib3.utils.getFormattedNumber(ib3SLI.config.formatNumber, d[bucket], valueFormat, shortenValue, typeShortenNumber);
 						
 					} 
 				
@@ -362,34 +365,70 @@
 		var buckets = new Array(),
 			legendPadding = 30,
 			legendWidth = width - legendPadding,
-			legendRectWidth = 10;
+			legendMaxNumLines = 1,
+			legendMaxNumCols = 4,
+			legendRectWidth = 10,
+			text_widths,
+			max_width = 0,
+			aux_width = 0;
+
+		
 		if (ib3SLI.config.getBucket('value')) buckets.push( {'title': ib3SLI.config.getBucketTitle('value'), 'color': value_minColor} );
 		if (ib3SLI.config.getBucket('comparison')) buckets.push( {'title': ib3SLI.config.getBucketTitle('comparison'), 'color': comparison_minColor} );
 		if (ib3SLI.config.getBucket('minpoint')) buckets.push( {'title': ib3SLI.config.getBucketTitle('minpoint'), 'color': minvalueColor} );
 		if (ib3SLI.config.getBucket('maxpoint')) buckets.push( {'title': ib3SLI.config.getBucketTitle('maxpoint'), 'color': maxvalueColor} );
 		
 		if (buckets.length > 1){
+// Calculate the biggest description width
+			text_widths = d3.select("svg g").append("text");
+			for (var i = 0; i < buckets.length; i++) {
+				text_widths.text(buckets[i].title);
+				aux_width = text_widths.node().getBBox().width;
+				if (aux_width > max_width) {
+					max_width = aux_width;
+				}
+			}
+			text_widths.remove();
+			legendMinWidth = max_width + legendRectWidth + 5;
+// Calculate the rows and cols distribution
+			if (legendMinWidth > 0){
+				if (legendMinWidth * 4 <= legendWidth){
+					legendMaxNumLines = 1;
+					legendMaxNumCols = 4;
+				}else if (legendMinWidth * 2 <= legendWidth){
+					legendMaxNumLines = 2;
+					legendMaxNumCols = 2;
+				}else{
+					legendMaxNumLines = 4;
+					legendMaxNumCols = 1;
+				}
+			}
+// legend group
 			var legendGroup = container.selectAll('g.legend')
 				.data(buckets)
 				.enter()
 				.append('g')
 				.attr('class','legend');
-			
+// legend rect
 			var legendsRects = legendGroup.append('rect')
 				.attr('width',legendRectWidth)
 				.attr('height',legendRectWidth)
-				.attr('y', (rowHeight * maxDataValues.length) + 5)
+				.attr('y', function(d, i) {
+					return (rowHeight * maxDataValues.length) + 5 + getLegendYMargin(i, legendMaxNumLines);
+				})
 				.attr('x', function(d, i) {
-					return (legendWidth / 4 * i) + (legendPadding / 2);
+					return (legendPadding / 2) + getLegendindexXMargin(i, legendMaxNumCols);
 				})
 				.attr('fill',function(d){
 					return d.color;
 				})
-				
+// legend text
 			var legends = legendGroup.append('text')
-				.attr('y', (rowHeight * maxDataValues.length) + 5 + (legendRectWidth / 2))
+				.attr('y', function(d, i) {
+					return (rowHeight * maxDataValues.length) + 5 + (legendRectWidth / 2) + getLegendYMargin(i, legendMaxNumLines);
+				})
 				.attr('x', function(d, i) {
-					return (legendWidth / 4 * i) + (legendPadding / 2) + legendRectWidth + 5;
+					return (legendPadding / 2) + legendRectWidth + 5 + getLegendindexXMargin(i, legendMaxNumCols);;
 				})
 				.attr('dominant-baseline','middle')
 				.attr('fill','black')
@@ -431,6 +470,26 @@
 			
 			return imagePath;		
 			
+		}
+
+		function getLegendYMargin(i, legendMaxNumLines){
+			var newLinesMargin = 15,
+				rowIndex = 0;
+			if (legendMaxNumLines == 2){
+				rowIndex = Math.trunc(i / 2);
+			}else if (legendMaxNumLines == 4){
+				rowIndex = i;
+			}
+			return rowIndex * newLinesMargin;
+		}
+		function getLegendindexXMargin(i, legendMaxNumCols){
+			var colIndex = 0;
+			if (legendMaxNumCols == 2){
+				colIndex = i % 2;
+			}else if (legendMaxNumCols == 4){
+				colIndex = i;
+			}
+			return legendWidth / legendMaxNumCols * colIndex;
 		}
 	}
 	

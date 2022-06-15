@@ -30,6 +30,7 @@ To configure or customize your extension edit "properties" object in properties.
 		"options": {
 			"showPercentagesOfTheTotal": false, // bars in percentaje of total true/false
 			"showValue": true, // show values true/false
+			"showBucket": null, // show the selected bucket in the bar when showValue is true
 			"shortenValue": false, // shorten numbers true/false
 			"typeShortenNumber": null, // type of shorten number "short scale"/"long scale"
 			"forceSortRows": false, // force recieved order from max to min true/false
