@@ -1,6 +1,7 @@
 /* Copyright (c) 1996-2021 TIBCO Software Inc. All Rights Reserved. */
 /* $Revision: 1.0 $ */
 
+
 (function() {
 	// All extension callback functions are passed a standard 'renderConfig' argument:
 	//
