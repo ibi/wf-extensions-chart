@@ -1,0 +1,5 @@
+//1.0 Original Release
+//1.0.1 Fix: IA-9152 Designer: default charts are too faint for most of the extension charts
+//1.2 VIZ-404 - shows header and footer now in Designer
+//1.3 VIZ-514 - shorten suffixes with dollar sign format
+//1.4 VIZ-708 - Export to PDF cropping issue
