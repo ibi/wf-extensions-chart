@@ -26,6 +26,10 @@
 
 		var gauge = liquidGauge();
 		tdgchart.util.mergeObjects(gaugeProps, gauge);
+		if (chart.drawStaticChart) {
+		  	/* [VIZ-803] PDF/PNG rendering should get the final look not the initial state of animation */
+			gauge.waveRise = gauge.waveAnimate = gauge.valueCountUp = false;
+		}
 		gauge.width = width;
 		gauge.height = height;
 
