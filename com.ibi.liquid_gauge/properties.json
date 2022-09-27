@@ -1,9 +1,10 @@
 {
 	"info": {
-		"version": "1.2.0",
+		"version": "1.2.1",
 		//1.0 Original Version
 		//1.1.0 CHART-2971 NFR - Enable drilldown for Liquid Gauge extension
 		//1.2.0 - update to d3 v5
+		//1.2.1 - VIZ-803 PDF/PNG rendering should get the final look not the initial state of animation
 		"implements_api_version": 1.0,
 		"author": "TIBCO Software",
 		"copyright": "TIBCO Software Inc.",
