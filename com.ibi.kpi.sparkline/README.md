@@ -50,8 +50,8 @@ To configure or customize your extension, edit the "properties" object in proper
 
 ### Dimensions:
 
-* **Measure** - Primary measure field whose values are represented in the widget.
+* **Measure** - Primary measure field whose values are represented by the total value, bar chart, and trend in the widget.
 
-* **Compare Group** - Dimension field whose trend displays in the widget.
+* **Compare Group** - Dimension field whose trend displays in the widget. The total value is based on the first value of this field, and the trend is calculated by comparing the first and second values.
 
-* **X-Axis** - Dimension field used as the x-axis on the bar chart in the widget.
+* **X-Axis** - Dimension field used as the x-axis of the bar chart in the widget.
