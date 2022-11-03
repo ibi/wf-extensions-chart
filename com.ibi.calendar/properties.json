@@ -36,8 +36,6 @@
 	      	"format": "auto"
 	      }
 		},
-		//VIZ-171 - format of the date to expect
-		//YMD, DMY, MDY
 		"dateFormat": "YMD"
 	},
 	
@@ -74,7 +72,7 @@
 	},
 	
 	"dataBuckets":  {
-		"tooltip": true,  //Set to 'true' for CHART-3033
+		"tooltip": true,
 		"matrix": false,
 		"data_page": false,
 		"series_break": false,
