@@ -9,17 +9,17 @@
 			"medium": "icons/icon.svg"
 		}
 	},
-	
+
 	"properties": {
-		"chartHeadroom": 50,
+		"chartHeadroom": 50
 	},
-	
+
 	"propertyAnnotations": {
-		"chartHeadroom": "number",
+		"chartHeadroom": "number"
 	},
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": false,
 		"matrix": false,
 		"data_page": false,
@@ -49,10 +49,10 @@
 		"en": {
 			"name": "Series Break Demo",
 			"description": "Series Break Demo",
-			"icon_tooltip": "Series Break Demo", 
-			"value_name": "Value Bucket", 
-			"value_tooltip": "Drop a measure here", 
-			"labels_name": "Label Bucket", 
+			"icon_tooltip": "Series Break Demo",
+			"value_name": "Value Bucket",
+			"value_tooltip": "Drop a measure here",
+			"labels_name": "Label Bucket",
 			"labels_tooltip": "Drop a dimension here"
 		}
 	}

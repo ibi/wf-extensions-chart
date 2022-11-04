@@ -12,25 +12,25 @@
 	},
 
 	"properties": {
-	
-		"kpiboxProperties": {   
-			"ibiAppsPath": "/ibi_apps/",	
+
+		"kpiboxProperties": {
+			"ibiAppsPath": "/ibi_apps/",
 			"calculateComparationFunction": {
-				"param1": "valueKpi", 
-				"param2": "compareValue", 
+				"param1": "valueKpi",
+				"param2": "compareValue",
 				"body": "if(valueKpi == 0 && compareValue == 0) { return 0; } var result = (valueKpi - compareValue) / Math.abs(compareValue);  return result;"
-			},	
+			},
 			"formatComparation": "#,###.00%",
 			"customCompareIcon": {
-				"active": false,	
+				"active": false,
 				"iconUp": "",
-				"iconDown": "",
+				"iconDown": ""
 			},
 			"shortenNumber": true,
 			"typeShortenNumber": null,
 			"setInfiniteToZero": false,
 			"titleRow": false,
-			"calculateFontSize": false, 
+			"calculateFontSize": false,
 			"fixedFontSizeProp": "18px",
 			"fixedPixelLinesMargin": 20,
 			"imagePercentageWidth": 40,
@@ -59,16 +59,16 @@
 				{"start": 0, "stop": 1000000000000, "color":"green"}
 			]
 		}
-		
+
 	},
-	 
+
 	"propertyAnnotations": {
-	
-		"kpiboxProperties": "json",		
+
+		"kpiboxProperties": "json",
 		"colorScale": "json"
-		
+
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": true,
 		"matrix": false,
@@ -117,21 +117,21 @@
 			}
 		]
 	},
-	
+
 	"translations": {
 		"en": {
 			"name": "KPI Box currency",
 			"description": "Fancy KPI Box currency",
-			"icon_tooltip": "KPI Box currency", 
-			"value_name": "Value Bucket (1, required)", 
+			"icon_tooltip": "KPI Box currency",
+			"value_name": "Value Bucket (1, required)",
 			"value_tooltip": "Drop a measusre here",
-			"comparevalue_name": "Compare Value Bucket (1, non required)", 
+			"comparevalue_name": "Compare Value Bucket (1, non required)",
 			"comparevalue_tooltip": "Drop a measusre here",
-			"kpisign_name": "Sign Comparision Bucket (1, non required)", 
+			"kpisign_name": "Sign Comparision Bucket (1, non required)",
 			"kpisign_tooltip": "Drop a measusre here",
-			"currency_name": "currency sign (1, non required)", 
+			"currency_name": "currency sign (1, non required)",
 			"currency_tooltip": "Drop a dimension here",
-			"image_name": "Image Bucket (1, non required)", 
+			"image_name": "Image Bucket (1, non required)",
 			"image_tooltip": "Drop a field with path to image"
 		}
 	}

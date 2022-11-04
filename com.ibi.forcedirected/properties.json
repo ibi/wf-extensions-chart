@@ -10,17 +10,17 @@
 			"medium": "icons/force_icon.png"
 		}
 	},
-	
+
 	"properties": {
 		"chartHeadroom": 50
 	},
-	
+
 	"propertyAnnotations": {
 		"chartHeadroom": "number"
 	},
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": false,
 		"matrix": false,
 		"data_page": false,
@@ -50,20 +50,20 @@
 					"min": 0,
 					"max": 1
 				}
-			}			
+			}
 		]
 	},
 	"translations": {
 		"en": {
 			"name": "Force Directed Chart",
 			"description": "Force-directed Chart",
-			"icon_tooltip": "Force-directed Chart", 
-			"from_name": "From", 
-			"from_tooltip": "Drop from nodes here", 
-			"to_name": "To", 
+			"icon_tooltip": "Force-directed Chart",
+			"from_name": "From",
+			"from_tooltip": "Drop from nodes here",
+			"to_name": "To",
 			"to_tooltip": "Drop to nodes here",
 			"thickness_name": "Thickness",
 			"thickness_tooltip": "Drop link thickness value"
-		},
+		}
 	}
 }

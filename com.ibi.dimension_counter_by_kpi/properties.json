@@ -9,7 +9,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
 		"color": "#666",
 		"fontFamily": "'Open Sans'",
@@ -24,13 +24,13 @@
 			"fontSize": "12px",
 			"overwriteFirstLine": "false",
 			"overwriteFirstLineText": "enter text here"
-		},	
+		},
 		"counter": {
 			"fontStyle": "inherit",
 			"fontWeight": "bold",
 			"color": "#666",
 			"fontSize": "16px"
-		},	
+		},
 		"thirdLine": {
 			"fontStyle": "inherit",
 			"fontWeight": "inherit",
@@ -38,7 +38,7 @@
 			"fontSize": "12px",
 			"overwriteThirdLine": "false",
 			"overwriteThirdLineText": "enter text here"
-		},	
+		},
 		"topDimension": {
 			"fontStyle": "inherit",
 			"fontWeight": "bold",
@@ -46,7 +46,7 @@
 			"fontSize": "16px"
 		}
 	},
-	
+
 	"propertyAnnotations": {
 		"color": "color",
 		"fontFamily": "str",
@@ -61,13 +61,13 @@
 			"fontStyle": "str",
 			"overwriteFirstLine": "bool",
 			"overwriteFirstLineText": "str"
-		},	
+		},
 		"counter": {
 			"fontStyle": "str",
 			"fontWeight": "str",
 			"color": "color",
 			"fontSize": "str"
-		},	
+		},
 		"thirdLine": {
 			"fontStyle": "str",
 			"fontWeight": "str",
@@ -75,16 +75,16 @@
 			"fontSize": "str",
 			"overwriteThirdLine": "bool",
 			"overwriteThirdLineText": "str"
-		},			
+		},
 		"topDimension": {
 			"fontStyle": "str",
 			"fontWeight": "str",
 			"color": "color",
 			"fontSize": "str"
-		}	
+		}
 
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": false,
 		"matrix": false,
@@ -115,7 +115,7 @@
 					"min": 0,
 					"max": 1
 				}
-			},
+			}
 		]
 	},
 
@@ -123,25 +123,25 @@
 		"en": {
 			"name": "Dimension counter by KPI",
 			"description": "Dimension counter by KPI.",
-			"icon_tooltip": "Dimension counter by KPI.", 
-			"measure_name": "Measure", 
-			"measure_tooltip": "Drop a measure here", 
-			"dimension_name": "Dimension", 
+			"icon_tooltip": "Dimension counter by KPI.",
+			"measure_name": "Measure",
+			"measure_tooltip": "Drop a measure here",
+			"dimension_name": "Dimension",
 			"dimension_tooltip": "Drop a dimension here",
 			"dimensionText_name": "Dimension text (optional)",
 			"dimensionText_tooltip": "Drop a dimension here (optional)",
-			
+
 			"properties": {
 				"color": {
 					"_translation": "Set font color - NOT IN USE",
 					"_tooltip": "NOT IN USE - Change the color on every element separately",
                     "_valueTooltip": "Default #666666"
-				},	
+				},
 				"fontFamily": {
 					"_translation": "Set font family",
 					"_tooltip": "Set font family",
                     "_valueTooltip": "Default 'Open Sans'"
-				},					
+				},
 				"fontSize": {
 					"_translation": "Set font size",
 					"_tooltip": "Set font size",
@@ -170,7 +170,7 @@
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the first line",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},	
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the first line",
@@ -180,7 +180,7 @@
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the first line",
 						"_valueTooltip": "Default #666666"
-					}, 	
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the first line",
@@ -195,32 +195,32 @@
 						"_translation": "Enter custom text for first line",
 						"_tooltip": "Enter custom text here",
 						"_valueTooltip": "Default false"
-					},
+					}
 				},
 				"counter": {
 					"_translation": "Counter number",
-					"_tooltip": "Settings for second line of widget",				
+					"_tooltip": "Settings for second line of widget",
 
 					"fontStyle":{
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the counter number",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},					
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the counter number",
 						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
-					},				
+					},
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the counter number",
 						"_valueTooltip": "Default #666666"
-					}, 					
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the counter number",
 						"_valueTooltip": "Default 16px"
-					},
+					}
 				},
 				"thirdLine": {
 					"_translation": "Third line of widget",
@@ -230,7 +230,7 @@
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the third line",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},	
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the third line",
@@ -240,7 +240,7 @@
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the third line",
 						"_valueTooltip": "Default #666666"
-					}, 	
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the third line",
@@ -255,57 +255,57 @@
 						"_translation": "Enter custom text for third line",
 						"_tooltip": "Enter custom text here",
 						"_valueTooltip": "Default false"
-					},
-				},				
+					}
+				},
 				"topDimension": {
 					"_translation": "Top dimension",
-					"_tooltip": "Settings for fourth line of widget",				
+					"_tooltip": "Settings for fourth line of widget",
 
 					"fontStyle":{
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the top dimension",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},					
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the top dimension",
 						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
-					},				
+					},
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the top dimension",
 						"_valueTooltip": "Default #666666"
-					}, 					
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the top dimension",
 						"_valueTooltip": "Default 16px"
-					},
-				},
-			}			
+					}
+				}
+			}
 		},
 		"de": {
 			"name": "Dimension-Ausprägungszähler nach KPI",
 			"description": "Dimension-Ausprägungszähler nach KPI.",
-			"icon_tooltip": "Dimension-Ausprägungszähler nach KPI.", 
-			"measure_name": "Kennzahl", 
-			"measure_tooltip": "Kennzahl hier ablegen", 
-			"dimension_name": "Dimension", 
+			"icon_tooltip": "Dimension-Ausprägungszähler nach KPI.",
+			"measure_name": "Kennzahl",
+			"measure_tooltip": "Kennzahl hier ablegen",
+			"dimension_name": "Dimension",
 			"dimension_tooltip": "Dimension hier ablegen",
 			"dimensionText_name": "Dimension Text (optional)",
 			"dimensionText_tooltip": "Dimension hier ablegen (optional)",
-			
+
 			"properties": {
 				"color": {
 					"_translation": "Set font color - NOT IN USE",
 					"_tooltip": "NOT IN USE - Change the color on every element separately",
                     "_valueTooltip": "Default #666666"
-				},	
+				},
 				"fontFamily": {
 					"_translation": "Set font family",
 					"_tooltip": "Set font family",
                     "_valueTooltip": "Default 'Open Sans'"
-				},					
+				},
 				"fontSize": {
 					"_translation": "Set font size",
 					"_tooltip": "Set font size",
@@ -334,7 +334,7 @@
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the first line",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},	
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the first line",
@@ -344,7 +344,7 @@
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the first line",
 						"_valueTooltip": "Default #666666"
-					}, 	
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the first line",
@@ -359,32 +359,32 @@
 						"_translation": "Enter custom text for first line",
 						"_tooltip": "Enter custom text here",
 						"_valueTooltip": "Default false"
-					},
+					}
 				},
 				"counter": {
 					"_translation": "Counter number",
-					"_tooltip": "Settings for second line of widget",				
+					"_tooltip": "Settings for second line of widget",
 
 					"fontStyle":{
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the counter number",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},					
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the counter number",
 						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
-					},				
+					},
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the counter number",
 						"_valueTooltip": "Default #666666"
-					}, 					
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the counter number",
 						"_valueTooltip": "Default 16px"
-					},
+					}
 				},
 				"thirdLine": {
 					"_translation": "Third line of widget",
@@ -394,7 +394,7 @@
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the third line",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},	
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the third line",
@@ -404,7 +404,7 @@
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the third line",
 						"_valueTooltip": "Default #666666"
-					}, 	
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the third line",
@@ -419,57 +419,57 @@
 						"_translation": "Enter custom text for third line",
 						"_tooltip": "Enter custom text here",
 						"_valueTooltip": "Default false"
-					},
-				},				
+					}
+				},
 				"topDimension": {
 					"_translation": "Top dimension",
-					"_tooltip": "Settings for fourth line of widget",				
+					"_tooltip": "Settings for fourth line of widget",
 
 					"fontStyle":{
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the top dimension",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},					
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the top dimension",
 						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
-					},				
+					},
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the top dimension",
 						"_valueTooltip": "Default #666666"
-					}, 					
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the top dimension",
 						"_valueTooltip": "Default 16px"
-					},
-				},
-			}			
+					}
+				}
+			}
 		},
 		"pt_BR": {
 			"name": "Contador de dimensões por KPI",
 			"description": "Contador de dimensões por KPI.",
-			"icon_tooltip": "Contador de dimensões por KPI.", 
-			"measure_name": "Medida", 
-			"measure_tooltip": "Solte uma medida aqui", 
-			"dimension_name": "Dimensão", 
+			"icon_tooltip": "Contador de dimensões por KPI.",
+			"measure_name": "Medida",
+			"measure_tooltip": "Solte uma medida aqui",
+			"dimension_name": "Dimensão",
 			"dimension_tooltip": "Solte uma dimensão aqui",
 			"dimensionText_name": "Dimensão texto (opcional)",
 			"dimensionText_tooltip": "Solte uma dimensão aqui (opcional)",
-			
+
 			"properties": {
 				"color": {
 					"_translation": "Set font color - NOT IN USE",
 					"_tooltip": "NOT IN USE - Change the color on every element separately",
                     "_valueTooltip": "Default #666666"
-				},	
+				},
 				"fontFamily": {
 					"_translation": "Set font family",
 					"_tooltip": "Set font family",
                     "_valueTooltip": "Default 'Open Sans'"
-				},					
+				},
 				"fontSize": {
 					"_translation": "Set font size",
 					"_tooltip": "Set font size",
@@ -498,7 +498,7 @@
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the first line",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},	
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the first line",
@@ -508,7 +508,7 @@
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the first line",
 						"_valueTooltip": "Default #666666"
-					}, 	
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the first line",
@@ -523,32 +523,32 @@
 						"_translation": "Enter custom text for first line",
 						"_tooltip": "Enter custom text here",
 						"_valueTooltip": "Default false"
-					},
+					}
 				},
 				"counter": {
 					"_translation": "Counter number",
-					"_tooltip": "Settings for second line of widget",				
+					"_tooltip": "Settings for second line of widget",
 
 					"fontStyle":{
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the counter number",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},					
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the counter number",
 						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
-					},				
+					},
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the counter number",
 						"_valueTooltip": "Default #666666"
-					}, 					
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the counter number",
 						"_valueTooltip": "Default 16px"
-					},
+					}
 				},
 				"thirdLine": {
 					"_translation": "Third line of widget",
@@ -558,7 +558,7 @@
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the third line",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},	
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the third line",
@@ -568,7 +568,7 @@
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the third line",
 						"_valueTooltip": "Default #666666"
-					}, 	
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the third line",
@@ -583,57 +583,57 @@
 						"_translation": "Enter custom text for third line",
 						"_tooltip": "Enter custom text here",
 						"_valueTooltip": "Default false"
-					},
-				},				
+					}
+				},
 				"topDimension": {
 					"_translation": "Top dimension",
-					"_tooltip": "Settings for fourth line of widget",				
+					"_tooltip": "Settings for fourth line of widget",
 
 					"fontStyle":{
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the top dimension",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},					
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the top dimension",
 						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
-					},				
+					},
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the top dimension",
 						"_valueTooltip": "Default #666666"
-					}, 					
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the top dimension",
 						"_valueTooltip": "Default 16px"
-					},
-				},
-			}			
+					}
+				}
+			}
 		},
 		"es": {
 			"name": "Contador de dimensiones por KPI",
 			"description": "Contador de dimensiones por KPI.",
-			"icon_tooltip": "Contador de dimensiones por KPI.", 
-			"measure_name": "Medida", 
-			"measure_tooltip": "Soltar aquí una medida", 
-			"dimension_name": "Dimensión", 
+			"icon_tooltip": "Contador de dimensiones por KPI.",
+			"measure_name": "Medida",
+			"measure_tooltip": "Soltar aquí una medida",
+			"dimension_name": "Dimensión",
 			"dimension_tooltip": "Soltar aquí una dimensión",
 			"dimensionText_name": "Dimensión texto (opcional)",
 			"dimensionText_tooltip": "Soltar aquí una dimensión (opcional)",
-			
+
 			"properties": {
 				"color": {
 					"_translation": "Set font color - NOT IN USE",
 					"_tooltip": "NOT IN USE - Change the color on every element separately",
                     "_valueTooltip": "Default #666666"
-				},	
+				},
 				"fontFamily": {
 					"_translation": "Set font family",
 					"_tooltip": "Set font family",
                     "_valueTooltip": "Default 'Open Sans'"
-				},					
+				},
 				"fontSize": {
 					"_translation": "Set font size",
 					"_tooltip": "Set font size",
@@ -662,7 +662,7 @@
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the first line",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},	
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the first line",
@@ -672,7 +672,7 @@
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the first line",
 						"_valueTooltip": "Default #666666"
-					}, 	
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the first line",
@@ -687,32 +687,32 @@
 						"_translation": "Enter custom text for first line",
 						"_tooltip": "Enter custom text here",
 						"_valueTooltip": "Default false"
-					},
+					}
 				},
 				"counter": {
 					"_translation": "Counter number",
-					"_tooltip": "Settings for second line of widget",				
+					"_tooltip": "Settings for second line of widget",
 
 					"fontStyle":{
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the counter number",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},					
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the counter number",
 						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
-					},				
+					},
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the counter number",
 						"_valueTooltip": "Default #666666"
-					}, 					
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the counter number",
 						"_valueTooltip": "Default 16px"
-					},
+					}
 				},
 				"thirdLine": {
 					"_translation": "Third line of widget",
@@ -722,7 +722,7 @@
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the third line",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},	
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the third line",
@@ -732,7 +732,7 @@
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the third line",
 						"_valueTooltip": "Default #666666"
-					}, 	
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the third line",
@@ -747,57 +747,57 @@
 						"_translation": "Enter custom text for third line",
 						"_tooltip": "Enter custom text here",
 						"_valueTooltip": "Default false"
-					},
-				},				
+					}
+				},
 				"topDimension": {
 					"_translation": "Top dimension",
-					"_tooltip": "Settings for fourth line of widget",				
+					"_tooltip": "Settings for fourth line of widget",
 
 					"fontStyle":{
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the top dimension",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},					
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the top dimension",
 						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
-					},				
+					},
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the top dimension",
 						"_valueTooltip": "Default #666666"
-					}, 					
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the top dimension",
 						"_valueTooltip": "Default 16px"
-					},
-				},
-			}					
+					}
+				}
+			}
 		},
 		"fr": {
 			"name": "Compteur de dimensions par KPI",
 			"description": "Compteur de dimensions par KPI.",
-			"icon_tooltip": "Compteur de dimensions par KPI.", 
-			"measure_name": "Mesure", 
-			"measure_tooltip": "Déposer une mesure ici", 
-			"dimension_name": "Dimension", 
+			"icon_tooltip": "Compteur de dimensions par KPI.",
+			"measure_name": "Mesure",
+			"measure_tooltip": "Déposer une mesure ici",
+			"dimension_name": "Dimension",
 			"dimension_tooltip": "Déposer une dimension ici",
 			"dimensionText_name": "Dimension texte (optionnelle)",
 			"dimensionText_tooltip": "Déposer une dimension ici (optionnelle)",
-			
+
 			"properties": {
 				"color": {
 					"_translation": "Set font color - NOT IN USE",
 					"_tooltip": "NOT IN USE - Change the color on every element separately",
                     "_valueTooltip": "Default #666666"
-				},	
+				},
 				"fontFamily": {
 					"_translation": "Set font family",
 					"_tooltip": "Set font family",
                     "_valueTooltip": "Default 'Open Sans'"
-				},					
+				},
 				"fontSize": {
 					"_translation": "Set font size",
 					"_tooltip": "Set font size",
@@ -826,7 +826,7 @@
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the first line",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},	
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the first line",
@@ -836,7 +836,7 @@
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the first line",
 						"_valueTooltip": "Default #666666"
-					}, 	
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the first line",
@@ -851,32 +851,32 @@
 						"_translation": "Enter custom text for first line",
 						"_tooltip": "Enter custom text here",
 						"_valueTooltip": "Default false"
-					},
+					}
 				},
 				"counter": {
 					"_translation": "Counter number",
-					"_tooltip": "Settings for second line of widget",				
+					"_tooltip": "Settings for second line of widget",
 
 					"fontStyle":{
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the counter number",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},					
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the counter number",
 						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
-					},				
+					},
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the counter number",
 						"_valueTooltip": "Default #666666"
-					}, 					
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the counter number",
 						"_valueTooltip": "Default 16px"
-					},
+					}
 				},
 				"thirdLine": {
 					"_translation": "Third line of widget",
@@ -886,7 +886,7 @@
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the third line",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},	
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the third line",
@@ -896,7 +896,7 @@
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the third line",
 						"_valueTooltip": "Default #666666"
-					}, 	
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the third line",
@@ -911,33 +911,33 @@
 						"_translation": "Enter custom text for third line",
 						"_tooltip": "Enter custom text here",
 						"_valueTooltip": "Default false"
-					},
-				},				
+					}
+				},
 				"topDimension": {
 					"_translation": "Top dimension",
-					"_tooltip": "Settings for fourth line of widget",				
+					"_tooltip": "Settings for fourth line of widget",
 
 					"fontStyle":{
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the top dimension",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},					
+					},
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the top dimension",
 						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
-					},				
+					},
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the top dimension",
 						"_valueTooltip": "Default #666666"
-					}, 					
+					},
 					"fontSize":{
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the top dimension",
 						"_valueTooltip": "Default 16px"
-					},
-				},
+					}
+				}
 			}
 		}
 	}

@@ -9,7 +9,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
     "font_color": "#000000"
 	},
@@ -17,9 +17,9 @@
   "propertyAnnotations": {
     "font_color": "color"
   },
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": false,
 		"matrix": false,
 		"data_page": false,
@@ -41,7 +41,7 @@
 					"min": 1,
 					"max": 1
 				}
-			},			
+			},
 			{
 				"id": "tooltips",
 				"type": "measure",
@@ -57,12 +57,12 @@
 		"en": {
 			"name": "US Hex Map",
 			"description": "A hexagon representation of US State",
-			"icon_tooltip": "A hexagon representation of US State", 
-			"state_name": "US State (2 ISO Code)", 
+			"icon_tooltip": "A hexagon representation of US State",
+			"state_name": "US State (2 ISO Code)",
 			"state_tooltip": "2 Letter ISO Code of US State",
-			"color_name": "Measure Color", 
+			"color_name": "Measure Color",
 			"color_tooltip": "Measure used to color the hexagon",
-			"tooltips_name": "Tool tips", 
+			"tooltips_name": "Tool tips",
 			"tooltips_tooltip": "Measures to show in tooltip"
 		}
 	}

@@ -9,7 +9,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
 		"color": "#666",
 		"shortenNumbers": true,
@@ -38,12 +38,12 @@
 		"negativeValueFontColor": null,
 		"bodyBackgroundColor": null
 	},
-	
+
 	"propertyAnnotations": {
-		"color": "str", 
+		"color": "str",
 		"shortenNumbers": "bool",
-		"fontFamily": "str", 
-		"fontSize": "str", 
+		"fontFamily": "str",
+		"fontSize": "str",
 		"headingTitle": {
 			"fontWeight": "str",
 			"color": "str",
@@ -67,7 +67,7 @@
 		"negativeValueFontColor": "str",
 		"bodyBackgroundColor": "str"
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": false,
 		"matrix": false,
@@ -106,12 +106,12 @@
 		"en": {
 			"name": "KPI Table",
 			"description": "KPI Table Widget.",
-			"icon_tooltip": "KPI Table Widget.", 
-			"keymeasure_name": "Key Measure", 
-			"keymeasure_tooltip": "Drop a measure here", 
-			"measure_name": "Supporting Measures", 
-			"measure_tooltip": "Drop a measure here", 
-			"group_name": "Group", 
+			"icon_tooltip": "KPI Table Widget.",
+			"keymeasure_name": "Key Measure",
+			"keymeasure_tooltip": "Drop a measure here",
+			"measure_name": "Supporting Measures",
+			"measure_tooltip": "Drop a measure here",
+			"group_name": "Group",
 			"group_tooltip": "Drop a dimension here"
 		}
 	}

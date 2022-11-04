@@ -9,7 +9,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
 		"customColors": false,
 		"node": {
@@ -25,7 +25,7 @@
 	      "valueFormat": "auto"
 	    }
 	},
-	
+
 	"propertyAnnotations": {
 		"customColors": "bool",
 		"node": {
@@ -44,7 +44,7 @@
 	      "valueFormat": "str"
 	    }
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": true ,
 		"matrix": false,

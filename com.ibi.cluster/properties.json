@@ -9,7 +9,7 @@
       "medium": "icons/medium.png"
     }
   },
-	
+
   "properties": {
     "isRadial": false,
     "nodes": {
@@ -33,7 +33,7 @@
       "width": 1
     }
   },
-	
+
   "propertyAnnotations": {
     "isRadial": "bool",
     "nodes": {
@@ -57,7 +57,7 @@
       "width": "number"
     }
   },
-	
+
   "dataBuckets":  {
       "tooltip": false,
       "matrix": false,
@@ -80,7 +80,7 @@
       "description": "This extension helps to visualize hierarchical data.",
       "icon_tooltip": "Cluster Diagram.",
       "levels_name": "Levels (DIM)",
-      "levels_tooltip": "Drop a dimension here",
+      "levels_tooltip": "Drop a dimension here"
     }
   }
 }

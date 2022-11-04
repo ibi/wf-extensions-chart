@@ -9,17 +9,17 @@
 			"medium": "icons/icon.png"
 		}
 	},
-	
+
 	"properties": {
-		"chartHeadroom": 50,
+		"chartHeadroom": 50
 	},
-	
+
 	"propertyAnnotations": {
-		"chartHeadroom": "number",
+		"chartHeadroom": "number"
 	},
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": false,
 		"matrix": false,
 		"data_page": false,
@@ -49,10 +49,10 @@
 		"en": {
 			"name": "Template for creating new extensions",
 			"description": "When creating a new extension, start by cloning this extension",
-			"icon_tooltip": "This extension does ...", 
-			"value_name": "Value Bucket", 
-			"value_tooltip": "Drop a measure here", 
-			"labels_name": "Label Bucket", 
+			"icon_tooltip": "This extension does ...",
+			"value_name": "Value Bucket",
+			"value_tooltip": "Drop a measure here",
+			"labels_name": "Label Bucket",
 			"labels_tooltip": "Drop a dimension here"
 		}
 	}

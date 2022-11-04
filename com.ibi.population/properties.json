@@ -10,7 +10,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
 		"colorBySeries": ["#ffafbf", "#cce9f8"],
         "typeLabels": {
@@ -47,7 +47,7 @@
 	      "enabled": true
 	    }
 	},
-	
+
 	"propertyAnnotations": {
 		"colorBySeries": {
     		"typeAnnotation": "array",
@@ -87,7 +87,7 @@
 	      "enabled": "bool"
 	    }
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": false,
 		"matrix": false,

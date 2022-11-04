@@ -9,7 +9,7 @@
 			"medium": "icons/icon.svg"
 		}
 	},
-	
+
 	"properties": {
 		"theme": "default",
 		"animation": "spin",
@@ -18,7 +18,7 @@
 		"fontSize": null,
 		"format": ""
 	},
-	
+
 	"propertyAnnotations": {
 		"theme": {
 			"typeAnnotation": "str",
@@ -38,9 +38,9 @@
 		},
 		"format": "str"
 	},
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": false,
 		"matrix": false,
 		"data_page": false,
@@ -62,8 +62,8 @@
 		"en": {
 			"name": "Odometer",
 			"description": "Simple numeric label with spinning animation",
-			"icon_tooltip": "Simple numeric label with spinning animation", 
-			"value_name": "Value Bucket", 
+			"icon_tooltip": "Simple numeric label with spinning animation",
+			"value_name": "Value Bucket",
 			"value_tooltip": "Drop a measure here",
 			"properties": {
 				"theme": {

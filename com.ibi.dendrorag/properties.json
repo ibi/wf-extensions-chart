@@ -9,7 +9,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
         "RootName": "",
         "indRed": 50,
@@ -21,7 +21,7 @@
         "drilldown": "",
         "ddtarget": "_blank"
 	},
-	
+
 	"propertyAnnotations": {
         "RootName": {
 			"typeAnnotation": "str",
@@ -48,9 +48,9 @@
         },
         "ddtarget": {
 			"typeAnnotation": "str"
-        },
+        }
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": false,
 		"matrix": false,
@@ -89,12 +89,12 @@
 		"en": {
 			"name": "Dendro RAG Chart",
 			"description": "This extension displays a collapsible hierarchy showing RAG for each level based on accumulated values.",
-			"icon_tooltip": "Dendro RAG Chart", 
-			"total_name": "Total Bucket", 
-			"total_tooltip": "Drop a measure here", 
-			"fail_name": "Fail Bucket", 
-			"fail_tooltip": "Drop a measure here", 
-			"levels_name": "Levels Bucket", 
+			"icon_tooltip": "Dendro RAG Chart",
+			"total_name": "Total Bucket",
+			"total_tooltip": "Drop a measure here",
+			"fail_name": "Fail Bucket",
+			"fail_tooltip": "Drop a measure here",
+			"levels_name": "Levels Bucket",
 			"levels_tooltip": "Drop up to three dimensions here",
             "properties": {
 				"RootName": {

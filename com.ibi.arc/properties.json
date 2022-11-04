@@ -9,7 +9,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
 		"type": "regular",
 		"arc": {
@@ -62,15 +62,15 @@
 			}
 		},
 		"tooltip": {
-			"enabled": true 
+			"enabled": true
 		},
 
 		"showCenteredText":{
-			"enabled": true 			
+			"enabled": true
 		}
 
 	},
-	
+
 	"propertyAnnotations": {
 		"type": {
 			"typeAnnotation": "str",
@@ -142,12 +142,12 @@
 			"enabled": "bool"
 		},
 		"showCenteredText":{
-			"enabled": "bool" 			
+			"enabled": "bool"
 		}
 	},
-	
+
 	"dataBuckets": {
-	
+
 		"buckets": [
 			{
 				"id": "label",
@@ -167,15 +167,15 @@
 			}
 		]
 	},
-	
+
 	"translations": {
 		"en": {
 			"name": "Arc Chart",
 			"description": "Arc Chart",
-			"icon_tooltip": "Arc Chart", 
-			"value_name": "Value (MES)", 
+			"icon_tooltip": "Arc Chart",
+			"value_name": "Value (MES)",
 			"value_tooltip": "Drop a measure here",
-			"label_name": "Label (DIM)", 
+			"label_name": "Label (DIM)",
 			"label_tooltip": "Drop a dimension here",
 			"add_data": "Add more measures or dimensions",
 			"properties": {
@@ -258,14 +258,14 @@
 				}
 			}
 		},
-		
+
 		"de": {
 			"name": "Bogendiagramm",
 			"description": "Bogendiagramm",
 			"icon_tooltip": "Bogendiagramm",
-			"value_name": "Wert (KZL)", 
+			"value_name": "Wert (KZL)",
 			"value_tooltip": "Kennzahl hier ablegen",
-			"label_name": "Label (DIM)", 
+			"label_name": "Label (DIM)",
 			"label_tooltip": "Dimension hier ablegen",
 			"add_data": "Weitere Kennzahlen oder Dimensionen hinzufügen",
 			"properties": {
@@ -347,15 +347,15 @@
 					"enabled": "Aktiviert"
 				}
 			}
-		}, 
-		
+		},
+
 		"es": {
 			"name": "Diagrama de arco",
 			"description": "Diagrama de arco",
-			"icon_tooltip": "Diagrama de arco", 
-			"value_name": "Valor (MES)", 
+			"icon_tooltip": "Diagrama de arco",
+			"value_name": "Valor (MES)",
 			"value_tooltip": "Soltar aquí una medida",
-			"label_name": "Etiqueta (DIM)", 
+			"label_name": "Etiqueta (DIM)",
 			"label_tooltip": "Soltar aquí una dimensión",
 			"add_data": "Añadir más medidas o dimensiones",
 			"properties": {
@@ -438,194 +438,194 @@
 				}
 			}
 		},
-		
-		"fr": {		
-			"name": "Arc Chart",	
-			"description": "Diagramme d'arc",	
-			"icon_tooltip": "Diagramme d'arc",	
+
+		"fr": {
+			"name": "Arc Chart",
+			"description": "Diagramme d'arc",
+			"icon_tooltip": "Diagramme d'arc",
 			"value_name": "Valeur (MES)",
 			"value_tooltip": "Déposer une mesure ici",
-			"label_name": "Label (DIM)",				
-                        "label_tooltip": "Déposer une dimension ici",				
-                        "add_data": "Ajouter plus de mesures ou dimensions",				
-                        "properties": {				
-                                                               "type": {				
-                                                                              "_translation": "Type d'Arc",				
-                                                                              "_tooltip": "Choisissez si les arcs sont disposés dans une pile ou côte à côte",				
-                                                                              "_valueTooltip": "Régulier ou Empilé",				
-                                                                              "_stringValues": ["Régulier", "Empilé"]				
-                                                               },				
-                                                               "arc": {				
-                                                                              "_translation": "Propriétés d'Arc",				
-                                                                              "_tooltip": "Choisissez si les arcs sont disposés dans une pile ou côte à côte",				
-                                                                              "_valueTooltip": "Régulier ou Empilé",				
-                                                                              "start": {				
-                                                                                              "_translation": "Angle de Départ",				
-                                                                                              "_tooltip": "Angle sur lequel le dessin de l'arc commence",				
-                                                                                              "_valueTooltip": "Une valeur décimale entre 0 et 10"				
-                                                                              },				
-                                                                              "extent": "Étendue Angle",				
-                                                                              "padding": "Remplissage",				
-                                                                              "sortBy": "Trier par",				
-                                                                              "sort": {				
-                                                                                              "_translation": "Tri",				
-                                                                                              "by": "By",				
-                                                                                              "ascending": "Croissant"				
-                                                                              },				
-                                                                              "border": {				
-                                                                                              "_translation": "Bordure",				
-                                                                                              "width": "Largeur",				
-                                                                                              "color": "Couleur"				
-                                                                              }				
-                                                               },				
-                                                               "axis": {				
-                                                                              "_translation": "Axe d'Arc",				
-                                                                              "base": {				
-                                                                                              "_translation": "Base d'Axe",				
-                                                                                              "color": "Couleur",				
-                                                                                              "width": "Largeur"				
-                                                                              },				
-                                                                              "labels": {				
-                                                                                              "_translation": "Labels",				
-                                                                                              "format": "Format Nombre"				
-                                                                              },				
-                                                                              "ticks": {				
-                                                                                              "_translation": "Repères",				
-                                                                                              "color": "Couleur",				
-                                                                                              "width": "Largeur",				
-                                                                                              "labels": {				
-                                                                                                              "_translation": "Labels Repères",				
-                                                                                                              "fontSize": "Taile Police",				
-                                                                                                              "color": "Couleur"				
-                                                                                              }				
-                                                                              }				
-                                                               },				
-                                                               "valueLabel": {				
-                                                                              "_translation": "Label Valeur",				
-                                                                              "fontFamily": "Famille de Police",				
-                                                                              "fontSize": "Taille Police",				
-                                                                              "fontWeight": "Épaisseur Police",				
-                                                                              "color": "Couleur Police",				
-                                                                              "format": "Format Nombre"				
-                                                               },				
-                                                               "labels": {				
-                                                                              "_translation": "Labels d'Arc",				
-                                                                              "text": {				
-                                                                                              "_translation": "Texte",				
-                                                                                              "color": "Couleur Police",				
-                                                                                              "font": "Famille de Police",				
-                                                                                              "weight": "Épaisseur Police",				
-                                                                                              "size": "Taille Police"				
-                                                                              },				
-                                                                              "marker": {				
-                                                                                              "_translation": "Marqueur Label",				
-                                                                                              "type": "Type de Marqueur"				
-                                                                              }				
-                                                               },				
-                                                               "tooltip": {				
-                                                                              "_translation": "Info-bulle",				
+			"label_name": "Label (DIM)",
+                        "label_tooltip": "Déposer une dimension ici",
+                        "add_data": "Ajouter plus de mesures ou dimensions",
+                        "properties": {
+                                                               "type": {
+                                                                              "_translation": "Type d'Arc",
+                                                                              "_tooltip": "Choisissez si les arcs sont disposés dans une pile ou côte à côte",
+                                                                              "_valueTooltip": "Régulier ou Empilé",
+                                                                              "_stringValues": ["Régulier", "Empilé"]
+                                                               },
+                                                               "arc": {
+                                                                              "_translation": "Propriétés d'Arc",
+                                                                              "_tooltip": "Choisissez si les arcs sont disposés dans une pile ou côte à côte",
+                                                                              "_valueTooltip": "Régulier ou Empilé",
+                                                                              "start": {
+                                                                                              "_translation": "Angle de Départ",
+                                                                                              "_tooltip": "Angle sur lequel le dessin de l'arc commence",
+                                                                                              "_valueTooltip": "Une valeur décimale entre 0 et 10"
+                                                                              },
+                                                                              "extent": "Étendue Angle",
+                                                                              "padding": "Remplissage",
+                                                                              "sortBy": "Trier par",
+                                                                              "sort": {
+                                                                                              "_translation": "Tri",
+                                                                                              "by": "By",
+                                                                                              "ascending": "Croissant"
+                                                                              },
+                                                                              "border": {
+                                                                                              "_translation": "Bordure",
+                                                                                              "width": "Largeur",
+                                                                                              "color": "Couleur"
+                                                                              }
+                                                               },
+                                                               "axis": {
+                                                                              "_translation": "Axe d'Arc",
+                                                                              "base": {
+                                                                                              "_translation": "Base d'Axe",
+                                                                                              "color": "Couleur",
+                                                                                              "width": "Largeur"
+                                                                              },
+                                                                              "labels": {
+                                                                                              "_translation": "Labels",
+                                                                                              "format": "Format Nombre"
+                                                                              },
+                                                                              "ticks": {
+                                                                                              "_translation": "Repères",
+                                                                                              "color": "Couleur",
+                                                                                              "width": "Largeur",
+                                                                                              "labels": {
+                                                                                                              "_translation": "Labels Repères",
+                                                                                                              "fontSize": "Taile Police",
+                                                                                                              "color": "Couleur"
+                                                                                              }
+                                                                              }
+                                                               },
+                                                               "valueLabel": {
+                                                                              "_translation": "Label Valeur",
+                                                                              "fontFamily": "Famille de Police",
+                                                                              "fontSize": "Taille Police",
+                                                                              "fontWeight": "Épaisseur Police",
+                                                                              "color": "Couleur Police",
+                                                                              "format": "Format Nombre"
+                                                               },
+                                                               "labels": {
+                                                                              "_translation": "Labels d'Arc",
+                                                                              "text": {
+                                                                                              "_translation": "Texte",
+                                                                                              "color": "Couleur Police",
+                                                                                              "font": "Famille de Police",
+                                                                                              "weight": "Épaisseur Police",
+                                                                                              "size": "Taille Police"
+                                                                              },
+                                                                              "marker": {
+                                                                                              "_translation": "Marqueur Label",
+                                                                                              "type": "Type de Marqueur"
+                                                                              }
+                                                               },
+                                                               "tooltip": {
+                                                                              "_translation": "Info-bulle",
                                                                               "enabled": "Activé"
 				}
 			}
 		},
-		
-		"fc": {		
-			"name": "Arc Chart",	
-			"description": "Diagramme d'arc",	
-			"icon_tooltip": "Diagramme d'arc",	
+
+		"fc": {
+			"name": "Arc Chart",
+			"description": "Diagramme d'arc",
+			"icon_tooltip": "Diagramme d'arc",
 			"value_name": "Valeur (MES)",
 			"value_tooltip": "Déposer une mesure ici",
-			"label_name": "Label (DIM)",				
-                        "label_tooltip": "Déposer une dimension ici",				
-                        "add_data": "Ajouter plus de mesures ou dimensions",				
-                        "properties": {				
-                                                               "type": {				
-                                                                              "_translation": "Type d'Arc",				
-                                                                              "_tooltip": "Choisissez si les arcs sont disposés dans une pile ou côte à côte",				
-                                                                              "_valueTooltip": "Régulier ou Empilé",				
-                                                                              "_stringValues": ["Régulier", "Empilé"]				
-                                                               },				
-                                                               "arc": {				
-                                                                              "_translation": "Propriétés d'Arc",				
-                                                                              "_tooltip": "Choisissez si les arcs sont disposés dans une pile ou côte à côte",				
-                                                                              "_valueTooltip": "Régulier ou Empilé",				
-                                                                              "start": {				
-                                                                                              "_translation": "Angle de Départ",				
-                                                                                              "_tooltip": "Angle sur lequel le dessin de l'arc commence",				
-                                                                                              "_valueTooltip": "Une valeur décimale entre 0 et 10"				
-                                                                              },				
-                                                                              "extent": "Étendue Angle",				
-                                                                              "padding": "Remplissage",				
-                                                                              "sortBy": "Trier par",				
-                                                                              "sort": {				
-                                                                                              "_translation": "Tri",				
-                                                                                              "by": "By",				
-                                                                                              "ascending": "Croissant"				
-                                                                              },				
-                                                                              "border": {				
-                                                                                              "_translation": "Bordure",				
-                                                                                              "width": "Largeur",				
-                                                                                              "color": "Couleur"				
-                                                                              }				
-                                                               },				
-                                                               "axis": {				
-                                                                              "_translation": "Axe d'Arc",				
-                                                                              "base": {				
-                                                                                              "_translation": "Base d'Axe",				
-                                                                                              "color": "Couleur",				
-                                                                                              "width": "Largeur"				
-                                                                              },				
-                                                                              "labels": {				
-                                                                                              "_translation": "Labels",				
-                                                                                              "format": "Format Nombre"				
-                                                                              },				
-                                                                              "ticks": {				
-                                                                                              "_translation": "Repères",				
-                                                                                              "color": "Couleur",				
-                                                                                              "width": "Largeur",				
-                                                                                              "labels": {				
-                                                                                                              "_translation": "Labels Repères",				
-                                                                                                              "fontSize": "Taile Police",				
-                                                                                                              "color": "Couleur"				
-                                                                                              }				
-                                                                              }				
-                                                               },				
-                                                               "valueLabel": {				
-                                                                              "_translation": "Label Valeur",				
-                                                                              "fontFamily": "Famille de Police",				
-                                                                              "fontSize": "Taille Police",				
-                                                                              "fontWeight": "Épaisseur Police",				
-                                                                              "color": "Couleur Police",				
-                                                                              "format": "Format Nombre"				
-                                                               },				
-                                                               "labels": {				
-                                                                              "_translation": "Labels d'Arc",				
-                                                                              "text": {				
-                                                                                              "_translation": "Texte",				
-                                                                                              "color": "Couleur Police",				
-                                                                                              "font": "Famille de Police",				
-                                                                                              "weight": "Épaisseur Police",				
-                                                                                              "size": "Taille Police"				
-                                                                              },				
-                                                                              "marker": {				
-                                                                                              "_translation": "Marqueur Label",				
-                                                                                              "type": "Type de Marqueur"				
-                                                                              }				
-                                                               },				
-                                                               "tooltip": {				
-                                                                              "_translation": "Info-bulle",				
+			"label_name": "Label (DIM)",
+                        "label_tooltip": "Déposer une dimension ici",
+                        "add_data": "Ajouter plus de mesures ou dimensions",
+                        "properties": {
+                                                               "type": {
+                                                                              "_translation": "Type d'Arc",
+                                                                              "_tooltip": "Choisissez si les arcs sont disposés dans une pile ou côte à côte",
+                                                                              "_valueTooltip": "Régulier ou Empilé",
+                                                                              "_stringValues": ["Régulier", "Empilé"]
+                                                               },
+                                                               "arc": {
+                                                                              "_translation": "Propriétés d'Arc",
+                                                                              "_tooltip": "Choisissez si les arcs sont disposés dans une pile ou côte à côte",
+                                                                              "_valueTooltip": "Régulier ou Empilé",
+                                                                              "start": {
+                                                                                              "_translation": "Angle de Départ",
+                                                                                              "_tooltip": "Angle sur lequel le dessin de l'arc commence",
+                                                                                              "_valueTooltip": "Une valeur décimale entre 0 et 10"
+                                                                              },
+                                                                              "extent": "Étendue Angle",
+                                                                              "padding": "Remplissage",
+                                                                              "sortBy": "Trier par",
+                                                                              "sort": {
+                                                                                              "_translation": "Tri",
+                                                                                              "by": "By",
+                                                                                              "ascending": "Croissant"
+                                                                              },
+                                                                              "border": {
+                                                                                              "_translation": "Bordure",
+                                                                                              "width": "Largeur",
+                                                                                              "color": "Couleur"
+                                                                              }
+                                                               },
+                                                               "axis": {
+                                                                              "_translation": "Axe d'Arc",
+                                                                              "base": {
+                                                                                              "_translation": "Base d'Axe",
+                                                                                              "color": "Couleur",
+                                                                                              "width": "Largeur"
+                                                                              },
+                                                                              "labels": {
+                                                                                              "_translation": "Labels",
+                                                                                              "format": "Format Nombre"
+                                                                              },
+                                                                              "ticks": {
+                                                                                              "_translation": "Repères",
+                                                                                              "color": "Couleur",
+                                                                                              "width": "Largeur",
+                                                                                              "labels": {
+                                                                                                              "_translation": "Labels Repères",
+                                                                                                              "fontSize": "Taile Police",
+                                                                                                              "color": "Couleur"
+                                                                                              }
+                                                                              }
+                                                               },
+                                                               "valueLabel": {
+                                                                              "_translation": "Label Valeur",
+                                                                              "fontFamily": "Famille de Police",
+                                                                              "fontSize": "Taille Police",
+                                                                              "fontWeight": "Épaisseur Police",
+                                                                              "color": "Couleur Police",
+                                                                              "format": "Format Nombre"
+                                                               },
+                                                               "labels": {
+                                                                              "_translation": "Labels d'Arc",
+                                                                              "text": {
+                                                                                              "_translation": "Texte",
+                                                                                              "color": "Couleur Police",
+                                                                                              "font": "Famille de Police",
+                                                                                              "weight": "Épaisseur Police",
+                                                                                              "size": "Taille Police"
+                                                                              },
+                                                                              "marker": {
+                                                                                              "_translation": "Marqueur Label",
+                                                                                              "type": "Type de Marqueur"
+                                                                              }
+                                                               },
+                                                               "tooltip": {
+                                                                              "_translation": "Info-bulle",
                                                                               "enabled": "Activé"
 				}
 			}
 		},
-		
+
 		"it": {
 			"name": "Arc Grafico",
 			"description": "Arc Grafico",
-			"icon_tooltip": "Arc Grafico", 
-			"value_name": "Valore (MES)", 
+			"icon_tooltip": "Arc Grafico",
+			"value_name": "Valore (MES)",
 			"value_tooltip": "Rilasciare una misura qui",
-			"label_name": "Label (DIM)", 
+			"label_name": "Label (DIM)",
 			"label_tooltip": "Rilasciare una dimensione qui",
 			"add_data": "Aggiungi più misure o dimensioni",
 			"properties": {
@@ -708,14 +708,14 @@
 				}
 			}
 		},
-			
+
 		"iw": {
 			"name": "תרשים ארק",
 			"description": "תרשים ארק",
-			"icon_tooltip": "תרשים ארק", 
-			"value_name": "ערך (MES)", 
+			"icon_tooltip": "תרשים ארק",
+			"value_name": "ערך (MES)",
 			"value_tooltip": "הכנס כאן דמות מפתח",
-			"label_name": "תווית (DIM)", 
+			"label_name": "תווית (DIM)",
 			"label_tooltip": "זרוק כאן מימד",
 			"add_data": "הוסף עוד צעדים או מידות",
 			"properties": {
@@ -798,14 +798,14 @@
 				}
 			}
 		},
-		
+
 		"ja": {
 			"name": "円弧グラフ",
 			"description": "円弧グラフ",
-			"icon_tooltip": "円弧グラフ", 
-			"value_name": "値 (基軸)", 
+			"icon_tooltip": "円弧グラフ",
+			"value_name": "値 (基軸)",
 			"value_tooltip": "ここに基軸をドロップ",
-			"label_name": "ラベル (ディメンション)", 
+			"label_name": "ラベル (ディメンション)",
 			"label_tooltip": "ここにディメンションをドロップ",
 			"add_data": "基軸またはディメンションをさらに追加",
 			"properties": {
@@ -888,14 +888,14 @@
 				}
 			}
 		},
-		
+
 		"pt_BR": {
 			"name": "Carta de Arco",
 			"description": "Carta de Arco",
-			"icon_tooltip": "Carta de Arco", 
-			"value_name": "Valor (MES)", 
+			"icon_tooltip": "Carta de Arco",
+			"value_name": "Valor (MES)",
 			"value_tooltip": "Solte uma medida aqui",
-			"label_name": "Etiqueta (DIM)", 
+			"label_name": "Etiqueta (DIM)",
 			"label_tooltip": "Solte uma dimensão aqui",
 			"add_data": "Adicione mais medidas ou dimensões",
 			"properties": {
@@ -978,14 +978,14 @@
 						}
 			}
 		},
-		
+
 		"ru": {
 			"name": "Диаграмма дуги",
 			"description": "Диаграмма дуги",
-			"icon_tooltip": "Диаграмма дуги", 
-			"value_name": "Значение (MES)", 
+			"icon_tooltip": "Диаграмма дуги",
+			"value_name": "Значение (MES)",
 			"value_tooltip": "Оставьте измерение здесь",
-			"label_name": "Метка (DIM)", 
+			"label_name": "Метка (DIM)",
 			"label_tooltip": "Оставьте меру здесь",
 			"add_data": "Добавьте больше мер или измерений",
 			"properties": {
@@ -1068,14 +1068,14 @@
 						}
 			}
 		},
-		
+
 		"ko": {
 			"name": "원형 차트",
 			"description": "원형 차트",
-			"icon_tooltip": "원형 차트", 
-			"value_name": "값(MES)", 
+			"icon_tooltip": "원형 차트",
+			"value_name": "값(MES)",
 			"value_tooltip": "여기에 측정을 드롭(drop)",
-			"label_name": "레이블(DIM) ", 
+			"label_name": "레이블(DIM) ",
 			"label_tooltip": "여기에 치수를 드롭(drop)",
 			"add_data": "측정값 또는 크기 더 추가",
 			"properties": {
@@ -1158,14 +1158,14 @@
 						}
 			}
 		},
-		
+
 		"zh_TW": {
 			"name": "弧圖表",
 			"description": "弧圖表",
-			"icon_tooltip": "弧圖表", 
-			"value_name": "值 (MES)", 
+			"icon_tooltip": "弧圖表",
+			"value_name": "值 (MES)",
 			"value_tooltip": "拖曳測量到這裡",
-			"label_name": "標籤 (DIM)", 
+			"label_name": "標籤 (DIM)",
 			"label_tooltip": "將尺寸拖到此處",
 			"add_data": "添加更多度量或維度",
 			"properties": {
@@ -1248,14 +1248,14 @@
 						}
 			}
 		},
-		
+
 		"zh": {
 			"name": "弧形图",
 			"description": "弧形图",
-			"icon_tooltip": "弧形图", 
-			"value_name": "价值（MES）", 
+			"icon_tooltip": "弧形图",
+			"value_name": "价值（MES）",
 			"value_tooltip": "在这里做一个措施",
-			"label_name": "标签（DIM）", 
+			"label_name": "标签（DIM）",
 			"label_tooltip": "在这里放一个维度",
 			"add_data": "添加更多度量或维度",
 			"properties": {
@@ -1338,5 +1338,5 @@
 				}
 			}
 		}
-	}		
+	}
 }

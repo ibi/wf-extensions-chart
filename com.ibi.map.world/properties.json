@@ -9,7 +9,7 @@
       "medium": "icons/medium.png"
     }
   },
-  
+
   "properties": {
     "countries": {
       "exclude": ["Antarctica"],
@@ -25,13 +25,13 @@
     "choropleth": {
       "border": {
         "color": "black",
-        "width": 1 
+        "width": 1
       }
     },
     "bubbles": {
       "border": {
         "color": "black",
-        "width": 1 
+        "width": 1
       },
       "labels": {
         "enabled": false,
@@ -39,7 +39,7 @@
         "color": "black",
 	"fontFamily": "sans-serif",
 	"fontWeight": "bolder",
-	"toBubbleSizeRatio": 0.5	
+	"toBubbleSizeRatio": 0.5
       },
       "defaultColor": "auto",
       "bubbleSizeRange": [7, 20]
@@ -91,7 +91,7 @@
       }
     }
   },
-  
+
   "propertyAnnotations": {
     "countries": {
       "exclude": {
@@ -114,14 +114,14 @@
     "choropleth": {
       "border": {
         "color": "color",
-        "width": "number" 
+        "width": "number"
       }
     },
 
     "bubbles": {
       "border": {
         "color": "color",
-        "width": "number" 
+        "width": "number"
       },
       "labels": {
         "enabled": "bool",
@@ -209,7 +209,7 @@
       }
     }
   },
-  
+
   "dataBuckets": {
     "tooltip": true,
     "matrix": false,
@@ -241,7 +241,7 @@
           "max": 1
         }
       },
-      { 
+      {
         "id": "latitude",
         "type": "both",
         "count": {
@@ -263,7 +263,7 @@
 
       "longitude_name": "Longitude (DIM, MES)",
       "longitude_tooltip": "Drop a dimension or measure here",
-      
+
       "latitude_name": "Latitude (DIM, MES)",
       "latitude_tooltip": "Drop a dimension or measure here",
 

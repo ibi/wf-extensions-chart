@@ -9,17 +9,17 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
 		"chartHeadroom": 50
 	},
-	
+
 	"propertyAnnotations": {
 		"chartHeadroom": "number"
 	},
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": true,
 		"matrix": false,
 		"data_page": false,
@@ -49,10 +49,10 @@
 		"en": {
 			"name": "USA State Cartogram",
 			"description": "Cartogram for U.S. States",
-			"icon_tooltip": "Visualize U.S. State data as a cartogram", 
-			"value_name": "Value for State Area", 
-			"value_tooltip": "Drop state value here", 
-			"state_name": "State Name", 
+			"icon_tooltip": "Visualize U.S. State data as a cartogram",
+			"value_name": "Value for State Area",
+			"value_tooltip": "Drop state value here",
+			"state_name": "State Name",
 			"labels_tooltip": "Drop state dimensions here"
 		}
 

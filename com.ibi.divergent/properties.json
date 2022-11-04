@@ -9,7 +9,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
         "useSeriesColours": true,
         "colors": ["#c7001e", "#f6a580", "#cccccc", "#92c6db", "#086fad"],
@@ -17,7 +17,7 @@
         "showXAxisValues": true,
         "enableTooltip": false
 	},
-	
+
 	"propertyAnnotations": {
         "useSeriesColours": "bool",
         "colors": {
@@ -28,9 +28,9 @@
         "showXAxisValues": "bool",
         "enableTooltip": "bool"
 	},
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": false,
 		"matrix": false,
 		"data_page": false,
@@ -60,10 +60,10 @@
 		"en": {
 			"name": "Diverging Stacked Bar Chart",
 			"description": "This extension displays a stacked horizontal bar chart displaying negative to positive responses.",
-			"icon_tooltip": "Diverging Stacked Bar Chart", 
-			"value_name": "Replies Bucket", 
-			"value_tooltip": "Drop 5 measures here", 
-			"series_name": "Questions Bucket", 
+			"icon_tooltip": "Diverging Stacked Bar Chart",
+			"value_name": "Replies Bucket",
+			"value_tooltip": "Drop 5 measures here",
+			"series_name": "Questions Bucket",
 			"series_tooltip": "Drop 1 dimension here"
 		}
 	}

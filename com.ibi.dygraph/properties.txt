@@ -1,0 +1,1 @@
+"showRangeSelector": false, // When true, this shows the range selector at the lower edge of the chart

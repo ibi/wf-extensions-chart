@@ -6,10 +6,10 @@
 		"copyright": "TIBCO Software Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.horizontal_2kpi",
 		"icons": {
-			"medium": "icons/ibi_horizontal_2kpi.png" 
+			"medium": "icons/ibi_horizontal_2kpi.png"
 		}
 	},
-	
+
 	"properties": {
 		"horizontal2kpiProperties": {
 			"ibiAppsPath": "/ibi_apps/",
@@ -28,11 +28,11 @@
 				"T": "trillions"
 			},
 			"calculeComparationFunction": {
-				"param1": "valueKpi", 
-				"param2": "compareValue", 
+				"param1": "valueKpi",
+				"param2": "compareValue",
 				"body": "if(compareValue == 0) { return 0; } var result = compareValue;   return result;"
 			},
-			
+
 			"valueComparation":{
 				"formatComparation": "#,###.00",
 				"negativeColor":"red",
@@ -54,7 +54,7 @@
 			"drillBarColor":"#d6d6d6",
 			"numberTicks": 5
 		},
-		
+
 		"external_library": "lib/d3.min.js",
 		"colorScale": {
 			"colorMode":"discrete",
@@ -64,18 +64,18 @@
 			]
 		}
 	},
-	
+
 	"propertyAnnotations": {
-		"horizontal2kpiProperties": "json",		
+		"horizontal2kpiProperties": "json",
 		"external_library": "str",
 		"colorScale": "json"
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": true,
 		"matrix": false,
 		"data_page": false,
-		"series_break": false, 
+		"series_break": false,
 		"buckets": [
 			{
 				"id": "value",
@@ -109,8 +109,8 @@
 					"max": 1
 				}
 			},
-			
-			
+
+
 			{
 				"id": "kpisign",
 				"type": "dimension",
@@ -142,20 +142,20 @@
 		"en": {
 			"name": "bars horizontal 2 kpi",
 			"description": "bars horizontal 2 kpi",
-			"icon_tooltip": "This extension", 
-			"value_name": "Main KPI (1)",  
-			"value_tooltip": "Drop a measure here", 
-			"comparevalue_name": "Sec KPI (1, non required)", 
-			"comparevalue_tooltip": "Drop a measure here", 
-			"order_name": "Order field (1, non required))", 
+			"icon_tooltip": "This extension",
+			"value_name": "Main KPI (1)",
+			"value_tooltip": "Drop a measure here",
+			"comparevalue_name": "Sec KPI (1, non required)",
+			"comparevalue_tooltip": "Drop a measure here",
+			"order_name": "Order field (1, non required))",
 			"order_tooltip": "Drop a dimension here",
-			"dimension_name": "Dimension (1, non required))", 
-			"dimension_tooltip": "Drop a dimension here",	
-			"kpisign_name": "KPI Type: Pos. / Neg (1, non required)", 
+			"dimension_name": "Dimension (1, non required))",
+			"dimension_tooltip": "Drop a dimension here",
+			"kpisign_name": "KPI Type: Pos. / Neg (1, non required)",
 			"kpisign_tooltip": "Drop a measure here",
-			"image_name": "Image Bucket (1, non required)", 
+			"image_name": "Image Bucket (1, non required)",
 			"image_tooltip": "Drop a field with path to image",
-			"drillCondition_name": "Drill Condition(1, non required)", 
+			"drillCondition_name": "Drill Condition(1, non required)",
 			"drillCondition_tooltip":  "Drop a dimension here"
 		}
 	}

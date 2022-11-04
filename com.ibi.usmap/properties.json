@@ -10,7 +10,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
 	    "toolTip": {
 	      "enabled": true
@@ -44,7 +44,7 @@
 	    },
 	    "colorStates": true
 	},
-	
+
 	"propertyAnnotations": {
 		"toolTip": {
 	      "enabled": "bool"
@@ -87,7 +87,7 @@
 	    },
 	    "colorStates": "bool"
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": true,
 		"matrix": false,

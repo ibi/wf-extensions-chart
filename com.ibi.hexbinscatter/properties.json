@@ -9,7 +9,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
 		"circles": {
 			"hide": false,
@@ -46,7 +46,7 @@
             }
         }
 	},
-	
+
 	"propertyAnnotations": {
 		"circles": {
 			"hide": "bool",
@@ -90,9 +90,9 @@
             }
         }
 	},
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": false,
 		"matrix": false,
 		"data_page": false,
@@ -138,7 +138,7 @@
 		"en": {
 			"name": "Hexagon Bin Scatter Chart",
 			"description": "Scatter chart with hexagon bins in the background, that color code aggregated value calculated from all the circles in the bin.",
-			"icon_tooltip": "This extension utilizes hexagons that change colors depending on aggregated value calculated from all the circles in the bin. If value is not specified hexagon is color coded by the number of circles in it.", 
+			"icon_tooltip": "This extension utilizes hexagons that change colors depending on aggregated value calculated from all the circles in the bin. If value is not specified hexagon is color coded by the number of circles in it.",
 			"x_name": "X Axis (MES)",
 			"x_tooltip": "Drop a measure here",
 			"y_name": "Y Axis (MES)",

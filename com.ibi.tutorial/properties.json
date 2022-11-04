@@ -1,8 +1,6 @@
 {
 	"info": {
 		"version": "1.1.0",
-		//1.0 Original Release
-		//1.1.0 CHART-1926 Tooltips in Chart Extensions are not inheriting Focus Numeric Formatting like Moonbeam charts do.  Implemented on com.ibi.tutorial_data_labels
 		"implements_api_version": 2.0,
 		"author": "TIBCO Software",
 		"copyright": "TIBCO Software Inc.",
@@ -11,21 +9,21 @@
 			"medium": "icons/icon.png"
 		}
 	},
-	
+
 	"properties": {
 		"selectedExtension": null,
 		"baseProperties": {},
 		"tutorialSpecificProperties": {}
 	},
-	
+
 	"propertyAnnotations": {
 		"selectedExtension": "str",
 		"baseProperties": "json",
 		"tutorialSpecificProperties": "json"
 	},
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": true,
 		"matrix": true,
 		"data_page": true,
@@ -55,7 +53,7 @@
 					"min": 0,
 					"max": 1
 				}
-			},
+			}
 		]
 	},
 
@@ -63,10 +61,10 @@
 		"en": {
 			"name": "Extension Tutorial",
 			"description": "Extension Tutorial",
-			"icon_tooltip": "Extension Tutorial", 
-			"value_name": "Value Bucket", 
-			"value_tooltip": "Drop a measure here", 
-			"labels_name": "Label Bucket", 
+			"icon_tooltip": "Extension Tutorial",
+			"value_name": "Value Bucket",
+			"value_tooltip": "Drop a measure here",
+			"labels_name": "Label Bucket",
 			"labels_tooltip": "Drop a dimension here"
 		}
 	}

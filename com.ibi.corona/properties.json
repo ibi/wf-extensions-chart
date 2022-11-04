@@ -9,7 +9,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
         "title": {
             "visible": true,
@@ -18,10 +18,10 @@
 			"color": "rgb(102,30,117)"
         },
         "datarange": {
-            "inc_zero": true,
+            "inc_zero": true
         },
         "ringreference": {
-            "visible": true,
+            "visible": true
         },
         "ringlabels": {
             "visible": true,
@@ -46,7 +46,7 @@
             }
         }
 	},
-	
+
 	"propertyAnnotations": {
         "title": {
             "visible": "bool",
@@ -58,10 +58,10 @@
 			"color": "color"
         },
         "datarange": {
-            "inc_zero": "bool",
+            "inc_zero": "bool"
         },
         "ringreference": {
-            "visible": "bool",
+            "visible": "bool"
         },
         "ringlabels": {
             "visible": "bool",
@@ -98,9 +98,9 @@
 			}
 		}
 	},
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": false,
 		"matrix": false,
 		"data_page": false,
@@ -138,12 +138,12 @@
 		"en": {
 			"name": "Corona Chart",
 			"description": "Corona Chart",
-			"icon_tooltip": "This extension describes a radial chart with each series represented within a closed loop, smooth lined SVG path.", 
-			"value_name": "Value Bucket", 
-			"value_tooltip": "Drop a measure here", 
-			"radial_name": "Radial Bucket", 
-			"radial_tooltip": "Drop a measure here", 
-			"series_name": "Series Bucket", 
+			"icon_tooltip": "This extension describes a radial chart with each series represented within a closed loop, smooth lined SVG path.",
+			"value_name": "Value Bucket",
+			"value_tooltip": "Drop a measure here",
+			"radial_name": "Radial Bucket",
+			"radial_tooltip": "Drop a measure here",
+			"series_name": "Series Bucket",
 			"series_tooltip": "Drop a dimension here"
 		}
 	}

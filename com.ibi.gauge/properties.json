@@ -9,7 +9,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
 
     "arc_width": 25,
@@ -40,9 +40,9 @@
     "target_width": "number",
     "target_color": "color"
   },
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": false,
 		"matrix": false,
 		"data_page": false,

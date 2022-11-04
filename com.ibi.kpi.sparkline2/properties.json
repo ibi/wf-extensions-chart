@@ -9,7 +9,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
 		"type": "bar",
 		"color": "#666",
@@ -40,12 +40,12 @@
 		"aggregationType": "First",
 		"maxWidth": 280
 	},
-	
+
 	"propertyAnnotations": {
-		"type": "str", 
-		"color": "str", 
-		"fontFamily": "str", 
-		"fontSize": "str", 
+		"type": "str",
+		"color": "str",
+		"fontFamily": "str",
+		"fontSize": "str",
 		"headingTitle": {
 			"fontWeight": "str",
 			"color": "str",
@@ -74,7 +74,7 @@
 		},
 		"maxWidth": "number"
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": false,
 		"matrix": false,
@@ -113,124 +113,124 @@
 		"en": {
 			"name": "KPI with Sparkline Large",
 			"description": "KPI with jQuery Sparkline plug-in - Large.",
-			"icon_tooltip": "KPI with jQuery Sparkline plug-in - Large.", 
-			"measure_name": "Key Measure", 
-			"measure_tooltip": "Drop a measure here", 
-			"xaxis_name": "X-Axis", 
+			"icon_tooltip": "KPI with jQuery Sparkline plug-in - Large.",
+			"measure_name": "Key Measure",
+			"measure_tooltip": "Drop a measure here",
+			"xaxis_name": "X-Axis",
 			"xaxis_tooltip": "Drop a dimension here",
-			"group_name": "Group", 
+			"group_name": "Group",
 			"group_tooltip": "Drop a dimension here",
-			"add_data": "Add more measures or dimensions" //CHART-3055
+			"add_data": "Add more measures or dimensions"
 		},
 		"pt_BR": {
 			"name": "KPI com minigráfico grande",
 			"description": "KPI com o plug-in jQuery Sparkline - Grande.",
-			"icon_tooltip": "KPI com o plug-in jQuery Sparkline - Grande.", 
-			"measure_name": "Medida principal", 
-			"measure_tooltip": "Solte uma medida aqui", 
-			"xaxis_name": "Eixo X", 
+			"icon_tooltip": "KPI com o plug-in jQuery Sparkline - Grande.",
+			"measure_name": "Medida principal",
+			"measure_tooltip": "Solte uma medida aqui",
+			"xaxis_name": "Eixo X",
 			"xaxis_tooltip": "Solte uma dimensão aqui",
-			"group_name": "Grupo", 
+			"group_name": "Grupo",
 			"group_tooltip": "Solte uma dimensão aqui"
-		},	
+		},
 		"de": {
 			"name": "KPI mit Sparkline (groß)",
 			"description": "KPI mit jQuery-Sparkline-Plug-in - groß",
-			"icon_tooltip": "KPI mit jQuery-Sparkline-Plug-in - groß", 
-			"measure_name": "Schlüsselkennzahl", 
-			"measure_tooltip": "Kennzahl hier ablegen", 
-			"xaxis_name": "X-Achse", 
+			"icon_tooltip": "KPI mit jQuery-Sparkline-Plug-in - groß",
+			"measure_name": "Schlüsselkennzahl",
+			"measure_tooltip": "Kennzahl hier ablegen",
+			"xaxis_name": "X-Achse",
 			"xaxis_tooltip": "Dimension hier ablegen",
-			"group_name": "Gruppe", 
+			"group_name": "Gruppe",
 			"group_tooltip": "Dimension hier ablegen"
 		},
 		"es": {
 			"name": "KPI con Sparkline Grande",
 			"description": "KPI con complemento jQuery Sparkline - Grande.",
-			"icon_tooltip": "KPI con complemento jQuery Sparkline - Grande.", 
-			"measure_name": "Medida clave", 
-			"measure_tooltip": "Soltar aquí una medida", 
-			"xaxis_name": "Eje X", 
+			"icon_tooltip": "KPI con complemento jQuery Sparkline - Grande.",
+			"measure_name": "Medida clave",
+			"measure_tooltip": "Soltar aquí una medida",
+			"xaxis_name": "Eje X",
 			"xaxis_tooltip": "Soltar aquí una dimensión",
-			"group_name": "Grupo", 
+			"group_name": "Grupo",
 			"group_tooltip": "Soltar aquí una dimensión"
 		},
 		"fr": {
 			"name": "KPI avec Sparkline Large",
 			"description": "KPI avec le plug-in jQuery Sparkline - Large.",
-			"icon_tooltip": "KPI avec le plug-in jQuery Sparkline - Large.", 
-			"measure_name": "Mesure Clé", 
-			"measure_tooltip": "Déposer une mesure ici", 
-			"xaxis_name": "Axe X", 
+			"icon_tooltip": "KPI avec le plug-in jQuery Sparkline - Large.",
+			"measure_name": "Mesure Clé",
+			"measure_tooltip": "Déposer une mesure ici",
+			"xaxis_name": "Axe X",
 			"xaxis_tooltip": "Déposer une dimension ici",
-			"group_name": "Groupe", 
+			"group_name": "Groupe",
 			"group_tooltip": "Déposer une dimension ici"
 			},
 		"fc": {
 			"name": "KPI avec Sparkline Large",
 			"description": "KPI avec le plug-in jQuery Sparkline - Large.",
-			"icon_tooltip": "KPI avec le plug-in jQuery Sparkline - Large.", 
-			"measure_name": "Mesure Clé", 
-			"measure_tooltip": "Déposer une mesure ici", 
-			"xaxis_name": "Axe X", 
+			"icon_tooltip": "KPI avec le plug-in jQuery Sparkline - Large.",
+			"measure_name": "Mesure Clé",
+			"measure_tooltip": "Déposer une mesure ici",
+			"xaxis_name": "Axe X",
 			"xaxis_tooltip": "Déposer une dimension ici",
-			"group_name": "Groupe", 
-			"group_tooltip": "Déposer une dimension ici"			
+			"group_name": "Groupe",
+			"group_tooltip": "Déposer une dimension ici"
 			},
 		"it": {
 			"name": "KPI with Sparkline Large",
 			"description": "KPI with jQuery Sparkline plug-in - Large.",
-			"icon_tooltip": "KPI with jQuery Sparkline plug-in - Large.", 
-			"measure_name": "Key Measure", 
-			"measure_tooltip": "Rilasciare una misura qui", 
-			"xaxis_name": "Asse-X", 
+			"icon_tooltip": "KPI with jQuery Sparkline plug-in - Large.",
+			"measure_name": "Key Measure",
+			"measure_tooltip": "Rilasciare una misura qui",
+			"xaxis_name": "Asse-X",
 			"xaxis_tooltip": "Rilasciare una dimensione qui",
-			"group_name": "Gruppo", 
+			"group_name": "Gruppo",
 			"group_tooltip": "Rilasciare una dimensione qui"
 		},
 		"ja": {
 			"name": "スパークライン KPI (大)",
 			"description": "jQuery スパークラインプラグインを使用した KPI ウィジェット (大) です。",
-			"icon_tooltip": "jQuery スパークラインプラグインを使用した KPI ウィジェット (大) です。", 
-			"measure_name": "KPI", 
-			"measure_tooltip": "ここに基軸をドロップ", 
-			"xaxis_name": "X 軸", 
+			"icon_tooltip": "jQuery スパークラインプラグインを使用した KPI ウィジェット (大) です。",
+			"measure_name": "KPI",
+			"measure_tooltip": "ここに基軸をドロップ",
+			"xaxis_name": "X 軸",
 			"xaxis_tooltip": "ここにディメンションをドロップ",
-			"group_name": "グループ", 
+			"group_name": "グループ",
 			"group_tooltip": "ここにディメンションをドロップ"
 		},
 		"ko": {
 			"name": "KPI with Sparkline Large",
 			"description": "KPI with jQuery Sparkline plug-in - Large.",
-			"icon_tooltip": "KPI with jQuery Sparkline plug-in - Large.", 
-			"measure_name": "Key Measure", 
-			"measure_tooltip": "여기에 측정을 드롭(drop)", 
-			"xaxis_name": "X축", 
+			"icon_tooltip": "KPI with jQuery Sparkline plug-in - Large.",
+			"measure_name": "Key Measure",
+			"measure_tooltip": "여기에 측정을 드롭(drop)",
+			"xaxis_name": "X축",
 			"xaxis_tooltip": "여기에 치수를 드롭(drop)",
-			"group_name": "그룹", 
+			"group_name": "그룹",
 			"group_tooltip": "여기에 치수를 드롭(drop)"
 		},
 		"tw": {
 			"name": "具有大走勢圖的 KPI",
 			"description": "具有 jQuery 走勢圖外掛程式的 KPI - 大。",
-			"icon_tooltip": "具有 jQuery 走勢圖外掛程式的 KPI - 大。", 
-			"measure_name": "索引鍵測量", 
-			"measure_tooltip": "拖曳測量到這裡", 
-			"xaxis_name": "X 軸", 
+			"icon_tooltip": "具有 jQuery 走勢圖外掛程式的 KPI - 大。",
+			"measure_name": "索引鍵測量",
+			"measure_tooltip": "拖曳測量到這裡",
+			"xaxis_name": "X 軸",
 			"xaxis_tooltip": "拖曳維度到這裡",
-			"group_name": "群組", 
+			"group_name": "群組",
 			"group_tooltip": "拖曳維度到這裡"
 		},
 		"zh": {
 			"name": "带有大迷你图的 KPI",
 			"description": "带有 jQuery 迷你图插件的 KPI - 大。",
-			"icon_tooltip": "带有 jQuery 迷你图插件的 KPI - 大。", 
-			"measure_name": "键度量", 
-			"measure_tooltip": "将度量拖到此处", 
-			"xaxis_name": "X 轴", 
+			"icon_tooltip": "带有 jQuery 迷你图插件的 KPI - 大。",
+			"measure_name": "键度量",
+			"measure_tooltip": "将度量拖到此处",
+			"xaxis_name": "X 轴",
 			"xaxis_tooltip": "将维拖到此处",
-			"group_name": "组", 
+			"group_name": "组",
 			"group_tooltip": "将维拖到此处"
 		}
 	}
-}	
+}

@@ -1,10 +1,6 @@
 {
 	"info": {
 		"version": "1.2.1",
-		//1.0 Original Version
-		//1.1.0 CHART-2971 NFR - Enable drilldown for Liquid Gauge extension
-		//1.2.0 - update to d3 v5
-		//1.2.1 - VIZ-803 PDF/PNG rendering should get the final look not the initial state of animation
 		"implements_api_version": 1.0,
 		"author": "TIBCO Software",
 		"copyright": "TIBCO Software Inc.",
@@ -17,31 +13,31 @@
 	},
 
 	"properties": {
-		"minValue": 0,             // The gauge minimum value.
-		"maxValue": 100,           // The gauge maximum value.
+		"minValue": 0,
+		"maxValue": 100,
 
-		"circleThickness": 0.05,   // The outer circle thickness as a percentage of its radius.
-		"circleFillGap": 0.05,     // The size of the gap between the outer circle and wave circle as a percentage of the outer circles radius.
-		"circleColor": "#178BCA",  // The color of the outer circle.
+		"circleThickness": 0.05,
+		"circleFillGap": 0.05,
+		"circleColor": "#178BCA",
 
-		"waveHeight": 0.10,        // The wave height as a percentage of the radius of the wave circle.
-		"waveCount": 1,            // The number of full waves per width of the wave circle.
-		"waveRiseTime": 800,      // The amount of time in milliseconds for the wave to rise from 0 to it's final height.
-		"waveAnimateTime": 8000,  // The amount of time in milliseconds for a full wave to enter the wave circle.
-		"waveRise": true,          // Control if the wave should rise from 0 to it's full height, or start at it's full height.
-		"waveHeightScaling": true, // Controls wave size scaling at low and high fill percentages. When true, wave height reaches it's maximum at 50% fill, and minimum at 0% and 100% fill. This helps to prevent the wave from making the wave circle from appear totally full or empty when near it's minimum or maximum fill.
-		"waveAnimate": true,       // Controls if the wave scrolls or is static.
-		"waveColor": "#178BCA",    // The color of the fill wave.
-		"waveOffset": 0,           // The amount to initially offset the wave. 0 = no offset. 1 = offset of one full wave.
+		"waveHeight": 0.10,
+		"waveCount": 1,
+		"waveRiseTime": 800,
+		"waveAnimateTime": 8000,
+		"waveRise": true,
+		"waveHeightScaling": true,
+		"waveAnimate": true,
+		"waveColor": "#178BCA",
+		"waveOffset": 0,
 
-		"textVertPosition": 0.5,   // The height at which to display the percentage text withing the wave circle. 0 = bottom, 1 = top.
-		"textSize": 1,             // The relative height of the text to display in the wave circle. 1 = 50%
-		"valueCountUp": true,      // If true, the displayed value counts up from 0 to it's final value upon loading. If false, the final value is displayed.
-		"displayPercent": true,    // If true, a % symbol is displayed after the value.
-		"textColor": "#045681",    // The color of the value text when the wave does not overlap it.
-		"waveTextColor": "#A4DBf8" // The color of the value text when the wave overlaps it.
+		"textVertPosition": 0.5,
+		"textSize": 1,
+		"valueCountUp": true,
+		"displayPercent": true,
+		"textColor": "#045681",
+		"waveTextColor": "#A4DBf8"
 	},
-	
+
 	"propertyAnnotations": {
 		"minValue": "number",
 		"maxValue": "number",
@@ -64,9 +60,9 @@
 		"textColor": "color",
 		"waveTextColor": "color"
 	},
-	
+
 	"dataBuckets":  {
-		"tooltip": true,    //Added for CHART-2971
+		"tooltip": true,
 		"buckets": [
 			{
 				"id": "value",
@@ -78,109 +74,109 @@
 			}
 		]
 	},
-	
+
 	"translations": {
 		"en": {
 			"name": "Liquid Gauge Chart",
 			"description": "Fancy animated gauge chart with a liquid interior",
-			"icon_tooltip": "Liquid Gauge Chart", 
-			"value_name": "Value Bucket", 
+			"icon_tooltip": "Liquid Gauge Chart",
+			"value_name": "Value Bucket",
 			"value_tooltip": "Drop a measure here"
 		},
-		
+
 		"de": {
 			"name": "Pegeldiagramm",
 			"description": "Animiertes Pegeldiagramm mit Flüssigkeitsfüllung",
-			"icon_tooltip": "Pegeldiagramm (Flüssigkeitsfüllung)", 
-			"value_name": "Wert-Bucket", 
+			"icon_tooltip": "Pegeldiagramm (Flüssigkeitsfüllung)",
+			"value_name": "Wert-Bucket",
 			"value_tooltip": "Maßeinheit hier ablegen"
 		},
-		
+
 		"es": {
 			"name": "Diagrama de indicador líquido",
 			"description": "Sofisticado diagrama animado con interior líquido",
-			"icon_tooltip": "Diagrama de indicador líquido", 
-			"value_name": "Depósito de valores", 
+			"icon_tooltip": "Diagrama de indicador líquido",
+			"value_name": "Depósito de valores",
 			"value_tooltip": "Soltar aquí una medida"
 		},
-		
+
 		"fr": {
 			"name": "Graphique de jauge liquide",
 			"description": "Graphique de jauge animée avec intérieur liquide",
-			"icon_tooltip": "Graphique de jauge liquide", 
-			"value_name": "Compartiment de valeurs", 
+			"icon_tooltip": "Graphique de jauge liquide",
+			"value_name": "Compartiment de valeurs",
 			"value_tooltip": "Déposer une mesure ici"
 		},
-		
+
 		"fc": {
 			"name": "Graphique de jauge liquide",
 			"description": "Graphique de jauge animée avec intérieur liquide",
-			"icon_tooltip": "Graphique de jauge liquide", 
-			"value_name": "Compartiment de valeurs", 
+			"icon_tooltip": "Graphique de jauge liquide",
+			"value_name": "Compartiment de valeurs",
 			"value_tooltip": "Déposer une mesure ici"
 		},
-		
+
 		"it": {
 			"name": "Grafico Indicatore Liquido",
 			"description": "Grafico indicatore animato con interiore liquido",
-			"icon_tooltip": "Grafico Interiore Liquido", 
-			"value_name": "Bucket di Valori", 
+			"icon_tooltip": "Grafico Interiore Liquido",
+			"value_name": "Bucket di Valori",
 			"value_tooltip": "Rilascia qui una misura"
 		},
-		
+
 		"iw": {
 			"name": "Liquid Gauge Chart",
 			"description": "Fancy animated gauge chart with a liquid interior",
-			"icon_tooltip": "Liquid Gauge Chart", 
-			"value_name": "Value Bucket", 
+			"icon_tooltip": "Liquid Gauge Chart",
+			"value_name": "Value Bucket",
 			"value_tooltip": "Drop a measure here"
 		},
-		
+
 		"ja": {
 			"name": "液体メータグラフ",
 			"description": "内部の液体をアニメーション化した高度なメータグラフです。",
-			"icon_tooltip": "液体メータグラフ", 
-			"value_name": "値バケット", 
+			"icon_tooltip": "液体メータグラフ",
+			"value_name": "値バケット",
 			"value_tooltip": "ここに基軸をドロップ"
 		},
-		
+
 		"br": {
 			"name": "Medidor Líquido",
 			"description": "Medidor com animaçăo sofisticada e interior líquido",
-			"icon_tooltip": "Medidor Líquido", 
-			"value_name": "Recipiente de Valor", 
+			"icon_tooltip": "Medidor Líquido",
+			"value_name": "Recipiente de Valor",
 			"value_tooltip": "Solte uma medida aqui"
 		},
-		
+
 		"ru": {
 			"name": "Liquid Gauge Chart",
 			"description": "Fancy animated gauge chart with a liquid interior",
-			"icon_tooltip": "Liquid Gauge Chart", 
-			"value_name": "Value Bucket", 
+			"icon_tooltip": "Liquid Gauge Chart",
+			"value_name": "Value Bucket",
 			"value_tooltip": "Drop a measure here"
 		},
 
 		"ko": {
 			"name": "액체 게이지 차트",
 			"description": "내부에 액체가 있는 멋진 동영향 게이지 도표",
-			"icon_tooltip": "액체 게이지 차트", 
-			"value_name": "값 버킷", 
+			"icon_tooltip": "액체 게이지 차트",
+			"value_name": "값 버킷",
 			"value_tooltip": "여기에 측정을 드롭(drop)"
-		},		
+		},
 
 		"tw": {
 			"name": "液態量規圖表",
 			"description": "具有液態內部的新潮動畫量規圖表",
-			"icon_tooltip": "液態量規圖表", 
-			"value_name": "值儲存區", 
+			"icon_tooltip": "液態量規圖表",
+			"value_name": "值儲存區",
 			"value_tooltip": "拖曳測量到這裡"
 		},
-		
+
 		"zh": {
 			"name": "液标尺图表",
 			"description": "带有液体内部的流行动画标尺图表",
-			"icon_tooltip": "液标尺图表", 
-			"value_name": "值存储区", 
+			"icon_tooltip": "液标尺图表",
+			"value_name": "值存储区",
 			"value_tooltip": "将度量拖到此处"
 		}
 	}

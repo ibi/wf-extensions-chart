@@ -11,17 +11,17 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
 		"chartHeadroom": 50
 	},
-	
+
 	"propertyAnnotations": {
 		"chartHeadroom": "number"
 	},
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": false,
 		"matrix": false,
 		"data_page": false,
@@ -51,20 +51,20 @@
 		"en": {
 			"name": "Compare 2 Bars",
 			"description": "This chart compares 2 series.",
-			"icon_tooltip": "This extension compares 2 series", 
-			"value_name": "Value Bucket", 
-			"value_tooltip": "Drop a measure here", 
-			"labels_name": "Label Bucket", 
+			"icon_tooltip": "This extension compares 2 series",
+			"value_name": "Value Bucket",
+			"value_tooltip": "Drop a measure here",
+			"labels_name": "Label Bucket",
 			"labels_tooltip": "Drop a dimension here"
 		},
-		
+
 		"fr": {
 			"name": "Un Bar Chart tres simple",
 			"description": "C'est un Bar Chart vraiment simple",
-			"icon_tooltip": "This extension does ...", 
-			"value_name": "Value Bucket", 
-			"value_tooltip": "Drop a measusre here", 
-			"labels_name": "Label Bucket", 
+			"icon_tooltip": "This extension does ...",
+			"value_name": "Value Bucket",
+			"value_tooltip": "Drop a measusre here",
+			"labels_name": "Label Bucket",
 			"labels_tooltip": "Drop a dimension here"
 		}
 	}

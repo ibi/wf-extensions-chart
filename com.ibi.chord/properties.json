@@ -10,7 +10,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
 		"inverseData": false,
 		"chordSort": "none",
@@ -41,10 +41,8 @@
 				"count": 90
 			}
 		},
-		//VIZ-399
 		"chordColors":  ["#4087b8", "#e31a1c", "#9ebcda", "#c994c7", "#41b6c4", "#49006a", "#ec7014", "#a6bddb", "#67001f", "#800026", "#addd8e", "#e0ecf4", "#fcc5c0", "#238b45", "#081d58", "#d4b9da", "#2b8cbe", "#74a9cf", "#41ab5d", "#fed976", "#ce1256", "#7f0000", "#a6bddb", "#ffffcc", "#e7e1ef", "#016c59", "#f7fcfd", "#99d8c9", "#fff7fb", "#ffffe5", "#fdd49e", "#ffffd9", "#fe9929", "#8c96c6", "#810f7c", "#993404", "#c7e9b4", "#bfd3e6", "#e7298a", "#7fcdbb", "#3690c0", "#ae017e", "#d9f0a3", "#ece2f0", "#014636", "#f7fcb9", "#66c2a4", "#fff7bc", "#f7fcf0", "#e5f5f9", "#fdbb84", "#fa9fb5", "#4d004b", "#fff7fb", "#cc4c02", "#78c679", "#1d91c0", "#ccebc5", "#feb24c", "#b30000", "#8c6bb1", "#fec44f", "#d0d1e6", "#084081", "#0868ac", "#f7fcfd", "#0570b0", "#ef6548", "#fff7ec", "#006837", "#f768a1", "#edf8b1", "#fee391", "#238443", "#ffffe5", "#023858", "#7a0177", "#67a9cf", "#dd3497", "#980043", "#88419d", "#d0d1e6", "#fc8d59", "#4eb3d3", "#fd8d3c", "#fff7f3", "#fc4e2a", "#ccece6", "#ece7f2", "#a8ddb5", "#41ae76", "#bd0026", "#e0f3db", "#045a8d", "#ffeda0", "#253494", "#7bccc4", "#fde0dd", "#00441b", "#225ea8", "#006d2c", "#02818a", "#f7f4f9", "#d7301f", "#df65b0", "#662506", "#3690c0", "#004529", "#fee8c8"]
 		,"showTwoWayInfoTooltip": false
-		//VIZ-420
 		,"tooltipLabels":{
 			"sourceLabel":"source"
 			,"targetLabel":"target"
@@ -93,7 +91,7 @@
 		}
 	},
 	"dataBuckets":  {
-		"tooltip": true,  //Added with CHART-3146
+		"tooltip": true,
 		"buckets": [
 			{
 				"id": "source",
@@ -120,163 +118,163 @@
 				}
 			}
 		]
-	},	
+	},
 	"translations": {
 		"en": {
 			"name": "Chord Diagram",
 			"description": "Chord Diagram",
-			"icon_tooltip": "Chord Diagram", 
-			"source_name": "Source Nodes (DIM)", 
+			"icon_tooltip": "Chord Diagram",
+			"source_name": "Source Nodes (DIM)",
 			"source_tooltip": "Drop a dimension here",
-			"target_name": "Target Nodes (DIM)", 
+			"target_name": "Target Nodes (DIM)",
 			"target_tooltip": "Drop a dimension here",
 			"value_name": "Node Link Values (MES)",
 			"value_tooltip": "Drop a measure here"
 		},
-		
+
 		"de": {
 			"name": "Chord-Diagramm",
 			"description": "Chord-Diagramm",
-			"icon_tooltip": "Chord-Diagramm", 
-			"source_name": "Quellen-Nodes", 
+			"icon_tooltip": "Chord-Diagramm",
+			"source_name": "Quellen-Nodes",
 			"source_tooltip": "Dimension hier ablegen",
-			"target_name": "Ziel-Nodes", 
+			"target_name": "Ziel-Nodes",
 			"target_tooltip": "Dimension hier ablegen",
 			"value_name": "Node-Link-Werte",
 			"value_tooltip": "Maßeinheit hier ablegen"
 		},
-		
+
 		"es": {
 			"name": "Diagrama de acorde",
 			"description": "Diagrama de acorde",
-			"icon_tooltip": "Diagrama de acorde", 
-			"source_name": "Nodos de origen", 
+			"icon_tooltip": "Diagrama de acorde",
+			"source_name": "Nodos de origen",
 			"source_tooltip": "Soltar aquí una dimensión",
-			"target_name": "Nodos de destino", 
+			"target_name": "Nodos de destino",
 			"target_tooltip": "Soltar aquí una dimensión",
 			"value_name": "Valores de vínculo de nodos",
 			"value_tooltip": "Soltar aquí una medida"
 		},
-		
+
 		"fr": {
 			"name": "Diagramme d'accord",
 			"description": "Diagramme d'accord",
-			"icon_tooltip": "Diagramme d'accord", 
-			"source_name": "Noeuds sources", 
+			"icon_tooltip": "Diagramme d'accord",
+			"source_name": "Noeuds sources",
 			"source_tooltip": "Déposer une dimension ici",
-			"target_name": "Noeuds cibles", 
+			"target_name": "Noeuds cibles",
 			"target_tooltip": "Déposer une dimension ici",
 			"value_name": "Valeurs de Lien de noeud",
 			"value_tooltip": "Déposer une mesure ici"
 		},
-		
+
 		"fc": {
 			"name": "Diagramme d'accord",
 			"description": "Diagramme d'accord",
-			"icon_tooltip": "Diagramme d'accord", 
-			"source_name": "Noeuds sources", 
+			"icon_tooltip": "Diagramme d'accord",
+			"source_name": "Noeuds sources",
 			"source_tooltip": "Déposer une dimension ici",
-			"target_name": "Noeuds cibles", 
+			"target_name": "Noeuds cibles",
 			"target_tooltip": "Déposer une dimension ici",
 			"value_name": "Valeurs de Lien de noeud",
 			"value_tooltip": "Déposer une mesure ici"
 		},
-		
+
 		"it": {
 			"name": "Diagramma di Accordo",
 			"description": "Diagramma di Accordo",
-			"icon_tooltip": "Diagramma di Accordo", 
-			"source_name": "Nodi Origine", 
+			"icon_tooltip": "Diagramma di Accordo",
+			"source_name": "Nodi Origine",
 			"source_tooltip": "Rilascia qui una dimensione",
-			"target_name": "Nodi Target", 
+			"target_name": "Nodi Target",
 			"target_tooltip": "Rilascia qui una dimensione",
 			"value_name": "Valori Link Nodo",
 			"value_tooltip": "Rilascia qui una misura"
 		},
-		
+
 		"iw": {
 			"name": "Chord Diagram",
 			"description": "Chord Diagram",
-			"icon_tooltip": "Chord Diagram", 
-			"source_name": "Source Nodes", 
+			"icon_tooltip": "Chord Diagram",
+			"source_name": "Source Nodes",
 			"source_tooltip": "Drop a dimension here",
-			"target_name": "Target Nodes", 
+			"target_name": "Target Nodes",
 			"target_tooltip": "Drop a dimension here",
 			"value_name": "Node Link Values",
 			"value_tooltip": "Drop a measure here"
 		},
-				
+
  		"ja": {
-  
+
 			"name": "コードダイアグラム",
 			"description": "コードダイアグラムです。",
-			"icon_tooltip": "コードダイアグラム", 
-			"source_name": "ソースノード (ディメンション)", 
+			"icon_tooltip": "コードダイアグラム",
+			"source_name": "ソースノード (ディメンション)",
 			"source_tooltip": "ここにディメンションをドロップ",
-			"target_name": "ターゲットノード(ディメンション)", 
+			"target_name": "ターゲットノード(ディメンション)",
 			"target_tooltip": "ここにディメンションをドロップ",
 			"value_name": "ノードリンク値 (基軸)",
 			"value_tooltip": "ここに基軸をドロップ"
-		}, 
-		
+		},
+
 		"br": {
 			"name": "Diagrama de Cordas",
 			"description": "Diagrama de Cordas",
-			"icon_tooltip": "Diagrama de Cordas", 
-			"source_name": "Nós de Origem", 
+			"icon_tooltip": "Diagrama de Cordas",
+			"source_name": "Nós de Origem",
 			"source_tooltip": "Solte uma dimensăo aqui",
-			"target_name": "Nós de Destino", 
+			"target_name": "Nós de Destino",
 			"target_tooltip": "Solte uma dimensăo aqui",
 			"value_name": "Valores de Link de Nó",
 			"value_tooltip": "Solte uma medida aqui"
 		},
-		
+
 		"ru": {
 			"name": "Chord Diagram",
 			"description": "Chord Diagram",
-			"icon_tooltip": "Chord Diagram", 
-			"source_name": "Source Nodes", 
+			"icon_tooltip": "Chord Diagram",
+			"source_name": "Source Nodes",
 			"source_tooltip": "Drop a dimension here",
-			"target_name": "Target Nodes", 
+			"target_name": "Target Nodes",
 			"target_tooltip": "Drop a dimension here",
 			"value_name": "Node Link Values",
 			"value_tooltip": "Drop a measure here"
 		},
-		
+
 		"ko": {
 			"name": "현 다이어그램",
 			"description": "현 다이어그램",
-			"icon_tooltip": "현 다이어그램", 
-			"source_name": "소스 노드 (DIM)", 
+			"icon_tooltip": "현 다이어그램",
+			"source_name": "소스 노드 (DIM)",
 			"source_tooltip": "여기에 치수를 드롭(drop)",
-			"target_name": "대상 노드 (DIM)", 
+			"target_name": "대상 노드 (DIM)",
 			"target_tooltip": "여기에 치수를 드롭(drop)",
 			"value_name": "노드 링크 값 (MES)",
 			"value_tooltip": "여기에 측정을 드롭(drop)"
-		},	
-			
+		},
+
 		"tw": {
 			"name": "弦樂圖表",
 			"description": "弦樂圖表",
-			"icon_tooltip": "弦樂圖表", 
-			"source_name": "來源節點 (DIM)", 
+			"icon_tooltip": "弦樂圖表",
+			"source_name": "來源節點 (DIM)",
 			"source_tooltip": "拖曳維度到這裡",
-			"target_name": "目標節點 (DIM)", 
+			"target_name": "目標節點 (DIM)",
 			"target_tooltip": "拖曳維度到這裡",
 			"value_name": "節點鏈結值 (MES)",
 			"value_tooltip": "拖曳測量到這裡"
 		},
-		
+
 		"zh": {
 			"name": "弦形图",
 			"description": "弦形图",
-			"icon_tooltip": "弦形图", 
-			"source_name": "源节点 (DIM)", 
+			"icon_tooltip": "弦形图",
+			"source_name": "源节点 (DIM)",
 			"source_tooltip": "将维拖到此处",
-			"target_name": "目标节点 (DIM)", 
+			"target_name": "目标节点 (DIM)",
 			"target_tooltip": "将维拖到此处",
 			"value_name": "节点链接值 (MES)",
 			"value_tooltip": "将度量拖到此处"
 		}
-	}	
+	}
 }

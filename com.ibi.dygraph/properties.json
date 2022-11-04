@@ -9,7 +9,7 @@
             "medium": "icons/medium.png"
         }
     },
-    
+
     "properties": {
       "axes": {
         "x": {
@@ -75,7 +75,6 @@
       "stepPlot": false,
       "displayAnnotations": false,
       "drawAxesAtZero": true,
-// When true, this shows the range selector at the lower edge of the chart
       "showRangeSelector": false,
       "rangeSelectorAlpha": 0.6,
       "rangeSelectorHeight": 40,
@@ -88,7 +87,7 @@
       "rangeSelectorBackgroundLineWidth": 1,
       "rangeSelectorBackgroundStrokeColor": "gray"
     },
-    
+
     "propertyAnnotations": {
       "axes": {
         "x": {
@@ -139,10 +138,6 @@
           "independentTicks": "bool"
         }
       },
-//      "colors": {
-//                    "typeAnnotation": "array",
-//                    "arrayTypes": "color"
-//                },
       "colours": {
 			"color0": "color",
 			"color1": "color",
@@ -213,9 +208,9 @@
       },
       "rangeSelectorBackgroundStrokeColor": "color"
     },
-    
+
     "dataBuckets":  {
-    
+
         "tooltip": false,
         "matrix": false,
         "data_page": false,
@@ -253,13 +248,13 @@
         "en": {
             "name": "DyGraph Chart",
             "description": "DyGraph Chart",
-            "icon_tooltip": "This extension creates a timeline chart using the DyGraph library.", 
-            "value_name": "Value Bucket", 
-            "value_tooltip": "Drop a measure here", 
-            "timeline_name": "Time Line Bucket", 
-            "timeline_tooltip": "Drop a dimension here", 
-            "color_name": "Color Bucket", 
-            "color_tooltip": "Drop a dimension here", 
+            "icon_tooltip": "This extension creates a timeline chart using the DyGraph library.",
+            "value_name": "Value Bucket",
+            "value_tooltip": "Drop a measure here",
+            "timeline_name": "Time Line Bucket",
+            "timeline_tooltip": "Drop a dimension here",
+            "color_name": "Color Bucket",
+            "color_tooltip": "Drop a dimension here",
             "properties": {
               "axes": {
                 "x": {
@@ -392,11 +387,6 @@
                     }
                 }
               },
-//                "colors": {
-//                    "_translation": "Color array",
-//                    "_tooltip": "Array of colors to be used in chart",
-//                    "_valueTooltip": "Not selectable in API"
-//                },
                 "titleHeight": {
                     "_translation": "Title height",
                     "_tooltip": "Height of title in pixels",

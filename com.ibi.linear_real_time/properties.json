@@ -49,7 +49,7 @@
 			"title": null
 		}
 	},
-	
+
 	"propertyAnnotations": {
 		"ajax":{
 			"folderItem": "str"
@@ -88,7 +88,7 @@
 			"title": "str"
 		}
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": true,
 		"matrix": false,
@@ -129,19 +129,19 @@
 			}
 		]
 	},
-	
+
 	"translations": {
 		"en": {
 			"name": "Linear real time",
 			"description": "Linear real time Description",
-			"icon_tooltip": "New Extension Tooltip", 
-			"y1axis_name": "Y axis left (1, 10)", 
+			"icon_tooltip": "New Extension Tooltip",
+			"y1axis_name": "Y axis left (1, 10)",
 			"y1axis_tooltip": "Drop a measusre here",
-			"y2axis_name": "Y axis right (1, 10)", 
+			"y2axis_name": "Y axis right (1, 10)",
 			"y2axis_tooltip": "Drop a measusre here",
-			"xaxis_name": "Time Line (1, non required)", 
+			"xaxis_name": "Time Line (1, non required)",
 			"xaxis_tooltip": "Drop a Date",
-			"color_name": "Color (1, non required)", 
+			"color_name": "Color (1, non required)",
 			"color_tooltip": "Drop a dimension here",
 			"properties": {
 				"ajax":{

@@ -10,7 +10,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
 		"language": null,
 		"titles": {
@@ -38,7 +38,7 @@
 		},
 		"dateFormat": "YMD"
 	},
-	
+
 	"propertyAnnotations": {
 		"language":"str",
 		"titles": {
@@ -64,13 +64,13 @@
 	      	"format": "str"
 	      }
 		},
-		"dateFormat": 
+		"dateFormat":
 		{
 			"typeAnnotation": "str"
 			,"stringValues": ["YMD","MDY", "DMY"]
 		}
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": true,
 		"matrix": false,

@@ -10,7 +10,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
 		"chartHeadroom": 50,
         "nodeWidth": 15,
@@ -24,7 +24,7 @@
         "fadeOpacity": 0.1,
         "nodeAlign": "justify"
 	},
-	
+
 	"propertyAnnotations": {
 		"chartHeadroom": "number",
         "nodeWidth": {
@@ -61,9 +61,9 @@
                 "stringValues": ["justify", "left", "right", "center"]
         }
 	},
-	
+
 	"dataBuckets":  {
-	
+
 		"buckets": [
 			{
 				"id": "source",
@@ -104,7 +104,7 @@
 			"value_name": "Link Value",
 			"value_tooltip": "Drop a measure here"
 		},
-		
+
 		"de": {
 			"name": "Sankey-Flussdiagramm",
 			"description": "Sankey-Flussdiagramm",
@@ -116,7 +116,7 @@
 			"value_name": "Link-Wert",
 			"value_tooltip": "Maßeinheit hier ablegen"
 		},
-		
+
 		"es": {
 			"name": "Diagrama de flujo de Sankey",
 			"description": "Diagrama de flujo de Sankey",
@@ -128,7 +128,7 @@
 			"value_name": "Valor de vínculo",
 			"value_tooltip": "Soltar aquí una medida"
 		},
-		
+
 		"fr": {
 			"name": "Organigramme Sankey",
 			"description": "Organigramme Sankey",
@@ -140,7 +140,7 @@
 			"value_name": "Valeur Lien",
 			"value_tooltip": "Déposer une mesure ici"
 		},
-		
+
 		"fc": {
 			"name": "Organigramme Sankey",
 			"description": "Organigramme Sankey",
@@ -152,7 +152,7 @@
 			"value_name": "Valeur Lien",
 			"value_tooltip": "Déposer une mesure ici"
 		},
-		
+
 		"it": {
 			"name": "Grafico di Flusso Sankey",
 			"description": "Grafico di Flusso Sankey",
@@ -164,7 +164,7 @@
 			"value_name": "Link Valore",
 			"value_tooltip": "Rilascia qui una dimensione"
 		},
-		
+
 		"iw": {
 			"name": "Sankey Flow Chart",
 			"description": "Sankey Flow Chart",
@@ -176,7 +176,7 @@
 			"value_name": "Link Value",
 			"value_tooltip": "Drop a measure here"
 		},
-		
+
 		"ja": {
 			"name": "サンキーフローチャート",
 			"description": "サンキーフローチャートです。",
@@ -188,7 +188,7 @@
 			"value_name": "リンク値",
 			"value_tooltip": "ここに基軸をドロップ"
 		},
-		
+
 		"br": {
 			"name": "Gráfico de Fluxo Sankey",
 			"description": "Gráfico de Fluxo Sankey",
@@ -200,7 +200,7 @@
 			"value_name": "Vincular Valor",
 			"value_tooltip": "Solte uma dimensăo aqui"
 		},
-		
+
 		"ru": {
 			"name": "Sankey Flow Chart",
 			"description": "Sankey Flow Chart",
@@ -212,7 +212,7 @@
 			"value_name": "Link Value",
 			"value_tooltip": "Drop a measure here"
 		},
-		
+
 		"ko": {
 			"name": "Sankey 흐름도",
 			"description": "Sankey 흐름도",
@@ -224,7 +224,7 @@
 			"value_name": "링크 값",
 			"value_tooltip": "여기에 측정 드롭"
 		},
-		
+
 		"tw": {
 			"name": "Sankey 流程圖表",
 			"description": "Sankey 流程圖表",
@@ -236,7 +236,7 @@
 			"value_name": "鏈結值",
 			"value_tooltip": "拖曳測量到這裡"
 		},
-		
+
 		"zh": {
 			"name": "流通图表",
 			"description": "流通图表",

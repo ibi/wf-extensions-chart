@@ -9,7 +9,7 @@
 			"medium": "icons/horizontal_comparison_bars.png"
 		}
 	},
-	
+
 	"properties": {
 		"horizontalcomparisonbarsProperties": {
 			"setInfiniteToZero": false,
@@ -26,14 +26,14 @@
 				"T": "trillions"
 			},
 			"calculeComparationFunction": {
-				"param1": "valueKpi", 
-				"param2": "compareValue", 
+				"param1": "valueKpi",
+				"param2": "compareValue",
 				"body": "if(valueKpi == 0 && compareValue == 0) { return 0; } var result = (valueKpi - compareValue) / Math.abs(compareValue);  return result;"
 			},
 			"formatComparation": "#,###.00%",
 			"bodyBackgroundColor": "transparent"
 		},
-		
+
 		"external_library": "lib/d3.min.js",
 		"colorScale": {
 			"colorMode":"discrete",
@@ -43,15 +43,15 @@
 			]
 		}
 	},
-	
+
 	"propertyAnnotations": {
-		"horizontalcomparisonbarsProperties": "json",		
+		"horizontalcomparisonbarsProperties": "json",
 		"external_library": "str",
 		"colorScale": "json"
 	},
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": true,
 		"matrix": false,
 		"data_page": false,
@@ -97,14 +97,14 @@
 		"en": {
 			"name": "horizontal comparison bars",
 			"description": "horizontal comparison bars",
-			"icon_tooltip": "This extension", 
-			"value_name": "Value Bucket (1)", 
-			"value_tooltip": "Drop a measure here", 
-			"comparevalue_name": "Comparision Bucket (0-1)", 
-			"comparevalue_tooltip": "Drop a measure here", 
-			"dimension_name": "Label Bucket (0-1)", 
+			"icon_tooltip": "This extension",
+			"value_name": "Value Bucket (1)",
+			"value_tooltip": "Drop a measure here",
+			"comparevalue_name": "Comparision Bucket (0-1)",
+			"comparevalue_tooltip": "Drop a measure here",
+			"dimension_name": "Label Bucket (0-1)",
 			"dimension_tooltip": "Drop a dimension here",
-			"kpisign_name": "Sign Comparision Bucket (0-1)", 
+			"kpisign_name": "Sign Comparision Bucket (0-1)",
 			"kpisign_tooltip": "Drop a measure here"
 		}
 	}

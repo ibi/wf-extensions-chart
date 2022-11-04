@@ -9,7 +9,7 @@
 			"medium": "icons/datatables.png"
 		}
 	},
-	
+
 	"properties": {
 		"paging": true,
 		"pageLength": 10,
@@ -51,7 +51,7 @@
 			"backgroundColorEven": "transparent"
 		}
 	},
-	
+
 	"propertyAnnotations": {
 		"paging": "bool",
 		"pageLength": "number",
@@ -93,9 +93,9 @@
 			"backgroundColorEven": "str"
 		}
 	},
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": false,
 		"matrix": false,
 		"data_page": false,
@@ -133,12 +133,12 @@
 		"en": {
 			"name": "Datatables Grid",
 			"description": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.",
-			"icon_tooltip": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.", 
-			"measure_name": "Measures", 
-			"measure_tooltip": "Drop a measure here", 
-			"row_name": "Rows", 
+			"icon_tooltip": "Datagrid using the Datatables JS plug-in with support for sorting, column reordering, searching and responsive capabilities.",
+			"measure_name": "Measures",
+			"measure_tooltip": "Drop a measure here",
+			"row_name": "Rows",
 			"row_tooltip": "Drop a dimension here",
-			"column_name": "Columns", 
+			"column_name": "Columns",
 			"column_tooltip": "Drop a dimension here"
 		}
 	}

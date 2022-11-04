@@ -35,15 +35,15 @@
 				"titlesColor": "#415D6B",
 				"bodyBackgroundColor": "transparent"
 			}
-		}		
+		}
 	},
-	
+
 	"propertyAnnotations": {
-	
+
 		"kpidistributionProperties": "json"
-		
+
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": true,
 		"matrix": false,
@@ -100,23 +100,23 @@
 			}
 		]
 	},
-	
+
 	"translations": {
 		"en": {
 			"name": "KPI Distribution Name",
 			"description": "KPI Distribution Description",
-			"icon_tooltip": "New Extension Tooltip", 
-			"value_name": "Value Bucket (1, required)", 
+			"icon_tooltip": "New Extension Tooltip",
+			"value_name": "Value Bucket (1, required)",
 			"value_tooltip": "Drop a measusre here",
-			"valueispercentage_name": "Is Percentage Bucket (0:1, non required)", 
+			"valueispercentage_name": "Is Percentage Bucket (0:1, non required)",
 			"valueispercentage_tooltip": "Drop a measusre here",
-			"minvalue_name": "Min value Bucket (0:1, non required)", 
+			"minvalue_name": "Min value Bucket (0:1, non required)",
 			"minvalue_tooltip": "Drop a measusre here",
-			"maxvalue_name": "Max value Bucket (0:1, non required)", 
+			"maxvalue_name": "Max value Bucket (0:1, non required)",
 			"maxvalue_tooltip": "Drop a measusre here",
-			"dimension_name": "Dimension Bucket (1, required)", 
+			"dimension_name": "Dimension Bucket (1, required)",
 			"dimension_tooltip": "Drop a dimension here",
-			"image_name": "Image Bucket (1, non required)", 
+			"image_name": "Image Bucket (1, non required)",
 			"image_tooltip": "Drop a field with path to image"
 		}
 	}

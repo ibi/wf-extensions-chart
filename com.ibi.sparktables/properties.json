@@ -11,7 +11,7 @@
 			"medium": "icons/datatables.png"
 		}
 	},
-	
+
 	"properties": {
 		"paging": true,
 		"pageLength": 10,
@@ -43,7 +43,7 @@
 			"selected": {
 				"color": "inherit",
 				"border": "1px solid #99cfff",
-				"backgroundColor": "#cde8ff",
+				"backgroundColor": "#cde8ff"
 			}
 		},
     "crossTabs": {
@@ -57,10 +57,10 @@
       "show_min": false,
       "show_max": false,
       "type":  "line"
-     
+
     }
 	},
-	
+
 	"propertyAnnotations": {
 		"api_version": "str",
 		"paging": "bool",
@@ -110,9 +110,9 @@
 
     }
 	},
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": false,
 		"matrix": false,
 		"data_page": false,

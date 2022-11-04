@@ -9,19 +9,19 @@
 			"medium": "icons/icon.png"
 		}
 	},
-	
+
 	"properties": {
 		"chartHeadroom": 50,
 		"external_library": "lib/d3.min.js"
 	},
-	
+
 	"propertyAnnotations": {
 		"chartHeadroom": "number",
 		"external_library": "str"
 	},
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": true,
 		"matrix": false,
 		"data_page": false,
@@ -51,130 +51,130 @@
 		"en": {
 			"name": "Simple Bar Chart",
 			"description": "This chart is a simple bar chart which demonstrates many chart extension features",
-			"icon_tooltip": "This extension does ...", 
-			"value_name": "Value Bucket", 
-			"value_tooltip": "Drop a measure here", 
-			"labels_name": "Label Bucket", 
+			"icon_tooltip": "This extension does ...",
+			"value_name": "Value Bucket",
+			"value_tooltip": "Drop a measure here",
+			"labels_name": "Label Bucket",
 			"labels_tooltip": "Drop a dimension here"
 		},
-		
+
 		"de": {
 			"name": "Einfaches Balkendiagramm",
 			"description": "Dies ist ein einfaches Balkendiagramm ohne besondere Visualisierung.",
-			"icon_tooltip": "Diese Erweiterung bewirkt ...", 
-			"value_name": "Wert-Bucket", 
-			"value_tooltip": "Maßeinheit hier ablegen", 
+			"icon_tooltip": "Diese Erweiterung bewirkt ...",
+			"value_name": "Wert-Bucket",
+			"value_tooltip": "Maßeinheit hier ablegen",
 			"labels_name": "Label-Bucket",
 			"labels_tooltip": "Maßeinheit hier ablegen"
 		},
-		
+
 		"es": {
 			"name": "Mi simple diagrama de barras",
 			"description": "Este es un simple diagrama de barras, nada más.",
-			"icon_tooltip": "Esta extensión ...", 
-			"value_name": "Depósito de valores", 
-			"value_tooltip": "Soltar aquí una medida", 
-			"labels_name": "Depósito de etiquetas", 
+			"icon_tooltip": "Esta extensión ...",
+			"value_name": "Depósito de valores",
+			"value_tooltip": "Soltar aquí una medida",
+			"labels_name": "Depósito de etiquetas",
 			"labels_tooltip": "Soltar aquí una dimensión"
 		},
-		
+
 		"fr": {
 			"name": "Graphique à barres simple personnel",
 			"description": "Ce graphique est un simple graphique à barres, rien de spécial.",
-			"icon_tooltip": "Cette extension réalise ...", 
-			"value_name": "Compartiment de valeurs", 
-			"value_tooltip": "Déposer une mesure ici", 
-			"labels_name": "Compartiment d'étiquettes", 
+			"icon_tooltip": "Cette extension réalise ...",
+			"value_name": "Compartiment de valeurs",
+			"value_tooltip": "Déposer une mesure ici",
+			"labels_name": "Compartiment d'étiquettes",
 			"labels_tooltip": "Déposer une dimension ici"
 		},
-		
+
 		"fc": {
 			"name": "Graphique à barres simple personnel",
 			"description": "Ce graphique est un simple graphique à barres, rien de spécial.",
-			"icon_tooltip": "Cette extension réalise ...", 
-			"value_name": "Compartiment de valeurs", 
-			"value_tooltip": "Déposer une mesure ici", 
-			"labels_name": "Compartiment d'étiquettes", 
+			"icon_tooltip": "Cette extension réalise ...",
+			"value_name": "Compartiment de valeurs",
+			"value_tooltip": "Déposer une mesure ici",
+			"labels_name": "Compartiment d'étiquettes",
 			"labels_tooltip": "Déposer une dimension ici"
 		},
-		
+
 		"it": {
 			"name": "Simple Bar Chart",
 			"description": "This chart is a simple bar chart which demonstrates many chart extension features",
-			"icon_tooltip": "Questa estensione esegue ...", 
-			"value_name": "Bucket di Valori", 
-			"value_tooltip": "Rilascia qui una misura", 
-			"labels_name": "Bucket di Etichette", 
+			"icon_tooltip": "Questa estensione esegue ...",
+			"value_name": "Bucket di Valori",
+			"value_tooltip": "Rilascia qui una misura",
+			"labels_name": "Bucket di Etichette",
 			"labels_tooltip": "Rilascia qui una misura"
 		},
-		
+
 		"iw": {
 			"name": "Simple Bar Chart",
 			"description": "This chart is a simple bar chart which demonstrates many chart extension features",
-			"icon_tooltip": "This extension does ...", 
-			"value_name": "Value Bucket", 
-			"value_tooltip": "Drop a measure here", 
-			"labels_name": "Label Bucket", 
+			"icon_tooltip": "This extension does ...",
+			"value_name": "Value Bucket",
+			"value_tooltip": "Drop a measure here",
+			"labels_name": "Label Bucket",
 			"labels_tooltip": "Drop a dimension here"
 		},
-		
+
 		"ja": {
 			"name": "単純棒グラフ",
 			"description": "さまざまなグラフ拡張機能を例示する単純な棒グラフです。",
-			"icon_tooltip": "この拡張グラフは...", 
-			"value_name": "値バケット", 
-			"value_tooltip": "ここに基軸をドロップ", 
-			"labels_name": "ラベルバケット", 
+			"icon_tooltip": "この拡張グラフは...",
+			"value_name": "値バケット",
+			"value_tooltip": "ここに基軸をドロップ",
+			"labels_name": "ラベルバケット",
 			"labels_tooltip": "ここにディメンションをドロップ"
 		},
-		
+
 		"br": {
 			"name": "Meu gráfico de Barras Simples",
 			"description": "Este gráfico é um gráfico de barras simples.",
-			"icon_tooltip": "Esta extensăo ...", 
-			"value_name": "Recipiente de Valor", 
-			"value_tooltip": "Solte uma medida aqui", 
-			"labels_name": "Recipiente de Rótulo", 
+			"icon_tooltip": "Esta extensăo ...",
+			"value_name": "Recipiente de Valor",
+			"value_tooltip": "Solte uma medida aqui",
+			"labels_name": "Recipiente de Rótulo",
 			"labels_tooltip": "Solte uma medida aqui"
 		},
-		
+
 		"ru": {
 			"name": "Simple Bar Chart",
 			"description": "This chart is a simple bar chart which demonstrates many chart extension features",
-			"icon_tooltip": "This extension does ...", 
-			"value_name": "Value Bucket", 
-			"value_tooltip": "Drop a measure here", 
-			"labels_name": "Label Bucket", 
+			"icon_tooltip": "This extension does ...",
+			"value_name": "Value Bucket",
+			"value_tooltip": "Drop a measure here",
+			"labels_name": "Label Bucket",
 			"labels_tooltip": "Drop a dimension here"
 		},
-		
+
 		"ko": {
 			"name": "Simple Bar Chart",
 			"description": "This chart is a simple bar chart which demonstrates many chart extension features",
-			"icon_tooltip": "이 확장자...", 
-			"value_name": "값 버킷", 
-			"value_tooltip": "여기에 측정을 드롭(drop)", 
-			"labels_name": "레이블 버킷", 
+			"icon_tooltip": "이 확장자...",
+			"value_name": "값 버킷",
+			"value_tooltip": "여기에 측정을 드롭(drop)",
+			"labels_name": "레이블 버킷",
 			"labels_tooltip": "여기에 치수를 드롭(drop)"
 		},
-			
+
 		"tw": {
 			"name": "簡式直條圖",
 			"description": "這圖表只是一個簡式直條圖, 沒有任何資料。",
-			"icon_tooltip": "此擴充功能會 ...", 
-			"value_name": "值儲存區", 
-			"value_tooltip": "拖曳測量到這裡", 
-			"labels_name": "標籤儲存區", 
+			"icon_tooltip": "此擴充功能會 ...",
+			"value_name": "值儲存區",
+			"value_tooltip": "拖曳測量到這裡",
+			"labels_name": "標籤儲存區",
 			"labels_tooltip": "拖曳維度到這裡"
 		},
-		
+
 		"zh": {
 			"name": "简单条形图",
 			"description": "这图表只是一个简单的条形图, 这里什么都没有。",
-			"icon_tooltip": "此扩展会 ...", 
-			"value_name": "值存储区", 
-			"value_tooltip": "将度量拖到此处", 
-			"labels_name": "标签存储区", 
+			"icon_tooltip": "此扩展会 ...",
+			"value_name": "值存储区",
+			"value_tooltip": "将度量拖到此处",
+			"labels_name": "标签存储区",
 			"labels_tooltip": "将维拖到此处"
 		}
 	}

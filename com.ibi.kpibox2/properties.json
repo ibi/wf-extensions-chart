@@ -12,22 +12,22 @@
 	},
 
 	"properties": {
-	
-		"kpiboxProperties": {   
-			"ibiAppsPath": "/ibi_apps/",	
+
+		"kpiboxProperties": {
+			"ibiAppsPath": "/ibi_apps/",
 			"calculateComparationFunction": {
-				"param1": "valueKpi", 
-				"param2": "compareValue", 
+				"param1": "valueKpi",
+				"param2": "compareValue",
 				"body": "if(valueKpi == 0 && compareValue == 0) { return 0; } var result = (valueKpi - compareValue) / Math.abs(compareValue);  return result;"
-			},	
+			},
 			"calculateComparationFunction2": {
-				"param1": "valueKpi", 
-				"param2": "compareValue2", 
+				"param1": "valueKpi",
+				"param2": "compareValue2",
 				"body": "if(valueKpi == 0 && compareValue2 == 0) { return 0; } var result = (valueKpi - compareValue2) / Math.abs(compareValue2);  return result;"
 			},
 			"formatComparation": "#,###.00%",
 			"customCompareIcon": {
-				"active": false,	
+				"active": false,
 				"iconUp": " ",
 				"iconDown": " "
 			},
@@ -35,7 +35,7 @@
 			"typeShortenNumber": null,
 			"setInfiniteToZero": false,
 			"titleRow": false,
-			"calculateFontSize": false, 
+			"calculateFontSize": false,
 			"fixedFontSizeProp": "18px",
 			"fixedPixelLinesMargin": 20,
 			"imagePercentageWidth": 30,
@@ -76,21 +76,21 @@
 				{"start": 0, "stop": 1000000000000, "color":"#409c87"}
 			]
 		}
-		
+
 	},
-	 
+
 	"propertyAnnotations": {
-	
+
 		"kpiboxProperties": {
-			"ibiAppsPath": "str",	
+			"ibiAppsPath": "str",
 			"calculateComparationFunction": {
-				"param1": "str", 
-				"param2": "str", 
+				"param1": "str",
+				"param2": "str",
 				"body": "str"
-			},	
+			},
 			"calculateComparationFunction2": {
-				"param1": "str", 
-				"param2": "str", 
+				"param1": "str",
+				"param2": "str",
 				"body": "str"
 			},
 			"formatComparation": {
@@ -98,7 +98,7 @@
                 "stringValues": ["#,###.00%", "#,###.0%"]
 			},
 			"customCompareIcon": {
-				"active": "bool",	
+				"active": "bool",
 				"iconUp": "str",
 				"iconDown": "str"
 			},
@@ -106,7 +106,7 @@
 			"typeShortenNumber": "str",
 			"setInfiniteToZero": "bool",
 			"titleRow": "bool",
-			"calculateFontSize": "bool", 
+			"calculateFontSize": "bool",
 			"fixedFontSizeProp": "str",
 			"fixedPixelLinesMargin": "number",
 			"imagePercentageWidth": "number",
@@ -137,21 +137,21 @@
 				"type":{
 					"typeAnnotation": "str",
 					"stringValues": ["External", "Internal"]
-				} 
-				
+				}
+
 			},
 			"heading":{
 				"type":{
 					"typeAnnotation": "str",
 					"stringValues": ["External", "Internal"]
-				} 
+				}
 			},
 			"bodyBackgroundColor": "color"
 		},
 		"colorScale": "json"
-		
+
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": true,
 		"matrix": false,
@@ -200,42 +200,42 @@
 			}
 		]
 	},
-	
+
 	"translations": {
 		"en": {
 			"name": "KPI Box HTML",
 			"description": "KPI Box HTML for API 2.0",
-			"icon_tooltip": "KPI Box 2", 
-			"value_name": "Value Bucket (1, required)", 
+			"icon_tooltip": "KPI Box 2",
+			"value_name": "Value Bucket (1, required)",
 			"value_tooltip": "Drop a measusre here",
-			"comparevalue_name": "Compare Value Bucket (1, non required)", 
+			"comparevalue_name": "Compare Value Bucket (1, non required)",
 			"comparevalue_tooltip": "Drop a measusre here",
-			"comparevalue2_name": "Compare Value 2 Bucket (1, non required)", 
+			"comparevalue2_name": "Compare Value 2 Bucket (1, non required)",
 			"comparevalue2_tooltip": "Drop a measure here",
-			"kpisign_name": "Sign Comparision Bucket (1, non required)", 
+			"kpisign_name": "Sign Comparision Bucket (1, non required)",
 			"kpisign_tooltip": "Drop a measusre here",
-			"image_name": "Image Bucket (1, non required)", 
+			"image_name": "Image Bucket (1, non required)",
 			"image_tooltip": "Drop a field with path to image",
 			"properties": {
 				"kpiboxProperties": {
 					"_translation": "KPI Box properties",
-					"ibiAppsPath": "Ibi path context",	
+					"ibiAppsPath": "Ibi path context",
 					"calculateComparationFunction": {
 						"_translation": "Comparation 1",
-						"param1": "Value", 
-						"param2": "compare value", 
+						"param1": "Value",
+						"param2": "compare value",
 						"body": "js comparation"
-					},	
+					},
 					"calculateComparationFunction2": {
 						"_translation": "Comparation 2",
-						"param1": "Value", 
-						"param2": "compare value", 
+						"param1": "Value",
+						"param2": "compare value",
 						"body": "js comparation"
 					},
 					"formatComparation": "Format of comparation",
 					"customCompareIcon": {
 						"_translation": "Custom compare icon",
-						"active": "Active",	
+						"active": "Active",
 						"iconUp": "Incon up path",
 						"iconDown": "Icon down path"
 					},
@@ -243,7 +243,7 @@
 					"typeShortenNumber": "Type shorten number",
 					"setInfiniteToZero": "Infinite to zero",
 					"titleRow": "Title as row",
-					"calculateFontSize": "Font size automatic", 
+					"calculateFontSize": "Font size automatic",
 					"fixedFontSizeProp": "Font size",
 					"fixedPixelLinesMargin": "Line margins",
 					"imagePercentageWidth": "Image percentaje width",
@@ -288,37 +288,37 @@
 		"es": {
 			"name": "KPI Box HTML 2",
 			"description": "KPI Box HTML using API 2.0",
-			"icon_tooltip": "KPI Box HTML using API 2.0", 
-			"value_name": "Value Bucket (1, required)", 
+			"icon_tooltip": "KPI Box HTML using API 2.0",
+			"value_name": "Value Bucket (1, required)",
 			"value_tooltip": "Drop a measusre here",
-			"comparevalue_name": "Compare Value Bucket (1, non required)", 
+			"comparevalue_name": "Compare Value Bucket (1, non required)",
 			"comparevalue_tooltip": "Drop a measusre here",
-			"comparevalue2_name": "Compare Value 2 Bucket (1, non required)", 
+			"comparevalue2_name": "Compare Value 2 Bucket (1, non required)",
 			"comparevalue2_tooltip": "Drop a measure here",
-			"kpisign_name": "Sign Comparision Bucket (1, non required)", 
+			"kpisign_name": "Sign Comparision Bucket (1, non required)",
 			"kpisign_tooltip": "Drop a measusre here",
-			"image_name": "Image Bucket (1, non required)", 
+			"image_name": "Image Bucket (1, non required)",
 			"image_tooltip": "Drop a field with path to image",
 			"properties": {
 				"kpiboxProperties": {
 					"_translation": "KPI Box properties",
-					"ibiAppsPath": "Ibi path context",	
+					"ibiAppsPath": "Ibi path context",
 					"calculateComparationFunction": {
 						"_translation": "Comparation 1",
-						"param1": "Value", 
-						"param2": "compare value", 
+						"param1": "Value",
+						"param2": "compare value",
 						"body": "js comparation"
-					},	
+					},
 					"calculateComparationFunction2": {
 						"_translation": "Comparation 2",
-						"param1": "Value", 
-						"param2": "compare value", 
+						"param1": "Value",
+						"param2": "compare value",
 						"body": "js comparation"
 					},
 					"formatComparation": "Format of comparation",
 					"customCompareIcon": {
 						"_translation": "Custom compare icon",
-						"active": "Active",	
+						"active": "Active",
 						"iconUp": "Incon up path",
 						"iconDown": "Icon down path"
 					},
@@ -326,7 +326,7 @@
 					"typeShortenNumber": "Type shorten number",
 					"setInfiniteToZero": "Infinite to zero",
 					"titleRow": "Title as row",
-					"calculateFontSize": "Font size automatic", 
+					"calculateFontSize": "Font size automatic",
 					"fixedFontSizeProp": "Font size",
 					"fixedPixelLinesMargin": "Line margins",
 					"imagePercentageWidth": "Image percentaje width",

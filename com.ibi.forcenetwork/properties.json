@@ -10,7 +10,7 @@
 			"medium": "icons/icon.png"
 		}
 	},
-	
+
 	"properties": {
 		"chartHeadroom": 50,
 		"settings": false,
@@ -30,7 +30,7 @@
 		"gravity": 0.1,
 		"friction": 0.5
 	},
-	
+
 	"propertyAnnotations": {
 		"chartHeadroom": "number",
 		"settings": "bool",
@@ -79,9 +79,9 @@
 			"numericStep": 0.01
 		}
 	},
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": false,
 		"matrix": false,
 		"data_page": false,
@@ -151,23 +151,23 @@
 					"min": 0,
 					"max": 4
 				}
-			}			
+			}
 		]
 	},
 	"translations": {
 		"en": {
 			"name": "Force Network Chart",
 			"description": "Force Network Chart",
-			"icon_tooltip": "Force Network Chart", 
-			"from_name": "From", 
-			"from_tooltip": "Drop from nodes here", 
-			"to_name": "To", 
+			"icon_tooltip": "Force Network Chart",
+			"from_name": "From",
+			"from_tooltip": "Drop from nodes here",
+			"to_name": "To",
 			"to_tooltip": "Drop to nodes here",
-			"relationship_name": "Relationship", 
+			"relationship_name": "Relationship",
 			"relationship_tooltip": "Drop relationship value here",
-			"sourceType_name": "Source Type", 
+			"sourceType_name": "Source Type",
 			"sourceType_tooltip": "Drop source type value here",
-			"targetType_name": "Target Type", 
+			"targetType_name": "Target Type",
 			"targetType_tooltip": "Drop source type value here",
 			"size_name": "Size",
 			"size_tooltip": "Drop node size value",

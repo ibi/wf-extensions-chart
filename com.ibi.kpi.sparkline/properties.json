@@ -9,7 +9,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
 		"type": "bar",
 		"color": "#666",
@@ -27,7 +27,7 @@
 		"total": {
 			"fontWeight": "inherit",
 			"color": "inherit",
-			"fontSize": "20px"	
+			"fontSize": "20px"
 		},
 		"barProperties": {
 			"height": 20,
@@ -37,24 +37,24 @@
 			"goodIs": ">=0"
 		}
 	},
-	
+
 	"propertyAnnotations": {
-		"type": "str", 
-		"color": "str", 
-		"fontFamily": "str", 
-		"fontSize": "str", 
+		"type": "str",
+		"color": "str",
+		"fontFamily": "str",
+		"fontSize": "str",
 		"measureName": {
-			"fontWeight": "str", 
-			"color": "str", 
+			"fontWeight": "str",
+			"color": "str",
 			"fontSize": "str"
 		},
 		"percentChange": {
-			"color": "str", 
-			"fontSize": "str"	
+			"color": "str",
+			"fontSize": "str"
 		},
 		"total": {
 			"fontWeight": "str",
-			"color": "str", 
+			"color": "str",
 			"fontSize": "str"
 		},
 		"barProperties": {
@@ -65,7 +65,7 @@
 			"goodIs": "str"
 		}
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": false,
 		"matrix": false,
@@ -104,123 +104,123 @@
 		"en": {
 			"name": "Sparkline KPI",
 			"description": "KPI Widget using jQuery Sparkline plug-in.",
-			"icon_tooltip": "KPI Widget using jQuery Sparkline plug-in.", 
-			"measure_name": "Measure", 
-			"measure_tooltip": "Drop a measure here", 
-			"xaxis_name": "X-Axis", 
+			"icon_tooltip": "KPI Widget using jQuery Sparkline plug-in.",
+			"measure_name": "Measure",
+			"measure_tooltip": "Drop a measure here",
+			"xaxis_name": "X-Axis",
 			"xaxis_tooltip": "Drop a dimension here",
-			"compare_name": "Compare Group", 
+			"compare_name": "Compare Group",
 			"compare_tooltip": "Drop a dimension here",
-			"add_data": "Add more measures or dimensions" //CHART-3055
+			"add_data": "Add more measures or dimensions"
 		},
 		"pt_BR": {
 			"name": "KPI do minigráfico",
 			"description": "Widget do KPI utilizando o plug-in jQuery Sparkline.",
-			"icon_tooltip": "Widget do KPI utilizando o plug-in jQuery Sparkline.", 
-			"measure_name": "Medida", 
-			"measure_tooltip": "Solte uma medida aqui", 
-			"xaxis_name": "Eixo X", 
+			"icon_tooltip": "Widget do KPI utilizando o plug-in jQuery Sparkline.",
+			"measure_name": "Medida",
+			"measure_tooltip": "Solte uma medida aqui",
+			"xaxis_name": "Eixo X",
 			"xaxis_tooltip": "Solte uma dimensão aqui",
-			"compare_name": "Grupo Comparar", 
+			"compare_name": "Grupo Comparar",
 			"compare_tooltip": "Solte uma dimensão aqui"
 		},
 		"de": {
 			"name": "Sparkline-KPI",
 			"description": "KPI-Widget mit jQuery-Sparkline-Plug-in",
-			"icon_tooltip": "KPI-Widget mit jQuery-Sparkline-Plug-in", 
-			"measure_name": "Kennzahl", 
-			"measure_tooltip": "Kennzahl hier ablegen", 
-			"xaxis_name": "X-Achse", 
+			"icon_tooltip": "KPI-Widget mit jQuery-Sparkline-Plug-in",
+			"measure_name": "Kennzahl",
+			"measure_tooltip": "Kennzahl hier ablegen",
+			"xaxis_name": "X-Achse",
 			"xaxis_tooltip": "Dimension hier ablegen",
-			"compare_name": "Vergleichsgruppe", 
+			"compare_name": "Vergleichsgruppe",
 			"compare_tooltip": "Dimension hier ablegen"
 		},
 		"es": {
 			"name": "Sparkline KPI",
 			"description": "KPI Widget usando el complemento jQuery Sparkline.",
-			"icon_tooltip": "KPI Widget usando el complemento jQuery Sparkline.", 
-			"measure_name": "Medida", 
-			"measure_tooltip": "Soltar aquí una medida", 
-			"xaxis_name": "Eje X", 
+			"icon_tooltip": "KPI Widget usando el complemento jQuery Sparkline.",
+			"measure_name": "Medida",
+			"measure_tooltip": "Soltar aquí una medida",
+			"xaxis_name": "Eje X",
 			"xaxis_tooltip": "Soltar aquí una dimensión",
-			"compare_name": "Comparar grupo", 
+			"compare_name": "Comparar grupo",
 			"compare_tooltip": "Soltar aquí una dimensión"
 		},
 		"fr": {
 			"name": "Sparkline KPI",
 			"description": "Widget KPI avec le plug-in jQuery Sparkline.",
-			"icon_tooltip": "Widget KPI avec le plug-in jQuery Sparkline.", 
-			"measure_name": "Mesure", 
-			"measure_tooltip": "Déposer une mesure ici", 
-			"xaxis_name": "Axe X", 
+			"icon_tooltip": "Widget KPI avec le plug-in jQuery Sparkline.",
+			"measure_name": "Mesure",
+			"measure_tooltip": "Déposer une mesure ici",
+			"xaxis_name": "Axe X",
 			"xaxis_tooltip": "Déposer une dimension ici",
-			"compare_name": "Groupe Valeurs comparées", 
+			"compare_name": "Groupe Valeurs comparées",
 			"compare_tooltip": "Déposer une dimension ici"
 		},
 		"fc": {
 			"name": "Sparkline KPI",
 			"description": "Widget KPI avec le plug-in jQuery Sparkline.",
-			"icon_tooltip": "Widget KPI avec le plug-in jQuery Sparkline.", 
-			"measure_name": "Mesure", 
-			"measure_tooltip": "Déposer une mesure ici", 
-			"xaxis_name": "Axe X", 
+			"icon_tooltip": "Widget KPI avec le plug-in jQuery Sparkline.",
+			"measure_name": "Mesure",
+			"measure_tooltip": "Déposer une mesure ici",
+			"xaxis_name": "Axe X",
 			"xaxis_tooltip": "Déposer une dimension ici",
-			"compare_name": "Groupe Valeurs comparées", 
+			"compare_name": "Groupe Valeurs comparées",
 			"compare_tooltip": "Déposer une dimension ici"
-		},	
+		},
 		"ko": {
 			"name": "Sparkline KPI",
 			"description": "KPI Widget using jQuery Sparkline plug-in.",
-			"icon_tooltip": "KPI Widget using jQuery Sparkline plug-in.", 
-			"measure_name": "측정", 
-			"measure_tooltip": "여기에 측정을 드롭(drop)", 
-			"xaxis_name": "X축", 
+			"icon_tooltip": "KPI Widget using jQuery Sparkline plug-in.",
+			"measure_name": "측정",
+			"measure_tooltip": "여기에 측정을 드롭(drop)",
+			"xaxis_name": "X축",
 			"xaxis_tooltip": "여기에 치수를 드롭(drop)",
-			"compare_name": "Compare Group", 
+			"compare_name": "Compare Group",
 			"compare_tooltip": "여기에 치수를 드롭(drop)"
 		},
 		"it": {
 			"name": "Sparkline KPI",
 			"description": "KPI Widget using jQuery Sparkline plug-in.",
-			"icon_tooltip": "KPI Widget using jQuery Sparkline plug-in.", 
-			"measure_name": "Misura", 
-			"measure_tooltip": "Rilasciare una misura qui", 
-			"xaxis_name": "Asse-X", 
+			"icon_tooltip": "KPI Widget using jQuery Sparkline plug-in.",
+			"measure_name": "Misura",
+			"measure_tooltip": "Rilasciare una misura qui",
+			"xaxis_name": "Asse-X",
 			"xaxis_tooltip": "Rilasciare una dimensione qui",
-			"compare_name": "Compare Group", 
+			"compare_name": "Compare Group",
 			"compare_tooltip": "Rilasciare una dimensione qui"
-		},		
+		},
 		"ja": {
 			"name": "KPI スパークライン",
 			"description": "jQuery スパークラインプラグインを使用した KPI ウィジェットです。",
-			"icon_tooltip": "jQuery スパークラインプラグインを使用した KPI ウィジェットです。", 
-			"measure_name": "基軸", 
-			"measure_tooltip": "ここに基軸をドロップ", 
-			"xaxis_name": "X 軸", 
+			"icon_tooltip": "jQuery スパークラインプラグインを使用した KPI ウィジェットです。",
+			"measure_name": "基軸",
+			"measure_tooltip": "ここに基軸をドロップ",
+			"xaxis_name": "X 軸",
 			"xaxis_tooltip": "ここにディメンションをドロップ",
-			"compare_name": "比較グループ", 
+			"compare_name": "比較グループ",
 			"compare_tooltip": "ここにディメンションをドロップ"
 		},
 		"tw": {
 			"name": "走勢圖 KPI",
 			"description": "使用 jQuery 走勢圖外掛程式的 KPI 小工具。",
-			"icon_tooltip": "使用 jQuery 走勢圖外掛程式的 KPI 小工具。", 
-			"measure_name": "測量", 
-			"measure_tooltip": "拖曳測量到這裡", 
-			"xaxis_name": "X 軸", 
+			"icon_tooltip": "使用 jQuery 走勢圖外掛程式的 KPI 小工具。",
+			"measure_name": "測量",
+			"measure_tooltip": "拖曳測量到這裡",
+			"xaxis_name": "X 軸",
 			"xaxis_tooltip": "拖曳維度到這裡",
-			"compare_name": "比較群組", 
+			"compare_name": "比較群組",
 			"compare_tooltip": "拖曳維度到這裡"
 		},
 		"zh": {
 			"name": "迷你图 KPI",
 			"description": "使用 jQuery 迷你图插件的 KPI 小组件。",
-			"icon_tooltip": "使用 jQuery 迷你图插件的 KPI 小组件。", 
-			"measure_name": "度量", 
-			"measure_tooltip": "将度量拖到此处", 
-			"xaxis_name": "X 轴", 
+			"icon_tooltip": "使用 jQuery 迷你图插件的 KPI 小组件。",
+			"measure_name": "度量",
+			"measure_tooltip": "将度量拖到此处",
+			"xaxis_name": "X 轴",
 			"xaxis_tooltip": "将维拖到此处",
-			"compare_name": "比较组", 
+			"compare_name": "比较组",
 			"compare_tooltip": "将维拖到此处"
 		}
 	}

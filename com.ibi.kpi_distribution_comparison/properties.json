@@ -47,7 +47,7 @@
 			}
 		}
 	},
-	
+
 	"propertyAnnotations": {
 		"ibiAppsPath": "str",
 		"valueispercentage": "bool",
@@ -84,7 +84,7 @@
 			}
 		}
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": true,
 		"matrix": false,
@@ -141,23 +141,23 @@
 			}
 		]
 	},
-	
+
 	"translations": {
 		"en": {
 			"name": "KPI Distribution Comparsion Name",
 			"description": "KPI Distribution Comparison Description",
-			"icon_tooltip": "New Extension Tooltip", 
-			"value_name": "Value Bucket (1, required)", 
+			"icon_tooltip": "New Extension Tooltip",
+			"value_name": "Value Bucket (1, required)",
 			"value_tooltip": "Drop a measusre here",
-			"comparison_name": "Comparison Bucket (1, non required)", 
+			"comparison_name": "Comparison Bucket (1, non required)",
 			"comparison_tooltip": "Drop a measusre here",
-			"minpoint_name": "Min point Bucket (1, non required)", 
+			"minpoint_name": "Min point Bucket (1, non required)",
 			"minpoint_tooltip": "Drop a measusre here",
-			"maxpoint_name": "Max point Bucket (1, non required)", 
+			"maxpoint_name": "Max point Bucket (1, non required)",
 			"maxpoint_tooltip": "Drop a measusre here",
-			"dimension_name": "Dimension Bucket (1, required)", 
+			"dimension_name": "Dimension Bucket (1, required)",
 			"dimension_tooltip": "Drop a dimension here",
-			"image_name": "Image Bucket (1, non required)", 
+			"image_name": "Image Bucket (1, non required)",
 			"image_tooltip": "Drop a field with path to image",
 			"properties": {
 				"ibiAppsPath": {

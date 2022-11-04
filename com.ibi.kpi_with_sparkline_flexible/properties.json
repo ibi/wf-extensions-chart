@@ -9,7 +9,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
 		"type": "bar",
 		"color": "#666",
@@ -54,27 +54,27 @@
 			"disableSparklineChart": "false"
 		}
 	},
-	
+
 	"propertyAnnotations": {
 		"type": {
 				"typeAnnotation": "str",
 				"stringValues": ["bar", "line", "pie"]
-			}, 
-		"color": "color", 
-		"fontFamily": "str", 
+			},
+		"color": "color",
+		"fontFamily": "str",
 		"fontSize": "str",
-		"fontStyle": "str",		
+		"fontStyle": "str",
 		"setCDN": "bool",
 		"squareDesign": "bool",
 		"aggregateValues": "bool",
 		"measureName": {
-			"fontWeight": "str", 
-			"color": "color", 
+			"fontWeight": "str",
+			"color": "color",
 			"fontSize": "str",
 			"fontStyle": "str"
 		},
 		"deviationVsPrevious": {
-			"color": "color", 
+			"color": "color",
 			"fontSize": "str",
 			"fontStyle": "str",
 			"decimalPlaces": "number",
@@ -85,7 +85,7 @@
 		},
 		"total": {
 			"fontWeight": "str",
-			"color": "color", 
+			"color": "color",
 			"fontSize": "str",
 			"fontStyle": "str",
 			"decimalPlaces": "number",
@@ -105,7 +105,7 @@
 			"disableSparklineChart": "bool"
 		}
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": false,
 		"matrix": false,
@@ -136,28 +136,28 @@
 		"en": {
 			"name": "KPI with Sparkline (flexible)",
 			"description": "KPI with Sparkline flexible Widget using jQuery Sparkline plug-in.",
-			"icon_tooltip": "KPI with Sparkline flexible Widget using jQuery Sparkline plug-in.", 
-			"measure_name": "Measure", 
-			"measure_tooltip": "Drop a measure here", 
-			"xaxis_name": "Dimension (Time)", 
+			"icon_tooltip": "KPI with Sparkline flexible Widget using jQuery Sparkline plug-in.",
+			"measure_name": "Measure",
+			"measure_tooltip": "Drop a measure here",
+			"xaxis_name": "Dimension (Time)",
 			"xaxis_tooltip": "Drop a dimension here",
-			
+
 			"properties": {
 				"type": {
 					"_translation": "Charttype of Sparkline",
 					"_tooltip": "Change the charttype of the sparkline chart",
                     "_valueTooltip": "Default bar"
-				},								
+				},
 				"color": {
 					"_translation": "Set font color - NOT IN USE",
 					"_tooltip": "NOT IN USE - Change the color on every element separately",
                     "_valueTooltip": "Default #666666"
-				},	
+				},
 				"fontFamily": {
 					"_translation": "Set font family",
 					"_tooltip": "Set font family",
                     "_valueTooltip": "Default 'Open Sans'"
-				},	
+				},
 				"fontSize": {
 					"_translation": "Set font size",
 					"_tooltip": "Set font size",
@@ -186,7 +186,7 @@
 				"measureName": {
 					"_translation": "Measure name",
 					"_tooltip": "Settings for measure name",
-				
+
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the measure name",
@@ -206,12 +206,12 @@
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the measure name",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},
+					}
 				},
 				"deviationVsPrevious": {
 					"_translation": "Deviation vs previous",
 					"_tooltip": "Settings for deviation vs previous",
-				
+
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the deviation vs previous",
@@ -221,12 +221,12 @@
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the deviation vs previous",
 						"_valueTooltip": "Default 12px"
-					}, 
+					},
 					"fontStyle":{
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the deviation vs previous",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					}, 
+					},
 					"decimalPlaces":{
 						"_translation": "Decimal places shown",
 						"_tooltip": "Set decimal places for the deviation vs previous",
@@ -246,22 +246,22 @@
 						"_translation": "Hide deviation vs previous element",
 						"_tooltip": "Completely hide the deviation vs previous element",
 						"_valueTooltip": "Default false"
-					}, 
+					},
 					"abbreviateNumber":{
 						"_translation": "Abbreviate deviation number",
 						"_tooltip": "Abbreviate the deviation vs previous number",
 						"_valueTooltip": "Default false"
-					},
+					}
 				},
 				"total": {
 					"_translation": "Total number",
 					"_tooltip": "Settings for total number",
-					
+
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the total number",
 						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
-					}, 
+					},
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the total number",
@@ -281,7 +281,7 @@
 						"_translation": "Decimal places shown",
 						"_tooltip": "Set decimal places for the total number",
 						"_valueTooltip": "Default 0"
-					}, 
+					},
 					"percentValue":{
 						"_translation": "Show percent sign",
 						"_tooltip": "Show percent sign if total number is in percent",
@@ -291,17 +291,17 @@
 						"_translation": "Abbreviate total number",
 						"_tooltip": "Abbreviate the total number",
 						"_valueTooltip": "Default false"
-					},
+					}
 				},
 				"barProperties": {
 					"_translation": "Sparkline chart",
 					"_tooltip": "Settings for the Sparkline chart",
-					
+
 					"height":{
 						"_translation": "Height of sparkline chart",
 						"_tooltip": "Set height of the sparkline chart",
 						"_valueTooltip": "Default 20"
-					}, 
+					},
 					"width":{
 						"_translation": "Width of sparkline chart",
 						"_tooltip": "Set width of the sparkline chart",
@@ -316,50 +316,50 @@
 						"_translation": "Color - good",
 						"_tooltip": "Color that should be shown if value is good",
 						"_valueTooltip": "Default #37BF54"
-					}, 
+					},
 					"badColor":{
 						"_translation": "Color - bad",
 						"_tooltip": "Color that should be shown if value is bad",
 						"_valueTooltip": "Default #F53554"
-					}, 
+					},
 					"goodIs":{
 						"_translation": "Limit bad to good",
 						"_tooltip": "Limit that defines what is good and what is bad",
 						"_valueTooltip": "Default >=0"
-					}, 
+					},
 					"disableSparklineChart":{
 						"_translation": "Hide sparkline chart",
 						"_tooltip": "Completely hide the sparkline chart",
 						"_valueTooltip": "Default false"
-					},
+					}
 				}
 			}
 		},
 		"de": {
 			"name": "KPI mit Sparkline (flexibel)",
 			"description": "KPI mit Sparkline (flexibel) Widget mit jQuery-Sparkline-Plug-in",
-			"icon_tooltip": "KPI mit Sparkline (flexibel) Widget mit jQuery-Sparkline-Plug-in", 
-			"measure_name": "Kennzahl", 
-			"measure_tooltip": "Kennzahl hier ablegen", 
-			"xaxis_name": "Dimension (Zeit)", 
+			"icon_tooltip": "KPI mit Sparkline (flexibel) Widget mit jQuery-Sparkline-Plug-in",
+			"measure_name": "Kennzahl",
+			"measure_tooltip": "Kennzahl hier ablegen",
+			"xaxis_name": "Dimension (Zeit)",
 			"xaxis_tooltip": "Dimension hier ablegen",
-			
+
 			"properties": {
 				"type": {
 					"_translation": "Charttype of Sparkline",
 					"_tooltip": "Change the charttype of the sparkline chart",
                     "_valueTooltip": "Default bar"
-				},								
+				},
 				"color": {
 					"_translation": "Set font color - NOT IN USE",
 					"_tooltip": "NOT IN USE - Change the color on every element separately",
                     "_valueTooltip": "Default #666666"
-				},	
+				},
 				"fontFamily": {
 					"_translation": "Set font family",
 					"_tooltip": "Set font family",
                     "_valueTooltip": "Default 'Open Sans'"
-				},	
+				},
 				"fontSize": {
 					"_translation": "Set font size",
 					"_tooltip": "Set font size",
@@ -388,7 +388,7 @@
 				"measureName": {
 					"_translation": "Measure name",
 					"_tooltip": "Settings for measure name",
-				
+
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the measure name",
@@ -408,12 +408,12 @@
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the measure name",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},
+					}
 				},
 				"deviationVsPrevious": {
 					"_translation": "Deviation vs previous",
 					"_tooltip": "Settings for deviation vs previous",
-				
+
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the deviation vs previous",
@@ -423,12 +423,12 @@
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the deviation vs previous",
 						"_valueTooltip": "Default 12px"
-					}, 
+					},
 					"fontStyle":{
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the deviation vs previous",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					}, 
+					},
 					"decimalPlaces":{
 						"_translation": "Decimal places shown",
 						"_tooltip": "Set decimal places for the deviation vs previous",
@@ -448,22 +448,22 @@
 						"_translation": "Hide deviation vs previous element",
 						"_tooltip": "Completely hide the deviation vs previous element",
 						"_valueTooltip": "Default false"
-					}, 
+					},
 					"abbreviateNumber":{
 						"_translation": "Abbreviate deviation number",
 						"_tooltip": "Abbreviate the deviation vs previous number",
 						"_valueTooltip": "Default false"
-					},
+					}
 				},
 				"total": {
 					"_translation": "Total number",
 					"_tooltip": "Settings for total number",
-					
+
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the total number",
 						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
-					}, 
+					},
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the total number",
@@ -483,7 +483,7 @@
 						"_translation": "Decimal places shown",
 						"_tooltip": "Set decimal places for the total number",
 						"_valueTooltip": "Default 0"
-					}, 
+					},
 					"percentValue":{
 						"_translation": "Show percent sign",
 						"_tooltip": "Show percent sign if total number is in percent",
@@ -493,17 +493,17 @@
 						"_translation": "Abbreviate total number",
 						"_tooltip": "Abbreviate the total number",
 						"_valueTooltip": "Default false"
-					},
+					}
 				},
 				"barProperties": {
 					"_translation": "Sparkline chart",
 					"_tooltip": "Settings for the Sparkline chart",
-					
+
 					"height":{
 						"_translation": "Height of sparkline chart",
 						"_tooltip": "Set height of the sparkline chart",
 						"_valueTooltip": "Default 20"
-					}, 
+					},
 					"width":{
 						"_translation": "Width of sparkline chart",
 						"_tooltip": "Set width of the sparkline chart",
@@ -518,50 +518,50 @@
 						"_translation": "Color - good",
 						"_tooltip": "Color that should be shown if value is good",
 						"_valueTooltip": "Default #37BF54"
-					}, 
+					},
 					"badColor":{
 						"_translation": "Color - bad",
 						"_tooltip": "Color that should be shown if value is bad",
 						"_valueTooltip": "Default #F53554"
-					}, 
+					},
 					"goodIs":{
 						"_translation": "Limit bad to good",
 						"_tooltip": "Limit that defines what is good and what is bad",
 						"_valueTooltip": "Default >=0"
-					}, 
+					},
 					"disableSparklineChart":{
 						"_translation": "Hide sparkline chart",
 						"_tooltip": "Completely hide the sparkline chart",
 						"_valueTooltip": "Default false"
-					},
+					}
 				}
 			}
 		},
 		"pt_BR": {
 			"name": "KPI com Sparkline (flexível)",
 			"description": "Widget do KPI com Sparkline (flexível) utilizando o plug-in jQuery Sparkline.",
-			"icon_tooltip": "Widget do KPI com Sparkline (flexível) utilizando o plug-in jQuery Sparkline.", 
-			"measure_name": "Medida", 
-			"measure_tooltip": "Solte uma medida aqui", 
-			"xaxis_name": "Dimensão (tempo)", 
+			"icon_tooltip": "Widget do KPI com Sparkline (flexível) utilizando o plug-in jQuery Sparkline.",
+			"measure_name": "Medida",
+			"measure_tooltip": "Solte uma medida aqui",
+			"xaxis_name": "Dimensão (tempo)",
 			"xaxis_tooltip": "Solte uma dimensão aqui",
-			
+
 			"properties": {
 				"type": {
 					"_translation": "Charttype of Sparkline",
 					"_tooltip": "Change the charttype of the sparkline chart",
                     "_valueTooltip": "Default bar"
-				},								
+				},
 				"color": {
 					"_translation": "Set font color - NOT IN USE",
 					"_tooltip": "NOT IN USE - Change the color on every element separately",
                     "_valueTooltip": "Default #666666"
-				},	
+				},
 				"fontFamily": {
 					"_translation": "Set font family",
 					"_tooltip": "Set font family",
                     "_valueTooltip": "Default 'Open Sans'"
-				},	
+				},
 				"fontSize": {
 					"_translation": "Set font size",
 					"_tooltip": "Set font size",
@@ -590,7 +590,7 @@
 				"measureName": {
 					"_translation": "Measure name",
 					"_tooltip": "Settings for measure name",
-				
+
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the measure name",
@@ -610,12 +610,12 @@
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the measure name",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},
+					}
 				},
 				"deviationVsPrevious": {
 					"_translation": "Deviation vs previous",
 					"_tooltip": "Settings for deviation vs previous",
-				
+
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the deviation vs previous",
@@ -625,12 +625,12 @@
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the deviation vs previous",
 						"_valueTooltip": "Default 12px"
-					}, 
+					},
 					"fontStyle":{
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the deviation vs previous",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					}, 
+					},
 					"decimalPlaces":{
 						"_translation": "Decimal places shown",
 						"_tooltip": "Set decimal places for the deviation vs previous",
@@ -650,22 +650,22 @@
 						"_translation": "Hide deviation vs previous element",
 						"_tooltip": "Completely hide the deviation vs previous element",
 						"_valueTooltip": "Default false"
-					}, 
+					},
 					"abbreviateNumber":{
 						"_translation": "Abbreviate deviation number",
 						"_tooltip": "Abbreviate the deviation vs previous number",
 						"_valueTooltip": "Default false"
-					},
+					}
 				},
 				"total": {
 					"_translation": "Total number",
 					"_tooltip": "Settings for total number",
-					
+
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the total number",
 						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
-					}, 
+					},
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the total number",
@@ -685,7 +685,7 @@
 						"_translation": "Decimal places shown",
 						"_tooltip": "Set decimal places for the total number",
 						"_valueTooltip": "Default 0"
-					}, 
+					},
 					"percentValue":{
 						"_translation": "Show percent sign",
 						"_tooltip": "Show percent sign if total number is in percent",
@@ -695,17 +695,17 @@
 						"_translation": "Abbreviate total number",
 						"_tooltip": "Abbreviate the total number",
 						"_valueTooltip": "Default false"
-					},
+					}
 				},
 				"barProperties": {
 					"_translation": "Sparkline chart",
 					"_tooltip": "Settings for the Sparkline chart",
-					
+
 					"height":{
 						"_translation": "Height of sparkline chart",
 						"_tooltip": "Set height of the sparkline chart",
 						"_valueTooltip": "Default 20"
-					}, 
+					},
 					"width":{
 						"_translation": "Width of sparkline chart",
 						"_tooltip": "Set width of the sparkline chart",
@@ -720,50 +720,50 @@
 						"_translation": "Color - good",
 						"_tooltip": "Color that should be shown if value is good",
 						"_valueTooltip": "Default #37BF54"
-					}, 
+					},
 					"badColor":{
 						"_translation": "Color - bad",
 						"_tooltip": "Color that should be shown if value is bad",
 						"_valueTooltip": "Default #F53554"
-					}, 
+					},
 					"goodIs":{
 						"_translation": "Limit bad to good",
 						"_tooltip": "Limit that defines what is good and what is bad",
 						"_valueTooltip": "Default >=0"
-					}, 
+					},
 					"disableSparklineChart":{
 						"_translation": "Hide sparkline chart",
 						"_tooltip": "Completely hide the sparkline chart",
 						"_valueTooltip": "Default false"
-					},
+					}
 				}
 			}
 		},
 		"es": {
 			"name": "KPI con Sparkline (flexible)",
 			"description": "KPI con Sparkline (flexible) Widget usando el complemento jQuery Sparkline.",
-			"icon_tooltip": "KPI con Sparkline (flexible) Widget usando el complemento jQuery Sparkline.", 
-			"measure_name": "Medida", 
-			"measure_tooltip": "Soltar aquí una medida", 
-			"xaxis_name": "Dimensión (tiempo)", 
+			"icon_tooltip": "KPI con Sparkline (flexible) Widget usando el complemento jQuery Sparkline.",
+			"measure_name": "Medida",
+			"measure_tooltip": "Soltar aquí una medida",
+			"xaxis_name": "Dimensión (tiempo)",
 			"xaxis_tooltip": "Soltar aquí una dimensión",
-			
+
 			"properties": {
 				"type": {
 					"_translation": "Charttype of Sparkline",
 					"_tooltip": "Change the charttype of the sparkline chart",
                     "_valueTooltip": "Default bar"
-				},								
+				},
 				"color": {
 					"_translation": "Set font color - NOT IN USE",
 					"_tooltip": "NOT IN USE - Change the color on every element separately",
                     "_valueTooltip": "Default #666666"
-				},	
+				},
 				"fontFamily": {
 					"_translation": "Set font family",
 					"_tooltip": "Set font family",
                     "_valueTooltip": "Default 'Open Sans'"
-				},	
+				},
 				"fontSize": {
 					"_translation": "Set font size",
 					"_tooltip": "Set font size",
@@ -792,7 +792,7 @@
 				"measureName": {
 					"_translation": "Measure name",
 					"_tooltip": "Settings for measure name",
-				
+
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the measure name",
@@ -812,12 +812,12 @@
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the measure name",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},
+					}
 				},
 				"deviationVsPrevious": {
 					"_translation": "Deviation vs previous",
 					"_tooltip": "Settings for deviation vs previous",
-				
+
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the deviation vs previous",
@@ -827,12 +827,12 @@
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the deviation vs previous",
 						"_valueTooltip": "Default 12px"
-					}, 
+					},
 					"fontStyle":{
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the deviation vs previous",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					}, 
+					},
 					"decimalPlaces":{
 						"_translation": "Decimal places shown",
 						"_tooltip": "Set decimal places for the deviation vs previous",
@@ -852,22 +852,22 @@
 						"_translation": "Hide deviation vs previous element",
 						"_tooltip": "Completely hide the deviation vs previous element",
 						"_valueTooltip": "Default false"
-					}, 
+					},
 					"abbreviateNumber":{
 						"_translation": "Abbreviate deviation number",
 						"_tooltip": "Abbreviate the deviation vs previous number",
 						"_valueTooltip": "Default false"
-					},
+					}
 				},
 				"total": {
 					"_translation": "Total number",
 					"_tooltip": "Settings for total number",
-					
+
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the total number",
 						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
-					}, 
+					},
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the total number",
@@ -887,7 +887,7 @@
 						"_translation": "Decimal places shown",
 						"_tooltip": "Set decimal places for the total number",
 						"_valueTooltip": "Default 0"
-					}, 
+					},
 					"percentValue":{
 						"_translation": "Show percent sign",
 						"_tooltip": "Show percent sign if total number is in percent",
@@ -897,17 +897,17 @@
 						"_translation": "Abbreviate total number",
 						"_tooltip": "Abbreviate the total number",
 						"_valueTooltip": "Default false"
-					},
+					}
 				},
 				"barProperties": {
 					"_translation": "Sparkline chart",
 					"_tooltip": "Settings for the Sparkline chart",
-					
+
 					"height":{
 						"_translation": "Height of sparkline chart",
 						"_tooltip": "Set height of the sparkline chart",
 						"_valueTooltip": "Default 20"
-					}, 
+					},
 					"width":{
 						"_translation": "Width of sparkline chart",
 						"_tooltip": "Set width of the sparkline chart",
@@ -922,50 +922,50 @@
 						"_translation": "Color - good",
 						"_tooltip": "Color that should be shown if value is good",
 						"_valueTooltip": "Default #37BF54"
-					}, 
+					},
 					"badColor":{
 						"_translation": "Color - bad",
 						"_tooltip": "Color that should be shown if value is bad",
 						"_valueTooltip": "Default #F53554"
-					}, 
+					},
 					"goodIs":{
 						"_translation": "Limit bad to good",
 						"_tooltip": "Limit that defines what is good and what is bad",
 						"_valueTooltip": "Default >=0"
-					}, 
+					},
 					"disableSparklineChart":{
 						"_translation": "Hide sparkline chart",
 						"_tooltip": "Completely hide the sparkline chart",
 						"_valueTooltip": "Default false"
-					},
+					}
 				}
 			}
 		},
 		"fr": {
 			"name": "KPI avec Sparkline (flexible)",
 			"description": "Widget KPI avec Sparkline (flexible) avec le plug-in jQuery Sparkline.",
-			"icon_tooltip": "Widget KPI avec Sparkline (flexible) avec le plug-in jQuery Sparkline.", 
-			"measure_name": "Mesure", 
-			"measure_tooltip": "Déposer une mesure ici", 
-			"xaxis_name": "Dimension (temps)", 
+			"icon_tooltip": "Widget KPI avec Sparkline (flexible) avec le plug-in jQuery Sparkline.",
+			"measure_name": "Mesure",
+			"measure_tooltip": "Déposer une mesure ici",
+			"xaxis_name": "Dimension (temps)",
 			"xaxis_tooltip": "Déposer une dimension ici",
-			
+
 			"properties": {
 				"type": {
 					"_translation": "Charttype of Sparkline",
 					"_tooltip": "Change the charttype of the sparkline chart",
                     "_valueTooltip": "Default bar"
-				},								
+				},
 				"color": {
 					"_translation": "Set font color - NOT IN USE",
 					"_tooltip": "NOT IN USE - Change the color on every element separately",
                     "_valueTooltip": "Default #666666"
-				},	
+				},
 				"fontFamily": {
 					"_translation": "Set font family",
 					"_tooltip": "Set font family",
                     "_valueTooltip": "Default 'Open Sans'"
-				},	
+				},
 				"fontSize": {
 					"_translation": "Set font size",
 					"_tooltip": "Set font size",
@@ -994,7 +994,7 @@
 				"measureName": {
 					"_translation": "Measure name",
 					"_tooltip": "Settings for measure name",
-				
+
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the measure name",
@@ -1014,12 +1014,12 @@
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the measure name",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					},
+					}
 				},
 				"deviationVsPrevious": {
 					"_translation": "Deviation vs previous",
 					"_tooltip": "Settings for deviation vs previous",
-				
+
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the deviation vs previous",
@@ -1029,12 +1029,12 @@
 						"_translation": "Set font size",
 						"_tooltip": "Set font size for the deviation vs previous",
 						"_valueTooltip": "Default 12px"
-					}, 
+					},
 					"fontStyle":{
 						"_translation": "Set font style",
 						"_tooltip": "Set font style for the deviation vs previous",
 						"_valueTooltip": "Default inherit (inherit from upper level font style)"
-					}, 
+					},
 					"decimalPlaces":{
 						"_translation": "Decimal places shown",
 						"_tooltip": "Set decimal places for the deviation vs previous",
@@ -1054,22 +1054,22 @@
 						"_translation": "Hide deviation vs previous element",
 						"_tooltip": "Completely hide the deviation vs previous element",
 						"_valueTooltip": "Default false"
-					}, 
+					},
 					"abbreviateNumber":{
 						"_translation": "Abbreviate deviation number",
 						"_tooltip": "Abbreviate the deviation vs previous number",
 						"_valueTooltip": "Default false"
-					},
+					}
 				},
 				"total": {
 					"_translation": "Total number",
 					"_tooltip": "Settings for total number",
-					
+
 					"fontWeight":{
 						"_translation": "Set font weight",
 						"_tooltip": "Set font weight for the total number",
 						"_valueTooltip": "Default inherit (inherit from upper level font weight)"
-					}, 
+					},
 					"color":{
 						"_translation": "Set font color",
 						"_tooltip": "Set font color for the total number",
@@ -1089,7 +1089,7 @@
 						"_translation": "Decimal places shown",
 						"_tooltip": "Set decimal places for the total number",
 						"_valueTooltip": "Default 0"
-					}, 
+					},
 					"percentValue":{
 						"_translation": "Show percent sign",
 						"_tooltip": "Show percent sign if total number is in percent",
@@ -1099,17 +1099,17 @@
 						"_translation": "Abbreviate total number",
 						"_tooltip": "Abbreviate the total number",
 						"_valueTooltip": "Default false"
-					},
+					}
 				},
 				"barProperties": {
 					"_translation": "Sparkline chart",
 					"_tooltip": "Settings for the Sparkline chart",
-					
+
 					"height":{
 						"_translation": "Height of sparkline chart",
 						"_tooltip": "Set height of the sparkline chart",
 						"_valueTooltip": "Default 20"
-					}, 
+					},
 					"width":{
 						"_translation": "Width of sparkline chart",
 						"_tooltip": "Set width of the sparkline chart",
@@ -1124,22 +1124,22 @@
 						"_translation": "Color - good",
 						"_tooltip": "Color that should be shown if value is good",
 						"_valueTooltip": "Default #37BF54"
-					}, 
+					},
 					"badColor":{
 						"_translation": "Color - bad",
 						"_tooltip": "Color that should be shown if value is bad",
 						"_valueTooltip": "Default #F53554"
-					}, 
+					},
 					"goodIs":{
 						"_translation": "Limit bad to good",
 						"_tooltip": "Limit that defines what is good and what is bad",
 						"_valueTooltip": "Default >=0"
-					}, 
+					},
 					"disableSparklineChart":{
 						"_translation": "Hide sparkline chart",
 						"_tooltip": "Completely hide the sparkline chart",
 						"_valueTooltip": "Default false"
-					},
+					}
 				}
 			}
 		}

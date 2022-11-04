@@ -10,7 +10,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
         "states": {
             "exclude": [],
@@ -45,7 +45,7 @@
             }
         }
 	},
-	
+
 	"propertyAnnotations": {
 		"states": {
             "exclude": {
@@ -90,7 +90,7 @@
             }
         }
 	},
-	
+
 	"dataBuckets":  {
 		"matrix": false,
 		"data_page": false,
@@ -113,7 +113,7 @@
 	          "max": 1
 	        }
 	      }
-	    ],	
+	    ]
 	},
 
 	"translations": {

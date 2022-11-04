@@ -9,17 +9,17 @@
 			"medium": "icons/icon.svg"
 		}
 	},
-	
+
 	"properties": {
-		"chartHeadroom": 50,
+		"chartHeadroom": 50
 	},
-	
+
 	"propertyAnnotations": {
-		"chartHeadroom": "number",
+		"chartHeadroom": "number"
 	},
-	
+
 	"dataBuckets":  {
-	
+
 		"tooltip": false,
 		"matrix": true,
 		"data_page": false,
@@ -49,7 +49,7 @@
 		"en": {
 			"name": "Matrix Data Demo",
 			"description": "Matrix Data Demo",
-			"icon_tooltip": "Matrix Data Demo", 
+			"icon_tooltip": "Matrix Data Demo",
 			"value_name": "Value Bucket",
 			"value_tooltip": "Drop a measure here",
 			"labels_name": "Label Bucket",

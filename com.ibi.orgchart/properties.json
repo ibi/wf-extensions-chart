@@ -10,7 +10,7 @@
 			"medium": "icons/medium.png"
 		}
 	},
-	
+
 	"properties": {
           "node" : {
             "colorRange": ["red", "yellow", "green"],
@@ -51,7 +51,7 @@
             }
           }
 	},
-	
+
 	"propertyAnnotations": {
           "node" : {
             "colorRange": {
@@ -99,7 +99,7 @@
             }
           }
 	},
-	
+
 	"dataBuckets":  {
 		"tooltip": false,
 		"matrix": false,
