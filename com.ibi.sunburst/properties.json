@@ -46,7 +46,7 @@
 	},
 	
 	"dataBuckets":  {
-		"tooltip": true , //CHART-3304
+		"tooltip": true ,
 		"matrix": false,
 		"data_page": false,
 		"series_break": false,

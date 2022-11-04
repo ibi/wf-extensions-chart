@@ -152,7 +152,7 @@
 			"color_name": "Link Color (MES)",
 			"color_tooltip": "Drop a measure here",
 			"size_name": "Source Size (MES)",
-			"size_tooltip": "Drop a measure here",
+			"size_tooltip": "Drop a measure here"
 		}
 	}
 }
