@@ -537,7 +537,7 @@
 				}
 			}
 		},
-		"pt_BR": {
+		"pt": {
 			"name": "KPI com Sparkline (flexível)",
 			"description": "Widget do KPI com Sparkline (flexível) utilizando o plug-in jQuery Sparkline.",
 			"icon_tooltip": "Widget do KPI com Sparkline (flexível) utilizando o plug-in jQuery Sparkline.",

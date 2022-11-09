@@ -113,7 +113,7 @@
 			"compare_tooltip": "Drop a dimension here",
 			"add_data": "Add more measures or dimensions"
 		},
-		"pt_BR": {
+		"pt": {
 			"name": "KPI do minigráfico",
 			"description": "Widget do KPI utilizando o plug-in jQuery Sparkline.",
 			"icon_tooltip": "Widget do KPI utilizando o plug-in jQuery Sparkline.",
@@ -157,7 +157,7 @@
 			"compare_name": "Groupe Valeurs comparées",
 			"compare_tooltip": "Déposer une dimension ici"
 		},
-		"fc": {
+		"fr_CA": {
 			"name": "Sparkline KPI",
 			"description": "Widget KPI avec le plug-in jQuery Sparkline.",
 			"icon_tooltip": "Widget KPI avec le plug-in jQuery Sparkline.",
@@ -201,7 +201,7 @@
 			"compare_name": "比較グループ",
 			"compare_tooltip": "ここにディメンションをドロップ"
 		},
-		"tw": {
+		"zh_TW": {
 			"name": "走勢圖 KPI",
 			"description": "使用 jQuery 走勢圖外掛程式的 KPI 小工具。",
 			"icon_tooltip": "使用 jQuery 走勢圖外掛程式的 KPI 小工具。",
@@ -212,7 +212,7 @@
 			"compare_name": "比較群組",
 			"compare_tooltip": "拖曳維度到這裡"
 		},
-		"zh": {
+		"zh_CN": {
 			"name": "迷你图 KPI",
 			"description": "使用 jQuery 迷你图插件的 KPI 小组件。",
 			"icon_tooltip": "使用 jQuery 迷你图插件的 KPI 小组件。",

@@ -108,7 +108,7 @@
 			"value_tooltip": "Déposer une mesure ici"
 		},
 
-		"fc": {
+		"fr_CA": {
 			"name": "Graphique de jauge liquide",
 			"description": "Graphique de jauge animée avec intérieur liquide",
 			"icon_tooltip": "Graphique de jauge liquide",
@@ -140,7 +140,7 @@
 			"value_tooltip": "ここに基軸をドロップ"
 		},
 
-		"br": {
+		"pt": {
 			"name": "Medidor Líquido",
 			"description": "Medidor com animaçăo sofisticada e interior líquido",
 			"icon_tooltip": "Medidor Líquido",
@@ -164,7 +164,7 @@
 			"value_tooltip": "여기에 측정을 드롭(drop)"
 		},
 
-		"tw": {
+		"zh_TW": {
 			"name": "液態量規圖表",
 			"description": "具有液態內部的新潮動畫量規圖表",
 			"icon_tooltip": "液態量規圖表",
@@ -172,7 +172,7 @@
 			"value_tooltip": "拖曳測量到這裡"
 		},
 
-		"zh": {
+		"zh_CN": {
 			"name": "液标尺图表",
 			"description": "带有液体内部的流行动画标尺图表",
 			"icon_tooltip": "液标尺图表",

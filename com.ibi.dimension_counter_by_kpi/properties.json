@@ -448,7 +448,7 @@
 				}
 			}
 		},
-		"pt_BR": {
+		"pt": {
 			"name": "Contador de dimensões por KPI",
 			"description": "Contador de dimensões por KPI.",
 			"icon_tooltip": "Contador de dimensões por KPI.",

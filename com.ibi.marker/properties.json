@@ -121,7 +121,7 @@
             "label_name": "레이블",
             "label_tooltip": "여기에 치수를 드롭(drop)"
         },
-        "tw": {
+        "zh_TW": {
             "name": "記號圖表",
             "description": "簡式記號圖表",
             "icon_tooltip": "簡式記號圖表",
@@ -130,7 +130,7 @@
             "label_name": "標籤",
             "label_tooltip": "拖曳維度到這裡"
         },
-        "zh": {
+        "zh_CN": {
             "name": "标记图表",
             "description": "简单标记图表",
             "icon_tooltip": "简单标记图表",

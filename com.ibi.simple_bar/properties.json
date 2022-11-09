@@ -88,7 +88,7 @@
 			"labels_tooltip": "Déposer une dimension ici"
 		},
 
-		"fc": {
+		"fr_CA": {
 			"name": "Graphique à barres simple personnel",
 			"description": "Ce graphique est un simple graphique à barres, rien de spécial.",
 			"icon_tooltip": "Cette extension réalise ...",
@@ -128,7 +128,7 @@
 			"labels_tooltip": "ここにディメンションをドロップ"
 		},
 
-		"br": {
+		"pt": {
 			"name": "Meu gráfico de Barras Simples",
 			"description": "Este gráfico é um gráfico de barras simples.",
 			"icon_tooltip": "Esta extensăo ...",
@@ -158,7 +158,7 @@
 			"labels_tooltip": "여기에 치수를 드롭(drop)"
 		},
 
-		"tw": {
+		"zh_TW": {
 			"name": "簡式直條圖",
 			"description": "這圖表只是一個簡式直條圖, 沒有任何資料。",
 			"icon_tooltip": "此擴充功能會 ...",
@@ -168,7 +168,7 @@
 			"labels_tooltip": "拖曳維度到這裡"
 		},
 
-		"zh": {
+		"zh_CN": {
 			"name": "简单条形图",
 			"description": "这图表只是一个简单的条形图, 这里什么都没有。",
 			"icon_tooltip": "此扩展会 ...",

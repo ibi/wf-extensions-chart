@@ -141,7 +141,7 @@
 			"value_tooltip": "Déposer une mesure ici"
 		},
 
-		"fc": {
+		"fr_CA": {
 			"name": "Organigramme Sankey",
 			"description": "Organigramme Sankey",
 			"icon_tooltip": "Organigramme Sankey",
@@ -189,7 +189,7 @@
 			"value_tooltip": "ここに基軸をドロップ"
 		},
 
-		"br": {
+		"pt": {
 			"name": "Gráfico de Fluxo Sankey",
 			"description": "Gráfico de Fluxo Sankey",
 			"icon_tooltip": "Gráfico de Fluxo Sankey",
@@ -225,7 +225,7 @@
 			"value_tooltip": "여기에 측정 드롭"
 		},
 
-		"tw": {
+		"zh_TW": {
 			"name": "Sankey 流程圖表",
 			"description": "Sankey 流程圖表",
 			"icon_tooltip": "Sankey 流程圖表",
@@ -237,7 +237,7 @@
 			"value_tooltip": "拖曳測量到這裡"
 		},
 
-		"zh": {
+		"zh_CN": {
 			"name": "流通图表",
 			"description": "流通图表",
 			"icon_tooltip": "流通图表",

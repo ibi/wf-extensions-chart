@@ -168,7 +168,7 @@
 			"value_tooltip": "Déposer une mesure ici"
 		},
 
-		"fc": {
+		"fr_CA": {
 			"name": "Diagramme d'accord",
 			"description": "Diagramme d'accord",
 			"icon_tooltip": "Diagramme d'accord",
@@ -217,7 +217,7 @@
 			"value_tooltip": "ここに基軸をドロップ"
 		},
 
-		"br": {
+		"pt": {
 			"name": "Diagrama de Cordas",
 			"description": "Diagrama de Cordas",
 			"icon_tooltip": "Diagrama de Cordas",
@@ -253,7 +253,7 @@
 			"value_tooltip": "여기에 측정을 드롭(drop)"
 		},
 
-		"tw": {
+		"zh_TW": {
 			"name": "弦樂圖表",
 			"description": "弦樂圖表",
 			"icon_tooltip": "弦樂圖表",
@@ -265,7 +265,7 @@
 			"value_tooltip": "拖曳測量到這裡"
 		},
 
-		"zh": {
+		"zh_CN": {
 			"name": "弦形图",
 			"description": "弦形图",
 			"icon_tooltip": "弦形图",

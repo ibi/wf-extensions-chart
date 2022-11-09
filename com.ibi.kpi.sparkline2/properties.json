@@ -122,7 +122,7 @@
 			"group_tooltip": "Drop a dimension here",
 			"add_data": "Add more measures or dimensions"
 		},
-		"pt_BR": {
+		"pt": {
 			"name": "KPI com minigráfico grande",
 			"description": "KPI com o plug-in jQuery Sparkline - Grande.",
 			"icon_tooltip": "KPI com o plug-in jQuery Sparkline - Grande.",
@@ -166,7 +166,7 @@
 			"group_name": "Groupe",
 			"group_tooltip": "Déposer une dimension ici"
 			},
-		"fc": {
+		"fr_CA": {
 			"name": "KPI avec Sparkline Large",
 			"description": "KPI avec le plug-in jQuery Sparkline - Large.",
 			"icon_tooltip": "KPI avec le plug-in jQuery Sparkline - Large.",
@@ -210,7 +210,7 @@
 			"group_name": "그룹",
 			"group_tooltip": "여기에 치수를 드롭(drop)"
 		},
-		"tw": {
+		"zh_TW": {
 			"name": "具有大走勢圖的 KPI",
 			"description": "具有 jQuery 走勢圖外掛程式的 KPI - 大。",
 			"icon_tooltip": "具有 jQuery 走勢圖外掛程式的 KPI - 大。",
@@ -221,7 +221,7 @@
 			"group_name": "群組",
 			"group_tooltip": "拖曳維度到這裡"
 		},
-		"zh": {
+		"zh_CN": {
 			"name": "带有大迷你图的 KPI",
 			"description": "带有 jQuery 迷你图插件的 KPI - 大。",
 			"icon_tooltip": "带有 jQuery 迷你图插件的 KPI - 大。",

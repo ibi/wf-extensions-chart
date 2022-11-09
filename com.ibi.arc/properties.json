@@ -529,7 +529,7 @@
 			}
 		},
 
-		"fc": {
+		"fr_CA": {
 			"name": "Arc Chart",
 			"description": "Diagramme d'arc",
 			"icon_tooltip": "Diagramme d'arc",
@@ -889,7 +889,7 @@
 			}
 		},
 
-		"pt_BR": {
+		"pt": {
 			"name": "Carta de Arco",
 			"description": "Carta de Arco",
 			"icon_tooltip": "Carta de Arco",
@@ -1249,7 +1249,7 @@
 			}
 		},
 
-		"zh": {
+		"zh_CN": {
 			"name": "弧形图",
 			"description": "弧形图",
 			"icon_tooltip": "弧形图",
