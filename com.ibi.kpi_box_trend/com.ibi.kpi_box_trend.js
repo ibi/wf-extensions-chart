@@ -38,7 +38,7 @@
 		var temp_number_with_grouping = number;
 
 		temp_number_with_grouping = temp_number_with_grouping.toString().replace(numberFormatRegex, groupingSeparator);
-		
+
 		return temp_number_with_grouping;
 	}
 
@@ -57,7 +57,7 @@
 			SI_POSTFIXES = ["", "Tsd.", "Mio.", "Mrd.", "Bio.", "Brd.", "Trio."];
 		}
 		var tier = Math.log10(Math.abs(number)) / 3 | 0;
-		if (tier == 0) 
+		if (tier == 0)
 			return number;
 		var postfix = SI_POSTFIXES[tier];
 		var scale = Math.pow(10, tier * 3);
@@ -65,7 +65,7 @@
 		var formatted = scaled.toFixed(decimals) + '';
 		return formatted + postfix;
 	}
-	
+
 	// All extension callback functions are passed a standard 'renderConfig' argument:
 	//
 	// Properties that are always available:
@@ -73,7 +73,7 @@
 	//   data: the data set being rendered
 	//   properties: the block of your extension's properties, as they've been set by the user
 	//   modules: the 'modules' object from your extension's config, along with additional API methods
-	//   
+	//
 	// Properties available during render callback:
 	//   width: width of the container your extension renders into, in px
 	//   height: height of the container your extension renders into, in px
@@ -81,7 +81,7 @@
 	//   container: DOM node for your extension to render into;
 	//   rootContainer: DOM node containing the specific chart engine instance being rendered.
 
-	
+
 
 	// Optional: if defined, is called exactly *once* during chart engine initialization
 	// Arguments:
@@ -91,10 +91,10 @@
 	function initCallback(successCallback, initConfig) {
 		successCallback(true);
 	}
-	
+
 	// Optional: if defined, is invoked once at the very beginning of each chart engine draw cycle
 	// Use this to configure a specific chart engine instance before rendering.
-	// Arguments: 
+	// Arguments:
 	//  - preRenderConfig: the standard callback argument object
 	function preRenderCallback(preRenderConfig) {
 	// 	var chart = preRenderConfig.moonbeamInstance;
@@ -103,9 +103,9 @@
 	// 	chart.footnote.visible = false;
 	// 	chart.footnote.text = "footnote";
 	// 	chart.footnote.align = 'right';
-	// 
+	//
 	}
-	
+
 	function noDataPreRenderCallback(preRenderConfig) {
 		var chart = preRenderConfig.moonbeamInstance;
 		chart.legend.visible = false;
@@ -121,20 +121,20 @@
 
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
-		
+
 		var container = renderConfig.container;
 		var data = renderConfig.data;
-		var dataBuckets = renderConfig.dataBuckets;	
+		var dataBuckets = renderConfig.dataBuckets;
 
 	//	var userLang = navigator.language || navigator.userLanguage;  	// This gets the browser language
 		var userLang = document.documentElement.lang;					// This gets the webfocus language
-		
+
 		//$(renderConfig.rootContainer).parent().css('backgroundColor',props.backgroundColor);
 
 		// Check the CDN setting of the webfocus system
 		if (props.setCDN == true) {
 			var innerHTML = document.documentElement.innerHTML;
-		
+
 			var decimalSeparatorText		=	"setDecimalSeparator";
 			var groupingSeparatorText		=	"setGroupingSeparator";
 			var decimalSeparatorPosition	=	0;
@@ -143,7 +143,7 @@
 			// Determine the position of the decimal and grouping text
 			decimalSeparatorPosition		=	innerHTML.search(decimalSeparatorText)
 			groupingSeparatorPosition		= 	innerHTML.search(groupingSeparatorText);
-		
+
 			// Change position to the decimal and grouping separator
 			decimalSeparatorPosition		=	decimalSeparatorPosition + 21;
 			groupingSeparatorPosition		=	groupingSeparatorPosition + 22;
@@ -157,9 +157,9 @@
 				if (groupingSeparator == "[") {
 						groupingSeparator	=	"'";
 				}
-			}	
+			}
 		}
-	
+
 		/* Format JSON Data */
 		if (typeof data[0].measure !== 'undefined'||typeof data[0].time !== 'undefined') {
 			var total1 = 0;
@@ -172,7 +172,7 @@
 				if (typeof data[i].time !== 'undefined') {
 					temp_value = data[i].measure;
 					total1 = temp_value;
-										
+
 					if (i!=0){
 						previous = i - 1;
 						temp_value = data[previous].measure;
@@ -181,14 +181,14 @@
 				}
 			}
 			total1 = total1.toFixed(props.currentValue.total.decimalPlaces);
-			total2 = total2.toFixed(props.previousValue.previousTotal.decimalPlaces);			
-	
+			total2 = total2.toFixed(props.previousValue.previousTotal.decimalPlaces);
+
 			var titleElement = $('foreignObject[class="title"]');
 
 			var titleHeight =  titleElement.length == 1 ? titleElement.height() + 5 : 0;
 
 			var title = '';
-			
+
 			if (noDataCallback == 'no_Data') {
 				title =  'Gross Profit';
 				noDataCallback = '';
@@ -196,33 +196,59 @@
 			else {
 				title =  dataBuckets.getBucket("measure").fields[0].title;
 			}
-			
+
+			var squareLayout = $(container).width() < 250;
+			var tfs = function(fontSize) { return fontSize; }; //title font resize 'filter', by default no change
+			var fs = function(fontSize) { return fontSize; }; //font resize 'filter', by default no change
+			if (props.fontAutoShrink && squareLayout) {
+				fs = function(fontSize, amount) {
+					amount = amount || 4; //shrink by 4 units by default
+					var size = parseInt(fontSize);
+					if (!size || size < amount * 2) return fontSize; //do not shrink if font is too small
+					size -= amount;
+
+					//shrink just integer numbers or pt/px
+					if (Number.isInteger(fontSize))
+						return size;
+					if (typeof fontSize == 'string' && fontSize.match(/^[0-9]+pt/))
+						return size + "pt";
+					if (typeof fontSize == 'string' && fontSize.match(/^[0-9]+px/))
+						return size + "px";
+					return fontSize;
+				};
+			}
+
 			//default width settings
 			var widthPrevTotal = 40;
 			var widthPercentChange = 40;
-			var widthTrendChange = 20;			
-			
-			//check which elements are enabled to change width
-			if (props.previousValue.disablePreviousValue == true && props.changeValue.disableChangeValue == true)
-				widthTrendChange = 100;
-			else if (props.previousValue.disablePreviousValue == true && props.trendIcon.disableTrendIcon == true)
-				widthPercentChange = 100;
-			else if (props.changeValue.disableChangeValue == true && props.trendIcon.disableTrendIcon == true)
+			var widthTrendChange = 20;
+			if (squareLayout) {
 				widthPrevTotal = 100;
-			else if (props.previousValue.disablePreviousValue == true) {
-				widthPercentChange = 60;
-				widthTrendChange = 40;
+				widthPercentChange = 100;
+				widthTrendChange = 100;
+			} else {
+				//check which elements are enabled to change width
+				if (props.previousValue.disablePreviousValue == true && props.changeValue.disableChangeValue == true)
+					widthTrendChange = 100;
+				else if (props.previousValue.disablePreviousValue == true && props.trendIcon.disableTrendIcon == true)
+					widthPercentChange = 100;
+				else if (props.changeValue.disableChangeValue == true && props.trendIcon.disableTrendIcon == true)
+					widthPrevTotal = 100;
+				else if (props.previousValue.disablePreviousValue == true) {
+					widthPercentChange = 60;
+					widthTrendChange = 40;
+				}
+				else if (props.changeValue.disableChangeValue == true) {
+					widthPrevTotal = 60;
+					widthTrendChange = 40;
+				}
+				else if (props.trendIcon.disableTrendIcon == true) {
+					widthPrevTotal = 50;
+					widthPercentChange = 50;
+				}
 			}
-			else if (props.changeValue.disableChangeValue == true) {
-				widthPrevTotal = 60;
-				widthTrendChange = 40;
-			}	
-			else if (props.trendIcon.disableTrendIcon == true) {
-				widthPrevTotal = 50;				
-				widthPercentChange = 50;			
-			}			
-			
-			var currentTotal = 0;		
+
+			var currentTotal = 0;
 			var prevTotal = '';
 			var percentChange = '';
 			var trendChange = '';
@@ -237,7 +263,7 @@
 			var dynamicColorBackground = '';
 			var risingColor = props.dynamicColorMode.risingColor;
 			var fallingColor = props.dynamicColorMode.fallingColor;
-			
+
 			//number format for currentTotal value
 			currentTotal = total1;
 			if (props.currentValue.total.abbreviateNumber == true) {
@@ -247,11 +273,11 @@
 			}
 			currentTotal = currentTotal.replace(".", decimalSeparator);
 			currentTotal = numberWithGroupingSeparator(currentTotal, groupingSeparator);
-		
+
 			//check if current total is percent value
 			if  (props.currentValue.total.percentValue == true)
 				currentTotal = currentTotal + '%' ;
-			
+
 			//if no total2 value, no change will be shown
 			if (total2==0) {
 				prevTotal = '';
@@ -267,12 +293,12 @@
 					dynamicColorBackground = ';background-color:#b7bfb5';
 				else
 					dynamicColorBackground = '';
-			}				
+			}
 			//if total2 is not equal ''
 			else {
 				//block for previous total value
 				if (props.previousValue.disablePreviousValue == true) {
-					prevTotal = '';	
+					prevTotal = '';
 					cssPrevTotalTitle = '';
 					cssPrevTotal = '';
 				}
@@ -284,23 +310,23 @@
 					else {
 					}
 					prevTotal = prevTotal.replace(".", decimalSeparator);
-					prevTotal = numberWithGroupingSeparator(prevTotal, groupingSeparator);					
+					prevTotal = numberWithGroupingSeparator(prevTotal, groupingSeparator);
 
-					if (props.previousValue.previousTotal.percentValue == true) 
+					if (props.previousValue.previousTotal.percentValue == true)
 						prevTotal = prevTotal + '%';
-					
+
 					//css for previous total title
-					cssPrevTotalTitle = '<div class="kpi-box-previous-title" style="font-weight:'+props.previousValue.previousText.fontWeight+';font-size:'+props.previousValue.previousText.fontSize+';color:'+props.previousValue.previousText.color+';font-style:'+props.previousValue.previousText.fontStyle+';width:'+widthPrevTotal+'%">' + props.previousValue.previousText.previousText + '</div>';
+					cssPrevTotalTitle = '<div class="kpi-box-previous-title" style="font-weight:'+props.previousValue.previousText.fontWeight+';font-size:'+tfs(props.previousValue.previousText.fontSize)+';color:'+props.previousValue.previousText.color+';font-style:'+props.previousValue.previousText.fontStyle+';width:'+widthPrevTotal+'%">' + props.previousValue.previousText.previousText + '</div>';
 					//css for previous total value
-					cssPrevTotal = '<div class="kpi-box-previous-total" style="font-weight:'+props.previousValue.previousTotal.fontWeight+';font-size:'+props.previousValue.previousTotal.fontSize+';color:'+props.previousValue.previousTotal.color+';font-style:'+props.previousValue.previousTotal.fontStyle+';width:'+widthPrevTotal+'%">' + prevTotal + '</div>';					
+					cssPrevTotal = '<div class="kpi-box-previous-total" style="font-weight:'+props.previousValue.previousTotal.fontWeight+';font-size:'+fs(props.previousValue.previousTotal.fontSize)+';color:'+props.previousValue.previousTotal.color+';font-style:'+props.previousValue.previousTotal.fontStyle+';width:'+widthPrevTotal+'%">' + prevTotal + '</div>';
 				}
-				
+
 				//block for change value
 				if (props.changeValue.disableChangeValue == true) {
-					percentChange = '';	
+					percentChange = '';
 					cssPercentChangeTitle = '';
 					cssPercentChange = '';
-				}	
+				}
 				else {
 					//block for change value in percent
 					if (props.changeValue.changeValue.deviationInPercent == true) {
@@ -313,7 +339,7 @@
 						percentChange = percentChange.toFixed(props.changeValue.changeValue.decimalPlaces);
 
 						percentChange = percentChange.replace(".", decimalSeparator);
-						percentChange = numberWithGroupingSeparator(percentChange, groupingSeparator);	
+						percentChange = numberWithGroupingSeparator(percentChange, groupingSeparator);
 						percentChange = percentChange + '%';
 
 					}
@@ -321,7 +347,7 @@
 					else {
 						percentChange = total1-total2;
 						percentChange = percentChange.toFixed(props.changeValue.changeValue.decimalPlaces);
-						
+
 						if (props.changeValue.changeValue.abbreviateNumber == true) {
 							percentChange = abbreviateNumber(percentChange, props.changeValue.changeValue.decimalPlaces, userLang);
 						}
@@ -329,7 +355,7 @@
 						}
 						percentChange = percentChange.replace(".", decimalSeparator);
 						percentChange = numberWithGroupingSeparator(percentChange, groupingSeparator);
-						
+
 					}
 					//check if dynamic color should be applied on change
 					if ((total1-total2) < 0) {
@@ -343,21 +369,21 @@
 							dynamicColorChange = risingColor;
 						else
 							dynamicColorChange = props.changeValue.changeValue.color;
-					}						
+					}
 					else {
 						dynamicColorChange = props.changeValue.changeValue.color;
 					}
 					//css for change value title
-					cssPercentChangeTitle = '<div class="kpi-box-change-title" style="font-weight:'+props.changeValue.changeValueText.fontWeight+';font-size:'+props.changeValue.changeValueText.fontSize+';color:'+props.changeValue.changeValueText.color+';font-style:'+props.changeValue.changeValueText.fontStyle+';width:'+widthPercentChange+'%">' + props.changeValue.changeValueText.changeText + '</div>';
+					cssPercentChangeTitle = '<div class="kpi-box-change-title" style="font-weight:'+props.changeValue.changeValueText.fontWeight+';font-size:'+tfs(props.changeValue.changeValueText.fontSize)+';color:'+props.changeValue.changeValueText.color+';font-style:'+props.changeValue.changeValueText.fontStyle+';width:'+widthPercentChange+'%">' + props.changeValue.changeValueText.changeText + '</div>';
 					//css for change value
-					cssPercentChange = '<div class="kpi-box-change-total" style="font-weight:'+props.changeValue.changeValue.fontWeight+';font-size:'+props.changeValue.changeValue.fontSize+';color:'+dynamicColorChange+';font-style:'+props.changeValue.changeValue.fontStyle+';width:'+widthPercentChange+'%">' + percentChange + '</div>';					
-				}					
+					cssPercentChange = '<div class="kpi-box-change-total" style="font-weight:'+props.changeValue.changeValue.fontWeight+';font-size:'+fs(props.changeValue.changeValue.fontSize)+';color:'+dynamicColorChange+';font-style:'+props.changeValue.changeValue.fontStyle+';width:'+widthPercentChange+'%">' + percentChange + '</div>';
+				}
 				//block for trend icon including check for dynamic color
 				if (props.trendIcon.disableTrendIcon == true) {
-					trendChange = '';	
+					trendChange = '';
 					cssTrendChangeTitle = '';
 					cssTrendChange = '';
-				}	
+				}
 				else {
 					if ((total1-total2) < 0) {
 						//trendChange = '\u23F7';
@@ -374,15 +400,15 @@
 							dynamicColorTrend = risingColor;
 						else
 							dynamicColorTrend = props.trendIcon.trendIcon.color;
-					}						
+					}
 					else {
 						trendChange = '=';
 						dynamicColorTrend = props.trendIcon.trendIcon.color;
 					}
 					//css for trend title
-					cssTrendChangeTitle = '<div class="kpi-box-trend-title" style="font-weight:'+props.trendIcon.trendIconText.fontWeight+';font-size:'+props.trendIcon.trendIconText.fontSize+';color:'+props.trendIcon.trendIconText.color+';font-style:'+props.trendIcon.trendIconText.fontStyle+';width:'+widthTrendChange+'%">' + props.trendIcon.trendIconText.trendText + '</div>';
+					cssTrendChangeTitle = '<div class="kpi-box-trend-title" style="font-weight:'+props.trendIcon.trendIconText.fontWeight+';font-size:'+tfs(props.trendIcon.trendIconText.fontSize)+';color:'+props.trendIcon.trendIconText.color+';font-style:'+props.trendIcon.trendIconText.fontStyle+';width:'+widthTrendChange+'%">' + props.trendIcon.trendIconText.trendText + '</div>';
 					//css for trend icon
-					cssTrendChange = '<div class="kpi-box-trend-total" style="font-weight:'+props.trendIcon.trendIcon.fontWeight+';font-size:'+props.trendIcon.trendIcon.fontSize+';color:'+dynamicColorTrend+';width:'+widthTrendChange+'%">' + trendChange + '</div>';						
+					cssTrendChange = '<div class="kpi-box-trend-total" style="font-weight:'+props.trendIcon.trendIcon.fontWeight+';font-size:'+fs(props.trendIcon.trendIcon.fontSize)+';color:'+dynamicColorTrend+';width:'+widthTrendChange+'%">' + trendChange + '</div>';
 				}
 				//block for dynamic background color of full widget
 				if ((total1-total2) < 0) {
@@ -404,7 +430,7 @@
 						dynamicColorBackground = '';
 						changeBackground("#ffffff");
 					}
-				}						
+				}
 				else {
 					if (props.dynamicColorMode.applyDynamicColorOn == 'full widget background') {
 						changeBackground("#b7bfb5");
@@ -414,44 +440,63 @@
 						changeBackground("#ffffff");
 						dynamicColorBackground = '';
 					}
-				}				
-			}
-			
-			//final css for widget
-			//create kpi-box-container				
-			$(container).css('top',titleHeight+'px').append('<div class="kpi-box-container" style="font-family:'+props.fontFamily+';font-size:'+props.fontSize+';color:'+props.color+';font-style:'+props.fontStyle+';min-width:'+props.widgetWidth.minimumWidgetWidth+'px;max-width:'+props.widgetWidth.maximumWidgetWidth+'px'+dynamicColorBackground+'"></div>');
-			
-			if (props.currentValue.disableCurrentValue == true) {
-			}
-			else {
-			// fill containers on html page - 1st line			
-			$(container).find('.kpi-box-container').append('<div><div class="kpi-box-title" style="font-weight:'+props.currentValue.measureName.fontWeight+';font-size:'+props.currentValue.measureName.fontSize+';color:'+props.currentValue.measureName.color+';font-style:'+props.currentValue.measureName.fontStyle+'">' + title + '</div></div>');
-			// fill containers on html page - 2nd line
-			$(container).find('.kpi-box-container').append('<div><div class="kpi-box-total" style="font-weight:'+props.currentValue.total.fontWeight+';font-size:'+props.currentValue.total.fontSize+';color:'+props.currentValue.total.color+';font-style:'+props.currentValue.total.fontStyle+'">' + currentTotal + '</div></div>');				
+				}
 			}
 
-			if (props.previousValue.disablePreviousValue == true && props.changeValue.disableChangeValue == true && props.trendIcon.disableTrendIcon == true) {
+			//final css for widget
+			//create kpi-box-container
+			$(container).css('top',titleHeight+'px').append('<div class="kpi-box-container" style="font-family:'+props.fontFamily+';font-size:'+tfs(props.fontSize)+';color:'+props.color+';font-style:'+props.fontStyle+';min-width:'+props.widgetWidth.minimumWidgetWidth+'px;max-width:'+props.widgetWidth.maximumWidgetWidth+'px'+dynamicColorBackground+'"></div>');
+
+			var kpiBoxContainer = $(container).find('.kpi-box-container');
+
+			var firstlinediv, secondlinediv;
+			if (props.currentValue.disableCurrentValue != true) {
+				firstlinediv = $('<div><div class="kpi-box-title" style="font-weight:'+props.currentValue.measureName.fontWeight+';font-size:'+tfs(props.currentValue.measureName.fontSize)+';color:'+props.currentValue.measureName.color+';font-style:'+props.currentValue.measureName.fontStyle+'">' + title + '</div></div>');
+				secondlinediv = $('<div><div class="kpi-box-total" style="font-weight:'+props.currentValue.total.fontWeight+';font-size:'+fs(props.currentValue.total.fontSize)+';color:'+props.currentValue.total.color+';font-style:'+props.currentValue.total.fontStyle+'">' + currentTotal + '</div></div>');
+				kpiBoxContainer.append(firstlinediv); // fill containers on html page - 1st line
+				kpiBoxContainer.append(secondlinediv); // fill containers on html page - 2nd line
 			}
-			else {
-				// fill containers on html page - 3rd line
-				$(container).find('.kpi-box-container').append('<div>' + cssPrevTotalTitle + cssPercentChangeTitle + cssTrendChangeTitle + '</div>');
-				// fill containers on html page - 4th line
-				$(container).find('.kpi-box-container').append('<div>' + cssPrevTotal + cssPercentChange + cssTrendChange + '</div>');	
-			}				
+
+			if (!squareLayout) {
+
+				if (props.previousValue.disablePreviousValue != true || props.changeValue.disableChangeValue != true || props.trendIcon.disableTrendIcon != true) {
+					// fill containers on html page - 3rd line
+					kpiBoxContainer.append('<div>' + cssPrevTotalTitle + cssPercentChangeTitle + cssTrendChangeTitle + '</div>');
+					// fill containers on html page - 4th line
+					kpiBoxContainer.append('<div>' + cssPrevTotal + cssPercentChange + cssTrendChange + '</div>');
+				}
+			} else {
+				kpiBoxContainer.addClass('kpi-box-container-square');
+
+				if (props.previousValue.disablePreviousValue != true || props.changeValue.disableChangeValue != true || props.trendIcon.disableTrendIcon != true) {
+					// fill containers on html page - 3rd line
+					kpiBoxContainer.append('<div>' + cssPrevTotalTitle + '</div>');
+					// fill containers on html page - 4th line
+					kpiBoxContainer.append('<div>' + cssPrevTotal + '</div>');
+					// fill containers on html page - 5rd line
+					kpiBoxContainer.append('<div>' + cssPercentChangeTitle + '</div>');
+					// fill containers on html page - 6th line
+					kpiBoxContainer.append('<div>' + cssPercentChange + '</div>');
+					// fill containers on html page - 7rd line
+					kpiBoxContainer.append('<div>' + cssTrendChangeTitle + '</div>');
+					// fill containers on html page - 8th line
+					kpiBoxContainer.append('<div>' + cssTrendChange + '</div>');
+				}
+			}
 		}
-		
-		renderConfig.renderComplete();	
+
+		renderConfig.renderComplete();
 	}
-	
+
 	function noDataRenderCallback(renderConfig) {
 		var container = renderConfig.container;
 		var grey = renderConfig.baseColor;
 		renderConfig.data = [{"time":"1","measure":15000,"_s":0,"_g":0},{"time":"2","measure":20000,"_s":0,"_g":1},{"time":"3","measure":25000,"_s":0,"_g":2},{"time":"4","measure":30000,"_s":0,"_g":3},{"time":"5","measure":33500,"_s":0,"_g":4}];
-		
+
 		noDataCallback = 'no_Data';
-		
+
 		renderCallback(renderConfig);
-		
+
 		$(container).append('<div class="placeholder">Add measures or dimensions</div>');
 	}
 
@@ -462,7 +507,7 @@
 		initCallback: initCallback,
 		preRenderCallback: preRenderCallback,  // reference to a function that is called right *before* your extension is rendered.  Will be passed one 'preRenderConfig' object, defined below.  Use this to configure a Monbeam instance as needed
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
-		noDataPreRenderCallback: noDataPreRenderCallback, 
+		noDataPreRenderCallback: noDataPreRenderCallback,
 		noDataRenderCallback: noDataRenderCallback,
 		resources: {
 			script:

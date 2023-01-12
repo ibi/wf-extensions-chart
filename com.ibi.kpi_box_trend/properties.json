@@ -19,8 +19,9 @@
 		"fontFamily": "'Open Sans'",
 		"fontSize": "12px",
 		"fontStyle": "normal",
+		"fontAutoShrink": false,
 		"widgetWidth": {
-			"minimumWidgetWidth": "300",
+			"minimumWidgetWidth": "150",
 			"maximumWidgetWidth": "400"
 		},
 		"setCDN": "false",
@@ -109,10 +110,11 @@
 		"fontFamily": "str",
 		"fontSize": "str",
 		"fontStyle": "str",
+		"fontAutoShrink": "bool",
 		"widgetWidth":{
 			"minimumWidgetWidth": {
 				"typeAnnotation": "number",
-				"numericRange": [200, 400],
+				"numericRange": [150, 400],
 				"numericStep": 10
 			},
 			"maximumWidgetWidth": {
@@ -265,6 +267,11 @@
 					"_translation": "Set font style",
 					"_tooltip": "Set font style",
                     "_valueTooltip": "Default normal"
+				},
+				"fontAutoShrink": {
+					"_translation": "Shrink font size automatically on limited width",
+					"_tooltip": "Shrink font size automatically on limited width",
+                    "_valueTooltip": "Default false"
 				},
 				"widgetWidth": {
 					"_translation": "Define widget width",
@@ -1721,7 +1728,7 @@
 					"minimumWidgetWidth": {
 						"_translation": "Minimum widget width",
 						"_tooltip": "Define the minimum width used by the widget",
-						"_valueTooltip": "Default 300"
+						"_valueTooltip": "Default 150"
 					},
 
 					"maximumWidgetWidth": {

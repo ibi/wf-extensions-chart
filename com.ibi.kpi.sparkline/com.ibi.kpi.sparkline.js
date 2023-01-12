@@ -5,7 +5,7 @@
 	function abbreviateNumber(number) {
 		var SI_POSTFIXES = ["", "k", "M", "B", "T", "P", "E"];
 		var tier = Math.log10(Math.abs(number)) / 3 | 0;
-		if (tier == 0) 
+		if (tier == 0)
 			return number.toFixed(1).replace('.0','');
 		var postfix = SI_POSTFIXES[tier];
 		var scale = Math.pow(10, tier * 3);
@@ -23,7 +23,7 @@
 	//   data: the data set being rendered
 	//   properties: the block of your extension's properties, as they've been set by the user
 	//   modules: the 'modules' object from your extension's config, along with additional API methods
-	//   
+	//
 	// Properties available during render callback:
 	//   width: width of the container your extension renders into, in px
 	//   height: height of the container your extension renders into, in px
@@ -42,7 +42,7 @@
 	
 	// Optional: if defined, is invoked once at the very beginning of each chart engine draw cycle
 	// Use this to configure a specific chart engine instance before rendering.
-	// Arguments: 
+	// Arguments:
 	//  - preRenderConfig: the standard callback argument object
 	function preRenderCallback(preRenderConfig) {
 		var chart = preRenderConfig.moonbeamInstance;
@@ -68,7 +68,7 @@
 
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
-		
+	
 		var container = renderConfig.container;
 		var data = renderConfig.data;
 		var dataBuckets = renderConfig.dataBuckets.buckets;	
@@ -118,26 +118,46 @@
 			
 			var title = dataBuckets.measure.title;
 			$(container).css('top','0px').append('<div class="kpi-container" style="font-family:'+props.fontFamily+';font-size:'+props.fontSize+';color:'+props.color+'"></div>');
+			var kpiContainer = $(container).find('.kpi-container');
+
+			var squareLayout = $(container).width() < 250;
+			if (squareLayout)
+				kpiContainer.addClass('kpi-container-square');
+
 			var seriesColor = props.barProperties.goodColor;
 
-			if (group2=='')
-				$(container).find('.kpi-container').append('<div><div class="kpi-title" style="font-weight:'+props.measureName.fontWeight+';font-size:'+props.measureName.fontSize+';color:'+props.measureName.color+'">' + title + '</div></div>');
-			else {
+			var titlediv = $('<div class="kpi-title" style="font-weight:'+props.measureName.fontWeight+';font-size:'+props.measureName.fontSize+';color:'+props.measureName.color+'">' + title + '</div>');
+			var changediv;
+			if (group2!='') {
 				var percentChange = Math.round((total1-total2)/total1/100*10000);
 				var goodIs = eval(percentChange+props.barProperties.goodIs);
 				seriesColor = goodIs? seriesColor: props.barProperties.badColor;
 				percentChange = goodIs? '+' + percentChange + '% ' + dataBuckets.compare.title : percentChange + '% ' + dataBuckets.compare.title;
-				$(container).find('.kpi-container').append('<div><div class="kpi-title compare" style="font-weight:'+props.measureName.fontWeight+';font-size:'+props.measureName.fontSize+';color:'+props.measureName.color+'">' + title + '</div><div class="kpi-change" style="font-size:'+props.percentChange.fontSize+';color:'+props.percentChange.color+'">'+percentChange+'</div></div>');
+				titlediv.addClass('compare');
+				changediv=$('<div class="kpi-change" style="font-size:'+props.percentChange.fontSize+';color:'+props.percentChange.color+'">'+percentChange+'</div>');
 			}
 
-			$(container).find('.kpi-container').append('<div><div class="kpi-total" style="font-weight:'+props.total.fontWeight+';font-size:'+props.total.fontSize+';color:'+props.total.color+'">' + abbreviateNumber(total1) + '</div><div class="kpi-sparkline"></div></div>');
+			var sparklinediv = $('<div class="kpi-sparkline"></div>');
+			var totaldiv = $('<div class="kpi-total" style="font-weight:'+props.total.fontWeight+';font-size:'+props.total.fontSize+';color:'+props.total.color+'">' + abbreviateNumber(total1) + '</div>');
+
+			var topline = $('<div/>').appendTo(kpiContainer);
+			var bottomline = $('<div/>').appendTo(kpiContainer);
+			topline.append(titlediv);
+			bottomline.append(totaldiv);
+			if (changediv) {
+				if (!squareLayout)
+					topline.append(changediv); // on horizontal layout change div is in first line on the right
+				else
+					bottomline.append(changediv); //on square layout change div is below the main value
+			}
+			bottomline.append(sparklinediv);
 
 			var chartProperties;
 			if (props.type=='bar')
 				chartProperties = {	type: props.type , barWidth: props.barProperties.width, height: props.barProperties.height, barColor: seriesColor };
 			else
 				chartProperties = {	type: props.type , width: props.barProperties.width * (bars.length-1), height: props.barProperties.height, lineColor: seriesColor, lineWidth: 2, fillColor: 'rgba(0,0,0,0)', spotColor: 'rgba(0,0,0,0)', minSpotColor: 'rgba(0,0,0,0)', maxSpotColor: 'rgba(0,0,0,0)', highlightLineColor: 'rgba(0,0,0,0)' };
-			$(container).find('.kpi-sparkline').sparkline(bars, chartProperties);
+			sparklinediv.sparkline(bars, chartProperties);
 		}
 		
 		renderConfig.renderComplete();	
@@ -163,7 +183,7 @@
 		//Begin CD-720
 			
 			/* Code Before CHART-3037
-			var msg = "Add more measures or dimensions"; 
+			var msg = "Add more measures or dimensions";
 			*/
 			//Start CHART-3055
 			var msg;
@@ -202,7 +222,7 @@
 		initCallback: initCallback,
 		preRenderCallback: preRenderCallback,  // reference to a function that is called right *before* your extension is rendered.  Will be passed one 'preRenderConfig' object, defined below.  Use this to configure a Monbeam instance as needed
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
-		noDataPreRenderCallback: noDataPreRenderCallback, 
+		noDataPreRenderCallback: noDataPreRenderCallback,
 		noDataRenderCallback: noDataRenderCallback,
 		resources: {
 			script:

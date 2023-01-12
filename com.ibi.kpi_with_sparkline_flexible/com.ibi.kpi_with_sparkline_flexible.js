@@ -292,37 +292,61 @@
 				changeBackground(dynamicColorBackground);
 				dynamicColorBackground = ';background-color:'+dynamicColorBackground;
 			}
-			
+
+			var fs = function(fontSize) { return fontSize; }; //font resize 'filter', by default no change
+			if (props.fontAutoShrink && $(container).width() < 300) {
+				fs = function(fontSize, amount) {
+					amount = amount || 4; //shrink by 4 units by default
+					var size = parseInt(fontSize);
+					if (!size || size < amount * 2) return fontSize; //do not shrink if font is too small
+					size -= amount;
+
+					//shrink just integer numbers or pt/px
+					if (Number.isInteger(fontSize))
+						return size;
+					if (typeof fontSize == 'string' && fontSize.match(/^[0-9]+pt/))
+						return size + "pt";
+					if (typeof fontSize == 'string' && fontSize.match(/^[0-9]+px/))
+						return size + "px";
+					return fontSize;
+				};
+			}
+
 			// chart properties
 			var chartProperties;
 			if (props.type=='bar')
 				chartProperties = {	type: props.type , barWidth: props.barProperties.width, height: props.barProperties.height, barColor: seriesColor, negBarColor: seriesColor};
 			else
 				chartProperties = {	type: props.type , width: props.barProperties.width * (bars.length-1), height: props.barProperties.height, lineColor: seriesColor, lineWidth: 2, fillColor: 'rgba(0,0,0,0)', spotColor: 'rgba(0,0,0,0)', minSpotColor: 'rgba(0,0,0,0)', maxSpotColor: 'rgba(0,0,0,0)', highlightLineColor: 'rgba(0,0,0,0)' };
-			
+		
+			var squareDesign = props.squareDesign;
+			if(squareDesign == 'false') squareDesign = false; // fix for bug in properties.json where booleans are strings
+			if(squareDesign == 'auto')  squareDesign = $(container).width() < 300;
+
 			// switch on square design
-			if (props.squareDesign == true) {
+			if (squareDesign) {
 				// create kpi-container-sq				
 				$(container).css('top',titleHeight+'px').append('<div class="kpi-container-sq" style="font-family:'+props.fontFamily+';font-size:'+props.fontSize+';color:'+props.color+';font-style:'+props.fontStyle+dynamicColorBackground+'"></div>');
+				var kpiContainerSq = $(container).find('.kpi-container-sq');
 				// fill containers on html page - 1st line
-				$(container).find('.kpi-container-sq').append('<div><div class="kpi-title-sq" style="font-weight:'+props.measureName.fontWeight+';font-size:'+props.measureName.fontSize+';color:'+props.measureName.color+';font-style:'+props.measureName.fontStyle+'">' + title + '</div></div>');
+				kpiContainerSq.append('<div><div class="kpi-title-sq" style="font-weight:'+props.measureName.fontWeight+';font-size:'+props.measureName.fontSize+';color:'+props.measureName.color+';font-style:'+props.measureName.fontStyle+'">' + title + '</div></div>');
 				// fill containers on html page - 2nd line
-				$(container).find('.kpi-container-sq').append('<div><div class="kpi-total-sq" style="font-weight:'+props.total.fontWeight+';font-size:'+props.total.fontSize+';color:'+props.total.color+';font-style:'+props.total.fontStyle+'">' + total1 + '</div></div>');
+				kpiContainerSq.append('<div><div class="kpi-total-sq" style="font-weight:'+props.total.fontWeight+';font-size:'+fs(props.total.fontSize)+';color:'+props.total.color+';font-style:'+props.total.fontStyle+'">' + total1 + '</div></div>');
 				// fill containers on html page - 3rd line
 				if (props.deviationVsPrevious.disableDeviation == true) {
 				}
 				else {
-					$(container).find('.kpi-container-sq').append('<div><div class="kpi-change-sq" style="font-size:'+props.deviationVsPrevious.fontSize+';color:'+props.deviationVsPrevious.color+';font-style:'+props.deviationVsPrevious.fontStyle+'">'+percentChange+'</div></div>');
+					kpiContainerSq.append('<div><div class="kpi-change-sq" style="font-size:'+props.deviationVsPrevious.fontSize+';color:'+props.deviationVsPrevious.color+';font-style:'+props.deviationVsPrevious.fontStyle+'">'+percentChange+'</div></div>');
 				}
 				// fill containers on html page - 4th line
 				if (props.barProperties.disableSparklineChart == true) {
 				}
 				else {					
-					$(container).find('.kpi-container-sq').append('<div><div class="kpi-sparkline-sq"></div></div>');
+					kpiContainerSq.append('<div><div class="kpi-sparkline-sq"></div></div>');
 					$(container).find('.kpi-sparkline-sq').sparkline(bars, chartProperties);
 				}
 			}
-			else {			
+			else {
 				// create kpi-container
 				$(container).css('top',titleHeight+'px').append('<div class="kpi-container" style="font-family:'+props.fontFamily+';font-size:'+props.fontSize+';color:'+props.color+';font-style:'+props.fontStyle+dynamicColorBackground+'"></div>');
 				// fill containers on html page - 1st line

@@ -15,6 +15,7 @@
 		"color": "#666",
 		"fontFamily": "'Open Sans'",
 		"fontSize": "12px",
+		"fontAutoShrink": false,
 		"headingTitle": {
 			"fontWeight": "400",
 			"color": "inherit",
@@ -46,6 +47,7 @@
 		"color": "str",
 		"fontFamily": "str",
 		"fontSize": "str",
+		"fontAutoShrink": "bool",
 		"headingTitle": {
 			"fontWeight": "str",
 			"color": "str",

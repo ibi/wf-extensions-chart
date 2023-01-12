@@ -15,10 +15,10 @@
 	font-size: 12px;
 	font-weight: 700;
 	width: 100%;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    vertical-align: top;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	vertical-align: top;
 }
 .kpi-title.compare {
 	width: 60%;
@@ -43,5 +43,24 @@
 	padding: 5px 0 0 0;
 	vertical-align: middle;
 	width: calc(100% - 70px);
+}
+
+.kpi-container-square {
+	min-width: 120px;
+	padding: 5px;
+}
+
+.kpi-container-square .kpi-title,
+.kpi-container-square .kpi-change,
+.kpi-container-square .kpi-sparkline,
+.kpi-container-square .kpi-total {
+	text-align: center;
+	vertical-align: middle;
+	width: 100%;
+	display: block;
+	white-space: normal;
+}
+.kpi-container-square .kpi-total {
+	padding: 2px 0;
 }
 .placeholder{position:absolute;left:0;top:0;width:100%;height:100%;text-align:center;font-size:18px;padding:30px 20px;background-color:rgba(255,255,255,.8);box-sizing:border-box}

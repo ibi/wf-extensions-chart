@@ -5,7 +5,7 @@
 	display: block;
 	margin: auto;
 	text-align: center;
-	min-width: 200px;
+	min-width: 150px;
 	max-width: 300px;
 	padding: 10px;
  	overflow: hidden;
@@ -16,7 +16,7 @@
 	font-size: 12px;
 	font-weight: 700;
 	width: 50%;
-    white-space: nowrap;
+	white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     vertical-align: top;
@@ -47,6 +47,7 @@
 	width: 120px;
 	float: left;
 }
+
 .kpi-sparkline {
 	display: inline-block;
 	text-align: right;
@@ -61,7 +62,7 @@
 	text-align: center;
 	min-width: 120px;
 	max-width: 300px;
-	padding: 10px;
+	padding: 5px;
 }
 .kpi-title-sq {
 	display: block;
@@ -69,10 +70,9 @@
 	font-size: 12px;
 	font-weight: 700;
 	width: 100%;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    vertical-align: top;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	vertical-align: top;
 }
 .kpi-change-sq {
 	display: block;
@@ -84,7 +84,7 @@
 	display: block;
 	text-align: center;
 	font-size: 20px;
-	padding: 5px 0 0 0;
+	padding: 2px 0;
 	vertical-align: middle;
 	width: 100%;
 }

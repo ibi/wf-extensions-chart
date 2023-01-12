@@ -8,7 +8,7 @@
 	min-width: 200px;
 	max-width: 400px;
 	padding: 10px;
- 	overflow: hidden;
+	overflow: hidden;
 }
 .kpi-box-title {
 	display: block;
@@ -16,8 +16,8 @@
 	font-size: 12px;
 	font-weight: 700;
 	width: 100%;
-    overflow: hidden;
-    vertical-align: top;
+	overflow: hidden;
+	vertical-align: top;
 }
 .kpi-box-total {
 	display: block;
@@ -25,9 +25,9 @@
 	font-size: 20px;
 	font-weight: 700;
 	width: 100%;
-    white-space: nowrap;
-    overflow: hidden;
-    vertical-align: top;
+	white-space: nowrap;
+	overflow: hidden;
+	vertical-align: top;
 	padding: 0 0 5px 0;
 }
 .kpi-box-previous-title {
@@ -37,7 +37,7 @@
 	font-weight: 700;
 	width: 40%;
 	overflow: hidden;
-    vertical-align: top;
+	vertical-align: top;
 }
 .kpi-box-change-title {
 	display: inline-block;
@@ -46,7 +46,7 @@
 	font-weight: 700;
 	width: 40%;
 	overflow: hidden;
-    vertical-align: top;
+	vertical-align: top;
 }
 .kpi-box-trend-title {
 	display: inline-block;
@@ -55,7 +55,7 @@
 	font-weight: 700;
 	width: 20%;
 	overflow: hidden;
-    vertical-align: top;
+	vertical-align: top;
 }
 .kpi-box-previous-total {
 	display: inline-block;
@@ -63,9 +63,9 @@
 	font-size: 20px;
 	font-weight: 700;
 	width: 40%;
-    white-space: nowrap;
-    overflow: hidden;
-    vertical-align: top;
+	white-space: nowrap;
+	overflow: hidden;
+	vertical-align: top;
 }
 .kpi-box-change-total {
 	display: inline-block;
@@ -73,9 +73,9 @@
 	font-size: 20px;
 	font-weight: 700;
 	width: 40%;
-    white-space: nowrap;
-    overflow: hidden;
-    vertical-align: top;
+	white-space: nowrap;
+	overflow: hidden;
+	vertical-align: top;
 }
 .kpi-box-trend-total {
 	display: inline-block;
@@ -83,9 +83,16 @@
 	font-size: 20px;
 	font-weight: 700;
 	width: 20%;
-    white-space: nowrap;
-    overflow: hidden;
-    vertical-align: top;
+	white-space: nowrap;
+	overflow: hidden;
+	vertical-align: top;
+}
+
+.kpi-box-container-square {
+	padding: 5px;
+}
+.kpi-box-container-square .kpi-box-total {
+	padding: 0px;
 }
 
 .placeholder{position:absolute;left:0;top:0;width:100%;height:100%;text-align:center;font-size:18px;padding:30px 20px;background-color:rgba(255,255,255,.8);box-sizing:border-box}

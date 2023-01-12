@@ -15,9 +15,10 @@
 		"color": "#666",
 		"fontFamily": "'Open Sans'",
 		"fontSize": "12px",
+		"fontAutoShrink": false,
 		"fontStyle": "normal",
 		"setCDN": "false",
-		"squareDesign": "false",
+		"squareDesign": "auto",
 		"aggregateValues": "false",
 		"measureName": {
 			"fontWeight": "bold",
@@ -63,9 +64,14 @@
 		"color": "color",
 		"fontFamily": "str",
 		"fontSize": "str",
+		"fontAutoShrink": "bool",
 		"fontStyle": "str",
 		"setCDN": "bool",
-		"squareDesign": "bool",
+		"squareDesign": {
+                        "typeAnnotation": "type",
+                        "typeValues": ["bool", "str"],
+                        "stringValues": ["auto"]
+                },
 		"aggregateValues": "bool",
 		"measureName": {
 			"fontWeight": "str",
@@ -163,6 +169,11 @@
 					"_tooltip": "Set font size",
                     "_valueTooltip": "Default 12px"
 				},
+				"fontAutoShrink": {
+					"_translation": "Shrink font size automatically on limited width",
+					"_tooltip": "Shrink font size automatically on limited width",
+                    "_valueTooltip": "Default false"
+				},
 				"fontStyle": {
 					"_translation": "Set font style",
 					"_tooltip": "Set font style",
@@ -171,7 +182,7 @@
 				"setCDN": {
 					"_translation": "Enable regional number format - not visible in Designer",
 					"_tooltip": "Changes the thousand and decimal separator to the WebFOCUS system setting - not visible in Designer",
-                    "_valueTooltip": "Default false"
+                    "_valueTooltip": "Default auto"
 				},
 				"squareDesign": {
 					"_translation": "Display extension in square design",

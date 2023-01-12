@@ -72,6 +72,25 @@
 		/* Set Background Color */
 		//$(renderConfig.rootContainer).parent().css('backgroundColor',props.backgroundColor);
 
+		var fs = function(fontSize) { return fontSize; }; //font resize 'filter', by default no change
+		if ( props.fontAutoShrink && $(container).width() < 300) {
+			fs = function(fontSize, amount) {
+				amount = amount || 2; //shrink by 2 units by default
+				var size = parseInt(fontSize);
+				if (!size || size < amount * 2) return fontSize; //do not shrink if font is too small
+				size -= amount;
+
+				//shrink just integer numbers or pt/px
+				if (Number.isInteger(fontSize))
+					return size;
+				if (typeof fontSize == 'string' && fontSize.match(/^[0-9]+pt/))
+					return size + "pt";
+				if (typeof fontSize == 'string' && fontSize.match(/^[0-9]+px/))
+					return size + "px";
+				return fontSize;
+			};
+		}
+
 		/* Format JSON Data */
 		if (typeof data[0].measure !== 'undefined' && typeof data[0].xaxis !== 'undefined') {
 			var total = 0;
@@ -106,7 +125,7 @@
 			var titleHeight = titleElement.length == 1 ? titleElement.height() + 5 : 0;
 
 			$(container).closest('body').css('overflow', 'hidden');
-			$(container).css('top', titleHeight + 'px').append('<div class="kpi-table-container" style="font-size:' + props.fontSize + ';color:' + props.color + '"></div>');
+			$(container).css('top', titleHeight + 'px').append('<div class="kpi-table-container" style="font-size:' + fs(props.fontSize) + ';color:' + props.color + '"></div>');
 
 			if (groups.length > 1)
 				$(container).find('.kpi-table-container').addClass('multi').append('<div class="kpi-table-nav"></div>');
@@ -120,8 +139,9 @@
 				//VIZ-573 END
 				var slide = '<div class="kpi-table-slide"><table>'
 					+ '<thead>'
-					+ '<tr><th class="kpi-table-heading-title" style="font-weight:' + props.headingTitle.fontWeight + ';font-size:' + props.headingTitle.fontSize + ';color:' + props.headingTitle.color + '">' + dataBuckets.measure.title + ' <span style="font-weight:' + props.headingSubtitle.fontWeight + ';font-size:' + props.headingSubtitle.fontSize + ';color:' + props.headingSubtitle.color + '">' + dataBuckets.xaxis.title + '</span></th>'
-					+ '<th class="kpi-table-heading-nbr" style="font-weight:' + props.headingData.fontWeight + ';font-size:' + props.headingData.fontSize + ';color:' + props.headingData.color + '">' + abbreviateNumber(finalNumber) + '</th></tr>'
+					+ '<tr><th class="kpi-table-heading-title" style="font-weight:' + props.headingTitle.fontWeight + ';font-size:' + fs(props.headingTitle.fontSize) + ';color:' + props.headingTitle.color + '">' + dataBuckets.measure.title + '</span></th>'
+					+ '<th rowspan="2" class="kpi-table-heading-nbr" style="font-weight:' + props.headingData.fontWeight + ';font-size:' + fs(props.headingData.fontSize,8) + ';color:' + props.headingData.color + '">' + abbreviateNumber(finalNumber) + '</th></tr>'
+					+ '<tr><th class="kpi-table-heading-title" style="font-weight:' + props.headingSubtitle.fontWeight + ';font-size:' + fs(props.headingSubtitle.fontSize) + ';color:' + props.headingSubtitle.color + '">' + dataBuckets.xaxis.title + '</span></th>'
 					+ '</thead>'
 					+ '<tbody><tr><td colspan="2" class="kpi-table-sparkline"></td></tr></tbody></table></div>'
 				$(container).find('.kpi-table-container').append(slide);
@@ -147,7 +167,6 @@
 				var index = $(this).index();
 				var prevIndex = index == 0 ? $(this).parent().children().length : index - 1;
 				var nextIndex = index == $(this).parent().children().length ? 0 : index + 1;
-				console.log('index:', index, 'next:', nextIndex, 'prev:', prevIndex);
 
 				$(this).addClass('active').siblings().removeClass('active');
 
