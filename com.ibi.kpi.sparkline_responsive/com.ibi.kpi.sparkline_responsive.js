@@ -33,9 +33,6 @@
 			, defaultLine: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAABdSUR"
 				+ "BVFhH7dcxCgAxCABBcx8XX+416QJpFoLFThPLhTS6ujsm+/Y7loGUgZSBlIGUgZSBlIHUdR+sqifLYmauPR78YspAykBqfKB3MWUgZSBlIGUgZSBlIGUgE/EDjK0NRWVehfsAAAAASUVORK5CYII="
 		},
-		//store x axis date values in order
-		xAxisValues: [],
-
 		//gets the image url string
 		//props = renderConfig.properties object
 		//kpiValue = the value being visually displayed in the widget
@@ -96,7 +93,7 @@
 
 			if (hasEnoughPoints) {
 				//if there are enough data points to use numberOfPoints
-				//add up the last 'numberOfPoints' 
+				//add up the last 'numberOfPoints'
 				for (var i = 0; i < numberOfPoints; i++) {
 					total = total + points[points.length - 1 - i];
 				}
@@ -139,7 +136,7 @@
 		// 		points: []
 		// 		,total: number
 		// 		, unitLabel: String
-		// 		, 
+		// 		,
 		// 	},
 		//  ...
 		// ]
@@ -155,9 +152,6 @@
 			//track the lastGroup added
 			var lastGroup = '';
 
-			//stores all the  axis values in chronological order;
-			kpiSparkline.xAxisValues = [];
-
 			//loop through each data point
 			data.forEach(function (row, index) {
 				if (typeof row.group === 'undefined') {
@@ -166,7 +160,7 @@
 
 					//init the only group
 					if (groups.length == 0)
-						groups.push({ total: 0, points: [] });
+						groups.push({ total: 0, points: [], xAxisValues: [] });
 
 					//store the measure
 					groups[0].points.push(row.measure);
@@ -177,7 +171,7 @@
 					groups[0].unitLabel = row.unitLabel != undefined ? row.unitLabel : '';
 
 					//store the x axis value
-					kpiSparkline.xAxisValues.push(row.xaxis);
+					groups[0].xAxisValues.push(row.xaxis);
 				}
 				else {
 
@@ -186,18 +180,14 @@
 					if (row.group != lastGroup) {
 						//if data record has changed groups, so reset the group object
 						total = 0;
-						group = { group: row.group, total: 0, points: [] };
+						group = { group: row.group, total: 0, points: [], xAxisValues: [] };
 						groups.push(group);
 					}
 					groups[groups.length - 1].points.push(row.measure);
 					groups[groups.length - 1].total += row.measure;
 					groups[groups.length - 1].unitLabel = row.unitLabel != undefined ? row.unitLabel : '';
+					groups[groups.length - 1].xAxisValues.push(row.xaxis);
 					lastGroup = row.group;
-
-					if (groups.length == 1) {
-						//store only the first groups x axis values because only need it once
-						kpiSparkline.xAxisValues.push(row.xaxis);
-					}
 				}
 			});
 
@@ -333,9 +323,13 @@
 					width: dimensions.chartWidth
 					, barWidth: dimensions.barWidth
 					, tooltipFormatter: function (sp, options, fields) {
+						if (Array.isArray(fields))
+							fields = fields[0];
+						if (fields == undefined)
+							return '';
 						var value = props.sparklineConfiguration.chartType == 'bar' ? fields.value : fields.y;
 						var result = numberFormat == '' ? kpiSparkline.abbreviateNumber(value) : fn_formatNumber(value, numberFormat);
-						return axisTitle + ":" + kpiSparkline.xAxisValues[fields.offset] + "<br/>" + measureTitle + ": " + result;
+						return axisTitle + ":" + group.xAxisValues[fields.offset] + "<br/>" + measureTitle + ": " + result;
 					},
 					lineColor: props.sparklineConfiguration.line.lineColor
 					, fillColor: props.sparklineConfiguration.line.fillColor
@@ -354,7 +348,6 @@
 				var index = $(this).index();
 				var prevIndex = index == 0 ? $(this).parent().children().length : index - 1;
 				var nextIndex = index == $(this).parent().children().length ? 0 : index + 1;
-				console.log('index:', index, 'next:', nextIndex, 'prev:', prevIndex);
 
 				$(this).addClass('active').siblings().removeClass('active');
 
@@ -396,7 +389,7 @@
 			dimensions.chartWidth = containerWidth - (4) - margin * 2;
 			dimensions.chartContainerHeight = dimensions.chartHeight;
 			if (props.sparklineConfiguration.chartType == 'bar') {
-				//calculate what the bar width could be. if the barWidth is less than 1, then we know we can't really draw it with autoFit 
+				//calculate what the bar width could be. if the barWidth is less than 1, then we know we can't really draw it with autoFit
 
 				var barWidth = Math.floor(dimensions.chartWidth / numOfDataPoints);
 
