@@ -1,6 +1,6 @@
 {
     "info": {
-        "version": "1.4.0",
+        "version": "1.4.1",
         "implements_api_version": 2.0,
         "author": "TIBCO Software",
         "copyright": "TIBCO Software Inc.",
@@ -60,6 +60,7 @@
       "labelsKMB": false,
       "labelsSeparateLines": true,
       "legend": "always",
+      "legendPosition": "overlay",
       "title": "DyGraphs.com",
       "errorBars": false,
       "showRoller": false,
@@ -156,6 +157,10 @@
       "legend": {
             "typeAnnotation": "str",
             "stringValues": ["onmouseover", "never", "always", "follow"]
+      },
+      "legendPosition": {
+            "typeAnnotation": "str",
+            "stringValues": ["overlay", "left", "right"]
       },
       "title": "str",
       "errorBars": "bool",
@@ -406,6 +411,11 @@
                     "_translation": "Show legend",
                     "_tooltip": "Legend display options",
                     "_valueTooltip": "Default always"
+                },
+                "legendPosition": {
+                    "_translation": "Position legend",
+                    "_tooltip": "Legend position options",
+                    "_valueTooltip": "Default overlay"
                 },
                 "title": {
                     "_translation": "Title text",
