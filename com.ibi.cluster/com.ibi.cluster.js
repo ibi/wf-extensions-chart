@@ -1,3 +1,4 @@
+/* Copyright (C) 2017-2023. Cloud Software Group, Inc. All rights reserved. */
 /* globals _*/
 (function() {
   // Optional: if defined, is invoked once at the very beginning of each Moonbeam draw cycle

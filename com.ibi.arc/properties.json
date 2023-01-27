@@ -2,9 +2,9 @@
 	"info": {
 		"version": "1.2.0",
 		"implements_api_version": 2.0,
-		"author": "Three D Graphics",
-		"copyright": "Three D Graphics Inc.",
-		"url": "https://threedgraphics.com",
+		"author": "Cloud Software Group, Inc.",
+		"copyright": "Cloud Software Group, Inc.",
+		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.arc",
 		"icons": {
 			"medium": "icons/medium.png"
 		}

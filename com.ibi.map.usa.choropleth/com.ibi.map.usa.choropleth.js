@@ -1,3 +1,4 @@
+/* Copyright (C) 2016-2023. Cloud Software Group, Inc. All rights reserved. */
 /* globals _*/
 (function () {
 

@@ -1,4 +1,4 @@
-/* Copyright 1996-2015 Information Builders, Inc. All rights reserved. */
+/* Copyright (C) 1996-2023. Cloud Software Group, Inc. All rights reserved. */
 /* $Revision: 1.4 $ */
 
 (function () {

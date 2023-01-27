@@ -1,5 +1,5 @@
-/* globals _*/
 // Copyright (C) 1996-2023. Cloud Software Group, Inc. All rights reserved.
+/* globals _*/
 
 (function() {
 	// All extension callback functions are passed a standard 'renderConfig' argument:

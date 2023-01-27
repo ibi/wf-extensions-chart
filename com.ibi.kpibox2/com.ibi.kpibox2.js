@@ -1,3 +1,4 @@
+/* Copyright (C) 2021-2023. Cloud Software Group, Inc. All rights reserved. */
 /*global tdgchart: false, d3: false */
 (function() {
 	var chartVersion = '2.0';
