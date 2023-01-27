@@ -1,4 +1,4 @@
-// Copyright (c) 1996-2021 TIBCO Software Inc. All Rights Reserved.
+// Copyright (C) 1996-2023. Cloud Software Group, Inc. All rights reserved.
 // Diverging Stacked Bar Chart HTML 5 Extension JavaScript
 // Written by   : Anthony Alsford
 //                Donor Charting Script from D3JS.ORG - http://bl.ocks.org/wpoely86/e285b8e4c7b84710e463

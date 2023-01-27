@@ -3,7 +3,7 @@
 		"version": "1.3",
 		"implements_api_version": 1.0,
 		"author": "Sandy Chiang",
-		"copyright": "TIBCO Software Inc.",
+		"copyright": "Cloud Software Group, Inc.",
 		"url": "",
 		"icons": {
 			"medium": "icons/medium.png"

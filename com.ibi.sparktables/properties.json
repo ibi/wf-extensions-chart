@@ -4,8 +4,8 @@
 	"info": {
 		"version": 1.6,
 		"implements_api_version": 1.0,
-		"author": "TIBCO Software",
-		"copyright": "TIBCO Software Inc.",
+		"author": "Cloud Software Group, Inc.",
+		"copyright": "Cloud Software Group, Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.sparktables",
 		"icons": {
 			"medium": "icons/datatables.png"

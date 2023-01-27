@@ -1,6 +1,6 @@
 /*global tdgchart: false, document: false, setTimeout: false, Odometer: false */
 /* eslint-disable indent */
-/* Copyright (c) 1996-2021 TIBCO Software Inc. All Rights Reserved. */
+/* Copyright (C) 1996-2023. Cloud Software Group, Inc. All rights reserved. */
 
 (function() {
 

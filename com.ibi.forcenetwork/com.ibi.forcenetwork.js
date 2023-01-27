@@ -1,4 +1,4 @@
-/* Copyright (c) 1996-2021 TIBCO Software Inc. All Rights Reserved. */
+/* Copyright (C) 1996-2023. Cloud Software Group, Inc. All rights reserved. */
 /* Forked from Force-Directed extension by Mario Delgado */
 /* Developer: Anthony Alsford */
 

@@ -1,5 +1,5 @@
 /*global tdgchart: false, d3: false, tdgscatter: false */
-/* Copyright (c) 1996-2021 TIBCO Software Inc. All Rights Reserved. */
+/* Copyright (C) 1996-2023. Cloud Software Group, Inc. All rights reserved. */
 /* $Revision: 1.8 $ */
 
 (function() {

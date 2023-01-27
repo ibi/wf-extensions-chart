@@ -1,4 +1,4 @@
-// Copyright (c) 2021 TIBCO Software Inc. All Rights Reserved.
+// Copyright (C) 2021-2023. Cloud Software Group, Inc. All rights reserved.
 // DyGraph Chart HTML 5 Extension JavaScript
 // Written by   : Anthony Alsford
 // Date Created : 19th February 2018

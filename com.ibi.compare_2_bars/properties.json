@@ -3,8 +3,8 @@
 	"info": {
 		"version": 1.0,
 		"implements_api_version": 1.0,
-		"author": "TIBCO Software Inc",
-		"copyright": "TIBCO Software Inc.",
+		"author": "Cloud Software Group, Inc.",
+		"copyright": "Cloud Software Group, Inc.",
 		"url": "https://github.com/ibi/wf-extensions-chart/tree/master/com.ibi.compare_2_bars",
 		"icons": {
 			"small": "icons/small.png",
