@@ -140,17 +140,37 @@
 		chart.footnote.align = 'right';
 	}
 
-	function getLegendMaxWidth(data, font) {
-		var maxval = Math.ceil(tdgchart.util.max(data,"value")) + ".99"; //default dwo decimal digits
-		// a little dumb algorithm looking for the longest string. But measuring each string would be costly
-		var labelLengths = data.map(function (a) { return typeof a.color == 'string' ? { s: a.color, l: a.color.length} : { s:'', l:0 };});
-		var longestLabel = labelLengths.reduce(function (t,v) { return t.l >= v.l ? t : v;}, { s:'', l:0 });
-		var valWidth = tdgchart.util.measureLabelWidth(maxval, font);
-		var labelWidth = tdgchart.util.measureLabelWidth(longestLabel.s + ': ', font);
-		var emWidth = tdgchart.util.measureLabelWidth('EM', font);
+	function getLegendMaxWidth(data, arrBuckets, font) {
 
-		//legend width is either label + marker or label + value
-		return Math.max(emWidth, valWidth) + labelWidth + 1;
+		var valueBucket = arrBuckets.filter(function(b) { return b.id === "value"; })[0];
+		var colorBucket = arrBuckets.filter(function(b) { return b.id === "color"; })[0];
+		if(!valueBucket)
+			return;
+		var labels;
+		if(colorBucket) {
+			labels = d3.map(data, function(d,i) {return d.color}).keys();
+		} else {
+			labels = valueBucket.fields.map(function(f) { return f.title; });
+		}
+		var twodecimals = function(v) { return v >= 0 ? Math.ceil(v)+0.99 : Math.floor(v)-0.99; };
+		var markerWidth = tdgchart.util.measureLabelWidth('EM', font);
+		var legendLabelWidths = labels.map(function(l,i) {
+			var ldata;
+			if(colorBucket) {
+				ldata = data.filter(function(d) { return d.color === labels[i]; }).map(function(d) { return d.value; });
+			} else {
+				ldata = data.map(function(d) { return valueBucket.fields.length == 1 ? d.value : d.value[i]; })
+			}
+			var minMax = tdgchart.util.minMax(ldata);
+
+			var minValueWidth = tdgchart.util.measureLabelWidth(twodecimals(minMax.min), font);
+			var maxValueWidth = tdgchart.util.measureLabelWidth(twodecimals(minMax.max), font);
+			var titleWidth = tdgchart.util.measureLabelWidth(l + ":\xa0", font);
+
+			var width = tdgchart.util.max([minValueWidth, maxValueWidth, markerWidth]) + titleWidth + 1;
+			return width;
+		});
+		return tdgchart.util.max(legendLabelWidths);
 	}
 
 	// Required: Invoked during each chart engine draw cycle
@@ -227,7 +247,7 @@
 			legendContainer.style('flex-grow', '1');
 
 			var font = '700 ' + window.getComputedStyle(renderConfig.container).font; // "700" is for "bold"
-			legendWidth = Math.min(width*0.3, getLegendMaxWidth(data, font)); // limit legend width to 30% of available space
+			legendWidth = Math.min(width*0.3, getLegendMaxWidth(data, arrBuckets, font)); // limit legend width to 30% of available space
 			props.labelsDiv = legendContainer.node(0); //this enables 'external' legend rendering in dygraph engine
 		}
 
