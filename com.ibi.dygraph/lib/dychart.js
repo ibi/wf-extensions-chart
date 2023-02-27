@@ -18,20 +18,23 @@ function com_ibi_dygraph_drawChart(data,rootContainer,rootWidth, rootHeight,char
 	// so we need to test and adjust accordingly
 	if (Array.isArray(arrBuckets)) {
 		var csvfile = arrBuckets[0].fields[0].title;
+		//var titles = [];
 		// for this extension, customBars cannot be true without errorBars also being true.
 		props.errorBars = props.customBars ? props.customBars : props.errorBars;
 		// If the new color bucket is set then the data needs to be rearranged into one row per color bucket value
 		// This section writes all the color bucket values into the csv file header 
 		if (arrBuckets[1].id === "color") {
-			console.log("Color bucket exists so rearrange the data");
 			var colorArray = d3.map(data, function(d,i) {return d.color}).keys();
 			if (arrBuckets[2].fields.length > 1) {
 				for (x = 0; x < colorArray.length; x++) {
 					for (y=0 ; y < arrBuckets[2].fields.length; y++) {
-						csvfile += ", " + colorArray[x] + " (" + arrBuckets[2].fields[y].title + ")";
+						var title = colorArray[x] + " (" + arrBuckets[2].fields[y].title + ")";
+						//titles.push(title);
+						csvfile += ", " + title;
 					}
 				}
 			} else {
+				//titles = colorArray;
 				csvfile += ", " + colorArray;
 			}
 		} else {
@@ -40,6 +43,7 @@ function com_ibi_dygraph_drawChart(data,rootContainer,rootWidth, rootHeight,char
 			// otherwise errors are returned.
 			for (x = 0; x < arrBuckets[1].fields.length; x++) {
 				csvfile += ", " + arrBuckets[1].fields[x].title;
+				//titles.push(arrBuckets[1].fields[x].title);
 				if (props.errorBars && props.customBars) {
 					x = x + 2
 				} else {
@@ -55,21 +59,34 @@ function com_ibi_dygraph_drawChart(data,rootContainer,rootWidth, rootHeight,char
 		}
 	} else {
 		var csvfile = arrBuckets.timeline.title + "," + arrBuckets.value.title;
+		//titles = [arrBuckets.value.title];
 	}
 
 	// If the new color bucket is set then the data needs to be rearranged into one row per color bucket value
 	// This section wraps the data into the correct orientation when this is true 
 	if (arrBuckets[1].id === "color") {
-		var dataValues = d3.map(data, function(d,i) {
-			// For each unique value, write the data onto the next line of csv file
-			// If d.value is an Array the concatenation will work using the same method
-			if ((i / colorArray.length) == parseInt(i / colorArray.length)) {
-				csvfile += "\n" + d.timeline + "," + d.value;
-			} else {
-				csvfile += "," + d.value;
+		var dv= {}, seq=[];
+		for (var i=0; i<data.length; i++) {
+			var d = data[i];
+			if(!dv[d.timeline]) {
+				dv[d.timeline] = {};
+				seq.push(d.timeline);
 			}
-			return d.timeline + "," + d.value;
-		});
+			dv[d.timeline][d.color] = d.value;
+		}
+		for(var i=0; i<seq.length; i++) {
+			var timeline = seq[i];
+			var csvline = timeline;
+			for (var c=0; c<colorArray.length; c++) {
+				var value = dv[timeline][colorArray[c]];
+				if (value == undefined) {
+					//fill with correct number of empty columns
+					value = new Array(arrBuckets[2].fields.length).join(',');
+				}
+				csvline += "," + value;
+			}
+			csvfile += "\n" + csvline;
+		}
 	} else {
 		// If the color bucket isn't used then write out csv file as before
 		var dataValues = d3.map(data, function(d,i) {
