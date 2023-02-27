@@ -154,21 +154,38 @@
 		}
 		var twodecimals = function(v) { return v >= 0 ? Math.ceil(v)+0.99 : Math.floor(v)-0.99; };
 		var markerWidth = tdgchart.util.measureLabelWidth('EM', font);
-		var legendLabelWidths = labels.map(function(l,i) {
-			var ldata;
-			if(colorBucket) {
-				ldata = data.filter(function(d) { return d.color === labels[i]; }).map(function(d) { return d.value; });
-			} else {
-				ldata = data.map(function(d) { return valueBucket.fields.length == 1 ? d.value : d.value[i]; })
-			}
-			var minMax = tdgchart.util.minMax(ldata);
 
+		var getWidth = function(ldata, title, font) {
+			var minMax = tdgchart.util.minMax(ldata);
 			var minValueWidth = tdgchart.util.measureLabelWidth(twodecimals(minMax.min), font);
 			var maxValueWidth = tdgchart.util.measureLabelWidth(twodecimals(minMax.max), font);
-			var titleWidth = tdgchart.util.measureLabelWidth(l + ":\xa0", font);
+			var titleWidth = tdgchart.util.measureLabelWidth(title + ":\xa0", font);
 
 			var width = tdgchart.util.max([minValueWidth, maxValueWidth, markerWidth]) + titleWidth + 1;
 			return width;
+		};
+		var legendLabelWidths = labels.map(function(title,i) {
+			var ldata;
+			if (colorBucket) {
+				ldata = data.filter(function(d) { return d.color === labels[i]; }).map(function(d) { return d.value; });
+			}
+			else {
+				ldata = data.map(function(d) { return d.value; })
+			}
+
+			if (valueBucket.fields.length==1) {
+				//ldata is array of values
+				return getWidth(ldata, title, font);
+			} else {
+				var widths = valueBucket.fields.map(function (valueTitle, i) {
+					//ldata is array of per-value arrays
+					var vdata = ldata.map(function(arr) { return arr[i]; });
+					var name = !colorBucket ? valueTitle.title : title + ' (' + valueTitle.title + ')';
+					return getWidth(vdata, name, font);
+				});
+				return tdgchart.util.max(widths);
+			}
+
 		});
 		return tdgchart.util.max(legendLabelWidths);
 	}
