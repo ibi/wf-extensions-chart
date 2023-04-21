@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": "1.5.4",
+		"version": "1.5.5",
 		"implements_api_version": 2.0,
 		"author": "Cloud Software Group, Inc.",
 		"copyright": "Cloud Software Group, Inc.",
@@ -70,9 +70,8 @@
 		"fontStyle": "str",
 		"setCDN": "bool",
 		"squareDesign": {
-                        "typeAnnotation": "type",
-                        "typeValues": ["bool", "str"],
-                        "stringValues": ["auto"]
+				"typeAnnotation": "str",
+				"stringValues": ["auto", "true", "false"]
                 },
 		"aggregateValues": "bool",
 		"measureName": {
@@ -192,14 +191,14 @@
                     "_valueTooltip": "Default auto"
 				},
 				"squareDesign": {
-					"_translation": "Display extension in square design",
-					"_tooltip": "The extension will be in a square design with four lines instead of two lines",
-                    "_valueTooltip": "Default false"
+					"_translation": "Narrow layout",
+					"_tooltip": "Layout in four lines instead of two wide lines",
+					"_valueTooltip": "Default auto"
 				},
 				"aggregateValues": {
 					"_translation": "Aggregate values",
 					"_tooltip": "All month values will be aggregated in total value, change and sparkline",
-                    "_valueTooltip": "Default false"
+					"_valueTooltip": "Default false"
 				},
 				"measureName": {
 					"_translation": "Measure name",
@@ -394,9 +393,9 @@
                     "_valueTooltip": "Default false"
 				},
 				"squareDesign": {
-					"_translation": "Display extension in square design",
-					"_tooltip": "The extension will be in a square design with four lines instead of two lines",
-                    "_valueTooltip": "Default false"
+					"_translation": "Narrow layout",
+					"_tooltip": "Layout in four lines instead of two wide lines",
+					"_valueTooltip": "Default auto"
 				},
 				"aggregateValues": {
 					"_translation": "Aggregate values",
@@ -596,9 +595,9 @@
                     "_valueTooltip": "Default false"
 				},
 				"squareDesign": {
-					"_translation": "Display extension in square design",
-					"_tooltip": "The extension will be in a square design with four lines instead of two lines",
-                    "_valueTooltip": "Default false"
+					"_translation": "Narrow layout",
+					"_tooltip": "Layout in four lines instead of two wide lines",
+					"_valueTooltip": "Default auto"
 				},
 				"aggregateValues": {
 					"_translation": "Aggregate values",
@@ -798,9 +797,9 @@
                     "_valueTooltip": "Default false"
 				},
 				"squareDesign": {
-					"_translation": "Display extension in square design",
-					"_tooltip": "The extension will be in a square design with four lines instead of two lines",
-                    "_valueTooltip": "Default false"
+					"_translation": "Narrow layout",
+					"_tooltip": "Layout in four lines instead of two wide lines",
+					"_valueTooltip": "Default auto"
 				},
 				"aggregateValues": {
 					"_translation": "Aggregate values",
@@ -1000,9 +999,9 @@
                     "_valueTooltip": "Default false"
 				},
 				"squareDesign": {
-					"_translation": "Display extension in square design",
-					"_tooltip": "The extension will be in a square design with four lines instead of two lines",
-                    "_valueTooltip": "Default false"
+					"_translation": "Narrow layout",
+					"_tooltip": "Layout in four lines instead of two wide lines",
+					"_valueTooltip": "Default auto"
 				},
 				"aggregateValues": {
 					"_translation": "Aggregate values",
