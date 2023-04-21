@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": "1.5.3",
+		"version": "1.5.4",
 		"implements_api_version": 2.0,
 		"author": "Cloud Software Group, Inc.",
 		"copyright": "Cloud Software Group, Inc.",
@@ -16,6 +16,7 @@
 		"fontFamily": "'Open Sans'",
 		"fontSize": "12px",
 		"fontAutoShrink": false,
+		"disableWrapping": false,
 		"fontStyle": "normal",
 		"setCDN": "false",
 		"squareDesign": "auto",
@@ -65,6 +66,7 @@
 		"fontFamily": "str",
 		"fontSize": "str",
 		"fontAutoShrink": "bool",
+		"disableWrapping": "bool",
 		"fontStyle": "str",
 		"setCDN": "bool",
 		"squareDesign": {
@@ -172,6 +174,11 @@
 				"fontAutoShrink": {
 					"_translation": "Shrink font size automatically on limited width",
 					"_tooltip": "Shrink font size automatically on limited width",
+                    "_valueTooltip": "Default false"
+				},
+				"disableWrapping": {
+					"_translation": "Truncate instead of wrap labels that does not fit in a line",
+					"_tooltip": "Truncate instead of wrap labels that does not fit in a line",
                     "_valueTooltip": "Default false"
 				},
 				"fontStyle": {
