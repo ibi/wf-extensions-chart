@@ -16,10 +16,8 @@
 	font-size: 12px;
 	font-weight: 700;
 	width: 50%;
-	white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    vertical-align: top;
+	text-overflow: ellipsis;
+	vertical-align: top;
 }
 .kpi-title-no-change {
 	display: inline-block;
@@ -60,9 +58,8 @@
 	display: block;
 	margin: auto;
 	text-align: center;
-	min-width: 120px;
 	max-width: 300px;
-	padding: 5px;
+	padding: 2px;
 }
 .kpi-title-sq {
 	display: block;
