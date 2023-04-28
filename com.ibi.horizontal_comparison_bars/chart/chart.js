@@ -124,7 +124,8 @@
 				return Math.abs(x(d.value) - x(0)); 
 			})
 			.each(function(d, g) {
-				ib3SLI.config.setUpTooltip(this, 0, d.originalIndex, d);
+				if (d.originalIndex != null)
+					ib3SLI.config.setUpTooltip(this, 0, d.originalIndex, d);
 			});
 		
 		if (hasComparevalue) {
