@@ -58,6 +58,41 @@
 		return formatted + postfix;
 	}
 
+	function autoShrinkFont(fontSize, amount) {
+		amount = amount || 4; //shrink by 4 units by default
+		var size = parseInt(fontSize);
+		if (!size || size < amount * 2) return fontSize; //do not shrink if font is too small
+		size -= amount;
+
+		//shrink just integer numbers or pt/px
+		if (Number.isInteger(fontSize))
+			return size;
+		if (typeof fontSize == 'string' && fontSize.match(/^[0-9]+pt/))
+			return size + "pt";
+		if (typeof fontSize == 'string' && fontSize.match(/^[0-9]+px/))
+			return size + "px";
+		return fontSize;
+	}
+
+	function wrapInDiv(el) {
+		return $('<div />').append(el);
+	}
+
+	function appendTextDiv(dest, text, className, style, truncateList) {
+		var div = $('<div />').addClass(className).appendTo(dest);
+
+		//dest.append(wrapInDiv(div)); //originally some text divs were wrapped in another div (without class or attributes)
+		div.css(style);
+		if (text) {
+			div.text(text);
+			if (truncateList) {
+				div.css('text-overflow', 'ellipsis').css('white-space', 'nowrap').css('overflow', 'hidden');
+				truncateList.push(div);
+			}
+		}
+		return div;
+	}
+
 	function changeBackground(color) {
 		document.body.style.background = color;
 	}
@@ -284,33 +319,32 @@
 			
 			// check if dynamic color should be set on sparkline or full widget
 			if (props.barProperties.applyDynamicColorOn == 'sparkline') {
-				dynamicColorBackground = '';
+				dynamicColorBackground = null;
 				changeBackground("#ffffff");
 			}
 			else {
 				seriesColor = '#ffffff';
 				changeBackground(dynamicColorBackground);
-				dynamicColorBackground = ';background-color:'+dynamicColorBackground;
 			}
 
-			var fs = function(fontSize) { return fontSize; }; //font resize 'filter', by default no change
-			if (props.fontAutoShrink && $(container).width() < 300) {
-				fs = function(fontSize, amount) {
-					amount = amount || 4; //shrink by 4 units by default
-					var size = parseInt(fontSize);
-					if (!size || size < amount * 2) return fontSize; //do not shrink if font is too small
-					size -= amount;
 
-					//shrink just integer numbers or pt/px
-					if (Number.isInteger(fontSize))
-						return size;
-					if (typeof fontSize == 'string' && fontSize.match(/^[0-9]+pt/))
-						return size + "pt";
-					if (typeof fontSize == 'string' && fontSize.match(/^[0-9]+px/))
-						return size + "px";
-					return fontSize;
+			function fontCSS(p) {
+				var size = p.fontSize;
+				if (props.fontAutoShrink && $(container).width() < 300) {
+					//wrapping OFF autoshrink ON
+					size = autoShrinkFont(size);
+				}
+
+				return {
+					'font-family': p.fontFamily,
+					'font-weight': p.fontWeight,
+					'font-size': size,
+					'font-style': p.fontStyle,
+					color: p.color,
+					'background-color': dynamicColorBackground
 				};
 			}
+
 
 			// chart properties
 			var chartProperties;
@@ -323,48 +357,66 @@
 			if(squareDesign == 'false') squareDesign = false; // fix for bug in properties.json where booleans are strings
 			if(squareDesign == 'auto')  squareDesign = $(container).width() < 300;
 
+			//if an array is passed to appendTextDiv, it will setup the div as truncated & add it to the array
+			//thus we can later use the list of (possibly) truncated divs to add tooltips to them
+			var truncateList = props.disableWrapping ? [] : undefined;
+
 			// switch on square design
 			if (squareDesign) {
 				// create kpi-container-sq				
-				$(container).css('top',titleHeight+'px').append('<div class="kpi-container-sq" style="font-family:'+props.fontFamily+';font-size:'+props.fontSize+';color:'+props.color+';font-style:'+props.fontStyle+dynamicColorBackground+'"></div>');
-				var kpiContainerSq = $(container).find('.kpi-container-sq');
+				var kpiContainerSq = appendTextDiv($(container).css('top',titleHeight+'px'), null, 'kpi-container-sq', fontCSS(props, dynamicColorBackground));
+
 				// fill containers on html page - 1st line
-				kpiContainerSq.append('<div><div class="kpi-title-sq" style="font-weight:'+props.measureName.fontWeight+';font-size:'+props.measureName.fontSize+';color:'+props.measureName.color+';font-style:'+props.measureName.fontStyle+'">' + title + '</div></div>');
+				appendTextDiv(kpiContainerSq, title, 'kpi-title-sq', fontCSS(props.measureName), truncateList);
+
 				// fill containers on html page - 2nd line
-				kpiContainerSq.append('<div><div class="kpi-total-sq" style="font-weight:'+props.total.fontWeight+';font-size:'+fs(props.total.fontSize)+';color:'+props.total.color+';font-style:'+props.total.fontStyle+'">' + total1 + '</div></div>');
+				appendTextDiv(kpiContainerSq, total1, 'kpi-total-sq', fontCSS(props.total), truncateList);
+
 				// fill containers on html page - 3rd line
-				if (props.deviationVsPrevious.disableDeviation == true) {
-				}
-				else {
-					kpiContainerSq.append('<div><div class="kpi-change-sq" style="font-size:'+props.deviationVsPrevious.fontSize+';color:'+props.deviationVsPrevious.color+';font-style:'+props.deviationVsPrevious.fontStyle+'">'+percentChange+'</div></div>');
+				if (props.deviationVsPrevious.disableDeviation !== true) {
+					appendTextDiv(kpiContainerSq, percentChange, 'kpi-change-sq', fontCSS(props.deviationVsPrevious), truncateList);
 				}
 				// fill containers on html page - 4th line
-				if (props.barProperties.disableSparklineChart == true) {
-				}
-				else {					
-					kpiContainerSq.append('<div><div class="kpi-sparkline-sq"></div></div>');
-					$(container).find('.kpi-sparkline-sq').sparkline(bars, chartProperties);
+				if (props.barProperties.disableSparklineChart !== true) {
+					var kpiSparklineDiv = appendTextDiv(kpiContainerSq, null, 'kpi-sparkline-sq', {});
+					kpiSparklineDiv.sparkline(bars, chartProperties);
 				}
 			}
+			//NOT squareDesign
 			else {
 				// create kpi-container
-				$(container).css('top',titleHeight+'px').append('<div class="kpi-container" style="font-family:'+props.fontFamily+';font-size:'+props.fontSize+';color:'+props.color+';font-style:'+props.fontStyle+dynamicColorBackground+'"></div>');
+				var kpiContainer = appendTextDiv($(container).css('top',titleHeight+'px'), null, 'kpi-container', fontCSS(props, dynamicColorBackground));
 				// fill containers on html page - 1st line
 				if (props.deviationVsPrevious.disableDeviation == true) {
-					$(container).find('.kpi-container').append('<div><div class="kpi-title-no-change" style="font-weight:'+props.measureName.fontWeight+';font-size:'+props.measureName.fontSize+';color:'+props.measureName.color+';font-style:'+props.measureName.fontStyle+'">' + title + '</div></div>');
+					appendTextDiv(kpiContainer, title, 'kpi-title-no-change', fontCSS(props.measureName), truncateList);
 				}
 				else {
-					$(container).find('.kpi-container').append('<div><div class="kpi-title" style="font-weight:'+props.measureName.fontWeight+';font-size:'+props.measureName.fontSize+';color:'+props.measureName.color+';font-style:'+props.measureName.fontStyle+'">' + title + '</div><div class="kpi-change" style="font-size:'+props.deviationVsPrevious.fontSize+';color:'+props.deviationVsPrevious.color+';font-style:'+props.deviationVsPrevious.fontStyle+'">'+percentChange+'</div></div>');
+					var line1 = $('<div/>').appendTo(kpiContainer);
+					appendTextDiv(line1, title, 'kpi-title', fontCSS(props.measureName), truncateList);
+					appendTextDiv(line1, percentChange, 'kpi-change', fontCSS(props.deviationVsPrevious), truncateList);
+
 				}
 				// fill containers on html page - 2nd line			
-				if (props.barProperties.disableSparklineChart == true) {
-					$(container).find('.kpi-container').append('<div><div class="kpi-total" style="font-weight:'+props.total.fontWeight+';font-size:'+props.total.fontSize+';color:'+props.total.color+';font-style:'+props.total.fontStyle+'">' + total1 + '</div></div>');
-				}
-				else {
-					$(container).find('.kpi-container').append('<div><div class="kpi-total" style="font-weight:'+props.total.fontWeight+';font-size:'+props.total.fontSize+';color:'+props.total.color+';font-style:'+props.total.fontStyle+'">' + total1 + '</div><div class="kpi-sparkline"></div></div>');
-					$(container).find('.kpi-sparkline').sparkline(bars, chartProperties);
+				var line2 = $('<div/>').appendTo(kpiContainer);
+				appendTextDiv(line2, total1, 'kpi-total', fontCSS(props.total), truncateList);
+				if (props.barProperties.disableSparklineChart !== true) {
+					var kpiSparklineDiv = appendTextDiv(line2, null, 'kpi-sparkline', {});
+					kpiSparklineDiv.sparkline(bars, chartProperties);
 				}
 			}
+
+			var addTruncatedTooltips = function () {
+				if (!truncateList)
+					return;
+				truncateList.forEach(function (div) {
+					//add a tooltip if the text was indeed truncated
+					if (div[0] && div[0].offsetWidth < div[0].scrollWidth) {
+						div.attr('title', div.text());
+					}
+				});
+			};
+			//hack. the scrollWidth is not set correctly instantely, so dealy it a bit to get correct value
+			setTimeout(addTruncatedTooltips, 100);
 		}
 		
 		renderConfig.renderComplete();	
