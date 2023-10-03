@@ -202,6 +202,10 @@
 
 		var chart = renderConfig.moonbeamInstance;
 		var data = renderConfig.data;
+		//VIZ-839: eliminate null date data points that will break processing in the dygraph engine
+		//TODO: check for date validity (and EPOCH?), for now server will change the invalid dates to nulls
+		data = data.filter(function(d) { return d.timeline != undefined; });
+
 		var props = renderConfig.properties;
 
 		if (Array.isArray(renderConfig.dataBuckets.buckets)) {
