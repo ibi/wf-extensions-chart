@@ -247,7 +247,8 @@ function getAxis(data, properties) {
 		useWeekAxis = weeksTicks.length > (properties.autoAxisPeriodLimits.week || 3);
 	
 	if (useWeekAxis) {		
-		return getWeekAxis(start, stop, monthScale, monthsTicks, properties.weekStartsOnMonday);
+		return getWeekAxis(start, stop, weekScale, weeksTicks, properties.weekStartsOnMonday);
+
 	}
 	
 	// DAY PERIOD #######################	
