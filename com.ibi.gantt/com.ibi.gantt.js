@@ -179,6 +179,28 @@ function convertData(data) {
 	return newData;
 }
 
+function adjustToDayOfWeek(date, after, dayOfWeek, roundToMidnight) { // returns date that is a dayOfWeek (0=Sunday) on or before/after a 'date'
+	var nd;
+	if (roundToMidnight) {
+		if (date.getHours() || date.getMinutes() || date.getSeconds() || date.getMilliseconds()) {
+			nd = new Date(date);
+			nd.setHours(0);
+			nd.setMinutes(0);
+			nd.setSeconds(0);
+			nd.setMilliseconds(0);
+			if (after) nd.setDate(nd.getDate() + 1);
+		}
+	}
+	var day = (nd||date).getDay();
+	if (day == dayOfWeek)
+		return nd||date;
+	var diff = ((dayOfWeek - day) + 7) % 7 - (after?0:7);
+	nd = nd || new Date(date);
+	nd.setDate(nd.getDate() + diff);
+	return nd;
+}
+
+
 function getAxis(data, properties) {
 
 	// Find first and last time entries across all start & stop values
@@ -242,7 +264,7 @@ function getAxis(data, properties) {
 	}
 	
 	// WEEK PERIOD #######################
-	var weekScale = getWeekScale(start, stop),
+	var weekScale = getWeekScale(start, stop, properties.weekStartsOnMonday),
 		weeksTicks = getWeekTicks(weekScale, properties.weekStartsOnMonday),
 		useWeekAxis = weeksTicks.length > (properties.autoAxisPeriodLimits.week || 3);
 	
@@ -351,7 +373,8 @@ function getAxis(data, properties) {
 	}
 	
 	function getWeekAxis(start, stop, scaleFn, ticks, weekStartsOnMonday) {	
-		var weekScale = scaleFn || getWeekScale(start, stop),
+
+		var weekScale = scaleFn || getWeekScale(start, stop, weekStartsOnMonday),
 			weekTicks = ticks || getWeekTicks(weekScale, weekStartsOnMonday),
 			weekDivisons = weekTicks.map(function(el, i) {
 				return {start: i, width: 1, text: el.getDate()};
@@ -390,14 +413,24 @@ function getAxis(data, properties) {
 			stop: new Date(stop.getFullYear(), 12, 1, 23, 59, 59)
 		};
 	}	
-		
-	function getWeekScale(start, stop) {
+
+	function getWeekScale(start, stop, weekStartsOnMonday) {
+
+		//update start to the Monday or Sunday on or before the passed 'start'
+		start = adjustToDayOfWeek(start, false, weekStartsOnMonday ? 1 : 0, true);
+		//update stop to the Monday or Sunday on or after the passed 'stop'
+		stop = adjustToDayOfWeek(stop, true, weekStartsOnMonday ? 1 : 0, true);
 		var returnScale;
+
+		//'nice' does not know how to 'nicely' pad the date maintaing the day of week on start/end
+		/*
 		if (properties.adjustToDataLimits === true){
 			returnScale = d3.scaleTime().domain([start, stop]).nice(d3.timeWeek);
 		}else{
 			returnScale = d3.scaleTime().domain([start, stop]).nice();
 		}
+		*/
+		returnScale = d3.scaleTime().domain([start, stop]);
 		return returnScale;
 	}
 	
