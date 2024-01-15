@@ -753,7 +753,8 @@
         // and used by render function
         function buildLayout(props, innerProps) {
 
-            var focusHeight = (1 - props.context.heightToTotalHeightRatio) * props.height;
+            var focusHeight = props.height;
+            if (props.context.visible) focusHeight *= 1 - props.context.heightToTotalHeightRatio;
 
             var layout = {
                 focus: {
@@ -819,40 +820,42 @@
                 );
 
             if (!props.isInteractionDisabled) {
-              context_group
-                .style('opacity', 0)
-                .transition()
-                .duration(400)
-                .style('opacity', 1)
-                .call(getOnAllTransitionComplete(invokeAfterThree));
+                context_group
+                    .style('opacity', 0)
+                    .transition()
+                    .duration(400)
+                    .style('opacity', 1)
+                    .call(getOnAllTransitionComplete(invokeAfterThree));
             } else {
-              invokeAfterThree();
+                invokeAfterThree();
             }
 
-            var context_chart = tdg_timeline({
-                colorByRow: props.colorByRow,
-                width: layout.context.width,
-                height: layout.context.height,
-                data: props.data,
-                measureLabel: props.measureLabel,
-                context: {
-                    enabled: true
-                },
-                rows: props.context.rows,
-                timeAxis: props.context.timeAxis,
-                risers: props.context.risers,
-                isInteractionDisabled: props.isInteractionDisabled,
-                onContextChange: function(domain) {
-                    focus_chart.setTimeAxisDomain(domain);
-                    focus_chart.rerender();
-                    if ( typeof chart.onrerender === 'function' ) {
-                        chart.onrerender();
+            if (props.context.visible) {
+                var context_chart = tdg_timeline({
+                    colorByRow: props.colorByRow,
+                    width: layout.context.width,
+                    height: layout.context.height,
+                    data: props.data,
+                    measureLabel: props.measureLabel,
+                    context: {
+                        enabled: true
+                    },
+                    rows: props.context.rows,
+                    timeAxis: props.context.timeAxis,
+                    risers: props.context.risers,
+                    isInteractionDisabled: props.isInteractionDisabled,
+                    onContextChange: function(domain) {
+                        focus_chart.setTimeAxisDomain(domain);
+                        focus_chart.rerender();
+                        if ( typeof chart.onrerender === 'function' ) {
+                            chart.onrerender();
+                        }
                     }
-                }
-            });
+                });
 
-            context_group
-                .call(context_chart);
+                context_group
+                    .call(context_chart);
+            }
 
           invokeAfterThree();
         }
@@ -896,6 +899,7 @@
                     }
                 },
                 context: {
+		    visible: true,
                     heightToTotalHeightRatio: 0.3,
                     rows: {
                         labels: {
