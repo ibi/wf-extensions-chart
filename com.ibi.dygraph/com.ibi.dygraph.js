@@ -247,19 +247,21 @@
 
 		var masterContainer = d3.select(renderConfig.container);
 		var legendWidth = 0;
+		var forceWrap = false;
 
-		if (props.legend === "never" || props.legendPosition != 'left' && props.legendPosition != 'right') {
+		if (props.legend === "never" || props.legend === "follow" || props.legendPosition != 'left' && props.legendPosition != 'right') {
 			//legend overlaid - default (dygraph will put legend in masterContainer if props.labelsDiv not set)
 			chartContainer = masterContainer;
 		} else {
 			masterContainer.style('display', 'flex');
 
-			var chartContainer, legendContainer;
+			var chartContainer, legendContainer, legendPersistentContainer;
 			if (props.legendPosition == 'right') { //order of 'appends' matters
 				chartContainer = masterContainer.append("div");
 				legendContainer = masterContainer.append("div");
 			} else {
-				legendContainer = masterContainer.append("div");
+				legendPersistentContainer = masterContainer.append("div");
+				legendContainer = legendPersistentContainer.append("div");
 				chartContainer = masterContainer.append("div");
 			}
 			chartContainer.attr('id', masterContainer.attr('id') + '-chart');
@@ -268,13 +270,24 @@
 			legendContainer.style('flex-grow', '1');
 
 			var font = '700 ' + window.getComputedStyle(renderConfig.container).font; // "700" is for "bold"
-			legendWidth = Math.min(width*0.3, getLegendMaxWidth(data, arrBuckets, font)); // limit legend width to 30% of available space
+
+			legendWidth = getLegendMaxWidth(data, arrBuckets, font);
+			if(legendWidth > width*0.3) {
+				legendWidth = width*0.3; //limit legend width to 30% of available space
+			}
+
+			if(legendPersistentContainer) {
+				legendPersistentContainer.style('width', legendWidth + 'px');
+				legendPersistentContainer.style('overflow', 'hidden');
+				legendPersistentContainer.style('overflow-wrap', 'break-word');
+				legendPersistentContainer.style('word-break', 'break-all');
+			}
 			props.labelsDiv = legendContainer.node(0); //this enables 'external' legend rendering in dygraph engine
 		}
 
 		chartContainer.attr('class', 'com_ibi_dygraph');
 
-		com_ibi_dygraph_drawChart(data, masterContainer, width, height, chartContainer,width-legendWidth,height,arrBuckets,props,chart);
+		com_ibi_dygraph_drawChart(data, masterContainer, width, height, chartContainer, width - legendWidth, height, arrBuckets, props, chart);
 
 		renderConfig.renderComplete();
 	}
