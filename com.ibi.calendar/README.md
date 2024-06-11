@@ -39,7 +39,9 @@ To configure or customize your extension edit "properties" object in properties.
 	      "value": {
 	      	"format": "auto"
 	      }
-	    }
+	    },
+		"dateFormat": "YMD", // ["YMD","MDY", "DMY"]
+		"yearsOrder": "ASC" // ["ASC","DESC"]
 	}
 	
 ## Data Buckets

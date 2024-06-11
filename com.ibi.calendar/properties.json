@@ -1,6 +1,6 @@
 {
 	"info": {
-		"version": 1.3,
+		"version": 1.4,
 		"implements_api_version": 1.0,
 		"author": "Cloud Software Group, Inc.",
 		"copyright": "Cloud Software Group, Inc.",
@@ -35,7 +35,8 @@
 	      	"format": "auto"
 	      }
 		},
-		"dateFormat": "YMD"
+		"dateFormat": "YMD",
+		"yearsOrder": "ASC"
 	},
 
 	"propertyAnnotations": {
@@ -67,6 +68,10 @@
 		{
 			"typeAnnotation": "str"
 			,"stringValues": ["YMD","MDY", "DMY"]
+		},
+		"yearsOrder": {
+			"typeAnnotation": "str"
+			,"stringValues": ["ASC","DESC"]
 		}
 	},
 
