@@ -14,6 +14,7 @@
 	"properties": {
 		"kpidistributionProperties":{
 			"ibiAppsPath": "/ibi_apps/",
+			"cssUrl": null,
 			"options": {
 				"showPercentagesOfTheTotal": false,
 				"showValue": true,
