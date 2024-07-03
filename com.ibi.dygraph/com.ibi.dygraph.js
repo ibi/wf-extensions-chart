@@ -247,34 +247,49 @@
 
 		var masterContainer = d3.select(renderConfig.container);
 		var legendWidth = 0;
+		var forceWrap = false;
 
-		if (props.legend === "never" || props.legendPosition != 'left' && props.legendPosition != 'right') {
-			//legend overlaid - default (dygraph will put legend in masterContainer if props.labelsDiv not set)
+		if (props.legend === "never" || props.legend === "follow") {
 			chartContainer = masterContainer;
 		} else {
+			var isOverlay = props.legendPosition != 'left' && props.legendPosition != 'right';
 			masterContainer.style('display', 'flex');
 
-			var chartContainer, legendContainer;
-			if (props.legendPosition == 'right') { //order of 'appends' matters
+			var chartContainer, legendContainer, legendPersistentContainer;
+			if (props.legendPosition != 'left') //order of 'appends' matters
 				chartContainer = masterContainer.append("div");
-				legendContainer = masterContainer.append("div");
-			} else {
-				legendContainer = masterContainer.append("div");
+			legendPersistentContainer = masterContainer.append("div");
+			legendContainer = legendPersistentContainer.append("div");
+			if (props.legendPosition == 'left') //order of 'appends' matters
 				chartContainer = masterContainer.append("div");
-			}
 			chartContainer.attr('id', masterContainer.attr('id') + '-chart');
 
 			legendContainer.attr('id', masterContainer.attr('id') + '-legend');
 			legendContainer.style('flex-grow', '1');
 
 			var font = '700 ' + window.getComputedStyle(renderConfig.container).font; // "700" is for "bold"
-			legendWidth = Math.min(width*0.3, getLegendMaxWidth(data, arrBuckets, font)); // limit legend width to 30% of available space
+
+			legendWidth = getLegendMaxWidth(data, arrBuckets, font);
+			if(legendWidth > width*0.3) {
+				legendWidth = width*0.3; //limit legend width to 30% of available space
+			}
+
+			legendPersistentContainer.style('width', legendWidth + 'px');
+			legendPersistentContainer.style('overflow', 'hidden');
+			legendPersistentContainer.style('overflow-wrap', 'break-word');
+			legendPersistentContainer.style('word-break', 'break-all');
+			if (isOverlay) {
+				legendPersistentContainer.style('position', 'absolute');
+				legendPersistentContainer.style('right', '0px');
+				legendWidth = 0; //do not reserve space on the side of a chart for overlaid legend
+				legendPersistentContainer.style('pointer-events', 'none'); //do not intercept mouse, so it lets highlight chart that is underneath
+			}
 			props.labelsDiv = legendContainer.node(0); //this enables 'external' legend rendering in dygraph engine
 		}
 
 		chartContainer.attr('class', 'com_ibi_dygraph');
 
-		com_ibi_dygraph_drawChart(data, masterContainer, width, height, chartContainer,width-legendWidth,height,arrBuckets,props,chart);
+		com_ibi_dygraph_drawChart(data, masterContainer, width, height, chartContainer, width - legendWidth, height, arrBuckets, props, chart);
 
 		renderConfig.renderComplete();
 	}

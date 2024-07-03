@@ -27,6 +27,8 @@ To configure or customize your extension edit "properties" object in properties.
 	
 	"properties": {
 		"kpidistributionProperties":{
+			"ibiAppsPath": "/ibi_apps/", // path name
+			"cssUrl": null, // cssUrl lo load with ajax
 			"options": {
 				"showPercentagesOfTheTotal": true,
 				"showValue": true,

@@ -212,7 +212,7 @@
 
 	"dataBuckets": {
 
-		"tooltip": false,
+		"tooltip": true,
 		"matrix": false,
 		"data_page": false,
 		"series_break": false,
