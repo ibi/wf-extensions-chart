@@ -379,6 +379,10 @@
 			$(container).find('#ib-inline-style').append('.table>thead>tr>td{font-weight:'+props.data.fontWeight+';color:'+props.data.color+'}\n');
 			$(container).find('#ib-inline-style').append('.table>thead>tr:nth-of-type(odd)>td{background-color:'+props.data.backgroundColorOdd+'}\n');
 			$(container).find('#ib-inline-style').append('.table>thead>tr:nth-of-type(even)>td{background-color:'+props.data.backgroundColorEven+'}\n');
+
+			/* All cells padding */
+			$(container).find('#ib-inline-style').append('div.dataTables_wrapper .table>thead>tr>th,div.dataTables_wrapper .table>thead>tr>td'+
+			',div.dataTables_wrapper .table>tbody>tr>th,div.dataTables_wrapper .table>tbody>tr>td{padding:'+props.padding+'}\n');
 			
 			/* Selected Row Style */
 			$(container).find('#ib-inline-style').append('table.dataTable tbody>tr.selected,table.dataTable tbody>tr>.selected{background-color:'+props.data.selected.backgroundColor+'}\n');
