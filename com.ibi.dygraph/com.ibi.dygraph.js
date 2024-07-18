@@ -276,8 +276,14 @@
 
 			legendPersistentContainer.style('width', legendWidth + 'px');
 			legendPersistentContainer.style('overflow', 'hidden');
-			legendPersistentContainer.style('overflow-wrap', 'break-word');
-			legendPersistentContainer.style('word-break', 'break-all');
+			if (props.legendOverflow && props.legendOverflow != "overflow") {
+				if (props.legendOverflow == "wrap") {
+					legendPersistentContainer.style('overflow-wrap', 'break-word');
+					legendPersistentContainer.style('word-break', 'break-all');
+				} else if ( props.legendOverflow == "truncate" ) {
+					legendPersistentContainer.attr('class', 'dygraph-trunc');
+				}
+			}
 			if (isOverlay) {
 				legendPersistentContainer.style('position', 'absolute');
 				legendPersistentContainer.style('right', '0px');

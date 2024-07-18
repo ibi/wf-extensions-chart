@@ -115,3 +115,25 @@
   -o-transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
 }
+
+.dygraph-trunc div  {
+}
+.dygraph-trunc div > br {
+	display: none;
+}
+.dygraph-trunc div > span {
+	display: flex;
+	padding: 0;
+	white-space: nowrap;
+	flex-grow: 1;
+  }
+
+.dygraph-trunc div > span > b {
+        overflow: hidden;
+	white-space: nowrap;
+        text-overflow: ellipsis;
+}
+.dygraph-trunc div > span > b > span {
+}
+
+
