@@ -61,6 +61,7 @@
       "labelsSeparateLines": true,
       "legend": "always",
       "legendPosition": "overlay",
+      "legendOverflow": "overflow",
       "title": "DyGraphs.com",
       "errorBars": false,
       "showRoller": false,
@@ -161,6 +162,10 @@
       "legendPosition": {
             "typeAnnotation": "str",
             "stringValues": ["overlay", "left", "right"]
+      },
+      "legendOverflow": {
+            "typeAnnotation": "str",
+            "stringValues": ["overflow", "wrap", "truncate"]
       },
       "title": "str",
       "errorBars": "bool",
@@ -416,6 +421,11 @@
                     "_translation": "Position legend",
                     "_tooltip": "Legend position options",
                     "_valueTooltip": "Default overlay"
+                },
+                "legendOverflow": {
+                    "_translation": "Wrap or truncate exceeding label",
+                    "_tooltip": "Overflowing label options",
+                    "_valueTooltip": "Default overflow"
                 },
                 "title": {
                     "_translation": "Title text",
