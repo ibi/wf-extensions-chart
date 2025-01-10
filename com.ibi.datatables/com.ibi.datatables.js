@@ -1,4 +1,4 @@
-/* Copyright (C) 1996-2023. Cloud Software Group, Inc. All rights reserved. */
+/* Copyright (C) 1996-2025. Cloud Software Group, Inc. All rights reserved. */
 
 (function() {
 	// All extension callback functions are passed a standard 'renderConfig' argument:
@@ -455,7 +455,7 @@
 				"searching": props.searching,
 				"lengthChange": props.lengthChange,
 				"responsive": numberOfAcross>0? false : props.responsive,
-				"scrollX": numberOfAcross==0? false : true,
+				"scrollX":  true,
 				"colReorder": numberOfAcross>0? false : props.colReorder,
 				"select": false,
 				"scrollY": props.scrollY,
