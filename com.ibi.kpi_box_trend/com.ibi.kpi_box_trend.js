@@ -1,4 +1,4 @@
-/* Copyright (C) 1996-2023. Cloud Software Group, Inc. All rights reserved. */
+/* Copyright (C) 1996-2025. Cloud Software Group, Inc. All rights reserved. */
 /* $Revision: 1.2 $ */
 
 (function() {
@@ -467,6 +467,9 @@
 				}
 			} else {
 				kpiBoxContainer.addClass('kpi-box-container-square');
+				kpiBoxContainer.css('overflow-y', 'auto');
+				kpiBoxContainer.css('height', '100%');
+				kpiBoxContainer.css('box-sizing', 'border-box');
 
 				if (props.previousValue.disablePreviousValue != true || props.changeValue.disableChangeValue != true || props.trendIcon.disableTrendIcon != true) {
 					// fill containers on html page - 3rd line
