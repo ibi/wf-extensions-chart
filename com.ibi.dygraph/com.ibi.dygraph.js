@@ -1,5 +1,5 @@
 /*global tdgchart: false, pv: false, d3: false */
-/* Copyright (C) 1996-2023. Cloud Software Group, Inc. All rights reserved. */
+/* Copyright (C) 1996-2025. Cloud Software Group, Inc. All rights reserved. */
 
 (function() {
 
