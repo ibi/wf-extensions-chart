@@ -1,4 +1,4 @@
-// Copyright (C) 2021-2023. Cloud Software Group, Inc. All rights reserved.
+// Copyright (C) 2021-2025. Cloud Software Group, Inc. All rights reserved.
 // DyGraph Chart HTML 5 Extension JavaScript
 // Written by   : Anthony Alsford
 // Date Created : 19th February 2018
@@ -114,6 +114,9 @@ function com_ibi_dygraph_drawChart(data,rootContainer,rootWidth, rootHeight,char
 	// To allow selection of colors, the array is split into separate attributes so we need to
 	// merge them back into an array.
 	props.colors = [props.colours.color0, props.colours.color1, props.colours.color2, props.colours.color3, props.colours.color4, props.colours.color5, props.colours.color6, props.colours.color7, props.colours.color8, props.colours.color9];
+
+	props.drawPoints = props.showMarkers;
+	props.pointSize = props.markerSize;
 
 	var main_margin = {top: 15, right: 15, bottom: 15, left: 15};
 
