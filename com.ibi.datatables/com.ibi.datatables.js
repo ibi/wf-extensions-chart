@@ -1,4 +1,4 @@
-/* Copyright (C) 1996-2025. Cloud Software Group, Inc. All rights reserved. */
+/* Copyright (C) 1996-2026. Cloud Software Group, Inc. All rights reserved. */
 
 (function() {
 	// All extension callback functions are passed a standard 'renderConfig' argument:
@@ -8,7 +8,7 @@
 	//   data: the data set being rendered
 	//   properties: the block of your extension's properties, as they've been set by the user
 	//   modules: the 'modules' object from your extension's config, along with additional API methods
-	//   
+	//
 	// Properties available during render callback:
 	//   width: width of the container your extension renders into, in px
 	//   height: height of the container your extension renders into, in px
@@ -24,10 +24,10 @@
 	function initCallback(successCallback, initConfig) {
 		successCallback(true);
 	}
-	
+
 	// Optional: if defined, is invoked once at the very beginning of each chart engine draw cycle
 	// Use this to configure a specific chart engine instance before rendering.
-	// Arguments: 
+	// Arguments:
 	//  - preRenderConfig: the standard callback argument object
 	function preRenderCallback(preRenderConfig) {
 		var chart = preRenderConfig.moonbeamInstance;
@@ -37,7 +37,7 @@
 		chart.footnote.text = "footnote";
 		chart.footnote.align = 'right';
 	}
-	
+
 	function noDataPreRenderCallback(preRenderConfig) {
 		var chart = preRenderConfig.moonbeamInstance;
 		chart.legend.visible = false;
@@ -53,7 +53,7 @@
 
 		var chart = renderConfig.moonbeamInstance;
 		var props = renderConfig.properties;
-		
+
 		var container = renderConfig.container;
 		var data = renderConfig.data;
 		var dataBuckets = renderConfig.dataBuckets.buckets;
@@ -64,7 +64,7 @@
 		var numberOfAcross = 0;
 		var groupIds = [];
 		var dataJSON = [];
-		
+
 		/* Format JSON Data */
 		if (typeof data[0].measure !== 'undefined'||typeof data[0].row !== 'undefined'||typeof data[0].column !== 'undefined') {
 
@@ -88,7 +88,7 @@
 						}
 					}
 				}
-				
+
 				/* Check for Columns */
 				if (typeof data[i].column !== 'undefined') {
 					var across = {};
@@ -109,7 +109,7 @@
 							// Start Chart-2985 Logic using implements_api_version 2.0
 								var formatString = renderConfig.dataBuckets.getBucket("column").fields[j].numberFormat;
 								across["acol"+j] = formatString ? chart.formatNumber(data[i].column[j], formatString ) : data[i].column[j];
-							// End Chart-2985 Logic using implements_api_version 2.0							
+							// End Chart-2985 Logic using implements_api_version 2.0
 						}
 						if (findIndex(acrossJSON, across)==-1)
 							acrossJSON.push(across);
@@ -127,14 +127,14 @@
 						});
 					}
 				}
-				
+
 				/* Process Measures */
-				if (typeof data[i].measure !== 'undefined') {					
+				if (typeof data[i].measure !== 'undefined') {
 					columnIndex = acrossIndex==-1? columnIndex : 0;
 					if (typeof data[i].measure === 'number') {
 						row["col"+(acrossIndex==-1?'':acrossIndex+'_')+columnIndex]=data[i].measure;
 						groupIds.push(i);
-						columnIndex++;					
+						columnIndex++;
 					}
 					else {
 						for (var j=0; j<data[i].measure.length; j++) {
@@ -144,7 +144,7 @@
 						}
 					}
 				}
-				
+
 				if (newRow)
 					dataJSON.push(row);
 				else {
@@ -154,13 +154,13 @@
 					});
 				}
 			}
-			
+
 			/* Re-order the Across JSON */
 			if (acrossJSON.length>0) {
 				/* Add Index */
 				for (var i=0; i<acrossJSON.length; i++)
 					acrossJSON[i]["index"]=i;
-			
+
 				/* Get Keys */
 				var acrossColumns = [];
 				Object.keys(acrossJSON[0]).forEach(function(key,index) {
@@ -170,11 +170,11 @@
 				/* Re-order */
 				acrossJSON = orderBy(acrossJSON,acrossColumns);
 			}
-			
+
 			/* Process Titles */
 			columnIndex=0;
-			
-			/* Start Pre CHART-2985 Logic using implements_api_version 1.0 
+
+			/* Start Pre CHART-2985 Logic using implements_api_version 1.0
 			if (typeof dataBuckets.row !== 'undefined'){
 				if (typeof dataBuckets.row.title === 'string') {
 					titleJSON.push({ mData: "col"+columnIndex, title: dataBuckets.row.title, className: "dt-left dt-by" });
@@ -215,13 +215,13 @@
 								columnIndex++;
 							}
 						}
-					}					
+					}
 				}
 				numberOfMeasures = typeof dataBuckets.measure.title === 'string'? 1 : dataBuckets.measure.title.length;
 			}
-			
-			 End Pre CHART-2985 Logic using implements_api_version 1.0 */ 
-			
+
+			 End Pre CHART-2985 Logic using implements_api_version 1.0 */
+
 			// Start Chart-2985 Logic using implements_api_version 2.0
 
 			var bucketRows = dataBuckets.find(function(bucket){return bucket.id == "row" });
@@ -229,73 +229,73 @@
 
 				for (var i=0; i < bucketRows.fields.length; i++) {
 					//titleJSON.push({ mData: "col" + columnIndex, title: bucketRows.fields[i].title, className: "dt-left dt-by" });
-					titleJSON.push({ mData: "col" + columnIndex, title: bucketRows.fields[i].title, className: "dt-left dt-by", render: fnGetNumberFormat(), defaultContent: fnGetDefaultContent(bucketRows.fields[i].numberFormat) }); 
+					titleJSON.push({ mData: "col" + columnIndex, title: bucketRows.fields[i].title, className: "dt-left dt-by", render: fnGetNumberFormat(), defaultContent: fnGetDefaultContent(bucketRows.fields[i].numberFormat) });
 					columnIndex++;
 
 				} //for
-				
+
 				numberOfBys = columnIndex;
-				
+
 			} //  if (typeof bucketRows !== 'undefined')
-				
+
 			var bucketMeasures = dataBuckets.find(function(bucket){return bucket.id == "measure" });
-			var bucketColumns = dataBuckets.find(function(bucket){return bucket.id == "column" });			
-			
+			var bucketColumns = dataBuckets.find(function(bucket){return bucket.id == "column" });
+
 			if (typeof bucketMeasures !== 'undefined') {
 				if (acrossJSON.length==0) {
 
 					for (var i=0; i < bucketMeasures.fields.length; i++){
 						//titleJSON.push({ mData: "col"+columnIndex, title: bucketMeasures.fields[i].title, className: "dt-right", render: $.fn.dataTable.render.number(',', '.', 2, ''), defaultContent: '0.00' });
-						titleJSON.push({ mData: "col"+columnIndex, title: bucketMeasures.fields[i].title, className: "dt-right", render: fnGetNumberFormat(), defaultContent: fnGetDefaultContent(bucketMeasures.fields[i].numberFormat) }); 
+						titleJSON.push({ mData: "col"+columnIndex, title: bucketMeasures.fields[i].title, className: "dt-right", render: fnGetNumberFormat(), defaultContent: fnGetDefaultContent(bucketMeasures.fields[i].numberFormat) });
 						columnIndex++;
 					} //for
 
 				} //if (acrossJSON.length==0)
-				else {					
-					if (typeof bucketColumns !== 'undefined') {					
+				else {
+					if (typeof bucketColumns !== 'undefined') {
 						numberOfAcross =  bucketColumns.fields.length;
 						for (var k=0; k < acrossJSON.length; k++){
 							columnIndex=0;
 							for (var i=0; i < bucketMeasures.fields.length; i++){
 								//titleJSON.push({ mData: "col"+(acrossJSON[k].index+'_') + columnIndex, title: bucketMeasures.fields[i].title, className: "dt-right", render: $.fn.dataTable.render.number(',', '.', 2, ''), defaultContent: '0.00' });
-								titleJSON.push({ mData: "col"+(acrossJSON[k].index+'_') + columnIndex, title: bucketMeasures.fields[i].title, className: "dt-right", render: fnGetNumberFormat(), defaultContent: fnGetDefaultContent(bucketMeasures.fields[i].numberFormat) }); 
+								titleJSON.push({ mData: "col"+(acrossJSON[k].index+'_') + columnIndex, title: bucketMeasures.fields[i].title, className: "dt-right", render: fnGetNumberFormat(), defaultContent: fnGetDefaultContent(bucketMeasures.fields[i].numberFormat) });
 								columnIndex++;
 							} //for i
-						} //for	k		
-					} //if	
+						} //for	k
+					} //if
 				} //else
-			
+
 				numberOfMeasures = bucketMeasures.fields.length;
-			
+
 			} //if (typeof bucketMeasures !== 'undefined')
-				
-			
+
+
 			function fnGetNumberFormat(){
-				
+
 				/* 	Documentation for $.fn.dataTable.render.number:
 					https://datatables.net/forums/discussion/30540/fn-datatable-render-number-documentation#Comment_81757
 					The datatables numeric formatting method only has a subset of functionality of the renderConfig.moonbeamInstance.formatNumber method
 					Documentation for render: https://datatables.net/reference/option/columns.render
-				*/				
-				
+				*/
+
 				var fnRenderer = function (data,type,row,meta){
-					
+
 									if (renderConfig.dataBuckets.getBucket("measure") == null || data == undefined) return data; // Keep current display behavior
-									
+
 									var colAttribute = meta.settings.aoColumns[meta.col].mData; // Found by inspecting meta.settings
 									//eg: "col0" (for a measure when no row exist)
 									//eg: col0 (for a row or measure) or col0_2 (for a measure when rows or columns exist)
-									
+
 									var aSplitColAttribute = colAttribute.split("_"); //eg: ["col0"] or ["col0","2"]
-									var rowBucketIndex = (aSplitColAttribute.length == 1) 
+									var rowBucketIndex = (aSplitColAttribute.length == 1)
 												? parseInt(aSplitColAttribute[0].split("col")[1]) //eg: parseInt("0") from "col0"
 												: parseInt(aSplitColAttribute[1]); //eg: parseInt("2") from "col0_2"
-									
+
 									if (renderConfig.dataBuckets.getBucket("row") == null) {
 										var bucketType	= "measure";		//always a measure
 									} // (renderConfig.dataBuckets.getBucket("row") == null)
-									else { //row buckets included 					
-										
+									else { //row buckets included
+
 										if (aSplitColAttribute.length == 1) {  //possible special case with mixed row(s) and measure(s)
 											if (rowBucketIndex > renderConfig.dataBuckets.getBucket("row").fields.length - 1){
 												var bucketType = "measure";
@@ -308,94 +308,117 @@
 										else {  //always a measures when "_N"
 											var bucketType = "measure";
 										} //else
-										
-									} // else row buckets included 
-									
+
+									} // else row buckets included
+
 									var numberFormat = renderConfig.dataBuckets.getBucket(bucketType).fields[rowBucketIndex].numberFormat; //May or may not exist
-									
+
 									/*Code Before CHART-3319
-									return numberFormat ? chart.formatNumber(data, numberFormat ) : data; //Format the data if it has a numberFormat, else just return data			
+									return numberFormat ? chart.formatNumber(data, numberFormat ) : data; //Format the data if it has a numberFormat, else just return data
 									*/
-									
+
 									//Start CHART-3319
 									//Following pattern to only apply number formatting for type==='display' || type==='filter'
 									// https://datatables.net/manual/data/orthogonal-data
-									
-										//Format the data if it has a numberFormat && (type==='display' || type==='filter') , else just return data		
-									
+
+										//Format the data if it has a numberFormat && (type==='display' || type==='filter') , else just return data
+
 										return numberFormat ? ( (type==='display' || type==='filter') ? chart.formatNumber(data, numberFormat ) : data) : data;
-									
+
 									//End CHART-3319
-									
+
 								}; //function
-								
-				return fnRenderer;				
-				
-				
+
+				return fnRenderer;
+
+
 			}
-			
+
 			function fnGetDefaultContent(format) {
 				// Datatables default content documentation: https://datatables.net/reference/option/columns.defaultContent
 				return format == undefined ?  '' : chart.formatNumber(0, format );
-			}		
-		     
+			}
+
 			// End Chart-2985 Logic using implements_api_version 2.0
-			
+
 			//console.log('Finished Creating JSON files:', new Date());
-			
-			
+
+
 		}
-	
+
 		/* Create Grid */
 		if (dataJSON.length>0){
 			/* Add Inline Style */
 			$(container).html('');
 			$(container).append('<style id="ib-inline-style"></style>')
 
+			var styleContainer = $(container).find('#ib-inline-style');
+
 			/* Table Style */
-			$(container).find('#ib-inline-style').append('.dataTables_wrapper{color:'+props.color+'font-family:'+props.fontFamily+';font-size:'+props.fontSize+'}\n');
-			
+			styleContainer.append('.dataTables_wrapper{color:'+props.color+'font-family:'+props.fontFamily+';font-size:'+props.fontSize+'}\n');
+
 			/* Border Style */
-			$(container).find('#ib-inline-style').append('.col-sm-12>.table.table-striped{'+props.border+'}\n');
-			$(container).find('#ib-inline-style').append('.table>tbody>tr>td,.table>tbody>tr>th,.table>thead>tr>td,.table>thead>tr>th{border-top:'+props.border+'}\n');
-			$(container).find('#ib-inline-style').append('.table>tfoot>tr>td,.table>tfoot>tr>th{border-top:none}\n');
-			$(container).find('#ib-inline-style').append('.table>thead>tr:last-of-type>th{border-top:'+props.border+';border-bottom:'+props.border+'}\n');
-			//$(container).find('#ib-inline-style').append('th.dt-by+th:not(.dt-by),td.dt-by+td:not(.dt-by){border-left:'+props.border+'}\n');
-			$(container).find('#ib-inline-style').append('.table>thead>tr>th.cross-tab{border-left:'+props.border+';border-top:'+props.border+'}\n');
-			$(container).find('#ib-inline-style').append('.table>thead>tr:first-child>th.cross-tab{border-top:'+props.border+'}\n');
-			$(container).find('#ib-inline-style').append('.dataTables_scrollHead{border:'+props.border+'!important;border-bottom:0!important}\n');
-			$(container).find('#ib-inline-style').append('.dataTables_scrollBody{border-left:'+props.border+';border-bottom:'+props.border+';border-right:'+props.border+'}\n');
-			$(container).find('#ib-inline-style').append('.dataTables_scrollFoot{border-left:'+props.border+'!important;border-bottom:'+props.border+'!important;border-right:'+props.border+'!important}\n');
-			$(container).find('#ib-inline-style').append('.DTFC_LeftHeadWrapper,.DTFC_LeftBodyWrapper,.DTFC_RightHeadWrapper{left:1px!important}\n');
-			$(container).find('#ib-inline-style').append('.DTFC_LeftHeadWrapper table,.DTFC_LeftBodyWrapper table,.DTFC_RightHeadWrapper table{border-right:'+props.border+'}\n');
-			$(container).find('#ib-inline-style').append('.DTFC_LeftHeadWrapper table>thead>tr:first-child>th:first-child{border-top:'+props.border+'!important}\n');
-			//$(container).find('#ib-inline-style').append('.DTFC_LeftHeadWrapper table .dt-by:first-child,.DTFC_LeftBodyWrapper table .dt-by:first-child,.DTFC_RightHeadWrapper table .dt-by:first-child{border-left:'+props.border+'}\n');
-			//$(container).find('#ib-inline-style').append('.DTFC_LeftHeadWrapper table .dt-by:last-child,.DTFC_LeftBodyWrapper table .dt-by:last-child,.DTFC_RightHeadWrapper table .dt-by:last-child{border-right:'+props.border+'}\n');
+			styleContainer.append('.col-sm-12>.table.table-striped{'+props.border+'}\n');
+			styleContainer.append('.table>tbody>tr>td,.table>tbody>tr>th,.table>thead>tr>td,.table>thead>tr>th{border-top:'+props.border+'}\n');
+			styleContainer.append('.table>tfoot>tr>td,.table>tfoot>tr>th{border-top:none}\n');
+			styleContainer.append('.table>thead>tr:last-of-type>th{border-top:'+props.border+';border-bottom:'+props.border+'}\n');
+			//styleContainer.append('th.dt-by+th:not(.dt-by),td.dt-by+td:not(.dt-by){border-left:'+props.border+'}\n');
+			styleContainer.append('.table>thead>tr>th.cross-tab{border-left:'+props.border+';border-top:'+props.border+'}\n');
+			styleContainer.append('.table>thead>tr:first-child>th.cross-tab{border-top:'+props.border+'}\n');
+			styleContainer.append('.dataTables_scrollHead{border:'+props.border+'!important;border-bottom:0!important}\n');
+			styleContainer.append('.dataTables_scrollBody{border-left:'+props.border+';border-bottom:'+props.border+';border-right:'+props.border+'}\n');
+			styleContainer.append('.dataTables_scrollFoot{border-left:'+props.border+'!important;border-bottom:'+props.border+'!important;border-right:'+props.border+'!important}\n');
+			styleContainer.append('.DTFC_LeftHeadWrapper,.DTFC_LeftBodyWrapper,.DTFC_RightHeadWrapper{left:1px!important}\n');
+			styleContainer.append('.DTFC_LeftHeadWrapper table,.DTFC_LeftBodyWrapper table,.DTFC_RightHeadWrapper table{border-right:'+props.border+'}\n');
+			styleContainer.append('.DTFC_LeftHeadWrapper table>thead>tr:first-child>th:first-child{border-top:'+props.border+'!important}\n');
+			//styleContainer.append('.DTFC_LeftHeadWrapper table .dt-by:first-child,.DTFC_LeftBodyWrapper table .dt-by:first-child,.DTFC_RightHeadWrapper table .dt-by:first-child{border-left:'+props.border+'}\n');
+			//styleContainer.append('.DTFC_LeftHeadWrapper table .dt-by:last-child,.DTFC_LeftBodyWrapper table .dt-by:last-child,.DTFC_RightHeadWrapper table .dt-by:last-child{border-right:'+props.border+'}\n');
 
 			/* Title Style */
-			$(container).find('#ib-inline-style').append('.table>thead>tr>th{font-weight:'+props.title.fontWeight+';color:'+props.title.color+';background-color:'+props.data.backgroundColor+'}\n');
-			
+			styleContainer.append('.table>thead>tr>th{font-weight:'+props.title.fontWeight+';color:'+props.title.color+';background-color:'+props.data.backgroundColor+'}\n');
+
 			/* Data Row Style */
-			$(container).find('#ib-inline-style').append('.table>thead>tr>td{font-weight:'+props.data.fontWeight+';color:'+props.data.color+'}\n');
-			$(container).find('#ib-inline-style').append('.table>thead>tr:nth-of-type(odd)>td{background-color:'+props.data.backgroundColorOdd+'}\n');
-			$(container).find('#ib-inline-style').append('.table>thead>tr:nth-of-type(even)>td{background-color:'+props.data.backgroundColorEven+'}\n');
+			styleContainer.append('.table>thead>tr>td{font-weight:'+props.data.fontWeight+';color:'+props.data.color+'}\n');
+			styleContainer.append('.table>thead>tr:nth-of-type(odd)>td{background-color:'+props.data.backgroundColorOdd+'}\n');
+			styleContainer.append('.table>thead>tr:nth-of-type(even)>td{background-color:'+props.data.backgroundColorEven+'}\n');
 
 			/* All cells padding */
-			$(container).find('#ib-inline-style').append('div.dataTables_wrapper .table>thead>tr>th,div.dataTables_wrapper .table>thead>tr>td'+
-			',div.dataTables_wrapper .table>tbody>tr>th,div.dataTables_wrapper .table>tbody>tr>td{padding:'+props.padding+'}\n');
-			
+			styleContainer.append(
+				'div.dataTables_wrapper .table>thead>tr>th,'+
+				'div.dataTables_wrapper .table>thead>tr>td,'+
+				'div.dataTables_wrapper .table>tbody>tr>th,'+
+				'div.dataTables_wrapper .table>tbody>tr>td'+
+				'{padding:'+props.padding+'}\n');
+
+			//this still fails when props.padding is less then 8px, but fixes case when >8px
+			styleContainer.append(
+				'div.dataTables_wrapper .table>thead .sorting_asc:after,'+
+				'div.dataTables_wrapper .table>thead .sorting_desc:after,'+
+				'div.dataTables_wrapper .table>thead .sorting:after'+
+				'{padding-bottom:calc('+props.padding+' - 8px)}\n');
+
+			//VIZ-1186 props.padding fix above was overriding default sorting badding
+			styleContainer.append(
+				'div.dataTables_wrapper .table>thead>tr>th.sorting_asc,'+
+				'div.dataTables_wrapper .table>thead>tr>th.sorting_desc,'+
+				'div.dataTables_wrapper .table>thead>tr>th.sorting,'+
+				'div.dataTables_wrapper .table>thead>tr>td.sorting_asc,'+
+				'div.dataTables_wrapper .table>thead>tr>td.sorting_desc,'+
+				'div.dataTables_wrapper .table>thead>tr>td.sorting'+
+				'{padding-right: max(30px,'+props.padding+')}\n');
+
 			/* Selected Row Style */
-			$(container).find('#ib-inline-style').append('table.dataTable tbody>tr.selected,table.dataTable tbody>tr>.selected{background-color:'+props.data.selected.backgroundColor+'}\n');
-			$(container).find('#ib-inline-style').append('.table>tbody>tr.selected>td{border-top:'+props.data.selected.border+'}\n');
-			$(container).find('#ib-inline-style').append('.table>tbody>tr.selected+tr>td{border-top:'+props.data.selected.border+'}\n');
-			
+			styleContainer.append('table.dataTable tbody>tr.selected,table.dataTable tbody>tr>.selected{background-color:'+props.data.selected.backgroundColor+'}\n');
+			styleContainer.append('.table>tbody>tr.selected>td{border-top:'+props.data.selected.border+'}\n');
+			styleContainer.append('.table>tbody>tr.selected+tr>td{border-top:'+props.data.selected.border+'}\n');
+
 			/* Cross Tab Style */
-			$(container).find('#ib-inline-style').append('.table-striped>thead>tr:nth-of-type>th.cross-tab{color:'+props.crossTabs.color+';font-weight:'+props.crossTabs.fontWeight+'}\n');
-			$(container).find('#ib-inline-style').append('.table-striped>thead>tr:nth-of-type(odd)>th.cross-tab{background-color:'+props.crossTabs.backgroundColorOdd+'}\n');
-			$(container).find('#ib-inline-style').append('.table-striped>thead>tr:nth-of-type(even)>th.cross-tab{background-color:'+props.crossTabs.backgroundColorEven+'}\n');		
-			
+			styleContainer.append('.table-striped>thead>tr:nth-of-type>th.cross-tab{color:'+props.crossTabs.color+';font-weight:'+props.crossTabs.fontWeight+'}\n');
+			styleContainer.append('.table-striped>thead>tr:nth-of-type(odd)>th.cross-tab{background-color:'+props.crossTabs.backgroundColorOdd+'}\n');
+			styleContainer.append('.table-striped>thead>tr:nth-of-type(even)>th.cross-tab{background-color:'+props.crossTabs.backgroundColorEven+'}\n');
+
 			$(container).append('<table class="table table-striped" style="width:100%"><thead></thead></table>');
-			
+
 			/* Add Across Heading */
 			for (var i=0; i<numberOfAcross; i++) {
 				/* Add New Heading Line */
@@ -430,14 +453,14 @@
 				var cls = typeof titleJSON[key].className==='undefined'? '' : ' class="'+titleJSON[key].className+'"';
 				$(container).find('.table.table-striped:first thead tr:last').append( '<th'+cls+'>'+titleJSON[key].title+'</th>' );
 			});
-			
+
 			/* Add Footer */
 			if (props.showTotal){
 				$(container).find('.table.table-striped:first').append('<tfoot><tr></tr></tfoot>');
 				Object.keys(titleJSON).forEach(function(key,index) {
 					var cls = typeof titleJSON[key].className==='undefined'? '' : ' class="'+titleJSON[key].className+'"';
 					$(container).find('.table.table-striped:first tfoot tr').append( '<th'+cls+'>&nbsp;</th>' );
-				});				
+				});
 			}
 
 			/* Load Datatables */
@@ -469,7 +492,7 @@
 				"footerCallback": !props.showTotal? false : function(row, data, start, end, display) {
 					var api = this.api(), data;
 					var numFormat = $.fn.dataTable.render.number(',', '.', 2, '').display;
- 
+
 					// Remove the formatting to get integer data for summation
 					var intVal = function (i) {
 						return typeof i === 'string'? i.replace(/[\$,]/g, '')*1 : typeof i === 'number' ? i : 0;
@@ -491,7 +514,7 @@
 								var className = 'riser!s0!g'+groupIds[m]+'!datatable!r'+dataIndex+'!c'+(i-numberOfBys)+'!';
 								$(row).children(':eq('+i+')').html('<span class="'+className+'">'+$(row).children(':eq('+i+')').text()+'</span>');
 								m++;
-							}							
+							}
 						}
 					}
 				}
@@ -507,10 +530,10 @@
 		//Start CHART-2935
 		$(container).on("touchend",function(e){ e.stopPropagation();});  //Stop event propagation assoicated with the touchend event set by tdgchart-min.js for the container's parent
 		//End CHART-2935
-		
+
 		renderConfig.renderComplete();
 	}
-	
+
 	function findIndex(arr, comparator) {
 		var index = -1;
 		arr.forEach(function(item, i){
@@ -523,12 +546,12 @@
 			});
 			if (match) {
 				index = i;
-				return false;				
+				return false;
 			}
 		});
 		return index;
 	}
-	
+
 	function orderBy(arr, columns) {
 		var sorted = arr.slice(0);
 
@@ -549,7 +572,7 @@
 
 		return sorted;
 	}
-	
+
 	function noDataRenderCallback(renderConfig) {
 		var container = renderConfig.container;
 		var grey = renderConfig.baseColor;
@@ -557,7 +580,7 @@
 		//renderConfig.dataBuckets = {"buckets":{"row":{"title":"A","count":1},"measure":{"title":"B","count":1}},"depth":1};
 		renderConfig.dataBuckets.buckets = [{"id":"row", "fields":[{"title":"A","fieldName":"A"}]},{id:"measure", "fields":[{"title":"B","fieldName":"B"}]}]; //CHART-2985
 		renderCallback(renderConfig);
-		
+
 		$(container).append('<div class="placeholder">Add measures or dimensions</div>');
 		$(container).find('.placeholder').height( $(container).height() );
 	}
@@ -574,7 +597,7 @@
 		initCallback: initCallback,
 		preRenderCallback: preRenderCallback,  // reference to a function that is called right *before* your extension is rendered.  Will be passed one 'preRenderConfig' object, defined below.  Use this to configure a Monbeam instance as needed
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
-		noDataPreRenderCallback: noDataPreRenderCallback, 
+		noDataPreRenderCallback: noDataPreRenderCallback,
 		noDataRenderCallback: noDataRenderCallback,
 		resources: {
 			script:
