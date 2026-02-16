@@ -1,6 +1,6 @@
 /*global tdgchart: false, document: false, setTimeout: false, Odometer: false */
 /* eslint-disable indent */
-/* Copyright (C) 1996-2023. Cloud Software Group, Inc. All rights reserved. */
+/* Copyright (C) 1996-2026. Cloud Software Group, Inc. All rights reserved. Confidential & Proprietary. */
 
 (function() {
 
@@ -40,7 +40,7 @@
 		theme = themes.includes(theme) ? theme : 'default';
 
 		var fontSize = renderConfig.properties.fontSize;
-		if (!fontSize) {
+		if (!fontSize || fontSize === "null") {
 			var digitCount = Math.log(Math.max(value, startValue, Math.abs(value + startValue))) * Math.LOG10E + 1 | 0;
 			var maxFontWidth = renderConfig.width / digitCount / themeScales[theme][0];
 			var maxFontHeight = renderConfig.height / themeScales[theme][1];
