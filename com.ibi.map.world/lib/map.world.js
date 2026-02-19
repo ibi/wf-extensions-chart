@@ -641,6 +641,7 @@ window.COM_IBI_MAP_WORLD.init = (function() {
       return cleanData.map(function( datum ){
         return {
           class: datum.elClassName, 
+          group: datum._g,
           d : pathFn( nameToTopoGeom[getCleanCountryName( datum.name )] ),
           color : colorScale( datum.value[0] ),
           tooltip: getTDGTitle(tooltipFn(datum))
