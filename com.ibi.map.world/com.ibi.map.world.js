@@ -89,7 +89,7 @@
 			props.onRenderComplete = function() {
 				container.selectAll('[class^=riser]')
 					.each(function(d, g) {
-						renderConfig.modules.tooltip.addDefaultToolTipContent(this, 0, d.group, d); //VIZ-1176, use group id instead of 'g' index to maintiain proper index accounting excluded countries
+						renderConfig.modules.tooltip.addDefaultToolTipContent(this, 0, d.group != null ? d.group : g, d); //VIZ-1176, use group id instead of 'g' index to maintiain proper index accounting excluded countries
 					});
 				renderConfig.renderComplete();
 			};

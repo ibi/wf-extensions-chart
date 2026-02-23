@@ -418,6 +418,7 @@ window.COM_IBI_MAP_WORLD.init = (function() {
         
 	var bubble = {
           class: datum.elClassName, 
+          group: datum._g,
           size: sizeScale( datum.value[0] ),
           color: colorScale ? colorScale(datum.value[1]) : defaultColorFn(idx),
           tooltip: getTDGTitle( tooltipFn(datum) ),
