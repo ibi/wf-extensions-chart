@@ -319,11 +319,13 @@ window.COM_IBI_MAP_WORLD.init = (function() {
     }
     
     function getDefaultColorScale( defaultColorStr ) {
-      return ( defaultColorStr === 'auto' )
-        ? function (i) {
-          return d3.schemeCategory20[i % d3.schemeCategory20.length];
-        }
-        : (function() { return this; }).bind(defaultType); 
+	    if ( defaultColorStr === 'auto') {
+		    var scheme = Array.isArray(d3.schemeCategory20) ? d3.schemeCategory20 : d3.schemeCategory10; //d3 v5 dropped support for schemeCategory20
+		    return function (i) {
+			    return scheme[i % scheme.length];
+		    }
+	    }
+	    return  (function() { return this; }).bind(defaultType);
     }
 
     function getHasColorLegend ( data, props ) {
