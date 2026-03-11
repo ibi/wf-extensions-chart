@@ -48,6 +48,7 @@ To configure or customize your extension edit "properties" object in properties.
 			"fixedFontSizeProp": "18px", // font size for all text if they havent specified any one
 			"fixedPixelLinesMargin": 20, // margin betwen lines
 			"imagePercentageWidth": 30, // image width in percentaje
+			"imageSize": "100%", // Image background-size
 			"comparationTitle":false, // true/false "show title of comparison"
 			"comparationValue":false, // true/false "show value of comparison"
 			"textAlign":false, // deprecated use contenCenter true/false "alignt to center"

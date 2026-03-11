@@ -92,6 +92,7 @@
             fixedFontSizeProp = ib3SLI.config.getProperty('kpiboxProperties.fixedFontSizeProp') || '20px',
             fixedPixelLinesMargin = ib3SLI.config.getProperty('kpiboxProperties.fixedPixelLinesMargin') || 0,
             imagePercentageWidth = ib3SLI.config.getProperty('kpiboxProperties.imagePercentageWidth'),
+            imageSize = ib3SLI.config.getProperty('kpiboxProperties.imageSize') || 'contain',
             wfPath = ib3SLI.config.getProperty('kpiboxProperties.ibiAppsPath'),
             comparationTitle = ib3SLI.config.getProperty('kpiboxProperties.comparationTitle'),
             comparationValue = ib3SLI.config.getProperty('kpiboxProperties.comparationValue'),
@@ -193,7 +194,10 @@
         function setImage() {
             if (hasImage) {
                 var _imageURL = $ib3.utils.getWebFOCUSUriByResourcePath(kpiDataElem.image, wfPath);
-                $('.kpiBoximageIcon', window.comIbiKpiboxChartExtension.container).css('background-image', 'url(' + _imageURL + ')');
+                $('.kpiBoximageIcon', window.comIbiKpiboxChartExtension.container).css({
+                    'background-image': 'url(' + _imageURL + ')',
+                    'background-size': imageSize,
+                });
             } else {
                 $('.kpiBoximage', window.comIbiKpiboxChartExtension.container).remove();
             }
