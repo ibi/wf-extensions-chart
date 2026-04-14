@@ -1,5 +1,5 @@
 /*global tdgchart: false, pv: false, d3: false */
-/* Copyright (C) 1996-2023. Cloud Software Group, Inc. All rights reserved. */
+/* Copyright (C) 1996-2026. Cloud Software Group, Inc. All rights reserved. Confidential & Proprietary. */
 
 (function() {
 
@@ -137,13 +137,18 @@
 		// Example of manually loading a file in this extension's folder path and using it.
 		var info = tdgchart.util.ajax(preRenderConfig.loadPath + 'lib/extra_properties.json', {asJSON: true});
 
-		// Example of using the chart engine's built in title properties
-		chart.title.visible = false;
-		chart.title.text = info.custom_title;
-//		chart.title.text = 'Cool Visualisation!';
-		chart.footnote.visible = false;
-		chart.footnote.text = 'xxxxxxxx';
-		chart.footnote.align = 'right';
+		// Only set heading title if not already set by user
+		if (!chart.title.text || chart.title.text === info.custom_title) {
+			chart.title.text = info.custom_title;
+		}
+		// Make heading title visible if text is set
+		chart.title.visible = !!chart.title.text;
+		
+		// Only set footnote if not already set by user
+		if (!chart.footnote.text) {
+			chart.footnote.text = "";
+		}
+		chart.footnote.visible = !!chart.footnote.text;
 	}
 
 	// Required: Invoked during each chart engine draw cycle
