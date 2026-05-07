@@ -1,5 +1,5 @@
 /*global tdgchart: false, pv: false, d3: false */
-/* Copyright (C) 1996-2023. Cloud Software Group, Inc. All rights reserved. */
+/* Copyright (C) 1996-2026. Cloud Software Group, Inc. All rights reserved. Confidential & Proprietary. */
 
 (function() {
 
@@ -127,25 +127,6 @@
             });
     }
 
-	// Optional: if defined, is invoked once at the very beginning of each chart engine draw cycle
-	// Use this to configure a specific chart engine instance before rendering.
-	// Arguments:
-	//  - preRenderConfig: the standard callback argument object
-	function preRenderCallback(preRenderConfig) {
-		var chart = preRenderConfig.moonbeamInstance;
-
-		// Example of manually loading a file in this extension's folder path and using it.
-		var info = tdgchart.util.ajax(preRenderConfig.loadPath + 'lib/extra_properties.json', {asJSON: true});
-
-		// Example of using the chart engine's built in title properties
-		chart.title.visible = false;
-		chart.title.text = info.custom_title;
-//		chart.title.text = 'Cool Visualisation!';
-		chart.footnote.visible = false;
-		chart.footnote.text = 'xxxxxxxx';
-		chart.footnote.align = 'right';
-	}
-
 	// Required: Invoked during each chart engine draw cycle
 	// This is where your extension should be rendered
 	// Arguments:
@@ -178,7 +159,6 @@
 		id: 'com.ibi.corona',     // string that uniquely identifies this extension
 		containerType: 'svg',  // either 'html' or 'svg' (default)
 		initCallback: initCallback,
-		preRenderCallback: preRenderCallback,  // reference to a function that is called right *before* your extension is rendered.  Will be passed one 'preRenderConfig' object, defined below.  Use this to configure a Moonbeam instance as needed
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
 		noDataPreRenderCallback: noDataPreRenderCallback,
 		noDataRenderCallback: noDataRenderCallback,
