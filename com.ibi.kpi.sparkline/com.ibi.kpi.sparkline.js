@@ -1,4 +1,4 @@
-/* Copyright (C) 1996-2023. Cloud Software Group, Inc. All rights reserved. */
+/* Copyright (C) 1996-2026. Cloud Software Group, Inc. All rights reserved. Confidential & Proprietary. */
 
 (function() {
 
@@ -38,19 +38,6 @@
 	// - initConfig: the standard callback argument object (moonbeamInstance, data, properties, etc)
 	function initCallback(successCallback, initConfig) {
 		successCallback(true);
-	}
-	
-	// Optional: if defined, is invoked once at the very beginning of each chart engine draw cycle
-	// Use this to configure a specific chart engine instance before rendering.
-	// Arguments:
-	//  - preRenderConfig: the standard callback argument object
-	function preRenderCallback(preRenderConfig) {
-		var chart = preRenderConfig.moonbeamInstance;
-		chart.title.visible = false;
-		chart.title.text = "My DataGrid";  // contrived example
-		chart.footnote.visible = false;
-		chart.footnote.text = "footnote";
-		chart.footnote.align = 'right';
 	}
 	
 	function noDataPreRenderCallback(preRenderConfig) {
@@ -220,7 +207,6 @@
 		id: 'com.ibi.kpi.sparkline',     // string that uniquely identifies this extension
 		containerType: 'html',  // either 'html' or 'svg' (default)
 		initCallback: initCallback,
-		preRenderCallback: preRenderCallback,  // reference to a function that is called right *before* your extension is rendered.  Will be passed one 'preRenderConfig' object, defined below.  Use this to configure a Monbeam instance as needed
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
 		noDataPreRenderCallback: noDataPreRenderCallback,
 		noDataRenderCallback: noDataRenderCallback,
