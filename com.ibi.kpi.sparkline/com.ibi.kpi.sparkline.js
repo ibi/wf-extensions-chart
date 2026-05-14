@@ -104,7 +104,15 @@
 			}
 			
 			var title = dataBuckets.measure.title;
-			$(container).css('top','0px').append('<div class="kpi-container" style="font-family:'+props.fontFamily+';font-size:'+props.fontSize+';color:'+props.color+'"></div>');
+			var allocatedHeight = (renderConfig.height && renderConfig.height > 0) ? renderConfig.height : null;
+			if (allocatedHeight) {
+				$(container).css({
+					'overflow': 'hidden',
+					'height': allocatedHeight + 'px',
+					'box-sizing': 'border-box'
+				});
+			}
+			$(container).append('<div class="kpi-container" style="font-family:'+props.fontFamily+';font-size:'+props.fontSize+';color:'+props.color+'"></div>');
 			var kpiContainer = $(container).find('.kpi-container');
 
 			var squareLayout = $(container).width() < 250;
