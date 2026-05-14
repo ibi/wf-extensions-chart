@@ -1,4 +1,4 @@
-// Copyright (C) 1996-2023. Cloud Software Group, Inc. All rights reserved.
+// Copyright (C) 1996-2026. Cloud Software Group, Inc. All rights reserved. Confidential & Proprietary.
 // Corona Chart HTML 5 Extension JavaScript
 // Written by   : Anthony Alsford
 // Date Created : 20th November 2017
@@ -26,32 +26,14 @@ function com_ibi_corona_drawChart(data,svgContainer,width,height,arrBuckets,prop
 
   var topMargin = 0, bottomMargin = 0, leftMargin = 0, rightMargin = 0;
   
-// First calculate the actual plot size.
-// This will be width - leftMargin - rightMargin
-//          and height - topMargin - bottomMargin
+  var plotWidth = width - leftMargin - rightMargin;
+  var plotHeight = height - topMargin - bottomMargin;
 
-  if ((width - leftMargin - rightMargin) < 250) {
-    var plotWidth = 250;
-  } else {
-    var plotWidth = width - leftMargin - rightMargin;
-  }
-  if ((height - topMargin - bottomMargin) < 250) {
-    var plotHeight = 250;
-  } else {
-    var plotHeight = height - topMargin - bottomMargin;
-  }
+  var plotSize = (plotWidth < plotHeight) ? plotWidth : plotHeight;
+  var centerOffsetX = (plotWidth - plotSize) / 2;
+  var centerOffsetY = (plotHeight - plotSize) / 2;
+  svgContainer = svgContainer.append("g").attr("transform", "translate(" + centerOffsetX + "," + centerOffsetY + ")");
 
-// Now centre the SVG element
-  if (width > height) {
-    var padding = (width - height) / 2;
-    d3.selectAll("svg")
-        .style("padding-left", padding+"px");
-  } else {
-    var padding = (height - width) / 2;
-    d3.selectAll("svg")
-        .attr("style", "padding-top:"+padding+"px");
-  }
-  
   var strokeType = "cardinal-closed";
 //  var strokeType = "linear";
   var centreX = 1000;
