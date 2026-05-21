@@ -101,10 +101,6 @@ function com_ibi_dygraph_drawChart(data,rootContainer,rootWidth, rootHeight,char
 		, bdy = doc.getElementsByTagName("body")[0]
 		, screenWidth = screen.width;
 
-	// Allow the chart title defined within Moonbeam to override that set in the properties
-	// This will allow multigraph settings to provide a data related value rather than the same throughout.
-	props.title = chart.title.text === '' ? props.title : chart.title.text;
-
 	// Some properties are not aligned with the area of interest such as xLabelHeight and yLabelWidth
 	// so they have been "realigned" and need to be reassigned here
 	props.xLabelHeight = props.axes.x.axisLabelHeight;
