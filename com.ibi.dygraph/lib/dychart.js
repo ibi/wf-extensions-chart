@@ -1,4 +1,4 @@
-// Copyright (C) 2021-2025. Cloud Software Group, Inc. All rights reserved.
+// Copyright (C) 2021-2026. Cloud Software Group, Inc. All rights reserved. Confidential & Proprietary.
 // DyGraph Chart HTML 5 Extension JavaScript
 // Written by   : Anthony Alsford
 // Date Created : 19th February 2018
@@ -101,10 +101,6 @@ function com_ibi_dygraph_drawChart(data,rootContainer,rootWidth, rootHeight,char
 		, bdy = doc.getElementsByTagName("body")[0]
 		, screenWidth = screen.width;
 
-	// Allow the chart title defined within Moonbeam to override that set in the properties
-	// This will allow multigraph settings to provide a data related value rather than the same throughout.
-	props.title = chart.title.text === '' ? props.title : chart.title.text;
-
 	// Some properties are not aligned with the area of interest such as xLabelHeight and yLabelWidth
 	// so they have been "realigned" and need to be reassigned here
 	props.xLabelHeight = props.axes.x.axisLabelHeight;
@@ -122,8 +118,6 @@ function com_ibi_dygraph_drawChart(data,rootContainer,rootWidth, rootHeight,char
 
 	var rootDivStyle = rootContainer.node(0).style;
 	var chartDiv = chartContainer.node(0);
-	rootDivStyle.top = "0";
-	rootDivStyle.left = "0";
 	rootDivStyle.marginTop = main_margin.top + "px";
 	rootDivStyle.marginLeft = main_margin.left + "px";
 	rootDivStyle.marginBottom = main_margin.bottom + "px";
@@ -132,6 +126,7 @@ function com_ibi_dygraph_drawChart(data,rootContainer,rootWidth, rootHeight,char
 	rootDivStyle.height = rootHeight - main_margin.top - main_margin.bottom + "px";
 	chartDiv.style.width = width - main_margin.left - main_margin.right + "px";
 	chartDiv.style.height = height - main_margin.top - main_margin.bottom + "px";
+	chartDiv.style.position = "relative";
 
 	//BEGIN VIZ-378
 	if(com_ibi_dygraph_mygraph == null)
