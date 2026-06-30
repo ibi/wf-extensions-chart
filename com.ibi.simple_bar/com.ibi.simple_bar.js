@@ -54,6 +54,49 @@
 		renderCallback(renderConfig);
 	}
 
+	// Optional: if defined, is invoked once at the very beginning of each chart engine draw cycle
+	// Use this to configure a specific chart engine instance before rendering.
+	// Arguments:
+	//  - preRenderConfig: the standard callback argument object
+	//
+	// We kept this code for documentation purposes and to show how this feature is implemented.
+	// If anyone wants to use or extend this functionality in the future, they can refer to this section.
+	function preRenderCallback(preRenderConfig) {
+		var chart = preRenderConfig.moonbeamInstance;
+
+		// Example of manually loading a file in this extension's folder path and using it.
+		// var info = tdgchart.util.ajax(preRenderConfig.loadPath + 'lib/extra_properties.json', {asJSON: true});
+
+		/* Logic before CHART-1935 NFR	
+			// Example of using the chart engine's built in title properties
+			chart.title.visible = true;
+			chart.title.text = info.custom_title;
+			chart.footnote.visible = true;
+			chart.footnote.text = 'footnote';
+			chart.footnote.align = 'right';
+		*/
+		
+		//Start CHART-1935 NFR
+		
+			if (!chart.title.visible){    //Developer has not set HEADING in GRAPH request; so use custom title found in: preRenderConfig.loadPath + 'lib/extra_properties.json'
+				// Example of using the chart engine's built in title properties
+				chart.title.visible = true;
+				chart.title.text = info.custom_title;	
+			} // if (!chart.title.visible) //Developer has not set FOOTING in GRAPH request; so use 'footnote' text to illustrate how custom programmatic footing can be assinged to chart
+			
+			if (!chart.footnote.visible) {
+			chart.footnote.visible = true;
+			chart.footnote.text = 'footnote';
+			chart.footnote.align = 'right';			
+				
+			} //if (!chart.footnote.visible)
+		
+		
+		//End CHART-1935 NFR
+		
+		
+	}
+
 	// Required: Invoked during each chart engine draw cycle
 	// This is where your extension should be rendered
 	// Arguments:
@@ -72,6 +115,10 @@
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_ibi_chart');
 
+		// Optional (shown here for demonstration): define an SVG clipPath sized to this
+		// extension's container so that any risers extending past width/height are clipped
+		// to the drawing area. The clipPath id is prefixed with containerIDPrefix so that
+		// multiple copies of this extension on the same page do not collide.
 		var clipId = renderConfig.containerIDPrefix + 'simple_bar_clip';
 		container.append('defs').append('clipPath')
 			.attr('id', clipId)
@@ -247,6 +294,7 @@
 		id: 'com.ibi.simple_bar',     // string that uniquely identifies this extension
 		containerType: 'svg',  // either 'html' or 'svg' (default)
 		initCallback: initCallback,
+		preRenderCallback: preRenderCallback,  // reference to a function that is called right *before* your extension is rendered.  Will be passed one 'preRenderConfig' object, defined below.  Use this to configure a Monbeam instance as needed
 		renderCallback: renderCallback,  // reference to a function that will draw the actual chart.  Will be passed one 'renderConfig' object, defined below
 		noDataPreRenderCallback: noDataPreRenderCallback,
 		noDataRenderCallback: noDataRenderCallback,
