@@ -1,5 +1,5 @@
 /*global tdgchart: false, pv: false, d3: false */
-/* Copyright (C) 1996-2023. Cloud Software Group, Inc. All rights reserved. */
+/* Copyright (C) 1996-2026. Cloud Software Group, Inc. All rights reserved. Confidential & Proprietary.. */
 
 (function() {
 
@@ -58,11 +58,14 @@
 	// Use this to configure a specific chart engine instance before rendering.
 	// Arguments:
 	//  - preRenderConfig: the standard callback argument object
+	//
+	// We kept this code for documentation purposes and to show how this feature is implemented.
+	// If anyone wants to use or extend this functionality in the future, they can refer to this section.
 	function preRenderCallback(preRenderConfig) {
 		var chart = preRenderConfig.moonbeamInstance;
 
 		// Example of manually loading a file in this extension's folder path and using it.
-		var info = tdgchart.util.ajax(preRenderConfig.loadPath + 'lib/extra_properties.json', {asJSON: true});
+		// var info = tdgchart.util.ajax(preRenderConfig.loadPath + 'lib/extra_properties.json', {asJSON: true});
 
 		/* Logic before CHART-1935 NFR	
 			// Example of using the chart engine's built in title properties
@@ -111,6 +114,18 @@
 
 		var container = d3.select(renderConfig.container)
 			.attr('class', 'com_ibi_chart');
+
+		// Optional (shown here for demonstration): define an SVG clipPath sized to this
+		// extension's container so that any risers extending past width/height are clipped
+		// to the drawing area. The clipPath id is prefixed with containerIDPrefix so that
+		// multiple copies of this extension on the same page do not collide.
+		var clipId = renderConfig.containerIDPrefix + 'simple_bar_clip';
+		container.append('defs').append('clipPath')
+			.attr('id', clipId)
+			.append('rect')
+			.attr('width', w)
+			.attr('height', h);
+		container.attr('clip-path', 'url(#' + clipId + ')');
 
 		// If there's nothing in series_break, dataBuckets.depth will be 1 and data will be a flat array of datum objects.
 		// Normalize whether we have a series_break or not by forcing internal data to always have two aray dimensions.
