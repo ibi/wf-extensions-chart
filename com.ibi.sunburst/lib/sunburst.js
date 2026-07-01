@@ -396,9 +396,16 @@ var tdg_sunburst = (function () {
 
           if (el.name === 'ratio') {
             var ratio = d.value / d.parent.value;
-            str += (formatMap.ratio) ? formatMap.ratio(ratio) : ratio;
+            //VIZ-1240: format ratio via autoNumberFormats.tooltip (dynamic precision by magnitude);
+            //pass 100*ratio so tiers apply to 0-100 range, append '%' manually.
+            //Falls back to d3.format('%') from toolTip.elements if chart formatNumber unavailable.
+            var tooltipFormat = props.chart && props.chart.autoNumberFormats && props.chart.autoNumberFormats.tooltip;
+            var formattedRatio = (tooltipFormat && props.formatNumber)
+              ? props.formatNumber(100 * ratio, tooltipFormat) + '%'
+              : (formatMap.ratio ? formatMap.ratio(ratio) : ratio);
+            str += formattedRatio;
             //Start CHART-3304
-            toolTipContent['ratio'] = (formatMap.ratio) ? formatMap.ratio(ratio) : ratio;
+            toolTipContent['ratio'] = formattedRatio;
             //End CHART-3304
           } else if (el.name === 'value' && props.toolTip.valueFormat && props.formatNumber) {
             str += props.formatNumber(
@@ -463,40 +470,31 @@ var tdg_sunburst = (function () {
       return root;
     }
 
-  //VIZ-517 - added a hard coded style as not sure how the moonbeam Tooltip API works
-  function hardCodedTooltipStyle(tooltipID)
-  {
-    var tooltipHTML = [];
+    //VIZ-517 - added a hard coded style as not sure how the moonbeam Tooltip API works
+    function hardCodedTooltipStyle(tooltipID) {
+      var tooltipHTML = [];
 
-    tooltipHTML.push('.'+tooltipID+'.tdgchart-tooltip {');
-    tooltipHTML.push('font: 10pt Sans-Serif !important;');
-    tooltipHTML.push('color: white !important;');
-    tooltipHTML.push('background: #000000 !important;');
-    tooltipHTML.push('border: 1px solid #000000 !important;');
-    tooltipHTML.push('border-radius: 4px !important;');
-    tooltipHTML.push('cursor: default !important;');
-    tooltipHTML.push('box-shadow: 0px 3px 4px 0px rgba(50, 50, 50, 0.66) !important;');
-    tooltipHTML.push("	filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#D2D2D2',GradientType=0) !important;");
-    tooltipHTML.push('}');
-    tooltipHTML.push('.tdgchart-tooltip-pad {');
-    tooltipHTML.push('	padding: 3px .4em 3px .4em;');
-    tooltipHTML.push('}');
-    tooltipHTML.push('.tdgchart-tooltip-submenu-pad {');
-    tooltipHTML.push('padding-right: 1em;');
-    tooltipHTML.push('}');
-    tooltipHTML.push('.'+tooltipID+'.tdgchart-tooltip-name { color: white !important; }');
-    tooltipHTML.push('.'+tooltipID+'.tdgchart-tooltip-value { color: white !important; }');
-    // tooltipHTML.push('');
-    // tooltipHTML.push('');
-    // tooltipHTML.push('');
-    // tooltipHTML.push('');
-    // tooltipHTML.push('');
-    // tooltipHTML.push('');
-    // tooltipHTML.push('');
-    // tooltipHTML.push('');
+      tooltipHTML.push('.'+tooltipID+'.tdgchart-tooltip {');
+      tooltipHTML.push('font: 10pt Sans-Serif !important;');
+      tooltipHTML.push('color: white !important;');
+      tooltipHTML.push('background: #000000 !important;');
+      tooltipHTML.push('border: 1px solid #000000 !important;');
+      tooltipHTML.push('border-radius: 4px !important;');
+      tooltipHTML.push('cursor: default !important;');
+      tooltipHTML.push('box-shadow: 0px 3px 4px 0px rgba(50, 50, 50, 0.66) !important;');
+      tooltipHTML.push("filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAFAFA', endColorstr='#D2D2D2',GradientType=0) !important;");
+      tooltipHTML.push('}');
+      tooltipHTML.push('.tdgchart-tooltip-pad {');
+      tooltipHTML.push('padding: 3px .4em 3px .4em;');
+      tooltipHTML.push('}');
+      tooltipHTML.push('.tdgchart-tooltip-submenu-pad {');
+      tooltipHTML.push('padding-right: 1em;');
+      tooltipHTML.push('}');
+      tooltipHTML.push('.'+tooltipID+'.tdgchart-tooltip-name { color: white !important; }');
+      tooltipHTML.push('.'+tooltipID+'.tdgchart-tooltip-value { color: white !important; }');
 
-    return tooltipHTML.join(' ');
-  }
+      return tooltipHTML.join(' ');
+    }
 
     function renderSunburst(group_main, onRenderComplete) {
 
@@ -683,9 +681,10 @@ var tdg_sunburst = (function () {
 
         var bSingleDrill = (chart.eventDispatcher.events.length != 0); //Possibly scenarios (3) or (4)
 
-        //Because moudules.tooltip is enabled, chart.series will always have at least one object with 'tooltip' sub-property.  
-        // If there's more than original data buckets, then developer added some tooltip fields.
-        aToolTips = chart.series.find(function (obj) { return "tooltip" in obj }).tooltip;
+        //VIZ-1240: If any series object has a 'tooltip' sub-property, the user added tooltip fields.
+        //guard against find() returning undefined when no tooltip fields are configured.
+        var tooltipSeriesObj = chart.series.find(function (obj) { return "tooltip" in obj });
+        var aToolTips = tooltipSeriesObj ? tooltipSeriesObj.tooltip : [];
 
         var numFields = 0;
         chart.dataBuckets.buckets.forEach(function (bucket) { numFields += bucket.fields.length; })
@@ -712,7 +711,7 @@ var tdg_sunburst = (function () {
 
       } //else	
 
-      bNewToolTip = (scenario == 2 || scenario == 4 || scenario == 5 || scenario == 6); //Overrides original tooltip
+      var bNewToolTip = (scenario == 2 || scenario == 4 || scenario == 5 || scenario == 6);
 
       function fnSingleDrillDown(chart, offset, data) {
         var dispatcher = chart.eventDispatcher.events.find(function (obj) { return obj.series == 0 });
@@ -721,40 +720,44 @@ var tdg_sunburst = (function () {
         return { url: localURL, target: dispatcher.target ? dispatcher.target : "_self" };
       } // fnSingleDrillDown		
 
-      //Create a generic base tooltip template for scenarios 1 and 3
-      var contentCopy = chart.dataBuckets.buckets[0].fields.map(
-        function (level, i) {
-          return { type: "nameValue", name: level.title, value: '{{extension_bucket(\"levels\",' + i + ')}}' }
-        });
-      contentCopy.push({ type: "nameValue", name: chart.dataBuckets.buckets[1].fields[0].title, value: null });
-
-      var chart = props.chart;
+      //VIZ-1240: Use exactly the tooltip fields the user configured in the tool.
+      //If none were configured (aToolTips is empty), contentCopy is empty and nothing is shown.
+      var contentCopy = aToolTips.slice(0);
 
       switch (scenario) {
-        case 4: //Single drill, with developer supplied tooltip										
+        case 4: //Single drill, with developer supplied tooltip
         case 2: //No drill, with developer supplied tooltip
-        case 5: //Multidrill, no developer supplied tooltip 
+        case 5: //Multidrill, no developer supplied tooltip
         case 6: //Multidrill with developer supplied tooltip
 
           //Use moonbeam tooltip layout as a template
-          var contentCopy = chart.getSeries(0).tooltip.slice(0);    //Make an exact copy of the base tootip content array.					
-
-        case 3:	//Build tooltip and fnSingleDrillDown	
+          var contentCopy = chart.getSeries(0).tooltip.slice(0);    //Make an exact copy of the base tootip content array.
+          // falls through
+        case 3:	//Build tooltip and fnSingleDrillDown
           if (scenario == 3 || scenario == 4) {
             contentCopy.push({ type: "separator" });
             contentCopy.push({ entry: "Drill Down", url: null, target: null });
           } //if
+          // falls through
         case 1: //Original tooltip, no drills, no added developer side tooltips	
 
-          separatorIndex = contentCopy.findIndex(function (elem) { return elem.type == "separator" })
+          var separatorIndex = contentCopy.findIndex(function (elem) { return elem.type == "separator" })
 
-          //Value for ratio will be replaced when tooltip is built.  It either before the separator or last entry of tooltip	
-          if (separatorIndex != -1) {
-            contentCopy.splice(separatorIndex, 0, { type: "nameValue", name: "ratio", value: null }); //http://www.javascripttutorial.net/javascript-array-splice/
-          } //if
-          else {
-            contentCopy.push({ type: "nameValue", name: "ratio", value: null });
-          } //else
+          //VIZ-1240: Only add ratio when the value measure is present in contentCopy — if the user
+          //turned off the value field, ratio (value/parent.value) is meaningless.
+          var valueFieldTitle = chart.dataBuckets.buckets[1].fields[0].title;
+          var bValueFieldPresent = contentCopy.some(function (tipLine) {
+            return tipLine.type === "nameValue" && tipLine.name === valueFieldTitle;
+          });
+          if (bValueFieldPresent) {
+            //Value for ratio will be replaced when tooltip is built. Insert before separator or append last.
+            if (separatorIndex != -1) {
+              contentCopy.splice(separatorIndex, 0, { type: "nameValue", name: "ratio", value: null }); //http://www.javascripttutorial.net/javascript-array-splice/
+            } //if
+            else {
+              contentCopy.push({ type: "nameValue", name: "ratio", value: null });
+            } //else
+          } //if bValueFieldPresent
 
           // Code fix VIZ-131: if (d3.select("#sunburstTooltipId").node() == null) {    //re-sizing of window calls renderCallback; so only create tooltip once
 
@@ -834,14 +837,17 @@ var tdg_sunburst = (function () {
 
             //if (d3.select("#sunburstTooltipId").node().style.visibility == "visible") return;
 
-            //The value field in databuckets is assigned the value calcualted for the appropriate level
-            contentCopy[contentCopy.findIndex(function (tipLine) {
+            //The value field in databuckets is assigned the value calculated for the appropriate level.
+            //Guard with index check — the user may have turned off the value or ratio fields.
+            var valueUpdateIdx = contentCopy.findIndex(function (tipLine) {
               return tipLine.type == "nameValue" && tipLine.name == chart.dataBuckets.buckets[1].fields[0].title;
-            })].value = d.orignalToolTipContent.value;
+            });
+            if (valueUpdateIdx !== -1) contentCopy[valueUpdateIdx].value = d.orignalToolTipContent.value;
             //Use original value for calculated ratio
-            contentCopy[contentCopy.findIndex(function (tipLine) {
+            var ratioUpdateIdx = contentCopy.findIndex(function (tipLine) {
               return tipLine.type == "nameValue" && tipLine.name == "ratio";
-            })].value = d.orignalToolTipContent.ratio;
+            });
+            if (ratioUpdateIdx !== -1) contentCopy[ratioUpdateIdx].value = d.orignalToolTipContent.ratio;
 
             var offset = findFirstOffset(d);	//Find the original data associated with the outer ring or inner derived rings
 
@@ -883,6 +889,10 @@ var tdg_sunburst = (function () {
             } //else
 
             var ids = { series: 0, group: offset };
+            if (filteredToolTipContent.length === 0) {
+              tooltip.hide();
+              return;
+            }
             //if (tooltip.dom.style.visibility ==  "hidden") {	
             tooltip
               .content(filteredToolTipContent, props.data[offset], props.data, ids)

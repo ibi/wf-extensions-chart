@@ -1,4 +1,4 @@
-/* Copyright (C) 2015-2023. Cloud Software Group, Inc. All rights reserved. */
+/* Copyright (C) 2015-2026. Cloud Software Group, Inc. All rights reserved. Confidential & Proprietary. */
 /* globals _*/
 (function() {
 	// Optional: if defined, is invoked once at the very beginning of each Moonbeam draw cycle
