@@ -126,7 +126,9 @@ function com_ibi_dygraph_drawChart(data,rootContainer,rootWidth, rootHeight,char
 	rootDivStyle.height = rootHeight - main_margin.top - main_margin.bottom + "px";
 	chartDiv.style.width = width - main_margin.left - main_margin.right + "px";
 	chartDiv.style.height = height - main_margin.top - main_margin.bottom + "px";
-	chartDiv.style.position = "relative";
+	if (rootContainer.node(0) !== chartDiv) {
+		chartDiv.style.position = "relative";
+	}
 
 	//BEGIN VIZ-378
 	if(com_ibi_dygraph_mygraph == null)
