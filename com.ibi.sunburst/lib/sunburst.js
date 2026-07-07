@@ -95,68 +95,8 @@ var tdg_sunburst = (function () {
     return res;
   }
 
-  function getDataHelper(data) {
-    var allNodes = [], allEdges = [], nodeValueMap = {},
-      nodes;
-
-    var uniqueEdgesMap = {};
-
-    data.forEach(function (d) {
-      if (!Array.isArray(d.levels)) {
-        nodes = [d.levels];
-      } else {
-        nodes = d.levels.slice();
-      }
-
-      nodes.reduce(function (prev, cur) { // populate unique edges
-        if (typeof prev === 'string' && typeof cur === 'string' && !uniqueEdgesMap[prev + cur]) {
-          uniqueEdgesMap[prev + cur] = true;
-          allEdges.push([prev, cur]);
-        }
-        return cur;
-      });
-
-      nodes.forEach(function (node) {
-        if (typeof node === 'string' && allNodes.indexOf(node) < 0) {
-          allNodes.push(node);
-        }
-      });
-
-      if (d.value != null) {
-        nodes.forEach(function (node) {
-          if (nodeValueMap[node] == null) {
-            nodeValueMap[node] = 0;
-          }
-          nodeValueMap[node] += d.value;
-        });
-      }
-
-    });
-
-    var domain = [Infinity, -Infinity];
-
-    for (var key in nodeValueMap) {
-      if (nodeValueMap.hasOwnProperty(key)) {
-        if (nodeValueMap[key] < domain[0]) {
-          domain[0] = nodeValueMap[key];
-        }
-        if (nodeValueMap[key] > domain[1]) {
-          domain[1] = nodeValueMap[key];
-        }
-      }
-    }
-
-    return {
-      nodes: allNodes,
-      edges: allEdges,
-      nodeValueMap: nodeValueMap,
-      domain: domain
-    };
-  }
-
   // converts moonbeam hierarchical dataset into the one that d3.layout.partition requires
   function getFixedDataSet(data, fakeRootName) {
-    var roots, root;
     if (!Array.isArray(data)) {
       return;
     }
@@ -271,7 +211,7 @@ var tdg_sunburst = (function () {
       var domain = colorScale.domain(),
         range = colorScale.range();
 
-      var range = domain.reduce(function (range, group, idx, domain) {
+      range = domain.reduce(function (range, group, idx) {
         return (group.indexOf('-odd') !== -1 && range[idx - 1] != null)
           ? range.slice(0, idx)
             .concat(d3.hsl(range[idx - 1])
@@ -499,6 +439,7 @@ var tdg_sunburst = (function () {
     function renderSunburst(group_main, onRenderComplete) {
 
       var data = getFixedDataSet(getData(), innerProps.fakeRootName);
+      if (!data) { return; }
 
       var radius = Math.min(props.width, props.height) / 2 * innerProps.radiusRatio;
 
@@ -671,7 +612,9 @@ var tdg_sunburst = (function () {
       } //function		
 
 
-      if (chart.eventDispatcher == undefined) { 				//IA development environment does not have access to drill downs
+      var aToolTips = [];
+
+      if (!chart || chart.eventDispatcher == undefined) { 				//IA development environment does not have access to drill downs
 
         var scenario = 1;										//So display default/original tooltip in IA
 
@@ -684,10 +627,7 @@ var tdg_sunburst = (function () {
         //VIZ-1240: If any series object has a 'tooltip' sub-property, the user added tooltip fields.
         //guard against find() returning undefined when no tooltip fields are configured.
         var tooltipSeriesObj = chart.series.find(function (obj) { return "tooltip" in obj });
-        var aToolTips = tooltipSeriesObj ? tooltipSeriesObj.tooltip : [];
-
-        var numFields = 0;
-        chart.dataBuckets.buckets.forEach(function (bucket) { numFields += bucket.fields.length; })
+        aToolTips = tooltipSeriesObj ? tooltipSeriesObj.tooltip : [];
 
         // //Possibly scenarios (2), (4), (6) or (5)
         var bNewTooltipColumns = aToolTips.filter(function (tipLine) { return tipLine.hasOwnProperty("value") })
@@ -710,8 +650,6 @@ var tdg_sunburst = (function () {
           ].findIndex(function (element) { return element == true });
 
       } //else	
-
-      var bNewToolTip = (scenario == 2 || scenario == 4 || scenario == 5 || scenario == 6);
 
       function fnSingleDrillDown(chart, offset, data) {
         var dispatcher = chart.eventDispatcher.events.find(function (obj) { return obj.series == 0 });
@@ -745,8 +683,11 @@ var tdg_sunburst = (function () {
 
           //VIZ-1240: Only add ratio when the value measure is present in contentCopy — if the user
           //turned off the value field, ratio (value/parent.value) is meaningless.
-          var valueFieldTitle = chart.dataBuckets.buckets[1].fields[0].title;
-          var bValueFieldPresent = contentCopy.some(function (tipLine) {
+          var valueField = chart && chart.dataBuckets && chart.dataBuckets.buckets &&
+            chart.dataBuckets.buckets[1] && Array.isArray(chart.dataBuckets.buckets[1].fields) &&
+            chart.dataBuckets.buckets[1].fields[0];
+          var valueFieldTitle = valueField ? valueField.title : null;
+          var bValueFieldPresent = valueFieldTitle !== null && contentCopy.some(function (tipLine) {
             return tipLine.type === "nameValue" && tipLine.name === valueFieldTitle;
           });
           if (bValueFieldPresent) {
@@ -840,7 +781,7 @@ var tdg_sunburst = (function () {
             //The value field in databuckets is assigned the value calculated for the appropriate level.
             //Guard with index check — the user may have turned off the value or ratio fields.
             var valueUpdateIdx = contentCopy.findIndex(function (tipLine) {
-              return tipLine.type == "nameValue" && tipLine.name == chart.dataBuckets.buckets[1].fields[0].title;
+              return tipLine.type == "nameValue" && valueFieldTitle && tipLine.name == valueFieldTitle;
             });
             if (valueUpdateIdx !== -1) contentCopy[valueUpdateIdx].value = d.orignalToolTipContent.value;
             //Use original value for calculated ratio
@@ -879,7 +820,7 @@ var tdg_sunburst = (function () {
               var filteredToolTipContent = filteredUrlConternt.filter(function (tipLine) {
                 var bTooltip = false;
                 if (tipLine.hasOwnProperty("value")) {
-                  var bTooltip = tipLine.value.indexOf("{{tooltip") == 0;
+                  bTooltip = tipLine.value.indexOf("{{tooltip") == 0;
                 } //if	
                 return !bTooltip;
               });
