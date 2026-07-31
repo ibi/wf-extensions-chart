@@ -1,20 +1,12 @@
 /*global tdgchart: false, d3: false */
-// Copyright (C) 1996-2023. Cloud Software Group, Inc. All rights reserved.
+// Copyright (C) 1996-2026. Cloud Software Group, Inc. All rights reserved. Confidential & Proprietary.
 
 (function() {
 
 	var tdg = tdgchart.util;
 
    function preRenderCallback(preRenderConfig) {
-	   var chart = preRenderConfig.moonbeamInstance;
-	   if (chart.noDataMode || !hasAtLeastOneValidDatum(preRenderConfig.data)) {
-		   chart.title.visible = true;
-		   chart.title.text = "Drop Measures or Sorts into the Query Pane";
-		   chart.title.align = "center";
-		   chart.title.font = "20pt Sans-Serif";
-		   chart.title.color = "#A8A8A8";
-	   }
-	   chart.legend.visible = false;
+	   preRenderConfig.moonbeamInstance.legend.visible = false;
    }
    
    function hasAtLeastOneValidDatum(flatDataArray) {
@@ -295,22 +287,37 @@
    }
 
    function noDataRenderCallback(renderConfig) {
-	   renderConfig.data = [
-		   {source: 'Coal', target: 'Fossil Fuels', value: 25},
-		   {source: 'Coal', target: 'Electricity', value: 25},
-		   {source: 'Natural Gas', target: 'Fossil Fuels', value: 20},
-		   {source: 'Oil', target: 'Fossil Fuels', value: 15},
-		   {source: 'Fossil Fuels', target: 'Energy', value: 60},
-		   {source: 'Electricity', target: 'Energy', value: 25}
-	   ];
+	   renderConfig.moonbeamInstance.title.visible = false;
 
-	   var chart = renderConfig.moonbeamInstance;
-	   chart.title.visible = true;
-	   chart.title.text = "Drop Measures or Sorts into the Query Pane";
-	   chart.title.font = "20pt Sans-Serif";
-	   chart.title.color = "#A8A8A8";
-	   renderConfig.greyState = true;
-	   renderCallback(renderConfig);
+	   var cx = renderConfig.width / 2;
+	   var cy = renderConfig.height / 2;
+	   var iconSize = 56;
+	   var textGap = 20;
+	   var color = '#37474F';
+
+	   var container = d3.select(renderConfig.container)
+		   .attr('class', 'com_ibi_chart');
+
+	   container.append('foreignObject')
+		   .attr('x', cx - iconSize / 2)
+		   .attr('y', cy - iconSize - textGap / 2)
+		   .attr('width', iconSize)
+		   .attr('height', iconSize)
+		 .append('xhtml:i')
+		   .attr('class', 'ds-icon-drag-drop')
+		   .style('font-size', iconSize + 'px')
+		   .style('line-height', iconSize + 'px')
+		   .style('color', color);
+
+	   container.append('text')
+		   .attr('x', cx)
+		   .attr('y', cy + textGap / 2)
+		   .attr('text-anchor', 'middle')
+		   .attr('dominant-baseline', 'central')
+		   .attr('font-size', '16px')
+		   .attr('font-family', 'Sans-Serif')
+		   .attr('fill', color)
+		   .text('Drop measures & dimensions here');
    }
 
    var config = {
