@@ -1,6 +1,42 @@
 /* jshint eqnull:true*/
 /* globals d3*/
 
+//VIZ-1258: PhantomJS 2.1.1 (JavaScriptCore), used for server-side rasterization, has no
+//Array.prototype.findIndex, and moonbeam's shim.js polyfills find() but not findIndex().
+//defineProperty keeps it non-enumerable so it cannot leak into for..in loops over arrays.
+//
+//TODO: this really belongs in moonbeam core shim.js, next to the existing find() polyfill, so
+//every extension gets it once instead of each one working around the same gap separately
+//(com.ibi.cartogram IA-9120, com.ibi.chord VIZ-97, com.ibi.datatables and com.ibi.sparktables
+//each define a local findIndex helper). It is kept here for now because extensions ship on
+//their own cadence and cannot assume the customer has a core new enough to provide it.
+//If it is ever moved to shim.js, this block can be deleted - the guard makes it a no-op.
+if (!Array.prototype.findIndex) {
+  Object.defineProperty(Array.prototype, 'findIndex', {
+    value: function (predicate) {
+      if (this == null) {
+        throw new TypeError('Array.prototype.findIndex called on null or undefined');
+      }
+      if (typeof predicate !== 'function') {
+        throw new TypeError('predicate must be a function');
+      }
+      var list = Object(this);
+      var length = list.length >>> 0;
+      var thisArg = arguments[1];
+
+      for (var i = 0; i < length; i++) {
+        if (predicate.call(thisArg, list[i], i, list)) {
+          return i;
+        }
+      }
+      return -1;
+    },
+    writable: true,
+    configurable: true,
+    enumerable: false
+  });
+}
+
 var tdg_sunburst = (function () {
 
   function copyIfExisty(src, trgt) {
@@ -626,7 +662,10 @@ var tdg_sunburst = (function () {
 
         //VIZ-1240: If any series object has a 'tooltip' sub-property, the user added tooltip fields.
         //guard against find() returning undefined when no tooltip fields are configured.
-        var tooltipSeriesObj = chart.series.find(function (obj) { return "tooltip" in obj });
+        //VIZ-1258: test for a real array, not just the presence of the key. The PhantomJS server-side
+        //rasterizer assigns series[].tooltip = null on every series before drawing ("remove any tooltips -
+        //none of those things work on the server"), so "tooltip" in obj is true while the value is null.
+        var tooltipSeriesObj = chart.series.find(function (obj) { return Array.isArray(obj.tooltip) });
         aToolTips = tooltipSeriesObj ? tooltipSeriesObj.tooltip : [];
 
         // //Possibly scenarios (2), (4), (6) or (5)
@@ -794,9 +833,14 @@ var tdg_sunburst = (function () {
 
             if (scenario == 3 || scenario == 4) { // Single Drill Down using oriignal tooltip 
               var urlTarget = fnSingleDrillDown(chart, offset, chart.data[0]);
+              //VIZ-1258: guard the index like valueUpdateIdx / ratioUpdateIdx above. findIndex
+              //returns -1 when no tooltip line carries a 'url' property, and contentCopy[-1] is
+              //undefined, so the assignments below threw "cannot set property 'url' of undefined".
               var urlIndex = contentCopy.findIndex(function (tipLine) { return tipLine.hasOwnProperty("url"); });
-              contentCopy[urlIndex].url = urlTarget.url;
-              contentCopy[urlIndex].target = urlTarget.target;
+              if (urlIndex !== -1) {
+                contentCopy[urlIndex].url = urlTarget.url;
+                contentCopy[urlIndex].target = urlTarget.target;
+              }
 
             } //if											
 
