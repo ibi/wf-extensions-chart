@@ -1,20 +1,12 @@
 /*global tdgchart: false, d3: false */
-// Copyright (C) 1996-2023. Cloud Software Group, Inc. All rights reserved.
+// Copyright (C) 1996-2026. Cloud Software Group, Inc. All rights reserved. Confidential & Proprietary.
 
 (function() {
 
 	var tdg = tdgchart.util;
 
    function preRenderCallback(preRenderConfig) {
-	   var chart = preRenderConfig.moonbeamInstance;
-	   if (chart.noDataMode || !hasAtLeastOneValidDatum(preRenderConfig.data)) {
-		   chart.title.visible = true;
-		   chart.title.text = "Drop Measures or Sorts into the Query Pane";
-		   chart.title.align = "center";
-		   chart.title.font = "20pt Sans-Serif";
-		   chart.title.color = "#A8A8A8";
-	   }
-	   chart.legend.visible = false;
+	   preRenderConfig.moonbeamInstance.legend.visible = false;
    }
    
    function hasAtLeastOneValidDatum(flatDataArray) {
@@ -290,12 +282,17 @@
 		   link.attr("d", path);
 	   }
 	   
-	   renderConfig.modules.eventHandler.activate();
-	   renderConfig.modules.tooltip.updateToolTips();
+	   // CD-8144: skip interactivity in the no-data sample (noDataMode) so the blurred preview leaks no tooltips.
+	   if (!renderConfig.moonbeamInstance.noDataMode) {
+		   renderConfig.modules.eventHandler.activate();
+		   renderConfig.modules.tooltip.updateToolTips();
+	   }
    }
 
    function noDataRenderCallback(renderConfig) {
-	   renderConfig.data = [
+	   renderConfig.moonbeamInstance.title.visible = false;
+
+	  renderConfig.data = [
 		   {source: 'Coal', target: 'Fossil Fuels', value: 25},
 		   {source: 'Coal', target: 'Electricity', value: 25},
 		   {source: 'Natural Gas', target: 'Fossil Fuels', value: 20},
@@ -304,13 +301,9 @@
 		   {source: 'Electricity', target: 'Energy', value: 25}
 	   ];
 
-	   var chart = renderConfig.moonbeamInstance;
-	   chart.title.visible = true;
-	   chart.title.text = "Drop Measures or Sorts into the Query Pane";
-	   chart.title.font = "20pt Sans-Serif";
-	   chart.title.color = "#A8A8A8";
-	   renderConfig.greyState = true;
 	   renderCallback(renderConfig);
+
+	   tdgExtEmptyState.render(renderConfig, { containerClass: 'com_ibi_chart', fadeBackdrop: true });
    }
 
    var config = {
@@ -321,8 +314,8 @@
 	   noDataRenderCallback: noDataRenderCallback,
 	   resources:  {
 		   script: window.d3
-			   ? ['lib/sankey.js', 'lib/d3-sankey.js','lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js']
-			   : ['lib/d3.v5.16.min.js', 'lib/d3-sankey.js','lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js'],
+			   ? ['lib/empty-state.js', 'lib/sankey.js', 'lib/d3-sankey.js','lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js']
+			   : ['lib/empty-state.js', 'lib/d3.v5.16.min.js', 'lib/d3-sankey.js','lib/d3-selection-multi.min.js','lib/d3-time.min.js','lib/d3-time-format.min.js','lib/d3-transition.min.js'],
 		   css: ['lib/sankey.css']
 	   },
 	   modules: {
